@@ -1,7 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+
 import { TokenListComponent } from './token-list.component';
 import { TokenService } from '../token.service';
+
+const tokens: Array<{ type: String; id: String }> = [];
 
 describe('TokenListComponent', () => {
   let component: TokenListComponent;
@@ -9,8 +14,12 @@ describe('TokenListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [TokenListComponent]/*,
-      providers: [{ provide: TokenService, useValue: tokenServiceStub }]*/
+      declarations: [TokenListComponent],
+      // providers: [{ provide: TokenService, useValue: TokenServiceMock }]
+      providers: [{
+        provide: TokenService,
+        useClass: TokenServiceMock
+      }]
     })
       .compileComponents();
   }));
@@ -24,8 +33,13 @@ describe('TokenListComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should get tokens from the server on init', () => {
+    let tokenService: TokenService = fixture.debugElement.injector.get(TokenService);
+    expect(tokenService.getTokens).toHaveBeenCalled();
+  });
 });
 
-let tokenServiceStub = {
-  getTokens: () => null
-};
+class TokenServiceMock {
+  getTokens = jasmine.createSpy("getTokens").and.returnValue(Observable.of(tokens));
+}
