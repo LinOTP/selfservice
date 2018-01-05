@@ -9,6 +9,7 @@
     "start:fake-backend": "node fake-backend/backend.js",
     "build": "ng build --prod",
     "test": "ng test",
+    "test:coverage": "ng test --code-coverage --single-run",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
