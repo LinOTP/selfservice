@@ -22,6 +22,20 @@ export class TokenService {
       );
   }
 
+  setPin(id, currentPin, newPin) {
+    const body = {
+      'pin': {
+        'currentValue': currentPin,
+        'newValue': newPin
+      }
+    };
+    return this.http.put(this.tokensUrl + id + '/pin', body)
+      .pipe(
+      tap(tokens => console.log(`pin set`)),
+      catchError(this.handleError('setTokenPin', null))
+      );
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(`${operation} failed: ${error.message}`);

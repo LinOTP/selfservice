@@ -65,4 +65,44 @@ describe('TokenService', () => {
     ));
 
   });
+
+  describe('set token pin', () => {
+    const pinObject = {
+      'pin': {
+        'currentValue': null,
+        'newValue': '01234'
+      }
+    };
+    it('should send a pin request', async(
+      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+        tokenService.setPin(1, null, '01234').subscribe();
+        const req = backend.expectOne({
+          url: '/api/tokens/1/pin',
+          method: 'PUT'
+        });
+        expect(req.request.body).toEqual(pinObject);
+        backend.verify();
+      })
+    ));
+
+    it('should call the error handler on request failure', async(
+      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+
+        spyOn(console, 'error');
+
+        tokenService.setPin(1, null, '01234').subscribe(response => {
+          expect(response).toEqual(null);
+        });
+        const setPinRequest = backend.expectOne({
+          url: '/api/tokens/1/pin',
+          method: 'PUT'
+        });
+
+        setPinRequest.error(new ErrorEvent('Error setting token pin'));
+        backend.verify();
+
+        expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
+      })
+    ));
+  });
 });
