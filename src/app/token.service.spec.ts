@@ -34,7 +34,7 @@ describe('TokenService', () => {
         tokenService.getTokens().subscribe(response => {
           expect(response).toEqual(mockData);
         });
-        let tokenListRequest = backend.expectOne({
+        const tokenListRequest = backend.expectOne({
           url: '/api/tokens/',
           method: 'GET'
         });
@@ -52,7 +52,7 @@ describe('TokenService', () => {
         tokenService.getTokens().subscribe(response => {
           expect(response).toEqual([]);
         });
-        let tokenListRequest = backend.expectOne({
+        const tokenListRequest = backend.expectOne({
           url: '/api/tokens/',
           method: 'GET'
         });

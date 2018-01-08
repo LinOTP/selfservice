@@ -8,6 +8,10 @@ import { TokenService } from '../token.service';
 
 const tokens: Array<{ type: String; id: String }> = [];
 
+class TokenServiceMock {
+  getTokens = jasmine.createSpy('getTokens').and.returnValue(Observable.of(tokens));
+}
+
 describe('TokenListComponent', () => {
   let component: TokenListComponent;
   let fixture: ComponentFixture<TokenListComponent>;
@@ -35,11 +39,7 @@ describe('TokenListComponent', () => {
   });
 
   it('should get tokens from the server on init', () => {
-    let tokenService: TokenService = fixture.debugElement.injector.get(TokenService);
+    const tokenService: TokenService = fixture.debugElement.injector.get(TokenService);
     expect(tokenService.getTokens).toHaveBeenCalled();
   });
 });
-
-class TokenServiceMock {
-  getTokens = jasmine.createSpy("getTokens").and.returnValue(Observable.of(tokens));
-}
