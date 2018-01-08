@@ -4,9 +4,7 @@ const server = jsonServer.create();
 const path = require('path');
 const router = jsonServer.router(path.join(__dirname, 'db.json'));
 
-const middlewares = jsonServer.defaults();
-server.use(middlewares);
-
+server.use(jsonServer.defaults());
 server.use(jsonServer.bodyParser);
 
 /**
@@ -55,6 +53,34 @@ server.use((req, res, next) => {
     };
   }
   next(); // Continue to JSON Server router
+});
+
+/**
+ * add PUT /tokens/:id/pin route
+ */
+server.use((req, res, next) => {
+  let match = /(\/tokens\/(\d+))\/pin/.exec(req.url);
+  if (req.method === 'PUT' && match) {
+    const rewritePath = match[1];
+    const id = match[2];
+    const currentPin = req.param('pin', {}).currentValue;
+    const newPin = req.param('pin', {}).newValue;
+
+    let token = router.db.getState().tokens.find((e) => String(e.id) == String(id));
+
+    if (token && (!token.pin && !currentPin || token.pin == currentPin)) {
+      req.method = 'PATCH';
+      req.url = rewritePath;
+      req.body = {
+        pin: (newPin ? newPin : undefined)
+      };
+      next();
+    } else {
+      res.send(401, 'Current pin value is incorrect');
+    }
+  } else {
+    next(); // Continue to JSON Server router
+  }
 });
 
 
