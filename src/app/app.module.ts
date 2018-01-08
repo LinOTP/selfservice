@@ -8,12 +8,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TokenService } from './token.service';
 import { TokenListComponent } from './token-list/token-list.component';
+import { TokenComponent } from './token/token.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    TokenListComponent
+    TokenListComponent,
+    TokenComponent
   ],
   imports: [
     BrowserModule,
