@@ -44,7 +44,7 @@ server.use((req, res, next) => {
  * add POST /tokens/:id/activate route
  */
 server.use((req, res, next) => {
-  let match = /(\/tokens\/\d+)\/activate/.exec(req.url);
+  let match = /(\/tokens\/[^/]+)\/activate/.exec(req.url);
   if (req.method === 'POST' && match) {
     req.method = 'PATCH';
     req.url = match[1];
@@ -59,7 +59,7 @@ server.use((req, res, next) => {
  * add PUT /tokens/:id/pin route
  */
 server.use((req, res, next) => {
-  let match = /(\/tokens\/(\d+))\/pin/.exec(req.url);
+  let match = /(\/tokens\/([^/]+))\/pin/.exec(req.url);
   if (req.method === 'PUT' && match) {
     const rewritePath = match[1];
     const id = match[2];
