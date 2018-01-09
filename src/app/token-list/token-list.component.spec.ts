@@ -5,6 +5,7 @@ import 'rxjs/add/observable/of';
 
 import { TokenListComponent } from './token-list.component';
 import { TokenService } from '../token.service';
+import { RouterTestingModule } from '@angular/router/testing';
 
 const tokens: Array<{ type: String; id: String }> = [];
 
@@ -23,7 +24,10 @@ describe('TokenListComponent', () => {
       providers: [{
         provide: TokenService,
         useClass: TokenServiceMock
-      }]
+      }],
+      imports: [
+        RouterTestingModule.withRoutes([])
+      ]
     })
       .compileComponents();
   }));

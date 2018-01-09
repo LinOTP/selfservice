@@ -2,7 +2,7 @@
   <p>Here you can see your tokens:</p>
   <ul class="tokens">
     <li *ngFor="let token of tokens">
-      {{ token.id }} has type {{ token.type }}
+      <a [routerLink]="['/tokens', token.id]">{{ token.id }}</a>
     </li>
   </ul>
 </div>
