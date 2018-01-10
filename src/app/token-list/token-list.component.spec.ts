@@ -20,7 +20,6 @@ describe('TokenListComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [TokenListComponent],
-      // providers: [{ provide: TokenService, useValue: TokenServiceMock }]
       providers: [{
         provide: TokenService,
         useClass: TokenServiceMock
