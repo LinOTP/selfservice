@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
 import { TokenService } from './token.service';
+import { Token } from './token';
 
 describe('TokenService', () => {
   let tokenService: TokenService;
@@ -64,6 +65,25 @@ describe('TokenService', () => {
       })
     ));
 
+  });
+
+  describe('getToken', () => {
+    const mockData = new Token('testId', 'testType');
+    it('should request a token from the server', async(
+      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+
+        tokenService.getToken(mockData.id).subscribe(response => {
+          expect(response).toBe(mockData);
+        });
+        const tokenListRequest = backend.expectOne({
+          url: `/api/tokens/${mockData.id}`,
+          method: 'GET'
+        });
+
+        tokenListRequest.flush(mockData);
+        backend.verify();
+      })
+    ));
   });
 
   describe('set token pin', () => {

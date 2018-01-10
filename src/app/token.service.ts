@@ -22,6 +22,14 @@ export class TokenService {
       );
   }
 
+  getToken(id: string): Observable<Token> {
+    return this.http.get<Token>(this.tokensUrl + id)
+      .pipe(
+      tap(() => console.log(`token ${id} fetched`)),
+      catchError(this.handleError('getToken', null))
+      );
+  }
+
   setPin(id, currentPin, newPin) {
     const body = {
       'pin': {
