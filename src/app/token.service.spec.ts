@@ -8,6 +8,24 @@ import 'rxjs/add/observable/of';
 
 import { TokenService } from './token.service';
 import { Token } from './token';
+import { AuthService } from './auth.service';
+
+const session = '';
+const mockData: Token[] = [
+  new Token('abc', 'foo', 'desc')
+];
+
+const mockResponse = {
+  result: {
+    value: [
+      {
+        'LinOtp.TokenId': mockData[0].id,
+        'LinOtp.TokenType': mockData[0].type,
+        'LinOtp.TokenDesc': mockData[0].description,
+      }
+    ]
+  }
+};
 
 describe('TokenService', () => {
   let tokenService: TokenService;
@@ -16,7 +34,18 @@ describe('TokenService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [TokenService]
+      providers: [
+        TokenService,
+        {
+          provide: AuthService,
+          useValue: {
+            isLoggedIn: jasmine.createSpy('isLoggedIn'),
+            login: jasmine.createSpy('login'),
+            logout: jasmine.createSpy('logout'),
+            getSession: jasmine.createSpy('getSession').and.returnValue(session),
+          }
+        },
+      ],
     });
 
     tokenService = TestBed.get(TokenService);
@@ -28,19 +57,16 @@ describe('TokenService', () => {
   }));
 
   describe('getTokens', () => {
-    const mockData = [{ 'id': 'abc', 'type': 'foo' }];
     it('should request tokens from the server', async(
       inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
 
         tokenService.getTokens().subscribe(response => {
           expect(response).toEqual(mockData);
         });
-        const tokenListRequest = backend.expectOne({
-          url: '/api/tokens/',
-          method: 'GET'
-        });
 
-        tokenListRequest.flush(mockData);
+        const tokenListRequest = backend.expectOne((req) => req.url === '/api/userservice/usertokenlist' && req.method === 'GET');
+
+        tokenListRequest.flush(mockResponse);
         backend.verify();
       })
     ));
@@ -53,10 +79,8 @@ describe('TokenService', () => {
         tokenService.getTokens().subscribe(response => {
           expect(response).toEqual([]);
         });
-        const tokenListRequest = backend.expectOne({
-          url: '/api/tokens/',
-          method: 'GET'
-        });
+
+        const tokenListRequest = backend.expectOne((req) => req.url === '/api/userservice/usertokenlist' && req.method === 'GET');
 
         tokenListRequest.error(new ErrorEvent('Error loading token list'));
         backend.verify();
@@ -68,39 +92,34 @@ describe('TokenService', () => {
   });
 
   describe('getToken', () => {
-    const mockData = new Token('testId', 'testType');
+    const token = mockData[0];
     it('should request a token from the server', async(
       inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
 
-        tokenService.getToken(mockData.id).subscribe(response => {
-          expect(response).toBe(mockData);
-        });
-        const tokenListRequest = backend.expectOne({
-          url: `/api/tokens/${mockData.id}`,
-          method: 'GET'
+        tokenService.getToken(token.id).subscribe(response => {
+          expect(response).toEqual(token);
         });
 
-        tokenListRequest.flush(mockData);
+        const tokenListRequest = backend.expectOne((req) => req.url === '/api/userservice/usertokenlist' && req.method === 'GET');
+
+        tokenListRequest.flush(mockResponse);
         backend.verify();
       })
     ));
   });
 
   describe('set token pin', () => {
-    const pinObject = {
-      'pin': {
-        'currentValue': null,
-        'newValue': '01234'
-      }
-    };
+    const setPinRequestBody = `userpin=01234&serial=1&session=${session}`;
     it('should send a pin request', async(
       inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
-        tokenService.setPin(1, null, '01234').subscribe();
+        tokenService.setPin(1, '01234').subscribe();
+
         const req = backend.expectOne({
-          url: '/api/tokens/1/pin',
-          method: 'PUT'
+          url: '/api/userservice/setpin',
+          method: 'POST'
         });
-        expect(req.request.body).toEqual(pinObject);
+
+        expect(req.request.body).toEqual(setPinRequestBody);
         backend.verify();
       })
     ));
@@ -110,12 +129,12 @@ describe('TokenService', () => {
 
         spyOn(console, 'error');
 
-        tokenService.setPin(1, null, '01234').subscribe(response => {
+        tokenService.setPin(1, '01234').subscribe(response => {
           expect(response).toEqual(null);
         });
         const setPinRequest = backend.expectOne({
-          url: '/api/tokens/1/pin',
-          method: 'PUT'
+          url: '/api/userservice/setpin',
+          method: 'POST'
         });
 
         setPinRequest.error(new ErrorEvent('Error setting token pin'));

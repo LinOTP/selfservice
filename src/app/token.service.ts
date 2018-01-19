@@ -3,44 +3,62 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
-import { catchError, map, tap } from 'rxjs/operators';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/reduce';
+import { catchError, tap } from 'rxjs/operators';
 
 import { Token } from './token';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class TokenService {
-  private tokensUrl = '/api/tokens/';
+  private baseUrl = `/api/userservice/`;
+  private endpoints = {
+    tokens: 'usertokenlist',
+    setpin: 'setpin'
+  };
 
-  constructor(private http: HttpClient) {
+  private options = {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  };
+
+  constructor(private http: HttpClient, private authService: AuthService) {
   }
 
   getTokens(): Observable<Token[]> {
-    return this.http.get<Token[]>(this.tokensUrl)
+    return this.http.get<any>(`${this.baseUrl + this.endpoints.tokens}`, { params: { session: this.authService.getSession() } })
+      .map(res => {
+        // TODO: Catch API Errors
+        return res.result.value.map(token => {
+          return new Token(
+            token['LinOtp.TokenId'],
+            token['LinOtp.TokenType'],
+            token['LinOtp.TokenDesc']
+          );
+        });
+      })
       .pipe(
-      tap(tokens => console.log(`tokens fetched`)),
-      catchError(this.handleError('getTokens', []))
+        tap(tokens => console.log(`tokens fetched`)),
+        catchError(this.handleError('getTokens', []))
       );
   }
 
   getToken(id: string): Observable<Token> {
-    return this.http.get<Token>(this.tokensUrl + id)
-      .pipe(
-      tap(() => console.log(`token ${id} fetched`)),
-      catchError(this.handleError('getToken', null))
+    return this.getTokens()
+      .map(
+        tokens => tokens.filter(t => t.id === id)[0]
       );
   }
 
-  setPin(id, currentPin, newPin) {
-    const body = {
-      'pin': {
-        'currentValue': currentPin,
-        'newValue': newPin
-      }
-    };
-    return this.http.put(this.tokensUrl + id + '/pin', body)
+  setPin(id, pin) {
+    const body = `userpin=${pin}&serial=${id}&session=${this.authService.getSession()}`;
+    return this.http.post(this.baseUrl + this.endpoints.setpin, body, this.options)
       .pipe(
-      tap(tokens => console.log(`pin set`)),
-      catchError(this.handleError('setTokenPin', null))
+        tap(tokens => console.log(`pin set`)),
+        catchError(this.handleError('setTokenPin', null))
       );
   }
 
