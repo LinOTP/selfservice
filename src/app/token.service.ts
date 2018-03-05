@@ -46,15 +46,15 @@ export class TokenService {
     return this.http.get<any>(`${this.baseUrl + this.endpoints.tokens}`, { params: { session: this.authService.getSession() } })
       .map(this.mapTokenResponse)
       .pipe(
-        tap(tokens => console.log(`tokens fetched`)),
-        catchError(this.handleError('getTokens', []))
+      tap(tokens => console.log(`tokens fetched`)),
+      catchError(this.handleError('getTokens', []))
       );
   }
 
-  getToken(id: string): Observable<Token> {
+  getToken(id: number): Observable<Token> {
     return this.getTokens()
       .map(
-        tokens => tokens.find(t => t.id === id)
+      tokens => tokens.find(t => t.id === id)
       );
   }
 
@@ -62,8 +62,8 @@ export class TokenService {
     const body = `userpin=${pin}&serial=${id}&session=${this.authService.getSession()}`;
     return this.http.post(this.baseUrl + this.endpoints.setpin, body, this.options)
       .pipe(
-        tap(tokens => console.log(`pin set`)),
-        catchError(this.handleError('setTokenPin', null))
+      tap(tokens => console.log(`pin set`)),
+      catchError(this.handleError('setTokenPin', null))
       );
   }
 
@@ -88,12 +88,12 @@ export class TokenListResolver implements Resolve<Token[]> {
 
 @Injectable()
 export class TokenDetailResolver implements Resolve<Token> {
-  constructor(private cs: TokenService, private router: Router) { }
+  constructor(private ts: TokenService, private router: Router) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Token> {
-    const id = route.paramMap.get('id');
+    const id = Number(route.paramMap.get('id'));
 
-    return this.cs.getToken(id).take(1).map(token => {
+    return this.ts.getToken(id).take(1).map(token => {
       if (token) {
         return token;
       } else { // id not found

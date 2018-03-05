@@ -1,7 +1,7 @@
 export class Token {
 
   constructor(
-    public id: string,
+    public id: number,
     public type: string,
     public description?: string
   ) { }

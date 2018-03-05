@@ -12,7 +12,7 @@ import { AuthService } from './auth.service';
 
 const session = '';
 const mockData: Token[] = [
-  new Token('abc', 'foo', 'desc')
+  new Token(123, 'foo', 'desc')
 ];
 
 const mockResponse = {
