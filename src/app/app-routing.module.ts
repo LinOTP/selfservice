@@ -4,6 +4,7 @@ import { TokenListComponent } from './token-list/token-list.component';
 import { TokenComponent } from './token/token.component';
 import { LoginComponent } from './login/login.component';
 import { TokenDetailResolver, TokenListResolver } from './token.service';
+import { TokenActivateComponent } from './token-activate/token-activate.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,13 @@ const routes: Routes = [
   {
     path: 'tokens/:id',
     component: TokenComponent,
+    resolve: {
+      token: TokenDetailResolver,
+    }
+  },
+  {
+    path: 'tokens/:id/activate',
+    component: TokenActivateComponent,
     resolve: {
       token: TokenDetailResolver,
     }

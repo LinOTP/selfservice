@@ -13,13 +13,23 @@ import { AuthService } from './auth.service';
 import { TokenListComponent } from './token-list/token-list.component';
 import { TokenComponent } from './token/token.component';
 import { LoginComponent } from './login/login.component';
+import { TokenActivateComponent } from './token-activate/token-activate.component';
+import { TokenActivateTypeDirective } from './token-activate/token-activate-type.directive';
+import { TokenActivatePushComponent } from './token-activate/token-activate-push/token-activate-push.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     TokenListComponent,
     TokenComponent,
-    LoginComponent
+    LoginComponent,
+    TokenActivateComponent,
+    TokenActivateTypeDirective,
+    TokenActivatePushComponent,
+  ],
+  entryComponents: [
+    TokenActivatePushComponent,
   ],
   imports: [
     BrowserModule,
