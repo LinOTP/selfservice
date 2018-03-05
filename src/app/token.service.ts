@@ -28,10 +28,8 @@ export class TokenService {
   constructor(private http: HttpClient, private authService: AuthService) {
   }
 
-  getTokens(): Observable<Token[]> {
-    return this.http.get<any>(`${this.baseUrl + this.endpoints.tokens}`, { params: { session: this.authService.getSession() } })
-      .map(res => {
-        // TODO: Catch API Errors
+  private mapTokenResponse = (res: { result: { value: any[] } }) => {
+    //TODO: Catch API Errors
         return res.result.value.map(token => {
           return new Token(
             token['LinOtp.TokenId'],
@@ -39,7 +37,11 @@ export class TokenService {
             token['LinOtp.TokenDesc']
           );
         });
-      })
+  }
+
+  getTokens(): Observable<Token[]> {
+    return this.http.get<any>(`${this.baseUrl + this.endpoints.tokens}`, { params: { session: this.authService.getSession() } })
+      .map(this.mapTokenResponse)
       .pipe(
         tap(tokens => console.log(`tokens fetched`)),
         catchError(this.handleError('getTokens', []))
@@ -49,7 +51,7 @@ export class TokenService {
   getToken(id: string): Observable<Token> {
     return this.getTokens()
       .map(
-        tokens => tokens.filter(t => t.id === id)[0]
+        tokens => tokens.find(t => t.id === id)
       );
   }
 
