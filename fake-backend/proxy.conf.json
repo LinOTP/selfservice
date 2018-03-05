@@ -1,6 +1,6 @@
 {
-  "/api": {
-    "target": "http://localhost:3000",
+  "/api/userservice": {
+    "target": "http://localhost:5001",
     "secure": false,
     "pathRewrite": {
       "^/api": ""
