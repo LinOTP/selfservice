@@ -1,11 +1,14 @@
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Resolve, RouterStateSnapshot, ActivatedRouteSnapshot, Router } from '@angular/router';
+
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/reduce';
+import 'rxjs/add/operator/take';
 import { catchError, tap } from 'rxjs/operators';
 
 import { Token } from './token';
@@ -29,14 +32,14 @@ export class TokenService {
   }
 
   private mapTokenResponse = (res: { result: { value: any[] } }) => {
-    //TODO: Catch API Errors
-        return res.result.value.map(token => {
-          return new Token(
-            token['LinOtp.TokenId'],
-            token['LinOtp.TokenType'],
-            token['LinOtp.TokenDesc']
-          );
-        });
+    // TODO: Catch API Errors
+    return res.result.value.map(token => {
+      return new Token(
+        token['LinOtp.TokenId'],
+        token['LinOtp.TokenType'],
+        token['LinOtp.TokenDesc']
+      );
+    });
   }
 
   getTokens(): Observable<Token[]> {
@@ -72,4 +75,31 @@ export class TokenService {
     };
   }
 
+}
+
+@Injectable()
+export class TokenListResolver implements Resolve<Token[]> {
+  constructor(private ts: TokenService) { }
+
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Token[]> {
+    return this.ts.getTokens().take(1);
+  }
+}
+
+@Injectable()
+export class TokenDetailResolver implements Resolve<Token> {
+  constructor(private cs: TokenService, private router: Router) { }
+
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Token> {
+    const id = route.paramMap.get('id');
+
+    return this.cs.getToken(id).take(1).map(token => {
+      if (token) {
+        return token;
+      } else { // id not found
+        this.router.navigate(['/tokens']);
+        return null;
+      }
+    });
+  }
 }

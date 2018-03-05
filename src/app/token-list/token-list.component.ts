@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
-import { TokenService } from '../token.service';
 import { Token } from '../token';
 
 @Component({
@@ -13,15 +13,13 @@ import { Token } from '../token';
 export class TokenListComponent implements OnInit {
   tokens: Token[];
 
-  constructor(private tokenService: TokenService) {
-  }
-
-  getTokens(): void {
-    this.tokenService.getTokens().subscribe(tokens => this.tokens = tokens);
+  constructor(private route: ActivatedRoute) {
   }
 
   ngOnInit() {
-    this.getTokens();
+    this.route.data.subscribe((data: { tokens: Token[] }) => {
+      this.tokens = data.tokens;
+    });
   }
 
 }

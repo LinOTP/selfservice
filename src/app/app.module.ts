@@ -8,12 +8,11 @@ import { CookieModule } from 'ngx-cookie';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import { TokenService } from './token.service';
+import { TokenService, TokenListResolver, TokenDetailResolver } from './token.service';
 import { AuthService } from './auth.service';
 import { TokenListComponent } from './token-list/token-list.component';
 import { TokenComponent } from './token/token.component';
 import { LoginComponent } from './login/login.component';
-
 
 @NgModule({
   declarations: [
@@ -31,7 +30,9 @@ import { LoginComponent } from './login/login.component';
   ],
   providers: [
     TokenService,
-    AuthService
+    AuthService,
+    TokenDetailResolver,
+    TokenListResolver,
   ],
   bootstrap: [AppComponent]
 })

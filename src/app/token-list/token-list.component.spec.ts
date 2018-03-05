@@ -1,17 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+
+import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
+import { of } from 'rxjs/observable/of';
 
 import { TokenListComponent } from './token-list.component';
-import { TokenService } from '../token.service';
-import { RouterTestingModule } from '@angular/router/testing';
 
 const tokens: Array<{ type: String; id: String }> = [];
-
-class TokenServiceMock {
-  getTokens = jasmine.createSpy('getTokens').and.returnValue(Observable.of(tokens));
-}
 
 describe('TokenListComponent', () => {
   let component: TokenListComponent;
@@ -20,10 +18,16 @@ describe('TokenListComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [TokenListComponent],
-      providers: [{
-        provide: TokenService,
-        useClass: TokenServiceMock
-      }],
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            data: {
+              subscribe: jasmine.createSpy('subscribe')
+            }
+          }
+        }
+      ],
       imports: [
         RouterTestingModule.withRoutes([])
       ]
@@ -42,7 +46,7 @@ describe('TokenListComponent', () => {
   });
 
   it('should get tokens from the server on init', () => {
-    const tokenService: TokenService = fixture.debugElement.injector.get(TokenService);
-    expect(tokenService.getTokens).toHaveBeenCalled();
+    const route: ActivatedRoute = fixture.debugElement.injector.get(ActivatedRoute);
+    expect(route.data.subscribe).toHaveBeenCalled();
   });
 });
