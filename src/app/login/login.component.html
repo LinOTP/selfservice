@@ -1,4 +1,4 @@
-<mat-card *ngIf="!isLoggedIn" id="loginCard">
+<mat-card id="loginCard">
   <mat-card-title>Login</mat-card-title>
   <form [formGroup]="loginFormGroup" (ngSubmit)="login()">
     <mat-form-field>
@@ -10,9 +10,3 @@
     <button mat-raised-button type="submit" color="primary">Login</button>
   </form>
 </mat-card>
-<br>
-<div *ngIf="isLoggedIn">
-  <p class="mat-line">
-    <button mat-raised-button class="mat-accent" (click)="logout()">Logout</button>
-  </p>
-</div>

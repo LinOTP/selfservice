@@ -45,19 +45,4 @@ export class LoginComponent implements OnInit {
       }
     );
   }
-
-  logout() {
-    this.message = 'Waiting for response';
-    this.authService.logout().subscribe(
-      response => {
-        const logoutSuccess = response && response.result && response.result.value === true;
-        if (logoutSuccess) {
-          this.isLoggedIn = false;
-        }
-        this.message = (logoutSuccess ? 'Logout successful' : 'Logout failed');
-        this.notifyMessage(this.message, 2000);
-      }
-    );
-  }
-
 }

@@ -1,10 +1,9 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <mat-toolbar class="mat-primary toolbar">
-    {{ title }}
-  </mat-toolbar>
-  <a [routerLink]="['/login']">login</a>
-  <a [routerLink]="['/tokens']">token list</a>
-</div>
-
+<mat-toolbar class="mat-primary toolbar">
+  <span>{{ title }}</span>
+  <span class="spacer"></span>
+  <span *ngIf="isLoggedIn">
+    <button mat-button (click)="logout()">Logout</button>
+  </span>
+</mat-toolbar>
 <router-outlet></router-outlet>

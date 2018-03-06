@@ -2,6 +2,16 @@ import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
+import { AuthService } from './auth.service';
+import { Router } from '@angular/router';
+import { AuthGuard } from './auth-guard.service';
+import { ActivatedRoute } from '@angular/router/src/router_state';
+import { Observable } from 'rxjs/Observable';
+
+class AuthServiceMock {
+  logout = jasmine.createSpy('logout').and.returnValue(Observable.of(null));
+  isLoggedIn = jasmine.createSpy('isLoggedIn').and.returnValue(Observable.of(true));
+}
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -13,8 +23,22 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent
       ],
+      providers:
+        [
+          {
+            provide: Router,
+            useValue: {
+              navigate: jasmine.createSpy('navigate')
+            }
+          },
+          {
+            provide: AuthService,
+            useClass: AuthServiceMock
+          },
+        ]
     }).compileComponents();
   }));
+
   it('should create the app', async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
