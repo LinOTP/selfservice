@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { CookieModule } from 'ngx-cookie';
 
 import { AppRoutingModule } from './app-routing.module';
+import { MaterialModule } from './material.module';
 
 import { AppComponent } from './app.component';
 import { TokenService, TokenListResolver, TokenDetailResolver } from './token.service';
@@ -34,9 +35,11 @@ import { TokenActivatePushComponent } from './token-activate/token-activate-push
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     CookieModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
+    MaterialModule
   ],
   providers: [
     TokenService,
