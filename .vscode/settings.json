@@ -1,0 +1,9 @@
+{
+  "editor.formatOnSave": true,
+  "search.exclude": {
+    "**/node_modules": true,
+  },
+  "scss.lint.ieHack": "warning",
+  "scss.lint.important": "warning",
+  "scss.lint.float": "warning"
+}
