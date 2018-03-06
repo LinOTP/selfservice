@@ -47,3 +47,26 @@
     width: 100%;
   }
 }
+
+.component-container {
+  top: 0;
+  bottom: 0;
+  display: flex;
+  &>* {
+    padding: 0;
+  }
+  .component-sidenav {
+    @include mat-elevation(1);
+    background: white;
+    min-width: 20rem;
+    max-width: 25rem;
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-bottom: 1em;
+  }
+  .component-main {
+    margin-left: 0;
+    padding: 0;
+    width: 100%;
+  }
+}

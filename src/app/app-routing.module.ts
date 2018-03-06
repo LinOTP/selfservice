@@ -20,25 +20,27 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     resolve: {
       tokens: TokenListResolver
-    }
-  },
-  {
-    path: 'tokens/:id',
-    component: TokenComponent,
-    runGuardsAndResolvers: 'always',
-    canActivate: [AuthGuard],
-    resolve: {
-      token: TokenDetailResolver,
-    }
-  },
-  {
-    path: 'tokens/:id/activate',
-    component: TokenActivateComponent,
-    canActivate: [AuthGuard],
-    runGuardsAndResolvers: 'always',
-    resolve: {
-      token: TokenDetailResolver,
-    }
+    },
+    children: [
+      {
+        path: ':id',
+        component: TokenComponent,
+        runGuardsAndResolvers: 'always',
+        canActivate: [AuthGuard],
+        resolve: {
+          token: TokenDetailResolver,
+        }
+      },
+      {
+        path: ':id/activate',
+        component: TokenActivateComponent,
+        canActivate: [AuthGuard],
+        runGuardsAndResolvers: 'always',
+        resolve: {
+          token: TokenDetailResolver,
+        }
+      },
+    ]
   },
   {
     path: 'login',
@@ -47,7 +49,12 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(
+    routes,
+    {
+      onSameUrlNavigation: 'reload',
+    }
+  )],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

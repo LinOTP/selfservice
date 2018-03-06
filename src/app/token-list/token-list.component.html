@@ -1,13 +1,20 @@
-<div *ngIf="tokens">
-  <mat-nav-list>
-    <mat-list-item *ngFor="let token of tokens">
-      <span class="spacer" (click)="selectToken(token)">
-        <h3 matLine>{{ token.serial }}</h3>
-        <p matLine>{{ token.type }}</p>
-      </span>
-      <span>
-        <button mat-raised-button class="mat-accent" (click)="deleteToken(token)">Delete</button>
-      </span>
-    </mat-list-item>
-  </mat-nav-list>
+<div class="component-container">
+  <div mode="side" opened class="component-sidenav">
+    <div *ngIf="tokens">
+      <mat-nav-list>
+        <mat-list-item *ngFor="let token of tokens">
+          <span class="spacer" (click)="selectToken(token)">
+            <h3 matLine>{{ token.serial }}</h3>
+            <p matLine>{{ token.type }}</p>
+          </span>
+          <span>
+            <button mat-raised-button class="mat-accent" (click)="deleteToken(token)">Delete</button>
+          </span>
+        </mat-list-item>
+      </mat-nav-list>
+    </div>
+  </div>
+  <div class="component-main">
+    <router-outlet></router-outlet>
+  </div>
 </div>
