@@ -12,7 +12,7 @@ import { AuthService } from './auth.service';
 
 const session = '';
 const mockData: Token[] = [
-  new Token(123, 'foo', 'desc')
+  new Token(123, 'serial', 'foo', 'desc')
 ];
 
 const mockResponse = {
@@ -20,6 +20,7 @@ const mockResponse = {
     value: [
       {
         'LinOtp.TokenId': mockData[0].id,
+        'LinOtp.TokenSerialnumber': mockData[0].serial,
         'LinOtp.TokenType': mockData[0].type,
         'LinOtp.TokenDesc': mockData[0].description,
       }

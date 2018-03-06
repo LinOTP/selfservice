@@ -36,6 +36,7 @@ export class TokenService {
     return res.result.value.map(token => {
       return new Token(
         token['LinOtp.TokenId'],
+        token['LinOtp.TokenSerialnumber'],
         token['LinOtp.TokenType'],
         token['LinOtp.TokenDesc']
       );
