@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
-import { ViewContainerRef } from '@angular/core/src/linker/view_container_ref';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -41,6 +41,7 @@ export class LoginComponent implements OnInit {
         this.isLoggedIn = response && response.result && response.result.value === true;
         this.message = (this.isLoggedIn ? 'Login successful' : 'Login failed');
         this.notifyMessage(this.message, 2000);
+        this.router.navigate(['/']);
       }
     );
   }
