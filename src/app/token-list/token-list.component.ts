@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { Token } from '../token';
 
@@ -13,7 +13,7 @@ import { Token } from '../token';
 export class TokenListComponent implements OnInit {
   tokens: Token[];
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private router: Router, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -22,4 +22,7 @@ export class TokenListComponent implements OnInit {
     });
   }
 
+  selectToken(token: Token) {
+    this.router.navigate(['/tokens', token.id]);
+  }
 }

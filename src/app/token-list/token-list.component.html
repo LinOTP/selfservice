@@ -1,8 +1,13 @@
 <div *ngIf="tokens">
-  <p>Here you can see your tokens:</p>
   <mat-nav-list>
     <mat-list-item *ngFor="let token of tokens">
-      <a [routerLink]="['/tokens', token.id]">{{ token.id }}</a>
+      <span class="spacer" (click)="selectToken(token)">
+        <h3 matLine>{{ token.id }}</h3>
+        <p matLine>{{ token.type }}</p>
+      </span>
+      <span>
+        <button mat-raised-button class="mat-accent">Delete</button>
+      </span>
     </mat-list-item>
   </mat-nav-list>
 </div>
