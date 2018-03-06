@@ -7,6 +7,8 @@ import { CookieService } from 'ngx-cookie';
 
 @Injectable()
 export class AuthService {
+  redirectUrl: string;
+
   baseUrl = `/api/userservice/`;
   endpoints = {
     login: 'login',
@@ -19,22 +21,23 @@ export class AuthService {
     }
   };
 
-  constructor(private http: HttpClient, private cookieService: CookieService) { }
+  constructor(private http: HttpClient, private cookieService: CookieService) {
+  }
 
   login(username: string, password: string) {
     const params = `login=${username}&password=${password}`;
     return this.http.post<any>(this.baseUrl + this.endpoints.login, params, this.options)
       .pipe(
-        tap(tokens => console.log(`login request finished`)),
-        catchError(this.handleError('login', []))
+      tap(tokens => console.log(`login request finished`)),
+      catchError(this.handleError('login', []))
       );
   }
 
   logout() {
     return this.http.get<any>(this.baseUrl + this.endpoints.logout)
       .pipe(
-        tap(tokens => console.log(`logout request finished`)),
-        catchError(this.handleError('login', []))
+      tap(tokens => console.log(`logout request finished`)),
+      catchError(this.handleError('login', []))
       );
   }
 

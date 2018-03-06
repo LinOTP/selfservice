@@ -11,6 +11,7 @@ import { MaterialModule } from './material.module';
 import { AppComponent } from './app.component';
 import { TokenService, TokenListResolver, TokenDetailResolver } from './token.service';
 import { AuthService } from './auth.service';
+import { AuthGuard } from './auth-guard.service';
 import { TokenListComponent } from './token-list/token-list.component';
 import { TokenComponent } from './token/token.component';
 import { LoginComponent } from './login/login.component';
@@ -44,6 +45,7 @@ import { TokenActivatePushComponent } from './token-activate/token-activate-push
   providers: [
     TokenService,
     AuthService,
+    AuthGuard,
     TokenDetailResolver,
     TokenListResolver,
   ],

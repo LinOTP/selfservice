@@ -5,6 +5,7 @@ import { TokenComponent } from './token/token.component';
 import { LoginComponent } from './login/login.component';
 import { TokenDetailResolver, TokenListResolver } from './token.service';
 import { TokenActivateComponent } from './token-activate/token-activate.component';
+import { AuthGuard } from './auth-guard.service';
 
 const routes: Routes = [
   {
@@ -15,6 +16,8 @@ const routes: Routes = [
   {
     path: 'tokens',
     component: TokenListComponent,
+    runGuardsAndResolvers: 'always',
+    canActivate: [AuthGuard],
     resolve: {
       tokens: TokenListResolver
     }
@@ -22,6 +25,8 @@ const routes: Routes = [
   {
     path: 'tokens/:id',
     component: TokenComponent,
+    runGuardsAndResolvers: 'always',
+    canActivate: [AuthGuard],
     resolve: {
       token: TokenDetailResolver,
     }
@@ -29,6 +34,8 @@ const routes: Routes = [
   {
     path: 'tokens/:id/activate',
     component: TokenActivateComponent,
+    canActivate: [AuthGuard],
+    runGuardsAndResolvers: 'always',
     resolve: {
       token: TokenDetailResolver,
     }
