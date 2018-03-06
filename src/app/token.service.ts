@@ -19,7 +19,8 @@ export class TokenService {
   private baseUrl = `/api/userservice/`;
   private endpoints = {
     tokens: 'usertokenlist',
-    setpin: 'setpin'
+    setpin: 'setpin',
+    delete: 'delete'
   };
 
   private options = {
@@ -56,6 +57,15 @@ export class TokenService {
     return this.getTokens()
       .map(
       tokens => tokens.find(t => t.id === id)
+      );
+  }
+
+  deleteToken(serial: string): Observable<any> {
+    const body = `serial=${serial}&session=${this.authService.getSession()}`;
+    return this.http.post<any>(this.baseUrl + this.endpoints.delete, body, this.options)
+      .pipe(
+      tap(response => console.log(`token ${serial} deleted`)),
+      catchError(this.handleError('deleteToken', null))
       );
   }
 

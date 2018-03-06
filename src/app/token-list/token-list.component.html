@@ -2,11 +2,11 @@
   <mat-nav-list>
     <mat-list-item *ngFor="let token of tokens">
       <span class="spacer" (click)="selectToken(token)">
-        <h3 matLine>{{ token.id }}</h3>
+        <h3 matLine>{{ token.serial }}</h3>
         <p matLine>{{ token.type }}</p>
       </span>
       <span>
-        <button mat-raised-button class="mat-accent">Delete</button>
+        <button mat-raised-button class="mat-accent" (click)="deleteToken(token)">Delete</button>
       </span>
     </mat-list-item>
   </mat-nav-list>

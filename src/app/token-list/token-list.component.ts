@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Token } from '../token';
+import { TokenService } from '../token.service';
 
 @Component({
   selector: 'app-token-list',
@@ -13,7 +14,7 @@ import { Token } from '../token';
 export class TokenListComponent implements OnInit {
   tokens: Token[];
 
-  constructor(private router: Router, private route: ActivatedRoute) {
+  constructor(private router: Router, private route: ActivatedRoute, public tokenService: TokenService) {
   }
 
   ngOnInit() {
@@ -24,5 +25,11 @@ export class TokenListComponent implements OnInit {
 
   selectToken(token: Token) {
     this.router.navigate(['/tokens', token.id]);
+  }
+
+  deleteToken(token: Token) {
+    this.tokenService.deleteToken(token.serial).subscribe(
+      _ => this.router.navigate(['/tokens'])
+    );
   }
 }
