@@ -1,8 +1,8 @@
 <div *ngIf="tokens">
   <p>Here you can see your tokens:</p>
-  <ul class="tokens">
-    <li *ngFor="let token of tokens">
+  <mat-nav-list>
+    <mat-list-item *ngFor="let token of tokens">
       <a [routerLink]="['/tokens', token.id]">{{ token.id }}</a>
-    </li>
-  </ul>
+    </mat-list-item>
+  </mat-nav-list>
 </div>
