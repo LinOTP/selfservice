@@ -1,8 +1,4 @@
-<div>
-  Status: {{message}}
-</div>
-<br>
-<mat-card *ngIf="!isLoggedIn">
+<mat-card *ngIf="!isLoggedIn" id="loginCard">
   <mat-card-title>Login</mat-card-title>
   <form [formGroup]="loginFormGroup" (ngSubmit)="login()">
     <mat-form-field>
