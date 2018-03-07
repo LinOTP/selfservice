@@ -2,11 +2,9 @@
   <div mode="side" opened class="component-sidenav">
     <div *ngIf="tokens">
       <mat-nav-list>
-        <mat-list-item *ngFor="let token of tokens">
-          <span (click)="selectToken(token)">
-            <h3 matLine>{{ token.serial }}</h3>
-            <p matLine>{{ token.type }}</p>
-          </span>
+        <mat-list-item *ngFor="let token of tokens" (click)="selectToken(token)">
+          <h3 matLine>{{ token.serial }}</h3>
+          <p matLine>{{ token.type }}</p>
         </mat-list-item>
       </mat-nav-list>
     </div>
