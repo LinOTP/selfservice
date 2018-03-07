@@ -10,7 +10,7 @@ import { DoCheck } from '@angular/core/src/metadata/lifecycle_hooks';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements DoCheck {
-  title = 'KI Selfservice';
+  title = 'LinOTP Selfservice';
   isLoggedIn: boolean;
 
   constructor(private authService: AuthService, public snackbar: MatSnackBar, private router: Router) {
