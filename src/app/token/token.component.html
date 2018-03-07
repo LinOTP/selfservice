@@ -1,7 +1,13 @@
-<h2>Token management panel</h2>
-<h3>Token info</h3>
-<ul>
-  <li>Token ID: {{ token?.id }}</li>
-  <li>Token type: {{ token?.type }}</li>
-  <li>Token Description: {{ token?.description }}</li>
-</ul>
+<mat-card>
+  <mat-card-title>{{ token?.serial }}</mat-card-title>
+  <mat-card-subtitle>{{ token?.description }}</mat-card-subtitle>
+
+  <mat-card-content>
+    <mat-list>
+      <mat-list-item>
+        <h3 matLine>Token Type</h3>
+        <p matLine>{{ token?.type }}</p>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>
