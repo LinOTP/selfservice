@@ -5,6 +5,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Token } from '../token';
 import { TokenService } from '../token.service';
 
+import { MatDialog } from '@angular/material';
+import { DialogComponent } from '../dialog/dialog.component';
+
 @Component({
   selector: 'app-token-list',
   templateUrl: './token-list.component.html',
@@ -14,7 +17,7 @@ import { TokenService } from '../token.service';
 export class TokenListComponent implements OnInit {
   tokens: Token[];
 
-  constructor(private router: Router, private route: ActivatedRoute, public tokenService: TokenService) {
+  constructor(private router: Router, private route: ActivatedRoute, public tokenService: TokenService, public dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -28,8 +31,24 @@ export class TokenListComponent implements OnInit {
   }
 
   deleteToken(token: Token) {
-    this.tokenService.deleteToken(token.serial).subscribe(
-      _ => this.router.navigate(['/tokens'])
-    );
+    const config = {
+      width: '25em',
+      data:
+        {
+          title: 'Delete token?',
+          text: 'You won\'t be able to use it to confirm transactions anymore.',
+          confirmationLabel: 'delete'
+        }
+    };
+    const dialogRef = this.dialog.open(DialogComponent, config);
+
+    dialogRef.afterClosed().subscribe(deleteConfirmed => {
+      if (deleteConfirmed) {
+        this.tokenService.deleteToken(token.serial).subscribe(
+          _ => this.router.navigate(['/tokens'])
+        );
+      }
+    });
+
   }
 }

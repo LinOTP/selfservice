@@ -18,6 +18,7 @@ import { LoginComponent } from './login/login.component';
 import { TokenActivateComponent } from './token-activate/token-activate.component';
 import { TokenActivateTypeDirective } from './token-activate/token-activate-type.directive';
 import { TokenActivatePushComponent } from './token-activate/token-activate-push/token-activate-push.component';
+import { DialogComponent } from './dialog/dialog.component';
 
 
 @NgModule({
@@ -29,9 +30,11 @@ import { TokenActivatePushComponent } from './token-activate/token-activate-push
     TokenActivateComponent,
     TokenActivateTypeDirective,
     TokenActivatePushComponent,
+    DialogComponent
   ],
   entryComponents: [
     TokenActivatePushComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,
