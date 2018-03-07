@@ -4,6 +4,12 @@ import { TokenComponent } from './token.component';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
+import { MaterialModule } from '../material.module';
+import { TokenService } from '../token.service';
+import { RouterTestingModule } from '@angular/router/testing';
+
+class TokenServiceMock { }
+
 describe('TokenComponent', () => {
   let component: TokenComponent;
   let fixture: ComponentFixture<TokenComponent>;
@@ -20,6 +26,14 @@ describe('TokenComponent', () => {
             }
           }
         },
+        {
+          provide: TokenService,
+          useClass: TokenServiceMock
+        },
+      ],
+      imports: [
+        MaterialModule,
+        RouterTestingModule.withRoutes([]),
       ]
     })
       .compileComponents();
