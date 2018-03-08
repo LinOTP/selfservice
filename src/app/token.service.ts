@@ -70,12 +70,13 @@ export class TokenService {
       );
   }
 
-  setPin(id, pin) {
-    const body = `userpin=${pin}&serial=${id}&session=${this.authService.getSession()}`;
-    return this.http.post(this.baseUrl + this.endpoints.setpin, body, this.options)
+  setPin(token: Token, pin: string): Observable<boolean> {
+    const body = `userpin=${pin}&serial=${token.serial}&session=${this.authService.getSession()}`;
+    return this.http.post<{ result: { status: boolean, value: boolean } }>(this.baseUrl + this.endpoints.setpin, body, this.options)
+      .map((response) => response && response.result && response.result.value['set userpin'] === 1)
       .pipe(
         tap(tokens => console.log(`pin set`)),
-        catchError(this.handleError('setTokenPin', null))
+        catchError(this.handleError('setTokenPin', false))
       );
   }
 

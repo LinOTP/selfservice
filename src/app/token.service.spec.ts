@@ -110,10 +110,10 @@ describe('TokenService', () => {
   });
 
   describe('set token pin', () => {
-    const setPinRequestBody = `userpin=01234&serial=1&session=${session}`;
+    const setPinRequestBody = `userpin=01234&serial=serial&session=${session}`;
     it('should send a pin request', async(
       inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
-        tokenService.setPin(1, '01234').subscribe();
+        tokenService.setPin(mockData[0], '01234').subscribe();
 
         const req = backend.expectOne({
           url: '/api/userservice/setpin',
@@ -130,8 +130,8 @@ describe('TokenService', () => {
 
         spyOn(console, 'error');
 
-        tokenService.setPin(1, '01234').subscribe(response => {
-          expect(response).toEqual(null);
+        tokenService.setPin(mockData[0], '01234').subscribe(response => {
+          expect(response).toEqual(false);
         });
         const setPinRequest = backend.expectOne({
           url: '/api/userservice/setpin',

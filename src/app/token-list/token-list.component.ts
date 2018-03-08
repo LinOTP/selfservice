@@ -2,8 +2,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBarConfig, MatSnackBar } from '@angular/material';
 import { DialogComponent } from '../dialog/dialog.component';
+import { SetPinDialogComponent } from '../set-pin-dialog/set-pin-dialog.component';
 
 import { Token } from '../token';
 import { TokenService } from '../token.service';
@@ -17,12 +18,37 @@ import { TokenService } from '../token.service';
 export class TokenListComponent implements OnInit {
   tokens: Token[];
 
-  constructor(private router: Router, private route: ActivatedRoute, public tokenService: TokenService, public dialog: MatDialog) {
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    public tokenService: TokenService,
+    public dialog: MatDialog,
+    public snackbar: MatSnackBar) {
   }
 
   ngOnInit() {
     this.route.data.subscribe((data: { tokens: Token[] }) => {
       this.tokens = data.tokens;
+    });
+  }
+
+  notifyMessage(message: string, duration: number) {
+    const snackbarConfig = new MatSnackBarConfig();
+    snackbarConfig.duration = duration;
+    this.snackbar.open(message, '', snackbarConfig);
+  }
+
+  setPin(token: Token) {
+    const config = {
+      width: '25em',
+      data: token
+    };
+    const dialogRef = this.dialog.open(SetPinDialogComponent, config);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.notifyMessage('PIN set', 2000);
+      }
     });
   }
 
@@ -45,8 +71,6 @@ export class TokenListComponent implements OnInit {
         );
       }
     });
-
   }
-
 
 }

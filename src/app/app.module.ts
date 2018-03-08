@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { CookieModule } from 'ngx-cookie';
+import { CustomFormsModule } from 'ng2-validation';
 
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './material.module';
@@ -18,6 +19,7 @@ import { TokenActivateComponent } from './token-activate/token-activate.componen
 import { TokenActivateTypeDirective } from './token-activate/token-activate-type.directive';
 import { TokenActivatePushComponent } from './token-activate/token-activate-push/token-activate-push.component';
 import { DialogComponent } from './dialog/dialog.component';
+import { SetPinDialogComponent } from './set-pin-dialog/set-pin-dialog.component';
 import { EnrollComponent } from './enroll/enroll.component';
 import { EnrollTotpComponent } from './enroll/enroll-totp/enroll-totp.component';
 import { EnrollHotpComponent } from './enroll/enroll-hotp/enroll-hotp.component';
@@ -33,6 +35,7 @@ import { EnrollPushComponent } from './enroll/enroll-push/enroll-push.component'
     TokenActivateTypeDirective,
     TokenActivatePushComponent,
     DialogComponent,
+    SetPinDialogComponent,
     EnrollComponent,
     EnrollTotpComponent,
     EnrollHotpComponent,
@@ -40,7 +43,8 @@ import { EnrollPushComponent } from './enroll/enroll-push/enroll-push.component'
   ],
   entryComponents: [
     TokenActivatePushComponent,
-    DialogComponent
+    DialogComponent,
+    SetPinDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,8 +52,9 @@ import { EnrollPushComponent } from './enroll/enroll-push/enroll-push.component'
     ReactiveFormsModule,
     HttpClientModule,
     CookieModule.forRoot(),
+    CustomFormsModule,
     AppRoutingModule,
-    MaterialModule
+    MaterialModule,
   ],
   providers: [
     TokenService,

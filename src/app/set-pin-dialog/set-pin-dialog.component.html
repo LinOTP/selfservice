@@ -1,0 +1,17 @@
+<h3 mat-dialog-title>Set a new PIN</h3>
+<form #f="ngForm" (submit)="submit(f)">
+  <div mat-dialog-content>
+    <mat-form-field>
+      <input matInput type="password" name="newPin" #newPin="ngModel" placeholder="New PIN" [(ngModel)]="data.newPin">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="password" name="confirmPin" #confirmPin="ngModel" placeholder="Confirm your new PIN" [(ngModel)]="data.confirmPin"
+        [equalTo]="newPin">
+      <mat-error *ngIf="confirmPin.errors?.equalTo">Entered PINs do not match</mat-error>
+    </mat-form-field>
+    <div class="button-row">
+      <button mat-button mat-dialog-close>cancel</button>
+      <button mat-button color="primary" type="submit">set</button>
+    </div>
+  </div>
+</form>
