@@ -6,12 +6,36 @@ import { LoginComponent } from './login/login.component';
 import { TokenDetailResolver, TokenListResolver } from './token.service';
 import { TokenActivateComponent } from './token-activate/token-activate.component';
 import { AuthGuard } from './auth-guard.service';
+import { EnrollComponent } from './enroll/enroll.component';
+import { EnrollTotpComponent } from './enroll/enroll-totp/enroll-totp.component';
+import { EnrollHotpComponent } from './enroll/enroll-hotp/enroll-hotp.component';
+import { EnrollPushComponent } from './enroll/enroll-push/enroll-push.component';
 
 const routes: Routes = [
   {
     path: '',
     redirectTo: '/tokens',
     pathMatch: 'full'
+  },
+  {
+    path: 'tokens/enroll',
+    component: EnrollComponent,
+    runGuardsAndResolvers: 'always',
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'hotp',
+        component: EnrollHotpComponent,
+      },
+      {
+        path: 'totp',
+        component: EnrollTotpComponent,
+      },
+      {
+        path: 'push',
+        component: EnrollPushComponent,
+      },
+    ]
   },
   {
     path: 'tokens',
@@ -53,6 +77,7 @@ const routes: Routes = [
     routes,
     {
       onSameUrlNavigation: 'reload',
+      enableTracing: true,
     }
   )],
   exports: [RouterModule]

@@ -19,6 +19,10 @@ import { TokenActivateComponent } from './token-activate/token-activate.componen
 import { TokenActivateTypeDirective } from './token-activate/token-activate-type.directive';
 import { TokenActivatePushComponent } from './token-activate/token-activate-push/token-activate-push.component';
 import { DialogComponent } from './dialog/dialog.component';
+import { EnrollComponent } from './enroll/enroll.component';
+import { EnrollTotpComponent } from './enroll/enroll-totp/enroll-totp.component';
+import { EnrollHotpComponent } from './enroll/enroll-hotp/enroll-hotp.component';
+import { EnrollPushComponent } from './enroll/enroll-push/enroll-push.component';
 
 
 @NgModule({
@@ -30,7 +34,11 @@ import { DialogComponent } from './dialog/dialog.component';
     TokenActivateComponent,
     TokenActivateTypeDirective,
     TokenActivatePushComponent,
-    DialogComponent
+    DialogComponent,
+    EnrollComponent,
+    EnrollTotpComponent,
+    EnrollHotpComponent,
+    EnrollPushComponent,
   ],
   entryComponents: [
     TokenActivatePushComponent,

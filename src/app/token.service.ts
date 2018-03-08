@@ -11,7 +11,7 @@ import 'rxjs/add/operator/reduce';
 import 'rxjs/add/operator/take';
 import { catchError, tap } from 'rxjs/operators';
 
-import { Token } from './token';
+import { Token, EnrollToken } from './token';
 import { AuthService } from './auth.service';
 
 @Injectable()
@@ -20,7 +20,8 @@ export class TokenService {
   private endpoints = {
     tokens: 'usertokenlist',
     setpin: 'setpin',
-    delete: 'delete'
+    delete: 'delete',
+    enroll: 'enroll',
   };
 
   private options = {
@@ -48,15 +49,15 @@ export class TokenService {
     return this.http.get<any>(`${this.baseUrl + this.endpoints.tokens}`, { params: { session: this.authService.getSession() } })
       .map(this.mapTokenResponse)
       .pipe(
-      tap(tokens => console.log(`tokens fetched`)),
-      catchError(this.handleError('getTokens', []))
+        tap(tokens => console.log(`tokens fetched`)),
+        catchError(this.handleError('getTokens', []))
       );
   }
 
   getToken(id: number): Observable<Token> {
     return this.getTokens()
       .map(
-      tokens => tokens.find(t => t.id === id)
+        tokens => tokens.find(t => t.id === id)
       );
   }
 
@@ -64,8 +65,8 @@ export class TokenService {
     const body = `serial=${serial}&session=${this.authService.getSession()}`;
     return this.http.post<any>(this.baseUrl + this.endpoints.delete, body, this.options)
       .pipe(
-      tap(response => console.log(`token ${serial} deleted`)),
-      catchError(this.handleError('deleteToken', null))
+        tap(response => console.log(`token ${serial} deleted`)),
+        catchError(this.handleError('deleteToken', null))
       );
   }
 
@@ -73,8 +74,18 @@ export class TokenService {
     const body = `userpin=${pin}&serial=${id}&session=${this.authService.getSession()}`;
     return this.http.post(this.baseUrl + this.endpoints.setpin, body, this.options)
       .pipe(
-      tap(tokens => console.log(`pin set`)),
-      catchError(this.handleError('setTokenPin', null))
+        tap(tokens => console.log(`pin set`)),
+        catchError(this.handleError('setTokenPin', null))
+      );
+  }
+
+  enroll(params: EnrollToken) {
+    const body = { ...params, session: this.authService.getSession() };
+
+    return this.http.post(this.baseUrl + this.endpoints.enroll, body)
+      .pipe(
+        tap(token => console.log(`token enrolled`)),
+        catchError(this.handleError('enroll token', null))
       );
   }
 

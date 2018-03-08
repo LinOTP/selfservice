@@ -8,3 +8,9 @@ export class Token {
   ) { }
 
 }
+
+export interface EnrollToken {
+  type: string;
+  description: string;
+}
+
