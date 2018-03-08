@@ -11,10 +11,12 @@ import {
   MatSidenavModule,
   MatDialogModule,
   MatSelectModule,
+  MatExpansionModule
 } from '@angular/material';
 
 @NgModule({
   imports: [
+    BrowserAnimationsModule,
     MatToolbarModule,
     MatCardModule,
     MatInputModule,
@@ -23,10 +25,11 @@ import {
     MatListModule,
     MatSidenavModule,
     MatDialogModule,
-    BrowserAnimationsModule,
     MatSelectModule,
+    MatExpansionModule
   ],
   exports: [
+    BrowserAnimationsModule,
     MatToolbarModule,
     MatCardModule,
     MatInputModule,
@@ -35,8 +38,8 @@ import {
     MatListModule,
     MatSidenavModule,
     MatDialogModule,
-    BrowserAnimationsModule,
     MatSelectModule,
+    MatExpansionModule
   ],
 })
 export class MaterialModule { }

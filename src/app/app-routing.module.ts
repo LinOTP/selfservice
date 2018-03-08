@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { TokenListComponent } from './token-list/token-list.component';
-import { TokenComponent } from './token/token.component';
 import { LoginComponent } from './login/login.component';
 import { TokenDetailResolver, TokenListResolver } from './token.service';
 import { TokenActivateComponent } from './token-activate/token-activate.component';
@@ -46,15 +45,6 @@ const routes: Routes = [
       tokens: TokenListResolver
     },
     children: [
-      {
-        path: ':id',
-        component: TokenComponent,
-        runGuardsAndResolvers: 'always',
-        canActivate: [AuthGuard],
-        resolve: {
-          token: TokenDetailResolver,
-        }
-      },
       {
         path: ':id/activate',
         component: TokenActivateComponent,

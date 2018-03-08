@@ -9,6 +9,7 @@ import { of } from 'rxjs/observable/of';
 
 import { TokenListComponent } from './token-list.component';
 import { MaterialModule } from '../material.module';
+import { TokenService } from '../token.service';
 
 const tokens: Array<{ type: String; id: String }> = [];
 
@@ -26,6 +27,12 @@ describe('TokenListComponent', () => {
             data: {
               subscribe: jasmine.createSpy('subscribe')
             }
+          }
+        },
+        {
+          provide: TokenService,
+          useValue: {
+            deletetoken: jasmine.createSpy('deletetoken')
           }
         },
       ],

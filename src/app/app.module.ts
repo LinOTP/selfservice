@@ -13,7 +13,6 @@ import { TokenService, TokenListResolver, TokenDetailResolver } from './token.se
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth-guard.service';
 import { TokenListComponent } from './token-list/token-list.component';
-import { TokenComponent } from './token/token.component';
 import { LoginComponent } from './login/login.component';
 import { TokenActivateComponent } from './token-activate/token-activate.component';
 import { TokenActivateTypeDirective } from './token-activate/token-activate-type.directive';
@@ -29,7 +28,6 @@ import { EnrollPushComponent } from './enroll/enroll-push/enroll-push.component'
   declarations: [
     AppComponent,
     TokenListComponent,
-    TokenComponent,
     LoginComponent,
     TokenActivateComponent,
     TokenActivateTypeDirective,
