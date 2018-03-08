@@ -12,8 +12,16 @@ import { DoCheck } from '@angular/core/src/metadata/lifecycle_hooks';
 export class AppComponent implements DoCheck {
   title = 'LinOTP Selfservice';
   isLoggedIn: boolean;
+  navLinks = [
+    { 'label': 'Your tokens', 'path': 'tokens/' },
+    { 'label': 'Create new token', 'path': 'enroll/' },
+  ];
 
   constructor(private authService: AuthService, public snackbar: MatSnackBar, private router: Router) {
+  }
+
+  navigate(path: string) {
+    this.router.navigate([path]);
   }
 
   ngDoCheck() {

@@ -1,9 +1,9 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <mat-toolbar class="mat-primary toolbar">
-  <span>{{ title }}</span>
-  <span class="spacer"></span>
-  <span *ngIf="isLoggedIn">
-    <button mat-button (click)="logout()">Logout</button>
-  </span>
+  <h1 class="title">{{ title }}</h1>
+  <nav>
+    <a *ngFor="let link of navLinks" mat-button [routerLink]="link.path">{{ link.label }}</a>
+  </nav>
+  <button *ngIf="isLoggedIn" mat-button (click)="logout()">Logout</button>
 </mat-toolbar>
 <router-outlet></router-outlet>

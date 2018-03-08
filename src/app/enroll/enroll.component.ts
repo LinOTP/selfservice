@@ -33,7 +33,7 @@ export class EnrollComponent implements OnInit {
   }
 
   onSelectChange(event: MatSelectChange) {
-    this.router.navigate(['tokens/enroll', event.value]);
+    this.router.navigate(['enroll', event.value]);
   }
 
 

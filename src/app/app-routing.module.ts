@@ -18,7 +18,7 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'tokens/enroll',
+    path: 'enroll',
     component: EnrollComponent,
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard],

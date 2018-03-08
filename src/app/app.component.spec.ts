@@ -26,12 +26,6 @@ describe('AppComponent', () => {
       providers:
         [
           {
-            provide: Router,
-            useValue: {
-              navigate: jasmine.createSpy('navigate')
-            }
-          },
-          {
             provide: AuthService,
             useClass: AuthServiceMock
           },

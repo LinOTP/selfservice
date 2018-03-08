@@ -1,3 +1,12 @@
-.spacer {
-  flex: 1 1 auto;
+@import '~@angular/material/theming';
+mat-toolbar {
+  position: relative;
+  @include mat-elevation(1);
+  .title {
+    margin-right: 1em;
+  }
+  nav {
+    flex: 1;
+    align-content: flex-start;
+  }
 }
