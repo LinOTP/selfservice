@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EnrollToken } from '../../token';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 export interface EnrollHotpToken extends EnrollToken {
   type: 'hotp';
@@ -14,6 +15,9 @@ export interface EnrollHotpToken extends EnrollToken {
   styleUrls: ['./enroll-hotp.component.scss']
 })
 export class EnrollHotpComponent implements OnInit {
+  title = 'Event-based soft token (HOTP)';
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
 
   public enrollData: EnrollHotpToken = {
     type: 'hotp',
@@ -23,9 +27,15 @@ export class EnrollHotpComponent implements OnInit {
     genkey: 1,
   };
 
-  constructor() { }
+  constructor(private _formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.firstFormGroup = this._formBuilder.group({
+      firstCtrl: ['', Validators.required]
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      secondCtrl: ['', Validators.required]
+    });
   }
 
 }

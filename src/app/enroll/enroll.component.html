@@ -1,8 +1,15 @@
-<mat-form-field>
-  <mat-select placeholder="Select your desired token type" (change)="onSelectChange($event)">
-    <mat-option *ngFor="let tokentype of tokentypes" value="{{ tokentype.type }}">
-      {{ tokentype.description }}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <h2>Create token</h2>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-form-field>
+    <mat-select placeholder="Select your desired token type" (change)="onSelectChange($event)">
+      <mat-option *ngFor="let tokentype of tokentypes" value="{{ tokentype.type }}">
+        {{ tokentype.description }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-card>
 <router-outlet></router-outlet>

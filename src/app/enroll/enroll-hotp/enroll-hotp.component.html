@@ -1,3 +1,40 @@
-<p>
-  enroll-hotp works!
-</p>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <h3>{{ title }}</h3>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-horizontal-stepper [linear]="true">
+      <mat-step label="Install a soft token app">
+        <p>You need an OATH compatible soft token app installed on your mobile device to proceed.</p>
+        <p>Examples:</p>
+        <ul>
+          <li>FreeOTP</li>
+          <li>Google Authenticator</li>
+        </ul>
+        <div class="stepperControls">
+          <span></span>
+          <button mat-raised-button class="mat-warn">Cancel</button>
+          <button mat-raised-button matStepperNext class="mat-primary">I have a compatible app</button>
+        </div>
+      </mat-step>
+      <mat-step label="Install your soft token profile">
+        <p>Scan the QR code below with your soft token app or follow the link: </p>
+        <img />
+        <p>Follow the instructions on your app to install the soft token profile.</p>
+        <div class="stepperControls">
+          <button mat-raised-button class="mat-warn">Cancel</button>
+          <button mat-raised-button matStepperNext class="mat-primary">I have installed the profile</button>
+        </div>
+      </mat-step>
+      <mat-step label="Done">
+        <p>You can now use your soft token to authenticate.</p>
+        <p>We recommend you go to your token preferences panel and set a security PIN.</p>
+        <div class="stepperControls">
+          <button mat-raised-button matStepperNext class="mat-primary">Edit your token preferences</button>
+        </div>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </mat-card-content>
+</mat-card>

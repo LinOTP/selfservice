@@ -67,7 +67,7 @@ const routes: Routes = [
     routes,
     {
       onSameUrlNavigation: 'reload',
-      enableTracing: true,
+      // enableTracing: true,
     }
   )],
   exports: [RouterModule]
