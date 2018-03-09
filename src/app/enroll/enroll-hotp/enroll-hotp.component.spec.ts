@@ -1,5 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { MaterialModule } from '../../material.module';
+
 import { EnrollHotpComponent } from './enroll-hotp.component';
 
 describe('EnrollHotpComponent', () => {
@@ -8,9 +12,14 @@ describe('EnrollHotpComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EnrollHotpComponent ]
+      declarations: [EnrollHotpComponent],
+      imports: [
+        MaterialModule,
+        FormsModule,
+        ReactiveFormsModule,
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
