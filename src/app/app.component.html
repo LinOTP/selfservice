@@ -6,4 +6,6 @@
   </nav>
   <button *ngIf="isLoggedIn" mat-button (click)="logout()">Logout</button>
 </mat-toolbar>
-<router-outlet></router-outlet>
+<main>
+  <router-outlet></router-outlet>
+</main>
