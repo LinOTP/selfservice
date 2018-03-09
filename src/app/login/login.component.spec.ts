@@ -7,6 +7,7 @@ import { MaterialModule } from '../material.module';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router/src/router_state';
 import { of } from 'rxjs/observable/of';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -18,17 +19,12 @@ describe('LoginComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         MaterialModule,
+        RouterTestingModule,
       ],
       declarations: [
         LoginComponent,
       ],
       providers: [
-        {
-          provide: Router,
-          useValue: {
-            navigate: jasmine.createSpy('navigate')
-          }
-        },
         {
           provide: AuthService,
           useValue: {

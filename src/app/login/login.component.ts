@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,11 +10,18 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  isLoggedIn: boolean;
   message: string;
+
   loginFormGroup: FormGroup;
 
-  constructor(private authService: AuthService, public snackbar: MatSnackBar, private router: Router) {
+  private redirectUrl: string;
+
+  constructor(
+    private authService: AuthService,
+    public snackbar: MatSnackBar,
+    private route: ActivatedRoute,
+    private router: Router,
+  ) {
     this.loginFormGroup = new FormGroup({
       username: new FormControl(),
       password: new FormControl()
@@ -22,8 +29,9 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.message = 'No request sent';
-    this.isLoggedIn = this.authService.isLoggedIn();
+    this.route.queryParamMap
+      .map(params => params.get('redirect'))
+      .subscribe(url => this.redirectUrl = url);
   }
 
   notifyMessage(message: string, duration: number) {
@@ -34,15 +42,24 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.message = 'Waiting for response';
+
     const username = this.loginFormGroup.value.username;
     const password = this.loginFormGroup.value.password;
-    this.authService.login(username, password).subscribe(
-      response => {
-        this.isLoggedIn = response && response.result && response.result.value === true;
-        this.message = (this.isLoggedIn ? 'Login successful' : 'Login failed');
-        this.notifyMessage(this.message, 2000);
-        this.router.navigate(['/']);
+
+    this.authService.login(username, password).subscribe((result: boolean) => {
+
+      const message = (result ? 'Login successful' : 'Login failed');
+      this.notifyMessage(message, 2000);
+
+      if (result) {
+        this.redirect();
       }
-    );
+
+    });
+  }
+
+  redirect() {
+    const target = this.redirectUrl || '/';
+    this.router.navigate([target]);
   }
 }

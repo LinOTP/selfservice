@@ -12,21 +12,17 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     canActivate(
         next: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): boolean {
-        return this.checkLogin(state.url);
+
+        const isAuthenticated = this.authService.isLoggedIn();
+
+        if (!isAuthenticated) {
+            this.router.navigate(['/login'], { queryParams: { 'redirect': state.url } });
+        }
+
+        return isAuthenticated;
     }
 
     canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
         return this.canActivate(route, state);
-    }
-
-    checkLogin(url: string): boolean {
-        const isLoggedin = this.authService.isLoggedIn();
-        if (isLoggedin) {
-            return true;
-        } else {
-            this.authService.redirectUrl = url;
-            this.router.navigate(['/login']);
-            return false;
-        }
     }
 }
