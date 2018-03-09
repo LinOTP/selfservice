@@ -11,6 +11,9 @@ import { Observable } from 'rxjs/Observable';
 class AuthServiceMock {
   logout = jasmine.createSpy('logout').and.returnValue(Observable.of(null));
   isLoggedIn = jasmine.createSpy('isLoggedIn').and.returnValue(Observable.of(true));
+  loginChangeEmitter = {
+    subscribe: jasmine.createSpy('subscribe')
+  };
 }
 
 describe('AppComponent', () => {

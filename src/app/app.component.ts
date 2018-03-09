@@ -1,31 +1,33 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from './auth.service';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
-import { DoCheck } from '@angular/core/src/metadata/lifecycle_hooks';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements DoCheck {
-  title = 'LinOTP Selfservice';
-  isLoggedIn: boolean;
-  navLinks = [
+export class AppComponent implements OnInit {
+  public title = 'LinOTP Selfservice';
+  public navLinks = [
     { 'label': 'Your tokens', 'path': 'tokens/' },
     { 'label': 'Create new token', 'path': 'enroll/' },
   ];
 
-  constructor(private authService: AuthService, public snackbar: MatSnackBar, private router: Router) {
+  public isLoggedIn: boolean;
+
+
+  constructor(private authService: AuthService,
+    public snackbar: MatSnackBar,
+    private router: Router
+  ) {
   }
 
-  navigate(path: string) {
-    this.router.navigate([path]);
-  }
-
-  ngDoCheck() {
+  ngOnInit() {
     this.isLoggedIn = this.authService.isLoggedIn();
+    this.authService.loginChangeEmitter
+      .subscribe((isLoggedIn) => this.isLoggedIn = isLoggedIn);
   }
 
   notifyMessage(message: string, duration: number) {

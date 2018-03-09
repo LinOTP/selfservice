@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
@@ -7,6 +7,8 @@ import { CookieService } from 'ngx-cookie';
 
 @Injectable()
 export class AuthService {
+  private _loginChangeEmitter: EventEmitter<boolean> = new EventEmitter();
+
   private baseUrl = `/api/userservice/`;
   private endpoints = {
     login: 'login',
@@ -27,7 +29,8 @@ export class AuthService {
     return this.http.post<{ result: { status: boolean, value: boolean } }>(this.baseUrl + this.endpoints.login, params, this.options)
       .map((response) => response && response.result && response.result.value === true)
       .pipe(
-        tap(tokens => console.log(`login request finished`)),
+        tap(result => console.log(`login request finished`)),
+        tap(result => this._loginChangeEmitter.emit(result)),
         catchError(this.handleError('login', false))
       );
 
@@ -37,7 +40,7 @@ export class AuthService {
     return this.http.get<any>(this.baseUrl + this.endpoints.logout)
       .pipe(
         tap(tokens => console.log(`logout request finished`)),
-        catchError(this.handleError('login', null))
+        catchError(this.handleError('logout', false))
       );
   }
 
@@ -61,6 +64,10 @@ export class AuthService {
 
   getSession(): string {
     return this.cookieService.get('user_selfservice');
+  }
+
+  get loginChangeEmitter(): Observable<boolean> {
+    return this._loginChangeEmitter.asObservable();
   }
 
 }
