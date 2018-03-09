@@ -1,29 +1,31 @@
- /* Global imports */
+/* Global imports */
 
- @import url('https://fonts.googleapis.com/css?family=Roboto|Material+Icons');
- /* end of global imports */
+@import url('https://fonts.googleapis.com/css?family=Roboto|Material+Icons');
+/* end of global imports */
 
- /* Theming: */
+/* Theming: */
 
- @import '~@angular/material/theming';
- @include mat-core();
- $theme-app-primary: mat-palette($mat-blue-grey);
- $theme-app-accent: mat-palette($mat-red, A200, A100, A400);
- $theme-app-warn: mat-palette($mat-red);
- $theme: mat-light-theme($theme-app-primary, $theme-app-accent, $theme-app-warn);
- @include angular-material-theme($theme);
- /* end of theming */
+@import '~@angular/material/theming';
+@include mat-core();
+$theme-app-primary: mat-palette($mat-blue-grey);
+$theme-app-accent: mat-palette($mat-red, A200, A100, A400);
+$theme-app-warn: mat-palette($mat-red);
+$theme: mat-light-theme($theme-app-primary, $theme-app-accent, $theme-app-warn);
+@include angular-material-theme($theme);
+/* end of theming */
 
- /* Global styles: */
+/* Global styles: */
 
- body {
-   margin: 0;
- }
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
 
- .toolbar {
-   @include mat-elevation(1);
-   margin-bottom: 1rem;
- }
+.toolbar {
+  @include mat-elevation(1);
+  margin-bottom: 1rem;
+}
 
 .component-container {
   top: 0;
