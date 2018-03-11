@@ -2,7 +2,7 @@ import { Component, OnInit, Type } from '@angular/core';
 import { EnrollHotpComponent } from './enroll-hotp/enroll-hotp.component';
 import { EnrollTotpComponent } from './enroll-totp/enroll-totp.component';
 import { EnrollPushComponent } from './enroll-push/enroll-push.component';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MatSelectChange } from '@angular/material';
 import { TokenService } from '../token.service';
 
@@ -14,13 +14,18 @@ import { TokenService } from '../token.service';
 export class EnrollComponent implements OnInit {
 
   public tokentypes = this.tokenService.tokenTypes;
+  public selectedType: string;
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private tokenService: TokenService,
   ) { }
 
   ngOnInit() {
+    if (this.route.children.length > 0) { // set the selector to the route defined token type
+      this.route.children[0].url.subscribe(segment => this.selectedType = segment[0].path);
+    }
   }
 
   onSelectChange(event: MatSelectChange) {

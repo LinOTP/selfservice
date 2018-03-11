@@ -6,7 +6,7 @@
   </mat-card-header>
   <mat-card-content>
     <mat-form-field>
-      <mat-select placeholder="Select your desired token type" (change)="onSelectChange($event)">
+      <mat-select placeholder="Select your desired token type" [(value)]="selectedType" (change)="onSelectChange($event)">
         <mat-option *ngFor="let tokentype of tokentypes" value="{{ tokentype.type }}">
           {{ tokentype.description }}
         </mat-option>
