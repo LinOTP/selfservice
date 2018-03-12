@@ -3,7 +3,7 @@ import { EnrollToken } from '../../token';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 export interface EnrollHotpToken extends EnrollToken {
-  type: 'hotp';
+  type: 'hmac';
   otplen: number;
   hashlib: string;
   genkey: number;
@@ -20,7 +20,7 @@ export class EnrollHotpComponent implements OnInit {
   secondFormGroup: FormGroup;
 
   public enrollData: EnrollHotpToken = {
-    type: 'hotp',
+    type: 'hmac',
     description: '',
     otplen: 6,
     hashlib: 'sha1',

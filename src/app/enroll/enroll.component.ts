@@ -4,6 +4,7 @@ import { EnrollTotpComponent } from './enroll-totp/enroll-totp.component';
 import { EnrollPushComponent } from './enroll-push/enroll-push.component';
 import { Router } from '@angular/router';
 import { MatSelectChange } from '@angular/material';
+import { TokenService } from '../token.service';
 
 @Component({
   selector: 'app-enroll',
@@ -12,22 +13,12 @@ import { MatSelectChange } from '@angular/material';
 })
 export class EnrollComponent implements OnInit {
 
-  public tokentypes: { type: string, description: string }[] = [
-    {
-      type: 'hotp',
-      description: 'Event-based soft token (HOTP)'
-    },
-    {
-      type: 'totp',
-      description: 'Time-based soft token (TOTP)'
-    },
-    {
-      type: 'push',
-      description: 'KeyIdentity Push Token'
-    },
-  ];
+  public tokentypes = this.tokenService.tokenTypes;
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private tokenService: TokenService,
+  ) { }
 
   ngOnInit() {
   }
@@ -35,6 +26,5 @@ export class EnrollComponent implements OnInit {
   onSelectChange(event: MatSelectChange) {
     this.router.navigate(['enroll', event.value]);
   }
-
 
 }

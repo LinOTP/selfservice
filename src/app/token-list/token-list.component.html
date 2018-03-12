@@ -2,7 +2,7 @@
   <mat-expansion-panel *ngFor="let token of tokens">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        {{ token.serial }}
+        {{ tokenName(token.type) }} ({{ token.serial }})
       </mat-panel-title>
       <mat-panel-description>
         {{ token.description }}

@@ -24,6 +24,24 @@ export class TokenService {
     enroll: 'enroll',
   };
 
+  private _tokentypes: { type: string, name: string, description: string }[] = [
+    {
+      type: 'hmac',
+      name: 'HOTP-Token',
+      description: 'Event-based soft token (HOTP)'
+    },
+    {
+      type: 'totp',
+      name: 'TOTP-Token',
+      description: 'Time-based soft token (TOTP)'
+    },
+    {
+      type: 'push',
+      name: 'Push-Token',
+      description: 'KeyIdentity Push Token'
+    },
+  ];
+
   private options = {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
@@ -96,6 +114,10 @@ export class TokenService {
       console.error(error);
       return of(result as T);
     };
+  }
+
+  get tokenTypes() {
+    return this._tokentypes;
   }
 
 }

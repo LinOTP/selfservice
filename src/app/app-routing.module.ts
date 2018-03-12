@@ -23,7 +23,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       {
-        path: 'hotp',
+        path: 'hmac',
         component: EnrollHotpComponent,
       },
       {

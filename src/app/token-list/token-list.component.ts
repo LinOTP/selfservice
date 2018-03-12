@@ -16,7 +16,8 @@ import { TokenService } from '../token.service';
 })
 
 export class TokenListComponent implements OnInit {
-  tokens: Token[];
+  public tokens: Token[];
+  private tokenTypes = this.tokenService.tokenTypes;
 
   constructor(
     private router: Router,
@@ -71,6 +72,12 @@ export class TokenListComponent implements OnInit {
         );
       }
     });
+  }
+
+  tokenName(type: string) {
+    type = type.toLowerCase();
+    const tokenType = this.tokenTypes.find(tt => tt.type === type);
+    return tokenType ? tokenType.name : 'Unknown token';
   }
 
 }
