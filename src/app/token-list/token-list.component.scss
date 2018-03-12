@@ -1,7 +1,10 @@
 mat-panel-title {
-  font-size: 1.2em;
+  font-weight: bold;
 }
 
-mat-action-row button {
-  margin-left: 1em;
+mat-action-row {
+  padding-right: 24px;
+  button {
+    margin-left: 1em;
+  }
 }

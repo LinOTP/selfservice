@@ -18,8 +18,9 @@ export class AppComponent implements OnInit {
   public isLoggedIn: boolean;
 
 
-  constructor(private authService: AuthService,
-    public snackbar: MatSnackBar,
+  constructor(
+    private authService: AuthService,
+    private snackbar: MatSnackBar,
     private router: Router
   ) {
   }
