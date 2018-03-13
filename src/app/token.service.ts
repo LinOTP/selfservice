@@ -42,12 +42,6 @@ export class TokenService {
     },
   ];
 
-  private options = {
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-  };
-
   constructor(private http: HttpClient, private authService: AuthService) {
   }
 
@@ -80,8 +74,12 @@ export class TokenService {
   }
 
   deleteToken(serial: string): Observable<any> {
-    const body = `serial=${serial}&session=${this.authService.getSession()}`;
-    return this.http.post<any>(this.baseUrl + this.endpoints.delete, body, this.options)
+    const body = {
+      serial: serial,
+      session: this.authService.getSession()
+    };
+
+    return this.http.post<any>(this.baseUrl + this.endpoints.delete, body)
       .pipe(
         tap(response => console.log(`token ${serial} deleted`)),
         catchError(this.handleError('deleteToken', null))
@@ -89,8 +87,13 @@ export class TokenService {
   }
 
   setPin(token: Token, pin: string): Observable<boolean> {
-    const body = `userpin=${pin}&serial=${token.serial}&session=${this.authService.getSession()}`;
-    return this.http.post<{ result: { status: boolean, value: boolean } }>(this.baseUrl + this.endpoints.setpin, body, this.options)
+    const body = {
+      userpin: pin,
+      serial: token.serial,
+      session: this.authService.getSession()
+    };
+
+    return this.http.post<{ result: { status: boolean, value: boolean } }>(this.baseUrl + this.endpoints.setpin, body)
       .map((response) => response && response.result && response.result.value['set userpin'] === 1)
       .pipe(
         tap(tokens => console.log(`pin set`)),

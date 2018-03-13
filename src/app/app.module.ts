@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { CookieModule } from 'ngx-cookie';
 import { CustomFormsModule } from 'ng2-validation';
+import { NgxQRCodeModule } from 'ngx-qrcode2';
 
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './material.module';
@@ -53,6 +54,7 @@ import { EnrollPushComponent } from './enroll/enroll-push/enroll-push.component'
     HttpClientModule,
     CookieModule.forRoot(),
     CustomFormsModule,
+    NgxQRCodeModule,
     AppRoutingModule,
     MaterialModule,
   ],

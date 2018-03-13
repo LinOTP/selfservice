@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { EnrollToken } from '../../token';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { TokenService } from '../../token.service';
+import { MatStepper } from '@angular/material';
+import { Router } from '@angular/router';
 
 export interface EnrollHotpToken extends EnrollToken {
   type: 'hmac';
@@ -15,7 +18,7 @@ export interface EnrollHotpToken extends EnrollToken {
   styleUrls: ['./enroll-hotp.component.scss']
 })
 export class EnrollHotpComponent implements OnInit {
-  title = 'Event-based soft token (HOTP)';
+
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
 
@@ -27,15 +30,36 @@ export class EnrollHotpComponent implements OnInit {
     genkey: 1,
   };
 
-  constructor(private _formBuilder: FormBuilder) { }
+  public enrolledToken: { serial: string, url: string }/*  = { serial: '', url: '' } */;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private tokenService: TokenService,
+    private router: Router,
+  ) { }
 
   ngOnInit() {
-    this.firstFormGroup = this._formBuilder.group({
+    this.firstFormGroup = this.formBuilder.group({
       firstCtrl: ['', Validators.required]
     });
-    this.secondFormGroup = this._formBuilder.group({
+    this.secondFormGroup = this.formBuilder.group({
       secondCtrl: ['', Validators.required]
     });
   }
 
+  enroll(stepper: MatStepper) {
+    this.tokenService.enroll(this.enrollData).subscribe(response => {
+      if (response.result && response.result.value === true) {
+        this.enrolledToken = {
+          url: response.detail.googleurl.value,
+          serial: response.detail.serial
+        };
+        stepper.next();
+      }
+    });
+  }
+
+  cancel() {
+    this.router.navigate(['../']);
+  }
 }

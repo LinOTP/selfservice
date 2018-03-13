@@ -1,9 +1,7 @@
 .stepperControls {
-  margin: 0 auto;
-  width: 100%;
   display: flex;
   justify-content: flex-end;
-  button {
-    margin-left: 1em;
+  &>* {
+    margin: 10px;
   }
 }
