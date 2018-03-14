@@ -5,3 +5,17 @@
     margin: 10px;
   }
 }
+
+mat-form-field {
+  width: 100%
+}
+
+.testOTP {
+  width: 100%;
+  mat-form-field {
+    width: 10em;
+  }
+  button {
+    margin-left: 1em;
+  }
+}
