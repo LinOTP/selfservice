@@ -1,0 +1,87 @@
+image: node:alpine
+
+variables:
+  IMAGE_NAME: linotp/ng-selfservice
+  COMMIT_SHA_TAG: $REGISTRY_URL/$IMAGE_NAME:$CI_COMMIT_SHA
+  LATEST_TAG: $REGISTRY_URL/$IMAGE_NAME:latest
+
+
+cache:
+  untracked: true
+  key: "$CI_PROJECT_ID"
+  paths:
+    - .yarn_cache
+    - node_modules
+
+
+stages:
+  - test
+  - build
+  - deploy
+
+before_script:
+  - yarn config set cache-folder $PWD/.yarn_cache
+  - yarn
+
+
+### Run before merge ###
+
+typescript lint:
+  stage: test
+  only: 
+    - /^(feature|hotfix|bug)\//
+  script:
+    - yarn lint
+
+unit tests:
+  stage: test
+  image: node:latest
+  only: 
+    - /^(feature|hotfix|bug)\//
+  script:
+    - yarn test:ci
+  coverage: /Branches\s+:\s+\d+\.?\d*%/
+
+build dist:
+  stage: build
+  only:
+    - /^(feature|hotfix|bug)\//
+  script:
+    - yarn build
+  artifacts:
+    when: on_success
+    paths:
+      - dist/
+
+
+### Run only on master ###
+
+publish docker image:
+  stage: deploy
+  image: docker:latest
+  only: 
+    - master
+  tags:
+    - multi-stage
+  before_script:
+    - echo 'skip yarn install'
+  script:
+    - docker login -u $REGISTRY_USERNAME -p $REGISTRY_PASSWORD $REGISTRY_URL
+    - docker build -t $LATEST_TAG .
+    - docker push $LATEST_TAG
+
+
+### Run only manually ###
+
+publish tagged image:
+  stage: deploy
+  when: manual
+  image: docker:latest
+  tags:
+    - multi-stage
+  before_script:
+    - echo 'skip yarn install'
+  script:
+    - docker login -u $REGISTRY_USERNAME -p $REGISTRY_PASSWORD $REGISTRY_URL
+    - docker build -t $COMMIT_SHA_TAG .
+    - docker push $COMMIT_SHA_TAG
