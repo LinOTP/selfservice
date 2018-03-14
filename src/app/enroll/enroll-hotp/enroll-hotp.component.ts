@@ -26,6 +26,7 @@ export class EnrollHotpComponent implements OnInit {
 
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
+  testSuccessful = false;
 
   public enrollData: EnrollHotpToken = {
     type: 'hmac',
