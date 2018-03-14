@@ -24,6 +24,8 @@ export class TokenService {
     enroll: 'enroll',
   };
 
+  private testTokenEndpoint = '/api/validate/check_s';
+
   private _tokentypes: { type: string, name: string, description: string }[] = [
     {
       type: 'hmac',
@@ -108,6 +110,16 @@ export class TokenService {
       .pipe(
         tap(token => console.log(`token enrolled`)),
         catchError(this.handleError('enroll token', null))
+      );
+  }
+
+  testToken(tokenSerial: String, pin: String, otp: String) {
+    const body = { serial: tokenSerial, pass: `${pin}${otp}` };
+
+    return this.http.post(this.testTokenEndpoint, body)
+      .pipe(
+        tap(token => console.log(`token test submitted`)),
+        catchError(this.handleError('test token', null))
       );
   }
 

@@ -27,6 +27,9 @@ export class EnrollHotpComponent implements OnInit {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   testSuccessful = false;
+  pinSet = false;
+  otp = '';
+  pin = '';
 
   public enrollData: EnrollHotpToken = {
     type: 'hmac',
@@ -67,6 +70,14 @@ export class EnrollHotpComponent implements OnInit {
     });
   }
 
+  testToken() {
+    this.tokenService.testToken(this.enrolledToken.serial, this.pin, this.otp).subscribe(response => {
+      if (response.result && response.result.value === true) {
+        this.testSuccessful = true;
+      }
+    });
+  }
+
   goToAppStep(stepper: MatStepper) {
     stepper.selectedIndex = 1;
   }
@@ -84,6 +95,7 @@ export class EnrollHotpComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        this.pinSet = true;
         this.notifyMessage('PIN set', 2000);
       }
     });
