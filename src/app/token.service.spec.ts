@@ -110,7 +110,7 @@ describe('TokenService', () => {
   });
 
   describe('set token pin', () => {
-    const setPinRequestBody = `userpin=01234&serial=serial&session=${session}`;
+    const setPinRequestBody = { userpin: '01234', serial: 'serial', session: session };
     it('should send a pin request', async(
       inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
         tokenService.setPin(mockData[0], '01234').subscribe();
