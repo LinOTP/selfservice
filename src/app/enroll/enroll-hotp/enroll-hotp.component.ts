@@ -59,6 +59,10 @@ export class EnrollHotpComponent implements OnInit {
     });
   }
 
+  goToAppStep(stepper: MatStepper) {
+    stepper.selectedIndex = 1;
+  }
+
   cancel() {
     this.router.navigate(['../']);
   }
