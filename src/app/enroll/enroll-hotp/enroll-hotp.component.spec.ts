@@ -3,6 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MockComponent } from '../../../testing/mock-component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MaterialModule } from '../../material.module';
 import { TokenService } from '../../token.service';
