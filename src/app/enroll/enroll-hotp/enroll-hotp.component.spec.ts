@@ -8,6 +8,7 @@ import { MaterialModule } from '../../material.module';
 import { TokenService } from '../../token.service';
 
 import { EnrollHotpComponent } from './enroll-hotp.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('EnrollHotpComponent', () => {
   let component: EnrollHotpComponent;
@@ -24,6 +25,7 @@ describe('EnrollHotpComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         MaterialModule,
+        NoopAnimationsModule,
       ],
       providers: [
         {
