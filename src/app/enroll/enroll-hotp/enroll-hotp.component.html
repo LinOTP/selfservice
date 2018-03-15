@@ -10,7 +10,7 @@
       usage scenario.
     </p>
     <div class="stepperControls">
-      <a mat-raised-button [routerLink]="'../'">Cancel</a>
+      <a mat-raised-button *ngIf="!enrolledToken" [routerLink]="'../'">Cancel</a>
       <button mat-raised-button color="primary" matStepperNext>Next</button>
     </div>
   </mat-step>
@@ -24,7 +24,7 @@
     <p>Help: If you are not sure if your app is compatible, you will later have the possibility to test the token. Should the
       test fail, you can install another app and try again.</p>
     <div class="stepperControls">
-      <a mat-raised-button [routerLink]="'../'">Cancel</a>
+      <a mat-raised-button *ngIf="!enrolledToken" [routerLink]="'../'">Cancel</a>
       <button mat-raised-button color="primary" *ngIf="!enrolledToken" (click)="enroll(stepper)">Next</button>
       <button mat-raised-button color="primary" *ngIf="enrolledToken" matStepperNext>Next</button>
     </div>
