@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EnrollPushComponent implements OnInit {
 
+  description = '';
+
   constructor() { }
 
   ngOnInit() {

@@ -1,3 +1,24 @@
-<p>
-  enroll-push works!
-</p>
+<mat-vertical-stepper [linear]="true" linear #stepper>
+  <mat-step label="Set a token description" active="false">
+    <form>
+      <mat-form-field>
+        <input matInput placeholder="Token description" name="tokenDescription" [(ngModel)]="description" [disabled]="!!enrolledToken"
+          autofocus>
+      </mat-form-field>
+    </form>
+    <p>Help: The token description should help you identify this token at a later point. It could, for example, refer to its
+      usage scenario.
+    </p>
+    <div class="stepperControls">
+      <a mat-raised-button *ngIf="!enrolledToken" [routerLink]="'../'">Cancel</a>
+      <button mat-raised-button color="primary" matStepperNext>Next</button>
+    </div>
+  </mat-step>
+  <mat-step label="Install the push token app" active="false" #stepApp>
+    <p>You need the push token app installed on your mobile device to use this kind of token.
+      <p>Once you have the app installed on your device, you can proceed to the next step.</p>
+      <div class="stepperControls">
+        <a mat-raised-button *ngIf="!enrolledToken" [routerLink]="'../'">Cancel</a>
+      </div>
+  </mat-step>
+</mat-vertical-stepper>
