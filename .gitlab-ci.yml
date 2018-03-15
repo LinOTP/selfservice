@@ -8,7 +8,6 @@ variables:
 
 cache:
   untracked: true
-  key: "$CI_PROJECT_ID"
   paths:
     - .yarn_cache
     - node_modules
