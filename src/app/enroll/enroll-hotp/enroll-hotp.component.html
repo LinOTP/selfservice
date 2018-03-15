@@ -58,7 +58,7 @@
           <input matInput placeholder="Test OTP" name="testOTP" [(ngModel)]="otp" autofocus>
         </mat-form-field>
         <mat-form-field *ngIf="pinSet">
-          <input matInput placeholder="Token PIN" name="tokenPIN" [(ngModel)]="pin" autofocus>
+          <input matInput placeholder="Token PIN" name="tokenPIN" type="password" [(ngModel)]="pin" autofocus>
         </mat-form-field>
         <button matLine mat-raised-button class="mat-primary" type="submit" (click)="testToken()">Submit</button>
       </form>
