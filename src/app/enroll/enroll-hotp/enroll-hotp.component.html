@@ -1,32 +1,37 @@
 <mat-vertical-stepper [linear]="true" linear #stepper>
-  <mat-step label="Set a token description" active="false">
-    <form>
+  <mat-step label="Set a token description" [stepControl]="descriptionStep">
+    <form [formGroup]="descriptionStep">
       <mat-form-field>
-        <input matInput placeholder="Token description" name="tokenDescription" [(ngModel)]="enrollData.description" [disabled]="!!enrolledToken"
-          autofocus>
+        <input matInput placeholder="Token description" formControlName="descriptionControl" [(ngModel)]="enrollData.description"
+          [disabled]="!!enrolledToken" autofocus>
+        <mat-error>The token description is required. It should help you identify the token at a later point. It could, for example,
+          refer to its usage scenario.</mat-error>
+        <mat-hint>The token description should help you identify the token at a later point. It could, for example, refer to its usage
+          scenario.
+        </mat-hint>
       </mat-form-field>
     </form>
-    <p>Help: The token description should help you identify this token at a later point. It could, for example, refer to its
-      usage scenario.
-    </p>
     <div class="stepperControls">
       <a mat-raised-button *ngIf="!enrolledToken" [routerLink]="'../'">Cancel</a>
-      <button mat-raised-button color="primary" matStepperNext>Next</button>
+      <button mat-raised-button color="primary" matStepperNext [disabled]="!enrollData.description">Next</button>
     </div>
   </mat-step>
-  <mat-step label="Install a soft token app" active="false" #stepApp>
+  <mat-step label="Install a soft token app" active="false" #stepApp [stepControl]="appInstallStep">
     <p>You need an OATH compatible soft token app installed on your mobile device to use this kind of token, such as:</p>
     <ul>
       <li>FreeOTP</li>
       <li>Google Authenticator</li>
     </ul>
     <p>Once you have an app installed on your device, you can proceed to the next step.</p>
-    <p>Help: If you are not sure if your app is compatible, you will later have the possibility to test the token. Should the
-      test fail, you can install another app and try again.</p>
+    <form [formGroup]="appInstallStep">
+      <mat-checkbox class="example-margin" [(ngModel)]="appInstalled" formControlName="appInstalledControl" required>I installed the app</mat-checkbox>
+      <p class="mat-hint hint">If you are not sure if your app is compatible, you will later have the possibility to test the token. Should the test
+        fail, you can install another app and try again.</p>
+    </form>
     <div class="stepperControls">
       <a mat-raised-button *ngIf="!enrolledToken" [routerLink]="'../'">Cancel</a>
-      <button mat-raised-button color="primary" *ngIf="!enrolledToken" (click)="enroll(stepper)">Next</button>
-      <button mat-raised-button color="primary" *ngIf="enrolledToken" matStepperNext>Next</button>
+      <button mat-raised-button color="primary" *ngIf="!enrolledToken" (click)="enroll(stepper)" [disabled]="!appInstalled">Next</button>
+      <button mat-raised-button color="primary" *ngIf="enrolledToken" matStepperNext [disabled]="!appInstalled">Next</button>
     </div>
   </mat-step>
   <mat-step label="Install your soft token profile" active="false">

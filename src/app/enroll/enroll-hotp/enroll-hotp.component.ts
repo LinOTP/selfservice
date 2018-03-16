@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EnrollToken } from '../../token';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { TokenService } from '../../token.service';
 import { MatStepper } from '@angular/material';
 import { Router } from '@angular/router';
@@ -24,8 +24,10 @@ export interface EnrollHotpToken extends EnrollToken {
 })
 export class EnrollHotpComponent implements OnInit {
 
-  firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
+  descriptionStep: FormGroup;
+  appInstallStep: FormGroup;
+  enrollmentStep: FormGroup;
+  appInstalled = false;
   testSuccessful = false;
   pinSet = false;
   otp = '';
@@ -39,7 +41,7 @@ export class EnrollHotpComponent implements OnInit {
     genkey: 1,
   };
 
-  public enrolledToken: { serial: string, url: string }/*  = { serial: '', url: '' } */;
+  public enrolledToken: { serial: string, url: string };
 
   constructor(
     private formBuilder: FormBuilder,
@@ -47,16 +49,16 @@ export class EnrollHotpComponent implements OnInit {
     private router: Router,
     public dialog: MatDialog,
     public snackbar: MatSnackBar,
-  ) { }
-
-  ngOnInit() {
-    this.firstFormGroup = this.formBuilder.group({
-      firstCtrl: ['', Validators.required]
+  ) {
+    this.descriptionStep = this.formBuilder.group({
+      descriptionControl: new FormControl('', Validators.required)
     });
-    this.secondFormGroup = this.formBuilder.group({
-      secondCtrl: ['', Validators.required]
+    this.appInstallStep = this.formBuilder.group({
+      appInstalledControl: new FormControl('', Validators.required)
     });
   }
+
+  ngOnInit() { }
 
   enroll(stepper: MatStepper) {
     this.tokenService.enroll(this.enrollData).subscribe(response => {
@@ -65,6 +67,8 @@ export class EnrollHotpComponent implements OnInit {
           url: response.detail.googleurl.value,
           serial: response.detail.serial
         };
+        this.appInstallStep.controls.appInstalledControl.setValue(true);
+        this.descriptionStep.controls.descriptionControl.disable();
         stepper.next();
       }
     });
@@ -79,6 +83,7 @@ export class EnrollHotpComponent implements OnInit {
   }
 
   goToAppStep(stepper: MatStepper) {
+    this.appInstalled = false;
     stepper.selectedIndex = 1;
   }
 
