@@ -27,7 +27,7 @@
     <div *ngIf="enrolledToken">
       <p>A token with the serial number {{enrolledToken.serial}} (description: {{enrollData.description}}) has been enrolled.</p>
       <p>Scan the QR code below with the KI Authenticator app or
-        <a href="enrolledToken.url">follow this link</a> to start the activation process of the new token.</p>
+        <a [href]="enrolledToken.url">follow this link</a> to start the activation process of the new token.</p>
       <ngx-qrcode qrc-element-type="url" [qrc-value]="enrolledToken.url"></ngx-qrcode>
     </div>
     <div class="stepperControls">
