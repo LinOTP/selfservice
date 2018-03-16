@@ -38,7 +38,7 @@
     <div *ngIf="enrolledToken">
       <p>A token with the serial number {{enrolledToken.serial}} (description: {{enrollData.description}}) has been enrolled.</p>
       <p>Scan the QR code below with your soft token app or
-        <a href="enrolledToken.url">follow this link</a> to install it on your mobile device.</p>
+        <a [href]="enrolledToken.url">follow this link</a> to install it on your mobile device.</p>
       <ngx-qrcode qrc-element-type="url" [qrc-value]="enrolledToken.url"></ngx-qrcode>
     </div>
     <p>Follow the instructions on your app to install the soft token profile.</p>
