@@ -2,7 +2,7 @@
   <mat-step label="Set a token description" active="false">
     <form>
       <mat-form-field>
-        <input matInput placeholder="Token description" name="tokenDescription" [(ngModel)]="description" [disabled]="!!enrolledToken"
+        <input matInput placeholder="Token description" name="tokenDescription" [(ngModel)]="enrollData.description" [disabled]="!!enrolledToken"
           autofocus>
       </mat-form-field>
     </form>
@@ -14,11 +14,24 @@
       <button mat-raised-button color="primary" matStepperNext>Next</button>
     </div>
   </mat-step>
-  <mat-step label="Install the push token app" active="false" #stepApp>
-    <p>You need the push token app installed on your mobile device to use this kind of token.
+  <mat-step label="Install the KI Authenticator" active="false" #stepApp>
+    <p>You need the KI Authenticator app installed on your mobile device to use this kind of token.
       <p>Once you have the app installed on your device, you can proceed to the next step.</p>
       <div class="stepperControls">
         <a mat-raised-button *ngIf="!enrolledToken" [routerLink]="'../'">Cancel</a>
+        <button mat-raised-button color="primary" *ngIf="!enrolledToken" (click)="enroll(stepper)">Next</button>
+        <button mat-raised-button color="primary" *ngIf="enrolledToken" matStepperNext>Next</button>
       </div>
+  </mat-step>
+  <mat-step label="Initiate token activation" active="false">
+    <div *ngIf="enrolledToken">
+      <p>A token with the serial number {{enrolledToken.serial}} (description: {{enrollData.description}}) has been enrolled.</p>
+      <p>Scan the QR code below with the KI Authenticator app or
+        <a href="enrolledToken.url">follow this link</a> to start the activation process of the new token.</p>
+      <ngx-qrcode qrc-element-type="url" [qrc-value]="enrolledToken.url"></ngx-qrcode>
+    </div>
+    <div class="stepperControls">
+      <button mat-raised-button matStepperNext class="mat-primary">Next</button>
+    </div>
   </mat-step>
 </mat-vertical-stepper>
