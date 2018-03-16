@@ -1,9 +1,12 @@
 @import '~@angular/material/theming';
 mat-toolbar {
   position: relative;
+  padding-left: 0.5em;
   @include mat-elevation(1);
   .title {
     margin-right: 1em;
+    border: 2px solid white;
+    padding: 0.25em 0.5em 0.25em 0.5em;
   }
   nav {
     flex: 1;
