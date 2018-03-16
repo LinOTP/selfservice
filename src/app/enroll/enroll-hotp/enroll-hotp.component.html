@@ -67,9 +67,11 @@
           <input matInput placeholder="Token PIN" name="tokenPIN" type="password" [(ngModel)]="pin" autocomplete="new-password" autofocus>
         </mat-form-field>
         <button matLine mat-raised-button class="mat-primary" type="submit" (click)="testToken()">Submit</button>
+        <p *ngIf="authenticationFailed" class="warning">Authentication failed. Check if both the OTP and the PIN are correct.</p>
       </form>
-      <p>If verification is failing or nothing happens, contact your administrator or return to step 2 to try a different app:
-        <button mat-raised-button class="mat-primary" (click)="goToAppStep(stepper)">Install a soft token app</button>
+      <p *ngIf="authenticationFailed">If verification is always failing or nothing happens, contact your administrator or return to step 2 to try a different
+        app:
+        <button mat-mini-fab color="primary" (click)="goToAppStep(stepper)">2</button>
       </p>
     </div>
     <p *ngIf="testSuccessful">Test successful. You can now use your event-based soft token to authenticate.</p>

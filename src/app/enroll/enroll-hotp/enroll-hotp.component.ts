@@ -32,6 +32,7 @@ export class EnrollHotpComponent implements OnInit {
   pinSet = false;
   otp = '';
   pin = '';
+  authenticationFailed: boolean;
 
   public enrollData: EnrollHotpToken = {
     type: 'hmac',
@@ -78,6 +79,8 @@ export class EnrollHotpComponent implements OnInit {
     this.tokenService.testToken(this.enrolledToken.serial, this.pin, this.otp).subscribe(response => {
       if (response.result && response.result.value === true) {
         this.testSuccessful = true;
+      } else if (response.result && response.result.value === false) {
+        this.authenticationFailed = true;
       }
     });
   }
