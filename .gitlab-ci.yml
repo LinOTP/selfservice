@@ -28,7 +28,7 @@ before_script:
 
 typescript lint:
   stage: test
-  only: 
+  only:
     - /^(feature|hotfix|bug)\//
   script:
     - yarn lint
@@ -36,7 +36,7 @@ typescript lint:
 unit tests:
   stage: test
   image: node:latest
-  only: 
+  only:
     - /^(feature|hotfix|bug)\//
   script:
     - yarn test:ci
@@ -59,7 +59,7 @@ build dist:
 publish docker image:
   stage: deploy
   image: docker:latest
-  only: 
+  only:
     - master
   tags:
     - multi-stage
