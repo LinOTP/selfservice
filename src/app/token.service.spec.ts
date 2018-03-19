@@ -65,7 +65,7 @@ describe('TokenService', () => {
           expect(response).toEqual(mockData);
         });
 
-        const tokenListRequest = backend.expectOne((req) => req.url === '/api/userservice/usertokenlist' && req.method === 'GET');
+        const tokenListRequest = backend.expectOne((req) => req.url === '/userservice/usertokenlist' && req.method === 'GET');
 
         tokenListRequest.flush(mockResponse);
         backend.verify();
@@ -81,7 +81,7 @@ describe('TokenService', () => {
           expect(response).toEqual([]);
         });
 
-        const tokenListRequest = backend.expectOne((req) => req.url === '/api/userservice/usertokenlist' && req.method === 'GET');
+        const tokenListRequest = backend.expectOne((req) => req.url === '/userservice/usertokenlist' && req.method === 'GET');
 
         tokenListRequest.error(new ErrorEvent('Error loading token list'));
         backend.verify();
@@ -101,7 +101,7 @@ describe('TokenService', () => {
           expect(response).toEqual(token);
         });
 
-        const tokenListRequest = backend.expectOne((req) => req.url === '/api/userservice/usertokenlist' && req.method === 'GET');
+        const tokenListRequest = backend.expectOne((req) => req.url === '/userservice/usertokenlist' && req.method === 'GET');
 
         tokenListRequest.flush(mockResponse);
         backend.verify();
@@ -116,7 +116,7 @@ describe('TokenService', () => {
         tokenService.setPin(mockData[0], '01234').subscribe();
 
         const req = backend.expectOne({
-          url: '/api/userservice/setpin',
+          url: '/userservice/setpin',
           method: 'POST'
         });
 
@@ -134,7 +134,7 @@ describe('TokenService', () => {
           expect(response).toEqual(false);
         });
         const setPinRequest = backend.expectOne({
-          url: '/api/userservice/setpin',
+          url: '/userservice/setpin',
           method: 'POST'
         });
 

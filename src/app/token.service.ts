@@ -16,7 +16,7 @@ import { AuthService } from './auth.service';
 
 @Injectable()
 export class TokenService {
-  private baseUrl = `/api/userservice/`;
+  private baseUrl = `/userservice/`;
   private endpoints = {
     tokens: 'usertokenlist',
     setpin: 'setpin',
@@ -24,7 +24,7 @@ export class TokenService {
     enroll: 'enroll',
   };
 
-  private testTokenEndpoint = '/api/validate/check_s';
+  private testTokenEndpoint = '/validate/check_s';
 
   private _tokentypes: { type: string, name: string, description: string }[] = [
     {

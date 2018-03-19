@@ -9,7 +9,7 @@ import { CookieService } from 'ngx-cookie';
 export class AuthService {
   private _loginChangeEmitter: EventEmitter<boolean> = new EventEmitter();
 
-  private baseUrl = `/api/userservice/`;
+  private baseUrl = `/userservice/`;
   private endpoints = {
     login: 'login',
     logout: 'logout'
