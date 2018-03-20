@@ -56,10 +56,10 @@
       <p>To finalize, we will verify if your token is correctly enrolled via a test authentication.</p>
       <form class="testOTP">
         <mat-form-field>
-          <input matInput placeholder="Test OTP" name="testOTP" [(ngModel)]="otp" autofocus>
+          <input matInput placeholder="Test OTP" name="testOTP" [(ngModel)]="otp" autocomplete="new-password" autofocus>
         </mat-form-field>
         <mat-form-field *ngIf="pinSet">
-          <input matInput placeholder="Token PIN" name="tokenPIN" type="password" [(ngModel)]="pin" autofocus>
+          <input matInput placeholder="Token PIN" name="tokenPIN" type="password" [(ngModel)]="pin" autocomplete="new-password" autofocus>
         </mat-form-field>
         <button matLine mat-raised-button class="mat-primary" type="submit" (click)="testToken()">Submit</button>
       </form>
