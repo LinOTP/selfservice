@@ -10,7 +10,7 @@ import { TokenService } from '../../token.service';
 import { EnrollHotpComponent } from './enroll-hotp.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-describe('EnrollHotpComponent', () => {
+describe('The EnrollHotpComponent', () => {
   let component: EnrollHotpComponent;
   let fixture: ComponentFixture<EnrollHotpComponent>;
 
@@ -45,7 +45,7 @@ describe('EnrollHotpComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should be created', () => {
     expect(component).toBeTruthy();
   });
 });
