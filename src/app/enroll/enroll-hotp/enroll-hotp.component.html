@@ -13,7 +13,7 @@
     </form>
     <div class="stepperControls">
       <a mat-raised-button *ngIf="!enrolledToken" [routerLink]="'../'">Cancel</a>
-      <button mat-raised-button color="primary" matStepperNext [disabled]="!enrollData.description">Next</button>
+      <button mat-raised-button color="primary" matStepperNext [disabled]="!enrollData.description" id="goTo2">Next</button>
     </div>
   </mat-step>
   <mat-step label="Install a soft token app" active="false" #stepApp [stepControl]="appInstallStep" id="stepInstallApp">
