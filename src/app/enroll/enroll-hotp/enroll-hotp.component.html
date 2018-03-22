@@ -1,5 +1,5 @@
 <mat-vertical-stepper [linear]="true" linear #stepper>
-  <mat-step label="Set a token description" [stepControl]="descriptionStep">
+  <mat-step label="Set a token description" [stepControl]="descriptionStep" id="stepDescription">
     <form [formGroup]="descriptionStep">
       <mat-form-field>
         <input matInput placeholder="Token description" formControlName="descriptionControl" [(ngModel)]="enrollData.description"
@@ -16,7 +16,7 @@
       <button mat-raised-button color="primary" matStepperNext [disabled]="!enrollData.description">Next</button>
     </div>
   </mat-step>
-  <mat-step label="Install a soft token app" active="false" #stepApp [stepControl]="appInstallStep">
+  <mat-step label="Install a soft token app" active="false" #stepApp [stepControl]="appInstallStep" id="stepInstallApp">
     <p>You need an OATH compatible soft token app installed on your mobile device to use this kind of token, such as:</p>
     <ul>
       <li>FreeOTP</li>
@@ -34,7 +34,7 @@
       <button mat-raised-button color="primary" *ngIf="enrolledToken" matStepperNext [disabled]="!appInstalled">Next</button>
     </div>
   </mat-step>
-  <mat-step label="Install your soft token profile" active="false">
+  <mat-step label="Install your soft token profile" active="false" id="stepShowQR">
     <div *ngIf="enrolledToken">
       <p>A token with the serial number {{enrolledToken.serial}} (description: {{enrollData.description}}) has been enrolled.</p>
       <p>Scan the QR code below with your soft token app or
@@ -56,7 +56,7 @@
       <button mat-raised-button matStepperNext class="mat-primary">Next</button>
     </div>
   </mat-step>
-  <mat-step label="Test the token" active="false">
+  <mat-step label="Test the token" active="false" id="stepTest">
     <div *ngIf="!testSuccessful">
       <p>To finalize, we will verify if your token is correctly enrolled via a test authentication.</p>
       <form class="testOTP">
