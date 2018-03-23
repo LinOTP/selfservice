@@ -10,6 +10,25 @@ import { TokenService } from '../../token.service';
 import { EnrollHotpComponent } from './enroll-hotp.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
+import { of } from 'rxjs/observable/of';
+
+const mockEnrollmentResponse = {
+  result: {
+    value: true
+  },
+  detail: {
+    googleurl: {
+      value: 'testUrl',
+    },
+    serial: 'testSerial',
+  }
+
+};
+
+class MockTokenService {
+  enroll = jasmine.createSpy('enroll').and.returnValue(of(mockEnrollmentResponse));
+}
+
 describe('The EnrollHotpComponent', () => {
   let component: EnrollHotpComponent;
   let fixture: ComponentFixture<EnrollHotpComponent>;
@@ -30,9 +49,7 @@ describe('The EnrollHotpComponent', () => {
       providers: [
         {
           provide: TokenService,
-          useValue: {
-            enroll: jasmine.createSpy('enroll')
-          },
+          useClass: MockTokenService,
         }
       ],
     })
