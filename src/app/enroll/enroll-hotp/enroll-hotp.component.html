@@ -24,14 +24,14 @@
     </ul>
     <p>Once you have an app installed on your device, you can proceed to the next step.</p>
     <form [formGroup]="appInstallStep">
-      <mat-checkbox class="example-margin" [(ngModel)]="appInstalled" formControlName="appInstalledControl" required>I installed the app</mat-checkbox>
+      <mat-checkbox class="example-margin" [(ngModel)]="appInstalled" formControlName="appInstalledControl" required id="appInstalledCheckbox">I installed the app</mat-checkbox>
       <p class="mat-hint hint">If you are not sure if your app is compatible, you will later have the possibility to test the token. Should the test
         fail, you can install another app and try again.</p>
     </form>
     <div class="stepperControls">
       <a mat-raised-button *ngIf="!enrolledToken" [routerLink]="'../'">Cancel</a>
-      <button mat-raised-button color="primary" *ngIf="!enrolledToken" (click)="enroll(stepper)" [disabled]="!appInstalled">Next</button>
-      <button mat-raised-button color="primary" *ngIf="enrolledToken" matStepperNext [disabled]="!appInstalled">Next</button>
+      <button mat-raised-button color="primary" *ngIf="!enrolledToken" (click)="enroll(stepper)" [disabled]="!appInstalled" id="goTo3AndEnroll">Next</button>
+      <button mat-raised-button color="primary" *ngIf="enrolledToken" matStepperNext [disabled]="!appInstalled" id="goTo3">Next</button>
     </div>
   </mat-step>
   <mat-step label="Install your soft token profile" active="false" id="stepShowQR">

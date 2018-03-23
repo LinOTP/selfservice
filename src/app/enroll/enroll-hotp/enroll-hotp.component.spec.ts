@@ -102,5 +102,21 @@ describe('The HOTP enrollment form', () => {
     expect(step1NextButton.disabled).toBeTruthy();
     expect(component.descriptionStep.valid).toBe(false);
   });
+
+  it('should enable going to step 3 if the checkbox confirming the app is installed is checked', () => {
+    const element = fixture.debugElement.nativeElement;
+    const checkbox: HTMLInputElement = element.querySelector('#appInstalledCheckbox');
+    checkbox.checked = true;
+    fixture.detectChanges();
+    expect(component.appInstallStep.valid).toBe(true);
+  });
+
+  it('should disable going to step 3 if the checkbox confirming the app is installed is unchecked', () => {
+    const element = fixture.debugElement.nativeElement;
+    const checkbox: HTMLInputElement = element.querySelector('#appInstalledCheckbox');
+    checkbox.checked = false;
+    fixture.detectChanges();
+    expect(component.appInstallStep.valid).toBe(false);
+  });
   });
 });
