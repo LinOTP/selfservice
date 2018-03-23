@@ -9,7 +9,6 @@ import { MaterialModule } from '../../material.module';
 import { TokenService } from '../../token.service';
 
 import { EnrollHotpComponent } from './enroll-hotp.component';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { of } from 'rxjs/observable/of';
 
