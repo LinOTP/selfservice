@@ -1,5 +1,17 @@
 <mat-vertical-stepper [linear]="true" linear #stepper>
-  <mat-step label="Set a token description" [stepControl]="descriptionStep" id="stepDescription">
+
+  <mat-step label="Prepare enrollment" [stepControl]="enrollmentStep" id="stepDescription">
+    <p> You have chosen to enroll an event-based soft token.</p>
+    <p>You need an OATH compatible soft token app installed on your mobile device to use this kind of token, such as:</p>
+    <ul>
+      <li>FreeOTP</li>
+      <li>Google Authenticator</li>
+    </ul>
+    <p>If you are not sure whether your app is compatible, you will later have the possibility to test the token. Should the
+      test fail, you can install another app and try again.</p>
+    <p>Once you have an app installed on your device, you can set a description for your new token and start the enrollment
+      process:
+    </p>
     <form [formGroup]="descriptionStep">
       <mat-form-field>
         <input matInput placeholder="Token description" formControlName="descriptionControl" [(ngModel)]="enrollData.description"
@@ -13,27 +25,10 @@
     </form>
     <div class="stepperControls">
       <a mat-raised-button *ngIf="!enrolledToken" [routerLink]="'../'">Cancel</a>
-      <button mat-raised-button color="primary" matStepperNext [disabled]="!enrollData.description" id="goTo2">Next</button>
+      <button mat-raised-button color="primary" [disabled]="!enrollData.description" (click)="goToTokenInfo(stepper)" id="goTo2">Next</button>
     </div>
   </mat-step>
-  <mat-step label="Install a soft token app" active="false" #stepApp [stepControl]="appInstallStep" id="stepInstallApp">
-    <p>You need an OATH compatible soft token app installed on your mobile device to use this kind of token, such as:</p>
-    <ul>
-      <li>FreeOTP</li>
-      <li>Google Authenticator</li>
-    </ul>
-    <p>Once you have an app installed on your device, you can proceed to the next step.</p>
-    <form [formGroup]="appInstallStep">
-      <mat-checkbox class="example-margin" [(ngModel)]="appInstalled" formControlName="appInstalledControl" required id="appInstalledCheckbox">I installed the app</mat-checkbox>
-      <p class="mat-hint hint">If you are not sure if your app is compatible, you will later have the possibility to test the token. Should the test
-        fail, you can install another app and try again.</p>
-    </form>
-    <div class="stepperControls">
-      <a mat-raised-button *ngIf="!enrolledToken" [routerLink]="'../'">Cancel</a>
-      <button mat-raised-button color="primary" *ngIf="!enrolledToken" (click)="enroll(stepper)" [disabled]="!appInstalled" id="goTo3AndEnroll">Next</button>
-      <button mat-raised-button color="primary" *ngIf="enrolledToken" matStepperNext [disabled]="!appInstalled" id="goTo3">Next</button>
-    </div>
-  </mat-step>
+
   <mat-step label="Install your soft token profile" active="false" id="stepShowQR">
     <div *ngIf="enrolledToken">
       <p>A token with the serial number {{enrolledToken.serial}} (description: {{enrollData.description}}) has been enrolled.</p>
@@ -46,7 +41,8 @@
       <button mat-raised-button matStepperNext class="mat-primary">Next</button>
     </div>
   </mat-step>
-  <mat-step label="Set a token PIN" active="false" optional="true">
+
+  <mat-step label="Set a token PIN" active="false" optional="true" id="stepPIN">
     <p>We recommend you set a security PIN now:
       <br/>
       <button mat-raised-button class="mat-primary" (click)="setPin()">Set pin</button>
@@ -56,6 +52,7 @@
       <button mat-raised-button matStepperNext class="mat-primary">Next</button>
     </div>
   </mat-step>
+
   <mat-step label="Test the token" active="false" id="stepTest">
     <div *ngIf="!testSuccessful">
       <p>To finalize, we will verify if your token is correctly enrolled via a test authentication.</p>
@@ -69,9 +66,8 @@
         <button matLine mat-raised-button class="mat-primary" type="submit" (click)="testToken()">Submit</button>
         <p *ngIf="authenticationFailed" class="warning">Authentication failed. Check if both the OTP and the PIN are correct.</p>
       </form>
-      <p *ngIf="authenticationFailed">If verification is always failing or nothing happens, contact your administrator or return to step 2 to try a different
-        app:
-        <button mat-mini-fab color="primary" (click)="goToAppStep(stepper)">2</button>
+      <p *ngIf="authenticationFailed">If verification is always failing or nothing happens, contact your administrator or go back to try a different app:
+        <button mat-raised-button color="primary" (click)="goToAppStep(stepper)">Try a different app</button>
       </p>
     </div>
     <p *ngIf="testSuccessful">Test successful. You can now use your event-based soft token to authenticate.</p>
@@ -79,3 +75,4 @@
       <a *ngIf="testSuccessful" mat-raised-button class="mat-primary" routerLink="/tokens">Done</a>
     </div>
   </mat-step>
+</mat-vertical-stepper>

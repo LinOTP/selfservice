@@ -25,9 +25,7 @@ export interface EnrollHotpToken extends EnrollToken {
 export class EnrollHotpComponent implements OnInit {
 
   descriptionStep: FormGroup;
-  appInstallStep: FormGroup;
   enrollmentStep: FormGroup;
-  appInstalled = false;
   testSuccessful = false;
   pinSet = false;
   otp = '';
@@ -52,42 +50,48 @@ export class EnrollHotpComponent implements OnInit {
     public snackbar: MatSnackBar,
   ) {
     this.descriptionStep = this.formBuilder.group({
-      descriptionControl: new FormControl('', Validators.required)
+      descriptionControl: new FormControl('', Validators.required),
     });
-    this.appInstallStep = this.formBuilder.group({
-      appInstalledControl: new FormControl('', Validators.required)
+    this.enrollmentStep = this.formBuilder.group({
+      tokenEnrolled: new FormControl('', Validators.required),
     });
   }
 
   ngOnInit() { }
 
-  enroll(stepper: MatStepper) {
-    this.tokenService.enroll(this.enrollData).subscribe(response => {
-      if (response.result && response.result.value === true) {
-        this.enrolledToken = {
-          url: response.detail.googleurl.value,
-          serial: response.detail.serial
-        };
-        this.appInstallStep.controls.appInstalledControl.setValue(true);
-        this.descriptionStep.controls.descriptionControl.disable();
-        stepper.next();
-      }
-    });
+  goToTokenInfo(stepper: MatStepper) {
+    if (!this.enrolledToken) {
+      this.tokenService.enroll(this.enrollData).subscribe(response => {
+        if (response.result && response.result.value === true) {
+          this.enrolledToken = {
+            url: response.detail.googleurl.value,
+            serial: response.detail.serial
+          };
+          this.descriptionStep.controls.descriptionControl.disable();
+          this.enrollmentStep.controls.tokenEnrolled.setValue(true);
+          stepper.next();
+        } else {
+          // TODO: let the user know there was some problem with the enrollment
+        }
+      });
+    } else {
+      stepper.next();
+    }
   }
 
   testToken() {
-    this.tokenService.testToken(this.enrolledToken.serial, this.pin, this.otp).subscribe(response => {
-      if (response.result && response.result.value === true) {
-        this.testSuccessful = true;
-      } else if (response.result && response.result.value === false) {
-        this.authenticationFailed = true;
-      }
-    });
+    this.tokenService.testToken(this.enrolledToken.serial, this.pin, this.otp)
+      .subscribe(response => {
+        if (response.result && response.result.value === true) {
+          this.testSuccessful = true;
+        } else if (response.result && response.result.value === false) {
+          this.authenticationFailed = true;
+        }
+      });
   }
 
   goToAppStep(stepper: MatStepper) {
-    this.appInstalled = false;
-    stepper.selectedIndex = 1;
+    stepper.selectedIndex = 0;
   }
 
   cancel() {

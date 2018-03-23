@@ -13,7 +13,6 @@ import {
   MatSelectModule,
   MatExpansionModule,
   MatStepperModule,
-  MatCheckboxModule,
 } from '@angular/material';
 
 @NgModule({
@@ -30,7 +29,6 @@ import {
     MatSelectModule,
     MatExpansionModule,
     MatStepperModule,
-    MatCheckboxModule,
   ],
   exports: [
     BrowserAnimationsModule,
@@ -45,7 +43,6 @@ import {
     MatSelectModule,
     MatExpansionModule,
     MatStepperModule,
-    MatCheckboxModule,
   ],
 })
 export class MaterialModule { }
