@@ -2,7 +2,7 @@
 <form #f="ngForm" (submit)="submit(f)">
   <div mat-dialog-content>
     <mat-form-field>
-      <input matInput type="password" name="newPin" #newPin="ngModel" placeholder="New PIN" [(ngModel)]="data.newPin">
+      <input matInput type="password" name="newPin" #newPin="ngModel" placeholder="New PIN" [(ngModel)]="data.newPin" autofocus>
     </mat-form-field>
     <mat-form-field>
       <input matInput type="password" name="confirmPin" #confirmPin="ngModel" placeholder="Confirm your new PIN" [(ngModel)]="data.confirmPin"
