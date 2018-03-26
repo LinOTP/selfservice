@@ -6,7 +6,6 @@ import { MatStepper } from '@angular/material';
 import { Router } from '@angular/router';
 
 import { MatDialog, MatSnackBarConfig, MatSnackBar } from '@angular/material';
-import { DialogComponent } from '../../dialog/dialog.component';
 import { SetPinDialogComponent } from '../../set-pin-dialog/set-pin-dialog.component';
 
 
