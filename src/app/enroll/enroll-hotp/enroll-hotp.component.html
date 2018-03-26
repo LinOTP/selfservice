@@ -56,12 +56,16 @@
   <mat-step label="Test the token" active="false" id="stepTest">
     <div *ngIf="!testSuccessful">
       <p>To finalize, we will verify if your token is correctly enrolled via a test authentication.</p>
+      <p>Generate a OTP on your app, and enter the value below. If you are using FreeOTP, skip the first OTP and enter the second
+        one.
+      </p>
+      <p *ngIf="pinSet">Finally, enter the PIN you have set in the previous step.</p>
       <form class="testOTP">
         <mat-form-field>
           <input matInput placeholder="Test OTP" name="testOTP" [(ngModel)]="otp" autocomplete="new-password" autofocus>
         </mat-form-field>
         <mat-form-field *ngIf="pinSet">
-          <input matInput placeholder="Token PIN" name="tokenPIN" type="password" [(ngModel)]="pin" autocomplete="new-password" autofocus>
+          <input matInput placeholder="Token PIN" name="tokenPIN" type="password" [(ngModel)]="pin" autocomplete="new-password">
         </mat-form-field>
         <button matLine mat-raised-button class="mat-primary" type="submit" (click)="testToken()">Submit</button>
         <p *ngIf="authenticationFailed" class="warning">Authentication failed. Check if both the OTP and the PIN are correct.</p>
