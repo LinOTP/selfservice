@@ -1,10 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { MockComponent } from '../../../testing/mock-component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { EnrollPushComponent } from './enroll-push.component';
 import { MaterialModule } from '../../material.module';
+import { TokenService } from '../../token.service';
+
+import { EnrollPushComponent } from './enroll-push.component';
 
 describe('EnrollPushComponent', () => {
   let component: EnrollPushComponent;
@@ -14,12 +17,21 @@ describe('EnrollPushComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         EnrollPushComponent,
+        MockComponent({ selector: 'ngx-qrcode', inputs: ['qrc-value', 'qrc-element-type'] }),
       ],
       imports: [
         RouterTestingModule,
         FormsModule,
         ReactiveFormsModule,
         MaterialModule
+      ],
+      providers: [
+        {
+          provide: TokenService,
+          useValue: {
+            enroll: jasmine.createSpy('enroll')
+          },
+        }
       ],
     })
       .compileComponents();
