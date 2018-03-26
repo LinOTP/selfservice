@@ -15,7 +15,7 @@
     <form [formGroup]="descriptionStep">
       <mat-form-field>
         <input matInput placeholder="Token description" formControlName="descriptionControl" [(ngModel)]="enrollData.description"
-          [disabled]="!!enrolledToken" autofocus>
+          autofocus>
         <mat-error>The token description is required. It should help you identify the token at a later point. It could, for example,
           refer to its usage scenario.</mat-error>
         <mat-hint>The token description should help you identify the token at a later point. It could, for example, refer to its usage
