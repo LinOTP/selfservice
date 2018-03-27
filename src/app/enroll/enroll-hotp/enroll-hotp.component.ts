@@ -41,7 +41,7 @@ export class EnrollHotpComponent implements OnInit {
       'genkey': 1
     });
     this.enrollmentStep = this.formBuilder.group({
-      tokenEnrolled: new FormControl('', Validators.required),
+      'tokenEnrolled': ['', Validators.required],
     });
   }
 
