@@ -60,14 +60,14 @@
         one.
       </p>
       <p *ngIf="pinSet">Finally, enter the PIN you have set in the previous step.</p>
-      <form class="testOTP">
+      <form [formGroup]="testStep" class="testOTP">
         <mat-form-field>
-          <input matInput placeholder="Test OTP" name="testOTP" [(ngModel)]="otp" autocomplete="new-password" autofocus>
+          <input matInput placeholder="Test OTP" name="testOTP" formControlName="otp" autocomplete="new-password" autofocus>
         </mat-form-field>
         <mat-form-field *ngIf="pinSet">
-          <input matInput placeholder="Token PIN" name="tokenPIN" type="password" [(ngModel)]="pin" autocomplete="new-password">
+          <input matInput placeholder="Token PIN" name="tokenPIN" type="password" formControlName="pin" autocomplete="new-password">
         </mat-form-field>
-        <button matLine mat-raised-button class="mat-primary" type="submit" (click)="testToken()">Submit</button>
+        <button matLine mat-raised-button class="mat-primary" type="submit" (click)="testToken()" [disabled]="testStep.invalid">Submit</button>
         <p *ngIf="authenticationFailed" class="warning">Authentication failed. Check if both the OTP and the PIN are correct.</p>
       </form>
       <p *ngIf="authenticationFailed">If verification is always failing or nothing happens, contact your administrator or go back to try a different app:

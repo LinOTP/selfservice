@@ -18,10 +18,9 @@ export class EnrollHotpComponent implements OnInit {
 
   descriptionStep: FormGroup;
   enrollmentStep: FormGroup;
+  testStep: FormGroup;
   testSuccessful = false;
   pinSet = false;
-  otp = '';
-  pin = '';
   authenticationFailed: boolean;
 
   public enrolledToken: { serial: string, url: string };
@@ -42,6 +41,10 @@ export class EnrollHotpComponent implements OnInit {
     });
     this.enrollmentStep = this.formBuilder.group({
       'tokenEnrolled': ['', Validators.required],
+    });
+    this.testStep = this.formBuilder.group({
+      'otp': ['', Validators.required],
+      'pin': ''
     });
   }
 
@@ -68,7 +71,7 @@ export class EnrollHotpComponent implements OnInit {
   }
 
   testToken() {
-    this.tokenService.testToken(this.enrolledToken.serial, this.pin, this.otp)
+    this.tokenService.testToken(this.enrolledToken.serial, this.testStep.controls.pin.value, this.testStep.controls.otp.value)
       .subscribe(response => {
         if (response.result && response.result.value === true) {
           this.testSuccessful = true;
