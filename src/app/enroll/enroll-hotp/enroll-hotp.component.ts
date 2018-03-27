@@ -71,7 +71,7 @@ export class EnrollHotpComponent implements OnInit {
           this.enrollmentStep.controls.tokenEnrolled.setValue(true);
           stepper.next();
         } else {
-          // TODO: let the user know there was some problem with the enrollment
+          this.notificationService.message('There was a problem while enrolling the new token. Please try again.');
         }
       });
     } else {
