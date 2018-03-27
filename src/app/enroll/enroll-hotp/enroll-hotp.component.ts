@@ -9,14 +9,6 @@ import { MatDialog } from '@angular/material';
 import { SetPinDialogComponent } from '../../set-pin-dialog/set-pin-dialog.component';
 import { NotificationService } from '../../core/notification.service';
 
-
-export interface EnrollHotpToken extends EnrollToken {
-  type: 'hmac';
-  otplen: number;
-  hashlib: string;
-  genkey: number;
-}
-
 @Component({
   selector: 'app-enroll-hotp',
   templateUrl: './enroll-hotp.component.html',
@@ -32,14 +24,6 @@ export class EnrollHotpComponent implements OnInit {
   pin = '';
   authenticationFailed: boolean;
 
-  public enrollData: EnrollHotpToken = {
-    type: 'hmac',
-    description: '',
-    otplen: 6,
-    hashlib: 'sha1',
-    genkey: 1,
-  };
-
   public enrolledToken: { serial: string, url: string };
 
   constructor(
@@ -50,7 +34,11 @@ export class EnrollHotpComponent implements OnInit {
     private notificationService: NotificationService,
   ) {
     this.descriptionStep = this.formBuilder.group({
-      descriptionControl: new FormControl('', Validators.required),
+      'description': ['', Validators.required],
+      'type': 'hmac',
+      'otplen': 6,
+      'hashlib': 'sha1',
+      'genkey': 1
     });
     this.enrollmentStep = this.formBuilder.group({
       tokenEnrolled: new FormControl('', Validators.required),
@@ -61,13 +49,13 @@ export class EnrollHotpComponent implements OnInit {
 
   goToTokenInfo(stepper: MatStepper) {
     if (!this.enrolledToken) {
-      this.tokenService.enroll(this.enrollData).subscribe(response => {
+      this.tokenService.enroll(this.descriptionStep.value).subscribe(response => {
         if (response.result && response.result.value === true) {
           this.enrolledToken = {
             url: response.detail.googleurl.value,
             serial: response.detail.serial
           };
-          this.descriptionStep.controls.descriptionControl.disable();
+          this.descriptionStep.controls.description.disable();
           this.enrollmentStep.controls.tokenEnrolled.setValue(true);
           stepper.next();
         } else {

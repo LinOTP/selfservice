@@ -14,8 +14,7 @@
     </p>
     <form [formGroup]="descriptionStep">
       <mat-form-field>
-        <input matInput placeholder="Token description" formControlName="descriptionControl" [(ngModel)]="enrollData.description"
-          autofocus>
+        <input matInput placeholder="Token description" formControlName="description" autofocus>
         <mat-error>The token description is required. It should help you identify the token at a later point. It could, for example,
           refer to its usage scenario.</mat-error>
         <mat-hint>The token description should help you identify the token at a later point. It could, for example, refer to its usage
@@ -25,13 +24,14 @@
     </form>
     <div class="stepperControls">
       <a mat-raised-button *ngIf="!enrolledToken" [routerLink]="'../'">Cancel</a>
-      <button mat-raised-button color="primary" [disabled]="!enrollData.description" (click)="goToTokenInfo(stepper)" id="goTo2">Next</button>
+      <button mat-raised-button color="primary" [disabled]="descriptionStep.invalid" (click)="goToTokenInfo(stepper)" id="goTo2">Next</button>
     </div>
   </mat-step>
 
   <mat-step label="Install your soft token profile" active="false" id="stepShowQR">
     <div *ngIf="enrolledToken">
-      <p>A token with the serial number {{enrolledToken.serial}} (description: {{enrollData.description}}) has been enrolled.</p>
+      <p>A token with the serial number {{enrolledToken.serial}} (description: {{ descriptionStep.controls.description.value
+        }}) has been enrolled.</p>
       <p>Scan the QR code below with your soft token app or
         <a [href]="enrolledToken.url">follow this link</a> to install it on your mobile device.</p>
       <ngx-qrcode qrc-element-type="url" [qrc-value]="enrolledToken.url"></ngx-qrcode>
