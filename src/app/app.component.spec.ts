@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { AuthGuard } from './auth-guard.service';
 import { ActivatedRoute } from '@angular/router/src/router_state';
 import { Observable } from 'rxjs/Observable';
+import { NotificationService } from './core/notification.service';
 
 class AuthServiceMock {
   logout = jasmine.createSpy('logout').and.returnValue(Observable.of(null));
@@ -14,6 +15,10 @@ class AuthServiceMock {
   loginChangeEmitter = {
     subscribe: jasmine.createSpy('subscribe')
   };
+}
+
+class MockNotificationService {
+  message = jasmine.createSpy('message');
 }
 
 describe('AppComponent', () => {
@@ -24,15 +29,18 @@ describe('AppComponent', () => {
         MaterialModule,
       ],
       declarations: [
-        AppComponent
+        AppComponent,
       ],
-      providers:
-        [
-          {
-            provide: AuthService,
-            useClass: AuthServiceMock
-          },
-        ]
+      providers: [
+        {
+          provide: AuthService,
+          useClass: AuthServiceMock
+        },
+        {
+          provide: NotificationService,
+          useClass: MockNotificationService,
+        },
+      ]
     }).compileComponents();
   }));
 

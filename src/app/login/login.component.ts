@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
+import { NotificationService } from '../core/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    public snackbar: MatSnackBar,
+    public notificationService: NotificationService,
     private route: ActivatedRoute,
     private router: Router,
   ) {
@@ -34,12 +34,6 @@ export class LoginComponent implements OnInit {
       .subscribe(url => this.redirectUrl = url);
   }
 
-  notifyMessage(message: string, duration: number) {
-    const snackbarConfig = new MatSnackBarConfig();
-    snackbarConfig.duration = duration;
-    this.snackbar.open(message, '', snackbarConfig);
-  }
-
   login() {
     this.message = 'Waiting for response';
 
@@ -49,7 +43,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(username, password).subscribe((result: boolean) => {
 
       const message = (result ? 'Login successful' : 'Login failed');
-      this.notifyMessage(message, 2000);
+      this.notificationService.message(message);
 
       if (result) {
         this.redirect();

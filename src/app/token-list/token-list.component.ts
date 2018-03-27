@@ -2,12 +2,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { MatDialog, MatSnackBarConfig, MatSnackBar } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { DialogComponent } from '../dialog/dialog.component';
 import { SetPinDialogComponent } from '../set-pin-dialog/set-pin-dialog.component';
 
 import { Token } from '../token';
 import { TokenService } from '../token.service';
+import { NotificationService } from '../core/notification.service';
 
 @Component({
   selector: 'app-token-list',
@@ -24,19 +25,13 @@ export class TokenListComponent implements OnInit {
     private route: ActivatedRoute,
     public tokenService: TokenService,
     public dialog: MatDialog,
-    public snackbar: MatSnackBar) {
-  }
+    public notificationService: NotificationService,
+  ) { }
 
   ngOnInit() {
     this.route.data.subscribe((data: { tokens: Token[] }) => {
       this.tokens = data.tokens;
     });
-  }
-
-  notifyMessage(message: string, duration: number) {
-    const snackbarConfig = new MatSnackBarConfig();
-    snackbarConfig.duration = duration;
-    this.snackbar.open(message, '', snackbarConfig);
   }
 
   setPin(token: Token) {
@@ -48,7 +43,7 @@ export class TokenListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.notifyMessage('PIN set', 2000);
+        this.notificationService.message('PIN set');
       }
     });
   }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './auth.service';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
+import { NotificationService } from './core/notification.service';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private snackbar: MatSnackBar,
+    private notificationService: NotificationService,
     private router: Router
   ) {
   }
@@ -29,12 +29,6 @@ export class AppComponent implements OnInit {
     this.isLoggedIn = this.authService.isLoggedIn();
     this.authService.loginChangeEmitter
       .subscribe((isLoggedIn) => this.isLoggedIn = isLoggedIn);
-  }
-
-  notifyMessage(message: string, duration: number) {
-    const snackbarConfig = new MatSnackBarConfig();
-    snackbarConfig.duration = duration;
-    this.snackbar.open(message, '', snackbarConfig);
   }
 
   logout() {
@@ -46,7 +40,7 @@ export class AppComponent implements OnInit {
           this.router.navigate(['/']);
         }
         const message = (logoutSuccess ? 'Logout successful' : 'Logout failed');
-        this.notifyMessage(message, 2000);
+        this.notificationService.message(message);
       }
     );
   }

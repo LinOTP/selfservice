@@ -7,6 +7,7 @@ import { CookieModule } from 'ngx-cookie';
 import { CustomFormsModule } from 'ng2-validation';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 
+import { CoreModule } from './core/core.module';
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './material.module';
 
@@ -57,6 +58,7 @@ import { EnrollPushComponent } from './enroll/enroll-push/enroll-push.component'
     NgxQRCodeModule,
     AppRoutingModule,
     MaterialModule,
+    CoreModule,
   ],
   providers: [
     TokenService,

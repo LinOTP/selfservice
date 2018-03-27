@@ -8,6 +8,11 @@ import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router/src/router_state';
 import { of } from 'rxjs/observable/of';
 import { RouterTestingModule } from '@angular/router/testing';
+import { NotificationService } from '../core/notification.service';
+
+class MockNotificationService {
+  message = jasmine.createSpy('message');
+}
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -32,6 +37,10 @@ describe('LoginComponent', () => {
             login: jasmine.createSpy('login'),
             logout: jasmine.createSpy('logout'),
           }
+        },
+        {
+          provide: NotificationService,
+          useClass: MockNotificationService,
         },
       ],
     })

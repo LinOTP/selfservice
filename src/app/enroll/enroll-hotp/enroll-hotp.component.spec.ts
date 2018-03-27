@@ -11,6 +11,7 @@ import { TokenService } from '../../token.service';
 import { EnrollHotpComponent } from './enroll-hotp.component';
 
 import { of } from 'rxjs/observable/of';
+import { NotificationService } from '../../core/notification.service';
 
 const mockEnrollmentResponse = {
   result: {
@@ -27,6 +28,9 @@ const mockEnrollmentResponse = {
 
 class MockTokenService {
   enroll = jasmine.createSpy('enroll').and.returnValue(of(mockEnrollmentResponse));
+}
+class MockNotificationService {
+  message = jasmine.createSpy('message');
 }
 
 describe('The EnrollHotpComponent', () => {
@@ -50,7 +54,11 @@ describe('The EnrollHotpComponent', () => {
         {
           provide: TokenService,
           useClass: MockTokenService,
-        }
+        },
+        {
+          provide: NotificationService,
+          useClass: MockNotificationService,
+        },
       ],
     })
       .compileComponents();

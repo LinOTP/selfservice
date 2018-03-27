@@ -10,8 +10,13 @@ import { of } from 'rxjs/observable/of';
 import { TokenListComponent } from './token-list.component';
 import { MaterialModule } from '../material.module';
 import { TokenService } from '../token.service';
+import { NotificationService } from '../core/notification.service';
 
 const tokens: Array<{ type: String; id: String }> = [];
+
+class MockNotificationService {
+  message = jasmine.createSpy('message');
+}
 
 describe('TokenListComponent', () => {
   let component: TokenListComponent;
@@ -34,6 +39,10 @@ describe('TokenListComponent', () => {
           useValue: {
             deletetoken: jasmine.createSpy('deletetoken')
           }
+        },
+        {
+          provide: NotificationService,
+          useClass: MockNotificationService,
         },
       ],
       imports: [

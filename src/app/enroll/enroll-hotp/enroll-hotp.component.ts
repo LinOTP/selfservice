@@ -5,8 +5,9 @@ import { TokenService } from '../../token.service';
 import { MatStepper } from '@angular/material';
 import { Router } from '@angular/router';
 
-import { MatDialog, MatSnackBarConfig, MatSnackBar } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { SetPinDialogComponent } from '../../set-pin-dialog/set-pin-dialog.component';
+import { NotificationService } from '../../core/notification.service';
 
 
 export interface EnrollHotpToken extends EnrollToken {
@@ -46,7 +47,7 @@ export class EnrollHotpComponent implements OnInit {
     private tokenService: TokenService,
     private router: Router,
     public dialog: MatDialog,
-    public snackbar: MatSnackBar,
+    private notificationService: NotificationService,
   ) {
     this.descriptionStep = this.formBuilder.group({
       descriptionControl: new FormControl('', Validators.required),
@@ -107,14 +108,8 @@ export class EnrollHotpComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.pinSet = true;
-        this.notifyMessage('PIN set', 2000);
+        this.notificationService.message('PIN set');
       }
     });
-  }
-
-  notifyMessage(message: string, duration: number) {
-    const snackbarConfig = new MatSnackBarConfig();
-    snackbarConfig.duration = duration;
-    this.snackbar.open(message, '', snackbarConfig);
   }
 }
