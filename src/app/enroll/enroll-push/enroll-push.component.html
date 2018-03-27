@@ -1,31 +1,35 @@
 <mat-vertical-stepper [linear]="true" linear #stepper>
-  <mat-step label="Set a token description" active="false">
-    <form>
+
+  <mat-step label="Prepare enrollment" [stepControl]="enrollmentStep" id="stepDescription">
+    <p> You have chosen to enroll an event-based soft token.</p>
+    <p>You need the KI Authenticator app installed on your mobile device to use this kind of token. You can get the app here:</p>
+    <ul>
+      <li>Link to Google App Store</li>
+      <li>Link to Apple App Store</li>
+    </ul>
+    <p>Once you have the KI Authenticator installed on your device, you can set a description for your new token and start the
+      enrollment process:
+    </p>
+    <form [formGroup]="descriptionStep">
       <mat-form-field>
-        <input matInput placeholder="Token description" name="tokenDescription" [(ngModel)]="enrollData.description" [disabled]="!!enrolledToken"
-          autofocus>
+        <input matInput placeholder="Token description" formControlName="description" autofocus>
+        <mat-error>The token description is required. It should help you identify the token at a later point. It could, for example,
+          refer to its usage scenario.</mat-error>
+        <mat-hint>The token description should help you identify the token at a later point. It could, for example, refer to its usage
+          scenario.
+        </mat-hint>
       </mat-form-field>
     </form>
-    <p>Help: The token description should help you identify this token at a later point. It could, for example, refer to its
-      usage scenario.
-    </p>
     <div class="stepperControls">
       <a mat-raised-button *ngIf="!enrolledToken" [routerLink]="'../'">Cancel</a>
-      <button mat-raised-button color="primary" matStepperNext>Next</button>
+      <button mat-raised-button color="primary" [disabled]="descriptionStep.invalid" (click)="goToTokenInfo(stepper)">Next</button>
     </div>
   </mat-step>
-  <mat-step label="Install the KI Authenticator" active="false" #stepApp>
-    <p>You need the KI Authenticator app installed on your mobile device to use this kind of token.
-      <p>Once you have the app installed on your device, you can proceed to the next step.</p>
-      <div class="stepperControls">
-        <a mat-raised-button *ngIf="!enrolledToken" [routerLink]="'../'">Cancel</a>
-        <button mat-raised-button color="primary" *ngIf="!enrolledToken" (click)="enroll(stepper)">Next</button>
-        <button mat-raised-button color="primary" *ngIf="enrolledToken" matStepperNext>Next</button>
-      </div>
-  </mat-step>
+
   <mat-step label="Initiate token activation" active="false">
     <div *ngIf="enrolledToken">
-      <p>A token with the serial number {{enrolledToken.serial}} (description: {{enrollData.description}}) has been enrolled.</p>
+      <p>A token with the serial number {{enrolledToken.serial}} (description: {{ descriptionStep.controls.description.value
+        }}) has been enrolled.</p>
       <p>Scan the QR code below with the KI Authenticator app or
         <a [href]="enrolledToken.url">follow this link</a> to start the activation process of the new token.</p>
       <ngx-qrcode qrc-element-type="url" [qrc-value]="enrolledToken.url"></ngx-qrcode>
@@ -34,4 +38,5 @@
       <button mat-raised-button matStepperNext class="mat-primary">Next</button>
     </div>
   </mat-step>
+
 </mat-vertical-stepper>

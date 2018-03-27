@@ -1,17 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
-import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatStepper } from '@angular/material';
+import { NgForm, FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { MatStepper, MatSnackBar } from '@angular/material';
 import { MaterialModule } from '../../material.module';
 
 import { EnrollToken } from '../../token';
 import { TokenService } from '../../token.service';
-
-
-export interface EnrollPushToken extends EnrollToken {
-  type: 'push';
-  description: string;
-}
+import { NotificationService } from '../../core/notification.service';
 
 @Component({
   selector: 'app-enroll-push',
@@ -20,29 +15,45 @@ export interface EnrollPushToken extends EnrollToken {
 })
 export class EnrollPushComponent implements OnInit {
 
-  public enrollData: EnrollPushToken = {
-    type: 'push',
-    description: '',
-  };
+  descriptionStep: FormGroup;
+  enrollmentStep: FormGroup;
 
   public enrolledToken: { serial: string, url: string };
 
   constructor(
     private tokenService: TokenService,
-  ) { }
+    private formBuilder: FormBuilder,
+    private notificationService: NotificationService,
+  ) {
+    this.descriptionStep = this.formBuilder.group({
+      'description': ['', Validators.required],
+      'type': 'push',
+    });
+    this.enrollmentStep = this.formBuilder.group({
+      'tokenEnrolled': ['', Validators.required],
+    });
+  }
 
   ngOnInit() {
   }
 
-  enroll(stepper: MatStepper) {
-    this.tokenService.enroll(this.enrollData).subscribe(response => {
-      if (response.result && response.result.value === true) {
-        this.enrolledToken = {
-          url: response.detail.lse_qr_url.value,
-          serial: response.detail.serial
-        };
-        stepper.next();
-      }
-    });
+  goToTokenInfo(stepper: MatStepper) {
+    if (!this.enrolledToken) {
+      this.tokenService.enroll(this.descriptionStep.value).subscribe(response => {
+        if (response.result && response.result.value === true) {
+          this.enrolledToken = {
+            url: response.detail.lse_qr_url.value,
+            serial: response.detail.serial
+          };
+          this.descriptionStep.controls.description.disable();
+          this.enrollmentStep.controls.tokenEnrolled.setValue(true);
+          stepper.next();
+        } else {
+          this.notificationService.message('There was a problem while enrolling the new token. Please try again.');
+        }
+      });
+    } else {
+      stepper.next();
+    }
   }
 }
