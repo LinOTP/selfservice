@@ -6,12 +6,14 @@ import { Resolve, RouterStateSnapshot, ActivatedRouteSnapshot, Router } from '@a
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/reduce';
 import 'rxjs/add/operator/take';
+import 'rxjs/add/observable/interval';
 import { catchError, tap } from 'rxjs/operators';
 
-import { Token, EnrollToken } from './token';
+import { Token, EnrollToken, EnrollmentStatus } from './token';
 import { AuthService } from './auth.service';
 
 @Injectable()
@@ -50,12 +52,14 @@ export class TokenService {
   private mapTokenResponse = (res: { result: { value: any[] } }) => {
     // TODO: Catch API Errors
     return res.result.value.map(token => {
-      return new Token(
+      let t = new Token(
         token['LinOtp.TokenId'],
         token['LinOtp.TokenSerialnumber'],
         token['LinOtp.TokenType'],
         token['LinOtp.TokenDesc']
       );
+      t.enrollmentStatus = token['Enrollment']['status'] === 'completed' ? 'completed' : token['Enrollment']['detail'];
+      return t;
     });
   }
 
@@ -68,10 +72,10 @@ export class TokenService {
       );
   }
 
-  getToken(id: number): Observable<Token> {
+  getToken(serial: string): Observable<Token> {
     return this.getTokens()
       .map(
-        tokens => tokens.find(t => t.id === id)
+        tokens => tokens.find(t => t.serial === serial)
       );
   }
 
@@ -113,6 +117,13 @@ export class TokenService {
       );
   }
 
+  pairingPoll(serial: string): Observable<any> {
+    return Observable.interval(3000)
+      .mergeMap(val => this.getToken(serial))
+      .filter(token => token.enrollmentStatus === EnrollmentStatus.pairing_response_received)
+      .take(1);
+  }
+
   testToken(tokenSerial: String, pin: String, otp: String) {
     const body = { serial: tokenSerial, pass: `${pin}${otp}` };
 
@@ -151,12 +162,12 @@ export class TokenDetailResolver implements Resolve<Token> {
   constructor(private ts: TokenService, private router: Router) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Token> {
-    const id = Number(route.paramMap.get('id'));
+    const serial = route.paramMap.get('serial');
 
-    return this.ts.getToken(id).take(1).map(token => {
+    return this.ts.getToken(serial).take(1).map(token => {
       if (token) {
         return token;
-      } else { // id not found
+      } else { // no token with such serial
         this.router.navigate(['/tokens']);
         return null;
       }

@@ -7,22 +7,23 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
 import { TokenService } from './token.service';
-import { Token } from './token';
+import { Token, EnrollmentStatus } from './token';
 import { AuthService } from './auth.service';
 
 const session = '';
-const mockData: Token[] = [
-  new Token(123, 'serial', 'foo', 'desc')
-];
+const mockToken = new Token(123, 'serial', 'foo', 'desc');
+const mockData: Token[] = [mockToken];
+mockToken.enrollmentStatus = EnrollmentStatus.completed;
 
 const mockResponse = {
   result: {
     value: [
       {
-        'LinOtp.TokenId': mockData[0].id,
-        'LinOtp.TokenSerialnumber': mockData[0].serial,
-        'LinOtp.TokenType': mockData[0].type,
-        'LinOtp.TokenDesc': mockData[0].description,
+        'LinOtp.TokenId': mockToken.id,
+        'LinOtp.TokenSerialnumber': mockToken.serial,
+        'LinOtp.TokenType': mockToken.type,
+        'LinOtp.TokenDesc': mockToken.description,
+        'Enrollment': { 'status': mockToken.enrollmentStatus }
       }
     ]
   }
@@ -45,7 +46,7 @@ describe('TokenService', () => {
             logout: jasmine.createSpy('logout'),
             getSession: jasmine.createSpy('getSession').and.returnValue(session),
           }
-        },
+        }
       ],
     });
 
@@ -93,11 +94,11 @@ describe('TokenService', () => {
   });
 
   describe('getToken', () => {
-    const token = mockData[0];
+    const token = mockToken;
     it('should request a token from the server', async(
       inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
 
-        tokenService.getToken(token.id).subscribe(response => {
+        tokenService.getToken(token.serial).subscribe(response => {
           expect(response).toEqual(token);
         });
 
@@ -113,7 +114,7 @@ describe('TokenService', () => {
     const setPinRequestBody = { userpin: '01234', serial: 'serial', session: session };
     it('should send a pin request', async(
       inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
-        tokenService.setPin(mockData[0], '01234').subscribe();
+        tokenService.setPin(mockToken, '01234').subscribe();
 
         const req = backend.expectOne({
           url: '/userservice/setpin',
@@ -130,7 +131,7 @@ describe('TokenService', () => {
 
         spyOn(console, 'error');
 
-        tokenService.setPin(mockData[0], '01234').subscribe(response => {
+        tokenService.setPin(mockToken, '01234').subscribe(response => {
           expect(response).toEqual(false);
         });
         const setPinRequest = backend.expectOne({

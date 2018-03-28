@@ -9,6 +9,11 @@ import { MaterialModule } from '../../material.module';
 import { TokenService } from '../../token.service';
 
 import { EnrollPushComponent } from './enroll-push.component';
+import { NotificationService } from '../../core/notification.service';
+
+class MockNotificationService {
+  message = jasmine.createSpy('message');
+}
 
 describe('EnrollPushComponent', () => {
   let component: EnrollPushComponent;
@@ -33,7 +38,12 @@ describe('EnrollPushComponent', () => {
           useValue: {
             enroll: jasmine.createSpy('enroll')
           },
-        }
+
+        },
+        {
+          provide: NotificationService,
+          useClass: MockNotificationService
+        },
       ],
     })
       .compileComponents();

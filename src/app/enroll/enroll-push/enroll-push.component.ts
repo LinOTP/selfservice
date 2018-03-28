@@ -4,9 +4,10 @@ import { NgForm, FormGroup, FormBuilder, FormControl, Validators } from '@angula
 import { MatStepper, MatSnackBar } from '@angular/material';
 import { MaterialModule } from '../../material.module';
 
-import { EnrollToken } from '../../token';
+import { EnrollToken, Token } from '../../token';
 import { TokenService } from '../../token.service';
 import { NotificationService } from '../../core/notification.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-enroll-push',
@@ -15,8 +16,10 @@ import { NotificationService } from '../../core/notification.service';
 })
 export class EnrollPushComponent implements OnInit {
 
-  descriptionStep: FormGroup;
+  enrollmentForm: FormGroup;
   enrollmentStep: FormGroup;
+
+  isPaired: boolean;
 
   public enrolledToken: { serial: string, url: string };
 
@@ -24,8 +27,11 @@ export class EnrollPushComponent implements OnInit {
     private tokenService: TokenService,
     private formBuilder: FormBuilder,
     private notificationService: NotificationService,
-  ) {
-    this.descriptionStep = this.formBuilder.group({
+    private router: Router,
+  ) { }
+
+  ngOnInit() {
+    this.enrollmentForm = this.formBuilder.group({
       'description': ['', Validators.required],
       'type': 'push',
     });
@@ -34,20 +40,25 @@ export class EnrollPushComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-  }
-
   goToTokenInfo(stepper: MatStepper) {
     if (!this.enrolledToken) {
-      this.tokenService.enroll(this.descriptionStep.value).subscribe(response => {
+      this.tokenService.enroll(this.enrollmentForm.value).subscribe(response => {
         if (response.result && response.result.value === true) {
           this.enrolledToken = {
             url: response.detail.lse_qr_url.value,
             serial: response.detail.serial
           };
-          this.descriptionStep.controls.description.disable();
+
+          this.enrollmentForm.controls.description.disable();
           this.enrollmentStep.controls.tokenEnrolled.setValue(true);
+
+          this.tokenService.pairingPoll(this.enrolledToken.serial).subscribe(data => {
+            this.isPaired = true;
+            stepper.selectedIndex = 2;
+          });
+
           stepper.next();
+
         } else {
           this.notificationService.message('There was a problem while enrolling the new token. Please try again.');
         }
@@ -55,5 +66,9 @@ export class EnrollPushComponent implements OnInit {
     } else {
       stepper.next();
     }
+  }
+
+  goToActivation() {
+    this.router.navigate(['/tokens', this.enrolledToken.serial, 'activate']);
   }
 }

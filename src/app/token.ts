@@ -1,4 +1,5 @@
 export class Token {
+  enrollmentStatus: EnrollmentStatus
 
   constructor(
     public id: number,
@@ -7,6 +8,12 @@ export class Token {
     public description?: string
   ) { }
 
+}
+
+export class EnrollmentStatus {
+  public static unpaired = "unpaired";
+  public static pairing_response_received = "pairing_response_received";
+  public static completed = "completed";
 }
 
 export interface EnrollToken {
