@@ -1,24 +1,32 @@
 <mat-vertical-stepper [linear]="true" linear #stepper>
 
   <mat-step label="Prepare enrollment" [stepControl]="enrollmentStep" id="stepDescription">
-    <p> You have chosen to enroll an event-based soft token.</p>
-    <p>You need an OATH compatible soft token app installed on your mobile device to use this kind of token, such as:</p>
+    <p>
+      You have chosen to enroll an event-based soft token.
+    </p>
+    <p>
+      You need an OATH compatible soft token app installed on your mobile device to use this kind of token, such as:
+    </p>
     <ul>
       <li>FreeOTP</li>
       <li>Google Authenticator</li>
     </ul>
-    <p>If you are not sure whether your app is compatible, you will later have the possibility to test the token. Should the
-      test fail, you can install another app and try again.</p>
-    <p>Once you have an app installed on your device, you can set a description for your new token and start the enrollment
-      process:
+    <p>
+      If you are not sure whether your app is compatible, you will later have the possibility to test the token. Should the test
+      fail, you can install another app and try again.
+    </p>
+    <p>
+      Once you have an app installed on your device, you can set a description for your new token and start the enrollment process:
     </p>
     <form [formGroup]="descriptionStep">
       <mat-form-field>
         <input matInput placeholder="Token description" formControlName="description" autofocus>
-        <mat-error>The token description is required. It should help you identify the token at a later point. It could, for example,
-          refer to its usage scenario.</mat-error>
-        <mat-hint>The token description should help you identify the token at a later point. It could, for example, refer to its usage
-          scenario.
+        <mat-error>
+          The token description is required. It should help you identify the token at a later point. It could, for example, refer to
+          its usage scenario.
+        </mat-error>
+        <mat-hint>
+          The token description should help you identify the token at a later point. It could, for example, refer to its usage scenario.
         </mat-hint>
       </mat-form-field>
     </form>
@@ -30,53 +38,78 @@
 
   <mat-step label="Install your soft token profile" active="false" id="stepShowQR">
     <div *ngIf="enrolledToken">
-      <p>A token with the serial number {{enrolledToken.serial}} (description: {{ descriptionStep.controls.description.value
-        }}) has been enrolled.</p>
-      <p>Scan the QR code below with your soft token app or
-        <a [href]="enrolledToken.url">follow this link</a> to install it on your mobile device.</p>
+      <p>
+        A token with the serial number {{enrolledToken.serial}} (description: {{ descriptionStep.controls.description.value}}) has
+        been enrolled.
+      </p>
+      <p>
+        Scan the QR code below with your soft token app or
+        <a [href]="enrolledToken.url">follow this link</a>
+        to install it on your mobile device.</p>
       <ngx-qrcode qrc-element-type="url" [qrc-value]="enrolledToken.url"></ngx-qrcode>
     </div>
-    <p>Follow the instructions on your app to install the soft token profile.</p>
+    <p>
+      Follow the instructions on your app to install the soft token profile.
+    </p>
     <div class="stepperControls">
-      <button mat-raised-button matStepperNext class="mat-primary">Next</button>
+      <button mat-raised-button matStepperNext color="primary">Next</button>
     </div>
   </mat-step>
 
   <mat-step label="Set a token PIN" active="false" optional="true" id="stepPIN">
-    <p>We recommend you set a security PIN now:
+    <p>
+      We recommend you to set a security PIN now:
       <br/>
-      <button mat-raised-button class="mat-primary" (click)="setPin()">Set pin</button>
+      <button mat-raised-button color="primary" (click)="setPin()">Set pin</button>
     </p>
-    <p class="mat-hint hint">Setting a PIN helps you protect your token against misuse.</p>
+    <p class="mat-hint hint">
+      Setting a PIN helps you protect your token against misuse.
+    </p>
     <div class="stepperControls">
-      <button mat-raised-button matStepperNext class="mat-primary">Next</button>
+      <button mat-raised-button matStepperNext color="primary">Next</button>
     </div>
   </mat-step>
 
   <mat-step label="Test the token" active="false" id="stepTest">
     <div *ngIf="!testSuccessful">
-      <p>To finalize, we will verify if your token is correctly enrolled via a test authentication.</p>
-      <p>Generate a OTP on your app, and enter the value below. If you are using FreeOTP, skip the first OTP and enter the second
+      <p>
+        To finalize, we will verify if your token is correctly enrolled via a test authentication.
+      </p>
+      <p>
+        Generate a OTP on your app, and enter the value below. If you are using FreeOTP, skip the first OTP and enter the second
         one.
       </p>
-      <p *ngIf="pinSet">Finally, enter the PIN you have set in the previous step.</p>
+      <p *ngIf="pinSet">
+        Finally, enter the PIN you have set in the previous step.
+      </p>
       <form [formGroup]="testStep" class="testOTP">
         <mat-form-field>
-          <input matInput placeholder="Test OTP" name="testOTP" formControlName="otp" autocomplete="new-password" autofocus>
+          <input matInput placeholder="Test OTP" formControlName="otp" autocomplete="new-password" autofocus>
         </mat-form-field>
         <mat-form-field *ngIf="pinSet">
-          <input matInput placeholder="Token PIN" name="tokenPIN" type="password" formControlName="pin" autocomplete="new-password">
+          <input matInput placeholder="Token PIN" type="password" formControlName="pin" autocomplete="new-password">
         </mat-form-field>
-        <button matLine mat-raised-button class="mat-primary" type="submit" (click)="testToken()" [disabled]="testStep.invalid">Submit</button>
-        <p *ngIf="authenticationFailed" class="warning">Authentication failed. Check if both the OTP and the PIN are correct.</p>
+        <button matLine mat-raised-button color="primary" type="submit" (click)="testToken()" [disabled]="testStep.invalid">Submit</button>
+        <p *ngIf="testFailed" class="warning">
+          Authentication failed. Check if both the OTP and the PIN are correct.
+        </p>
       </form>
-      <p *ngIf="authenticationFailed">If verification is always failing or nothing happens, contact your administrator or go back to try a different app:
-        <button mat-raised-button color="primary" (click)="goToAppStep(stepper)">Try a different app</button>
-      </p>
     </div>
-    <p *ngIf="testSuccessful">Test successful. You can now use your event-based soft token to authenticate.</p>
-    <div class="stepperControls">
-      <a *ngIf="testSuccessful" mat-raised-button class="mat-primary" routerLink="/tokens">Done</a>
+    <div *ngIf="testFailed">
+      <p>
+        If verification is always failing or nothing happens, contact your administrator or go back to try a different app:
+      </p>
+      <div class="stepperControls">
+        <button mat-raised-button color="primary" (click)="goToAppStep(stepper)">Try a different app</button>
+      </div>
+    </div>
+    <div *ngIf="testSuccessful">
+      <p>
+        Test successful. You can now use your event-based soft token to authenticate.
+      </p>
+      <div class="stepperControls">
+        <a mat-raised-button color="primary" routerLink="/tokens">Done</a>
+      </div>
     </div>
   </mat-step>
 </mat-vertical-stepper>

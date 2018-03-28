@@ -19,9 +19,10 @@ export class EnrollHotpComponent implements OnInit {
   descriptionStep: FormGroup;
   enrollmentStep: FormGroup;
   testStep: FormGroup;
-  testSuccessful = false;
-  pinSet = false;
-  authenticationFailed: boolean;
+
+  pinSet: boolean;
+  testSuccessful: boolean;
+  testFailed: boolean;
 
   public enrolledToken: { serial: string, url: string };
 
@@ -30,8 +31,10 @@ export class EnrollHotpComponent implements OnInit {
     private tokenService: TokenService,
     private router: Router,
     public dialog: MatDialog,
-    private notificationService: NotificationService,
-  ) {
+    public notificationService: NotificationService,
+  ) { }
+
+  ngOnInit() {
     this.descriptionStep = this.formBuilder.group({
       'description': ['', Validators.required],
       'type': 'hmac',
@@ -47,8 +50,6 @@ export class EnrollHotpComponent implements OnInit {
       'pin': ''
     });
   }
-
-  ngOnInit() { }
 
   goToTokenInfo(stepper: MatStepper) {
     if (!this.enrolledToken) {
@@ -76,7 +77,7 @@ export class EnrollHotpComponent implements OnInit {
         if (response.result && response.result.value === true) {
           this.testSuccessful = true;
         } else if (response.result && response.result.value === false) {
-          this.authenticationFailed = true;
+          this.testFailed = true;
         }
       });
   }
