@@ -18,7 +18,7 @@
     <p>
       Once you have an app installed on your device, you can set a description for your new token and start the enrollment process:
     </p>
-    <form [formGroup]="descriptionStep">
+    <form [formGroup]="enrollmentForm">
       <mat-form-field>
         <input matInput placeholder="Token description" formControlName="description" autofocus>
         <mat-error>
@@ -32,15 +32,15 @@
     </form>
     <div class="stepperControls">
       <a mat-raised-button *ngIf="!enrolledToken" [routerLink]="'../'">Cancel</a>
-      <button mat-raised-button color="primary" [disabled]="descriptionStep.invalid" (click)="goToTokenInfo(stepper)" id="goTo2">Next</button>
+      <button mat-raised-button color="primary" [disabled]="enrollmentForm.invalid" (click)="goToTokenInfo(stepper)" id="goTo2">Next</button>
     </div>
   </mat-step>
 
   <mat-step label="Install your soft token profile" active="false" id="stepShowQR">
     <div *ngIf="enrolledToken">
       <p>
-        A token with the serial number {{enrolledToken.serial}} (description: {{ descriptionStep.get('description').value}}) has
-        been enrolled.
+        A token with the serial number {{enrolledToken.serial}} (description: {{ enrollmentForm.get('description').value}}) has been
+        enrolled.
       </p>
       <p>
         Scan the QR code below with your soft token app or
