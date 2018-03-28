@@ -39,7 +39,7 @@
   <mat-step label="Install your soft token profile" active="false" id="stepShowQR">
     <div *ngIf="enrolledToken">
       <p>
-        A token with the serial number {{enrolledToken.serial}} (description: {{ descriptionStep.controls.description.value}}) has
+        A token with the serial number {{enrolledToken.serial}} (description: {{ descriptionStep.get('description').value}}) has
         been enrolled.
       </p>
       <p>
