@@ -24,10 +24,13 @@ export class TokenActivateComponent implements OnInit, AfterViewInit {
   loadDynamicComponent(token: Token) {
     const component = this.tokenTypes[token.type];
     if (component) {
+      this.token = token;
+
       const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
       this.tokenActivateType.viewContainerRef.clear();
-      this.tokenActivateType.viewContainerRef.createComponent(componentFactory);
-      this.token = token;
+      const componentRef = this.tokenActivateType.viewContainerRef.createComponent(componentFactory);
+      componentRef.instance.token = token;
+      componentRef.instance.activate();
     } else {
       alert('token has no activation phase');
     }

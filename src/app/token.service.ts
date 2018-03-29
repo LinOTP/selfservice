@@ -26,7 +26,9 @@ export class TokenService {
     enroll: 'enroll',
   };
 
-  private testTokenEndpoint = '/validate/check_s';
+  private validateCheck = '/validate/check'; // with whatever you want
+  private validateCheckS = '/validate/check_s'; // with serial
+  private validateCheckT = '/validate/check_t'; // with transaction
 
   private _tokentypes: { type: string, name: string, description: string }[] = [
     {
@@ -124,10 +126,46 @@ export class TokenService {
       .take(1);
   }
 
+  activate(serial: string, pin: string): Observable<any> {
+    const body = {
+      serial: serial,
+      data: "BlaBlub",
+      pass: pin,
+      user: "ana@kirealm",
+    };
+    return this.http.post(this.validateCheck, body)
+      .pipe(
+        tap(token => console.log(`activation challenge created`)),
+        catchError(this.handleError('activate token', null))
+      );
+  }
+
+  getChallengeStatus(transactionId: string, pin: string): Observable<any> {
+    const body = {
+      transactionid: transactionId,
+      pass: pin,
+    };
+    return this.http.post(this.validateCheckT, body)
+      .pipe(
+        tap(status => console.log(`challenge status is ${status}`)),
+        catchError(this.handleError('get challenge status', null))
+      );
+  }
+
+  challengePoll(transactionId: string, pin: string): Observable<any> {
+    return Observable.interval(3000)
+      .mergeMap(val => this.getChallengeStatus(transactionId, pin))
+      .pipe(
+        tap(res => console.log(res)),
+    )
+      .filter(response => false)
+      .take(1);
+  }
+
   testToken(tokenSerial: String, pin: String, otp: String) {
     const body = { serial: tokenSerial, pass: `${pin}${otp}` };
 
-    return this.http.post(this.testTokenEndpoint, body)
+    return this.http.post(this.validateCheckS, body)
       .pipe(
         tap(token => console.log(`token test submitted`)),
         catchError(this.handleError('test token', null))
