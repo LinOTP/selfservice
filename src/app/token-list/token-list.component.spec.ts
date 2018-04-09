@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
+import { MockPipe } from '../../testing/mock-pipe';
+
 import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
@@ -24,7 +26,13 @@ describe('TokenListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [TokenListComponent],
+      declarations: [
+        TokenListComponent,
+        MockPipe({ 'name': 'nonActiveTokens' }),
+        MockPipe({ 'name': 'activeTokens' }),
+        MockPipe({ 'name': 'arrayNotEmpty' }),
+        MockPipe({ 'name': 'sortTokensByState' }),
+      ],
       providers: [
         {
           provide: ActivatedRoute,

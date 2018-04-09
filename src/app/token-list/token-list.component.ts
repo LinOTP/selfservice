@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material';
 import { DialogComponent } from '../dialog/dialog.component';
 import { SetPinDialogComponent } from '../set-pin-dialog/set-pin-dialog.component';
 
-import { Token } from '../token';
+import { Token, EnrollmentStatus } from '../token';
 import { TokenService } from '../token.service';
 import { NotificationService } from '../core/notification.service';
 
@@ -19,6 +19,7 @@ import { NotificationService } from '../core/notification.service';
 export class TokenListComponent implements OnInit {
   public tokens: Token[];
   private tokenTypes = this.tokenService.tokenTypes;
+  public EnrollmentStatus = EnrollmentStatus;
 
   constructor(
     private router: Router,

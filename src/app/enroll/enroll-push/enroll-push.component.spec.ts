@@ -38,7 +38,6 @@ describe('EnrollPushComponent', () => {
           useValue: {
             enroll: jasmine.createSpy('enroll')
           },
-
         },
         {
           provide: NotificationService,

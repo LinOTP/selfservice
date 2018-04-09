@@ -1,22 +1,73 @@
-<mat-accordion *ngIf="tokens">
-  <mat-expansion-panel *ngFor="let token of tokens">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        {{ tokenName(token.type) }} ({{ token.serial }})
-      </mat-panel-title>
-      <mat-panel-description>
-        {{ token.description }}
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-    <mat-list>
-      <mat-list-item>
-        <h3 matLine>Token Type</h3>
-        <p matLine>{{ token.type }}</p>
-      </mat-list-item>
-    </mat-list>
-    <mat-action-row>
-      <button mat-raised-button class="mat-primary" (click)="setPin(token)">Set PIN</button>
-      <button mat-raised-button class="mat-accent" (click)="deleteToken(token)">Delete</button>
-    </mat-action-row>
-  </mat-expansion-panel>
-</mat-accordion>
+<section *ngIf="tokens | nonActiveTokens | arrayNotEmpty">
+  <h2>Unfinished Tokens</h2>
+  <p>These tokens are not active yet and need to be paired.</p>
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let token of tokens | nonActiveTokens | sortTokensByState">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ tokenName(token.type) }} {{ token.serial }}
+          <div class="token-status-badge" [ngSwitch]="token.enrollmentStatus">
+            <ng-container *ngSwitchCase="EnrollmentStatus.unpaired">unpaired</ng-container>
+            <ng-container *ngSwitchCase="EnrollmentStatus.pairing_response_received">not activated</ng-container>
+            <ng-container *ngSwitchCase="EnrollmentStatus.pairing_challenge_sent">in activation process</ng-container>
+          </div>
+        </mat-panel-title>
+        <mat-panel-description>
+          {{ token.description }}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <mat-list>
+        <mat-list-item>
+          <h3 matLine>Token Type</h3>
+          <p matLine>{{ token.type }}</p>
+        </mat-list-item>
+      </mat-list>
+
+      <p [ngSwitch]="token.enrollmentStatus">
+        <ng-container *ngSwitchCase="EnrollmentStatus.unpaired">
+          This token needs to be paired with your mobile. You need the enrollment QR code to proceed in the authenticator mobile application. Afterwards you can start the activation here.
+        </ng-container>
+        <ng-container *ngSwitchCase="EnrollmentStatus.pairing_response_received">
+          This token is paired with your mobile. The next step is the activation:
+        </ng-container>
+        <ng-container *ngSwitchCase="EnrollmentStatus.pairing_challenge_sent">
+          An activation challenge has been generated. Please process it with your authenticator
+        </ng-container>
+      </p>
+
+      <mat-action-row>
+        <button mat-raised-button (click)="setPin(token)">Set PIN</button>
+        <a mat-raised-button [routerLink]="['/tokens', token.serial, 'activate']" *ngIf="token.enrollmentStatus==EnrollmentStatus.pairing_response_received">Activate</a>
+        <button mat-raised-button color="warn" (click)="deleteToken(token)">Delete</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+</section>
+
+<section *ngIf="tokens | activeTokens | arrayNotEmpty">
+  <h2>Active Tokens</h2>
+  <p>The following tokens are ready to be used.</p>
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let token of tokens | activeTokens">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ tokenName(token.type) }} ({{ token.serial }})
+        </mat-panel-title>
+        <mat-panel-description>
+          {{ token.description }}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <mat-list>
+        <mat-list-item>
+          <h3 matLine>Token Type</h3>
+          <p matLine>{{ token.type }}</p>
+        </mat-list-item>
+      </mat-list>
+      <mat-action-row>
+        <button mat-raised-button (click)="setPin(token)">Set PIN</button>
+        <button mat-raised-button color="warn" (click)="deleteToken(token)">Delete</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+</section>

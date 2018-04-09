@@ -26,6 +26,10 @@ import { EnrollComponent } from './enroll/enroll.component';
 import { EnrollTotpComponent } from './enroll/enroll-totp/enroll-totp.component';
 import { EnrollHotpComponent } from './enroll/enroll-hotp/enroll-hotp.component';
 import { EnrollPushComponent } from './enroll/enroll-push/enroll-push.component';
+import { NonActiveTokensPipe } from './non-active-tokens.pipe';
+import { ActiveTokensPipe } from './active-tokens.pipe';
+import { ArrayNotEmptyPipe } from './array-not-empty.pipe';
+import { SortTokensByStatePipe } from './sort-tokens-by-state.pipe';
 
 
 @NgModule({
@@ -42,6 +46,10 @@ import { EnrollPushComponent } from './enroll/enroll-push/enroll-push.component'
     EnrollTotpComponent,
     EnrollHotpComponent,
     EnrollPushComponent,
+    NonActiveTokensPipe,
+    ActiveTokensPipe,
+    ArrayNotEmptyPipe,
+    SortTokensByStatePipe,
   ],
   entryComponents: [
     TokenActivatePushComponent,
