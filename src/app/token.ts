@@ -1,5 +1,5 @@
 export class Token {
-  enrollmentStatus: EnrollmentStatus
+  enrollmentStatus: EnrollmentStatus;
 
   constructor(
     public id: number,

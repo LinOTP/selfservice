@@ -54,7 +54,7 @@ export class TokenService {
   private mapTokenResponse = (res: { result: { value: any[] } }) => {
     // TODO: Catch API Errors
     return res.result.value.map(token => {
-      let t = new Token(
+      const t = new Token(
         token['LinOtp.TokenId'],
         token['LinOtp.TokenSerialnumber'],
         token['LinOtp.TokenType'],
@@ -129,9 +129,9 @@ export class TokenService {
   activate(serial: string, pin: string): Observable<any> {
     const body = {
       serial: serial,
-      data: "BlaBlub",
+      data: 'BlaBlub',
       pass: pin,
-      user: "ana@kirealm",
+      user: 'ana@kirealm',
     };
     return this.http.post(this.validateCheck, body)
       .pipe(
