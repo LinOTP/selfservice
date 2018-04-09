@@ -76,8 +76,10 @@ export class EnrollHotpComponent implements OnInit {
       .subscribe(response => {
         if (response.result && response.result.value === true) {
           this.testSuccessful = true;
+          this.testFailed = false;
         } else if (response.result && response.result.value === false) {
           this.testFailed = true;
+          this.testSuccessful = false;
         }
       });
   }
