@@ -1,7 +1,6 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ComponentFactoryResolver, Type } from '@angular/core';
+import { Component, OnInit, Type, ReflectiveInjector, Injector } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { TokenActivateTypeDirective } from './token-activate-type.directive';
 import { TokenActivatePushComponent } from './token-activate-push/token-activate-push.component';
 import { Token } from '../token';
 
@@ -10,40 +9,35 @@ import { Token } from '../token';
   templateUrl: './token-activate.component.html',
   styleUrls: ['./token-activate.component.scss']
 })
-export class TokenActivateComponent implements OnInit, AfterViewInit {
-  token: any;
-  @ViewChild(TokenActivateTypeDirective) tokenActivateType: TokenActivateTypeDirective;
+export class TokenActivateComponent implements OnInit {
+  token: Token;
+  typeSpecificComponent: any;
+  tokenInjector: Injector;
 
   private tokenTypes: { [type: string]: Type<any> } = {
     'push': TokenActivatePushComponent
   };
 
-
-  constructor(private route: ActivatedRoute, private componentFactoryResolver: ComponentFactoryResolver) { }
+  constructor(
+    private route: ActivatedRoute,
+    private injector: Injector,
+  ) { }
 
   loadDynamicComponent(token: Token) {
     const component = this.tokenTypes[token.type];
     if (component) {
       this.token = token;
-
-      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
-      this.tokenActivateType.viewContainerRef.clear();
-      const componentRef = this.tokenActivateType.viewContainerRef.createComponent(componentFactory);
-      componentRef.instance.token = token;
-      componentRef.instance.activate();
+      this.tokenInjector = ReflectiveInjector.resolveAndCreate([{ provide: Token, useValue: token }], this.injector);
+      this.typeSpecificComponent = TokenActivatePushComponent;
     } else {
       alert('token has no activation phase');
     }
   }
 
   ngOnInit() {
-  }
-
-  ngAfterViewInit() {
     this.route.data
       .subscribe((data: { token: Token }) => {
         this.loadDynamicComponent(data.token);
       });
   }
-
 }

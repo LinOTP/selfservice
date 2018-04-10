@@ -1,2 +1,3 @@
-<h3>Token Activation</h3>
-<ng-template appTokenActivateType token="token"></ng-template>
+<h3>Token Activation ({{token.serial}})</h3>
+
+<ng-container *ngComponentOutlet="typeSpecificComponent; injector: tokenInjector"></ng-container>

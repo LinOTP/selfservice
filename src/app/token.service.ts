@@ -131,9 +131,8 @@ export class TokenService {
       serial: serial,
       data: 'BlaBlub',
       pass: pin,
-      user: 'ana@kirealm',
     };
-    return this.http.post(this.validateCheck, body)
+    return this.http.post(this.validateCheckS, body)
       .pipe(
         tap(token => console.log(`activation challenge created`)),
         catchError(this.handleError('activate token', null))
