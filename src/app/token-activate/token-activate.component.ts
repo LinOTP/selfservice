@@ -1,8 +1,9 @@
 import { Component, OnInit, Type, ReflectiveInjector, Injector } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { TokenActivatePushComponent } from './token-activate-push/token-activate-push.component';
-import { Token } from '../token';
+import { Token, EnrollmentStatus } from '../token';
+import { NotificationService } from '../core/notification.service';
 
 @Component({
   selector: 'app-token-activate',
@@ -20,17 +21,28 @@ export class TokenActivateComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private injector: Injector,
+    private notificationService: NotificationService
   ) { }
 
   loadDynamicComponent(token: Token) {
     const component = this.tokenTypes[token.type];
     if (component) {
       this.token = token;
-      this.tokenInjector = ReflectiveInjector.resolveAndCreate([{ provide: Token, useValue: token }], this.injector);
+      this.tokenInjector = Injector.create({ providers: [{ provide: Token, useValue: token }], parent: this.injector });
       this.typeSpecificComponent = TokenActivatePushComponent;
+
     } else {
-      alert('token has no activation phase');
+      this.notificationService.message('The selected token has no activation phase');
+      this.router.navigate(['/tokens']);
+      return;
+    }
+
+    if (token.enrollmentStatus !== EnrollmentStatus.pairing_response_received) {
+      this.notificationService.message('The token is not in activation phase.');
+      this.router.navigate(['/tokens']);
+      return;
     }
   }
 
