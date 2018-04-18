@@ -15,6 +15,7 @@ import { catchError, tap } from 'rxjs/operators';
 
 import { Token, EnrollToken, EnrollmentStatus } from './token';
 import { AuthService } from './auth.service';
+import { NotificationService } from './core/notification.service';
 
 @Injectable()
 export class TokenService {
@@ -190,7 +191,9 @@ export class TokenService {
 
 @Injectable()
 export class TokenListResolver implements Resolve<Token[]> {
-  constructor(private ts: TokenService) { }
+  constructor(
+    private ts: TokenService
+  ) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Token[]> {
     return this.ts.getTokens().take(1);
@@ -199,7 +202,11 @@ export class TokenListResolver implements Resolve<Token[]> {
 
 @Injectable()
 export class TokenDetailResolver implements Resolve<Token> {
-  constructor(private ts: TokenService, private router: Router) { }
+  constructor(
+    private ts: TokenService,
+    private router: Router,
+    private notificationService: NotificationService
+  ) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Token> {
     const serial = route.paramMap.get('serial');
@@ -208,6 +215,7 @@ export class TokenDetailResolver implements Resolve<Token> {
       if (token) {
         return token;
       } else { // no token with such serial
+        this.notificationService.message('Token not found');
         this.router.navigate(['/tokens']);
         return null;
       }
