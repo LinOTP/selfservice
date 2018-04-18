@@ -29,6 +29,7 @@ export class TokenService {
   private validateCheck = '/validate/check'; // with whatever you want
   private validateCheckS = '/validate/check_s'; // with serial
   private validateCheckT = '/validate/check_t'; // with transaction
+  private validateCheckStatus = '/validate/check_status'; // view challenge status
 
   private _tokentypes: { type: string, name: string, description: string }[] = [
     {
@@ -120,7 +121,7 @@ export class TokenService {
   }
 
   pairingPoll(serial: string): Observable<any> {
-    return Observable.interval(3000)
+    return Observable.interval(2000)
       .mergeMap(val => this.getToken(serial))
       .filter(token => token.enrollmentStatus === EnrollmentStatus.pairing_response_received)
       .take(1);
@@ -139,25 +140,27 @@ export class TokenService {
       );
   }
 
-  getChallengeStatus(transactionId: string, pin: string): Observable<any> {
+  getChallengeStatus(transactionId: string, pin: string, serial: string): Observable<any> {
     const body = {
       transactionid: transactionId,
       pass: pin,
+      serial: serial,
     };
-    return this.http.post(this.validateCheckT, body)
+    return this.http.post(this.validateCheckStatus, body)
       .pipe(
-        tap(status => console.log(`challenge status is ${status}`)),
+        tap(status => console.log(`challenge status returned`)),
         catchError(this.handleError('get challenge status', null))
       );
   }
 
-  challengePoll(transactionId: string, pin: string): Observable<any> {
-    return Observable.interval(3000)
-      .mergeMap(val => this.getChallengeStatus(transactionId, pin))
+  challengePoll(transactionId: string, pin: string, serial: string): Observable<boolean> {
+    return Observable.interval(2000)
+      .mergeMap(val => this.getChallengeStatus(transactionId, pin, serial))
+      .filter(res => res.detail.transactions[transactionId].status !== 'open')
+      .map(res => res.detail.transactions[transactionId].accept === true)
       .pipe(
-        tap(res => console.log(res)),
-    )
-      .filter(response => false)
+        catchError(() => of(false))
+      )
       .take(1);
   }
 

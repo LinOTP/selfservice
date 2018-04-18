@@ -5,6 +5,14 @@ import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs/observable/of';
 
 import { TokenActivateComponent } from './token-activate.component';
+import { MaterialModule } from '../material.module';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NotificationService } from '../core/notification.service';
+
+class MockNotificationService {
+  message = jasmine.createSpy('message');
+}
 
 describe('TokenActivateComponent', () => {
   let component: TokenActivateComponent;
@@ -12,6 +20,11 @@ describe('TokenActivateComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        RouterTestingModule,
+        MaterialModule,
+        NoopAnimationsModule,
+      ],
       declarations: [
         TokenActivateComponent,
       ],
@@ -21,6 +34,10 @@ describe('TokenActivateComponent', () => {
           useValue: {
             data: { subscribe: jasmine.createSpy('subscribe') }
           }
+        },
+        {
+          provide: NotificationService,
+          useClass: MockNotificationService,
         },
       ],
     })

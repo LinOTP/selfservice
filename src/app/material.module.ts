@@ -13,6 +13,7 @@ import {
   MatSelectModule,
   MatExpansionModule,
   MatStepperModule,
+  MatProgressSpinnerModule,
 } from '@angular/material';
 
 @NgModule({
@@ -29,6 +30,7 @@ import {
     MatSelectModule,
     MatExpansionModule,
     MatStepperModule,
+    MatProgressSpinnerModule,
   ],
   exports: [
     BrowserAnimationsModule,
@@ -43,6 +45,7 @@ import {
     MatSelectModule,
     MatExpansionModule,
     MatStepperModule,
+    MatProgressSpinnerModule,
   ],
 })
 export class MaterialModule { }
