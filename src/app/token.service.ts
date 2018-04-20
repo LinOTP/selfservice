@@ -14,7 +14,7 @@ import 'rxjs/add/observable/interval';
 import { catchError, tap } from 'rxjs/operators';
 
 import { Token, EnrollToken, EnrollmentStatus } from './token';
-import { AuthService } from './auth.service';
+import { AuthService } from './auth/auth.service';
 import { NotificationService } from './core/notification.service';
 
 @Injectable()

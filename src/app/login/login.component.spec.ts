@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LoginComponent } from './login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../auth/auth.service';
 import { MaterialModule } from '../material.module';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router/src/router_state';

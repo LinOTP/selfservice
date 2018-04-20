@@ -8,7 +8,7 @@ import 'rxjs/add/observable/of';
 
 import { TokenService } from './token.service';
 import { Token, EnrollmentStatus } from './token';
-import { AuthService } from './auth.service';
+import { AuthService } from './auth/auth.service';
 
 const session = '';
 const mockToken = new Token(123, 'serial', 'foo', 'desc');
