@@ -44,30 +44,38 @@ describe('AuthService', () => {
     expect(service).toBeTruthy();
   }));
 
-  it('should be able to load route if user is logged in', inject([AuthGuard], (service: AuthGuard) => {
-    authService.isLoggedIn.and.returnValue(true);
-    const routerNavigateSpy = spyOn(router, 'navigate');
+  // run tests for route and child route activator
+  for (const method of ["canActivate", "canActivateChild"]) {
+    describe(method, () => {
 
-    const result = service.canActivate(null, mockSnapshot);
+      it('should be able to load route if user is logged in', inject([AuthGuard], (service: AuthGuard) => {
+        authService.isLoggedIn.and.returnValue(true);
+        const routerNavigateSpy = spyOn(router, 'navigate');
 
-    expect(result).toBe(true);
-    expect(routerNavigateSpy).not.toHaveBeenCalled();
-  }));
+        const result = service[method](null, mockSnapshot);
 
-  it('should prevent loading the route if user is not logged in', inject([AuthGuard], (service: AuthGuard) => {
-    authService.isLoggedIn.and.returnValue(false);
+        expect(result).toBe(true);
+        expect(routerNavigateSpy).not.toHaveBeenCalled();
+      }));
 
-    const result = service.canActivate(null, mockSnapshot);
+      it('should prevent loading the route if user is not logged in', inject([AuthGuard], (service: AuthGuard) => {
+        authService.isLoggedIn.and.returnValue(false);
 
-    expect(result).toBe(false);
-  }));
+        const result = service[method](null, mockSnapshot);
 
-  it('should redirect the user to login if not logged in', inject([AuthGuard], (service: AuthGuard) => {
-    authService.isLoggedIn.and.returnValue(false);
-    const routerNavigateSpy = spyOn(router, 'navigate');
+        expect(result).toBe(false);
+      }));
 
-    service.canActivate(null, mockSnapshot);
+      it('should redirect the user to login if not logged in', inject([AuthGuard], (service: AuthGuard) => {
+        authService.isLoggedIn.and.returnValue(false);
+        const routerNavigateSpy = spyOn(router, 'navigate');
 
-    expect(routerNavigateSpy).toHaveBeenCalled();
-  }));
+        service[method](null, mockSnapshot);
+
+        expect(routerNavigateSpy).toHaveBeenCalled();
+      }));
+
+    });
+  }
+
 });
