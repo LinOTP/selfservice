@@ -1,35 +1,32 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed, inject, fakeAsync, tick } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { spyOnClass } from '../../testing/spyOnClass';
+
+import { Router, RouterStateSnapshot, Route } from '@angular/router';
 
 import { AuthService } from './auth.service';
 
 import { AuthGuard } from './auth-guard.service';
-import { RouterTestingModule } from '@angular/router/testing';
-import { Router, RouterStateSnapshot } from '@angular/router';
-
-class AuthServiceMock {
-  isLoggedIn = jasmine.createSpy('isLoggedIn')
-}
-
-let mockSnapshot: any = jasmine.createSpyObj<RouterStateSnapshot>("RouterStateSnapshot", ['toString']);
 
 describe('AuthService', () => {
 
-  let authService: AuthServiceMock;
+  const routeSnapshot = spyOnClass(RouterStateSnapshot);
+
+  let authService: jasmine.SpyObj<AuthService>;
   let router: Router;
+  let routerNavigateSpy: jasmine.Spy;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        HttpClientTestingModule,
         RouterTestingModule,
       ],
       providers: [
         AuthGuard,
         {
           provide: AuthService,
-          useClass: AuthServiceMock
+          useValue: spyOnClass(AuthService)
         },
       ],
     });
@@ -38,6 +35,7 @@ describe('AuthService', () => {
   beforeEach(() => {
     authService = TestBed.get(AuthService);
     router = TestBed.get(Router);
+    routerNavigateSpy = spyOn(router, 'navigate');
   });
 
   it('should be created', inject([AuthGuard], (service: AuthGuard) => {
@@ -45,14 +43,13 @@ describe('AuthService', () => {
   }));
 
   // run tests for route and child route activator
-  for (const method of ["canActivate", "canActivateChild"]) {
+  for (const method of ['canActivate', 'canActivateChild']) {
     describe(method, () => {
 
       it('should be able to load route if user is logged in', inject([AuthGuard], (service: AuthGuard) => {
         authService.isLoggedIn.and.returnValue(true);
-        const routerNavigateSpy = spyOn(router, 'navigate');
 
-        const result = service[method](null, mockSnapshot);
+        const result = service[method](null, routeSnapshot);
 
         expect(result).toBe(true);
         expect(routerNavigateSpy).not.toHaveBeenCalled();
@@ -61,18 +58,18 @@ describe('AuthService', () => {
       it('should prevent loading the route if user is not logged in', inject([AuthGuard], (service: AuthGuard) => {
         authService.isLoggedIn.and.returnValue(false);
 
-        const result = service[method](null, mockSnapshot);
+        const result = service[method](null, routeSnapshot);
 
         expect(result).toBe(false);
       }));
 
-      it('should redirect the user to login if not logged in', inject([AuthGuard], (service: AuthGuard) => {
+      it('should redirect the user to /login if not logged in', inject([AuthGuard], (service: AuthGuard) => {
         authService.isLoggedIn.and.returnValue(false);
-        const routerNavigateSpy = spyOn(router, 'navigate');
 
-        service[method](null, mockSnapshot);
+        service[method](null, routeSnapshot);
 
-        expect(routerNavigateSpy).toHaveBeenCalled();
+        expect(routerNavigateSpy).toHaveBeenCalledTimes(1);
+        expect(routerNavigateSpy.calls.argsFor(0)).toContain(['/login']);
       }));
 
     });
