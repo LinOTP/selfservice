@@ -1,6 +1,6 @@
 ### STAGE 1: Build ###
 
-FROM node:alpine as builder
+FROM node:9-alpine as builder
 
 WORKDIR /app
 
