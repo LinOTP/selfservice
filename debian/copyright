@@ -1,0 +1,8 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: linotp-selfservice
+Source: <https://linotp.org>
+
+Files: *
+Copyright: Copyright (C) 2017 - 2018 KeyIdentity GmbH
+
+License: Proprietary

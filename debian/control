@@ -1,0 +1,21 @@
+Source: linotp-selfservice
+Section: net
+Priority: optional
+Maintainer: KeyIdentity GmbH <packaging@keyidentity.com>
+Build-Depends: debhelper (>= 9), yarn, nodejs (>= 9)
+Standards-Version: 4.1.2
+Homepage: http://linotp.org
+
+Package: linotp-selfservice
+Architecture: any
+Depends: ${misc:Depends}, linotp
+Recommends: ${misc:Recommends}
+Description: Frontend interface for LinOTP (next generation)
+ This package provides the new generation LinOTP selfservice frontend.
+ .
+ It allows users to perform operations including enrolling new tokens and
+ managing their own tokens.
+ .
+ The package provides a webinterface which is accessible under the URL
+ https://linotp-server/selfservice-v2. It also provides a
+ Apache site configuration.
