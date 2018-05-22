@@ -19,17 +19,15 @@ import { NotificationService } from './core/notification.service';
 
 @Injectable()
 export class TokenService {
-  private baseUrl = `/userservice/`;
-  private endpoints = {
+  private userserviceBase = `/userservice/`;
+  private userserviceEndpoints = {
     tokens: 'usertokenlist',
     setpin: 'setpin',
     delete: 'delete',
     enroll: 'enroll',
   };
 
-  private validateCheck = '/validate/check'; // with whatever you want
-  private validateCheckS = '/validate/check_s'; // with serial
-  private validateCheckT = '/validate/check_t'; // with transaction
+  private validateCheckS = '/validate/check_s'; // generate a challenge with a given serial
   private validateCheckStatus = '/validate/check_status'; // view challenge status
 
   private _tokentypes: { type: string, name: string, description: string }[] = [
@@ -68,7 +66,8 @@ export class TokenService {
   }
 
   getTokens(): Observable<Token[]> {
-    return this.http.get<any>(`${this.baseUrl + this.endpoints.tokens}`, { params: { session: this.authService.getSession() } })
+    const url = this.userserviceBase + this.userserviceEndpoints.tokens;
+    return this.http.get<any>(url, { params: { session: this.authService.getSession() } })
       .map(this.mapTokenResponse)
       .pipe(
         tap(tokens => console.log(`tokens fetched`)),
@@ -89,7 +88,7 @@ export class TokenService {
       session: this.authService.getSession()
     };
 
-    return this.http.post<any>(this.baseUrl + this.endpoints.delete, body)
+    return this.http.post<any>(this.userserviceBase + this.userserviceEndpoints.delete, body)
       .pipe(
         tap(response => console.log(`token ${serial} deleted`)),
         catchError(this.handleError('deleteToken', null))
@@ -103,7 +102,7 @@ export class TokenService {
       session: this.authService.getSession()
     };
 
-    return this.http.post<{ result: { status: boolean, value: boolean } }>(this.baseUrl + this.endpoints.setpin, body)
+    return this.http.post<{ result: { status: boolean, value: boolean } }>(this.userserviceBase + this.userserviceEndpoints.setpin, body)
       .map((response) => response && response.result && response.result.value['set userpin'] === 1)
       .pipe(
         tap(tokens => console.log(`pin set`)),
@@ -114,7 +113,7 @@ export class TokenService {
   enroll(params: EnrollToken) {
     const body = { ...params, session: this.authService.getSession() };
 
-    return this.http.post(this.baseUrl + this.endpoints.enroll, body)
+    return this.http.post(this.userserviceBase + this.userserviceEndpoints.enroll, body)
       .pipe(
         tap(token => console.log(`token enrolled`)),
         catchError(this.handleError('enroll token', null))
