@@ -20,7 +20,7 @@ stages:
 
 before_script:
   - yarn config set cache-folder $PWD/.yarn_cache
-  - yarn
+  - yarn install --pure-lockfile
 
 
 ### Run before merge ###
@@ -48,9 +48,34 @@ build dist:
   script:
     - yarn build
   artifacts:
-    when: on_success
+    expire_in: 1 week
     paths:
       - dist/
+
+build deb:
+  stage: build
+  image: debian:stretch
+  when: manual
+  before_script:
+    - echo 'skip yarn install'
+  script:
+    - apt-get update
+    - apt-get install --no-install-recommends --yes apt-transport-https gnupg curl devscripts ca-certificates equivs
+    - curl -sS https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
+    - echo 'deb https://deb.nodesource.com/node_9.x stretch main' > /etc/apt/sources.list.d/nodesource.list
+    - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+    - echo 'deb https://dl.yarnpkg.com/debian/ stable main' > /etc/apt/sources.list.d/yarn.list
+    - apt-get update
+    - mk-build-deps --install --remove --tool "apt-get --no-install-recommends --yes"
+    - debuild -us -uc -b
+    - mkdir -p artifacts
+    - mv ../*.build* ../*.changes ../*.deb artifacts/
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - artifacts/
+
+
 
 
 ### Run only on master ###
