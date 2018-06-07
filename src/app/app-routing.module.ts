@@ -44,17 +44,15 @@ const routes: Routes = [
     resolve: {
       tokens: TokenListResolver
     },
-    children: [
-      {
-        path: ':id/activate',
-        component: TokenActivateComponent,
-        canActivate: [AuthGuard],
-        runGuardsAndResolvers: 'always',
-        resolve: {
-          token: TokenDetailResolver,
-        }
-      },
-    ]
+  },
+  {
+    path: 'tokens/:serial/activate',
+    component: TokenActivateComponent,
+    runGuardsAndResolvers: 'always',
+    canActivate: [AuthGuard],
+    resolve: {
+      token: TokenDetailResolver,
+    }
   },
   {
     path: 'login',

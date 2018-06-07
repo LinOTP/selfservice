@@ -1,2 +1,10 @@
-<h3>Token Activation</h3>
-<ng-template appTokenActivateType></ng-template>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <h2>Token Activation ({{token?.serial}})</h2>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <ng-container *ngComponentOutlet="typeSpecificComponent; injector: tokenInjector"></ng-container>
+  </mat-card-content>
+</mat-card>

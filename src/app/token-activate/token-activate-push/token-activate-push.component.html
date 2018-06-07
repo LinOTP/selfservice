@@ -1,3 +1,12 @@
-<p>
-  token-activate-push works!
-</p>
+<form *ngIf="!waiting" [formGroup]="activationForm" (submit)="activate()">
+  <p>Enter the token pin if you have set a pin for this token:</p>
+  <mat-form-field>
+    <input matInput placeholder="PIN" formControlName="pin" autofocus>
+  </mat-form-field>
+  <button mat-raised-button color="primary" type="submit">Activate Push Token</button>
+</form>
+
+<section class="waiting" *ngIf="waiting">
+  <mat-spinner></mat-spinner>
+  <p>Waiting for confirmation via KeyIdentity Authenticator.</p>
+</section>

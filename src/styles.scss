@@ -7,8 +7,72 @@
 
 @import '~@angular/material/theming';
 @include mat-core();
-$theme-app-primary: mat-palette($mat-blue-grey);
-$theme-app-accent: mat-palette($mat-red, A200, A100, A400);
+$KI-primary: (
+  50: #1e212d,
+  100: #1e212d,
+  200: #1e212d,
+  300: #1e212d,
+  400: #1e212d,
+  500: #1e212d,
+  600: #1e212d,
+  700: #1e212d,
+  800: #1e212d,
+  900: #1e212d,
+  A100: #1e212d,
+  A200: #1e212d,
+  A400: #1e212d,
+  A700: #1e212d,
+  contrast: (
+    50: white,
+    100: white,
+    200: white,
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: white,
+    A200: white,
+    A400: white,
+    A700: white,
+  )
+);
+$KI-accent: (
+  50: #4bb2c9,
+  100: #e3bac1,
+  200: #71bbb2,
+  300: #eccb4f,
+  400: #eccb4f,
+  500: #eccb4f,
+  600: #eccb4f,
+  700: #eccb4f,
+  800: #eccb4f,
+  900: #eccb4f,
+  A100: #eccb4f,
+  A200: #eccb4f,
+  A400: #eccb4f,
+  A700: #eccb4f,
+  contrast: (
+    50: #1e212d,
+    100: #1e212d,
+    200: #1e212d,
+    300: #1e212d,
+    400: #1e212d,
+    500: #1e212d,
+    600: #1e212d,
+    700: #1e212d,
+    800: #1e212d,
+    900: #1e212d,
+    A100: #1e212d,
+    A200: #1e212d,
+    A400: #1e212d,
+    A700: #1e212d,
+  )
+);
+$theme-app-primary: mat-palette($KI-primary);
+$theme-app-accent: mat-palette($KI-accent, A200, A100, A400);
 $theme-app-warn: mat-palette($mat-red);
 $theme: mat-light-theme($theme-app-primary, $theme-app-accent, $theme-app-warn);
 @include angular-material-theme($theme);

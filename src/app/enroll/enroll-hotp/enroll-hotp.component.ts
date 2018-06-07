@@ -16,7 +16,7 @@ import { NotificationService } from '../../core/notification.service';
 })
 export class EnrollHotpComponent implements OnInit {
 
-  descriptionStep: FormGroup;
+  enrollmentForm: FormGroup;
   enrollmentStep: FormGroup;
   testStep: FormGroup;
 
@@ -35,7 +35,7 @@ export class EnrollHotpComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.descriptionStep = this.formBuilder.group({
+    this.enrollmentForm = this.formBuilder.group({
       'description': ['', Validators.required],
       'type': 'hmac',
       'otplen': 6,
@@ -53,13 +53,13 @@ export class EnrollHotpComponent implements OnInit {
 
   goToTokenInfo(stepper: MatStepper) {
     if (!this.enrolledToken) {
-      this.tokenService.enroll(this.descriptionStep.value).subscribe(response => {
+      this.tokenService.enroll(this.enrollmentForm.value).subscribe(response => {
         if (response.result && response.result.value === true) {
           this.enrolledToken = {
             url: response.detail.googleurl.value,
             serial: response.detail.serial
           };
-          this.descriptionStep.controls.description.disable();
+          this.enrollmentForm.controls.description.disable();
           this.enrollmentStep.controls.tokenEnrolled.setValue(true);
           stepper.next();
         } else {

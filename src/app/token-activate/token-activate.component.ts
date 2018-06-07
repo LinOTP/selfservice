@@ -1,46 +1,55 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ComponentFactoryResolver, Type } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, Type, ReflectiveInjector, Injector } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { TokenActivateTypeDirective } from './token-activate-type.directive';
 import { TokenActivatePushComponent } from './token-activate-push/token-activate-push.component';
-import { Token } from '../token';
+import { Token, EnrollmentStatus } from '../token';
+import { NotificationService } from '../core/notification.service';
 
 @Component({
   selector: 'app-token-activate',
   templateUrl: './token-activate.component.html',
   styleUrls: ['./token-activate.component.scss']
 })
-export class TokenActivateComponent implements OnInit, AfterViewInit {
-  token: any;
-  @ViewChild(TokenActivateTypeDirective) tokenActivateType: TokenActivateTypeDirective;
+export class TokenActivateComponent implements OnInit {
+  token: Token;
+  typeSpecificComponent: any;
+  tokenInjector: Injector;
 
   private tokenTypes: { [type: string]: Type<any> } = {
     'push': TokenActivatePushComponent
   };
 
-
-  constructor(private route: ActivatedRoute, private componentFactoryResolver: ComponentFactoryResolver) { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private injector: Injector,
+    private notificationService: NotificationService
+  ) { }
 
   loadDynamicComponent(token: Token) {
     const component = this.tokenTypes[token.type];
     if (component) {
-      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
-      this.tokenActivateType.viewContainerRef.clear();
-      this.tokenActivateType.viewContainerRef.createComponent(componentFactory);
       this.token = token;
+      this.tokenInjector = Injector.create({ providers: [{ provide: Token, useValue: token }], parent: this.injector });
+      this.typeSpecificComponent = TokenActivatePushComponent;
+
     } else {
-      alert('token has no activation phase');
+      this.notificationService.message('The selected token has no activation phase');
+      this.router.navigate(['/tokens']);
+      return;
+    }
+
+    if (token.enrollmentStatus !== EnrollmentStatus.pairing_response_received) {
+      this.notificationService.message('The token is not in activation phase.');
+      this.router.navigate(['/tokens']);
+      return;
     }
   }
 
   ngOnInit() {
-  }
-
-  ngAfterViewInit() {
     this.route.data
       .subscribe((data: { token: Token }) => {
         this.loadDynamicComponent(data.token);
       });
   }
-
 }
