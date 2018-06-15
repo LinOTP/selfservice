@@ -1,0 +1,5 @@
+.debhelper
+files
+linotp-selfservice.debhelper.log
+linotp-selfservice.substvars
+linotp-selfservice/
