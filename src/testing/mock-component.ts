@@ -1,6 +1,6 @@
-import { Component, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Type } from '@angular/core';
 
-export function MockComponent(options: Component & { attributes?: { [key: string]: any } }): Component {
+export function MockComponent(options: Component & { attributes?: { [key: string]: any } }): Type<any> {
 
   const metadata: Component = {
     selector: options.selector,

@@ -10,11 +10,10 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { CoreModule } from './core/core.module';
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './material.module';
+import { AuthModule } from './auth/auth.module';
 
 import { AppComponent } from './app.component';
 import { TokenService, TokenListResolver, TokenDetailResolver } from './token.service';
-import { AuthService } from './auth.service';
-import { AuthGuard } from './auth-guard.service';
 import { TokenListComponent } from './token-list/token-list.component';
 import { LoginComponent } from './login/login.component';
 import { TokenActivateComponent } from './token-activate/token-activate.component';
@@ -67,11 +66,10 @@ import { SortTokensByStatePipe } from './sort-tokens-by-state.pipe';
     AppRoutingModule,
     MaterialModule,
     CoreModule,
+    AuthModule,
   ],
   providers: [
     TokenService,
-    AuthService,
-    AuthGuard,
     TokenDetailResolver,
     TokenListResolver,
   ],
