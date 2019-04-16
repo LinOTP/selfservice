@@ -12,8 +12,8 @@
     "test:chromium": "ng test --browsers Chromium",
     "test:firefox": "ng test --browsers Firefox",
     "test:phantomjs": "ng test --browsers PhantomJS",
-    "test:all": "ng test --single-run",
-    "test:ci": "yarn test:phantomjs --single-run --code-coverage",
+    "test:all": "ng test --watch=false",
+    "test:ci": "yarn test:phantomjs --watch=false --code-coverage",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
@@ -36,11 +36,13 @@
     "ngx-cookie": "^2.0.1",
     "ngx-qrcode2": "^0.1.0",
     "rxjs": "^5.5.2",
+    "tslib": "^1.9.0",
     "web-animations-js": "^2.3.1",
     "zone.js": "^0.8.14"
   },
   "devDependencies": {
-    "@angular/cli": "^1.6.3",
+    "@angular-devkit/build-angular": "~0.13.0",
+    "@angular/cli": "^7.3.8",
     "@angular/compiler-cli": "^5.0.0",
     "@angular/language-service": "^5.0.0",
     "@types/jasmine": "~2.5.53",
