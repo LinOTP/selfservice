@@ -1,4 +1,4 @@
-import { Component, OnInit, Type, ReflectiveInjector, Injector } from '@angular/core';
+import { Component, OnInit, Type, Injector } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { TokenActivatePushComponent } from './token-activate-push/token-activate-push.component';
