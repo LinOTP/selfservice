@@ -27,24 +27,18 @@ before_script:
 
 typescript lint:
   stage: test
-  only:
-    - /^(feature|hotfix|bug)\//
   script:
     - yarn lint
 
 unit tests:
   stage: test
   image: node:10
-  only:
-    - /^(feature|hotfix|bug)\//
   script:
     - yarn test:ci
   coverage: /Branches\s+:\s+\d+\.?\d*%/
 
 build dist:
   stage: build
-  only:
-    - /^(feature|hotfix|bug)\//
   script:
     - yarn build
   artifacts:
