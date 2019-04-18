@@ -1,4 +1,4 @@
-image: node:9-alpine
+image: node:10-alpine
 
 variables:
   IMAGE_NAME: linotp/ng-selfservice
@@ -34,7 +34,7 @@ typescript lint:
 
 unit tests:
   stage: test
-  image: node:9
+  image: node:10
   only:
     - /^(feature|hotfix|bug)\//
   script:
@@ -62,7 +62,7 @@ build deb:
     - apt-get update
     - apt-get install --no-install-recommends --yes apt-transport-https gnupg curl devscripts ca-certificates equivs
     - curl -sS https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
-    - echo 'deb https://deb.nodesource.com/node_9.x stretch main' > /etc/apt/sources.list.d/nodesource.list
+    - echo 'deb https://deb.nodesource.com/node_10.x stretch main' > /etc/apt/sources.list.d/nodesource.list
     - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
     - echo 'deb https://dl.yarnpkg.com/debian/ stable main' > /etc/apt/sources.list.d/yarn.list
     - apt-get update
