@@ -10,7 +10,7 @@ import { TokenService } from '../../token.service';
 
 import { EnrollHotpComponent } from './enroll-hotp.component';
 
-import { of } from 'rxjs/observable/of';
+import { of } from 'rxjs';
 import { NotificationService } from '../../core/notification.service';
 
 const mockEnrollmentResponse = {

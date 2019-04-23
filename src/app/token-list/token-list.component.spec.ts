@@ -5,10 +5,6 @@ import { MockPipe } from '../../testing/mock-pipe';
 
 import { ActivatedRoute } from '@angular/router';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import { of } from 'rxjs/observable/of';
-
 import { TokenListComponent } from './token-list.component';
 import { MaterialModule } from '../material.module';
 import { TokenService } from '../token.service';

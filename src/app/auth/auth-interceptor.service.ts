@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpErrorResponse, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { HttpInterceptor, HttpErrorResponse, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -15,14 +15,14 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    return next.handle(req)
-      .catch((error: HttpErrorResponse, caught) => {
+    return next.handle(req).pipe(
+      catchError((error: HttpErrorResponse, caught) => {
         if (error.status === 401) {
           console.log('Unauthorized api request: ');
           this.router.navigate(['/login']);
         }
-        return Observable.throw(error);
-      });
+        return throwError(error);
+      }));
   }
 
 }
