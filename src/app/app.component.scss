@@ -1,4 +1,12 @@
 @import '~@angular/material/theming';
+
+:host {
+  display: block;
+  overflow: auto;
+  height: 100vh;
+  background: whitesmoke;
+}
+
 mat-toolbar {
   position: relative;
   padding-left: 0.5em;
