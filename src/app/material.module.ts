@@ -17,21 +17,6 @@ import {
 } from '@angular/material';
 
 @NgModule({
-  imports: [
-    BrowserAnimationsModule,
-    MatToolbarModule,
-    MatCardModule,
-    MatInputModule,
-    MatButtonModule,
-    MatSnackBarModule,
-    MatListModule,
-    MatSidenavModule,
-    MatDialogModule,
-    MatSelectModule,
-    MatExpansionModule,
-    MatStepperModule,
-    MatProgressSpinnerModule,
-  ],
   exports: [
     BrowserAnimationsModule,
     MatToolbarModule,
