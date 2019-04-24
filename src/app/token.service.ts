@@ -6,7 +6,7 @@ import { Observable, of, interval } from 'rxjs';
 import { map, filter, mergeMap, take, catchError, tap } from 'rxjs/operators';
 
 
-import { Token, EnrollToken, EnrollmentStatus } from './token';
+import { Token, EnrollToken, EnrollmentStatus, TokenType } from './token';
 import { AuthService } from './auth/auth.service';
 import { NotificationService } from './core/notification.service';
 
@@ -23,7 +23,7 @@ export class TokenService {
   private validateCheckS = '/validate/check_s'; // generate a challenge with a given serial
   private validateCheckStatus = '/validate/check_status'; // view challenge status
 
-  private _tokentypes: { type: string, name: string, description: string }[] = [
+  private _tokentypes: TokenType[] = [
     {
       type: 'hmac',
       name: 'HOTP-Token',

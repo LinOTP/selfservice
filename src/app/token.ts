@@ -22,3 +22,8 @@ export interface EnrollToken {
   description: string;
 }
 
+export interface TokenType {
+  type: string;
+  name: string;
+  description: string;
+}
