@@ -1,7 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
+import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie';
 
@@ -25,13 +24,14 @@ export class AuthService {
   }
 
   login(username: string, password: string): Observable<boolean> {
+    const url = this.baseUrl + this.endpoints.login;
     const params = `login=${username}&password=${password}`;
-    return this.http.post<{ result: { status: boolean, value: boolean } }>(this.baseUrl + this.endpoints.login, params, this.options)
-      .map((response) => response && response.result && response.result.value === true)
+    return this.http.post<{ result: { status: boolean, value: boolean } }>(url, params, this.options)
       .pipe(
-        tap(result => console.log(`login request finished`)),
+        map((response) => response && response.result && response.result.value === true),
+        tap(() => console.log(`login request finished`)),
         tap(result => this._loginChangeEmitter.emit(result)),
-        catchError(this.handleError('login', false))
+        catchError(this.handleError('login', false)),
       );
 
   }
@@ -39,7 +39,7 @@ export class AuthService {
   logout() {
     return this.http.get<any>(this.baseUrl + this.endpoints.logout)
       .pipe(
-        tap(tokens => console.log(`logout request finished`)),
+        tap(() => console.log(`logout request finished`)),
         catchError(this.handleError('logout', false))
       );
   }

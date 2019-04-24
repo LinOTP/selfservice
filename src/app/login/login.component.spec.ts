@@ -4,9 +4,6 @@ import { LoginComponent } from './login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../auth/auth.service';
 import { MaterialModule } from '../material.module';
-import { Router } from '@angular/router';
-import { ActivatedRoute } from '@angular/router/src/router_state';
-import { of } from 'rxjs/observable/of';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NotificationService } from '../core/notification.service';
 

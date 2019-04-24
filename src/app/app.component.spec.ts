@@ -3,15 +3,12 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
 import { AuthService } from './auth/auth.service';
-import { Router } from '@angular/router';
-import { AuthGuard } from './auth/auth-guard.service';
-import { ActivatedRoute } from '@angular/router/src/router_state';
-import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs';
 import { NotificationService } from './core/notification.service';
 
 class AuthServiceMock {
-  logout = jasmine.createSpy('logout').and.returnValue(Observable.of(null));
-  isLoggedIn = jasmine.createSpy('isLoggedIn').and.returnValue(Observable.of(true));
+  logout = jasmine.createSpy('logout').and.returnValue(of(null));
+  isLoggedIn = jasmine.createSpy('isLoggedIn').and.returnValue(of(true));
   loginChangeEmitter = {
     subscribe: jasmine.createSpy('subscribe')
   };
@@ -50,7 +47,7 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   }));
 
-  it(`should have as title 'app'`, async(() => {
+  it(`should have as title 'LinOTP Selfservice'`, async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app.title).toEqual('LinOTP Selfservice');

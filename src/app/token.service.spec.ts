@@ -3,9 +3,6 @@ import { TestBed, async, inject } from '@angular/core/testing';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-
 import { TokenService } from './token.service';
 import { Token, EnrollmentStatus } from './token';
 import { AuthService } from './auth/auth.service';

@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth/auth.service';
-import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+
+import { map } from 'rxjs/operators';
+
 import { NotificationService } from '../core/notification.service';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -30,7 +33,9 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.route.queryParamMap
-      .map(params => params.get('redirect'))
+      .pipe(
+        map(params => params.get('redirect')),
+      )
       .subscribe(url => this.redirectUrl = url);
   }
 

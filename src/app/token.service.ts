@@ -1,17 +1,10 @@
-
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Resolve, RouterStateSnapshot, ActivatedRouteSnapshot, Router } from '@angular/router';
 
-import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/reduce';
-import 'rxjs/add/operator/take';
-import 'rxjs/add/observable/interval';
-import { catchError, tap } from 'rxjs/operators';
+import { Observable, of, interval } from 'rxjs';
+import { map, filter, mergeMap, take, catchError, tap } from 'rxjs/operators';
+
 
 import { Token, EnrollToken, EnrollmentStatus } from './token';
 import { AuthService } from './auth/auth.service';
@@ -67,19 +60,18 @@ export class TokenService {
 
   getTokens(): Observable<Token[]> {
     const url = this.userserviceBase + this.userserviceEndpoints.tokens;
-    return this.http.get<any>(url, { params: { session: this.authService.getSession() } })
-      .map(this.mapTokenResponse)
+    return this.http.get<any>(url, { params: { session: this.authService.getSession() } }).pipe(
+      map(this.mapTokenResponse))
       .pipe(
-        tap(tokens => console.log(`tokens fetched`)),
+        tap(() => console.log(`tokens fetched`)),
         catchError(this.handleError('getTokens', []))
       );
   }
 
   getToken(serial: string): Observable<Token> {
-    return this.getTokens()
-      .map(
-        tokens => tokens.find(t => t.serial === serial)
-      );
+    return this.getTokens().pipe(
+      map(tokens => tokens.find(t => t.serial === serial)),
+    );
   }
 
   deleteToken(serial: string): Observable<any> {
@@ -90,22 +82,23 @@ export class TokenService {
 
     return this.http.post<any>(this.userserviceBase + this.userserviceEndpoints.delete, body)
       .pipe(
-        tap(response => console.log(`token ${serial} deleted`)),
+        tap(() => console.log(`token ${serial} deleted`)),
         catchError(this.handleError('deleteToken', null))
       );
   }
 
   setPin(token: Token, pin: string): Observable<boolean> {
+    const url = this.userserviceBase + this.userserviceEndpoints.setpin;
     const body = {
       userpin: pin,
       serial: token.serial,
       session: this.authService.getSession()
     };
 
-    return this.http.post<{ result: { status: boolean, value: boolean } }>(this.userserviceBase + this.userserviceEndpoints.setpin, body)
-      .map((response) => response && response.result && response.result.value['set userpin'] === 1)
+    return this.http.post<{ result: { status: boolean, value: boolean } }>(url, body)
       .pipe(
-        tap(tokens => console.log(`pin set`)),
+        map((response) => response && response.result && response.result.value['set userpin'] === 1),
+        tap(() => console.log(`pin set`)),
         catchError(this.handleError('setTokenPin', false))
       );
   }
@@ -115,16 +108,16 @@ export class TokenService {
 
     return this.http.post(this.userserviceBase + this.userserviceEndpoints.enroll, body)
       .pipe(
-        tap(token => console.log(`token enrolled`)),
+        tap(() => console.log(`token enrolled`)),
         catchError(this.handleError('enroll token', null))
       );
   }
 
   pairingPoll(serial: string): Observable<any> {
-    return Observable.interval(2000)
-      .mergeMap(val => this.getToken(serial))
-      .filter(token => token.enrollmentStatus === EnrollmentStatus.pairing_response_received)
-      .take(1);
+    return interval(2000).pipe(
+      mergeMap(() => this.getToken(serial)),
+      filter(token => token.enrollmentStatus === EnrollmentStatus.pairing_response_received),
+      take(1));
   }
 
   activate(serial: string, pin: string): Observable<any> {
@@ -135,7 +128,7 @@ export class TokenService {
     };
     return this.http.post(this.validateCheckS, body)
       .pipe(
-        tap(token => console.log(`activation challenge created`)),
+        tap(() => console.log(`activation challenge created`)),
         catchError(this.handleError('activate token', null))
       );
   }
@@ -148,20 +141,19 @@ export class TokenService {
     };
     return this.http.post(this.validateCheckStatus, body)
       .pipe(
-        tap(status => console.log(`challenge status returned`)),
+        tap(() => console.log(`challenge status returned`)),
         catchError(this.handleError('get challenge status', null))
       );
   }
 
   challengePoll(transactionId: string, pin: string, serial: string): Observable<boolean> {
-    return Observable.interval(2000)
-      .mergeMap(val => this.getChallengeStatus(transactionId, pin, serial))
-      .filter(res => res.detail.transactions[transactionId].status !== 'open')
-      .map(res => res.detail.transactions[transactionId].accept === true)
-      .pipe(
-        catchError(() => of(false))
-      )
-      .take(1);
+    return interval(2000).pipe(
+      mergeMap(() => this.getChallengeStatus(transactionId, pin, serial)),
+      filter(res => res.detail.transactions[transactionId].status !== 'open'),
+      map(res => res.detail.transactions[transactionId].accept === true),
+      catchError(() => of(false)),
+      take(1),
+    );
   }
 
   testToken(tokenSerial: String, pin: String, otp: String) {
@@ -195,7 +187,9 @@ export class TokenListResolver implements Resolve<Token[]> {
   ) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Token[]> {
-    return this.ts.getTokens().take(1);
+    return this.ts.getTokens().pipe(
+      take(1),
+    );
   }
 }
 
@@ -210,14 +204,17 @@ export class TokenDetailResolver implements Resolve<Token> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Token> {
     const serial = route.paramMap.get('serial');
 
-    return this.ts.getToken(serial).take(1).map(token => {
-      if (token) {
-        return token;
-      } else { // no token with such serial
-        this.notificationService.message('Token not found');
-        this.router.navigate(['/tokens']);
-        return null;
-      }
-    });
+    return this.ts.getToken(serial).pipe(
+      take(1),
+      map(token => {
+        if (token) {
+          return token;
+        } else { // no token with such serial
+          this.notificationService.message('Token not found');
+          this.router.navigate(['/tokens']);
+          return null;
+        }
+      }),
+    );
   }
 }
