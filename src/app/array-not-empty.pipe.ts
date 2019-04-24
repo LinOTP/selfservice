@@ -5,8 +5,15 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class ArrayNotEmptyPipe implements PipeTransform {
 
-  transform(value: any[], args?: any): any {
-    return value.length > 0;
+  /**
+   * decides whether a given value is a non-empty array or not
+   *
+   * @param {any[]} value array to examine
+   * @returns {boolean}
+   * @memberof ArrayNotEmptyPipe
+   */
+  transform(value: any[]): boolean {
+    return !!value && value.length > 0;
   }
 
 }
