@@ -29,6 +29,7 @@ import { NonActiveTokensPipe } from './non-active-tokens.pipe';
 import { ActiveTokensPipe } from './active-tokens.pipe';
 import { ArrayNotEmptyPipe } from './array-not-empty.pipe';
 import { SortTokensByStatePipe } from './sort-tokens-by-state.pipe';
+import { TokenCardComponent } from './token-card/token-card.component';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import { SortTokensByStatePipe } from './sort-tokens-by-state.pipe';
     ActiveTokensPipe,
     ArrayNotEmptyPipe,
     SortTokensByStatePipe,
+    TokenCardComponent,
   ],
   entryComponents: [
     TokenActivatePushComponent,
