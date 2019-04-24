@@ -69,8 +69,16 @@ build deb:
     paths:
       - artifacts/
 
-
-
+build docker image:
+  stage: build
+  image: docker:latest
+  tags:
+    - multi-stage
+  before_script:
+    - echo 'skip yarn install'
+  script:
+    - docker build -t $LATEST_TAG .
+    - docker rmi $LATEST_TAG
 
 ### Run only on master ###
 
