@@ -41,8 +41,10 @@ export class TokenService {
     },
   ];
 
-  constructor(private http: HttpClient, private authService: AuthService) {
-  }
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService
+  ) { }
 
   private mapTokenResponse = (res: { result: { value: any[] } }) => {
     // TODO: Catch API Errors

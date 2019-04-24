@@ -13,3 +13,24 @@
                   [token]="token"
                   (tokenUpdate)="loadTokens()"></app-token-card>
 </section>
+
+<ng-container *ngIf="tokens | arrayNotEmpty; then enrollmentSection; else emptyState">
+</ng-container>
+
+<ng-template #enrollmentSection>
+  <section>
+    <h2>Setup alternative authentication methods</h2>
+    <app-enrollment-grid></app-enrollment-grid>
+  </section>
+</ng-template>
+
+<ng-template #emptyState>
+  <section>
+    <h2>Enroll your first authentication method</h2>
+    <p>
+      You currently do not have any authentication method enrolled.
+      Start by selecting your prefered type:
+    </p>
+    <app-enrollment-grid></app-enrollment-grid>
+  </section>
+</ng-template>
