@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TokenService } from '../token.service';
 import { Router } from '@angular/router';
-import { TokenType } from '../token';
+import { TokenType, tokenTypes } from '../token';
 
 @Component({
   selector: 'app-enrollment-grid',
@@ -10,16 +9,13 @@ import { TokenType } from '../token';
 })
 export class EnrollmentGridComponent implements OnInit {
 
-  public tokenTypes: TokenType[];
+  public tokenTypes: TokenType[] = tokenTypes;
 
   constructor(
-    private tokenService: TokenService,
     private router: Router,
   ) { }
 
-  ngOnInit() {
-    this.tokenTypes = this.tokenService.tokenTypes;
-  }
+  ngOnInit() { }
 
   startEnrollment(tokentype: TokenType) {
     this.router.navigate(['/enroll', tokentype.type]);

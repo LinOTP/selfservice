@@ -68,11 +68,4 @@ export class TokenCardComponent implements OnInit {
         this.tokenUpdate.next();
       });
   }
-
-  tokenName(type: string) {
-    type = type.toLowerCase();
-    const tokenType = this.tokenService.tokenTypes.find(tt => tt.type === type);
-    return tokenType ? tokenType.name : 'Unknown token';
-  }
-
 }
