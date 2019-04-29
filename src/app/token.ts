@@ -25,6 +25,12 @@ export const tokenTypes: TokenType[] = [
     description: 'Confirm authentication requests on your Smartphone with the Authenticator app',
     icon: 'screen_lock_portrait',
   },
+  {
+    type: 'qr',
+    name: 'KeyIdentity QR Token',
+    description: 'Use the Authenticator app to scan QR code authentication requests.',
+    icon: 'all_out',
+  },
 ];
 
 export const unknownTokenType: TokenType = {
