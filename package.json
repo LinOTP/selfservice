@@ -11,9 +11,9 @@
     "test:chrome": "ng test --browsers Chrome",
     "test:chromium": "ng test --browsers Chromium",
     "test:firefox": "ng test --browsers Firefox",
-    "test:phantomjs": "ng test --browsers PhantomJS",
     "test:all": "ng test --watch=false",
-    "test:ci": "yarn test:phantomjs --watch=false --code-coverage",
+    "test:ci": "ng test --browsers ChromeHeadless --watch=false --code-coverage",
+    "test:ci-no-sandbox": "ng test --browsers ChromeHeadlessNoSandbox --code-coverage --watch=false",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },

@@ -32,9 +32,9 @@ typescript lint:
 
 unit tests:
   stage: test
-  image: node:10
+  image: docker.repos.corp.keyidentity.com/gitlab-images/node-chrome:10-stretch
   script:
-    - yarn test:ci
+    - yarn test:ci-no-sandbox
   coverage: /Branches\s+:\s+\d+\.?\d*%/
 
 build dist:
