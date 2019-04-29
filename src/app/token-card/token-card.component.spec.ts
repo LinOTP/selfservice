@@ -2,6 +2,7 @@ import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core
 
 import { Fixtures } from '../../testing/fixtures';
 import { spyOnClass } from '../../testing/spyOnClass';
+import { TestingPage } from '../../testing/page-helper';
 
 import { of } from 'rxjs/internal/observable/of';
 
@@ -12,6 +13,17 @@ import { MaterialModule } from '../material.module';
 import { NotificationService } from '../core/notification.service';
 import { TokenService } from '../token.service';
 
+class Page extends TestingPage<TokenCardComponent> {
+
+  get header() { return this.query('mat-card-title'); }
+  get subheader() { return this.query('mat-card-subtitle'); }
+
+  openMenu() {
+    this.query('mat-card-header button.mat-icon-button').click();
+  }
+
+}
+
 describe('TokenCardComponent', () => {
   let component: TokenCardComponent;
   let fixture: ComponentFixture<TokenCardComponent>;
@@ -19,6 +31,8 @@ describe('TokenCardComponent', () => {
   let notificationService: jasmine.SpyObj<NotificationService>;
   let matDialog: jasmine.SpyObj<MatDialog>;
   let tokenService: jasmine.SpyObj<TokenService>;
+
+  let page: Page;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -53,10 +67,20 @@ describe('TokenCardComponent', () => {
     matDialog = TestBed.get(MatDialog);
 
     fixture.detectChanges();
+
+    page = new Page(fixture);
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('renders the token as a card', () => {
+    component.token = Fixtures.activeHotpToken;
+    fixture.detectChanges();
+
+    expect(page.header.innerText).toEqual(component.token.typeDetails.name);
+    expect(page.subheader.innerText).toEqual(component.token.description);
   });
 
   describe('set token pin', () => {
