@@ -1,12 +1,53 @@
+
+export interface TokenType {
+  type: string;
+  name: string;
+  description: string;
+  icon: string; // material icon ligature string to use for this token type
+}
+
+export const tokenTypes: TokenType[] = [
+  {
+    type: 'hmac',
+    name: 'HOTP-Token',
+    description: 'Event-based soft token (HOTP)',
+    icon: 'cached',
+  },
+  {
+    type: 'totp',
+    name: 'TOTP-Token',
+    description: 'Time-based soft token (TOTP)',
+    icon: 'timelapse',
+  },
+  {
+    type: 'push',
+    name: 'Push-Token',
+    description: 'KeyIdentity Push Token',
+    icon: 'screen_lock_portrait',
+  },
+];
+
+export const unknownTokenType: TokenType = {
+  type: 'unknown',
+  name: 'Unkown Token',
+  description: '',
+  icon: 'apps',
+};
+
 export class Token {
   enrollmentStatus: EnrollmentStatus;
+
+  public typeDetails: TokenType;
 
   constructor(
     public id: number,
     public serial: string,
     public type: string,
     public description?: string
-  ) { }
+  ) {
+    this.type = this.type.toLowerCase();
+    this.typeDetails = tokenTypes.find(tt => tt.type === this.type) || unknownTokenType;
+  }
 
 }
 
@@ -21,4 +62,3 @@ export interface EnrollToken {
   type: string;
   description: string;
 }
-

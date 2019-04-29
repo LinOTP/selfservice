@@ -11,27 +11,13 @@ import {
   MatSidenavModule,
   MatDialogModule,
   MatSelectModule,
-  MatExpansionModule,
   MatStepperModule,
   MatProgressSpinnerModule,
+  MatIconModule,
+  MatMenuModule,
 } from '@angular/material';
 
 @NgModule({
-  imports: [
-    BrowserAnimationsModule,
-    MatToolbarModule,
-    MatCardModule,
-    MatInputModule,
-    MatButtonModule,
-    MatSnackBarModule,
-    MatListModule,
-    MatSidenavModule,
-    MatDialogModule,
-    MatSelectModule,
-    MatExpansionModule,
-    MatStepperModule,
-    MatProgressSpinnerModule,
-  ],
   exports: [
     BrowserAnimationsModule,
     MatToolbarModule,
@@ -43,9 +29,10 @@ import {
     MatSidenavModule,
     MatDialogModule,
     MatSelectModule,
-    MatExpansionModule,
     MatStepperModule,
     MatProgressSpinnerModule,
+    MatIconModule,
+    MatMenuModule,
   ],
 })
 export class MaterialModule { }

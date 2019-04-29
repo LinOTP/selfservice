@@ -23,26 +23,10 @@ export class TokenService {
   private validateCheckS = '/validate/check_s'; // generate a challenge with a given serial
   private validateCheckStatus = '/validate/check_status'; // view challenge status
 
-  private _tokentypes: { type: string, name: string, description: string }[] = [
-    {
-      type: 'hmac',
-      name: 'HOTP-Token',
-      description: 'Event-based soft token (HOTP)'
-    },
-    {
-      type: 'totp',
-      name: 'TOTP-Token',
-      description: 'Time-based soft token (TOTP)'
-    },
-    {
-      type: 'push',
-      name: 'Push-Token',
-      description: 'KeyIdentity Push Token'
-    },
-  ];
-
-  constructor(private http: HttpClient, private authService: AuthService) {
-  }
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService
+  ) { }
 
   private mapTokenResponse = (res: { result: { value: any[] } }) => {
     // TODO: Catch API Errors
@@ -173,11 +157,6 @@ export class TokenService {
       return of(result as T);
     };
   }
-
-  get tokenTypes() {
-    return this._tokentypes;
-  }
-
 }
 
 @Injectable()

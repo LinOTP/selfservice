@@ -1,32 +1,7 @@
-mat-panel-title {
-  font-weight: bold;
-}
-
-mat-action-row {
-  padding-right: 24px;
-  &>* {
-    margin-left: 1em;
-  }
-}
-
 section {
-  margin-bottom: 24px;
+  margin: 2em 0;
 }
 
-.mat-expansion-panel-header-description,
-.mat-expansion-panel-header-title {
-  flex-grow: 1;
-  flex-basis: 0;
-  align-items: center;
-  user-select: none;
-}
-
-.token-status-badge {
-  font-weight: normal;
-  padding: 3px 10px;
-  border-radius: 13px;
-  background-color: #e0e0e0;
-  color: rgba(0, 0, 0, .87);
-  margin: 0 12px;
-  font-size: 13px;
+app-token-card {
+  margin: 1em 0;
 }

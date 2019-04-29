@@ -1,0 +1,42 @@
+<mat-card *ngIf="token">
+  <mat-card-header>
+    <mat-icon mat-card-avatar>{{token.typeDetails.icon}}</mat-icon>
+    <mat-card-title>{{token.typeDetails.name}}</mat-card-title>
+    <mat-card-subtitle class="description">
+      {{token.description}}
+    </mat-card-subtitle>
+    <div class="spacer"></div>
+    <button mat-icon-button
+            [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+  </mat-card-header>
+  <mat-card-content>
+    <p>Serial: {{ token.serial }}</p>
+    <ng-container [ngSwitch]="token.enrollmentStatus">
+      <p *ngSwitchCase="EnrollmentStatus.unpaired">
+        This token needs to be paired with your mobile. You need the enrollment QR code to proceed in the authenticator
+        mobile application. Afterwards you can start the activation here.
+      </p>
+      <p *ngSwitchCase="EnrollmentStatus.pairing_response_received">
+        This token is paired with your mobile. The next step is the activation:
+      </p>
+      <p *ngSwitchCase="EnrollmentStatus.pairing_challenge_sent">
+        An activation challenge has been generated. Please process it with your authenticator
+      </p>
+    </ng-container>
+  </mat-card-content>
+</mat-card>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item
+          (click)="setPin()">
+    <mat-icon>security</mat-icon>
+    <span>set pin</span>
+  </button>
+  <button mat-menu-item
+          (click)="delete()">
+    <mat-icon>delete token</mat-icon>
+    <span>delete</span>
+  </button>
+</mat-menu>

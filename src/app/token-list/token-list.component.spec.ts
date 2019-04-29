@@ -1,20 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
+import { Fixtures } from '../../testing/fixtures';
 import { MockPipe } from '../../testing/mock-pipe';
+import { MockComponent } from '../../testing/mock-component';
 
-import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 
 import { TokenListComponent } from './token-list.component';
 import { MaterialModule } from '../material.module';
 import { TokenService } from '../token.service';
-import { NotificationService } from '../core/notification.service';
-
-const tokens: Array<{ type: String; id: String }> = [];
-
-class MockNotificationService {
-  message = jasmine.createSpy('message');
-}
 
 describe('TokenListComponent', () => {
   let component: TokenListComponent;
@@ -28,25 +23,15 @@ describe('TokenListComponent', () => {
         MockPipe({ 'name': 'activeTokens' }),
         MockPipe({ 'name': 'arrayNotEmpty' }),
         MockPipe({ 'name': 'sortTokensByState' }),
+        MockComponent({ 'selector': 'app-token-card', inputs: ['token'], outputs: ['tokenUpdate'] }),
+        MockComponent({ 'selector': 'app-enrollment-grid' }),
       ],
       providers: [
         {
-          provide: ActivatedRoute,
-          useValue: {
-            data: {
-              subscribe: jasmine.createSpy('subscribe')
-            }
-          }
-        },
-        {
           provide: TokenService,
           useValue: {
-            deletetoken: jasmine.createSpy('deletetoken')
+            getTokens: jasmine.createSpy('getTokens')
           }
-        },
-        {
-          provide: NotificationService,
-          useClass: MockNotificationService,
         },
       ],
       imports: [
@@ -60,6 +45,10 @@ describe('TokenListComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(TokenListComponent);
     component = fixture.componentInstance;
+
+    const tokenService: jasmine.SpyObj<TokenService> = TestBed.get(TokenService);
+    tokenService.getTokens.and.returnValue(of(Fixtures.tokens));
+
     fixture.detectChanges();
   });
 
@@ -67,8 +56,8 @@ describe('TokenListComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should get tokens from the server on init', () => {
-    const route: ActivatedRoute = fixture.debugElement.injector.get(ActivatedRoute);
-    expect(route.data.subscribe).toHaveBeenCalled();
+  it('should load tokens from the server on init', () => {
+    const tokenService: TokenService = TestBed.get(TokenService);
+    expect(tokenService.getTokens).toHaveBeenCalled();
   });
 });

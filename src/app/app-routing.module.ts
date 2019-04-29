@@ -41,9 +41,6 @@ const routes: Routes = [
     component: TokenListComponent,
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard],
-    resolve: {
-      tokens: TokenListResolver
-    },
   },
   {
     path: 'tokens/:serial/activate',

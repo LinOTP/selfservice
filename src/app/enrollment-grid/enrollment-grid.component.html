@@ -1,0 +1,11 @@
+<mat-card *ngFor="let type of tokenTypes"
+          (click)="startEnrollment(type)"
+          role="button">
+  <mat-card-header>
+    <mat-icon mat-card-avatar>{{type.icon}}</mat-icon>
+    <mat-card-title>{{type.name}}</mat-card-title>
+    <mat-card-subtitle class="description">
+      {{type.description}}
+    </mat-card-subtitle>
+  </mat-card-header>
+</mat-card>

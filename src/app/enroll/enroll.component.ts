@@ -5,6 +5,7 @@ import { EnrollPushComponent } from './enroll-push/enroll-push.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatSelectChange } from '@angular/material';
 import { TokenService } from '../token.service';
+import { tokenTypes } from '../token';
 
 @Component({
   selector: 'app-enroll',
@@ -13,7 +14,7 @@ import { TokenService } from '../token.service';
 })
 export class EnrollComponent implements OnInit {
 
-  public tokentypes = this.tokenService.tokenTypes;
+  public tokentypes = tokenTypes;
   public selectedType: string;
 
   constructor(
