@@ -1,4 +1,4 @@
-import { Token } from '../app/token';
+import {Token} from '../app/token';
 
 export class Fixtures {
 
@@ -17,4 +17,18 @@ export class Fixtures {
     ];
   }
 
+  static get enrollmentResponse() {
+    return {
+      result: {
+        value: false
+      }
+      ,
+      detail: {
+        googleurl: {
+          value: 'testUrl',
+        },
+        serial: 'testSerial',
+      }
+    };
+  }
 }
