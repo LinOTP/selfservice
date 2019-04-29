@@ -21,8 +21,8 @@ export const tokenTypes: TokenType[] = [
   },
   {
     type: 'push',
-    name: 'Push-Token',
-    description: 'KeyIdentity Push Token',
+    name: 'KeyIdentity Push Token',
+    description: 'Confirm authentication requests on your Smartphone with the Authenticator app',
     icon: 'screen_lock_portrait',
   },
 ];
