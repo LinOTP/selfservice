@@ -3,8 +3,8 @@
 :host {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 2em;
-  padding: .5em 2em;
+  grid-gap: 1em;
+  padding: 0 .5em;
 }
 
 mat-card:hover {
