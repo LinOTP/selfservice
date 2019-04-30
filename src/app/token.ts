@@ -35,7 +35,7 @@ export const tokenTypes: TokenType[] = [
 
 export const unknownTokenType: TokenType = {
   type: 'unknown',
-  name: 'Unkown Token',
+  name: 'Unknown Token',
   description: '',
   icon: 'apps',
 };
