@@ -1,14 +1,14 @@
 <section *ngIf="tokens | nonActiveTokens | arrayNotEmpty">
-  <h2>Pending Tokens</h2>
-  <p>These tokens are not active yet and need to be paired.</p>
+  <h2>Pending actions</h2>
+  <p>The following tokens are not active yet and need to be paired:</p>
   <app-token-card *ngFor="let token of tokens | nonActiveTokens"
                   [token]="token"
                   (tokenUpdate)="loadTokens()"></app-token-card>
 </section>
 
 <section *ngIf="tokens | activeTokens | arrayNotEmpty">
-  <h2>Your active authentication methods</h2>
-  <p>The following tokens are ready to be used.</p>
+  <h2>Active authentication methods</h2>
+  <p>The following tokens are ready to be used:</p>
   <app-token-card *ngFor="let token of tokens | activeTokens"
                   [token]="token"
                   (tokenUpdate)="loadTokens()"></app-token-card>
@@ -19,7 +19,7 @@
 
 <ng-template #enrollmentSection>
   <section>
-    <h2>Setup alternative authentication methods</h2>
+    <h2>Set up alternative authentication methods</h2>
     <app-enrollment-grid></app-enrollment-grid>
   </section>
 </ng-template>
