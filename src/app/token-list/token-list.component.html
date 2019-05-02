@@ -19,7 +19,9 @@
   </section>
 </ng-template>
 
-<ng-container *ngIf="tokens | arrayNotEmpty; then enrollmentSection; else emptyState">
+<ng-container *ngxPermissionsOnly="EnrollmentPermissions">
+  <ng-container *ngIf="tokens | arrayNotEmpty; then enrollmentSection; else emptyState">
+  </ng-container>
 </ng-container>
 
 <ng-template #enrollmentSection>

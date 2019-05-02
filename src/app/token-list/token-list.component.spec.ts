@@ -10,6 +10,7 @@ import { of } from 'rxjs';
 import { TokenListComponent } from './token-list.component';
 import { MaterialModule } from '../material.module';
 import { TokenService } from '../token.service';
+import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
 
 describe('TokenListComponent', () => {
   let component: TokenListComponent;
@@ -25,6 +26,7 @@ describe('TokenListComponent', () => {
         MockPipe({ 'name': 'sortTokensByState' }),
         MockComponent({ 'selector': 'app-token-card', inputs: ['token'], outputs: ['tokenUpdate'] }),
         MockComponent({ 'selector': 'app-enrollment-grid' }),
+        NgxPermissionsAllowStubDirective,
       ],
       providers: [
         {

@@ -49,3 +49,10 @@ export const TOTPPermissions: PermissionSet = {
     delete: [Permission.delete],
     setPin: [Permission.setPin],
 };
+
+export const EnrollmentPermissions = [
+    Permission.enrollPush,
+    Permission.enrollQR,
+    Permission.enrollHOTP,
+    Permission.enrollTOTP,
+];
