@@ -9,6 +9,17 @@ export enum Permission {
     setPin = 'SETPIN'
 }
 
+export const PoliciesToPermissionsMapping = {
+    'enrollPUSH': Permission.enrollPush,
+    'activate_PushToken': Permission.activatePush,
+    'enrollQR': Permission.enrollQR,
+    'activateQR': Permission.activateQR,
+    'enrollHMAC': Permission.enrollHOTP,
+    'enrollTOTP': Permission.enrollTOTP,
+    'delete': Permission.delete,
+    'setOTPPIN': Permission.setPin,
+};
+
 export interface PermissionSet {
     [permissionScope: string]: Permission[];
 }
