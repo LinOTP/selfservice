@@ -1,18 +1,23 @@
-<section *ngIf="tokens | nonActiveTokens | arrayNotEmpty">
-  <h2>Pending actions</h2>
-  <p>The following tokens are not active yet and need to be paired:</p>
-  <app-token-card *ngFor="let token of tokens | nonActiveTokens"
-                  [token]="token"
-                  (tokenUpdate)="loadTokens()"></app-token-card>
-</section>
+<div *ngIf="!tokens; else tokenLists">
+  <p>Loading tokens...</p>
+</div>
+<ng-template #tokenLists>
+  <section *ngIf="tokens && tokens | nonActiveTokens | arrayNotEmpty">
+    <h2>Pending actions</h2>
+    <p>The following tokens are not active yet and need to be paired:</p>
+    <app-token-card *ngFor="let token of tokens | nonActiveTokens"
+                    [token]="token"
+                    (tokenUpdate)="loadTokens()"></app-token-card>
+  </section>
 
-<section *ngIf="tokens | activeTokens | arrayNotEmpty">
-  <h2>Active authentication methods</h2>
-  <p>The following tokens are ready to be used:</p>
-  <app-token-card *ngFor="let token of tokens | activeTokens"
-                  [token]="token"
-                  (tokenUpdate)="loadTokens()"></app-token-card>
-</section>
+  <section *ngIf="tokens | activeTokens | arrayNotEmpty">
+    <h2>Active authentication methods</h2>
+    <p>The following tokens are ready to be used:</p>
+    <app-token-card *ngFor="let token of tokens | activeTokens"
+                    [token]="token"
+                    (tokenUpdate)="loadTokens()"></app-token-card>
+  </section>
+</ng-template>
 
 <ng-container *ngIf="tokens | arrayNotEmpty; then enrollmentSection; else emptyState">
 </ng-container>
