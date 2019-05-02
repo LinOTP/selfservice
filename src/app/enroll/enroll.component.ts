@@ -1,5 +1,5 @@
 import { Component, OnInit, Type } from '@angular/core';
-import { EnrollHotpComponent } from './enroll-hotp/enroll-hotp.component';
+import { EnrollHotpDialogComponent } from '../enroll/enroll-hotp-dialog/enroll-hotp-dialog.component';
 import { EnrollTotpComponent } from './enroll-totp/enroll-totp.component';
 import { EnrollPushComponent } from './enroll-push/enroll-push.component';
 import { Router, ActivatedRoute } from '@angular/router';

@@ -2,12 +2,11 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { TokenListComponent } from './token-list/token-list.component';
 import { LoginComponent } from './login/login.component';
-import { TokenDetailResolver, TokenListResolver } from './token.service';
+import { TokenDetailResolver } from './token.service';
 import { TokenActivateComponent } from './token-activate/token-activate.component';
 import { AuthGuard } from './auth/auth-guard.service';
 import { EnrollComponent } from './enroll/enroll.component';
 import { EnrollTotpComponent } from './enroll/enroll-totp/enroll-totp.component';
-import { EnrollHotpComponent } from './enroll/enroll-hotp/enroll-hotp.component';
 import { EnrollPushComponent } from './enroll/enroll-push/enroll-push.component';
 
 const routes: Routes = [
@@ -22,10 +21,6 @@ const routes: Routes = [
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard],
     children: [
-      {
-        path: 'hmac',
-        component: EnrollHotpComponent,
-      },
       {
         path: 'totp',
         component: EnrollTotpComponent,

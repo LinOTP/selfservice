@@ -1,9 +1,13 @@
 .stepperControls {
   display: flex;
   justify-content: flex-end;
-  &>* {
+  & > * {
     margin: 10px;
   }
+}
+
+.spacer {
+  flex: 1 1 auto;
 }
 
 mat-form-field {

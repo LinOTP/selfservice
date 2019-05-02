@@ -21,7 +21,7 @@
   <section>
     <h2>Set up new authentication method</h2>
     <p>Following alternative authentication methods are available and can be set up:</p>
-    <app-enrollment-grid></app-enrollment-grid>
+    <app-enrollment-grid (tokenUpdate)="loadTokens()"></app-enrollment-grid>
   </section>
 </ng-template>
 
@@ -32,6 +32,6 @@
       You currently do not have any authentication method enrolled.
       Start by selecting your prefered type:
     </p>
-    <app-enrollment-grid></app-enrollment-grid>
+    <app-enrollment-grid (tokenUpdate)="loadTokens()"></app-enrollment-grid>
   </section>
 </ng-template>
