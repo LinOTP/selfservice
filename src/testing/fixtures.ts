@@ -1,4 +1,4 @@
-import {Token} from '../app/token';
+import { Token } from '../app/token';
 
 export class Fixtures {
 
@@ -27,8 +27,29 @@ export class Fixtures {
         googleurl: {
           value: 'testUrl',
         },
+        lse_qr_url: {
+          value: 'testUrl',
+        },
         serial: 'testSerial',
       }
+    };
+  }
+
+  static get hmacTokenType() {
+    return {
+      type: 'hmac',
+      name: 'test hmac',
+      description: 'desc',
+      icon: 'icon',
+    };
+  }
+
+  static get pushTokenType() {
+    return {
+      type: 'push',
+      name: 'test push',
+      description: 'desc',
+      icon: 'icon'
     };
   }
 }
