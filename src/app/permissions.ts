@@ -56,3 +56,8 @@ export const EnrollmentPermissions = [
     Permission.enrollHOTP,
     Permission.enrollTOTP,
 ];
+
+export const ModifyTokenPermissions = [
+    Permission.setPin,
+    Permission.delete,
+];

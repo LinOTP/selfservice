@@ -7,7 +7,8 @@
     </mat-card-subtitle>
     <div class="spacer"></div>
     <button mat-icon-button
-            [matMenuTriggerFor]="menu">
+            [matMenuTriggerFor]="menu"
+            *ngxPermissionsOnly="ModifyTokenPermissions">
       <mat-icon>more_vert</mat-icon>
     </button>
   </mat-card-header>
@@ -30,12 +31,14 @@
 
 <mat-menu #menu="matMenu">
   <button mat-menu-item
-          (click)="setPin()">
+          (click)="setPin()"
+          *ngxPermissionsOnly="Permission.setPin">
     <mat-icon>security</mat-icon>
     <span>set pin</span>
   </button>
   <button mat-menu-item
-          (click)="delete()">
+          (click)="delete()"
+          *ngxPermissionsOnly="Permission.delete">
     <mat-icon>delete token</mat-icon>
     <span>delete</span>
   </button>

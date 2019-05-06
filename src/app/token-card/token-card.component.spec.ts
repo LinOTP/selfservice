@@ -7,6 +7,7 @@ import { TestingPage } from '../../testing/page-helper';
 import { of } from 'rxjs/internal/observable/of';
 
 import { MatDialog } from '@angular/material';
+import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
 
 import { TokenCardComponent } from './token-card.component';
 import { MaterialModule } from '../material.module';
@@ -41,6 +42,7 @@ describe('TokenCardComponent', () => {
       ],
       declarations: [
         TokenCardComponent,
+        NgxPermissionsAllowStubDirective,
       ],
       providers: [
         {
