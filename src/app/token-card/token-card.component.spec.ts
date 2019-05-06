@@ -13,6 +13,8 @@ import { TokenCardComponent } from './token-card.component';
 import { MaterialModule } from '../material.module';
 import { NotificationService } from '../core/notification.service';
 import { TokenService } from '../token.service';
+import { Permission, ModifyTokenPermissions } from '../permissions';
+import { EnrollmentStatus } from '../token';
 
 class Page extends TestingPage<TokenCardComponent> {
 
@@ -167,7 +169,14 @@ describe('TokenCardComponent', () => {
       expect(matDialog.open).toHaveBeenCalledTimes(1);
       expect(tokenService.deleteToken).not.toHaveBeenCalled();
     }));
-
   });
 
+  it('should load permissions', () => {
+    expect(component.Permission).toBe(Permission);
+    expect(component.ModifyTokenPermissions).toBe(ModifyTokenPermissions);
+  });
+
+  it('should load enrollment status', () => {
+    expect(component.EnrollmentStatus).toBe(EnrollmentStatus);
+  });
 });
