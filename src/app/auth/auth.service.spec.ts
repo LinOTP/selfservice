@@ -162,6 +162,20 @@ describe('AuthService', () => {
     })
   ));
 
+  it('should flush permissions on logout', async(
+    inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+
+      authService.logout().subscribe();
+
+      const logoutRequest = backend.expectOne((req) => req.url === '/userservice/logout' && req.method === 'GET');
+      logoutRequest.flush({});
+
+      backend.verify();
+
+      expect(permissionsService.flushPermissions).toHaveBeenCalled();
+    })
+  ));
+
   it('should handle logout errors', async(
     inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
 

@@ -50,6 +50,7 @@ export class AuthService {
   logout() {
     return this.http.get<any>(this.baseUrl + this.endpoints.logout)
       .pipe(
+        tap(_ => this.permissionsService.flushPermissions()),
         catchError(this.handleError('logout', false))
       );
   }
