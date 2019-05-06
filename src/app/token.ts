@@ -11,6 +11,13 @@ export interface TokenType {
 
 export const tokenTypes: TokenType[] = [
   {
+    type: 'pw',
+    name: 'Password token',
+    description: 'Personal text-based secret',
+    icon: 'keyboard',
+    enrollmentPermission: Permission.enrollPassword,
+  },
+  {
     type: 'hmac',
     name: 'HOTP-Token',
     description: 'Event-based soft token (HOTP)',

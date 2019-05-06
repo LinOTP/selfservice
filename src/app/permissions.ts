@@ -5,6 +5,7 @@ export enum Permission {
     activateQR = 'QR.ACTIVATE',
     enrollHOTP = 'HOTP.ENROLL',
     enrollTOTP = 'TOTP.ENROLL',
+    enrollPassword = 'PW.ENROLL',
     delete = 'DELETE',
     setPin = 'SETPIN'
 }
@@ -23,6 +24,12 @@ export const PoliciesToPermissionsMapping = {
 export interface PermissionSet {
     [permissionScope: string]: Permission[];
 }
+
+export const PasswordPermissions: PermissionSet = {
+    enroll: [Permission.enrollPassword],
+    delete: [Permission.delete],
+    setPin: [Permission.setPin],
+};
 
 export const PushPermissions: PermissionSet = {
     enroll: [Permission.enrollPush],
@@ -55,6 +62,7 @@ export const EnrollmentPermissions = [
     Permission.enrollQR,
     Permission.enrollHOTP,
     Permission.enrollTOTP,
+    Permission.enrollPassword,
 ];
 
 export const ModifyTokenPermissions = [

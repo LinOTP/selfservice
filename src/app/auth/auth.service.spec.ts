@@ -67,9 +67,31 @@ describe('AuthService', () => {
       loginRequest.flush({ result: { value: true } });
 
       const permissionsRequest = backend.expectOne((req) => req.url === '/userservice/context' && req.method === 'GET');
-      permissionsRequest.flush({ actions: ['delete'] });
+      permissionsRequest.flush({
+        actions: [
+          'enrollPW',
+          'enrollPUSH',
+          'activate_PushToken',
+          'enrollQR',
+          'activateQR',
+          'enrollHMAC',
+          'enrollTOTP',
+          'delete',
+          'setOTPPIN',
+        ]
+      });
 
-      expect(permissionsService.loadPermissions).toHaveBeenCalledWith([Permission.delete]);
+      expect(permissionsService.loadPermissions).toHaveBeenCalledWith([
+        Permission.enrollPassword,
+        Permission.enrollPush,
+        Permission.activatePush,
+        Permission.enrollQR,
+        Permission.activateQR,
+        Permission.enrollHOTP,
+        Permission.enrollTOTP,
+        Permission.delete,
+        Permission.setPin,
+      ]);
     })
   ));
 
