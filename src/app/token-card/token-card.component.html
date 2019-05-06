@@ -32,13 +32,13 @@
 <mat-menu #menu="matMenu">
   <button mat-menu-item
           (click)="setPin()"
-          *ngxPermissionsOnly="Permission.setPin">
+          *ngxPermissionsOnly="Permission.SETPIN">
     <mat-icon>security</mat-icon>
     <span>set pin</span>
   </button>
   <button mat-menu-item
           (click)="delete()"
-          *ngxPermissionsOnly="Permission.delete">
+          *ngxPermissionsOnly="Permission.DELETE">
     <mat-icon>delete token</mat-icon>
     <span>delete</span>
   </button>

@@ -1,24 +1,25 @@
 export enum Permission {
-    enrollPush = 'PUSH.ENROLL',
-    activatePush = 'PUSH.ACTIVATE',
-    enrollQR = 'QR.ENROLL',
-    activateQR = 'QR.ACTIVATE',
-    enrollHOTP = 'HOTP.ENROLL',
-    enrollTOTP = 'TOTP.ENROLL',
-    enrollPassword = 'PW.ENROLL',
-    delete = 'DELETE',
-    setPin = 'SETPIN'
+    ENROLLPUSH = 'PUSH.ENROLL',
+    ACTIVATEPUSH = 'PUSH.ACTIVATE',
+    ENROLLQR = 'QR.ENROLL',
+    ACTIVATEQR = 'QR.ACTIVATE',
+    ENROLLHOTP = 'HOTP.ENROLL',
+    ENROLLTOTP = 'TOTP.ENROLL',
+    ENROLLPASSWORD = 'PW.ENROLL',
+    DELETE = 'DELETE',
+    SETPIN = 'SETPIN'
 }
 
 export const PoliciesToPermissionsMapping = {
-    'enrollPUSH': Permission.enrollPush,
-    'activate_PushToken': Permission.activatePush,
-    'enrollQR': Permission.enrollQR,
-    'activateQR': Permission.activateQR,
-    'enrollHMAC': Permission.enrollHOTP,
-    'enrollTOTP': Permission.enrollTOTP,
-    'delete': Permission.delete,
-    'setOTPPIN': Permission.setPin,
+    'enrollPUSH': Permission.ENROLLPUSH,
+    'activate_PushToken': Permission.ACTIVATEPUSH,
+    'enrollQR': Permission.ENROLLQR,
+    'activateQR': Permission.ACTIVATEQR,
+    'enrollHMAC': Permission.ENROLLHOTP,
+    'enrollTOTP': Permission.ENROLLTOTP,
+    'enrollPW': Permission.ENROLLPASSWORD,
+    'delete': Permission.DELETE,
+    'setOTPPIN': Permission.SETPIN,
 };
 
 export interface PermissionSet {
@@ -26,46 +27,46 @@ export interface PermissionSet {
 }
 
 export const PasswordPermissions: PermissionSet = {
-    enroll: [Permission.enrollPassword],
-    delete: [Permission.delete],
-    setPin: [Permission.setPin],
+    enroll: [Permission.ENROLLPASSWORD],
+    delete: [Permission.DELETE],
+    setPin: [Permission.SETPIN],
 };
 
 export const PushPermissions: PermissionSet = {
-    enroll: [Permission.enrollPush],
-    activate: [Permission.activatePush],
-    delete: [Permission.delete],
-    setPin: [Permission.setPin],
+    enroll: [Permission.ENROLLPUSH],
+    activate: [Permission.ENROLLPUSH],
+    delete: [Permission.DELETE],
+    setPin: [Permission.SETPIN],
 };
 
 export const QRPermissions: PermissionSet = {
-    enroll: [Permission.enrollQR],
-    activate: [Permission.activateQR],
-    delete: [Permission.delete],
-    setPin: [Permission.setPin],
+    enroll: [Permission.ENROLLQR],
+    activate: [Permission.ACTIVATEQR],
+    delete: [Permission.DELETE],
+    setPin: [Permission.SETPIN],
 };
 
 export const HOTPPermissions: PermissionSet = {
-    enroll: [Permission.enrollHOTP],
-    delete: [Permission.delete],
-    setPin: [Permission.setPin],
+    enroll: [Permission.ENROLLHOTP],
+    delete: [Permission.DELETE],
+    setPin: [Permission.SETPIN],
 };
 
 export const TOTPPermissions: PermissionSet = {
-    enroll: [Permission.enrollTOTP],
-    delete: [Permission.delete],
-    setPin: [Permission.setPin],
+    enroll: [Permission.ENROLLTOTP],
+    delete: [Permission.DELETE],
+    setPin: [Permission.SETPIN],
 };
 
 export const EnrollmentPermissions = [
-    Permission.enrollPush,
-    Permission.enrollQR,
-    Permission.enrollHOTP,
-    Permission.enrollTOTP,
-    Permission.enrollPassword,
+    Permission.ENROLLPUSH,
+    Permission.ENROLLQR,
+    Permission.ENROLLHOTP,
+    Permission.ENROLLTOTP,
+    Permission.ENROLLPASSWORD,
 ];
 
 export const ModifyTokenPermissions = [
-    Permission.setPin,
-    Permission.delete,
+    Permission.SETPIN,
+    Permission.DELETE,
 ];

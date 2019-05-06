@@ -82,15 +82,15 @@ describe('AuthService', () => {
       });
 
       expect(permissionsService.loadPermissions).toHaveBeenCalledWith([
-        Permission.enrollPassword,
-        Permission.enrollPush,
-        Permission.activatePush,
-        Permission.enrollQR,
-        Permission.activateQR,
-        Permission.enrollHOTP,
-        Permission.enrollTOTP,
-        Permission.delete,
-        Permission.setPin,
+        Permission.ENROLLPASSWORD,
+        Permission.ENROLLPUSH,
+        Permission.ACTIVATEPUSH,
+        Permission.ENROLLQR,
+        Permission.ACTIVATEQR,
+        Permission.ENROLLHOTP,
+        Permission.ENROLLTOTP,
+        Permission.DELETE,
+        Permission.SETPIN,
       ]);
     })
   ));
