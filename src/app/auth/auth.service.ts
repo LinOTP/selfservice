@@ -36,7 +36,6 @@ export class AuthService {
     return this.http.post<{ result: { status: boolean, value: boolean } }>(url, params, this.options)
       .pipe(
         map((response) => response && response.result && response.result.value === true),
-        tap(() => console.log(`login request finished`)),
         tap(isLoggedin => {
           this._loginChangeEmitter.emit(isLoggedin);
           if (isLoggedin) {
@@ -51,7 +50,6 @@ export class AuthService {
   logout() {
     return this.http.get<any>(this.baseUrl + this.endpoints.logout)
       .pipe(
-        tap(() => console.log(`logout request finished`)),
         catchError(this.handleError('logout', false))
       );
   }

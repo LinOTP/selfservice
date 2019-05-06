@@ -162,22 +162,6 @@ describe('AuthService', () => {
     })
   ));
 
-  it('should log a successful logout', async(
-    inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
-
-      spyOn(console, 'log');
-
-      authService.logout().subscribe();
-
-      const logoutRequest = backend.expectOne((req) => req.url === '/userservice/logout' && req.method === 'GET');
-      logoutRequest.flush({});
-
-      backend.verify();
-
-      expect(console.log).toHaveBeenCalledWith(`logout request finished`);
-    })
-  ));
-
   it('should handle logout errors', async(
     inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
 
