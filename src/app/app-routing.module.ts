@@ -6,8 +6,6 @@ import { TokenDetailResolver } from './token.service';
 import { TokenActivateComponent } from './token-activate/token-activate.component';
 import { AuthGuard } from './auth/auth-guard.service';
 import { EnrollComponent } from './enroll/enroll.component';
-import { EnrollTotpComponent } from './enroll/enroll-totp/enroll-totp.component';
-import { EnrollPushComponent } from './enroll/enroll-push/enroll-push.component';
 
 const routes: Routes = [
   {
@@ -19,17 +17,7 @@ const routes: Routes = [
     path: 'enroll',
     component: EnrollComponent,
     runGuardsAndResolvers: 'always',
-    canActivate: [AuthGuard],
-    children: [
-      {
-        path: 'totp',
-        component: EnrollTotpComponent,
-      },
-      {
-        path: 'push',
-        component: EnrollPushComponent,
-      },
-    ]
+    canActivate: [AuthGuard]
   },
   {
     path: 'tokens',

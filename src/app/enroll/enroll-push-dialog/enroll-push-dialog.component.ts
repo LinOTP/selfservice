@@ -1,25 +1,24 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MatStepper, MatDialogRef } from '@angular/material';
+import { Router } from '@angular/router';
 
-import { NgForm, FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { MatStepper, MatSnackBar } from '@angular/material';
-import { MaterialModule } from '../../material.module';
-
-import { EnrollToken, Token } from '../../token';
 import { TokenService } from '../../token.service';
 import { NotificationService } from '../../core/notification.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-enroll-push',
-  templateUrl: './enroll-push.component.html',
-  styleUrls: ['./enroll-push.component.scss']
+  templateUrl: './enroll-push-dialog.component.html',
+  styleUrls: ['./enroll-push-dialog.component.scss']
 })
-export class EnrollPushComponent implements OnInit {
+export class EnrollPushDialogComponent implements OnInit {
 
-  enrollmentForm: FormGroup;
-  enrollmentStep: FormGroup;
+  public enrollmentForm: FormGroup;
+  public enrollmentStep: FormGroup;
 
-  isPaired: boolean;
+  public isPaired: boolean;
+  public readonly maxSteps: number = 3;
+  public currentStep: number;
 
   public enrolledToken: { serial: string, url: string };
 
@@ -28,9 +27,12 @@ export class EnrollPushComponent implements OnInit {
     private formBuilder: FormBuilder,
     private notificationService: NotificationService,
     private router: Router,
-  ) { }
+    private dialogRef: MatDialogRef<EnrollPushDialogComponent>
+  ) {
+  }
 
-  ngOnInit() {
+  public ngOnInit() {
+    this.currentStep = 1;
     this.enrollmentForm = this.formBuilder.group({
       'description': ['', Validators.required],
       'type': 'push',
@@ -40,8 +42,10 @@ export class EnrollPushComponent implements OnInit {
     });
   }
 
+  /**
+   * Enroll the push token and proceed to the next step
+   */
   goToTokenInfo(stepper: MatStepper) {
-    if (!this.enrolledToken) {
       this.tokenService.enroll(this.enrollmentForm.value).subscribe(response => {
         if (response.result && response.result.value === true) {
           this.enrolledToken = {
@@ -57,18 +61,28 @@ export class EnrollPushComponent implements OnInit {
             stepper.selectedIndex = 2;
           });
 
-          stepper.next();
+          this.incrementStep(stepper);
 
         } else {
           this.notificationService.message('There was a problem while enrolling the new token. Please try again.');
         }
       });
-    } else {
-      stepper.next();
-    }
   }
 
-  goToActivation() {
+  public goToActivation() {
     this.router.navigate(['/tokens', this.enrolledToken.serial, 'activate']);
+    this.dialogRef.close();
+  }
+
+  /**
+   * Increment the current step of the dialog for the view
+   */
+  public incrementStep(stepper: MatStepper) {
+    stepper.next();
+    this.currentStep++;
+  }
+
+  public cancelDialog() {
+    this.dialogRef.close();
   }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit, Type } from '@angular/core';
 import { EnrollHotpDialogComponent } from '../enroll/enroll-hotp-dialog/enroll-hotp-dialog.component';
 import { EnrollTotpComponent } from './enroll-totp/enroll-totp.component';
-import { EnrollPushComponent } from './enroll-push/enroll-push.component';
+import { EnrollPushDialogComponent } from './enroll-push-dialog/enroll-push-dialog.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatSelectChange } from '@angular/material';
 import { TokenService } from '../token.service';

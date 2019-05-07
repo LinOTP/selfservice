@@ -25,7 +25,7 @@ import { SetPinDialogComponent } from './set-pin-dialog/set-pin-dialog.component
 import { EnrollComponent } from './enroll/enroll.component';
 import { EnrollTotpComponent } from './enroll/enroll-totp/enroll-totp.component';
 import { EnrollHotpDialogComponent } from './enroll/enroll-hotp-dialog/enroll-hotp-dialog.component';
-import { EnrollPushComponent } from './enroll/enroll-push/enroll-push.component';
+import { EnrollPushDialogComponent } from './enroll/enroll-push-dialog/enroll-push-dialog.component';
 import { NonActiveTokensPipe } from './non-active-tokens.pipe';
 import { ActiveTokensPipe } from './active-tokens.pipe';
 import { ArrayNotEmptyPipe } from './array-not-empty.pipe';
@@ -47,7 +47,7 @@ import { EnrollmentGridComponent } from './enrollment-grid/enrollment-grid.compo
     EnrollComponent,
     EnrollHotpDialogComponent,
     EnrollTotpComponent,
-    EnrollPushComponent,
+    EnrollPushDialogComponent,
     NonActiveTokensPipe,
     ActiveTokensPipe,
     ArrayNotEmptyPipe,
@@ -59,7 +59,8 @@ import { EnrollmentGridComponent } from './enrollment-grid/enrollment-grid.compo
     TokenActivatePushComponent,
     DialogComponent,
     SetPinDialogComponent,
-    EnrollHotpDialogComponent
+    EnrollHotpDialogComponent,
+    EnrollPushDialogComponent
   ],
   imports: [
     BrowserModule,

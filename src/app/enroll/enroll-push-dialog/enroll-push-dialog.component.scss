@@ -5,11 +5,11 @@
       margin: 10px;
     }
   }
-  
+
   mat-form-field {
     width: 100%
   }
-  
+
   .testOTP {
     width: 100%;
     mat-form-field {
@@ -19,4 +19,7 @@
       margin-left: 1em;
     }
   }
-  
+
+.spacer {
+  flex: 1 1 auto;
+}

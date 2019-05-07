@@ -9,12 +9,14 @@ import { spyOnClass } from '../../testing/spyOnClass';
 import { MatDialog } from '@angular/material';
 import { TokenType } from '../token';
 import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
+import { Fixtures } from '../../testing/fixtures';
 
 describe('EnrollmentGridComponent', () => {
   let component: EnrollmentGridComponent;
   let fixture: ComponentFixture<EnrollmentGridComponent>;
   let notificationService: NotificationService;
   let matDialog: jasmine.SpyObj<MatDialog>;
+  let tokenUpdateSpy;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -43,6 +45,8 @@ describe('EnrollmentGridComponent', () => {
     component = fixture.componentInstance;
     notificationService = TestBed.get(NotificationService);
     matDialog = TestBed.get(MatDialog);
+    tokenUpdateSpy = spyOn(component.tokenUpdate, 'next');
+
     fixture.detectChanges();
   });
 
@@ -56,6 +60,7 @@ describe('EnrollmentGridComponent', () => {
 
     expect(matDialog.open).toHaveBeenCalledTimes(1);
     expect(notificationService.message).toHaveBeenCalledTimes(1);
+    expect(tokenUpdateSpy).toHaveBeenCalledTimes(1);
   }));
 
   it('should not notify the user if the enrollment was cancelled', fakeAsync(() => {
@@ -64,12 +69,24 @@ describe('EnrollmentGridComponent', () => {
 
     expect(matDialog.open).toHaveBeenCalledTimes(1);
     expect(notificationService.message).not.toHaveBeenCalled();
+    expect(tokenUpdateSpy).toHaveBeenCalledTimes(1);
+  }));
+
+  it('should open the push dialog and trigger the token list updater', fakeAsync(() => {
+    matDialog.open.and.returnValue({ afterClosed: () => of({}) });
+
+    const testToken: TokenType = Fixtures.pushTokenType;
+    component.startEnrollment(testToken);
+    tick();
+
+    expect(matDialog.open).toHaveBeenCalledTimes(1);
+    expect(tokenUpdateSpy).toHaveBeenCalledTimes(1);
   }));
 
   function generateHotpScenario(returnValue: boolean) {
     matDialog.open.and.returnValue({ afterClosed: () => of({ result: returnValue }) });
 
-    const testToken: TokenType = { type: 'hmac', name: 'test hmac', description: 'desc', icon: 'icon', };
+    const testToken: TokenType = Fixtures.hmacTokenType;
     component.startEnrollment(testToken);
   }
 });
