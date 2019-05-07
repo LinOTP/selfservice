@@ -44,7 +44,7 @@ describe('TokenActivatePushComponent', () => {
         },
         {
           provide: Token,
-          useValue: new Token(0, '', 'push', '')
+          useValue: new Token(0, '', 'push', false, '')
         }
       ],
     })

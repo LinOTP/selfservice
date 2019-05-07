@@ -35,6 +35,7 @@ export class TokenService {
         token['LinOtp.TokenId'],
         token['LinOtp.TokenSerialnumber'],
         token['LinOtp.TokenType'],
+        token['LinOtp.Isactive'],
         token['LinOtp.TokenDesc']
       );
       t.enrollmentStatus = token['Enrollment']['status'] === 'completed' ? 'completed' : token['Enrollment']['detail'];

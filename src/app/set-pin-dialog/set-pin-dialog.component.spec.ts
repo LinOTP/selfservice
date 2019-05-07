@@ -30,7 +30,7 @@ describe('SetPinDialogComponent', () => {
         },
         {
           provide: MAT_DIALOG_DATA,
-          useValue: new Token(1, '', '')
+          useValue: new Token(1, '', '', true)
         },
         {
           provide: TokenService,

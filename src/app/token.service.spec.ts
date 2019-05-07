@@ -8,19 +8,44 @@ import { Token, EnrollmentStatus } from './token';
 import { AuthService } from './auth/auth.service';
 
 const session = '';
-const mockToken = new Token(123, 'serial', 'foo', 'desc');
-const mockData: Token[] = [mockToken];
-mockToken.enrollmentStatus = EnrollmentStatus.completed;
+
+const mockReadyEnabledToken = new Token(1, 'serial', 'foo', true, 'desc');
+mockReadyEnabledToken.enrollmentStatus = EnrollmentStatus.completed;
+
+const mockReadyDisabledToken = new Token(2, 'serial2', 'foo', false, 'desc');
+mockReadyDisabledToken.enrollmentStatus = EnrollmentStatus.completed;
+
+const mockUnreadyDisabledToken = new Token(3, 'serial3', 'foo', false, 'desc');
+mockUnreadyDisabledToken.enrollmentStatus = EnrollmentStatus.unpaired;
+
+const mockTokens: Token[] = [mockReadyEnabledToken, mockReadyDisabledToken, mockUnreadyDisabledToken];
 
 const mockResponse = {
   result: {
     value: [
       {
-        'LinOtp.TokenId': mockToken.id,
-        'LinOtp.TokenSerialnumber': mockToken.serial,
-        'LinOtp.TokenType': mockToken.type,
-        'LinOtp.TokenDesc': mockToken.description,
-        'Enrollment': { 'status': mockToken.enrollmentStatus }
+        'LinOtp.TokenId': mockReadyEnabledToken.id,
+        'LinOtp.TokenSerialnumber': mockReadyEnabledToken.serial,
+        'LinOtp.TokenType': mockReadyEnabledToken.type,
+        'LinOtp.TokenDesc': mockReadyEnabledToken.description,
+        'LinOtp.Isactive': mockReadyEnabledToken.enabled,
+        'Enrollment': { 'status': mockReadyEnabledToken.enrollmentStatus }
+      },
+      {
+        'LinOtp.TokenId': mockReadyDisabledToken.id,
+        'LinOtp.TokenSerialnumber': mockReadyDisabledToken.serial,
+        'LinOtp.TokenType': mockReadyDisabledToken.type,
+        'LinOtp.TokenDesc': mockReadyDisabledToken.description,
+        'LinOtp.Isactive': mockReadyDisabledToken.enabled,
+        'Enrollment': { 'status': mockReadyDisabledToken.enrollmentStatus }
+      },
+      {
+        'LinOtp.TokenId': mockUnreadyDisabledToken.id,
+        'LinOtp.TokenSerialnumber': mockUnreadyDisabledToken.serial,
+        'LinOtp.TokenType': mockUnreadyDisabledToken.type,
+        'LinOtp.TokenDesc': mockUnreadyDisabledToken.description,
+        'LinOtp.Isactive': mockUnreadyDisabledToken.enabled,
+        'Enrollment': { 'status': 'not completed', 'detail': mockUnreadyDisabledToken.enrollmentStatus }
       }
     ]
   }
@@ -60,7 +85,7 @@ describe('TokenService', () => {
       inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
 
         tokenService.getTokens().subscribe(response => {
-          expect(response).toEqual(mockData);
+          expect(response).toEqual(mockTokens);
         });
 
         const tokenListRequest = backend.expectOne((req) => req.url === '/userservice/usertokenlist' && req.method === 'GET');
@@ -91,7 +116,7 @@ describe('TokenService', () => {
   });
 
   describe('getToken', () => {
-    const token = mockToken;
+    const token = mockReadyEnabledToken;
     it('should request a token from the server', async(
       inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
 
@@ -111,8 +136,7 @@ describe('TokenService', () => {
     const setPinRequestBody = { userpin: '01234', serial: 'serial', session: session };
     it('should send a pin request', async(
       inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
-        tokenService.setPin(mockToken, '01234').subscribe();
-
+        tokenService.setPin(mockReadyEnabledToken, '01234').subscribe();
         const req = backend.expectOne({
           url: '/userservice/setpin',
           method: 'POST'
@@ -128,7 +152,7 @@ describe('TokenService', () => {
 
         spyOn(console, 'error');
 
-        tokenService.setPin(mockToken, '01234').subscribe(response => {
+        tokenService.setPin(mockReadyEnabledToken, '01234').subscribe(response => {
           expect(response).toEqual(false);
         });
         const setPinRequest = backend.expectOne({

@@ -65,7 +65,8 @@ export class Token {
     public id: number,
     public serial: string,
     public type: string,
-    public description?: string
+    public enabled: boolean,
+    public description?: string,
   ) {
     this.type = this.type.toLowerCase();
     this.typeDetails = tokenTypes.find(tt => tt.type === this.type) || unknownTokenType;
