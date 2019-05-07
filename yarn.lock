@@ -4702,6 +4702,11 @@ ngx-cookie@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/ngx-cookie/-/ngx-cookie-2.0.1.tgz#031d8938bf9026954356b3b3ae668e2e1964e584"
 
+ngx-permissions@^6.0.5:
+  version "6.0.5"
+  resolved "https://registry.yarnpkg.com/ngx-permissions/-/ngx-permissions-6.0.5.tgz#a5ff0cff365604e0894dfc9925795b19d2381558"
+  integrity sha512-Gls6NOeuIxH0Cn7gVVyXE8Jm47JRwqJClj9KWB9l29ciGGUucCEuw8CCJiplSKmFCGuFW7t3eMGwB4Gf2BZ8OQ==
+
 ngx-qrcode2@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/ngx-qrcode2/-/ngx-qrcode2-0.1.0.tgz#a2bc200bce7af5b4795fa43e9a89b609d4d99a94"

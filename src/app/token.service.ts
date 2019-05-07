@@ -47,7 +47,6 @@ export class TokenService {
     return this.http.get<any>(url, { params: { session: this.authService.getSession() } }).pipe(
       map(this.mapTokenResponse))
       .pipe(
-        tap(() => console.log(`tokens fetched`)),
         catchError(this.handleError('getTokens', []))
       );
   }
@@ -66,7 +65,6 @@ export class TokenService {
 
     return this.http.post<any>(this.userserviceBase + this.userserviceEndpoints.delete, body)
       .pipe(
-        tap(() => console.log(`token ${serial} deleted`)),
         catchError(this.handleError('deleteToken', null))
       );
   }
@@ -82,7 +80,6 @@ export class TokenService {
     return this.http.post<{ result: { status: boolean, value: boolean } }>(url, body)
       .pipe(
         map((response) => response && response.result && response.result.value['set userpin'] === 1),
-        tap(() => console.log(`pin set`)),
         catchError(this.handleError('setTokenPin', false))
       );
   }
@@ -92,7 +89,6 @@ export class TokenService {
 
     return this.http.post(this.userserviceBase + this.userserviceEndpoints.enroll, body)
       .pipe(
-        tap(() => console.log(`token enrolled`)),
         catchError(this.handleError('enroll token', null))
       );
   }
@@ -112,7 +108,6 @@ export class TokenService {
     };
     return this.http.post(this.validateCheckS, body)
       .pipe(
-        tap(() => console.log(`activation challenge created`)),
         catchError(this.handleError('activate token', null))
       );
   }
@@ -125,7 +120,6 @@ export class TokenService {
     };
     return this.http.post(this.validateCheckStatus, body)
       .pipe(
-        tap(() => console.log(`challenge status returned`)),
         catchError(this.handleError('get challenge status', null))
       );
   }
@@ -145,7 +139,6 @@ export class TokenService {
 
     return this.http.post(this.validateCheckS, body)
       .pipe(
-        tap(token => console.log(`token test submitted`)),
         catchError(this.handleError('test token', null))
       );
   }

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 
 import { Token, EnrollmentStatus } from '../token';
 import { TokenService } from '../token.service';
+import { EnrollmentPermissions } from '../permissions';
 
 @Component({
   selector: 'app-token-list',
@@ -13,6 +13,7 @@ import { TokenService } from '../token.service';
 export class TokenListComponent implements OnInit {
   public tokens: Token[];
   public EnrollmentStatus = EnrollmentStatus;
+  public EnrollmentPermissions = EnrollmentPermissions;
 
   constructor(
     private tokenService: TokenService,

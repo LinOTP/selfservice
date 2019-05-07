@@ -8,6 +8,7 @@ import { NotificationService } from '../core/notification.service';
 import { spyOnClass } from '../../testing/spyOnClass';
 import { MatDialog } from '@angular/material';
 import { TokenType } from '../token';
+import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
 
 describe('EnrollmentGridComponent', () => {
   let component: EnrollmentGridComponent;
@@ -23,6 +24,7 @@ describe('EnrollmentGridComponent', () => {
       ],
       declarations: [
         EnrollmentGridComponent,
+        NgxPermissionsAllowStubDirective,
       ],
       providers: [
         {

@@ -1,35 +1,51 @@
+import { Permission } from './permissions';
 
 export interface TokenType {
   type: string;
   name: string;
   description: string;
   icon: string; // material icon ligature string to use for this token type
+  enrollmentPermission?: Permission;
+  activationPermission?: Permission;
 }
 
 export const tokenTypes: TokenType[] = [
   {
+    type: 'pw',
+    name: 'Password token',
+    description: 'Personal text-based secret',
+    icon: 'keyboard',
+    enrollmentPermission: Permission.ENROLLPASSWORD,
+  },
+  {
     type: 'hmac',
-    name: 'HOTP-Token',
+    name: 'Soft token (event)',
     description: 'Event-based soft token (HOTP)',
     icon: 'cached',
+    enrollmentPermission: Permission.ENROLLHOTP,
   },
   {
     type: 'totp',
-    name: 'TOTP-Token',
+    name: 'Soft token (time)',
     description: 'Time-based soft token (TOTP)',
     icon: 'timelapse',
+    enrollmentPermission: Permission.ENROLLTOTP,
   },
   {
     type: 'push',
-    name: 'KeyIdentity Push Token',
+    name: 'Push-Token',
     description: 'Confirm authentication requests on your Smartphone with the Authenticator app',
     icon: 'screen_lock_portrait',
+    enrollmentPermission: Permission.ENROLLPUSH,
+    activationPermission: Permission.ENROLLPUSH,
   },
   {
     type: 'qr',
-    name: 'KeyIdentity QR Token',
-    description: 'Use the Authenticator app to scan QR code authentication requests.',
+    name: 'QR-Token',
+    description: 'Use the Authenticator app to scan QR code authentication requests',
     icon: 'all_out',
+    enrollmentPermission: Permission.ENROLLQR,
+    activationPermission: Permission.ACTIVATEQR,
   },
 ];
 

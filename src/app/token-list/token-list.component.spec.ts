@@ -10,6 +10,9 @@ import { of } from 'rxjs';
 import { TokenListComponent } from './token-list.component';
 import { MaterialModule } from '../material.module';
 import { TokenService } from '../token.service';
+import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
+import { EnrollmentStatus } from '../token';
+import { EnrollmentPermissions } from '../permissions';
 
 describe('TokenListComponent', () => {
   let component: TokenListComponent;
@@ -25,6 +28,7 @@ describe('TokenListComponent', () => {
         MockPipe({ 'name': 'sortTokensByState' }),
         MockComponent({ 'selector': 'app-token-card', inputs: ['token'], outputs: ['tokenUpdate'] }),
         MockComponent({ 'selector': 'app-enrollment-grid' }),
+        NgxPermissionsAllowStubDirective,
       ],
       providers: [
         {
@@ -60,4 +64,13 @@ describe('TokenListComponent', () => {
     const tokenService: TokenService = TestBed.get(TokenService);
     expect(tokenService.getTokens).toHaveBeenCalled();
   });
+
+  it('should load enrollment permissions', () => {
+    expect(component.EnrollmentPermissions).toBe(EnrollmentPermissions);
+  });
+
+  it('should load enrollment status', () => {
+    expect(component.EnrollmentStatus).toBe(EnrollmentStatus);
+  });
+
 });

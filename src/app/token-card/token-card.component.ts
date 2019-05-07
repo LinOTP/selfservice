@@ -7,6 +7,7 @@ import { DialogComponent } from '../dialog/dialog.component';
 import { TokenService } from '../token.service';
 import { filter, switchMap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { Permission, ModifyTokenPermissions } from '../permissions';
 
 @Component({
   selector: 'app-token-card',
@@ -19,6 +20,8 @@ export class TokenCardComponent implements OnInit {
   @Output() public tokenUpdate: Subject<null> = new Subject();
 
   public EnrollmentStatus = EnrollmentStatus;
+  public Permission = Permission;
+  public ModifyTokenPermissions = ModifyTokenPermissions;
 
   constructor(
     private dialog: MatDialog,

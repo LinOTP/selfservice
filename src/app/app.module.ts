@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { CookieModule } from 'ngx-cookie';
+import { NgxPermissionsModule } from 'ngx-permissions';
 import { CustomFormsModule } from 'ng2-validation';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 
@@ -72,6 +73,7 @@ import { EnrollmentGridComponent } from './enrollment-grid/enrollment-grid.compo
     MaterialModule,
     CoreModule,
     AuthModule,
+    NgxPermissionsModule.forRoot(),
   ],
   providers: [
     TokenService,
