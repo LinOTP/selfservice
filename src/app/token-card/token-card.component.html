@@ -43,4 +43,45 @@
     <mat-icon>delete token</mat-icon>
     <span>delete</span>
   </button>
+  <ng-container *ngIf="!token.enabled; else disableMenuItem">
+    <ng-container *ngxPermissionsOnly="Permission.ENABLE; then enableBlock; else noEnableBlock"> </ng-container>
+  </ng-container>
 </mat-menu>
+
+<ng-template #enableBlock>
+  <button mat-menu-item
+          (click)="enable()">
+    <mat-icon>check_box</mat-icon>
+    <span>enable</span>
+  </button>
+</ng-template>
+
+<ng-template #noEnableBlock>
+  <button mat-menu-item
+          disabled
+          matTooltip="You do not have permissions to enable the token">
+    <mat-icon>check_box</mat-icon>
+    <span>enable</span>
+  </button>
+</ng-template>
+
+<ng-template #disableMenuItem>
+  <ng-container *ngxPermissionsOnly="Permission.DISABLE; then disableBlock; else noDisableBlock"> </ng-container>
+</ng-template>
+
+<ng-template #disableBlock>
+  <button mat-menu-item
+          (click)="disable()">
+    <mat-icon>indeterminate_check_box</mat-icon>
+    <span>disable</span>
+  </button>
+</ng-template>
+
+<ng-template #noDisableBlock>
+  <button mat-menu-item
+          disabled
+          matTooltip="You do not have permissions to disable this token.">
+    <mat-icon>indeterminate_check_box</mat-icon>
+    <span>disable</span>
+  </button>
+</ng-template>

@@ -71,4 +71,24 @@ export class TokenCardComponent implements OnInit {
         this.tokenUpdate.next();
       });
   }
+
+  enable(): void {
+    this.tokenService.enable(this.token).subscribe(isSuccessful => {
+      if (isSuccessful) {
+        this.token.enabled = true;
+      } else {
+        this.notificationService.message('Error: Could not enable token');
+      }
+    });
+  }
+
+  disable(): void {
+    this.tokenService.disable(this.token).subscribe(isSuccessful => {
+      if (isSuccessful) {
+        this.token.enabled = false;
+      } else {
+        this.notificationService.message('Error: Could not disable token');
+      }
+    });
+  }
 }

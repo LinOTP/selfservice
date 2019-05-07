@@ -207,4 +207,82 @@ describe('TokenService', () => {
       })
     ));
   });
+
+  describe('enable token', () => {
+    const enableRequestBody = { serial: mockReadyDisabledToken.serial, session: session };
+    it('should send a enable token request', async(
+      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+        tokenService.enable(mockReadyDisabledToken).subscribe(res => {
+          expect(res).toEqual(true);
+        });
+
+        const req = backend.expectOne({
+          url: '/userservice/enable',
+          method: 'POST'
+        });
+
+        expect(req.request.body).toEqual(enableRequestBody);
+        req.flush({ result: { value: { 'enable token': 1 } } });
+
+        backend.verify();
+      })
+    ));
+
+    it('should call the error handler on request failure', async(
+      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+
+        spyOn(console, 'error');
+
+        tokenService.enable(mockReadyDisabledToken).subscribe();
+        const enableRequest = backend.expectOne({
+          url: '/userservice/enable',
+          method: 'POST'
+        });
+
+        enableRequest.error(new ErrorEvent('Error enabling token'));
+        backend.verify();
+
+        expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
+      })
+    ));
+  });
+
+  describe('disable token', () => {
+    const disableRequestBody = { serial: mockReadyEnabledToken.serial, session: session };
+    it('should send a disable token request', async(
+      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+        tokenService.disable(mockReadyEnabledToken).subscribe(res => {
+          expect(res).toEqual(true);
+        });
+
+        const req = backend.expectOne({
+          url: '/userservice/disable',
+          method: 'POST'
+        });
+
+        expect(req.request.body).toEqual(disableRequestBody);
+        req.flush({ result: { value: { 'disable token': 1 } } });
+
+        backend.verify();
+      })
+    ));
+
+    it('should call the error handler on request failure', async(
+      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+
+        spyOn(console, 'error');
+
+        tokenService.disable(mockReadyEnabledToken).subscribe();
+        const disableRequest = backend.expectOne({
+          url: '/userservice/disable',
+          method: 'POST'
+        });
+
+        disableRequest.error(new ErrorEvent('Error disabling token'));
+        backend.verify();
+
+        expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
+      })
+    ));
+  });
 });

@@ -64,6 +64,7 @@ describe('TokenCardComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(TokenCardComponent);
     component = fixture.componentInstance;
+    component.token = Fixtures.activeHotpToken;
 
     notificationService = TestBed.get(NotificationService);
     tokenService = TestBed.get(TokenService);

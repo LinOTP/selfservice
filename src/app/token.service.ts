@@ -18,6 +18,8 @@ export class TokenService {
     setpin: 'setpin',
     delete: 'delete',
     enroll: 'enroll',
+    enable: 'enable',
+    disable: 'disable',
   };
 
   private validateCheckS = '/validate/check_s'; // generate a challenge with a given serial
@@ -82,6 +84,34 @@ export class TokenService {
       .pipe(
         map((response) => response && response.result && response.result.value['set userpin'] === 1),
         catchError(this.handleError('setTokenPin', false))
+      );
+  }
+
+  enable(token: Token): Observable<boolean> {
+    const url = this.userserviceBase + this.userserviceEndpoints.enable;
+    const body = {
+      serial: token.serial,
+      session: this.authService.getSession()
+    };
+
+    return this.http.post<{ result: { status: boolean, value: { 'enable token': number } } }>(url, body)
+      .pipe(
+        map((response) => response && response.result && response.result.value['enable token'] === 1),
+        catchError(this.handleError('enable', false))
+      );
+  }
+
+  disable(token: Token): Observable<boolean> {
+    const url = this.userserviceBase + this.userserviceEndpoints.disable;
+    const body = {
+      serial: token.serial,
+      session: this.authService.getSession()
+    };
+
+    return this.http.post<{ result: { status: boolean, value: { 'disable token': number } } }>(url, body)
+      .pipe(
+        map((response) => response && response.result && response.result.value['disable token'] === 1),
+        catchError(this.handleError('enable', false))
       );
   }
 
