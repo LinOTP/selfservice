@@ -40,7 +40,7 @@
   <button mat-menu-item
           (click)="delete()"
           *ngxPermissionsOnly="Permission.DELETE">
-    <mat-icon>delete token</mat-icon>
+    <mat-icon>delete</mat-icon>
     <span>delete</span>
   </button>
   <ng-container *ngIf="!token.enabled; else disableMenuItem">
