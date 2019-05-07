@@ -7,7 +7,9 @@ export enum Permission {
     ENROLLTOTP = 'TOTP.ENROLL',
     ENROLLPASSWORD = 'PW.ENROLL',
     DELETE = 'DELETE',
-    SETPIN = 'SETPIN'
+    SETPIN = 'SETPIN',
+    ENABLE = 'ENABLE',
+    DISABLE = 'DISABLE',
 }
 
 export const PoliciesToPermissionsMapping: { [policy: string]: Permission } = {
@@ -20,6 +22,8 @@ export const PoliciesToPermissionsMapping: { [policy: string]: Permission } = {
     'enrollPW': Permission.ENROLLPASSWORD,
     'delete': Permission.DELETE,
     'setOTPPIN': Permission.SETPIN,
+    'enable': Permission.ENABLE,
+    'disable': Permission.DISABLE,
 };
 
 export interface PermissionSet {
@@ -69,4 +73,6 @@ export const EnrollmentPermissions = [
 export const ModifyTokenPermissions = [
     Permission.SETPIN,
     Permission.DELETE,
+    Permission.ENABLE,
+    Permission.DISABLE,
 ];
