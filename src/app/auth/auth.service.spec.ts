@@ -1,4 +1,6 @@
 import { TestBed, inject, async } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { spyOnClass } from '../../testing/spyOnClass';
 
 import { AuthService } from './auth.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
@@ -6,7 +8,7 @@ import { CookieService } from 'ngx-cookie';
 import { NgxPermissionsService } from 'ngx-permissions';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Permission } from '../permissions';
-import { spyOnClass } from '../../testing/spyOnClass';
+import { Type } from '@angular/compiler';
 
 describe('AuthService', () => {
   let authService: AuthService;
@@ -16,6 +18,9 @@ describe('AuthService', () => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
+        RouterTestingModule.withRoutes([
+          { path: 'login', component: {} as any },
+        ]),
       ],
       providers: [
         AuthService,
@@ -26,7 +31,7 @@ describe('AuthService', () => {
         {
           provide: CookieService,
           useValue: spyOnClass(CookieService),
-        }
+        },
       ],
     });
 
@@ -168,7 +173,7 @@ describe('AuthService', () => {
       authService.logout().subscribe();
 
       const logoutRequest = backend.expectOne((req) => req.url === '/userservice/logout' && req.method === 'GET');
-      logoutRequest.flush({});
+      logoutRequest.flush({ result: { value: true } });
 
       backend.verify();
 

@@ -1,5 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie';
@@ -27,8 +28,9 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private cookieService: CookieService,
-    private permissionsService: NgxPermissionsService) {
-  }
+    private permissionsService: NgxPermissionsService,
+    private router: Router,
+  ) { }
 
   login(username: string, password: string): Observable<boolean> {
     const url = this.baseUrl + this.endpoints.login;
@@ -47,10 +49,27 @@ export class AuthService {
 
   }
 
-  logout() {
+  /**
+   * sends a logout request to the backend and processes all frontend related tasks
+   *
+   * loginChangeEmitter is updated, all persistent data cleared and the user is redirected to the login screen.
+   *
+   * @returns {Observable<any>}
+   * @memberof AuthService
+   */
+  public logout(): Observable<any> {
     return this.http.get<any>(this.baseUrl + this.endpoints.logout)
       .pipe(
-        tap(_ => this.permissionsService.flushPermissions()),
+        map(response => response && response.result && response.result.value === true),
+        tap(result => {
+          if (result) {
+            this.permissionsService.flushPermissions();
+
+            this.router.navigate(['/login']);
+
+            this._loginChangeEmitter.emit(false);
+          }
+        }),
         catchError(this.handleError('logout', false))
       );
   }
