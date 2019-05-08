@@ -136,13 +136,18 @@ describe('TokenService', () => {
     const setPinRequestBody = { userpin: '01234', serial: 'serial', session: session };
     it('should send a pin request', async(
       inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
-        tokenService.setPin(mockReadyEnabledToken, '01234').subscribe();
+        tokenService.setPin(mockReadyEnabledToken, '01234').subscribe(res => {
+          expect(res).toEqual(true);
+        });
+
         const req = backend.expectOne({
           url: '/userservice/setpin',
           method: 'POST'
         });
 
         expect(req.request.body).toEqual(setPinRequestBody);
+        req.flush({ result: { value: { 'set userpin': 1 } } });
+
         backend.verify();
       })
     ));

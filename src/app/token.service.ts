@@ -78,7 +78,7 @@ export class TokenService {
       session: this.authService.getSession()
     };
 
-    return this.http.post<{ result: { status: boolean, value: boolean } }>(url, body)
+    return this.http.post<{ result: { status: boolean, value: { 'set userpin': number } } }>(url, body)
       .pipe(
         map((response) => response && response.result && response.result.value['set userpin'] === 1),
         catchError(this.handleError('setTokenPin', false))
