@@ -2,7 +2,7 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router, NavigationExtras } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, map, tap, switchMap } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie';
 
 import { NgxPermissionsService } from 'ngx-permissions';
@@ -37,13 +37,12 @@ export class AuthService {
     const params = `login=${username}&password=${password}`;
     return this.http.post<{ result: { status: boolean, value: boolean } }>(url, params, this.options)
       .pipe(
-        map((response) => response && response.result && response.result.value === true),
-        tap(isLoggedin => {
-          this._loginChangeEmitter.emit(isLoggedin);
-          if (isLoggedin) {
-            this.loadPermissions();
-          }
-        }),
+        map(response => response && response.result && response.result.value === true),
+        tap(isLoggedin => this._loginChangeEmitter.emit(isLoggedin)),
+        switchMap(isLoggedin => isLoggedin ? // refresh permissions (but only if login was successful)
+          this.refreshPermissions().pipe(map(() => isLoggedin)) :
+          of(isLoggedin)
+        ),
         catchError(this.handleError('login', false)),
       );
 
@@ -109,16 +108,27 @@ export class AuthService {
       .map(p => PoliciesToPermissionsMapping[p]);
   }
 
-  private loadPermissions() {
+  /**
+   * requests the permissions for the currently logged in user.
+   *
+   * This is done by evaluating the selfservice context that provides the
+   * policy actions. They get mapped to the frontend permissions and are loaded
+   * into the NgxPermissionsService.
+   *
+   * @returns {Observable<Permission[]>}
+   * @memberof AuthService
+   */
+  public refreshPermissions(): Observable<Permission[]> {
     const endpoint = this.baseUrl + this.endpoints.context;
     const params = { params: { session: this.getSession() } };
 
-    this.http.get(endpoint, params).pipe(
+    return this.http.get(endpoint, params).pipe(
       map(response => response['actions']),
       map(AuthService.mapPoliciesToPermissions),
+      tap(permissions => {
+        this.permissionsService.loadPermissions(permissions);
+      }),
       catchError(this.handleError('loadPermissions', [])),
-    ).subscribe(
-      permissions => this.permissionsService.loadPermissions(permissions)
     );
   }
 
