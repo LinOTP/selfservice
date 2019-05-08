@@ -17,6 +17,14 @@
                     [token]="token"
                     (tokenUpdate)="loadTokens()"></app-token-card>
   </section>
+
+  <section *ngIf="tokens | inactiveTokens | arrayNotEmpty">
+    <h2>Disabled authentication methods</h2>
+    <p>The following tokens have been disabled and cannot be used:</p>
+    <app-token-card *ngFor="let token of tokens | inactiveTokens"
+                    [token]="token"
+                    (tokenUpdate)="loadTokens()"></app-token-card>
+  </section>
 </ng-template>
 
 <ng-container *ngxPermissionsOnly="EnrollmentPermissions">

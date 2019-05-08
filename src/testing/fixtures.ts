@@ -10,6 +10,10 @@ export class Fixtures {
     return new Token(2, 'Active-PushToken-Serial', 'push', true, 'Description');
   }
 
+  static get inactiveHotpToken(): Token {
+    return new Token(3, 'Inactive-Hotp-Token-Serial', 'hotp', false, 'Description');
+  }
+
   static get tokens(): Token[] {
     return [
       this.activeHotpToken,

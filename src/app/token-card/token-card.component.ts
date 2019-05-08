@@ -75,7 +75,8 @@ export class TokenCardComponent implements OnInit {
   enable(): void {
     this.tokenService.enable(this.token).subscribe(isSuccessful => {
       if (isSuccessful) {
-        this.token.enabled = true;
+        this.notificationService.message('Token enabled');
+        this.tokenUpdate.next();
       } else {
         this.notificationService.message('Error: Could not enable token');
       }
@@ -85,7 +86,8 @@ export class TokenCardComponent implements OnInit {
   disable(): void {
     this.tokenService.disable(this.token).subscribe(isSuccessful => {
       if (isSuccessful) {
-        this.token.enabled = false;
+        this.notificationService.message('Token disabled');
+        this.tokenUpdate.next();
       } else {
         this.notificationService.message('Error: Could not disable token');
       }

@@ -14,7 +14,6 @@
   </mat-card-header>
   <mat-card-content>
     <p>Serial: {{ token.serial }}</p>
-    <p>Status: {{ token.enabled? 'enabled' : 'disabled' }}</p>
     <ng-container [ngSwitch]="token.enrollmentStatus">
       <p *ngSwitchCase="EnrollmentStatus.unpaired">
         This token needs to be paired with your mobile. You need the enrollment QR code to proceed in the authenticator

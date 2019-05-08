@@ -180,4 +180,58 @@ describe('TokenCardComponent', () => {
   it('should load enrollment status', () => {
     expect(component.EnrollmentStatus).toBe(EnrollmentStatus);
   });
+
+  describe('enable', () => {
+
+    it('should notify user after success and emit token list update', fakeAsync(() => {
+      tokenService.enable.and.returnValue(of(true));
+      const updateSpy = spyOn(component.tokenUpdate, 'next');
+
+      component.token = Fixtures.inactiveHotpToken;
+      component.enable();
+      tick();
+
+      expect(notificationService.message).toHaveBeenCalledWith('Token enabled');
+      expect(updateSpy).toHaveBeenCalledTimes(1);
+    }));
+
+    it('should notify user after failure and not emit token list update', fakeAsync(() => {
+      tokenService.enable.and.returnValue(of(false));
+      const updateSpy = spyOn(component.tokenUpdate, 'next');
+
+      component.token = Fixtures.inactiveHotpToken;
+      component.enable();
+      tick();
+
+      expect(notificationService.message).toHaveBeenCalledWith('Error: Could not enable token');
+      expect(updateSpy).not.toHaveBeenCalled();
+    }));
+  });
+
+  describe('disable', () => {
+
+    it('should notify user after success and emit token list update', fakeAsync(() => {
+      tokenService.disable.and.returnValue(of(true));
+      const updateSpy = spyOn(component.tokenUpdate, 'next');
+
+      component.token = Fixtures.activeHotpToken;
+      component.disable();
+      tick();
+
+      expect(notificationService.message).toHaveBeenCalledWith('Token disabled');
+      expect(updateSpy).toHaveBeenCalledTimes(1);
+    }));
+
+    it('should notify user after failure and not emit token list update', fakeAsync(() => {
+      tokenService.disable.and.returnValue(of(false));
+      const updateSpy = spyOn(component.tokenUpdate, 'next');
+
+      component.token = Fixtures.activeHotpToken;
+      component.disable();
+      tick();
+
+      expect(notificationService.message).toHaveBeenCalledWith('Error: Could not disable token');
+      expect(updateSpy).not.toHaveBeenCalled();
+    }));
+  });
 });
