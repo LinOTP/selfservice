@@ -172,4 +172,39 @@ describe('TokenService', () => {
       })
     ));
   });
+
+  describe('delete token', () => {
+    const deleteRequestBody = { serial: 'serial', session: session };
+    it('should send a delete request', async(
+      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+        tokenService.deleteToken('serial').subscribe();
+
+        const req = backend.expectOne({
+          url: '/userservice/delete',
+          method: 'POST'
+        });
+
+        expect(req.request.body).toEqual(deleteRequestBody);
+        backend.verify();
+      })
+    ));
+
+    it('should call the error handler on request failure', async(
+      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+
+        spyOn(console, 'error');
+
+        tokenService.deleteToken('serial').subscribe();
+        const deleteRequest = backend.expectOne({
+          url: '/userservice/delete',
+          method: 'POST'
+        });
+
+        deleteRequest.error(new ErrorEvent('Error deleting token'));
+        backend.verify();
+
+        expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
+      })
+    ));
+  });
 });
