@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -32,6 +32,7 @@ import { ArrayNotEmptyPipe } from './array-not-empty.pipe';
 import { SortTokensByStatePipe } from './sort-tokens-by-state.pipe';
 import { TokenCardComponent } from './token-card/token-card.component';
 import { EnrollmentGridComponent } from './enrollment-grid/enrollment-grid.component';
+import { AppInitService } from './app-init.service';
 
 
 @NgModule({
@@ -80,6 +81,13 @@ import { EnrollmentGridComponent } from './enrollment-grid/enrollment-grid.compo
     TokenService,
     TokenDetailResolver,
     TokenListResolver,
+    AppInitService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (appInit: AppInitService) => () => appInit.init(),
+      deps: [AppInitService],
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

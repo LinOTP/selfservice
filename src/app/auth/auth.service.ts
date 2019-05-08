@@ -83,6 +83,7 @@ export class AuthService {
    * @memberof AuthService
    */
   public handleLogout(storeCurrentRoute: boolean) {
+    localStorage.removeItem('permissions');
     this.permissionsService.flushPermissions();
 
     const navigationExtras: NavigationExtras = {};
@@ -126,6 +127,7 @@ export class AuthService {
       map(response => response['actions']),
       map(AuthService.mapPoliciesToPermissions),
       tap(permissions => {
+        localStorage.setItem('permissions', JSON.stringify(permissions));
         this.permissionsService.loadPermissions(permissions);
       }),
       catchError(this.handleError('loadPermissions', [])),
