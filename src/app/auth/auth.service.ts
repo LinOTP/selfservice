@@ -1,6 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie';
@@ -52,7 +52,7 @@ export class AuthService {
   /**
    * sends a logout request to the backend and processes all frontend related tasks
    *
-   * loginChangeEmitter is updated, all persistent data cleared and the user is redirected to the login screen.
+   * The user is redirected to the login page without storing the current route.
    *
    * @returns {Observable<any>}
    * @memberof AuthService
@@ -61,17 +61,38 @@ export class AuthService {
     return this.http.get<any>(this.baseUrl + this.endpoints.logout)
       .pipe(
         map(response => response && response.result && response.result.value === true),
-        tap(result => {
-          if (result) {
-            this.permissionsService.flushPermissions();
-
-            this.router.navigate(['/login']);
-
-            this._loginChangeEmitter.emit(false);
+        tap(logoutSuccess => {
+          if (logoutSuccess) {
+            this.handleLogout(false);
           }
         }),
         catchError(this.handleError('logout', false))
       );
+  }
+
+  /**
+   * handles a closed login session to clear up the frontend state
+   *
+   * - loginChangeEmitter is updated
+   * - all persistent data is cleared
+   * - the user is redirected to the login screen.
+   *   If the parameter `storeCurrentRoute` is set to true, the current router url
+   *   will be stored so that the application returns to the current view once the
+   *   user logs back in.
+   *
+   * @param {boolean} storeCurrentRoute
+   * @memberof AuthService
+   */
+  public handleLogout(storeCurrentRoute: boolean) {
+    this.permissionsService.flushPermissions();
+
+    const navigationExtras: NavigationExtras = {};
+    if (storeCurrentRoute) {
+      navigationExtras.queryParams = { 'redirect': this.router.url };
+    }
+    this.router.navigate(['/login'], navigationExtras);
+
+    this._loginChangeEmitter.emit(false);
   }
 
   /**

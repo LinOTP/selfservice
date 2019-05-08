@@ -10,9 +10,6 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 
 describe('AuthInterceptor', () => {
 
-  let router: Router;
-  let routerNavigateSpy: jasmine.Spy;
-
   let http: HttpTestingController;
   let httpClient: HttpClient;
 
@@ -20,7 +17,6 @@ describe('AuthInterceptor', () => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
-        RouterTestingModule,
       ],
       providers: [
         AuthInterceptor,
@@ -38,9 +34,6 @@ describe('AuthInterceptor', () => {
   });
 
   beforeEach(() => {
-    router = TestBed.get(Router);
-    routerNavigateSpy = spyOn(router, 'navigate');
-
     http = TestBed.get(HttpTestingController);
     httpClient = TestBed.get(HttpClient);
 
@@ -50,7 +43,7 @@ describe('AuthInterceptor', () => {
     expect(service).toBeTruthy();
   }));
 
-  it(`should intercept and redirect unauthorized api requests`, () => {
+  it(`should intercept unauthorized api requests`, () => {
 
     const successCallback = jasmine.createSpy('successCallback');
     const errorCallback = jasmine.createSpy('errorCallback');
@@ -65,8 +58,7 @@ describe('AuthInterceptor', () => {
     expect(successCallback).not.toHaveBeenCalled();
     expect(errorCallback).toHaveBeenCalled();
 
-    expect(routerNavigateSpy).toHaveBeenCalledTimes(1);
-    expect(routerNavigateSpy.calls.argsFor(0)).toContain(['/login']);
+    expect(TestBed.get(AuthService).handleLogout).toHaveBeenCalledTimes(1);
   });
 
   it(`should not intercept nor redirect successful api requests`, () => {
@@ -81,7 +73,7 @@ describe('AuthInterceptor', () => {
     expect(successCallback).toHaveBeenCalled();
     expect(errorCallback).not.toHaveBeenCalled();
 
-    expect(routerNavigateSpy).not.toHaveBeenCalled();
+    expect(TestBed.get(AuthService).handleLogout).not.toHaveBeenCalled();
 
     http.verify();
   });
@@ -92,12 +84,12 @@ describe('AuthInterceptor', () => {
     const errorCallback = jasmine.createSpy('errorCallback');
 
     httpClient.get('/api').subscribe(successCallback, errorCallback);
-    http.expectOne('/api').error(new ErrorEvent('Unauthorized error'), { status: 500 });
+    http.expectOne('/api').error(new ErrorEvent('Internal server error'), { status: 500 });
 
     expect(successCallback).not.toHaveBeenCalled();
     expect(errorCallback).toHaveBeenCalled();
 
-    expect(routerNavigateSpy).not.toHaveBeenCalled();
+    expect(TestBed.get(AuthService).handleLogout).not.toHaveBeenCalled();
 
     http.verify();
   });

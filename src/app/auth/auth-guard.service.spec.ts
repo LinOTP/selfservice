@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { spyOnClass } from '../../testing/spyOnClass';
 
-import { Router, RouterStateSnapshot, Route } from '@angular/router';
+import { Router, RouterStateSnapshot } from '@angular/router';
 
 import { AuthService } from './auth.service';
 
@@ -15,7 +15,6 @@ describe('AuthService', () => {
 
   let authService: jasmine.SpyObj<AuthService>;
   let router: Router;
-  let routerNavigateSpy: jasmine.Spy;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -35,7 +34,6 @@ describe('AuthService', () => {
   beforeEach(() => {
     authService = TestBed.get(AuthService);
     router = TestBed.get(Router);
-    routerNavigateSpy = spyOn(router, 'navigate');
   });
 
   it('should be created', inject([AuthGuard], (service: AuthGuard) => {
@@ -52,7 +50,7 @@ describe('AuthService', () => {
         const result = service[method](null, routeSnapshot);
 
         expect(result).toBe(true);
-        expect(routerNavigateSpy).not.toHaveBeenCalled();
+        expect(authService.handleLogout).not.toHaveBeenCalled();
       }));
 
       it('should prevent loading the route if user is not logged in', inject([AuthGuard], (service: AuthGuard) => {
@@ -63,13 +61,12 @@ describe('AuthService', () => {
         expect(result).toBe(false);
       }));
 
-      it('should redirect the user to /login if not logged in', inject([AuthGuard], (service: AuthGuard) => {
+      it('should let the authService handle the closed seesion if the user is not logged in', inject([AuthGuard], (service: AuthGuard) => {
         authService.isLoggedIn.and.returnValue(false);
 
         service[method](null, routeSnapshot);
 
-        expect(routerNavigateSpy).toHaveBeenCalledTimes(1);
-        expect(routerNavigateSpy.calls.argsFor(0)).toContain(['/login']);
+        expect(authService.handleLogout).toHaveBeenCalledTimes(1);
       }));
 
     });
