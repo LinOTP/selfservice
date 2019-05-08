@@ -55,16 +55,18 @@ export class AuthService {
       );
   }
 
-  private policiesToPermissions(policies: string[]): Permission[] {
-    const permissions = [];
-
-    policies.forEach(p => {
-      if (PoliciesToPermissionsMapping.hasOwnProperty(p)) {
-        permissions.push(PoliciesToPermissionsMapping[p]);
-      }
-    });
-
-    return permissions;
+  /**
+   * maps backend LinOTP policy actions to the available frontend permissions
+   *
+   * @private
+   * @param {string[]} policies
+   * @returns {Permission[]}
+   * @memberof AuthService
+   */
+  private static mapPoliciesToPermissions(policies: string[]): Permission[] {
+    return policies
+      .filter(p => PoliciesToPermissionsMapping.hasOwnProperty(p))
+      .map(p => PoliciesToPermissionsMapping[p]);
   }
 
   private loadPermissions() {
@@ -73,7 +75,7 @@ export class AuthService {
 
     this.http.get(endpoint, params).pipe(
       map(response => response['actions']),
-      map(this.policiesToPermissions),
+      map(AuthService.mapPoliciesToPermissions),
       catchError(this.handleError('loadPermissions', [])),
     ).subscribe(
       permissions => this.permissionsService.loadPermissions(permissions)
