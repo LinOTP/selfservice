@@ -19,11 +19,26 @@ export class AuthService {
     context: 'context',
   };
 
-  options = {
+  private options = {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
   };
+
+
+  /**
+   * maps backend LinOTP policy actions to the available frontend permissions
+   *
+   * @private
+   * @param {string[]} policies
+   * @returns {Permission[]}
+   * @memberof AuthService
+   */
+  private static mapPoliciesToPermissions(policies: string[]): Permission[] {
+    return policies
+      .filter(p => PoliciesToPermissionsMapping.hasOwnProperty(p))
+      .map(p => PoliciesToPermissionsMapping[p]);
+  }
 
   constructor(
     private http: HttpClient,
@@ -93,20 +108,6 @@ export class AuthService {
     this.router.navigate(['/login'], navigationExtras);
 
     this._loginChangeEmitter.emit(false);
-  }
-
-  /**
-   * maps backend LinOTP policy actions to the available frontend permissions
-   *
-   * @private
-   * @param {string[]} policies
-   * @returns {Permission[]}
-   * @memberof AuthService
-   */
-  private static mapPoliciesToPermissions(policies: string[]): Permission[] {
-    return policies
-      .filter(p => PoliciesToPermissionsMapping.hasOwnProperty(p))
-      .map(p => PoliciesToPermissionsMapping[p]);
   }
 
   /**
