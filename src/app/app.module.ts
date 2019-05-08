@@ -26,7 +26,7 @@ import { EnrollComponent } from './enroll/enroll.component';
 import { EnrollTotpComponent } from './enroll/enroll-totp/enroll-totp.component';
 import { EnrollHotpDialogComponent } from './enroll/enroll-hotp-dialog/enroll-hotp-dialog.component';
 import { EnrollPushDialogComponent } from './enroll/enroll-push-dialog/enroll-push-dialog.component';
-import { NonActiveTokensPipe } from './non-active-tokens.pipe';
+import { UnreadyTokensPipe } from './unready-tokens.pipe';
 import { ActiveTokensPipe } from './active-tokens.pipe';
 import { InactiveTokensPipe } from './inactive-tokens.pipe';
 import { ArrayNotEmptyPipe } from './array-not-empty.pipe';
@@ -50,7 +50,7 @@ import { AppInitService } from './app-init.service';
     EnrollHotpDialogComponent,
     EnrollTotpComponent,
     EnrollPushDialogComponent,
-    NonActiveTokensPipe,
+    UnreadyTokensPipe,
     ActiveTokensPipe,
     InactiveTokensPipe,
     ArrayNotEmptyPipe,

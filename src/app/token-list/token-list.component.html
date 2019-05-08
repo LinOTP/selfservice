@@ -2,15 +2,17 @@
   <p>Loading tokens...</p>
 </div>
 <ng-template #tokenLists>
-  <section id="pendingSection" *ngIf="tokens && tokens | nonActiveTokens | arrayNotEmpty">
+  <section id="pendingSection"
+           *ngIf="tokens && tokens | unreadyTokens | arrayNotEmpty">
     <h2>Pending actions</h2>
     <p>The following tokens are not active yet and need to be paired:</p>
-    <app-token-card *ngFor="let token of tokens | nonActiveTokens"
+    <app-token-card *ngFor="let token of tokens | unreadyTokens"
                     [token]="token"
                     (tokenUpdate)="loadTokens()"></app-token-card>
   </section>
 
-  <section id="activeAuthSection" *ngIf="tokens | activeTokens | arrayNotEmpty">
+  <section id="activeAuthSection"
+           *ngIf="tokens | activeTokens | arrayNotEmpty">
     <h2>Active authentication methods</h2>
     <p>The following tokens are ready to be used:</p>
     <app-token-card *ngFor="let token of tokens | activeTokens"

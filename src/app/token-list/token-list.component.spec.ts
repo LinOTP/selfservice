@@ -16,7 +16,8 @@ import { TestingPage } from '../../testing/page-helper';
 import { spyOnClass } from '../../testing/spyOnClass';
 import { ArrayNotEmptyPipe } from '../array-not-empty.pipe';
 import { ActiveTokensPipe } from '../active-tokens.pipe';
-import { NonActiveTokensPipe } from '../non-active-tokens.pipe';
+import { InactiveTokensPipe } from '../inactive-tokens.pipe';
+import { UnreadyTokensPipe } from '../unready-tokens.pipe';
 
 class Page extends TestingPage<TokenListComponent> {
 
@@ -48,6 +49,7 @@ describe('TokenListComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         TokenListComponent,
+        MockPipe({ 'name': 'unreadyTokens' }),
         MockPipe({ 'name': 'inactiveTokens' }),
         MockPipe({ 'name': 'activeTokens' }),
         MockPipe({ 'name': 'arrayNotEmpty' }),
@@ -56,7 +58,8 @@ describe('TokenListComponent', () => {
         MockComponent({ 'selector': 'app-enrollment-grid' }),
         ArrayNotEmptyPipe,
         ActiveTokensPipe,
-        NonActiveTokensPipe,
+        InactiveTokensPipe,
+        UnreadyTokensPipe,
         NgxPermissionsAllowStubDirective,
       ],
       providers: [
