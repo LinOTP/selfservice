@@ -88,6 +88,15 @@ describe('TokenCardComponent', () => {
     expect(page.subheader.innerText).toEqual(component.token.description);
   });
 
+  it('should load permissions', () => {
+    expect(component.Permission).toBe(Permission);
+    expect(component.ModifyTokenPermissions).toBe(ModifyTokenPermissions);
+  });
+
+  it('should load enrollment status', () => {
+    expect(component.EnrollmentStatus).toBe(EnrollmentStatus);
+  });
+
   describe('set token pin', () => {
 
     it('should set pin of token and notify user after success', fakeAsync(() => {
@@ -150,7 +159,7 @@ describe('TokenCardComponent', () => {
     }));
 
 
-    it('Should delete the token if confirmed', fakeAsync(() => {
+    it('should delete the token if confirmed', fakeAsync(() => {
       matDialog.open.and.returnValue({ afterClosed: () => of(true) });
 
       component.token = Fixtures.activeHotpToken;
@@ -161,7 +170,7 @@ describe('TokenCardComponent', () => {
       expect(tokenService.deleteToken).toHaveBeenCalledWith(Fixtures.activeHotpToken.serial);
     }));
 
-    it('Should not delete the token if confirmation is cancelled', fakeAsync(() => {
+    it('should not delete the token if confirmation is cancelled', fakeAsync(() => {
       matDialog.open.and.returnValue({ afterClosed: () => of(false) });
 
       component.delete();
@@ -170,15 +179,6 @@ describe('TokenCardComponent', () => {
       expect(matDialog.open).toHaveBeenCalledTimes(1);
       expect(tokenService.deleteToken).not.toHaveBeenCalled();
     }));
-  });
-
-  it('should load permissions', () => {
-    expect(component.Permission).toBe(Permission);
-    expect(component.ModifyTokenPermissions).toBe(ModifyTokenPermissions);
-  });
-
-  it('should load enrollment status', () => {
-    expect(component.EnrollmentStatus).toBe(EnrollmentStatus);
   });
 
   describe('enable', () => {
