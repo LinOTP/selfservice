@@ -60,7 +60,6 @@ export class AuthService {
         ),
         catchError(this.handleError('login', false)),
       );
-
   }
 
   /**
