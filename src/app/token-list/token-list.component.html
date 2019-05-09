@@ -2,7 +2,7 @@
   <p>Loading tokens...</p>
 </div>
 <ng-template #tokenLists>
-  <section *ngIf="tokens && tokens | nonActiveTokens | arrayNotEmpty">
+  <section id="pendingSection" *ngIf="tokens && tokens | nonActiveTokens | arrayNotEmpty">
     <h2>Pending actions</h2>
     <p>The following tokens are not active yet and need to be paired:</p>
     <app-token-card *ngFor="let token of tokens | nonActiveTokens"
@@ -10,7 +10,7 @@
                     (tokenUpdate)="loadTokens()"></app-token-card>
   </section>
 
-  <section *ngIf="tokens | activeTokens | arrayNotEmpty">
+  <section id="activeAuthSection" *ngIf="tokens | activeTokens | arrayNotEmpty">
     <h2>Active authentication methods</h2>
     <p>The following tokens are ready to be used:</p>
     <app-token-card *ngFor="let token of tokens | activeTokens"
@@ -25,7 +25,7 @@
 </ng-container>
 
 <ng-template #enrollmentSection>
-  <section>
+  <section id="newAuthSection">
     <h2>Set up new authentication method</h2>
     <p>Following alternative authentication methods are available and can be set up:</p>
     <app-enrollment-grid (tokenUpdate)="loadTokens()"></app-enrollment-grid>
@@ -33,7 +33,7 @@
 </ng-template>
 
 <ng-template #emptyState>
-  <section>
+  <section id="enrollSection">
     <h2>Enroll your first authentication method</h2>
     <p>
       You currently do not have any authentication method enrolled.
