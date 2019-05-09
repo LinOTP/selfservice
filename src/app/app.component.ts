@@ -32,17 +32,10 @@ export class AppComponent implements OnInit {
   }
 
   logout() {
-    this.authService.logout().subscribe(
-      response => {
-        const logoutSuccess = response && response.result && response.result.value === true;
-        if (logoutSuccess) {
-          this.isLoggedIn = false;
-          this.router.navigate(['/']);
-        }
-        const message = (logoutSuccess ? 'Logout successful' : 'Logout failed');
-        this.notificationService.message(message);
-      }
-    );
+    this.authService.logout().subscribe(logoutSuccess => {
+      const message = (logoutSuccess ? 'Logout successful' : 'Logout failed');
+      this.notificationService.message(message);
+    });
   }
 
 }

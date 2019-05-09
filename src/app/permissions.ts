@@ -10,7 +10,7 @@ export enum Permission {
     SETPIN = 'SETPIN'
 }
 
-export const PoliciesToPermissionsMapping = {
+export const PoliciesToPermissionsMapping: { [policy: string]: Permission } = {
     'enrollPUSH': Permission.ENROLLPUSH,
     'activate_PushToken': Permission.ACTIVATEPUSH,
     'enrollQR': Permission.ENROLLQR,

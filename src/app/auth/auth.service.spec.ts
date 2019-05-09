@@ -1,4 +1,6 @@
 import { TestBed, inject, async } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { spyOnClass } from '../../testing/spyOnClass';
 
 import { AuthService } from './auth.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
@@ -6,7 +8,7 @@ import { CookieService } from 'ngx-cookie';
 import { NgxPermissionsService } from 'ngx-permissions';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Permission } from '../permissions';
-import { spyOnClass } from '../../testing/spyOnClass';
+import { Router } from '@angular/router';
 
 describe('AuthService', () => {
   let authService: AuthService;
@@ -16,6 +18,7 @@ describe('AuthService', () => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
+        RouterTestingModule,
       ],
       providers: [
         AuthService,
@@ -26,7 +29,7 @@ describe('AuthService', () => {
         {
           provide: CookieService,
           useValue: spyOnClass(CookieService),
-        }
+        },
       ],
     });
 
@@ -57,6 +60,30 @@ describe('AuthService', () => {
 
   it('should fetch the permissions on successful login', async(
     inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+      spyOn(localStorage, 'setItem');
+
+      const permissionSet = [
+        Permission.ENROLLPASSWORD,
+        Permission.ENROLLPUSH,
+        Permission.ACTIVATEPUSH,
+        Permission.ENROLLQR,
+        Permission.ACTIVATEQR,
+        Permission.ENROLLHOTP,
+        Permission.ENROLLTOTP,
+        Permission.DELETE,
+        Permission.SETPIN,
+      ];
+      const policyActions = [
+        'enrollPW',
+        'enrollPUSH',
+        'activate_PushToken',
+        'enrollQR',
+        'activateQR',
+        'enrollHMAC',
+        'enrollTOTP',
+        'delete',
+        'setOTPPIN',
+      ];
 
       authService.login('user', 'pass').subscribe(response => {
         expect(response).toEqual(true);
@@ -68,30 +95,11 @@ describe('AuthService', () => {
 
       const permissionsRequest = backend.expectOne((req) => req.url === '/userservice/context' && req.method === 'GET');
       permissionsRequest.flush({
-        actions: [
-          'enrollPW',
-          'enrollPUSH',
-          'activate_PushToken',
-          'enrollQR',
-          'activateQR',
-          'enrollHMAC',
-          'enrollTOTP',
-          'delete',
-          'setOTPPIN',
-        ]
+        actions: policyActions
       });
 
-      expect(permissionsService.loadPermissions).toHaveBeenCalledWith([
-        Permission.ENROLLPASSWORD,
-        Permission.ENROLLPUSH,
-        Permission.ACTIVATEPUSH,
-        Permission.ENROLLQR,
-        Permission.ACTIVATEQR,
-        Permission.ENROLLHOTP,
-        Permission.ENROLLTOTP,
-        Permission.DELETE,
-        Permission.SETPIN,
-      ]);
+      expect(localStorage.setItem).toHaveBeenCalledWith('permissions', JSON.stringify(permissionSet));
+      expect(permissionsService.loadPermissions).toHaveBeenCalledWith(permissionSet);
     })
   ));
 
@@ -162,33 +170,71 @@ describe('AuthService', () => {
     })
   ));
 
-  it('should flush permissions on logout', async(
-    inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+  describe('logout', () => {
 
-      authService.logout().subscribe();
+    it('should flush permissions', async(
+      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+        spyOn(localStorage, 'removeItem');
+        spyOn(TestBed.get(Router), 'navigate');
 
-      const logoutRequest = backend.expectOne((req) => req.url === '/userservice/logout' && req.method === 'GET');
-      logoutRequest.flush({});
+        authService.logout().subscribe();
 
-      backend.verify();
+        const logoutRequest = backend.expectOne((req) => req.url === '/userservice/logout' && req.method === 'GET');
+        logoutRequest.flush({ result: { value: true } });
 
-      expect(permissionsService.flushPermissions).toHaveBeenCalled();
-    })
-  ));
+        backend.verify();
 
-  it('should handle logout errors', async(
-    inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+        expect(permissionsService.flushPermissions).toHaveBeenCalled();
+        expect(localStorage.removeItem).toHaveBeenCalledWith('permissions');
+      })
+    ));
 
-      spyOn(console, 'error');
+    it('should not set redirect param for the login route', async(
+      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+        const routerSpy = spyOn(TestBed.get(Router), 'navigate');
 
-      authService.logout().subscribe();
+        authService.logout().subscribe();
 
-      const logoutRequest = backend.expectOne((req) => req.url === '/userservice/logout' && req.method === 'GET');
-      logoutRequest.error(new ErrorEvent('Error logging out'));
+        const logoutRequest = backend.expectOne((req) => req.url === '/userservice/logout' && req.method === 'GET');
+        logoutRequest.flush({ result: { value: true } });
 
-      backend.verify();
+        backend.verify();
 
-      expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
-    })
-  ));
+        expect(routerSpy).toHaveBeenCalledWith(['/login'], {});
+      })
+    ));
+
+    it('should emit a loginChange event during logout', async(
+      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+        spyOn(TestBed.get(Router), 'navigate');
+        authService.loginChangeEmitter.subscribe(change => {
+          expect(change).toEqual(false);
+        });
+
+        authService.logout().subscribe();
+
+        const logoutRequest = backend.expectOne((req) => req.url === '/userservice/logout' && req.method === 'GET');
+        logoutRequest.flush({ result: { value: true } });
+
+        backend.verify();
+      })
+    ));
+
+    it('should handle logout errors', async(
+      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+
+        spyOn(console, 'error');
+
+        authService.logout().subscribe();
+
+        const logoutRequest = backend.expectOne((req) => req.url === '/userservice/logout' && req.method === 'GET');
+        logoutRequest.error(new ErrorEvent('Error logging out'));
+
+        backend.verify();
+
+        expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
+      })
+    ));
+
+  });
 });
