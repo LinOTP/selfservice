@@ -72,6 +72,8 @@ describe('AuthService', () => {
         Permission.ENROLLTOTP,
         Permission.DELETE,
         Permission.SETPIN,
+        Permission.ENABLE,
+        Permission.DISABLE,
       ];
       const policyActions = [
         'enrollPW',
@@ -83,6 +85,8 @@ describe('AuthService', () => {
         'enrollTOTP',
         'delete',
         'setOTPPIN',
+        'enable',
+        'disable',
       ];
 
       authService.login('user', 'pass').subscribe(response => {

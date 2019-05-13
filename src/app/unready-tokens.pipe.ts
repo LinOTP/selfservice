@@ -2,10 +2,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Token, EnrollmentStatus } from './token';
 
 @Pipe({
-  name: 'nonActiveTokens',
+  name: 'unreadyTokens',
   pure: true,
 })
-export class NonActiveTokensPipe implements PipeTransform {
+export class UnreadyTokensPipe implements PipeTransform {
 
   transform(value: Token[]): any {
     return value.filter(t => t.enrollmentStatus !== EnrollmentStatus.completed);

@@ -64,6 +64,7 @@ describe('TokenCardComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(TokenCardComponent);
     component = fixture.componentInstance;
+    component.token = Fixtures.activeHotpToken;
 
     notificationService = TestBed.get(NotificationService);
     tokenService = TestBed.get(TokenService);
@@ -85,6 +86,15 @@ describe('TokenCardComponent', () => {
 
     expect(page.header.innerText).toEqual(component.token.typeDetails.name);
     expect(page.subheader.innerText).toEqual(component.token.description);
+  });
+
+  it('should load permissions', () => {
+    expect(component.Permission).toBe(Permission);
+    expect(component.ModifyTokenPermissions).toBe(ModifyTokenPermissions);
+  });
+
+  it('should load enrollment status', () => {
+    expect(component.EnrollmentStatus).toBe(EnrollmentStatus);
   });
 
   describe('set token pin', () => {
@@ -149,7 +159,7 @@ describe('TokenCardComponent', () => {
     }));
 
 
-    it('Should delete the token if confirmed', fakeAsync(() => {
+    it('should delete the token if confirmed', fakeAsync(() => {
       matDialog.open.and.returnValue({ afterClosed: () => of(true) });
 
       component.token = Fixtures.activeHotpToken;
@@ -160,7 +170,7 @@ describe('TokenCardComponent', () => {
       expect(tokenService.deleteToken).toHaveBeenCalledWith(Fixtures.activeHotpToken.serial);
     }));
 
-    it('Should not delete the token if confirmation is cancelled', fakeAsync(() => {
+    it('should not delete the token if confirmation is cancelled', fakeAsync(() => {
       matDialog.open.and.returnValue({ afterClosed: () => of(false) });
 
       component.delete();
@@ -171,12 +181,57 @@ describe('TokenCardComponent', () => {
     }));
   });
 
-  it('should load permissions', () => {
-    expect(component.Permission).toBe(Permission);
-    expect(component.ModifyTokenPermissions).toBe(ModifyTokenPermissions);
+  describe('enable', () => {
+
+    it('should notify user after success and emit token list update', fakeAsync(() => {
+      tokenService.enable.and.returnValue(of(true));
+      const updateSpy = spyOn(component.tokenUpdate, 'next');
+
+      component.token = Fixtures.inactiveHotpToken;
+      component.enable();
+      tick();
+
+      expect(notificationService.message).toHaveBeenCalledWith('Token enabled');
+      expect(updateSpy).toHaveBeenCalledTimes(1);
+    }));
+
+    it('should notify user after failure and not emit token list update', fakeAsync(() => {
+      tokenService.enable.and.returnValue(of(false));
+      const updateSpy = spyOn(component.tokenUpdate, 'next');
+
+      component.token = Fixtures.inactiveHotpToken;
+      component.enable();
+      tick();
+
+      expect(notificationService.message).toHaveBeenCalledWith('Error: Could not enable token');
+      expect(updateSpy).not.toHaveBeenCalled();
+    }));
   });
 
-  it('should load enrollment status', () => {
-    expect(component.EnrollmentStatus).toBe(EnrollmentStatus);
+  describe('disable', () => {
+
+    it('should notify user after success and emit token list update', fakeAsync(() => {
+      tokenService.disable.and.returnValue(of(true));
+      const updateSpy = spyOn(component.tokenUpdate, 'next');
+
+      component.token = Fixtures.activeHotpToken;
+      component.disable();
+      tick();
+
+      expect(notificationService.message).toHaveBeenCalledWith('Token disabled');
+      expect(updateSpy).toHaveBeenCalledTimes(1);
+    }));
+
+    it('should notify user after failure and not emit token list update', fakeAsync(() => {
+      tokenService.disable.and.returnValue(of(false));
+      const updateSpy = spyOn(component.tokenUpdate, 'next');
+
+      component.token = Fixtures.activeHotpToken;
+      component.disable();
+      tick();
+
+      expect(notificationService.message).toHaveBeenCalledWith('Error: Could not disable token');
+      expect(updateSpy).not.toHaveBeenCalled();
+    }));
   });
 });
