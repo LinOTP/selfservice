@@ -3,11 +3,11 @@ import { Token, EnrollmentStatus } from '../token';
 import { MatDialog } from '@angular/material';
 import { SetPinDialogComponent } from '../set-pin-dialog/set-pin-dialog.component';
 import { NotificationService } from '../common/notification.service';
-import { DialogComponent } from '../dialog/dialog.component';
 import { TokenService } from '../token.service';
 import { filter, switchMap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Permission, ModifyTokenPermissions } from '../permissions';
+import { DialogComponent } from '../common/dialog/dialog.component';
 
 @Component({
   selector: 'app-token-card',
