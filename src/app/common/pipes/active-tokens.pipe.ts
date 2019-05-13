@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Token, EnrollmentStatus } from './token';
+import { Token, EnrollmentStatus } from '../../token';
 
 @Pipe({
   name: 'activeTokens',

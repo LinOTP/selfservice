@@ -14,10 +14,10 @@ import { EnrollmentStatus } from '../token';
 import { EnrollmentPermissions } from '../permissions';
 import { TestingPage } from '../../testing/page-helper';
 import { spyOnClass } from '../../testing/spyOnClass';
-import { ArrayNotEmptyPipe } from '../array-not-empty.pipe';
-import { ActiveTokensPipe } from '../active-tokens.pipe';
-import { InactiveTokensPipe } from '../inactive-tokens.pipe';
-import { UnreadyTokensPipe } from '../unready-tokens.pipe';
+import { ArrayNotEmptyPipe } from '../common/pipes/array-not-empty.pipe';
+import { ActiveTokensPipe } from '../common/pipes/active-tokens.pipe';
+import { InactiveTokensPipe } from '../common/pipes/inactive-tokens.pipe';
+import { UnreadyTokensPipe } from '../common/pipes/unready-tokens.pipe';
 
 class Page extends TestingPage<TokenListComponent> {
 
