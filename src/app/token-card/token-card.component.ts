@@ -8,7 +8,7 @@ import { DialogComponent } from '../common/dialog/dialog.component';
 import { SetPinDialogComponent } from '../common/set-pin-dialog/set-pin-dialog.component';
 import { NotificationService } from '../common/notification.service';
 
-import { Permission, ModifyTokenPermissions } from '../permissions';
+import { Permission, ModifyTokenPermissions } from '../common/permissions';
 
 import { Token, EnrollmentStatus } from '../api/token';
 import { TokenService } from '../api/token.service';

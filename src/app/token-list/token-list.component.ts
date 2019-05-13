@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Token, EnrollmentStatus } from '../api/token';
 import { TokenService } from '../api/token.service';
-import { EnrollmentPermissions } from '../permissions';
+import { EnrollmentPermissions } from '../common/permissions';
 
 @Component({
   selector: 'app-token-list',

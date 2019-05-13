@@ -6,7 +6,7 @@ import { catchError, map, tap, switchMap } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie';
 
 import { NgxPermissionsService } from 'ngx-permissions';
-import { Permission, PoliciesToPermissionsMapping } from '../permissions';
+import { Permission, PoliciesToPermissionsMapping } from '../common/permissions';
 
 @Injectable()
 export class AuthService {

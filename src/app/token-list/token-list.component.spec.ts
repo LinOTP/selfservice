@@ -11,7 +11,7 @@ import { MaterialModule } from '../material.module';
 import { TokenService } from '../api/token.service';
 import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
 import { EnrollmentStatus } from '../api/token';
-import { EnrollmentPermissions } from '../permissions';
+import { EnrollmentPermissions } from '../common/permissions';
 import { TestingPage } from '../../testing/page-helper';
 import { spyOnClass } from '../../testing/spyOnClass';
 import { ArrayNotEmptyPipe } from '../common/pipes/array-not-empty.pipe';

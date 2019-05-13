@@ -7,7 +7,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { CookieService } from 'ngx-cookie';
 import { NgxPermissionsService } from 'ngx-permissions';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Permission } from '../permissions';
+import { Permission } from '../common/permissions';
 import { Router } from '@angular/router';
 
 describe('AuthService', () => {
