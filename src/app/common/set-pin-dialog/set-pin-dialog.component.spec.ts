@@ -5,11 +5,11 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 import { CustomFormsModule } from 'ng2-validation';
 
-import { MaterialModule } from '../material.module';
-import { Token } from '../token';
+import { MaterialModule } from '../../material.module';
+import { TokenService } from '../../token.service';
+import { Token } from '../../token';
 
 import { SetPinDialogComponent } from './set-pin-dialog.component';
-import { TokenService } from '../token.service';
 
 describe('SetPinDialogComponent', () => {
   let component: SetPinDialogComponent;

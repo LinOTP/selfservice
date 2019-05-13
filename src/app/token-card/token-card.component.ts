@@ -1,13 +1,17 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
-import { Token, EnrollmentStatus } from '../token';
 import { MatDialog } from '@angular/material';
-import { SetPinDialogComponent } from '../set-pin-dialog/set-pin-dialog.component';
-import { NotificationService } from '../common/notification.service';
-import { TokenService } from '../token.service';
-import { filter, switchMap } from 'rxjs/operators';
+
 import { Subject } from 'rxjs';
-import { Permission, ModifyTokenPermissions } from '../permissions';
+import { filter, switchMap } from 'rxjs/operators';
+
 import { DialogComponent } from '../common/dialog/dialog.component';
+import { SetPinDialogComponent } from '../common/set-pin-dialog/set-pin-dialog.component';
+import { NotificationService } from '../common/notification.service';
+
+import { Permission, ModifyTokenPermissions } from '../permissions';
+
+import { Token, EnrollmentStatus } from '../token';
+import { TokenService } from '../token.service';
 
 @Component({
   selector: 'app-token-card',
