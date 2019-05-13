@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatStepper, MatDialogRef } from '@angular/material';
 import { Router } from '@angular/router';
 
-import { TokenService } from '../../token.service';
+import { TokenService } from '../../api/token.service';
 import { NotificationService } from '../../common/notification.service';
 
 @Component({
@@ -46,27 +46,27 @@ export class EnrollPushDialogComponent implements OnInit {
    * Enroll the push token and proceed to the next step
    */
   goToTokenInfo(stepper: MatStepper) {
-      this.tokenService.enroll(this.enrollmentForm.value).subscribe(response => {
-        if (response.result && response.result.value === true) {
-          this.enrolledToken = {
-            url: response.detail.lse_qr_url.value,
-            serial: response.detail.serial
-          };
+    this.tokenService.enroll(this.enrollmentForm.value).subscribe(response => {
+      if (response.result && response.result.value === true) {
+        this.enrolledToken = {
+          url: response.detail.lse_qr_url.value,
+          serial: response.detail.serial
+        };
 
-          this.enrollmentForm.controls.description.disable();
-          this.enrollmentStep.controls.tokenEnrolled.setValue(true);
+        this.enrollmentForm.controls.description.disable();
+        this.enrollmentStep.controls.tokenEnrolled.setValue(true);
 
-          this.tokenService.pairingPoll(this.enrolledToken.serial).subscribe(data => {
-            this.isPaired = true;
-            stepper.selectedIndex = 2;
-          });
+        this.tokenService.pairingPoll(this.enrolledToken.serial).subscribe(data => {
+          this.isPaired = true;
+          stepper.selectedIndex = 2;
+        });
 
-          this.incrementStep(stepper);
+        this.incrementStep(stepper);
 
-        } else {
-          this.notificationService.message('There was a problem while enrolling the new token. Please try again.');
-        }
-      });
+      } else {
+        this.notificationService.message('There was a problem while enrolling the new token. Please try again.');
+      }
+    });
   }
 
   public goToActivation() {

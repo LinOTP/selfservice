@@ -12,9 +12,9 @@ import { NgSelfServiceCommonModule } from './common/common.module';
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './material.module';
 import { AuthModule } from './auth/auth.module';
+import { APIModule } from './api/api.module';
 
 import { AppComponent } from './app.component';
-import { TokenService, TokenListResolver, TokenDetailResolver } from './token.service';
 import { TokenListComponent } from './token-list/token-list.component';
 import { LoginComponent } from './login/login.component';
 import { TokenActivateComponent } from './token-activate/token-activate.component';
@@ -60,13 +60,11 @@ import { AppInitService } from './app-init.service';
     AppRoutingModule,
     MaterialModule,
     NgSelfServiceCommonModule,
+    APIModule,
     AuthModule,
     NgxPermissionsModule.forRoot(),
   ],
   providers: [
-    TokenService,
-    TokenDetailResolver,
-    TokenListResolver,
     AppInitService,
     {
       provide: APP_INITIALIZER,

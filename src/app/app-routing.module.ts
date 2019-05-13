@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { TokenListComponent } from './token-list/token-list.component';
 import { LoginComponent } from './login/login.component';
-import { TokenDetailResolver } from './token.service';
+import { TokenDetailResolver } from './api/token.service';
 import { TokenActivateComponent } from './token-activate/token-activate.component';
 import { AuthGuard } from './auth/auth-guard.service';
 import { EnrollComponent } from './enroll/enroll.component';

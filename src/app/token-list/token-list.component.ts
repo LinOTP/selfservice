@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Token, EnrollmentStatus } from '../token';
-import { TokenService } from '../token.service';
+import { Token, EnrollmentStatus } from '../api/token';
+import { TokenService } from '../api/token.service';
 import { EnrollmentPermissions } from '../permissions';
 
 @Component({

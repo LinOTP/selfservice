@@ -5,7 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SetPinDialogComponent } from '../../common/set-pin-dialog/set-pin-dialog.component';
 import { NotificationService } from '../../common/notification.service';
 
-import { TokenService } from '../../token.service';
+import { TokenService } from '../../api/token.service';
 
 @Component({
   selector: 'app-enroll-hotp',

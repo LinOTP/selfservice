@@ -12,9 +12,9 @@ import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
 import { TokenCardComponent } from './token-card.component';
 import { MaterialModule } from '../material.module';
 import { NotificationService } from '../common/notification.service';
-import { TokenService } from '../token.service';
+import { TokenService } from '../api/token.service';
 import { Permission, ModifyTokenPermissions } from '../permissions';
-import { EnrollmentStatus } from '../token';
+import { EnrollmentStatus } from '../api/token';
 
 class Page extends TestingPage<TokenCardComponent> {
 

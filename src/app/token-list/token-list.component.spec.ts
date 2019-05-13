@@ -8,9 +8,9 @@ import { MockComponent } from '../../testing/mock-component';
 
 import { TokenListComponent } from './token-list.component';
 import { MaterialModule } from '../material.module';
-import { TokenService } from '../token.service';
+import { TokenService } from '../api/token.service';
 import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
-import { EnrollmentStatus } from '../token';
+import { EnrollmentStatus } from '../api/token';
 import { EnrollmentPermissions } from '../permissions';
 import { TestingPage } from '../../testing/page-helper';
 import { spyOnClass } from '../../testing/spyOnClass';

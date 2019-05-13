@@ -2,8 +2,8 @@ import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { NgForm } from '@angular/forms';
 
-import { Token } from '../../token';
-import { TokenService } from '../../token.service';
+import { Token } from '../../api/token';
+import { TokenService } from '../../api/token.service';
 
 @Component({
   selector: 'app-set-pin-dialog',

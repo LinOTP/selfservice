@@ -4,7 +4,7 @@ import { EnrollComponent } from './enroll.component';
 import { MaterialModule } from '../material.module';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TokenService } from '../token.service';
+import { TokenService } from '../api/token.service';
 
 describe('EnrollComponent', () => {
   let component: EnrollComponent;

@@ -10,8 +10,8 @@ import { NotificationService } from '../common/notification.service';
 
 import { Permission, ModifyTokenPermissions } from '../permissions';
 
-import { Token, EnrollmentStatus } from '../token';
-import { TokenService } from '../token.service';
+import { Token, EnrollmentStatus } from '../api/token';
+import { TokenService } from '../api/token.service';
 
 @Component({
   selector: 'app-token-card',

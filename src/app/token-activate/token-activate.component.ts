@@ -2,7 +2,7 @@ import { Component, OnInit, Type, Injector } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { TokenActivatePushComponent } from './token-activate-push/token-activate-push.component';
-import { Token, EnrollmentStatus } from '../token';
+import { Token, EnrollmentStatus } from '../api/token';
 import { NotificationService } from '../common/notification.service';
 
 @Component({

@@ -4,8 +4,8 @@ import { EnrollTotpComponent } from './enroll-totp/enroll-totp.component';
 import { EnrollPushDialogComponent } from './enroll-push-dialog/enroll-push-dialog.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatSelectChange } from '@angular/material';
-import { TokenService } from '../token.service';
-import { tokenTypes } from '../token';
+import { TokenService } from '../api/token.service';
+import { tokenTypes } from '../api/token';
 
 @Component({
   selector: 'app-enroll',

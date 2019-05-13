@@ -6,7 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MaterialModule } from '../../material.module';
-import { TokenService } from '../../token.service';
+import { TokenService } from '../../api/token.service';
 
 import { EnrollHotpDialogComponent } from './enroll-hotp-dialog.component';
 

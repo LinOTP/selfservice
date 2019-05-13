@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EnrollTotpComponent } from './enroll-totp.component';
-import { TokenService } from '../../token.service';
+import { TokenService } from '../../api/token.service';
 
 
 class TokenServiceMock {

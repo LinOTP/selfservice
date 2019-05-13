@@ -1,5 +1,5 @@
 import { Component, OnInit, Output } from '@angular/core';
-import { TokenType, tokenTypes } from '../token';
+import { TokenType, tokenTypes } from '../api/token';
 import { MatDialog } from '@angular/material';
 import { EnrollHotpDialogComponent } from '../enroll/enroll-hotp-dialog/enroll-hotp-dialog.component';
 import { NotificationService } from '../common/notification.service';
