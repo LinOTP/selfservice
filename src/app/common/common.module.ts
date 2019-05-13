@@ -13,4 +13,4 @@ import { NotificationService } from './notification.service';
     NotificationService,
   ]
 })
-export class CoreModule { }
+export class NgSelfServiceCommonModule { }

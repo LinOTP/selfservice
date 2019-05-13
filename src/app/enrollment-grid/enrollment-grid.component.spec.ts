@@ -4,7 +4,7 @@ import { EnrollmentGridComponent } from './enrollment-grid.component';
 import { MaterialModule } from '../material.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs/internal/observable/of';
-import { NotificationService } from '../core/notification.service';
+import { NotificationService } from '../common/notification.service';
 import { spyOnClass } from '../../testing/spyOnClass';
 import { MatDialog } from '@angular/material';
 import { TokenType } from '../token';

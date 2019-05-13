@@ -4,7 +4,7 @@ import { TokenService } from '../../token.service';
 import { MatDialogRef, MatStepper } from '@angular/material';
 import { MatDialog } from '@angular/material';
 import { SetPinDialogComponent } from '../../set-pin-dialog/set-pin-dialog.component';
-import { NotificationService } from '../../core/notification.service';
+import { NotificationService } from '../../common/notification.service';
 
 @Component({
   selector: 'app-enroll-hotp',
@@ -37,17 +37,17 @@ export class EnrollHotpDialogComponent implements OnInit {
   public ngOnInit() {
     this.currentStep = 1;
     this.enrollmentForm = this.formBuilder.group({
-      'description': [ '', Validators.required ],
+      'description': ['', Validators.required],
       'type': 'hmac',
       'otplen': 6,
       'hashlib': 'sha1',
       'genkey': 1
     });
     this.enrollmentStep = this.formBuilder.group({
-      'tokenEnrolled': [ '', Validators.required ],
+      'tokenEnrolled': ['', Validators.required],
     });
     this.testStep = this.formBuilder.group({
-      'otp': [ '', Validators.required ],
+      'otp': ['', Validators.required],
       'pin': ''
     });
   }

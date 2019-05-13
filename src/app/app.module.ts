@@ -8,7 +8,7 @@ import { NgxPermissionsModule } from 'ngx-permissions';
 import { CustomFormsModule } from 'ng2-validation';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 
-import { CoreModule } from './core/core.module';
+import { NgSelfServiceCommonModule } from './common/common.module';
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './material.module';
 import { AuthModule } from './auth/auth.module';
@@ -75,7 +75,7 @@ import { AppInitService } from './app-init.service';
     NgxQRCodeModule,
     AppRoutingModule,
     MaterialModule,
-    CoreModule,
+    NgSelfServiceCommonModule,
     AuthModule,
     NgxPermissionsModule.forRoot(),
   ],

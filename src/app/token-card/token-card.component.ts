@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output } from '@angular/core';
 import { Token, EnrollmentStatus } from '../token';
 import { MatDialog } from '@angular/material';
 import { SetPinDialogComponent } from '../set-pin-dialog/set-pin-dialog.component';
-import { NotificationService } from '../core/notification.service';
+import { NotificationService } from '../common/notification.service';
 import { DialogComponent } from '../dialog/dialog.component';
 import { TokenService } from '../token.service';
 import { filter, switchMap } from 'rxjs/operators';

@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../auth/auth.service';
 import { MaterialModule } from '../material.module';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NotificationService } from '../core/notification.service';
+import { NotificationService } from '../common/notification.service';
 
 class MockNotificationService {
   message = jasmine.createSpy('message');

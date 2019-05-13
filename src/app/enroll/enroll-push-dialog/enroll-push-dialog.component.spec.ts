@@ -10,7 +10,7 @@ import { MockComponent } from '../../../testing/mock-component';
 import { MaterialModule } from '../../material.module';
 import { TokenService } from '../../token.service';
 import { EnrollPushDialogComponent } from './enroll-push-dialog.component';
-import { NotificationService } from '../../core/notification.service';
+import { NotificationService } from '../../common/notification.service';
 import { spyOnClass } from '../../../testing/spyOnClass';
 import { Fixtures } from '../../../testing/fixtures';
 

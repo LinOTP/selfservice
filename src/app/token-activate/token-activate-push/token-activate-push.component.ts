@@ -3,7 +3,7 @@ import { TokenService } from '../../token.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Token } from '../../token';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { NotificationService } from '../../core/notification.service';
+import { NotificationService } from '../../common/notification.service';
 
 @Component({
   selector: 'app-token-activate-push',

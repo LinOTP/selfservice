@@ -4,7 +4,7 @@ import { MatStepper, MatDialogRef } from '@angular/material';
 import { Router } from '@angular/router';
 
 import { TokenService } from '../../token.service';
-import { NotificationService } from '../../core/notification.service';
+import { NotificationService } from '../../common/notification.service';
 
 @Component({
   selector: 'app-enroll-push',
