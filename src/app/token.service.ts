@@ -10,6 +10,14 @@ import { Token, EnrollToken, EnrollmentStatus } from './token';
 import { AuthService } from './auth/auth.service';
 import { NotificationService } from './core/notification.service';
 
+
+interface LinOTPResponse<T> {
+  result: {
+    status: boolean,
+    value: T,
+  };
+}
+
 @Injectable()
 export class TokenService {
   private userserviceBase = `/userservice/`;
@@ -30,7 +38,7 @@ export class TokenService {
     private authService: AuthService
   ) { }
 
-  private mapTokenResponse = (res: { result: { value: any[] } }) => {
+  private mapTokenResponse = (res: LinOTPResponse<any[]>) => {
     // TODO: Catch API Errors
     return res.result.value.map(token => {
       const t = new Token(
@@ -47,7 +55,7 @@ export class TokenService {
 
   getTokens(): Observable<Token[]> {
     const url = this.userserviceBase + this.userserviceEndpoints.tokens;
-    return this.http.get<any>(url, { params: { session: this.authService.getSession() } }).pipe(
+    return this.http.get<LinOTPResponse<any[]>>(url, { params: { session: this.authService.getSession() } }).pipe(
       map(this.mapTokenResponse))
       .pipe(
         catchError(this.handleError('getTokens', []))
@@ -66,7 +74,7 @@ export class TokenService {
       session: this.authService.getSession()
     };
 
-    return this.http.post<any>(this.userserviceBase + this.userserviceEndpoints.delete, body)
+    return this.http.post<LinOTPResponse<{ 'delete token': number }>>(this.userserviceBase + this.userserviceEndpoints.delete, body)
       .pipe(
         catchError(this.handleError('deleteToken', null))
       );
@@ -80,7 +88,7 @@ export class TokenService {
       session: this.authService.getSession()
     };
 
-    return this.http.post<{ result: { status: boolean, value: { 'set userpin': number } } }>(url, body)
+    return this.http.post<LinOTPResponse<{ 'set userpin': number }>>(url, body)
       .pipe(
         map((response) => response && response.result && response.result.value['set userpin'] === 1),
         catchError(this.handleError('setTokenPin', false))
@@ -94,7 +102,7 @@ export class TokenService {
       session: this.authService.getSession()
     };
 
-    return this.http.post<{ result: { status: boolean, value: { 'enable token': number } } }>(url, body)
+    return this.http.post<LinOTPResponse<{ 'enable token': number }>>(url, body)
       .pipe(
         map((response) => response && response.result && response.result.value['enable token'] === 1),
         catchError(this.handleError('enable', false))
@@ -108,7 +116,7 @@ export class TokenService {
       session: this.authService.getSession()
     };
 
-    return this.http.post<{ result: { status: boolean, value: { 'disable token': number } } }>(url, body)
+    return this.http.post<LinOTPResponse<{ 'disable token': number }>>(url, body)
       .pipe(
         map((response) => response && response.result && response.result.value['disable token'] === 1),
         catchError(this.handleError('enable', false))
