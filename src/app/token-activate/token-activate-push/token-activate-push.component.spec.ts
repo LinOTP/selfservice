@@ -4,10 +4,10 @@ import { TokenActivatePushComponent } from './token-activate-push.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '../../material.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { TokenService } from '../../token.service';
-import { NotificationService } from '../../core/notification.service';
+import { TokenService } from '../../api/token.service';
+import { NotificationService } from '../../common/notification.service';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Token } from '../../token';
+import { Token } from '../../api/token';
 
 class MockTokenService {
   activate = jasmine.createSpy('activate');

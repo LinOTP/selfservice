@@ -1,4 +1,4 @@
-import { Token } from '../app/token';
+import { Token } from '../app/api/token';
 
 export class Fixtures {
 

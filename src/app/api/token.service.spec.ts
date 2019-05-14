@@ -5,7 +5,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 
 import { TokenService } from './token.service';
 import { Token, EnrollmentStatus } from './token';
-import { AuthService } from './auth/auth.service';
+import { AuthService } from '../auth/auth.service';
 
 const session = '';
 

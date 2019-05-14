@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { spyOnClass } from '../testing/spyOnClass';
 
 import { NgxPermissionsService } from 'ngx-permissions';
-import { Permission } from './permissions';
+import { Permission } from './common/permissions';
 import { AppInitService } from './app-init.service';
 
 describe('AppInitService', () => {

@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
 import { AuthService } from './auth/auth.service';
 import { of } from 'rxjs';
-import { NotificationService } from './core/notification.service';
+import { NotificationService } from './common/notification.service';
 
 class AuthServiceMock {
   logout = jasmine.createSpy('logout').and.returnValue(of(null));

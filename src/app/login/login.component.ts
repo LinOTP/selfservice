@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { map } from 'rxjs/operators';
 
-import { NotificationService } from '../core/notification.service';
+import { NotificationService } from '../common/notification.service';
 import { AuthService } from '../auth/auth.service';
 
 @Component({

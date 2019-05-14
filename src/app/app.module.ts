@@ -8,29 +8,22 @@ import { NgxPermissionsModule } from 'ngx-permissions';
 import { CustomFormsModule } from 'ng2-validation';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 
-import { CoreModule } from './core/core.module';
+import { NgSelfServiceCommonModule } from './common/common.module';
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './material.module';
 import { AuthModule } from './auth/auth.module';
+import { APIModule } from './api/api.module';
 
 import { AppComponent } from './app.component';
-import { TokenService, TokenListResolver, TokenDetailResolver } from './token.service';
 import { TokenListComponent } from './token-list/token-list.component';
 import { LoginComponent } from './login/login.component';
 import { TokenActivateComponent } from './token-activate/token-activate.component';
 import { TokenActivateTypeDirective } from './token-activate/token-activate-type.directive';
 import { TokenActivatePushComponent } from './token-activate/token-activate-push/token-activate-push.component';
-import { DialogComponent } from './dialog/dialog.component';
-import { SetPinDialogComponent } from './set-pin-dialog/set-pin-dialog.component';
 import { EnrollComponent } from './enroll/enroll.component';
 import { EnrollTotpComponent } from './enroll/enroll-totp/enroll-totp.component';
 import { EnrollHotpDialogComponent } from './enroll/enroll-hotp-dialog/enroll-hotp-dialog.component';
 import { EnrollPushDialogComponent } from './enroll/enroll-push-dialog/enroll-push-dialog.component';
-import { UnreadyTokensPipe } from './unready-tokens.pipe';
-import { ActiveTokensPipe } from './active-tokens.pipe';
-import { InactiveTokensPipe } from './inactive-tokens.pipe';
-import { ArrayNotEmptyPipe } from './array-not-empty.pipe';
-import { SortTokensByStatePipe } from './sort-tokens-by-state.pipe';
 import { TokenCardComponent } from './token-card/token-card.component';
 import { EnrollmentGridComponent } from './enrollment-grid/enrollment-grid.component';
 import { AppInitService } from './app-init.service';
@@ -44,24 +37,15 @@ import { AppInitService } from './app-init.service';
     TokenActivateComponent,
     TokenActivateTypeDirective,
     TokenActivatePushComponent,
-    DialogComponent,
-    SetPinDialogComponent,
     EnrollComponent,
     EnrollHotpDialogComponent,
     EnrollTotpComponent,
     EnrollPushDialogComponent,
-    UnreadyTokensPipe,
-    ActiveTokensPipe,
-    InactiveTokensPipe,
-    ArrayNotEmptyPipe,
-    SortTokensByStatePipe,
     TokenCardComponent,
     EnrollmentGridComponent,
   ],
   entryComponents: [
     TokenActivatePushComponent,
-    DialogComponent,
-    SetPinDialogComponent,
     EnrollHotpDialogComponent,
     EnrollPushDialogComponent
   ],
@@ -75,14 +59,12 @@ import { AppInitService } from './app-init.service';
     NgxQRCodeModule,
     AppRoutingModule,
     MaterialModule,
-    CoreModule,
+    NgSelfServiceCommonModule,
+    APIModule,
     AuthModule,
     NgxPermissionsModule.forRoot(),
   ],
   providers: [
-    TokenService,
-    TokenDetailResolver,
-    TokenListResolver,
     AppInitService,
     {
       provide: APP_INITIALIZER,

@@ -1,9 +1,9 @@
 import { Component, Input, AfterViewInit, OnInit, Inject } from '@angular/core';
-import { TokenService } from '../../token.service';
+import { TokenService } from '../../api/token.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Token } from '../../token';
+import { Token } from '../../api/token';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { NotificationService } from '../../core/notification.service';
+import { NotificationService } from '../../common/notification.service';
 
 @Component({
   selector: 'app-token-activate-push',

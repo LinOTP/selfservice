@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { EnrollToken } from '../../token';
-import { TokenService } from '../../token.service';
+import { EnrollToken } from '../../api/token';
+import { TokenService } from '../../api/token.service';
 
 export interface EnrollTotpToken extends EnrollToken {
   type: 'totp';

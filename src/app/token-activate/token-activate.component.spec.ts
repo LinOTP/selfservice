@@ -6,7 +6,7 @@ import { TokenActivateComponent } from './token-activate.component';
 import { MaterialModule } from '../material.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NotificationService } from '../core/notification.service';
+import { NotificationService } from '../common/notification.service';
 
 class MockNotificationService {
   message = jasmine.createSpy('message');

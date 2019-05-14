@@ -6,12 +6,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MaterialModule } from '../../material.module';
-import { TokenService } from '../../token.service';
+import { TokenService } from '../../api/token.service';
 
 import { EnrollHotpDialogComponent } from './enroll-hotp-dialog.component';
 
 import { of } from 'rxjs';
-import { NotificationService } from '../../core/notification.service';
+import { NotificationService } from '../../common/notification.service';
 import { spyOnClass } from '../../../testing/spyOnClass';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { By } from '@angular/platform-browser';
@@ -29,7 +29,7 @@ describe('The EnrollHotpDialogComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         EnrollHotpDialogComponent,
-        MockComponent({selector: 'ngx-qrcode', inputs: ['qrc-value', 'qrc-element-type']}),
+        MockComponent({ selector: 'ngx-qrcode', inputs: ['qrc-value', 'qrc-element-type'] }),
       ],
       imports: [
         RouterTestingModule,
@@ -47,8 +47,8 @@ describe('The EnrollHotpDialogComponent', () => {
           provide: NotificationService,
           useValue: spyOnClass(NotificationService),
         },
-        {provide: MatDialog, useValue: spyOnClass(MatDialog)},
-        {provide: MatDialogRef, useValue: spyOnClass(MatDialogRef)},
+        { provide: MatDialog, useValue: spyOnClass(MatDialog) },
+        { provide: MatDialogRef, useValue: spyOnClass(MatDialogRef) },
 
       ],
     })
@@ -74,9 +74,9 @@ describe('The EnrollHotpDialogComponent', () => {
   });
 
   it('should set pin of token and output message', fakeAsync(() => {
-    matDialog.open.and.returnValue({afterClosed: () => of(true)});
+    matDialog.open.and.returnValue({ afterClosed: () => of(true) });
 
-    component.enrolledToken = {serial: 'testSerial', url: 'testUrl'};
+    component.enrolledToken = { serial: 'testSerial', url: 'testUrl' };
     component.setPin();
     tick();
 
@@ -90,7 +90,7 @@ describe('The EnrollHotpDialogComponent', () => {
     mockEnrollmentResponse.result.value = true;
 
     tokenService.enroll.and.returnValue(of(mockEnrollmentResponse));
-    const expectedToken = {serial: 'testSerial', url: 'testUrl'};
+    const expectedToken = { serial: 'testSerial', url: 'testUrl' };
     component.enrollmentForm.controls.description.setValue('descr');
     fixture.detectChanges();
     const result = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
@@ -125,7 +125,7 @@ describe('The EnrollHotpDialogComponent', () => {
     const mockEnrollmentResponse = Fixtures.enrollmentResponse;
     mockEnrollmentResponse.result.value = true;
 
-    component.enrolledToken = {serial: 'testSerial', url: 'testUrl'};
+    component.enrolledToken = { serial: 'testSerial', url: 'testUrl' };
     component.testStep.controls.pin.setValue('testPin');
     component.testStep.controls.otp.setValue('testOTP');
     tokenService.testToken.and.returnValue(of(mockEnrollmentResponse));
@@ -140,7 +140,7 @@ describe('The EnrollHotpDialogComponent', () => {
     const mockEnrollmentResponse = Fixtures.enrollmentResponse;
     mockEnrollmentResponse.result.value = false;
 
-    component.enrolledToken = {serial: 'testSerial', url: 'testUrl'};
+    component.enrolledToken = { serial: 'testSerial', url: 'testUrl' };
     component.testStep.controls.pin.setValue('testPin');
     component.testStep.controls.otp.setValue('testOTP');
     tokenService.testToken.and.returnValue(of(mockEnrollmentResponse));

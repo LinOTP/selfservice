@@ -8,16 +8,16 @@ import { MockComponent } from '../../testing/mock-component';
 
 import { TokenListComponent } from './token-list.component';
 import { MaterialModule } from '../material.module';
-import { TokenService } from '../token.service';
+import { TokenService } from '../api/token.service';
 import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
-import { EnrollmentStatus } from '../token';
-import { EnrollmentPermissions } from '../permissions';
+import { EnrollmentStatus } from '../api/token';
+import { EnrollmentPermissions } from '../common/permissions';
 import { TestingPage } from '../../testing/page-helper';
 import { spyOnClass } from '../../testing/spyOnClass';
-import { ArrayNotEmptyPipe } from '../array-not-empty.pipe';
-import { ActiveTokensPipe } from '../active-tokens.pipe';
-import { InactiveTokensPipe } from '../inactive-tokens.pipe';
-import { UnreadyTokensPipe } from '../unready-tokens.pipe';
+import { ArrayNotEmptyPipe } from '../common/pipes/array-not-empty.pipe';
+import { ActiveTokensPipe } from '../common/pipes/active-tokens.pipe';
+import { InactiveTokensPipe } from '../common/pipes/inactive-tokens.pipe';
+import { UnreadyTokensPipe } from '../common/pipes/unready-tokens.pipe';
 
 class Page extends TestingPage<TokenListComponent> {
 

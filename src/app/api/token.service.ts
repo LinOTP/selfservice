@@ -7,8 +7,8 @@ import { map, filter, mergeMap, take, catchError, tap } from 'rxjs/operators';
 
 
 import { Token, EnrollToken, EnrollmentStatus } from './token';
-import { AuthService } from './auth/auth.service';
-import { NotificationService } from './core/notification.service';
+import { AuthService } from '../auth/auth.service';
+import { NotificationService } from '../common/notification.service';
 
 
 interface LinOTPResponse<T> {
