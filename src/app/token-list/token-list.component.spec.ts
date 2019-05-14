@@ -94,7 +94,7 @@ describe('TokenListComponent', () => {
     fixture.detectChanges();
     expect(page.getEnrollFirstTokenSectionElement('h2').textContent).toEqual('Enroll your first authentication method');
     expect(page.getEnrollFirstTokenSectionElement('p').textContent).toEqual(' You currently do not have any authentication' +
-      ' method enrolled. Start by selecting your prefered type: ');
+      ' method enrolled. Start by selecting your preferred type: ');
 
     expect(page.getActiveAuthSectionElement('h2')).toBeNull();
     expect(page.getActiveAuthSectionElement('p')).toBeNull();
