@@ -21,12 +21,12 @@ import { UnreadyTokensPipe } from '../common/pipes/unready-tokens.pipe';
 
 class Page extends TestingPage<TokenListComponent> {
 
-  public getNewAuthSectionElement(elementTag: string) {
-    return this.query('#newAuthSection ' + elementTag);
+  public getEnrollAlternativeTokenSectionElement(elementTag: string) {
+    return this.query('#enrollAlternativeTokenSection ' + elementTag);
   }
 
-  public getEnrollSectionElement(elementTag: string) {
-    return this.query('#enrollSection ' + elementTag);
+  public getEnrollFirstTokenSectionElement(elementTag: string) {
+    return this.query('#enrollFirstTokenSection ' + elementTag);
   }
 
   public getActiveAuthSectionElement(elementTag: string) {
@@ -88,23 +88,23 @@ describe('TokenListComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render expected title and text for empty enrollment section', () => {
+  it('should render expected title and text for first token enrollment section', () => {
     tokenService.getTokens.and.returnValue(of([]));
 
     fixture.detectChanges();
-    expect(page.getEnrollSectionElement('h2').textContent).toEqual('Enroll your first authentication method');
-    expect(page.getEnrollSectionElement('p').textContent).toEqual(' You currently do not have any authentication' +
+    expect(page.getEnrollFirstTokenSectionElement('h2').textContent).toEqual('Enroll your first authentication method');
+    expect(page.getEnrollFirstTokenSectionElement('p').textContent).toEqual(' You currently do not have any authentication' +
       ' method enrolled. Start by selecting your prefered type: ');
 
     expect(page.getActiveAuthSectionElement('h2')).toBeNull();
     expect(page.getActiveAuthSectionElement('p')).toBeNull();
-    expect(page.getNewAuthSectionElement('h2')).toBeNull();
-    expect(page.getNewAuthSectionElement('p')).toBeNull();
+    expect(page.getEnrollAlternativeTokenSectionElement('h2')).toBeNull();
+    expect(page.getEnrollAlternativeTokenSectionElement('p')).toBeNull();
     expect(page.getPendingSectionElement('h2')).toBeNull();
     expect(page.getPendingSectionElement('p')).toBeNull();
   });
 
-  it('should render expected title and text for active authentication and new auth. method section', () => {
+  it('should render expected title and text for active authentication and alternative auth. method section', () => {
     const hotpToken = Fixtures.activeHotpToken;
     hotpToken.enrollmentStatus = EnrollmentStatus.completed;
 
@@ -114,17 +114,17 @@ describe('TokenListComponent', () => {
     expect(page.getActiveAuthSectionElement('h2').textContent).toEqual('Active authentication methods');
     expect(page.getActiveAuthSectionElement('p').textContent).toEqual('The following tokens are ready to be used:');
 
-    expect(page.getNewAuthSectionElement('h2').textContent).toEqual('Set up new authentication method');
-    expect(page.getNewAuthSectionElement('p').textContent).toEqual('Following alternative authentication methods' +
+    expect(page.getEnrollAlternativeTokenSectionElement('h2').textContent).toEqual('Set up new authentication method');
+    expect(page.getEnrollAlternativeTokenSectionElement('p').textContent).toEqual('Following alternative authentication methods' +
       ' are available and can be set up:');
 
-    expect(page.getEnrollSectionElement('h2')).toBeNull();
-    expect(page.getEnrollSectionElement('p')).toBeNull();
+    expect(page.getEnrollFirstTokenSectionElement('h2')).toBeNull();
+    expect(page.getEnrollFirstTokenSectionElement('p')).toBeNull();
     expect(page.getPendingSectionElement('h2')).toBeNull();
     expect(page.getPendingSectionElement('p')).toBeNull();
   });
 
-  it('should render expected title and text for the pending and new auth. method section', () => {
+  it('should render expected title and text for the pending and alternative auth. method section', () => {
     const hotpToken = Fixtures.activeHotpToken;
     hotpToken.enrollmentStatus = EnrollmentStatus.unpaired;
     tokenService.getTokens.and.returnValue(of([hotpToken]));
@@ -135,14 +135,14 @@ describe('TokenListComponent', () => {
     expect(page.getPendingSectionElement('p').textContent).toEqual('The following tokens are not active' +
       ' yet and need to be paired:');
 
-    expect(page.getNewAuthSectionElement('h2').textContent).toEqual('Set up new authentication method');
-    expect(page.getNewAuthSectionElement('p').textContent).toEqual('Following alternative authentication methods' +
+    expect(page.getEnrollAlternativeTokenSectionElement('h2').textContent).toEqual('Set up new authentication method');
+    expect(page.getEnrollAlternativeTokenSectionElement('p').textContent).toEqual('Following alternative authentication methods' +
       ' are available and can be set up:');
 
     expect(page.getActiveAuthSectionElement('h2')).toBeNull();
     expect(page.getActiveAuthSectionElement('p')).toBeNull();
-    expect(page.getEnrollSectionElement('h2')).toBeNull();
-    expect(page.getEnrollSectionElement('p')).toBeNull();
+    expect(page.getEnrollFirstTokenSectionElement('h2')).toBeNull();
+    expect(page.getEnrollFirstTokenSectionElement('p')).toBeNull();
   });
 
   it('should load tokens from the server on init', () => {

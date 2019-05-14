@@ -30,20 +30,20 @@
 </ng-template>
 
 <ng-container *ngxPermissionsOnly="EnrollmentPermissions">
-  <ng-container *ngIf="tokens | arrayNotEmpty; then enrollmentSection; else emptyState">
+  <ng-container *ngIf="tokens | arrayNotEmpty; then enrollAlternative; else enrollFirst">
   </ng-container>
 </ng-container>
 
-<ng-template #enrollmentSection>
-  <section id="newAuthSection">
+<ng-template #enrollAlternative>
+  <section id="enrollAlternativeTokenSection">
     <h2>Set up new authentication method</h2>
     <p>Following alternative authentication methods are available and can be set up:</p>
     <app-enrollment-grid (tokenUpdate)="loadTokens()"></app-enrollment-grid>
   </section>
 </ng-template>
 
-<ng-template #emptyState>
-  <section id="enrollSection">
+<ng-template #enrollFirst>
+  <section id="enrollFirstTokenSection">
     <h2>Enroll your first authentication method</h2>
     <p>
       You currently do not have any authentication method enrolled.
