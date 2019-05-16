@@ -48,18 +48,28 @@ export class SetPinDialogComponent {
   }
 
   /**
-   * Handles the submission of a new pin as long as the form with the pins is valid.
+   * Handles the submission of a new pin: the form with the pins must be valid, and there must not be a pending set pin request.
    *
    * On successful request to the backend, the current dialog is closed.
    * Otherwise, the user receives a notification and the dialog stays open.
    */
   public submit() {
-    if (this.form.valid) {
+    if (!this.awaitingResponse && this.form.valid) {
+      this.awaitingResponse = true;
       this.tokenService.setPin(this.token, this.form.controls.newPin.value).subscribe((result) => {
         if (result) {
           this.dialogRef.close(true);
+        } else {
+          this.awaitingResponse = false;
         }
       });
     }
+  }
+
+  /**
+   * Helper function used to disable the submit button.
+   */
+  public preventSubmit() {
+    return this.form.invalid || this.awaitingResponse;
   }
 }
