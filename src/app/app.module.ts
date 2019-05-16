@@ -19,7 +19,7 @@ import { TokenListComponent } from './token-list/token-list.component';
 import { LoginComponent } from './login/login.component';
 import { TokenActivateComponent } from './token-activate/token-activate.component';
 import { TokenActivateTypeDirective } from './token-activate/token-activate-type.directive';
-import { TokenActivatePushComponent } from './token-activate/token-activate-push/token-activate-push.component';
+import { TokenActivatePushDialogComponent } from './token-activate/token-activate-push/token-activate-push-dialog.component';
 import { EnrollComponent } from './enroll/enroll.component';
 import { EnrollTotpComponent } from './enroll/enroll-totp/enroll-totp.component';
 import { EnrollHotpDialogComponent } from './enroll/enroll-hotp-dialog/enroll-hotp-dialog.component';
@@ -36,7 +36,7 @@ import { AppInitService } from './app-init.service';
     LoginComponent,
     TokenActivateComponent,
     TokenActivateTypeDirective,
-    TokenActivatePushComponent,
+    TokenActivatePushDialogComponent,
     EnrollComponent,
     EnrollHotpDialogComponent,
     EnrollTotpComponent,
@@ -45,9 +45,9 @@ import { AppInitService } from './app-init.service';
     EnrollmentGridComponent,
   ],
   entryComponents: [
-    TokenActivatePushComponent,
+    TokenActivatePushDialogComponent,
     EnrollHotpDialogComponent,
-    EnrollPushDialogComponent
+    EnrollPushDialogComponent,
   ],
   imports: [
     BrowserModule,

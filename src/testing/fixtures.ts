@@ -14,6 +14,10 @@ export class Fixtures {
     return new Token(3, 'Inactive-Hotp-Token-Serial', 'hotp', false, 'Description');
   }
 
+  static get inactivePushToken(): Token {
+    return new Token(2, 'Inactive-PushToken-Serial', 'push', false, 'Description');
+  }
+
   static get tokens(): Token[] {
     return [
       this.activeHotpToken,
@@ -35,6 +39,17 @@ export class Fixtures {
           value: 'testUrl',
         },
         serial: 'testSerial',
+      }
+    };
+  }
+
+  static get activationResponse() {
+    return {
+      result: {
+        value: true
+      },
+      detail: {
+        transactionid: 1
       }
     };
   }
