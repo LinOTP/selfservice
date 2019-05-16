@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatStepper, MatDialogRef } from '@angular/material';
+import { MatStepper, MatDialogRef, MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 
 import { TokenService } from '../../api/token.service';
 import { NotificationService } from '../../common/notification.service';
+import { TokenActivatePushDialogComponent } from '../../token-activate/token-activate-push/token-activate-push-dialog.component';
 
 @Component({
   selector: 'app-enroll-push',
@@ -27,7 +28,8 @@ export class EnrollPushDialogComponent implements OnInit {
     private formBuilder: FormBuilder,
     private notificationService: NotificationService,
     private router: Router,
-    private dialogRef: MatDialogRef<EnrollPushDialogComponent>
+    private dialogRef: MatDialogRef<EnrollPushDialogComponent>,
+    private dialog: MatDialog,
   ) {
   }
 
@@ -58,6 +60,7 @@ export class EnrollPushDialogComponent implements OnInit {
 
         this.tokenService.pairingPoll(this.enrolledToken.serial).subscribe(data => {
           this.isPaired = true;
+          this.currentStep++;
           stepper.selectedIndex = 2;
         });
 
@@ -69,9 +72,23 @@ export class EnrollPushDialogComponent implements OnInit {
     });
   }
 
+  /**
+   * Opens the activation dialog with the non activated token
+   * and closes the current enroll push dialog
+   */
   public goToActivation() {
-    this.router.navigate(['/tokens', this.enrolledToken.serial, 'activate']);
-    this.dialogRef.close();
+    const dialogConfig = {
+      width: '850px',
+      autoFocus: false,
+      disableClose: true,
+      data: this.enrolledToken.serial
+    };
+    this.dialog.open(TokenActivatePushDialogComponent, dialogConfig)
+      .afterClosed()
+      .subscribe(() => {
+        this.dialogRef.close();
+
+      });
   }
 
   /**

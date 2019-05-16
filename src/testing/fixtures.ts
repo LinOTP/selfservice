@@ -71,4 +71,8 @@ export class Fixtures {
       icon: 'icon'
     };
   }
+
+  static get enrolledToken() {
+    return { serial: 'test serial', url: 'testUrl' };
+  }
 }
