@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators, ValidationErrors, AbstractControl }
 import { Token } from '../../api/token';
 import { TokenService } from '../../api/token.service';
 import { ErrorStateRootMatcher } from '../form-helpers/error-state-root-matcher';
+import { NotificationService } from '../notification.service';
 
 @Component({
   selector: 'app-set-pin-dialog',
@@ -22,6 +23,7 @@ export class SetPinDialogComponent {
     @Inject(MAT_DIALOG_DATA) private token: Token,
     private tokenService: TokenService,
     private formBuilder: FormBuilder,
+    private notificationService: NotificationService,
   ) {
     this.form = this.formBuilder.group(
       {
@@ -61,6 +63,7 @@ export class SetPinDialogComponent {
           this.dialogRef.close(true);
         } else {
           this.awaitingResponse = false;
+          this.notificationService.message('Pin could not be set. Please try again.');
         }
       });
     }
