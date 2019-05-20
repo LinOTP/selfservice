@@ -17,10 +17,7 @@ import { APIModule } from './api/api.module';
 import { AppComponent } from './app.component';
 import { TokenListComponent } from './token-list/token-list.component';
 import { LoginComponent } from './login/login.component';
-import { TokenActivateComponent } from './token-activate/token-activate.component';
-import { TokenActivateTypeDirective } from './token-activate/token-activate-type.directive';
-import { TokenActivatePushDialogComponent } from './token-activate/token-activate-push/token-activate-push-dialog.component';
-import { EnrollComponent } from './enroll/enroll.component';
+import { ActivatePushDialogComponent } from './activate/activate-push/activate-push-dialog.component';
 import { EnrollTotpComponent } from './enroll/enroll-totp/enroll-totp.component';
 import { EnrollHotpDialogComponent } from './enroll/enroll-hotp-dialog/enroll-hotp-dialog.component';
 import { EnrollPushDialogComponent } from './enroll/enroll-push-dialog/enroll-push-dialog.component';
@@ -34,10 +31,7 @@ import { AppInitService } from './app-init.service';
     AppComponent,
     TokenListComponent,
     LoginComponent,
-    TokenActivateComponent,
-    TokenActivateTypeDirective,
-    TokenActivatePushDialogComponent,
-    EnrollComponent,
+    ActivatePushDialogComponent,
     EnrollHotpDialogComponent,
     EnrollTotpComponent,
     EnrollPushDialogComponent,
@@ -45,7 +39,7 @@ import { AppInitService } from './app-init.service';
     EnrollmentGridComponent,
   ],
   entryComponents: [
-    TokenActivatePushDialogComponent,
+    ActivatePushDialogComponent,
     EnrollHotpDialogComponent,
     EnrollPushDialogComponent,
   ],

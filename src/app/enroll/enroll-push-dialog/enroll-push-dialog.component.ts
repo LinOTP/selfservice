@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 
 import { TokenService } from '../../api/token.service';
 import { NotificationService } from '../../common/notification.service';
-import { TokenActivatePushDialogComponent } from '../../token-activate/token-activate-push/token-activate-push-dialog.component';
+import { ActivatePushDialogComponent } from '../../activate/activate-push/activate-push-dialog.component';
 
 @Component({
   selector: 'app-enroll-push',
@@ -83,7 +83,7 @@ export class EnrollPushDialogComponent implements OnInit {
       disableClose: true,
       data: this.enrolledToken.serial
     };
-    this.dialog.open(TokenActivatePushDialogComponent, dialogConfig)
+    this.dialog.open(ActivatePushDialogComponent, dialogConfig)
       .afterClosed()
       .subscribe(() => {
         this.dialogRef.close();

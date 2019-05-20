@@ -6,11 +6,11 @@ import { catchError, map, switchMap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs/index';
 
 @Component({
-  selector: 'app-token-activate-push',
-  templateUrl: './token-activate-push-dialog.component.html',
-  styleUrls: ['./token-activate-push-dialog.component.scss']
+  selector: 'app-activate-push',
+  templateUrl: './activate-push-dialog.component.html',
+  styleUrls: ['./activate-push-dialog.component.scss']
 })
-export class TokenActivatePushDialogComponent implements OnInit {
+export class ActivatePushDialogComponent implements OnInit {
   public waitingForResponse: boolean;
   public readonly maxSteps: number = 2;
   public currentStep: number;
@@ -19,7 +19,7 @@ export class TokenActivatePushDialogComponent implements OnInit {
 
   constructor(
     private tokenService: TokenService,
-    private dialogRef: MatDialogRef<TokenActivatePushDialogComponent>,
+    private dialogRef: MatDialogRef<ActivatePushDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public tokenSerial: string,
   ) {
   }
