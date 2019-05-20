@@ -47,7 +47,7 @@
     </mat-dialog-actions>
   </mat-step>
 
-  <mat-step active="false">
+  <mat-step>
     <div *ngIf="enrolledToken">
       <p>A token with the serial number {{enrolledToken.serial}} (description: {{
         enrollmentForm.get('description').value }})
@@ -66,7 +66,7 @@
     </mat-dialog-actions>
   </mat-step>
 
-  <mat-step active="false">
+  <mat-step>
     <p>Your token has been successfully paired. In order to use it, you must activate it first.</p>
     <mat-dialog-actions align="end">
       <div>Enrollment {{currentStep}} of {{maxSteps}}</div>
