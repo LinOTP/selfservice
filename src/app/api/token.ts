@@ -1,7 +1,7 @@
 import { Permission } from '../common/permissions';
 
 export interface TokenTypeDetails {
-  type: string;
+  type: TokenType;
   name: string;
   description: string;
   icon: string; // material icon ligature string to use for this token type
@@ -9,30 +9,39 @@ export interface TokenTypeDetails {
   activationPermission?: Permission;
 }
 
+export enum TokenType {
+  PASSWORD = 'pw',
+  HOTP = 'hmac',
+  TOTP = 'totp',
+  PUSH = 'push',
+  QR = 'qr',
+  UNKNOWN = 'unknown',
+}
+
 export const tokenTypeDetails: TokenTypeDetails[] = [
   {
-    type: 'pw',
+    type: TokenType.PASSWORD,
     name: 'Password token',
     description: 'Personal text-based secret',
     icon: 'keyboard',
     enrollmentPermission: Permission.ENROLLPASSWORD,
   },
   {
-    type: 'hmac',
+    type: TokenType.HOTP,
     name: 'Soft token (event)',
     description: 'Event-based soft token (HOTP)',
     icon: 'cached',
     enrollmentPermission: Permission.ENROLLHOTP,
   },
   {
-    type: 'totp',
+    type: TokenType.TOTP,
     name: 'Soft token (time)',
     description: 'Time-based soft token (TOTP)',
     icon: 'timelapse',
     enrollmentPermission: Permission.ENROLLTOTP,
   },
   {
-    type: 'push',
+    type: TokenType.PUSH,
     name: 'Push-Token',
     description: 'Confirm authentication requests on your Smartphone with the Authenticator app',
     icon: 'screen_lock_portrait',
@@ -40,7 +49,7 @@ export const tokenTypeDetails: TokenTypeDetails[] = [
     activationPermission: Permission.ENROLLPUSH,
   },
   {
-    type: 'qr',
+    type: TokenType.QR,
     name: 'QR-Token',
     description: 'Use the Authenticator app to scan QR code authentication requests',
     icon: 'all_out',
@@ -50,7 +59,7 @@ export const tokenTypeDetails: TokenTypeDetails[] = [
 ];
 
 export const unknownTokenType: TokenTypeDetails = {
-  type: 'unknown',
+  type: TokenType.UNKNOWN,
   name: 'Unknown Token',
   description: '',
   icon: 'apps',

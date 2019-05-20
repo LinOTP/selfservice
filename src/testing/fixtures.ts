@@ -1,21 +1,21 @@
-import { Token } from '../app/api/token';
+import { Token, TokenType } from '../app/api/token';
 
 export class Fixtures {
 
   static get activeHotpToken(): Token {
-    return new Token(1, 'Active-Hotp-Token-Serial', 'hotp', true, 'Description');
+    return new Token(1, 'Active-Hotp-Token-Serial', TokenType.HOTP, true, 'Description');
   }
 
   static get activePushToken(): Token {
-    return new Token(2, 'Active-PushToken-Serial', 'push', true, 'Description');
+    return new Token(2, 'Active-PushToken-Serial', TokenType.PUSH, true, 'Description');
   }
 
   static get inactiveHotpToken(): Token {
-    return new Token(3, 'Inactive-Hotp-Token-Serial', 'hotp', false, 'Description');
+    return new Token(3, 'Inactive-Hotp-Token-Serial', TokenType.HOTP, false, 'Description');
   }
 
   static get inactivePushToken(): Token {
-    return new Token(2, 'Inactive-PushToken-Serial', 'push', false, 'Description');
+    return new Token(2, 'Inactive-PushToken-Serial', TokenType.PUSH, false, 'Description');
   }
 
   static get tokens(): Token[] {
@@ -56,7 +56,7 @@ export class Fixtures {
 
   static get hmacTokenType() {
     return {
-      type: 'hmac',
+      type: TokenType.HOTP,
       name: 'test hmac',
       description: 'desc',
       icon: 'icon',
@@ -65,7 +65,7 @@ export class Fixtures {
 
   static get pushTokenType() {
     return {
-      type: 'push',
+      type: TokenType.PUSH,
       name: 'test push',
       description: 'desc',
       icon: 'icon'
