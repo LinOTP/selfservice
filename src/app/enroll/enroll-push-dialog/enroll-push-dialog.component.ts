@@ -142,6 +142,9 @@ export class EnrollPushDialogComponent implements OnInit {
             return empty();
           }
         })
-      ).subscribe(() => this.dialogRef.close());
+      ).subscribe(() => {
+        this.notificationService.message('Incomplete Push token was deleted');
+        this.dialogRef.close();
+      });
   }
 }
