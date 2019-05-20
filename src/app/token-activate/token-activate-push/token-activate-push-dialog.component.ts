@@ -40,7 +40,7 @@ export class TokenActivatePushDialogComponent implements OnInit {
     this.incrementStep(stepper);
 
     this.tokenService.activate(this.token.serial, pin).pipe(
-      map(response => response.detail.transactionId),
+      map(response => response.detail.transactionid),
       switchMap(transactionId => this.tokenService.challengePoll(transactionId, pin, this.token.serial)
       ),
       catchError(this.handleError('token activation', false)),
