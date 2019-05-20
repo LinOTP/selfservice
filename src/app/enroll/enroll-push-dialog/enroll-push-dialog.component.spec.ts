@@ -13,7 +13,7 @@ import { EnrollPushDialogComponent } from './enroll-push-dialog.component';
 import { NotificationService } from '../../common/notification.service';
 import { spyOnClass } from '../../../testing/spyOnClass';
 import { Fixtures } from '../../../testing/fixtures';
-import { TokenActivatePushDialogComponent } from '../../token-activate/token-activate-push/token-activate-push-dialog.component';
+import { ActivatePushDialogComponent } from '../../activate/activate-push/activate-push-dialog.component';
 
 describe('EnrollPushDialogComponent', () => {
   let component: EnrollPushDialogComponent;
@@ -144,7 +144,7 @@ describe('EnrollPushDialogComponent', () => {
     component.goToActivation();
     tick();
     expect(matDialog.open).toHaveBeenCalledTimes(1);
-    expect(matDialog.open).toHaveBeenCalledWith(TokenActivatePushDialogComponent, expectedDialogConfig);
+    expect(matDialog.open).toHaveBeenCalledWith(ActivatePushDialogComponent, expectedDialogConfig);
     expect(dialogRef.close).toHaveBeenCalledTimes(1);
   }));
 });
