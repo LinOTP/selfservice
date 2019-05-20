@@ -9,7 +9,7 @@ import { MockComponent } from '../../testing/mock-component';
 import { TokenListComponent } from './token-list.component';
 import { MaterialModule } from '../material.module';
 import { TokenService } from '../api/token.service';
-import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
+import { NgxPermissionsAllowStubDirective, NgxPermissionsService, NgxPermissionsRestrictStubDirective } from 'ngx-permissions';
 import { EnrollmentStatus } from '../api/token';
 import { EnrollmentPermissions } from '../common/permissions';
 import { TestingPage } from '../../testing/page-helper';
@@ -21,12 +21,12 @@ import { UnreadyTokensPipe } from '../common/pipes/unready-tokens.pipe';
 
 class Page extends TestingPage<TokenListComponent> {
 
-  public getNewAuthSectionElement(elementTag: string) {
-    return this.query('#newAuthSection ' + elementTag);
+  public getEnrollAlternativeTokenSectionElement(elementTag: string) {
+    return this.query('#enrollAlternativeTokenSection ' + elementTag);
   }
 
-  public getEnrollSectionElement(elementTag: string) {
-    return this.query('#enrollSection ' + elementTag);
+  public getEnrollFirstTokenSectionElement(elementTag: string) {
+    return this.query('#enrollFirstTokenSection ' + elementTag);
   }
 
   public getActiveAuthSectionElement(elementTag: string) {
@@ -37,9 +37,13 @@ class Page extends TestingPage<TokenListComponent> {
     return this.query('#pendingSection ' + elementTag);
   }
 
+  public getEmptyStateSectionElement(elementTag: string) {
+    return this.query('#emptyStateSection ' + elementTag);
+  }
+
 }
 
-describe('TokenListComponent', () => {
+describe('TokenListComponent with permissions', () => {
   let component: TokenListComponent;
   let fixture: ComponentFixture<TokenListComponent>;
   let tokenService: jasmine.SpyObj<TokenService>;
@@ -88,23 +92,23 @@ describe('TokenListComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render expected title and text for empty enrollment section', () => {
+  it('should render expected title and text for first token enrollment section', () => {
     tokenService.getTokens.and.returnValue(of([]));
 
     fixture.detectChanges();
-    expect(page.getEnrollSectionElement('h2').textContent).toEqual('Enroll your first authentication method');
-    expect(page.getEnrollSectionElement('p').textContent).toEqual(' You currently do not have any authentication' +
-      ' method enrolled. Start by selecting your prefered type: ');
+    expect(page.getEnrollFirstTokenSectionElement('h2').textContent).toEqual('Enroll your first authentication method');
+    expect(page.getEnrollFirstTokenSectionElement('p').textContent).toEqual(' You currently do not have any authentication' +
+      ' method enrolled. Start by selecting your preferred type: ');
 
     expect(page.getActiveAuthSectionElement('h2')).toBeNull();
     expect(page.getActiveAuthSectionElement('p')).toBeNull();
-    expect(page.getNewAuthSectionElement('h2')).toBeNull();
-    expect(page.getNewAuthSectionElement('p')).toBeNull();
+    expect(page.getEnrollAlternativeTokenSectionElement('h2')).toBeNull();
+    expect(page.getEnrollAlternativeTokenSectionElement('p')).toBeNull();
     expect(page.getPendingSectionElement('h2')).toBeNull();
     expect(page.getPendingSectionElement('p')).toBeNull();
   });
 
-  it('should render expected title and text for active authentication and new auth. method section', () => {
+  it('should render expected title and text for active authentication and alternative auth. method section', () => {
     const hotpToken = Fixtures.activeHotpToken;
     hotpToken.enrollmentStatus = EnrollmentStatus.completed;
 
@@ -114,17 +118,17 @@ describe('TokenListComponent', () => {
     expect(page.getActiveAuthSectionElement('h2').textContent).toEqual('Active authentication methods');
     expect(page.getActiveAuthSectionElement('p').textContent).toEqual('The following tokens are ready to be used:');
 
-    expect(page.getNewAuthSectionElement('h2').textContent).toEqual('Set up new authentication method');
-    expect(page.getNewAuthSectionElement('p').textContent).toEqual('Following alternative authentication methods' +
+    expect(page.getEnrollAlternativeTokenSectionElement('h2').textContent).toEqual('Set up new authentication method');
+    expect(page.getEnrollAlternativeTokenSectionElement('p').textContent).toEqual('Following alternative authentication methods' +
       ' are available and can be set up:');
 
-    expect(page.getEnrollSectionElement('h2')).toBeNull();
-    expect(page.getEnrollSectionElement('p')).toBeNull();
+    expect(page.getEnrollFirstTokenSectionElement('h2')).toBeNull();
+    expect(page.getEnrollFirstTokenSectionElement('p')).toBeNull();
     expect(page.getPendingSectionElement('h2')).toBeNull();
     expect(page.getPendingSectionElement('p')).toBeNull();
   });
 
-  it('should render expected title and text for the pending and new auth. method section', () => {
+  it('should render expected title and text for the pending and alternative auth. method section', () => {
     const hotpToken = Fixtures.activeHotpToken;
     hotpToken.enrollmentStatus = EnrollmentStatus.unpaired;
     tokenService.getTokens.and.returnValue(of([hotpToken]));
@@ -135,14 +139,14 @@ describe('TokenListComponent', () => {
     expect(page.getPendingSectionElement('p').textContent).toEqual('The following tokens are not active' +
       ' yet and need to be paired:');
 
-    expect(page.getNewAuthSectionElement('h2').textContent).toEqual('Set up new authentication method');
-    expect(page.getNewAuthSectionElement('p').textContent).toEqual('Following alternative authentication methods' +
+    expect(page.getEnrollAlternativeTokenSectionElement('h2').textContent).toEqual('Set up new authentication method');
+    expect(page.getEnrollAlternativeTokenSectionElement('p').textContent).toEqual('Following alternative authentication methods' +
       ' are available and can be set up:');
 
     expect(page.getActiveAuthSectionElement('h2')).toBeNull();
     expect(page.getActiveAuthSectionElement('p')).toBeNull();
-    expect(page.getEnrollSectionElement('h2')).toBeNull();
-    expect(page.getEnrollSectionElement('p')).toBeNull();
+    expect(page.getEnrollFirstTokenSectionElement('h2')).toBeNull();
+    expect(page.getEnrollFirstTokenSectionElement('p')).toBeNull();
   });
 
   it('should load tokens from the server on init', () => {
@@ -161,3 +165,72 @@ describe('TokenListComponent', () => {
 
 });
 
+describe('TokenListComponent without permissions', () => {
+  let component: TokenListComponent;
+  let fixture: ComponentFixture<TokenListComponent>;
+  let tokenService: jasmine.SpyObj<TokenService>;
+  let page: Page;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [
+        TokenListComponent,
+        MockPipe({ 'name': 'unreadyTokens' }),
+        MockPipe({ 'name': 'inactiveTokens' }),
+        MockPipe({ 'name': 'activeTokens' }),
+        MockPipe({ 'name': 'arrayNotEmpty' }),
+        MockPipe({ 'name': 'sortTokensByState' }),
+        MockComponent({ 'selector': 'app-token-card', inputs: ['token'], outputs: ['tokenUpdate'] }),
+        MockComponent({ 'selector': 'app-enrollment-grid' }),
+        ArrayNotEmptyPipe,
+        ActiveTokensPipe,
+        InactiveTokensPipe,
+        UnreadyTokensPipe,
+        NgxPermissionsRestrictStubDirective,
+      ],
+      providers: [
+        {
+          provide: TokenService,
+          useValue: spyOnClass(TokenService)
+        },
+      ],
+      imports: [
+        MaterialModule,
+        RouterTestingModule.withRoutes([])
+      ]
+    })
+      .compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(TokenListComponent);
+    component = fixture.componentInstance;
+    page = new Page(fixture);
+
+    tokenService = TestBed.get(TokenService);
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should render expected title and text for user without tokens and enrollment permissions', () => {
+    tokenService.getTokens.and.returnValue(of([]));
+
+    fixture.detectChanges();
+    expect(page.getEmptyStateSectionElement('h2').textContent).toEqual('No actions available');
+    expect(page.getEmptyStateSectionElement('p').textContent).toEqual(
+      'You currently do not own any tokens, nor can you enroll a token yourself. Please contact your administrator.'
+    );
+
+    expect(page.getEnrollFirstTokenSectionElement('h2')).toBeNull();
+    expect(page.getEnrollFirstTokenSectionElement('p')).toBeNull();
+    expect(page.getActiveAuthSectionElement('h2')).toBeNull();
+    expect(page.getActiveAuthSectionElement('p')).toBeNull();
+    expect(page.getEnrollAlternativeTokenSectionElement('h2')).toBeNull();
+    expect(page.getEnrollAlternativeTokenSectionElement('p')).toBeNull();
+    expect(page.getPendingSectionElement('h2')).toBeNull();
+    expect(page.getPendingSectionElement('p')).toBeNull();
+  });
+
+});
