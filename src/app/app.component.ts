@@ -12,7 +12,6 @@ export class AppComponent implements OnInit {
   public title = 'LinOTP Selfservice';
   public navLinks = [
     { 'label': 'Your tokens', 'path': 'tokens/' },
-    { 'label': 'Create new token', 'path': 'enroll/' },
   ];
 
   public isLoggedIn: boolean;
