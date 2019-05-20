@@ -1,4 +1,4 @@
-import { Token, TokenType } from '../app/api/token';
+import { Token, TokenType, EnrollmentStatus } from '../app/api/token';
 
 export class Fixtures {
 
@@ -16,6 +16,24 @@ export class Fixtures {
 
   static get inactivePushToken(): Token {
     return new Token(2, 'Inactive-PushToken-Serial', TokenType.PUSH, false, 'Description');
+  }
+
+  static get unpairedPushToken(): Token {
+    const token = new Token(5, 'Paired-PushToken-Serial', TokenType.PUSH, true, 'Description');
+    token.enrollmentStatus = EnrollmentStatus.unpaired;
+    return token;
+  }
+
+  static get pairedPushToken(): Token {
+    const token = new Token(5, 'Paired-PushToken-Serial', TokenType.PUSH, true, 'Description');
+    token.enrollmentStatus = EnrollmentStatus.pairing_response_received;
+    return token;
+  }
+
+  static get completedPushToken(): Token {
+    const token = new Token(5, 'Paired-PushToken-Serial', TokenType.PUSH, true, 'Description');
+    token.enrollmentStatus = EnrollmentStatus.completed;
+    return token;
   }
 
   static get tokens(): Token[] {

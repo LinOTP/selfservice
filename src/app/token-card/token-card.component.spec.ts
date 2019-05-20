@@ -15,6 +15,8 @@ import { NotificationService } from '../common/notification.service';
 import { TokenService } from '../api/token.service';
 import { Permission, ModifyTokenPermissions } from '../common/permissions';
 import { EnrollmentStatus } from '../api/token';
+import { ActivatePushDialogComponent } from '../activate/activate-push/activate-push-dialog.component';
+import { componentNeedsResolution } from '@angular/core/src/metadata/resource_loading';
 
 class Page extends TestingPage<TokenCardComponent> {
 
@@ -233,5 +235,77 @@ describe('TokenCardComponent', () => {
       expect(notificationService.message).toHaveBeenCalledWith('Error: Could not disable token');
       expect(updateSpy).not.toHaveBeenCalled();
     }));
+  });
+
+  describe('activate', () => {
+    it('should open a token activation dialog', fakeAsync(() => {
+      matDialog.open.and.returnValue({ afterClosed: () => of({}) });
+      const expectedDialogConfig = {
+        width: '850px',
+        autoFocus: false,
+        disableClose: true,
+        data: Fixtures.pairedPushToken.serial
+      };
+
+      component.token = Fixtures.pairedPushToken;
+      component.activate();
+      tick();
+
+      expect(matDialog.open).toHaveBeenCalledWith(ActivatePushDialogComponent, expectedDialogConfig);
+    }));
+  });
+
+  describe('pendingActions', () => {
+    it('should be true if activation is pending', () => {
+      component.token = Fixtures.pairedPushToken;
+      expect(component.pendingActions()).toEqual(true);
+    });
+
+    it('should be true if token is unpaired', () => {
+      component.token = Fixtures.unpairedPushToken;
+      expect(component.pendingActions()).toEqual(true);
+    });
+
+    it('should be false if the token has been activated', () => {
+      component.token = Fixtures.completedPushToken;
+      expect(component.pendingActions()).toEqual(false);
+    });
+  });
+
+
+  describe('pendingDelete', () => {
+    it('should be true if token is unpaired', () => {
+      component.token = Fixtures.unpairedPushToken;
+      expect(component.pendingDelete()).toEqual(true);
+    });
+
+    it('should be false if token has been activated ', () => {
+      component.token = Fixtures.completedPushToken;
+      expect(component.pendingDelete()).toEqual(false);
+    });
+  });
+
+  describe('pendingActivate', () => {
+    it('should be true if token is paired', () => {
+      component.token = Fixtures.pairedPushToken;
+      expect(component.pendingActivate()).toEqual(true);
+    });
+
+    it('should be false if token is not in paired state', () => {
+      component.token = Fixtures.completedPushToken;
+      expect(component.pendingActivate()).toEqual(false);
+    });
+  });
+
+  describe('isPush', () => {
+    it('should be true if token is of type push', () => {
+      component.token = Fixtures.completedPushToken;
+      expect(component.isPush()).toEqual(true);
+    });
+
+    it('should be false if token is notof type push', () => {
+      component.token = Fixtures.activeHotpToken;
+      expect(component.isPush()).toEqual(false);
+    });
   });
 });
