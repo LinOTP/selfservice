@@ -3,9 +3,13 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatStepper, MatDialogRef, MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 
+import { switchMap } from 'rxjs/operators';
+import { empty } from 'rxjs';
+
 import { TokenService } from '../../api/token.service';
 import { NotificationService } from '../../common/notification.service';
 import { TextResources } from '../../common/static-resources';
+import { DialogComponent } from '../../common/dialog/dialog.component';
 
 import { ActivatePushDialogComponent } from '../../activate/activate-push/activate-push-dialog.component';
 
@@ -103,7 +107,41 @@ export class EnrollPushDialogComponent implements OnInit {
     this.currentStep++;
   }
 
-  public cancelDialog() {
+  /**
+  * Close the enrollment dialog without further action.
+  */
+  public close() {
     this.dialogRef.close();
+  }
+
+  /**
+   *  Show the user a confirmation dialog for canceling the enrollment of the push token.
+   *
+   *  If the user confirms it, the enrolled token is deleted, a notification is shown and the
+   *  enrollment dialog is closed.
+   */
+  public cancel() {
+    const dialogConfig = {
+      width: '25em',
+      autoFocus: false,
+      disableClose: true,
+      data: {
+        title: 'Stop enrollment?',
+        text: 'The incomplete token will be deleted. ' +
+          'You will have to restart the enrollment process and reset the Authenticator app.',
+        confirmationLabel: 'Confirm',
+      }
+    };
+    this.dialog.open(DialogComponent, dialogConfig)
+      .afterClosed()
+      .pipe(
+        switchMap(result => {
+          if (result) {
+            return this.tokenService.deleteToken(this.enrolledToken.serial);
+          } else {
+            return empty();
+          }
+        })
+      ).subscribe(() => this.dialogRef.close());
   }
 }
