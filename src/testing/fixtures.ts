@@ -14,6 +14,10 @@ export class Fixtures {
     return new Token(3, 'Inactive-Hotp-Token-Serial', 'hotp', false, 'Description');
   }
 
+  static get inactivePushToken(): Token {
+    return new Token(2, 'Inactive-PushToken-Serial', 'push', false, 'Description');
+  }
+
   static get tokens(): Token[] {
     return [
       this.activeHotpToken,
@@ -39,6 +43,17 @@ export class Fixtures {
     };
   }
 
+  static get activationResponse() {
+    return {
+      result: {
+        value: true
+      },
+      detail: {
+        transactionid: 1
+      }
+    };
+  }
+
   static get hmacTokenType() {
     return {
       type: 'hmac',
@@ -55,5 +70,9 @@ export class Fixtures {
       description: 'desc',
       icon: 'icon'
     };
+  }
+
+  static get enrolledToken() {
+    return { serial: 'test serial', url: 'testUrl' };
   }
 }

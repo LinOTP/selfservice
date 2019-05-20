@@ -13,6 +13,7 @@ import { EnrollPushDialogComponent } from './enroll-push-dialog.component';
 import { NotificationService } from '../../common/notification.service';
 import { spyOnClass } from '../../../testing/spyOnClass';
 import { Fixtures } from '../../../testing/fixtures';
+import { TokenActivatePushDialogComponent } from '../../token-activate/token-activate-push/token-activate-push-dialog.component';
 
 describe('EnrollPushDialogComponent', () => {
   let component: EnrollPushDialogComponent;
@@ -20,6 +21,8 @@ describe('EnrollPushDialogComponent', () => {
   let tokenService: jasmine.SpyObj<TokenService>;
   let notificationService: NotificationService;
   let dialogRef: jasmine.SpyObj<MatDialogRef<EnrollPushDialogComponent>>;
+  let matDialog: jasmine.SpyObj<MatDialog>;
+
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -62,6 +65,7 @@ describe('EnrollPushDialogComponent', () => {
     tokenService = TestBed.get(TokenService);
     notificationService = TestBed.get(NotificationService);
     dialogRef = TestBed.get(MatDialogRef);
+    matDialog = TestBed.get(MatDialog);
     fixture.detectChanges();
   });
 
@@ -77,7 +81,10 @@ describe('EnrollPushDialogComponent', () => {
   it('should enroll the push token without failure', fakeAsync(() => {
     const mockedEnrollResponse = Fixtures.enrollmentResponse;
     mockedEnrollResponse.result.value = true;
-    const expectedToken = { serial: mockedEnrollResponse.detail.serial, url: mockedEnrollResponse.detail.lse_qr_url.value };
+    const expectedToken = {
+      serial: mockedEnrollResponse.detail.serial,
+      url: mockedEnrollResponse.detail.lse_qr_url.value
+    };
 
     tokenService.enroll.and.returnValue(of(mockedEnrollResponse));
     tokenService.pairingPoll.and.returnValue(of(Fixtures.activePushToken));
@@ -93,7 +100,7 @@ describe('EnrollPushDialogComponent', () => {
     expect(component.enrolledToken).toEqual(expectedToken);
     expect(component.isPaired).toEqual(true);
     expect(component.enrollmentForm.controls.description.disabled).toEqual(true);
-    expect(component.currentStep).toEqual(2);
+    expect(component.currentStep).toEqual(3);
     expect(notificationService.message).not.toHaveBeenCalled();
 
   }));
@@ -123,4 +130,21 @@ describe('EnrollPushDialogComponent', () => {
     component.cancelDialog();
     expect(dialogRef.close).toHaveBeenCalledTimes(1);
   });
+
+  it('should open the activation dialog with the right token and configuration', fakeAsync(() => {
+    matDialog.open.and.returnValue({ afterClosed: () => of({}) });
+
+    const expectedDialogConfig = {
+      width: '850px',
+      autoFocus: false,
+      disableClose: true,
+      data: Fixtures.enrolledToken.serial
+    };
+    component.enrolledToken = Fixtures.enrolledToken;
+    component.goToActivation();
+    tick();
+    expect(matDialog.open).toHaveBeenCalledTimes(1);
+    expect(matDialog.open).toHaveBeenCalledWith(TokenActivatePushDialogComponent, expectedDialogConfig);
+    expect(dialogRef.close).toHaveBeenCalledTimes(1);
+  }));
 });

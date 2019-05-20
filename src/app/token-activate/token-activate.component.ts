@@ -1,7 +1,7 @@
 import { Component, OnInit, Type, Injector } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { TokenActivatePushComponent } from './token-activate-push/token-activate-push.component';
+import { TokenActivatePushDialogComponent } from './token-activate-push/token-activate-push-dialog.component';
 import { Token, EnrollmentStatus } from '../api/token';
 import { NotificationService } from '../common/notification.service';
 
@@ -16,7 +16,7 @@ export class TokenActivateComponent implements OnInit {
   tokenInjector: Injector;
 
   private tokenTypes: { [type: string]: Type<any> } = {
-    'push': TokenActivatePushComponent
+    'push': TokenActivatePushDialogComponent
   };
 
   constructor(
@@ -31,7 +31,7 @@ export class TokenActivateComponent implements OnInit {
     if (component) {
       this.token = token;
       this.tokenInjector = Injector.create({ providers: [{ provide: Token, useValue: token }], parent: this.injector });
-      this.typeSpecificComponent = TokenActivatePushComponent;
+      this.typeSpecificComponent = TokenActivatePushDialogComponent;
 
     } else {
       this.notificationService.message('The selected token has no activation phase');
