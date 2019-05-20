@@ -137,7 +137,7 @@ describe('TokenListComponent with permissions', () => {
 
     expect(page.getPendingSectionElement('h2').textContent).toEqual('Pending actions');
     expect(page.getPendingSectionElement('p').textContent).toEqual('The following tokens are not active' +
-      ' yet and need to be paired:');
+      ' and require further action:');
 
     expect(page.getEnrollAlternativeTokenSectionElement('h2').textContent).toEqual('Set up new authentication method');
     expect(page.getEnrollAlternativeTokenSectionElement('p').textContent).toEqual('Following alternative authentication methods' +

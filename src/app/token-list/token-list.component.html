@@ -5,7 +5,7 @@
   <section id="pendingSection"
            *ngIf="tokens && tokens | unreadyTokens | arrayNotEmpty">
     <h2>Pending actions</h2>
-    <p>The following tokens are not active yet and need to be paired:</p>
+    <p>The following tokens are not active and require further action:</p>
     <app-token-card *ngFor="let token of tokens | unreadyTokens"
                     [token]="token"
                     (tokenUpdate)="loadTokens()"></app-token-card>
