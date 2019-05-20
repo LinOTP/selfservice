@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 
 import { TokenService } from '../../api/token.service';
 import { NotificationService } from '../../common/notification.service';
+import { TextResources } from '../../common/static-resources';
+
 import { ActivatePushDialogComponent } from '../../activate/activate-push/activate-push-dialog.component';
 
 @Component({
@@ -13,6 +15,8 @@ import { ActivatePushDialogComponent } from '../../activate/activate-push/activa
   styleUrls: ['./enroll-push-dialog.component.scss']
 })
 export class EnrollPushDialogComponent implements OnInit {
+
+  public TextResources = TextResources;
 
   public enrollmentForm: FormGroup;
   public enrollmentStep: FormGroup;
