@@ -1,5 +1,5 @@
 import { Component, OnInit, Output } from '@angular/core';
-import { TokenType, tokenTypes } from '../api/token';
+import { TokenTypeDetails, tokenTypeDetails } from '../api/token';
 import { MatDialog } from '@angular/material';
 import { EnrollHotpDialogComponent } from '../enroll/enroll-hotp-dialog/enroll-hotp-dialog.component';
 import { NotificationService } from '../common/notification.service';
@@ -13,7 +13,7 @@ import { EnrollPushDialogComponent } from '../enroll/enroll-push-dialog/enroll-p
 })
 export class EnrollmentGridComponent implements OnInit {
 
-  public tokenTypes: TokenType[] = tokenTypes;
+  public tokenTypes: TokenTypeDetails[] = tokenTypeDetails;
   @Output() public tokenUpdate: Subject<null> = new Subject();
 
   private dialogConfig;
@@ -33,7 +33,7 @@ export class EnrollmentGridComponent implements OnInit {
     };
   }
 
-  public startEnrollment(tokentype: TokenType) {
+  public startEnrollment(tokentype: TokenTypeDetails) {
     if (tokentype.type === 'hmac') {
       this.openHotpDialog();
     }

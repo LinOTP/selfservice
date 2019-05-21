@@ -1,6 +1,6 @@
 import { Permission } from '../common/permissions';
 
-export interface TokenType {
+export interface TokenTypeDetails {
   type: string;
   name: string;
   description: string;
@@ -9,7 +9,7 @@ export interface TokenType {
   activationPermission?: Permission;
 }
 
-export const tokenTypes: TokenType[] = [
+export const tokenTypeDetails: TokenTypeDetails[] = [
   {
     type: 'pw',
     name: 'Password token',
@@ -49,7 +49,7 @@ export const tokenTypes: TokenType[] = [
   },
 ];
 
-export const unknownTokenType: TokenType = {
+export const unknownTokenType: TokenTypeDetails = {
   type: 'unknown',
   name: 'Unknown Token',
   description: '',
@@ -59,7 +59,7 @@ export const unknownTokenType: TokenType = {
 export class Token {
   enrollmentStatus: EnrollmentStatus;
 
-  public typeDetails: TokenType;
+  public typeDetails: TokenTypeDetails;
 
   constructor(
     public id: number,
@@ -69,7 +69,7 @@ export class Token {
     public description?: string,
   ) {
     this.type = this.type.toLowerCase();
-    this.typeDetails = tokenTypes.find(tt => tt.type === this.type) || unknownTokenType;
+    this.typeDetails = tokenTypeDetails.find(tt => tt.type === this.type) || unknownTokenType;
   }
 
 }
