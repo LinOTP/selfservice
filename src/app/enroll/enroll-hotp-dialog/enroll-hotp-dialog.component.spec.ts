@@ -121,14 +121,11 @@ describe('The EnrollHotpDialogComponent', () => {
     expect(notificationService.message).toHaveBeenCalledTimes(1);
   }));
 
-  it('should change component view values after testing the token was successfull', fakeAsync(() => {
-    const mockEnrollmentResponse = Fixtures.enrollmentResponse;
-    mockEnrollmentResponse.result.value = true;
-
+  it('should change component view values after testing the token was successful', fakeAsync(() => {
     component.enrolledToken = { serial: 'testSerial', url: 'testUrl' };
     component.testStep.controls.pin.setValue('testPin');
     component.testStep.controls.otp.setValue('testOTP');
-    tokenService.testToken.and.returnValue(of(mockEnrollmentResponse));
+    tokenService.testToken.and.returnValue(of(true));
     component.testToken();
     tick();
 
@@ -137,13 +134,10 @@ describe('The EnrollHotpDialogComponent', () => {
   }));
 
   it('should change component view values after testing the token failed', fakeAsync(() => {
-    const mockEnrollmentResponse = Fixtures.enrollmentResponse;
-    mockEnrollmentResponse.result.value = false;
-
     component.enrolledToken = { serial: 'testSerial', url: 'testUrl' };
     component.testStep.controls.pin.setValue('testPin');
     component.testStep.controls.otp.setValue('testOTP');
-    tokenService.testToken.and.returnValue(of(mockEnrollmentResponse));
+    tokenService.testToken.and.returnValue(of(false));
     component.testToken();
     tick();
 

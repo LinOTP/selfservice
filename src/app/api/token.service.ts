@@ -174,11 +174,12 @@ export class TokenService {
     );
   }
 
-  testToken(tokenSerial: String, pin: String, otp: String) {
+  testToken(tokenSerial: String, pin: String = '', otp: String): Observable<boolean> {
     const body = { serial: tokenSerial, pass: `${pin}${otp}` };
 
-    return this.http.post(this.validateCheckS, body)
+    return this.http.post<LinOTPResponse<boolean>>(this.validateCheckS, body)
       .pipe(
+        map(response => response && response.result && response.result.value === true),
         catchError(this.handleError('test token', null))
       );
   }

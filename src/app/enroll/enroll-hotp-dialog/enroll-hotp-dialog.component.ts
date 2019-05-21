@@ -76,10 +76,10 @@ export class EnrollHotpDialogComponent implements OnInit {
   public testToken() {
     this.tokenService.testToken(this.enrolledToken.serial, this.testStep.controls.pin.value, this.testStep.controls.otp.value)
       .subscribe(response => {
-        if (response.result && response.result.value === true) {
+        if (response) {
           this.testSuccessful = true;
           this.testFailed = false;
-        } else if (response.result && response.result.value === false) {
+        } else {
           this.testFailed = true;
           this.testSuccessful = false;
         }
