@@ -16,7 +16,7 @@ import { TokenService } from '../api/token.service';
 import { Permission, ModifyTokenPermissions } from '../common/permissions';
 import { EnrollmentStatus } from '../api/token';
 import { ActivatePushDialogComponent } from '../activate/activate-push/activate-push-dialog.component';
-import { componentNeedsResolution } from '@angular/core/src/metadata/resource_loading';
+import { ActivateQrDialogComponent } from '../activate/activate-qr/activate-qr-dialog.component';
 
 class Page extends TestingPage<TokenCardComponent> {
 
@@ -38,6 +38,7 @@ describe('TokenCardComponent', () => {
   let tokenService: jasmine.SpyObj<TokenService>;
 
   let page: Page;
+  let expectedDialogConfig;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -76,6 +77,12 @@ describe('TokenCardComponent', () => {
     fixture.detectChanges();
 
     page = new Page(fixture);
+    expectedDialogConfig = {
+      width: '850px',
+      autoFocus: false,
+      disableClose: true,
+      data: null
+    };
   });
 
   it('should create', () => {
@@ -240,18 +247,26 @@ describe('TokenCardComponent', () => {
   describe('activate', () => {
     it('should open a token activation dialog', fakeAsync(() => {
       matDialog.open.and.returnValue({ afterClosed: () => of({}) });
-      const expectedDialogConfig = {
-        width: '850px',
-        autoFocus: false,
-        disableClose: true,
-        data: Fixtures.pairedPushToken.serial
-      };
+      expectedDialogConfig.data = Fixtures.pairedPushToken.serial;
 
       component.token = Fixtures.pairedPushToken;
       component.activate();
       tick();
 
       expect(matDialog.open).toHaveBeenCalledWith(ActivatePushDialogComponent, expectedDialogConfig);
+      expect(matDialog.open).not.toHaveBeenCalledWith(ActivateQrDialogComponent, expectedDialogConfig);
+    }));
+
+    it('should open a QR token activation dialog', fakeAsync(() => {
+      matDialog.open.and.returnValue({ afterClosed: () => of({}) });
+      expectedDialogConfig.data = Fixtures.pairedQRToken.serial;
+
+      component.token = Fixtures.pairedQRToken;
+      component.activate();
+      tick();
+
+      expect(matDialog.open).toHaveBeenCalledWith(ActivateQrDialogComponent, expectedDialogConfig);
+      expect(matDialog.open).not.toHaveBeenCalledWith(ActivatePushDialogComponent, expectedDialogConfig);
     }));
   });
 
@@ -274,25 +289,45 @@ describe('TokenCardComponent', () => {
 
 
   describe('pendingDelete', () => {
-    it('should be true if token is unpaired', () => {
+    it('should be true if push token is unpaired', () => {
       component.token = Fixtures.unpairedPushToken;
       expect(component.pendingDelete()).toEqual(true);
     });
 
-    it('should be false if token has been activated ', () => {
+    it('should be true if QR token is unpaired', () => {
+      component.token = Fixtures.unpairedQRToken;
+      expect(component.pendingDelete()).toEqual(true);
+    });
+
+    it('should be false if push token has been activated ', () => {
       component.token = Fixtures.completedPushToken;
+      expect(component.pendingDelete()).toEqual(false);
+    });
+
+    it('should be false if QR token has been activated ', () => {
+      component.token = Fixtures.completedQRToken;
       expect(component.pendingDelete()).toEqual(false);
     });
   });
 
   describe('pendingActivate', () => {
-    it('should be true if token is paired', () => {
+    it('should be true if push token is paired', () => {
       component.token = Fixtures.pairedPushToken;
       expect(component.pendingActivate()).toEqual(true);
     });
 
-    it('should be false if token is not in paired state', () => {
+    it('should be true if QR token is paired', () => {
+      component.token = Fixtures.pairedQRToken;
+      expect(component.pendingActivate()).toEqual(true);
+    });
+
+    it('should be false if push token is not in paired state', () => {
       component.token = Fixtures.completedPushToken;
+      expect(component.pendingActivate()).toEqual(false);
+    });
+
+    it('should be false if QR token is not in paired state', () => {
+      component.token = Fixtures.completedQRToken;
       expect(component.pendingActivate()).toEqual(false);
     });
   });

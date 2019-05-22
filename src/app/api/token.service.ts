@@ -142,7 +142,7 @@ export class TokenService {
   activate(serial: string, pin: string): Observable<any> {
     const body = {
       serial: serial,
-      data: 'BlaBlub',
+      data: serial,
       pass: pin,
     };
     return this.http.post(this.validateCheckS, body)
@@ -167,7 +167,8 @@ export class TokenService {
     return interval(2000).pipe(
       mergeMap(() => this.getChallengeStatus(transactionId, pin, serial)),
       filter(res => res.detail.transactions[transactionId].status !== 'open'),
-      map(res => res.detail.transactions[transactionId].accept === true),
+      map(res => res.detail.transactions[transactionId].accept === true
+        || res.detail.transactions[transactionId].valid_tan === true), // valid_tan attribute exists only for the QR token
       catchError(() => of(false)),
       take(1),
     );

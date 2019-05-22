@@ -16,7 +16,7 @@ export const PoliciesToPermissionsMapping: { [policy: string]: Permission } = {
     'enrollPUSH': Permission.ENROLLPUSH,
     'activate_PushToken': Permission.ACTIVATEPUSH,
     'enrollQR': Permission.ENROLLQR,
-    'activateQR': Permission.ACTIVATEQR,
+    'activate_QRToken': Permission.ACTIVATEQR,
     'enrollHMAC': Permission.ENROLLHOTP,
     'enrollTOTP': Permission.ENROLLTOTP,
     'enrollPW': Permission.ENROLLPASSWORD,

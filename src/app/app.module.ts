@@ -24,6 +24,7 @@ import { EnrollPushDialogComponent } from './enroll/enroll-push-dialog/enroll-pu
 import { TokenCardComponent } from './token-card/token-card.component';
 import { EnrollmentGridComponent } from './enrollment-grid/enrollment-grid.component';
 import { AppInitService } from './app-init.service';
+import { ActivateQrDialogComponent } from './activate/activate-qr/activate-qr-dialog.component';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { AppInitService } from './app-init.service';
     AppComponent,
     TokenListComponent,
     LoginComponent,
+    ActivateQrDialogComponent,
     ActivatePushDialogComponent,
     EnrollHotpDialogComponent,
     EnrollTotpComponent,
@@ -39,6 +41,7 @@ import { AppInitService } from './app-init.service';
     EnrollmentGridComponent,
   ],
   entryComponents: [
+    ActivateQrDialogComponent,
     ActivatePushDialogComponent,
     EnrollHotpDialogComponent,
     EnrollPushDialogComponent,

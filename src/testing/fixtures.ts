@@ -18,6 +18,10 @@ export class Fixtures {
     return new Token(2, 'Inactive-PushToken-Serial', TokenType.PUSH, false, 'Description');
   }
 
+  static get inactiveQRToken(): Token {
+    return new Token(2, 'Inactive-QRToken-Serial', TokenType.QR, false, 'QR token Description');
+  }
+
   static get unpairedPushToken(): Token {
     const token = new Token(5, 'Paired-PushToken-Serial', TokenType.PUSH, true, 'Description');
     token.enrollmentStatus = EnrollmentStatus.unpaired;
@@ -30,8 +34,26 @@ export class Fixtures {
     return token;
   }
 
+  static get pairedQRToken(): Token {
+    const token = new Token(5, 'Paired-QRToken-Serial', TokenType.QR, true, 'QR token Description');
+    token.enrollmentStatus = EnrollmentStatus.pairing_response_received;
+    return token;
+  }
+
+  static get unpairedQRToken(): Token {
+    const token = new Token(5, 'Unpaired-QRToken-Serial', TokenType.QR, true, 'QR token Description');
+    token.enrollmentStatus = EnrollmentStatus.unpaired;
+    return token;
+  }
+
   static get completedPushToken(): Token {
     const token = new Token(5, 'Paired-PushToken-Serial', TokenType.PUSH, true, 'Description');
+    token.enrollmentStatus = EnrollmentStatus.completed;
+    return token;
+  }
+
+  static get completedQRToken(): Token {
+    const token = new Token(5, 'Paired-QRToken-Serial', TokenType.QR, true, 'QR token Description');
     token.enrollmentStatus = EnrollmentStatus.completed;
     return token;
   }
@@ -67,7 +89,8 @@ export class Fixtures {
         value: true
       },
       detail: {
-        transactionid: 1
+        transactionid: 1,
+        message: 'QR_URL'
       }
     };
   }
