@@ -1,12 +1,16 @@
-<mat-horizontal-stepper [linear]="true" linear #stepper>
+<h2>Enroll Push token</h2>
+<mat-horizontal-stepper [linear]="true"
+                        linear
+                        #stepper>
 
-  <mat-step [stepControl]="enrollmentStep" id="stepDescription">
-    <p> You have chosen to enroll an event-based soft token.</p>
+  <mat-step [stepControl]="enrollmentStep"
+            id="stepDescription">
+    <p> You have chosen to enroll a KeyIdentity push token.</p>
     <p>You need the KI Authenticator app installed on your mobile device to use this kind of token. You can get the app
       here:</p>
     <ul>
-      <li>Link to Google App Store</li>
-      <li>Link to Apple App Store</li>
+      <li><a href="TextResources.AUTHENTICATOR_GOOGLE_PLAY_STORE_URL">Google Play Store</a></li>
+      <li><a href="TextResources.AUTHENTICATOR_APPLE_APP_STORE_URL">Apple App Store</a></li>
     </ul>
     <p>Once you have the KI Authenticator installed on your device, you can set a description for your new token and
       start the
@@ -14,7 +18,10 @@
     </p>
     <form [formGroup]="enrollmentForm">
       <mat-form-field>
-        <input matInput placeholder="Token description" formControlName="description" autofocus>
+        <input matInput
+               placeholder="Token description"
+               formControlName="description"
+               autofocus>
         <mat-error>The token description is required. It should help you identify the token at a later point. It could,
           for example,
           refer to its usage scenario.
@@ -26,39 +33,50 @@
       </mat-form-field>
     </form>
     <mat-dialog-actions align="end">
-      <div>Step {{currentStep}} of {{maxSteps}}</div>
+      <div>Enrollment {{currentStep}} of {{maxSteps}}</div>
       <span class="spacer"></span>
-      <button mat-raised-button (click)="cancelDialog()">Cancel</button>
-      <button mat-raised-button color="primary" (click)="goToTokenInfo(stepper)" id="goTo2" [disabled]="enrollmentForm.invalid">
+      <button mat-raised-button
+              (click)="close()">Cancel</button>
+      <button mat-raised-button
+              color="primary"
+              (click)="goToTokenInfo(stepper)"
+              id="goTo2"
+              [disabled]="enrollmentForm.invalid">
         Next
       </button>
     </mat-dialog-actions>
   </mat-step>
 
-  <mat-step active="false">
+  <mat-step>
     <div *ngIf="enrolledToken">
       <p>A token with the serial number {{enrolledToken.serial}} (description: {{
         enrollmentForm.get('description').value }})
         has been enrolled.</p>
       <p>Scan the QR code below with the KI Authenticator app or
-        <a target="_blank" [href]="enrolledToken.url">follow this link</a> to start the activation process of the new token.</p>
-      <ngx-qrcode qrc-element-type="url" [qrc-value]="enrolledToken.url"></ngx-qrcode>
+        <a target="_blank"
+           [href]="enrolledToken.url">follow this link</a> to start the activation process of the new token.</p>
+      <ngx-qrcode qrc-element-type="url"
+                  [qrc-value]="enrolledToken.url"></ngx-qrcode>
     </div>
     <mat-dialog-actions align="end">
-      <div>Step {{currentStep}} of {{maxSteps}}</div>
+      <div>Enrollment {{currentStep}} of {{maxSteps}}</div>
       <span class="spacer"></span>
-      <button mat-raised-button (click)="cancelDialog()">Cancel</button>
-      <button mat-raised-button color="primary" (click)="incrementStep(stepper)" *ngIf="isPaired">Next</button>
+      <button mat-raised-button
+              (click)="cancel()">Cancel</button>
     </mat-dialog-actions>
   </mat-step>
 
-  <mat-step active="false">
+  <mat-step>
     <p>Your token has been successfully paired. In order to use it, you must activate it first.</p>
-       <mat-dialog-actions align="end">
-      <div>Step {{currentStep}} of {{maxSteps}}</div>
+    <mat-dialog-actions align="end">
+      <div>Enrollment {{currentStep}} of {{maxSteps}}</div>
       <span class="spacer"></span>
-      <button mat-raised-button (click)="cancelDialog()">Cancel</button>
-      <button mat-raised-button color="primary" (click)="goToActivation()" *ngIf="isPaired">Activate Token</button>
+      <button mat-raised-button
+              (click)="close()">Close</button>
+      <button mat-raised-button
+              color="primary"
+              (click)="goToActivation()"
+              *ngIf="isPaired">Activate Token</button>
     </mat-dialog-actions>
   </mat-step>
 </mat-horizontal-stepper>

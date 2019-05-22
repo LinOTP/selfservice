@@ -7,7 +7,7 @@ import { of } from 'rxjs/internal/observable/of';
 import { NotificationService } from '../common/notification.service';
 import { spyOnClass } from '../../testing/spyOnClass';
 import { MatDialog } from '@angular/material';
-import { TokenType } from '../api/token';
+import { TokenTypeDetails } from '../api/token';
 import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
 import { Fixtures } from '../../testing/fixtures';
 
@@ -75,7 +75,7 @@ describe('EnrollmentGridComponent', () => {
   it('should open the push dialog and trigger the token list updater', fakeAsync(() => {
     matDialog.open.and.returnValue({ afterClosed: () => of({}) });
 
-    const testToken: TokenType = Fixtures.pushTokenType;
+    const testToken: TokenTypeDetails = Fixtures.pushTokenType;
     component.startEnrollment(testToken);
     tick();
 
@@ -86,7 +86,7 @@ describe('EnrollmentGridComponent', () => {
   function generateHotpScenario(returnValue: boolean) {
     matDialog.open.and.returnValue({ afterClosed: () => of({ result: returnValue }) });
 
-    const testToken: TokenType = Fixtures.hmacTokenType;
+    const testToken: TokenTypeDetails = Fixtures.hmacTokenType;
     component.startEnrollment(testToken);
   }
 });

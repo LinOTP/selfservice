@@ -14,6 +14,7 @@ import { NotificationService } from '../../common/notification.service';
 import { spyOnClass } from '../../../testing/spyOnClass';
 import { Fixtures } from '../../../testing/fixtures';
 import { ActivatePushDialogComponent } from '../../activate/activate-push/activate-push-dialog.component';
+import { DialogComponent } from '../../common/dialog/dialog.component';
 
 describe('EnrollPushDialogComponent', () => {
   let component: EnrollPushDialogComponent;
@@ -127,9 +128,49 @@ describe('EnrollPushDialogComponent', () => {
   }));
 
   it('should let the user close the dialog', () => {
-    component.cancelDialog();
+    component.close();
     expect(dialogRef.close).toHaveBeenCalledTimes(1);
   });
+
+  it('should let the user cancel the enrollment', fakeAsync(() => {
+    const expectedDialogConfig = {
+      width: '25em',
+      autoFocus: false,
+      disableClose: true,
+      data: {
+        title: 'Stop enrollment?',
+        text: 'The incomplete token will be deleted. ' +
+          'You will have to restart the enrollment process and reset the Authenticator app.',
+        confirmationLabel: 'Confirm',
+      }
+    };
+
+    matDialog.open.and.returnValue({ afterClosed: () => of(false) });
+    component.enrolledToken = Fixtures.enrolledToken;
+    component.cancel();
+    tick();
+    expect(matDialog.open).toHaveBeenCalledWith(DialogComponent, expectedDialogConfig);
+  }));
+
+  it('should notify the user on confirmed enrollment cancelation', fakeAsync(() => {
+    matDialog.open.and.returnValue({ afterClosed: () => of(true) });
+    tokenService.deleteToken.and.returnValue(of({}));
+    component.enrolledToken = Fixtures.enrolledToken;
+    component.cancel();
+    tick();
+
+    expect(notificationService.message).toHaveBeenCalledWith('Incomplete Push token was deleted');
+    expect(dialogRef.close).toHaveBeenCalledTimes(1);
+  }));
+
+  it('should do nothing on rejected enrollment cancelation', fakeAsync(() => {
+    matDialog.open.and.returnValue({ afterClosed: () => of(false) });
+    component.cancel();
+    tick();
+
+    expect(notificationService.message).not.toHaveBeenCalled();
+    expect(dialogRef.close).not.toHaveBeenCalled();
+  }));
 
   it('should open the activation dialog with the right token and configuration', fakeAsync(() => {
     matDialog.open.and.returnValue({ afterClosed: () => of({}) });

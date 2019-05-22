@@ -7,11 +7,12 @@ import { filter, switchMap } from 'rxjs/operators';
 import { DialogComponent } from '../common/dialog/dialog.component';
 import { SetPinDialogComponent } from '../common/set-pin-dialog/set-pin-dialog.component';
 import { NotificationService } from '../common/notification.service';
-
 import { Permission, ModifyTokenPermissions } from '../common/permissions';
 
-import { Token, EnrollmentStatus } from '../api/token';
+import { Token, EnrollmentStatus, TokenType } from '../api/token';
 import { TokenService } from '../api/token.service';
+
+import { ActivatePushDialogComponent } from '../activate/activate-push/activate-push-dialog.component';
 
 @Component({
   selector: 'app-token-card',
@@ -24,6 +25,7 @@ export class TokenCardComponent implements OnInit {
   @Output() public tokenUpdate: Subject<null> = new Subject();
 
   public EnrollmentStatus = EnrollmentStatus;
+  public TokenType = TokenType;
   public Permission = Permission;
   public ModifyTokenPermissions = ModifyTokenPermissions;
 
@@ -35,7 +37,7 @@ export class TokenCardComponent implements OnInit {
 
   ngOnInit() { }
 
-  setPin() {
+  public setPin(): void {
     const config = {
       width: '25em',
       data: this.token
@@ -52,7 +54,7 @@ export class TokenCardComponent implements OnInit {
       });
   }
 
-  delete() {
+  public delete(): void {
     const config = {
       width: '25em',
       data:
@@ -76,7 +78,7 @@ export class TokenCardComponent implements OnInit {
       });
   }
 
-  enable(): void {
+  public enable(): void {
     this.tokenService.enable(this.token).subscribe(isSuccessful => {
       if (isSuccessful) {
         this.notificationService.message('Token enabled');
@@ -87,7 +89,7 @@ export class TokenCardComponent implements OnInit {
     });
   }
 
-  disable(): void {
+  public disable(): void {
     this.tokenService.disable(this.token).subscribe(isSuccessful => {
       if (isSuccessful) {
         this.notificationService.message('Token disabled');
@@ -96,5 +98,38 @@ export class TokenCardComponent implements OnInit {
         this.notificationService.message('Error: Could not disable token');
       }
     });
+  }
+
+  public activate(): void {
+    const dialogConfig = {
+      width: '850px',
+      autoFocus: false,
+      disableClose: true,
+      data: this.token.serial
+    };
+    this.dialog.open(ActivatePushDialogComponent, dialogConfig)
+      .afterClosed()
+      .subscribe(() => {
+        this.notificationService.message('Token activated');
+        this.tokenUpdate.next();
+      });
+  }
+
+  public pendingActions(): boolean {
+    return this.pendingDelete() || this.pendingActivate();
+  }
+
+  public pendingDelete(): boolean {
+    return this.token.type === TokenType.PUSH
+      && this.token.enrollmentStatus === EnrollmentStatus.unpaired;
+  }
+
+  public pendingActivate(): boolean {
+    return this.token.type === TokenType.PUSH
+      && this.token.enrollmentStatus === EnrollmentStatus.pairing_response_received;
+  }
+
+  public isPush(): boolean {
+    return this.token.type === TokenType.PUSH;
   }
 }

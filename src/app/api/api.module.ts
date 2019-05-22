@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { TokenService, TokenDetailResolver, TokenListResolver } from './token.service';
+import { TokenService } from './token.service';
 
 
 @NgModule({
@@ -11,8 +11,6 @@ import { TokenService, TokenDetailResolver, TokenListResolver } from './token.se
   ],
   providers: [
     TokenService,
-    TokenDetailResolver,
-    TokenListResolver,
   ],
   exports: [
   ]
