@@ -17,6 +17,7 @@ import { Permission, ModifyTokenPermissions } from '../common/permissions';
 import { EnrollmentStatus } from '../api/token';
 import { ActivatePushDialogComponent } from '../activate/activate-push/activate-push-dialog.component';
 import { ActivateQrDialogComponent } from '../activate/activate-qr/activate-qr-dialog.component';
+import { TestOTPDialogComponent } from '../test/test-otp/test-otp-dialog.component';
 
 class Page extends TestingPage<TokenCardComponent> {
 
@@ -36,6 +37,7 @@ describe('TokenCardComponent', () => {
   let notificationService: jasmine.SpyObj<NotificationService>;
   let matDialog: jasmine.SpyObj<MatDialog>;
   let tokenService: jasmine.SpyObj<TokenService>;
+  let tokenUpdateSpy: jasmine.Spy;
 
   let page: Page;
   let expectedDialogConfig;
@@ -73,6 +75,7 @@ describe('TokenCardComponent', () => {
     tokenService = TestBed.get(TokenService);
     tokenService.deleteToken.and.returnValue(of({}));
     matDialog = TestBed.get(MatDialog);
+    tokenUpdateSpy = spyOn(component.tokenUpdate, 'next');
 
     fixture.detectChanges();
 
@@ -158,13 +161,11 @@ describe('TokenCardComponent', () => {
     it('should issue an update event after deletion', fakeAsync(() => {
       matDialog.open.and.returnValue({ afterClosed: () => of(true) });
 
-      const updateSpy = spyOn(component.tokenUpdate, 'next');
-
       component.token = Fixtures.activeHotpToken;
       component.delete();
       tick();
 
-      expect(updateSpy).toHaveBeenCalledTimes(1);
+      expect(tokenUpdateSpy).toHaveBeenCalledTimes(1);
     }));
 
 
@@ -194,26 +195,24 @@ describe('TokenCardComponent', () => {
 
     it('should notify user after success and emit token list update', fakeAsync(() => {
       tokenService.enable.and.returnValue(of(true));
-      const updateSpy = spyOn(component.tokenUpdate, 'next');
 
       component.token = Fixtures.inactiveHotpToken;
       component.enable();
       tick();
 
       expect(notificationService.message).toHaveBeenCalledWith('Token enabled');
-      expect(updateSpy).toHaveBeenCalledTimes(1);
+      expect(tokenUpdateSpy).toHaveBeenCalledTimes(1);
     }));
 
     it('should notify user after failure and not emit token list update', fakeAsync(() => {
       tokenService.enable.and.returnValue(of(false));
-      const updateSpy = spyOn(component.tokenUpdate, 'next');
 
       component.token = Fixtures.inactiveHotpToken;
       component.enable();
       tick();
 
       expect(notificationService.message).toHaveBeenCalledWith('Error: Could not enable token');
-      expect(updateSpy).not.toHaveBeenCalled();
+      expect(tokenUpdateSpy).not.toHaveBeenCalled();
     }));
   });
 
@@ -221,26 +220,24 @@ describe('TokenCardComponent', () => {
 
     it('should notify user after success and emit token list update', fakeAsync(() => {
       tokenService.disable.and.returnValue(of(true));
-      const updateSpy = spyOn(component.tokenUpdate, 'next');
 
       component.token = Fixtures.activeHotpToken;
       component.disable();
       tick();
 
       expect(notificationService.message).toHaveBeenCalledWith('Token disabled');
-      expect(updateSpy).toHaveBeenCalledTimes(1);
+      expect(tokenUpdateSpy).toHaveBeenCalledTimes(1);
     }));
 
     it('should notify user after failure and not emit token list update', fakeAsync(() => {
       tokenService.disable.and.returnValue(of(false));
-      const updateSpy = spyOn(component.tokenUpdate, 'next');
 
       component.token = Fixtures.activeHotpToken;
       component.disable();
       tick();
 
       expect(notificationService.message).toHaveBeenCalledWith('Error: Could not disable token');
-      expect(updateSpy).not.toHaveBeenCalled();
+      expect(tokenUpdateSpy).not.toHaveBeenCalled();
     }));
   });
 
@@ -343,4 +340,52 @@ describe('TokenCardComponent', () => {
       expect(component.isPush()).toEqual(false);
     });
   });
+
+  describe('testToken', () => {
+    it('should open the TestOTPDialogComponent if token is HOTP', fakeAsync(() => {
+      matDialog.open.and.returnValue({ afterClosed: () => of({}) });
+      component.token = Fixtures.activeHotpToken;
+      fixture.detectChanges();
+
+      const expectedConfig = {
+        width: '850px',
+        autoFocus: false,
+        disableClose: true,
+        data: component.token
+      };
+
+      component.testToken();
+
+      expect(matDialog.open).toHaveBeenCalledWith(TestOTPDialogComponent, expectedConfig);
+      expect(tokenUpdateSpy).toHaveBeenCalled();
+    }));
+
+    it('should open the TestOTPDialogComponent if token is TOTP', fakeAsync(() => {
+      matDialog.open.and.returnValue({ afterClosed: () => of({}) });
+      component.token = Fixtures.activeTotpToken;
+      fixture.detectChanges();
+
+      const expectedConfig = {
+        width: '850px',
+        autoFocus: false,
+        disableClose: true,
+        data: component.token
+      };
+
+      component.testToken();
+
+      expect(matDialog.open).toHaveBeenCalledWith(TestOTPDialogComponent, expectedConfig);
+      expect(tokenUpdateSpy).toHaveBeenCalled();
+    }));
+
+    it('should not open the TestOTPDialogComponent if token is not HOTP nor TOTP', () => {
+      component.token = Fixtures.activePushToken;
+      fixture.detectChanges();
+
+      component.testToken();
+      expect(notificationService.message).toHaveBeenCalledWith('This token type cannot be tested yet.');
+      expect(tokenUpdateSpy).not.toHaveBeenCalled();
+    });
+  });
+
 });

@@ -58,14 +58,21 @@
     <span>set pin</span>
   </button>
   <button mat-menu-item
+          (click)="testToken()"
+          *ngIf="token.enrollmentStatus === EnrollmentStatus.completed && token.enabled">
+    <mat-icon>check_circle</mat-icon>
+    <span>test</span>
+  </button>
+  <mat-divider></mat-divider>
+  <ng-container *ngIf="!token.enabled; else disableMenuItem">
+    <ng-container *ngxPermissionsOnly="Permission.ENABLE; then enableBlock; else noEnableBlock"> </ng-container>
+  </ng-container>
+  <button mat-menu-item
           (click)="delete()"
           *ngxPermissionsOnly="Permission.DELETE">
     <mat-icon>delete</mat-icon>
     <span>delete</span>
   </button>
-  <ng-container *ngIf="!token.enabled; else disableMenuItem">
-    <ng-container *ngxPermissionsOnly="Permission.ENABLE; then enableBlock; else noEnableBlock"> </ng-container>
-  </ng-container>
 </mat-menu>
 
 <ng-template #enableBlock>

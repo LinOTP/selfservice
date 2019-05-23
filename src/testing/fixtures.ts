@@ -6,6 +6,10 @@ export class Fixtures {
     return new Token(1, 'Active-Hotp-Token-Serial', TokenType.HOTP, true, 'Description');
   }
 
+  static get activeTotpToken(): Token {
+    return new Token(1, 'Active-Totp-Token-Serial', TokenType.TOTP, true, 'Description');
+  }
+
   static get activePushToken(): Token {
     return new Token(2, 'Active-PushToken-Serial', TokenType.PUSH, true, 'Description');
   }

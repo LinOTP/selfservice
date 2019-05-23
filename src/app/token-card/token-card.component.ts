@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
+import { ComponentType } from '@angular/cdk/portal';
 import { MatDialog } from '@angular/material';
 
 import { Subject } from 'rxjs';
@@ -14,7 +15,7 @@ import { TokenService } from '../api/token.service';
 
 import { ActivatePushDialogComponent } from '../activate/activate-push/activate-push-dialog.component';
 import { ActivateQrDialogComponent } from '../activate/activate-qr/activate-qr-dialog.component';
-import { ComponentType } from '@angular/cdk/portal';
+import { TestOTPDialogComponent } from '../test/test-otp/test-otp-dialog.component';
 
 @Component({
   selector: 'app-token-card',
@@ -100,6 +101,31 @@ export class TokenCardComponent implements OnInit {
         this.notificationService.message('Error: Could not disable token');
       }
     });
+  }
+
+  public testToken(): void {
+    let testDialog;
+    const dialogConfig = {
+      width: '850px',
+      autoFocus: false,
+      disableClose: true,
+      data: this.token
+    };
+
+    switch (this.token.type) {
+      case TokenType.HOTP:
+      case TokenType.TOTP:
+        testDialog = TestOTPDialogComponent;
+        break;
+      default:
+        this.notificationService.message('This token type cannot be tested yet.');
+        return;
+    }
+    this.dialog.open(testDialog, dialogConfig)
+      .afterClosed()
+      .subscribe(() => {
+        this.tokenUpdate.next();
+      });
   }
 
   public activate(): void {
