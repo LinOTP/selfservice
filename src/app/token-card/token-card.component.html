@@ -1,4 +1,5 @@
-<mat-card *ngIf="token">
+<mat-card *ngIf="token"
+          [ngClass]="{disabled: !token.enabled && token.enrollmentStatus === EnrollmentStatus.COMPLETED }">
   <mat-card-header>
     <mat-icon mat-card-avatar>{{token.typeDetails.icon}}</mat-icon>
     <mat-card-title>{{token.typeDetails.name | capitalize}}</mat-card-title>
