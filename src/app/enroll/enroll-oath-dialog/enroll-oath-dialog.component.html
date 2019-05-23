@@ -50,8 +50,9 @@
         Scan the QR code below with your soft token app or
         <a [href]="enrolledToken.url">follow this link</a>
         to install it on your mobile device.</p>
-      <ngx-qrcode qrc-element-type="url"
-                  [qrc-value]="enrolledToken.url"></ngx-qrcode>
+      <qrcode [qrdata]="enrolledToken.url"
+              [size]="256"
+              [level]="'L'"></qrcode>
     </div>
     <p>
       Follow the instructions on your app to install the soft token profile.

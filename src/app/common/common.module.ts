@@ -15,7 +15,7 @@ import { InactiveTokensPipe } from './pipes/inactive-tokens.pipe';
 import { ArrayNotEmptyPipe } from './pipes/array-not-empty.pipe';
 import { SortTokensByStatePipe } from './pipes/sort-tokens-by-state.pipe';
 import { QRCodeComponent } from './qr-code/qr-code.component';
-import { NgxQRCodeModule } from 'ngx-qrcode2';
+import { QRCodeModule } from 'angularx-qrcode';
 import { CapitalizePipe } from '../common/pipes/capitalize.pipe';
 
 
@@ -25,7 +25,7 @@ import { CapitalizePipe } from '../common/pipes/capitalize.pipe';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxQRCodeModule,
+    QRCodeModule,
   ],
   declarations: [
     QRCodeComponent,

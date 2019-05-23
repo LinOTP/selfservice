@@ -6,8 +6,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { CookieModule } from 'ngx-cookie';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { CustomFormsModule } from 'ng2-validation';
-import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { I18n } from '@ngx-translate/i18n-polyfill';
+import { QRCodeModule } from 'angularx-qrcode';
 
 import { NgSelfServiceCommonModule } from './common/common.module';
 import { AppRoutingModule } from './app-routing.module';
@@ -53,7 +53,7 @@ declare const require;
     HttpClientModule,
     CookieModule.forRoot(),
     CustomFormsModule,
-    NgxQRCodeModule,
+    QRCodeModule,
     AppRoutingModule,
     MaterialModule,
     NgSelfServiceCommonModule,

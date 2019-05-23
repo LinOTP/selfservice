@@ -1,4 +1,5 @@
 <section class="qr-section">
-  <ngx-qrcode qrc-element-type="url"
-              [qrc-value]="qrUrl"></ngx-qrcode>
+  <qrcode [qrdata]="qrUrl"
+          [size]="256"
+          [level]="'L'"></qrcode>
 </section>
