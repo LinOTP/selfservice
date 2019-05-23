@@ -7,6 +7,7 @@ import { switchMap } from 'rxjs/operators';
 import { empty } from 'rxjs';
 
 import { TokenService } from '../../api/token.service';
+import { TokenType } from '../../api/token';
 import { NotificationService } from '../../common/notification.service';
 import { TextResources } from '../../common/static-resources';
 import { DialogComponent } from '../../common/dialog/dialog.component';
@@ -45,7 +46,7 @@ export class EnrollPushDialogComponent implements OnInit {
     this.currentStep = 1;
     this.enrollmentForm = this.formBuilder.group({
       'description': ['', Validators.required],
-      'type': 'push',
+      'type': TokenType.PUSH,
     });
     this.enrollmentStep = this.formBuilder.group({
       'tokenEnrolled': ['', Validators.required],

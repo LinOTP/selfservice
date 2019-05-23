@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { EnrollToken } from '../../api/token';
+import { EnrollToken, TokenType } from '../../api/token';
 import { TokenService } from '../../api/token.service';
 
 export interface EnrollTotpToken extends EnrollToken {
-  type: 'totp';
+  type: TokenType.TOTP;
   otplen: number;
   hashlib: string;
   genkey: number;
@@ -18,7 +18,7 @@ export interface EnrollTotpToken extends EnrollToken {
 export class EnrollTotpComponent implements OnInit {
 
   public enrollData: EnrollTotpToken = {
-    type: 'totp',
+    type: TokenType.TOTP,
     description: '',
     otplen: 6,
     hashlib: 'sha1',

@@ -44,7 +44,7 @@ export class TokenService {
       const t = new Token(
         token['LinOtp.TokenId'],
         token['LinOtp.TokenSerialnumber'],
-        token['LinOtp.TokenType'],
+        token['LinOtp.TokenType'].toLowerCase(),
         token['LinOtp.Isactive'],
         token['LinOtp.TokenDesc']
       );

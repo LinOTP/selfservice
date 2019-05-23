@@ -73,11 +73,10 @@ export class Token {
   constructor(
     public id: number,
     public serial: string,
-    public type: string,
+    public type: TokenType,
     public enabled: boolean,
     public description?: string,
   ) {
-    this.type = this.type.toLowerCase();
     this.typeDetails = tokenTypeDetails.find(tt => tt.type === this.type) || unknownTokenType;
   }
 
@@ -91,6 +90,6 @@ export enum EnrollmentStatus {
 }
 
 export interface EnrollToken {
-  type: string;
+  type: TokenType;
   description: string;
 }

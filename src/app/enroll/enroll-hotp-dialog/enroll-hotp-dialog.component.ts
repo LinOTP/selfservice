@@ -6,6 +6,7 @@ import { SetPinDialogComponent } from '../../common/set-pin-dialog/set-pin-dialo
 import { NotificationService } from '../../common/notification.service';
 
 import { TokenService } from '../../api/token.service';
+import { TokenType } from '../../api/token';
 
 @Component({
   selector: 'app-enroll-hotp',
@@ -39,7 +40,7 @@ export class EnrollHotpDialogComponent implements OnInit {
     this.currentStep = 1;
     this.enrollmentForm = this.formBuilder.group({
       'description': ['', Validators.required],
-      'type': 'hmac',
+      'type': TokenType.HOTP,
       'otplen': 6,
       'hashlib': 'sha1',
       'genkey': 1
