@@ -80,7 +80,7 @@ describe('AuthService', () => {
         'enrollPUSH',
         'activate_PushToken',
         'enrollQR',
-        'activateQR',
+        'activate_QRToken',
         'enrollHMAC',
         'enrollTOTP',
         'delete',

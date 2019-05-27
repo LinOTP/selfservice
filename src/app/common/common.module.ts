@@ -14,6 +14,8 @@ import { InactiveTokensPipe } from './pipes/inactive-tokens.pipe';
 import { ArrayNotEmptyPipe } from './pipes/array-not-empty.pipe';
 import { SortTokensByStatePipe } from './pipes/sort-tokens-by-state.pipe';
 import { SetPinDialogComponent } from './set-pin-dialog/set-pin-dialog.component';
+import { QRCodeComponent } from './qr-code/qr-code.component';
+import { NgxQRCodeModule } from 'ngx-qrcode2';
 
 @NgModule({
   imports: [
@@ -21,8 +23,10 @@ import { SetPinDialogComponent } from './set-pin-dialog/set-pin-dialog.component
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxQRCodeModule,
   ],
   declarations: [
+    QRCodeComponent,
     DialogComponent,
     SetPinDialogComponent,
     UnreadyTokensPipe,
@@ -39,6 +43,7 @@ import { SetPinDialogComponent } from './set-pin-dialog/set-pin-dialog.component
     NotificationService,
   ],
   exports: [
+    QRCodeComponent,
     UnreadyTokensPipe,
     ActiveTokensPipe,
     InactiveTokensPipe,

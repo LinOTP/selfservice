@@ -13,6 +13,8 @@ import { Token, EnrollmentStatus, TokenType } from '../api/token';
 import { TokenService } from '../api/token.service';
 
 import { ActivatePushDialogComponent } from '../activate/activate-push/activate-push-dialog.component';
+import { ActivateQrDialogComponent } from '../activate/activate-qr/activate-qr-dialog.component';
+import { ComponentType } from '@angular/cdk/portal';
 
 @Component({
   selector: 'app-token-card',
@@ -35,7 +37,7 @@ export class TokenCardComponent implements OnInit {
     private tokenService: TokenService,
   ) { }
 
-  ngOnInit() { }
+  public ngOnInit() { }
 
   public setPin(): void {
     const config = {
@@ -107,7 +109,8 @@ export class TokenCardComponent implements OnInit {
       disableClose: true,
       data: this.token.serial
     };
-    this.dialog.open(ActivatePushDialogComponent, dialogConfig)
+
+    this.dialog.open(this.chooseActivationDialog(), dialogConfig)
       .afterClosed()
       .subscribe(() => {
         this.notificationService.message('Token activated');
@@ -120,16 +123,31 @@ export class TokenCardComponent implements OnInit {
   }
 
   public pendingDelete(): boolean {
-    return this.token.type === TokenType.PUSH
-      && this.token.enrollmentStatus === EnrollmentStatus.unpaired;
+    let deletePending = false;
+    if (this.token.enrollmentStatus === EnrollmentStatus.unpaired) {
+      deletePending = this.token.type === TokenType.PUSH || this.token.type === TokenType.QR;
+    }
+    return deletePending;
   }
 
   public pendingActivate(): boolean {
-    return this.token.type === TokenType.PUSH
-      && this.token.enrollmentStatus === EnrollmentStatus.pairing_response_received;
+    let activatePending = false;
+    if (this.token.enrollmentStatus === EnrollmentStatus.pairing_response_received) {
+      activatePending = this.token.type === TokenType.PUSH || this.token.type === TokenType.QR;
+    }
+    return activatePending;
   }
 
   public isPush(): boolean {
     return this.token.type === TokenType.PUSH;
+  }
+
+  private chooseActivationDialog(): ComponentType<any> {
+    if (this.token.type === TokenType.PUSH) {
+      return ActivatePushDialogComponent;
+    }
+    if (this.token.type === TokenType.QR) {
+      return ActivateQrDialogComponent;
+    }
   }
 }
