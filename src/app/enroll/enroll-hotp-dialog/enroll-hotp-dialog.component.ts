@@ -7,6 +7,7 @@ import { NotificationService } from '../../common/notification.service';
 
 import { TokenService } from '../../api/token.service';
 import { TokenType } from '../../api/token';
+import { TestOTPDialogComponent } from '../../test/test-otp/test-otp-dialog.component';
 
 @Component({
   selector: 'app-enroll-hotp',
@@ -20,9 +21,7 @@ export class EnrollHotpDialogComponent implements OnInit {
   public testStep: FormGroup;
 
   public pinSet: boolean;
-  public testSuccessful: boolean;
-  public testFailed: boolean;
-  public readonly maxSteps: number = 4;
+  public readonly maxSteps: number = 3;
   public currentStep: number;
 
   public enrolledToken: { serial: string, url: string };
@@ -74,23 +73,9 @@ export class EnrollHotpDialogComponent implements OnInit {
     }
   }
 
-  public testToken() {
-    this.tokenService.testToken(this.enrolledToken.serial, this.testStep.controls.pin.value, this.testStep.controls.otp.value)
-      .subscribe(response => {
-        if (response) {
-          this.testSuccessful = true;
-          this.testFailed = false;
-        } else {
-          this.testFailed = true;
-          this.testSuccessful = false;
-        }
-      });
-  }
-
   public goToAppStep(stepper: MatStepper) {
     stepper.selectedIndex = 0;
     this.currentStep = 1;
-    this.testFailed = false;
   }
 
   public setPin() {
@@ -128,5 +113,16 @@ export class EnrollHotpDialogComponent implements OnInit {
    */
   public closeDialog() {
     this.dialogRef.close({ result: true });
+  }
+
+  public goToTest() {
+    this.tokenService.getToken(this.enrolledToken.serial).subscribe(token => {
+      const config = {
+        width: '650px',
+        data: token
+      };
+      this.dialogRef.close();
+      this.dialog.open(TestOTPDialogComponent, config);
+    });
   }
 }
