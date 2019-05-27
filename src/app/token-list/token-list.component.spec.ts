@@ -18,6 +18,7 @@ import { ArrayNotEmptyPipe } from '../common/pipes/array-not-empty.pipe';
 import { ActiveTokensPipe } from '../common/pipes/active-tokens.pipe';
 import { InactiveTokensPipe } from '../common/pipes/inactive-tokens.pipe';
 import { UnreadyTokensPipe } from '../common/pipes/unready-tokens.pipe';
+import { CapitalizePipe } from '../common/pipes/capitalize.pipe';
 
 class Page extends TestingPage<TokenListComponent> {
 
@@ -64,6 +65,7 @@ describe('TokenListComponent with permissions', () => {
         ActiveTokensPipe,
         InactiveTokensPipe,
         UnreadyTokensPipe,
+        CapitalizePipe,
         NgxPermissionsAllowStubDirective,
       ],
       providers: [

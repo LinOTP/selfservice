@@ -17,6 +17,7 @@ import { Permission, ModifyTokenPermissions } from '../common/permissions';
 import { EnrollmentStatus } from '../api/token';
 import { ActivatePushDialogComponent } from '../activate/activate-push/activate-push-dialog.component';
 import { ActivateQrDialogComponent } from '../activate/activate-qr/activate-qr-dialog.component';
+import { CapitalizePipe } from '../common/pipes/capitalize.pipe';
 import { TestOTPDialogComponent } from '../test/test-otp/test-otp-dialog.component';
 
 class Page extends TestingPage<TokenCardComponent> {
@@ -50,6 +51,7 @@ describe('TokenCardComponent', () => {
       declarations: [
         TokenCardComponent,
         NgxPermissionsAllowStubDirective,
+        CapitalizePipe,
       ],
       providers: [
         {
@@ -60,7 +62,7 @@ describe('TokenCardComponent', () => {
           provide: TokenService,
           useValue: spyOnClass(TokenService)
         },
-        { provide: MatDialog, useValue: spyOnClass(MatDialog) }
+        { provide: MatDialog, useValue: spyOnClass(MatDialog) },
       ]
     })
       .compileComponents();
@@ -95,8 +97,9 @@ describe('TokenCardComponent', () => {
   it('renders the token as a card', () => {
     component.token = Fixtures.activeHotpToken;
     fixture.detectChanges();
+    const capitalizePipe = new CapitalizePipe();
 
-    expect(page.header.innerText).toEqual(component.token.typeDetails.name);
+    expect(page.header.innerText).toEqual(capitalizePipe.transform(component.token.typeDetails.name));
     expect(page.subheader.innerText).toEqual(component.token.description);
   });
 

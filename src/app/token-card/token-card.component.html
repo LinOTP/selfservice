@@ -1,7 +1,7 @@
 <mat-card *ngIf="token">
   <mat-card-header>
     <mat-icon mat-card-avatar>{{token.typeDetails.icon}}</mat-icon>
-    <mat-card-title>{{token.typeDetails.name}}</mat-card-title>
+    <mat-card-title>{{token.typeDetails.name | capitalize}}</mat-card-title>
     <mat-card-subtitle class="description">
       {{token.description}}
     </mat-card-subtitle>

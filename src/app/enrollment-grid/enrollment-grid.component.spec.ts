@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material';
 import { TokenTypeDetails } from '../api/token';
 import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
 import { Fixtures } from '../../testing/fixtures';
+import { CapitalizePipe } from '../common/pipes/capitalize.pipe';
 
 describe('EnrollmentGridComponent', () => {
   let component: EnrollmentGridComponent;
@@ -27,6 +28,7 @@ describe('EnrollmentGridComponent', () => {
       declarations: [
         EnrollmentGridComponent,
         NgxPermissionsAllowStubDirective,
+        CapitalizePipe,
       ],
       providers: [
         {
