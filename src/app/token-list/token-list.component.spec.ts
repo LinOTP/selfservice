@@ -112,7 +112,7 @@ describe('TokenListComponent with permissions', () => {
 
   it('should render expected title and text for active authentication and alternative auth. method section', () => {
     const hotpToken = Fixtures.activeHotpToken;
-    hotpToken.enrollmentStatus = EnrollmentStatus.completed;
+    hotpToken.enrollmentStatus = EnrollmentStatus.COMPLETED;
 
     tokenService.getTokens.and.returnValue(of([hotpToken]));
 
@@ -132,7 +132,7 @@ describe('TokenListComponent with permissions', () => {
 
   it('should render expected title and text for the pending and alternative auth. method section', () => {
     const hotpToken = Fixtures.activeHotpToken;
-    hotpToken.enrollmentStatus = EnrollmentStatus.unpaired;
+    hotpToken.enrollmentStatus = EnrollmentStatus.UNPAIRED;
     tokenService.getTokens.and.returnValue(of([hotpToken]));
 
     fixture.detectChanges();

@@ -83,10 +83,10 @@ export class Token {
 }
 
 export enum EnrollmentStatus {
-  unpaired = 'unpaired',
-  pairing_response_received = 'pairing_response_received',
-  pairing_challenge_sent = 'pairing_challenge_sent',
-  completed = 'completed',
+  UNPAIRED = 'unpaired',
+  PAIRING_RESPONSE_RECEIVED = 'pairing_response_received',
+  PAIRING_CHALLENGE_SENT = 'pairing_challenge_sent',
+  COMPLETED = 'completed',
 }
 
 export interface EnrollToken {

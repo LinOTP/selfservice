@@ -10,13 +10,13 @@ import { AuthService } from '../auth/auth.service';
 const session = '';
 
 const mockReadyEnabledToken = new Token(1, 'serial', TokenType.UNKNOWN, true, 'desc');
-mockReadyEnabledToken.enrollmentStatus = EnrollmentStatus.completed;
+mockReadyEnabledToken.enrollmentStatus = EnrollmentStatus.COMPLETED;
 
 const mockReadyDisabledToken = new Token(2, 'serial2', TokenType.UNKNOWN, false, 'desc');
-mockReadyDisabledToken.enrollmentStatus = EnrollmentStatus.completed;
+mockReadyDisabledToken.enrollmentStatus = EnrollmentStatus.COMPLETED;
 
 const mockUnreadyDisabledToken = new Token(3, 'serial3', TokenType.UNKNOWN, false, 'desc');
-mockUnreadyDisabledToken.enrollmentStatus = EnrollmentStatus.unpaired;
+mockUnreadyDisabledToken.enrollmentStatus = EnrollmentStatus.UNPAIRED;
 
 const mockTokens: Token[] = [mockReadyEnabledToken, mockReadyDisabledToken, mockUnreadyDisabledToken];
 

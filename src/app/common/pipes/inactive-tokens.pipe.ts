@@ -8,7 +8,7 @@ import { Token, EnrollmentStatus } from '../../api/token';
 export class InactiveTokensPipe implements PipeTransform {
 
   transform(value: Token[]): any {
-    return value.filter(t => t.enrollmentStatus === EnrollmentStatus.completed && !t.enabled);
+    return value.filter(t => t.enrollmentStatus === EnrollmentStatus.COMPLETED && !t.enabled);
   }
 
 }

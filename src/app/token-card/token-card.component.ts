@@ -150,7 +150,7 @@ export class TokenCardComponent implements OnInit {
 
   public pendingDelete(): boolean {
     let deletePending = false;
-    if (this.token.enrollmentStatus === EnrollmentStatus.unpaired) {
+    if (this.token.enrollmentStatus === EnrollmentStatus.UNPAIRED) {
       deletePending = this.token.type === TokenType.PUSH || this.token.type === TokenType.QR;
     }
     return deletePending;
@@ -158,7 +158,7 @@ export class TokenCardComponent implements OnInit {
 
   public pendingActivate(): boolean {
     let activatePending = false;
-    if (this.token.enrollmentStatus === EnrollmentStatus.pairing_response_received) {
+    if (this.token.enrollmentStatus === EnrollmentStatus.PAIRING_RESPONSE_RECEIVED) {
       activatePending = this.token.type === TokenType.PUSH || this.token.type === TokenType.QR;
     }
     return activatePending;

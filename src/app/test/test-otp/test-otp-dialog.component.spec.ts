@@ -87,11 +87,11 @@ describe('TestOTPDialogComponent', () => {
     it('should not call token service to test token if form is invalid', async(() => {
       component.formGroup.reset();
       fixture.detectChanges();
-      expect(component.state).toBe(component.TestState.untested);
+      expect(component.state).toBe(component.TestState.UNTESTED);
 
       component.submit();
       expect(tokenService.testToken).not.toHaveBeenCalled();
-      expect(component.state).toBe(component.TestState.untested);
+      expect(component.state).toBe(component.TestState.UNTESTED);
     }));
 
     it('should set component to success state if test succeeds', () => {

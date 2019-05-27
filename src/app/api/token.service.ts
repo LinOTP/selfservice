@@ -135,7 +135,7 @@ export class TokenService {
   pairingPoll(serial: string): Observable<any> {
     return interval(2000).pipe(
       mergeMap(() => this.getToken(serial)),
-      filter(token => token.enrollmentStatus === EnrollmentStatus.pairing_response_received),
+      filter(token => token.enrollmentStatus === EnrollmentStatus.PAIRING_RESPONSE_RECEIVED),
       take(1));
   }
 

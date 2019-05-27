@@ -7,10 +7,10 @@ import { Token, EnrollmentStatus } from '../../api/token';
 export class SortTokensByStatePipe implements PipeTransform {
 
   private tokenOrder: { [status: string]: number } = {
-    [EnrollmentStatus.unpaired]: 0,
-    [EnrollmentStatus.pairing_challenge_sent]: 1,
-    [EnrollmentStatus.pairing_response_received]: 2,
-    [EnrollmentStatus.completed]: 3,
+    [EnrollmentStatus.UNPAIRED]: 0,
+    [EnrollmentStatus.PAIRING_CHALLENGE_SENT]: 1,
+    [EnrollmentStatus.PAIRING_RESPONSE_RECEIVED]: 2,
+    [EnrollmentStatus.COMPLETED]: 3,
   };
 
   transform(value: Token[], args?: any): any {

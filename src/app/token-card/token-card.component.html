@@ -15,7 +15,7 @@
   <mat-card-content>
     <p>Serial: {{ token.serial }}</p>
     <ng-container [ngSwitch]="token.enrollmentStatus">
-      <p *ngSwitchCase="EnrollmentStatus.unpaired">
+      <p *ngSwitchCase="EnrollmentStatus.UNPAIRED">
         <ng-container *ngIf="isPush(); else otherTokenTypes">
           There was a problem with this token and it cannot be used. Make sure to delete it and reset your
           Authenticator app before enrolling a new push token.
@@ -26,10 +26,10 @@
           mobile application. Afterwards you can start the activation here.
         </ng-template>
       </p>
-      <p *ngSwitchCase="EnrollmentStatus.pairing_response_received">
+      <p *ngSwitchCase="EnrollmentStatus.PAIRING_RESPONSE_RECEIVED">
         This token is paired with your mobile. The next step is the activation:
       </p>
-      <p *ngSwitchCase="EnrollmentStatus.pairing_challenge_sent">
+      <p *ngSwitchCase="EnrollmentStatus.PAIRING_CHALLENGE_SENT">
         An activation challenge has been generated. Please process it with your authenticator
       </p>
     </ng-container>
@@ -59,7 +59,7 @@
   </button>
   <button mat-menu-item
           (click)="testToken()"
-          *ngIf="token.enrollmentStatus === EnrollmentStatus.completed && token.enabled">
+          *ngIf="token.enrollmentStatus === EnrollmentStatus.COMPLETED && token.enabled">
     <mat-icon>check_circle</mat-icon>
     <span>test</span>
   </button>
