@@ -2,7 +2,7 @@ import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { By } from '@angular/platform-browser';
 
 import { of } from 'rxjs';
@@ -50,7 +50,7 @@ describe('The EnrollHotpDialogComponent', () => {
         },
         { provide: MatDialog, useValue: spyOnClass(MatDialog) },
         { provide: MatDialogRef, useValue: spyOnClass(MatDialogRef) },
-
+        { provide: MAT_DIALOG_DATA, useValue: { closeLabel: null } },
       ],
     })
       .compileComponents();
@@ -122,21 +122,12 @@ describe('The EnrollHotpDialogComponent', () => {
     expect(notificationService.message).toHaveBeenCalledTimes(1);
   }));
 
-  it('goToTest should open a token test dialog', fakeAsync(() => {
-    const token = Fixtures.activeHotpToken;
-    const expectedConfig = {
-      width: '650px',
-      data: token
-    };
-    tokenService.getToken.and.returnValue(of(token));
-    component.enrolledToken = { serial: token.serial, url: 'some url' };
+  it('close should return token serial', fakeAsync(() => {
+    component.enrolledToken = { serial: 'testSerial', url: 'testUrl' };
     fixture.detectChanges();
-    component.goToTest();
 
-    expect(tokenService.getToken).toHaveBeenCalledWith(token.serial);
-    expect(dialogRef.close).toHaveBeenCalled();
-    expect(matDialog.open).toHaveBeenCalledWith(TestOTPDialogComponent, expectedConfig);
-
+    component.closeDialog();
+    expect(dialogRef.close).toHaveBeenCalledWith(component.enrolledToken.serial);
   }));
 
 });

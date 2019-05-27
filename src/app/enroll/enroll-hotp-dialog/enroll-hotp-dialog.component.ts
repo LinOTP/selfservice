@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef, MatStepper } from '@angular/material';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialog, MatDialogRef, MatStepper, MAT_DIALOG_DATA } from '@angular/material';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { SetPinDialogComponent } from '../../common/set-pin-dialog/set-pin-dialog.component';
@@ -7,7 +7,6 @@ import { NotificationService } from '../../common/notification.service';
 
 import { TokenService } from '../../api/token.service';
 import { TokenType } from '../../api/token';
-import { TestOTPDialogComponent } from '../../test/test-otp/test-otp-dialog.component';
 
 @Component({
   selector: 'app-enroll-hotp',
@@ -31,6 +30,7 @@ export class EnrollHotpDialogComponent implements OnInit {
     private tokenService: TokenService,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<EnrollHotpDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { closeLabel: string },
     public notificationService: NotificationService,
   ) {
   }
@@ -105,24 +105,16 @@ export class EnrollHotpDialogComponent implements OnInit {
    * Cancel the dialog and return false as result
    */
   public cancelDialog() {
-    this.dialogRef.close({ result: false });
+    if (this.enrolledToken) {
+      this.tokenService.deleteToken(this.enrolledToken.serial).subscribe();
+    }
+    this.dialogRef.close(false);
   }
 
   /**
-   * Close the dialog and return true for successfull creation
+   * Close the dialog and return serial of successfully created token
    */
   public closeDialog() {
-    this.dialogRef.close({ result: true });
-  }
-
-  public goToTest() {
-    this.tokenService.getToken(this.enrolledToken.serial).subscribe(token => {
-      const config = {
-        width: '650px',
-        data: token
-      };
-      this.dialogRef.close();
-      this.dialog.open(TestOTPDialogComponent, config);
-    });
+    this.dialogRef.close(this.enrolledToken.serial);
   }
 }

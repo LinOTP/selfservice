@@ -1,10 +1,17 @@
 import { Component, OnInit, Output } from '@angular/core';
-import { TokenTypeDetails, tokenTypeDetails } from '../api/token';
 import { MatDialog } from '@angular/material';
-import { EnrollHotpDialogComponent } from '../enroll/enroll-hotp-dialog/enroll-hotp-dialog.component';
+
+import { Subject, of } from 'rxjs';
+import { switchMap, catchError, filter, tap } from 'rxjs/operators';
+
+import { TokenTypeDetails, tokenTypeDetails, Token } from '../api/token';
+import { TokenService } from '../api/token.service';
+
 import { NotificationService } from '../common/notification.service';
-import { Subject } from 'rxjs';
+
+import { EnrollHotpDialogComponent } from '../enroll/enroll-hotp-dialog/enroll-hotp-dialog.component';
 import { EnrollPushDialogComponent } from '../enroll/enroll-push-dialog/enroll-push-dialog.component';
+import { TestOTPDialogComponent } from '../test/test-otp/test-otp-dialog.component';
 
 @Component({
   selector: 'app-enrollment-grid',
@@ -20,18 +27,12 @@ export class EnrollmentGridComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
+    private tokenService: TokenService,
     private notificationService: NotificationService,
   ) {
   }
 
-  public ngOnInit() {
-
-    this.dialogConfig = {
-      width: '850px',
-      autoFocus: false,
-      disableClose: true
-    };
-  }
+  public ngOnInit() { }
 
   public startEnrollment(tokentype: TokenTypeDetails) {
     if (tokentype.type === 'hmac') {
@@ -46,14 +47,32 @@ export class EnrollmentGridComponent implements OnInit {
    * Open hotp dialog and show an success message if token was created
    */
   public openHotpDialog() {
+
+    this.dialogConfig = {
+      width: '850px',
+      autoFocus: false,
+      disableClose: true,
+      data: { closeLabel: 'Test token' },
+    };
     this.dialog.open(EnrollHotpDialogComponent, this.dialogConfig)
       .afterClosed()
-      .subscribe((showMessage) => {
-        if (showMessage.result) {
-          this.notificationService.message('Hotp token successfully created');
-        }
-        this.tokenUpdate.next();
-      });
+      .pipe(
+        filter(serial => !!serial),
+        switchMap(serial => this.tokenService.getToken(serial)),
+        tap(token => {
+          if (!token) {
+            this.notificationService.message('There was a problem starting the token test, please try manually later.');
+          }
+        }),
+        filter(token => !!token),
+        switchMap(token => {
+          const config = {
+            width: '650px',
+            data: token
+          };
+          return this.dialog.open(TestOTPDialogComponent, config).afterClosed();
+        })
+      ).subscribe(() => this.tokenUpdate.next());
   }
 
   public openPushDialog() {
