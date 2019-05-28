@@ -25,6 +25,7 @@ import { TokenCardComponent } from './token-card/token-card.component';
 import { EnrollmentGridComponent } from './enrollment-grid/enrollment-grid.component';
 import { AppInitService } from './app-init.service';
 import { ActivateQrDialogComponent } from './activate/activate-qr/activate-qr-dialog.component';
+import { TestOTPDialogComponent } from './test/test-otp/test-otp-dialog.component';
 
 
 @NgModule({
@@ -39,12 +40,14 @@ import { ActivateQrDialogComponent } from './activate/activate-qr/activate-qr-di
     EnrollPushDialogComponent,
     TokenCardComponent,
     EnrollmentGridComponent,
+    TestOTPDialogComponent,
   ],
   entryComponents: [
     ActivateQrDialogComponent,
     ActivatePushDialogComponent,
     EnrollHotpDialogComponent,
     EnrollPushDialogComponent,
+    TestOTPDialogComponent,
   ],
   imports: [
     BrowserModule,

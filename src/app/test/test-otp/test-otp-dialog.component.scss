@@ -1,0 +1,15 @@
+.mat-dialog-actions {
+  justify-content: flex-end;
+
+  button {
+    text-transform: uppercase;
+  }
+}
+
+mat-form-field {
+  display: block;
+}
+
+.dialog-input {
+  margin: 25px 0;
+}

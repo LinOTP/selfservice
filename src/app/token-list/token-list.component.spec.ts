@@ -18,6 +18,7 @@ import { ArrayNotEmptyPipe } from '../common/pipes/array-not-empty.pipe';
 import { ActiveTokensPipe } from '../common/pipes/active-tokens.pipe';
 import { InactiveTokensPipe } from '../common/pipes/inactive-tokens.pipe';
 import { UnreadyTokensPipe } from '../common/pipes/unready-tokens.pipe';
+import { CapitalizePipe } from '../common/pipes/capitalize.pipe';
 
 class Page extends TestingPage<TokenListComponent> {
 
@@ -64,6 +65,7 @@ describe('TokenListComponent with permissions', () => {
         ActiveTokensPipe,
         InactiveTokensPipe,
         UnreadyTokensPipe,
+        CapitalizePipe,
         NgxPermissionsAllowStubDirective,
       ],
       providers: [
@@ -110,7 +112,7 @@ describe('TokenListComponent with permissions', () => {
 
   it('should render expected title and text for active authentication and alternative auth. method section', () => {
     const hotpToken = Fixtures.activeHotpToken;
-    hotpToken.enrollmentStatus = EnrollmentStatus.completed;
+    hotpToken.enrollmentStatus = EnrollmentStatus.COMPLETED;
 
     tokenService.getTokens.and.returnValue(of([hotpToken]));
 
@@ -130,7 +132,7 @@ describe('TokenListComponent with permissions', () => {
 
   it('should render expected title and text for the pending and alternative auth. method section', () => {
     const hotpToken = Fixtures.activeHotpToken;
-    hotpToken.enrollmentStatus = EnrollmentStatus.unpaired;
+    hotpToken.enrollmentStatus = EnrollmentStatus.UNPAIRED;
     tokenService.getTokens.and.returnValue(of([hotpToken]));
 
     fixture.detectChanges();

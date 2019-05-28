@@ -6,6 +6,10 @@ export class Fixtures {
     return new Token(1, 'Active-Hotp-Token-Serial', TokenType.HOTP, true, 'Description');
   }
 
+  static get activeTotpToken(): Token {
+    return new Token(1, 'Active-Totp-Token-Serial', TokenType.TOTP, true, 'Description');
+  }
+
   static get activePushToken(): Token {
     return new Token(2, 'Active-PushToken-Serial', TokenType.PUSH, true, 'Description');
   }
@@ -24,37 +28,37 @@ export class Fixtures {
 
   static get unpairedPushToken(): Token {
     const token = new Token(5, 'Paired-PushToken-Serial', TokenType.PUSH, true, 'Description');
-    token.enrollmentStatus = EnrollmentStatus.unpaired;
+    token.enrollmentStatus = EnrollmentStatus.UNPAIRED;
     return token;
   }
 
   static get pairedPushToken(): Token {
     const token = new Token(5, 'Paired-PushToken-Serial', TokenType.PUSH, true, 'Description');
-    token.enrollmentStatus = EnrollmentStatus.pairing_response_received;
+    token.enrollmentStatus = EnrollmentStatus.PAIRING_RESPONSE_RECEIVED;
     return token;
   }
 
   static get pairedQRToken(): Token {
     const token = new Token(5, 'Paired-QRToken-Serial', TokenType.QR, true, 'QR token Description');
-    token.enrollmentStatus = EnrollmentStatus.pairing_response_received;
+    token.enrollmentStatus = EnrollmentStatus.PAIRING_RESPONSE_RECEIVED;
     return token;
   }
 
   static get unpairedQRToken(): Token {
     const token = new Token(5, 'Unpaired-QRToken-Serial', TokenType.QR, true, 'QR token Description');
-    token.enrollmentStatus = EnrollmentStatus.unpaired;
+    token.enrollmentStatus = EnrollmentStatus.UNPAIRED;
     return token;
   }
 
   static get completedPushToken(): Token {
     const token = new Token(5, 'Paired-PushToken-Serial', TokenType.PUSH, true, 'Description');
-    token.enrollmentStatus = EnrollmentStatus.completed;
+    token.enrollmentStatus = EnrollmentStatus.COMPLETED;
     return token;
   }
 
   static get completedQRToken(): Token {
     const token = new Token(5, 'Paired-QRToken-Serial', TokenType.QR, true, 'QR token Description');
-    token.enrollmentStatus = EnrollmentStatus.completed;
+    token.enrollmentStatus = EnrollmentStatus.COMPLETED;
     return token;
   }
 

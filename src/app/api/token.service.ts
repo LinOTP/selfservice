@@ -44,7 +44,7 @@ export class TokenService {
       const t = new Token(
         token['LinOtp.TokenId'],
         token['LinOtp.TokenSerialnumber'],
-        token['LinOtp.TokenType'],
+        token['LinOtp.TokenType'].toLowerCase(),
         token['LinOtp.Isactive'],
         token['LinOtp.TokenDesc']
       );
@@ -135,7 +135,7 @@ export class TokenService {
   pairingPoll(serial: string): Observable<any> {
     return interval(2000).pipe(
       mergeMap(() => this.getToken(serial)),
-      filter(token => token.enrollmentStatus === EnrollmentStatus.pairing_response_received),
+      filter(token => token.enrollmentStatus === EnrollmentStatus.PAIRING_RESPONSE_RECEIVED),
       take(1));
   }
 
@@ -174,11 +174,12 @@ export class TokenService {
     );
   }
 
-  testToken(tokenSerial: String, pin: String, otp: String) {
+  testToken(tokenSerial: String, pin: String = '', otp: String): Observable<boolean> {
     const body = { serial: tokenSerial, pass: `${pin}${otp}` };
 
-    return this.http.post(this.validateCheckS, body)
+    return this.http.post<LinOTPResponse<boolean>>(this.validateCheckS, body)
       .pipe(
+        map(response => response && response.result && response.result.value === true),
         catchError(this.handleError('test token', null))
       );
   }

@@ -10,11 +10,16 @@ import { MatDialog } from '@angular/material';
 import { TokenTypeDetails } from '../api/token';
 import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
 import { Fixtures } from '../../testing/fixtures';
+import { CapitalizePipe } from '../common/pipes/capitalize.pipe';
+import { TokenService } from '../api/token.service';
+import { EnrollHotpDialogComponent } from '../enroll/enroll-hotp-dialog/enroll-hotp-dialog.component';
+import { TestOTPDialogComponent } from '../test/test-otp/test-otp-dialog.component';
 
 describe('EnrollmentGridComponent', () => {
   let component: EnrollmentGridComponent;
   let fixture: ComponentFixture<EnrollmentGridComponent>;
   let notificationService: NotificationService;
+  let tokenService: jasmine.SpyObj<TokenService>;
   let matDialog: jasmine.SpyObj<MatDialog>;
   let tokenUpdateSpy;
 
@@ -27,11 +32,16 @@ describe('EnrollmentGridComponent', () => {
       declarations: [
         EnrollmentGridComponent,
         NgxPermissionsAllowStubDirective,
+        CapitalizePipe,
       ],
       providers: [
         {
           provide: NotificationService,
           useValue: spyOnClass(NotificationService),
+        },
+        {
+          provide: TokenService,
+          useValue: spyOnClass(TokenService),
         },
         { provide: MatDialog, useValue: spyOnClass(MatDialog) }
 
@@ -44,6 +54,7 @@ describe('EnrollmentGridComponent', () => {
     fixture = TestBed.createComponent(EnrollmentGridComponent);
     component = fixture.componentInstance;
     notificationService = TestBed.get(NotificationService);
+    tokenService = TestBed.get(TokenService);
     matDialog = TestBed.get(MatDialog);
     tokenUpdateSpy = spyOn(component.tokenUpdate, 'next');
 
@@ -54,22 +65,70 @@ describe('EnrollmentGridComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should open the hotp dialog and  call the notification service if completed', fakeAsync(() => {
-    generateHotpScenario(true);
+  it('should open the hotp dialog and update the token list when completed', fakeAsync(() => {
+    const token = Fixtures.activeHotpToken;
+    const expectedEnrollDialogConfig = {
+      width: '850px',
+      autoFocus: false,
+      disableClose: true,
+      data: { closeLabel: 'Test token' },
+    };
+    const expectedTestDialogConfig = {
+      width: '650px',
+      data: token
+    };
+    matDialog.open.and.returnValues({ afterClosed: () => of(token.serial) }, { afterClosed: () => of(true) });
+    tokenService.getToken.and.returnValue(of(token));
+    component.openHotpDialog();
     tick();
 
-    expect(matDialog.open).toHaveBeenCalledTimes(1);
-    expect(notificationService.message).toHaveBeenCalledTimes(1);
+    expect(matDialog.open).toHaveBeenCalledWith(EnrollHotpDialogComponent, expectedEnrollDialogConfig);
+    expect(tokenService.getToken).toHaveBeenCalledWith(token.serial);
+    expect(matDialog.open).toHaveBeenCalledWith(TestOTPDialogComponent, expectedTestDialogConfig);
     expect(tokenUpdateSpy).toHaveBeenCalledTimes(1);
   }));
 
+  it('should notify the user if there was an issue retrieving the token before the test', fakeAsync(() => {
+    const token = Fixtures.activeHotpToken;
+    const expectedEnrollDialogConfig = {
+      width: '850px',
+      autoFocus: false,
+      disableClose: true,
+      data: { closeLabel: 'Test token' },
+    };
+    const expectedTestDialogConfig = {
+      width: '650px',
+      data: token
+    };
+    matDialog.open.and.returnValue({ afterClosed: () => of('serial') });
+    tokenService.getToken.and.returnValue(of(null));
+    component.openHotpDialog();
+    tick();
+
+    expect(matDialog.open).toHaveBeenCalledTimes(1);
+    expect(notificationService.message).toHaveBeenCalledWith('There was a problem starting the token test, please try manually later.');
+    expect(tokenUpdateSpy).not.toHaveBeenCalled();
+  }));
+
   it('should not notify the user if the enrollment was cancelled', fakeAsync(() => {
-    generateHotpScenario(false);
+    const token = Fixtures.activeHotpToken;
+    const expectedEnrollDialogConfig = {
+      width: '850px',
+      autoFocus: false,
+      disableClose: true,
+      data: { closeLabel: 'Test token' },
+    };
+    const expectedTestDialogConfig = {
+      width: '650px',
+      data: token
+    };
+    matDialog.open.and.returnValue({ afterClosed: () => of(null) });
+    component.openHotpDialog();
     tick();
 
     expect(matDialog.open).toHaveBeenCalledTimes(1);
     expect(notificationService.message).not.toHaveBeenCalled();
-    expect(tokenUpdateSpy).toHaveBeenCalledTimes(1);
+    expect(tokenUpdateSpy).not.toHaveBeenCalled();
   }));
 
   it('should open the push dialog and trigger the token list updater', fakeAsync(() => {

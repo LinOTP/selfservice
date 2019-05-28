@@ -1,21 +1,22 @@
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MockComponent } from '../../../testing/mock-component';
-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { By } from '@angular/platform-browser';
+
+import { of } from 'rxjs';
+
+import { Fixtures } from '../../../testing/fixtures';
+import { MockComponent } from '../../../testing/mock-component';
+import { spyOnClass } from '../../../testing/spyOnClass';
 
 import { MaterialModule } from '../../material.module';
 import { TokenService } from '../../api/token.service';
+import { NotificationService } from '../../common/notification.service';
 
 import { EnrollHotpDialogComponent } from './enroll-hotp-dialog.component';
-
-import { of } from 'rxjs';
-import { NotificationService } from '../../common/notification.service';
-import { spyOnClass } from '../../../testing/spyOnClass';
-import { MatDialog, MatDialogRef } from '@angular/material';
-import { By } from '@angular/platform-browser';
-import { Fixtures } from '../../../testing/fixtures';
+import { TestOTPDialogComponent } from '../../test/test-otp/test-otp-dialog.component';
 
 describe('The EnrollHotpDialogComponent', () => {
   let component: EnrollHotpDialogComponent;
@@ -23,7 +24,7 @@ describe('The EnrollHotpDialogComponent', () => {
   let matDialog: jasmine.SpyObj<MatDialog>;
   let notificationService: NotificationService;
   let tokenService: jasmine.SpyObj<TokenService>;
-
+  let dialogRef: jasmine.SpyObj<MatDialogRef<EnrollHotpDialogComponent>>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -49,7 +50,7 @@ describe('The EnrollHotpDialogComponent', () => {
         },
         { provide: MatDialog, useValue: spyOnClass(MatDialog) },
         { provide: MatDialogRef, useValue: spyOnClass(MatDialogRef) },
-
+        { provide: MAT_DIALOG_DATA, useValue: { closeLabel: null } },
       ],
     })
       .compileComponents();
@@ -61,6 +62,7 @@ describe('The EnrollHotpDialogComponent', () => {
     matDialog = TestBed.get(MatDialog);
     notificationService = TestBed.get(NotificationService);
     tokenService = TestBed.get(TokenService);
+    dialogRef = TestBed.get(MatDialogRef);
     fixture.detectChanges();
   });
 
@@ -68,8 +70,8 @@ describe('The EnrollHotpDialogComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have an initial step of 1 and max hotp step of 4', () => {
-    expect(component.maxSteps).toEqual(4);
+  it('should have an initial step of 1 and max hotp step of 3', () => {
+    expect(component.maxSteps).toEqual(3);
     expect(component.currentStep).toEqual(1);
   });
 
@@ -104,7 +106,6 @@ describe('The EnrollHotpDialogComponent', () => {
     expect(component.currentStep).toEqual(2);
   }));
 
-
   it('should output message if enrollment failed', fakeAsync(() => {
     const mockEnrollmentResponse = Fixtures.enrollmentResponse;
     mockEnrollmentResponse.result.value = false;
@@ -121,34 +122,12 @@ describe('The EnrollHotpDialogComponent', () => {
     expect(notificationService.message).toHaveBeenCalledTimes(1);
   }));
 
-  it('should change component view values after testing the token was successfull', fakeAsync(() => {
-    const mockEnrollmentResponse = Fixtures.enrollmentResponse;
-    mockEnrollmentResponse.result.value = true;
-
+  it('close should return token serial', fakeAsync(() => {
     component.enrolledToken = { serial: 'testSerial', url: 'testUrl' };
-    component.testStep.controls.pin.setValue('testPin');
-    component.testStep.controls.otp.setValue('testOTP');
-    tokenService.testToken.and.returnValue(of(mockEnrollmentResponse));
-    component.testToken();
-    tick();
+    fixture.detectChanges();
 
-    expect(component.testSuccessful).toEqual(true);
-    expect(component.testFailed).toEqual(false);
-  }));
-
-  it('should change component view values after testing the token failed', fakeAsync(() => {
-    const mockEnrollmentResponse = Fixtures.enrollmentResponse;
-    mockEnrollmentResponse.result.value = false;
-
-    component.enrolledToken = { serial: 'testSerial', url: 'testUrl' };
-    component.testStep.controls.pin.setValue('testPin');
-    component.testStep.controls.otp.setValue('testOTP');
-    tokenService.testToken.and.returnValue(of(mockEnrollmentResponse));
-    component.testToken();
-    tick();
-
-    expect(component.testSuccessful).toEqual(false);
-    expect(component.testFailed).toEqual(true);
+    component.closeDialog();
+    expect(dialogRef.close).toHaveBeenCalledWith(component.enrolledToken.serial);
   }));
 
 });

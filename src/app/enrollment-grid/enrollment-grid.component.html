@@ -4,7 +4,7 @@
             *ngxPermissionsOnly="type.enrollmentPermission">
     <mat-card-header>
       <mat-icon mat-card-avatar>{{type.icon}}</mat-icon>
-      <mat-card-title>{{type.name}}</mat-card-title>
+      <mat-card-title>{{type.name | capitalize }}</mat-card-title>
       <mat-card-subtitle class="description">
         {{type.description}}
       </mat-card-subtitle>

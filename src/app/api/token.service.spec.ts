@@ -4,19 +4,19 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { TokenService } from './token.service';
-import { Token, EnrollmentStatus } from './token';
+import { Token, EnrollmentStatus, TokenType } from './token';
 import { AuthService } from '../auth/auth.service';
 
 const session = '';
 
-const mockReadyEnabledToken = new Token(1, 'serial', 'foo', true, 'desc');
-mockReadyEnabledToken.enrollmentStatus = EnrollmentStatus.completed;
+const mockReadyEnabledToken = new Token(1, 'serial', TokenType.UNKNOWN, true, 'desc');
+mockReadyEnabledToken.enrollmentStatus = EnrollmentStatus.COMPLETED;
 
-const mockReadyDisabledToken = new Token(2, 'serial2', 'foo', false, 'desc');
-mockReadyDisabledToken.enrollmentStatus = EnrollmentStatus.completed;
+const mockReadyDisabledToken = new Token(2, 'serial2', TokenType.UNKNOWN, false, 'desc');
+mockReadyDisabledToken.enrollmentStatus = EnrollmentStatus.COMPLETED;
 
-const mockUnreadyDisabledToken = new Token(3, 'serial3', 'foo', false, 'desc');
-mockUnreadyDisabledToken.enrollmentStatus = EnrollmentStatus.unpaired;
+const mockUnreadyDisabledToken = new Token(3, 'serial3', TokenType.UNKNOWN, false, 'desc');
+mockUnreadyDisabledToken.enrollmentStatus = EnrollmentStatus.UNPAIRED;
 
 const mockTokens: Token[] = [mockReadyEnabledToken, mockReadyDisabledToken, mockUnreadyDisabledToken];
 

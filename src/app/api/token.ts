@@ -21,21 +21,21 @@ export enum TokenType {
 export const tokenTypeDetails: TokenTypeDetails[] = [
   {
     type: TokenType.PASSWORD,
-    name: 'Password token',
+    name: 'password token',
     description: 'Personal text-based secret',
     icon: 'keyboard',
     enrollmentPermission: Permission.ENROLLPASSWORD,
   },
   {
     type: TokenType.HOTP,
-    name: 'Soft token (event)',
+    name: 'soft token (event)',
     description: 'Event-based soft token (HOTP)',
     icon: 'cached',
     enrollmentPermission: Permission.ENROLLHOTP,
   },
   {
     type: TokenType.TOTP,
-    name: 'Soft token (time)',
+    name: 'soft token (time)',
     description: 'Time-based soft token (TOTP)',
     icon: 'timelapse',
     enrollmentPermission: Permission.ENROLLTOTP,
@@ -73,24 +73,23 @@ export class Token {
   constructor(
     public id: number,
     public serial: string,
-    public type: string,
+    public type: TokenType,
     public enabled: boolean,
     public description?: string,
   ) {
-    this.type = this.type.toLowerCase();
     this.typeDetails = tokenTypeDetails.find(tt => tt.type === this.type) || unknownTokenType;
   }
 
 }
 
-export class EnrollmentStatus {
-  public static unpaired = 'unpaired';
-  public static pairing_response_received = 'pairing_response_received';
-  public static pairing_challenge_sent = 'pairing_challenge_sent';
-  public static completed = 'completed';
+export enum EnrollmentStatus {
+  UNPAIRED = 'unpaired',
+  PAIRING_RESPONSE_RECEIVED = 'pairing_response_received',
+  PAIRING_CHALLENGE_SENT = 'pairing_challenge_sent',
+  COMPLETED = 'completed',
 }
 
 export interface EnrollToken {
-  type: string;
+  type: TokenType;
   description: string;
 }

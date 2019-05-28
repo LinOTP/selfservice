@@ -7,15 +7,17 @@ import { MaterialModule } from '../material.module';
 import { NotificationService } from './notification.service';
 
 import { DialogComponent } from './dialog/dialog.component';
+import { SetPinDialogComponent } from './set-pin-dialog/set-pin-dialog.component';
 
 import { UnreadyTokensPipe } from './pipes/unready-tokens.pipe';
 import { ActiveTokensPipe } from './pipes/active-tokens.pipe';
 import { InactiveTokensPipe } from './pipes/inactive-tokens.pipe';
 import { ArrayNotEmptyPipe } from './pipes/array-not-empty.pipe';
 import { SortTokensByStatePipe } from './pipes/sort-tokens-by-state.pipe';
-import { SetPinDialogComponent } from './set-pin-dialog/set-pin-dialog.component';
 import { QRCodeComponent } from './qr-code/qr-code.component';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
+import { CapitalizePipe } from '../common/pipes/capitalize.pipe';
+
 
 @NgModule({
   imports: [
@@ -34,6 +36,7 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
     InactiveTokensPipe,
     ArrayNotEmptyPipe,
     SortTokensByStatePipe,
+    CapitalizePipe,
   ],
   entryComponents: [
     DialogComponent,
@@ -49,6 +52,7 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
     InactiveTokensPipe,
     ArrayNotEmptyPipe,
     SortTokensByStatePipe,
+    CapitalizePipe,
   ]
 })
 export class NgSelfServiceCommonModule { }
