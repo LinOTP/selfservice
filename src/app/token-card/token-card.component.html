@@ -1,4 +1,5 @@
-<mat-card *ngIf="token">
+<mat-card *ngIf="token"
+          [ngClass]="{disabled: !token.enabled && token.enrollmentStatus === EnrollmentStatus.COMPLETED }">
   <mat-card-header>
     <mat-icon mat-card-avatar>{{token.typeDetails.icon}}</mat-icon>
     <mat-card-title>{{token.typeDetails.name | capitalize}}</mat-card-title>
@@ -64,8 +65,13 @@
     <span>test</span>
   </button>
   <mat-divider></mat-divider>
-  <ng-container *ngIf="!token.enabled; else disableMenuItem">
-    <ng-container *ngxPermissionsOnly="Permission.ENABLE; then enableBlock; else noEnableBlock"> </ng-container>
+  <ng-container *ngIf="token.enrollmentStatus === EnrollmentStatus.COMPLETED">
+    <ng-container *ngIf="!token.enabled">
+      <ng-container *ngxPermissionsOnly="Permission.ENABLE; then enableBlock; else noEnableBlock"> </ng-container>
+    </ng-container>
+    <ng-container *ngIf="token.enabled">
+      <ng-container *ngxPermissionsOnly="Permission.DISABLE; then disableBlock; else noDisableBlock"> </ng-container>
+    </ng-container>
   </ng-container>
   <button mat-menu-item
           (click)="delete()"
@@ -90,10 +96,6 @@
     <mat-icon>check_box</mat-icon>
     <span>enable</span>
   </button>
-</ng-template>
-
-<ng-template #disableMenuItem>
-  <ng-container *ngxPermissionsOnly="Permission.DISABLE; then disableBlock; else noDisableBlock"> </ng-container>
 </ng-template>
 
 <ng-template #disableBlock>

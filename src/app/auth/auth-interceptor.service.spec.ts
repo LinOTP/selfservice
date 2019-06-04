@@ -1,12 +1,11 @@
 import { TestBed, inject } from '@angular/core/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { spyOnClass } from '../../testing/spyOnClass';
+
+import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AuthInterceptor } from './auth-interceptor.service';
 import { AuthService } from './auth.service';
-import { spyOnClass } from '../../testing/spyOnClass';
-import { RouterTestingModule } from '@angular/router/testing';
-import { Router } from '@angular/router';
-import { HTTP_INTERCEPTORS, HttpClient, HttpHandler, HttpRequest, HttpBackend } from '@angular/common/http';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 describe('AuthInterceptor', () => {
 
