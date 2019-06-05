@@ -24,8 +24,12 @@ server {
     try_files $uri $uri/ /index.html =404;
   }
 
-  location /api/ {
-    proxy_pass http://${API_PROXY}/api/;
+  location /userservice/ {
+    proxy_pass http://${API_PROXY}/userservice/;
+  }
+
+  location /validate/ {
+    proxy_pass http://${API_PROXY}/validate/;
   }
 
 }
