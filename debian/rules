@@ -12,4 +12,4 @@ override_dh_auto_configure:
 	yarn install --pure-lockfile
 
 override_dh_auto_build:
-	ng build --configuration=production-en --base-href=/selfservice-v2 --deploy-url=/selfservice-v2
+	ng build --configuration=production-en --base-href=/selfservice-v2/ --deploy-url=/selfservice-v2/
