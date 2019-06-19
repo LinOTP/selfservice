@@ -15,21 +15,17 @@ export class ActivatePushDialogComponent implements OnInit {
   public readonly maxSteps: number = 2;
   public currentStep: number;
   public restartDialog: boolean;
-  public token: Token;
 
   constructor(
     private tokenService: TokenService,
     private dialogRef: MatDialogRef<ActivatePushDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public tokenSerial: string,
+    @Inject(MAT_DIALOG_DATA) public token: Token,
   ) {
   }
 
   public ngOnInit() {
     this.waitingForResponse = false;
     this.currentStep = 1;
-    this.tokenService.getToken(this.tokenSerial).subscribe((nonActivatedPushToken: Token) => {
-      this.token = nonActivatedPushToken;
-    });
   }
 
   public activateToken(stepper: MatStepper): void {

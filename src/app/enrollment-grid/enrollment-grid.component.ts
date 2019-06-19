@@ -43,7 +43,7 @@ export class EnrollmentGridComponent implements OnInit {
         break;
       case TokenType.PUSH:
         enrollmentDialogRef = this.dialog.open(EnrollPushDialogComponent, this.getEnrollmentConfig('Activate Token'));
-        testDialogRef = (token) => this.dialog.open(ActivatePushDialogComponent, this.getTestConfig(token.serial));
+        testDialogRef = (token) => this.dialog.open(ActivatePushDialogComponent, this.getTestConfig(token));
         break;
       default:
         this.notificationService.message('The selected token type cannot be enrolled at the moment.');

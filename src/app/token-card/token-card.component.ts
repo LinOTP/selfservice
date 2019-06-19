@@ -133,7 +133,7 @@ export class TokenCardComponent implements OnInit {
       width: '850px',
       autoFocus: false,
       disableClose: true,
-      data: this.token.serial
+      data: this.token
     };
 
     this.dialog.open(this.chooseActivationDialog(), dialogConfig)
