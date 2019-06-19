@@ -71,15 +71,18 @@ describe('EnrollmentGridComponent', () => {
       width: '850px',
       autoFocus: false,
       disableClose: true,
-      data: { closeLabel: 'Test token' },
+      data: { closeLabel: 'Test Token' },
     };
     const expectedTestDialogConfig = {
       width: '650px',
       data: token
     };
+
+    const testToken: TokenTypeDetails = Fixtures.hmacTokenType;
+
     matDialog.open.and.returnValues({ afterClosed: () => of(token.serial) }, { afterClosed: () => of(true) });
     tokenService.getToken.and.returnValue(of(token));
-    component.openHotpDialog();
+    component.runEnrollmentWorkflow(testToken);
     tick();
 
     expect(matDialog.open).toHaveBeenCalledWith(EnrollHotpDialogComponent, expectedEnrollDialogConfig);
@@ -94,15 +97,18 @@ describe('EnrollmentGridComponent', () => {
       width: '850px',
       autoFocus: false,
       disableClose: true,
-      data: { closeLabel: 'Test token' },
+      data: { closeLabel: 'Test Token' },
     };
     const expectedTestDialogConfig = {
       width: '650px',
       data: token
     };
+
+    const testToken: TokenTypeDetails = Fixtures.hmacTokenType;
+
     matDialog.open.and.returnValue({ afterClosed: () => of('serial') });
     tokenService.getToken.and.returnValue(of(null));
-    component.openHotpDialog();
+    component.runEnrollmentWorkflow(testToken);
     tick();
 
     expect(matDialog.open).toHaveBeenCalledTimes(1);
@@ -116,14 +122,17 @@ describe('EnrollmentGridComponent', () => {
       width: '850px',
       autoFocus: false,
       disableClose: true,
-      data: { closeLabel: 'Test token' },
+      data: { closeLabel: 'Test Token' },
     };
     const expectedTestDialogConfig = {
       width: '650px',
       data: token
     };
+
+    const testToken: TokenTypeDetails = Fixtures.hmacTokenType;
+
     matDialog.open.and.returnValue({ afterClosed: () => of(null) });
-    component.openHotpDialog();
+    component.runEnrollmentWorkflow(testToken);
     tick();
 
     expect(matDialog.open).toHaveBeenCalledTimes(1);
@@ -132,10 +141,11 @@ describe('EnrollmentGridComponent', () => {
   }));
 
   it('should open the push dialog and trigger the token list updater', fakeAsync(() => {
-    matDialog.open.and.returnValue({ afterClosed: () => of({}) });
+    matDialog.open.and.returnValue({ afterClosed: () => of('serial') });
+    tokenService.getToken.and.returnValue(of(Fixtures.unpairedPushToken));
 
     const testToken: TokenTypeDetails = Fixtures.pushTokenType;
-    component.startEnrollment(testToken);
+    component.runEnrollmentWorkflow(testToken);
     tick();
 
     expect(matDialog.open).toHaveBeenCalledTimes(1);
@@ -146,6 +156,6 @@ describe('EnrollmentGridComponent', () => {
     matDialog.open.and.returnValue({ afterClosed: () => of({ result: returnValue }) });
 
     const testToken: TokenTypeDetails = Fixtures.hmacTokenType;
-    component.startEnrollment(testToken);
+    component.runEnrollmentWorkflow(testToken);
   }
 });

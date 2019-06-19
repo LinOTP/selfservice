@@ -6,13 +6,17 @@
   <mat-step [stepControl]="enrollmentStep"
             id="stepDescription">
     <p> You have chosen to enroll a KeyIdentity push token.</p>
-    <p>You need the KI Authenticator app installed on your mobile device to use this kind of token. You can get the app
+    <p>You need the KI Authenticator app installed on your mobile device to
+      use this kind of token. You can get the app
       here:</p>
     <ul>
-      <li><a href="TextResources.AUTHENTICATOR_GOOGLE_PLAY_STORE_URL">Google Play Store</a></li>
-      <li><a href="TextResources.AUTHENTICATOR_APPLE_APP_STORE_URL">Apple App Store</a></li>
+      <li><a href="TextResources.AUTHENTICATOR_GOOGLE_PLAY_STORE_URL">Google
+          Play Store</a></li>
+      <li><a href="TextResources.AUTHENTICATOR_APPLE_APP_STORE_URL">Apple App
+          Store</a></li>
     </ul>
-    <p>Once you have the KI Authenticator installed on your device, you can set a description for your new token and
+    <p>Once you have the KI Authenticator installed on your device, you can
+      set a description for your new token and
       start the
       enrollment process:
     </p>
@@ -22,11 +26,13 @@
                placeholder="Token description"
                formControlName="description"
                autofocus>
-        <mat-error>The token description is required. It should help you identify the token at a later point. It could,
+        <mat-error>The token description is required. It should help you
+          identify the token at a later point. It could,
           for example,
           refer to its usage scenario.
         </mat-error>
-        <mat-hint>The token description should help you identify the token at a later point. It could, for example,
+        <mat-hint>The token description should help you identify the token at
+          a later point. It could, for example,
           refer to its usage
           scenario.
         </mat-hint>
@@ -49,12 +55,14 @@
 
   <mat-step>
     <div *ngIf="enrolledToken">
-      <p>A token with the serial number {{enrolledToken.serial}} (description: {{
+      <p>A token with the serial number {{enrolledToken.serial}}
+        (description: {{
         enrollmentForm.get('description').value }})
         has been enrolled.</p>
       <p>Scan the QR code below with the KI Authenticator app or
         <a target="_blank"
-           [href]="enrolledToken.url">follow this link</a> to start the activation process of the new token.</p>
+           [href]="enrolledToken.url">follow this link</a> to start the
+        activation process of the new token.</p>
       <ngx-qrcode qrc-element-type="url"
                   [qrc-value]="enrolledToken.url"></ngx-qrcode>
     </div>
@@ -67,7 +75,8 @@
   </mat-step>
 
   <mat-step>
-    <p>Your token has been successfully paired. In order to use it, you must activate it first.</p>
+    <p>Your token has been successfully paired. In order to use it, you must
+      activate it first.</p>
     <mat-dialog-actions align="end">
       <div>Enrollment {{currentStep}} of {{maxSteps}}</div>
       <span class="spacer"></span>
@@ -75,8 +84,7 @@
               (click)="close()">Close</button>
       <button mat-raised-button
               color="primary"
-              (click)="goToActivation()"
-              *ngIf="isPaired">Activate Token</button>
+              (click)="closeAndReturnSerial()">Activate Token</button>
     </mat-dialog-actions>
   </mat-step>
 </mat-horizontal-stepper>

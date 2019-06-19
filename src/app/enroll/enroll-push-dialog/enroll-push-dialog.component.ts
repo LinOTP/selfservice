@@ -82,25 +82,6 @@ export class EnrollPushDialogComponent implements OnInit {
   }
 
   /**
-   * Opens the activation dialog with the non activated token
-   * and closes the current enroll push dialog
-   */
-  public goToActivation() {
-    const dialogConfig = {
-      width: '850px',
-      autoFocus: false,
-      disableClose: true,
-      data: this.enrolledToken.serial
-    };
-    this.dialog.open(ActivatePushDialogComponent, dialogConfig)
-      .afterClosed()
-      .subscribe(() => {
-        this.dialogRef.close();
-
-      });
-  }
-
-  /**
    * Increment the current step of the dialog for the view
    */
   public incrementStep(stepper: MatStepper) {
@@ -113,6 +94,13 @@ export class EnrollPushDialogComponent implements OnInit {
   */
   public close() {
     this.dialogRef.close();
+  }
+
+  /**
+  * Close the enrollment dialog and return the serial of the enrolled token.
+  */
+  public closeAndReturnSerial() {
+    this.dialogRef.close(this.enrolledToken.serial);
   }
 
   /**
