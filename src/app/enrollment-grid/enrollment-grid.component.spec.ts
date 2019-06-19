@@ -88,7 +88,7 @@ describe('EnrollmentGridComponent', () => {
     expect(matDialog.open).toHaveBeenCalledWith(EnrollHotpDialogComponent, expectedEnrollDialogConfig);
     expect(tokenService.getToken).toHaveBeenCalledWith(token.serial);
     expect(matDialog.open).toHaveBeenCalledWith(TestOTPDialogComponent, expectedTestDialogConfig);
-    expect(tokenUpdateSpy).toHaveBeenCalledTimes(1);
+    expect(tokenUpdateSpy).toHaveBeenCalledTimes(2);
   }));
 
   it('should notify the user if there was an issue retrieving the token before the test', fakeAsync(() => {
@@ -113,7 +113,7 @@ describe('EnrollmentGridComponent', () => {
 
     expect(matDialog.open).toHaveBeenCalledTimes(1);
     expect(notificationService.message).toHaveBeenCalledWith('There was a problem starting the token test, please try manually later.');
-    expect(tokenUpdateSpy).not.toHaveBeenCalled();
+    expect(tokenUpdateSpy).toHaveBeenCalledTimes(1);
   }));
 
   it('should not notify the user if the enrollment was cancelled', fakeAsync(() => {
@@ -137,7 +137,7 @@ describe('EnrollmentGridComponent', () => {
 
     expect(matDialog.open).toHaveBeenCalledTimes(1);
     expect(notificationService.message).not.toHaveBeenCalled();
-    expect(tokenUpdateSpy).not.toHaveBeenCalled();
+    expect(tokenUpdateSpy).toHaveBeenCalledTimes(1);
   }));
 
   it('should open the push dialog and trigger the token list updater', fakeAsync(() => {
@@ -148,8 +148,7 @@ describe('EnrollmentGridComponent', () => {
     component.runEnrollmentWorkflow(testToken);
     tick();
 
-    expect(matDialog.open).toHaveBeenCalledTimes(1);
-    expect(tokenUpdateSpy).toHaveBeenCalledTimes(1);
+    expect(tokenUpdateSpy).toHaveBeenCalledTimes(2);
   }));
 
   function generateHotpScenario(returnValue: boolean) {

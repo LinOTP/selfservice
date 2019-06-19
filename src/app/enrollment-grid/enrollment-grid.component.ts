@@ -52,6 +52,7 @@ export class EnrollmentGridComponent implements OnInit {
 
     enrollmentDialogRef.afterClosed()
       .pipe(
+        tap(() => this.tokenUpdate.next()),
         filter(serial => !!serial),
         switchMap(serial => this.tokenService.getToken(serial)),
         tap(token => {
