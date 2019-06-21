@@ -1,6 +1,6 @@
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 
-import { ActivateQrDialogComponent } from './activate-qr-dialog.component';
+import { TestQrDialogComponent } from './test-qr-dialog.component';
 import { TokenService } from '../../api/token.service';
 import { spyOnClass } from '../../../testing/spyOnClass';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
@@ -11,9 +11,9 @@ import { of } from 'rxjs/internal/observable/of';
 import { Fixtures } from '../../../testing/fixtures';
 import { EnrollPushDialogComponent } from '../../enroll/enroll-push-dialog/enroll-push-dialog.component';
 
-describe('ActivateQrDialogComponent', () => {
-  let component: ActivateQrDialogComponent;
-  let fixture: ComponentFixture<ActivateQrDialogComponent>;
+describe('TestQrDialogComponent', () => {
+  let component: TestQrDialogComponent;
+  let fixture: ComponentFixture<TestQrDialogComponent>;
   let tokenService: jasmine.SpyObj<TokenService>;
   let dialogRef: jasmine.SpyObj<MatDialogRef<EnrollPushDialogComponent>>;
 
@@ -23,7 +23,7 @@ describe('ActivateQrDialogComponent', () => {
         MaterialModule,
         NoopAnimationsModule,
       ],
-      declarations: [ActivateQrDialogComponent,
+      declarations: [TestQrDialogComponent,
         MockComponent({ selector: 'app-qr-code', inputs: ['qrUrl'] }),
       ],
       providers: [
@@ -39,7 +39,7 @@ describe('ActivateQrDialogComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ActivateQrDialogComponent);
+    fixture = TestBed.createComponent(TestQrDialogComponent);
     component = fixture.componentInstance;
     tokenService = TestBed.get(TokenService);
     dialogRef = TestBed.get(MatDialogRef);

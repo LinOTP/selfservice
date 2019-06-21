@@ -4,16 +4,16 @@ import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs/internal/observable/of';
 
-import { ActivatePushDialogComponent } from './activate-push-dialog.component';
+import { TestPushDialogComponent } from './test-push-dialog.component';
 import { MaterialModule } from '../../material.module';
 import { TokenService } from '../../api/token.service';
 import { spyOnClass } from '../../../testing/spyOnClass';
 import { Fixtures } from '../../../testing/fixtures';
 import { EnrollPushDialogComponent } from '../../enroll/enroll-push-dialog/enroll-push-dialog.component';
 
-describe('ActivatePushDialogComponent', () => {
-  let component: ActivatePushDialogComponent;
-  let fixture: ComponentFixture<ActivatePushDialogComponent>;
+describe('TestPushDialogComponent', () => {
+  let component: TestPushDialogComponent;
+  let fixture: ComponentFixture<TestPushDialogComponent>;
   let tokenService: jasmine.SpyObj<TokenService>;
   let dialogRef: jasmine.SpyObj<MatDialogRef<EnrollPushDialogComponent>>;
 
@@ -24,7 +24,7 @@ describe('ActivatePushDialogComponent', () => {
         NoopAnimationsModule,
       ],
       declarations: [
-        ActivatePushDialogComponent,
+        TestPushDialogComponent,
       ],
       providers: [
         {
@@ -39,13 +39,13 @@ describe('ActivatePushDialogComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ActivatePushDialogComponent);
+    fixture = TestBed.createComponent(TestPushDialogComponent);
     component = fixture.componentInstance;
     tokenService = TestBed.get(TokenService);
     dialogRef = TestBed.get(MatDialogRef);
 
     tokenService.getToken.and.returnValue(of(Fixtures.inactivePushToken));
-    component.token.serial = Fixtures.inactivePushToken.serial;
+    component.token = Fixtures.inactivePushToken;
   });
 
   it('should create', () => {

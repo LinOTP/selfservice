@@ -12,8 +12,6 @@ import { NotificationService } from '../../common/notification.service';
 import { TextResources } from '../../common/static-resources';
 import { DialogComponent } from '../../common/dialog/dialog.component';
 
-import { ActivatePushDialogComponent } from '../../activate/activate-push/activate-push-dialog.component';
-
 @Component({
   selector: 'app-enroll-push',
   templateUrl: './enroll-push-dialog.component.html',

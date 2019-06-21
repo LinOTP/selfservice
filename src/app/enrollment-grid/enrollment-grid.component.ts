@@ -12,7 +12,7 @@ import { NotificationService } from '../common/notification.service';
 import { EnrollHotpDialogComponent } from '../enroll/enroll-hotp-dialog/enroll-hotp-dialog.component';
 import { EnrollPushDialogComponent } from '../enroll/enroll-push-dialog/enroll-push-dialog.component';
 import { TestOTPDialogComponent } from '../test/test-otp/test-otp-dialog.component';
-import { ActivatePushDialogComponent } from '../activate/activate-push/activate-push-dialog.component';
+import { TestPushDialogComponent } from '../test/test-push/test-push-dialog.component';
 
 @Component({
   selector: 'app-enrollment-grid',
@@ -34,7 +34,7 @@ export class EnrollmentGridComponent implements OnInit {
 
   public runEnrollmentWorkflow(tokenType: TokenTypeDetails) {
     let enrollmentDialogRef: MatDialogRef<EnrollHotpDialogComponent | EnrollPushDialogComponent>;
-    let testDialogRef: ((any) => MatDialogRef<TestOTPDialogComponent | ActivatePushDialogComponent>);
+    let testDialogRef: ((any) => MatDialogRef<TestOTPDialogComponent | TestPushDialogComponent>);
 
     switch (tokenType.type) {
       case TokenType.HOTP:
@@ -43,7 +43,7 @@ export class EnrollmentGridComponent implements OnInit {
         break;
       case TokenType.PUSH:
         enrollmentDialogRef = this.dialog.open(EnrollPushDialogComponent, this.getEnrollmentConfig('Activate Token'));
-        testDialogRef = (token) => this.dialog.open(ActivatePushDialogComponent, this.getTestConfig(token));
+        testDialogRef = (token) => this.dialog.open(TestPushDialogComponent, this.getTestConfig(token));
         break;
       default:
         this.notificationService.message('The selected token type cannot be enrolled at the moment.');

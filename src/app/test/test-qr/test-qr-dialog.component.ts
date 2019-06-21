@@ -5,11 +5,11 @@ import { catchError, switchMap, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs/index';
 
 @Component({
-  selector: 'app-activate-qr-dialog',
-  templateUrl: './activate-qr-dialog.component.html',
-  styleUrls: ['./activate-qr-dialog.component.scss']
+  selector: 'app-test-qr-dialog',
+  templateUrl: './test-qr-dialog.component.html',
+  styleUrls: ['./test-qr-dialog.component.scss']
 })
-export class ActivateQrDialogComponent implements OnInit {
+export class TestQrDialogComponent implements OnInit {
   public waitingForResponse: boolean;
   public readonly maxSteps: number = 2;
   public currentStep: number;
@@ -20,7 +20,7 @@ export class ActivateQrDialogComponent implements OnInit {
 
   constructor(
     private tokenService: TokenService,
-    private dialogRef: MatDialogRef<ActivateQrDialogComponent>,
+    private dialogRef: MatDialogRef<TestQrDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public tokenSerial: string,
   ) {
   }
