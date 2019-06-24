@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { TokenService } from '../../api/token.service';
 import { Token } from '../../api/token';
 import { MAT_DIALOG_DATA, MatDialogRef, MatStepper } from '@angular/material';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs/index';
 
 @Component({
@@ -16,6 +16,7 @@ export class TestPushDialogComponent implements OnInit {
   public currentStep: number;
   public restartDialog: boolean;
   public isActivation: boolean = false;
+  public transactionId: string = null;
 
   constructor(
     private tokenService: TokenService,
@@ -41,8 +42,8 @@ export class TestPushDialogComponent implements OnInit {
 
     this.tokenService.activate(this.data.token.serial, pin).pipe(
       map(response => response.detail.transactionid),
-      switchMap(transactionId => this.tokenService.challengePoll(transactionId, pin, this.data.token.serial)
-      ),
+      tap(transactionId => this.transactionId = transactionId.toString().slice(0, 6)),
+      switchMap(transactionId => this.tokenService.challengePoll(transactionId, pin, this.data.token.serial)),
       catchError(this.handleError('token activation', false)),
     ).subscribe((res: boolean) => {
       if (res) {
