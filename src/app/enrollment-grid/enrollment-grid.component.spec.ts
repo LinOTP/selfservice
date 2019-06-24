@@ -14,6 +14,8 @@ import { CapitalizePipe } from '../common/pipes/capitalize.pipe';
 import { TokenService } from '../api/token.service';
 import { EnrollHotpDialogComponent } from '../enroll/enroll-hotp-dialog/enroll-hotp-dialog.component';
 import { TestOTPDialogComponent } from '../test/test-otp/test-otp-dialog.component';
+import { EnrollPushDialogComponent } from '../enroll/enroll-push-dialog/enroll-push-dialog.component';
+import { TestPushDialogComponent } from '../test/test-push/test-push-dialog.component';
 
 describe('EnrollmentGridComponent', () => {
   let component: EnrollmentGridComponent;
@@ -92,16 +94,11 @@ describe('EnrollmentGridComponent', () => {
   }));
 
   it('should notify the user if there was an issue retrieving the token before the test', fakeAsync(() => {
-    const token = Fixtures.activeHotpToken;
     const expectedEnrollDialogConfig = {
       width: '850px',
       autoFocus: false,
       disableClose: true,
       data: { closeLabel: 'Test Token' },
-    };
-    const expectedTestDialogConfig = {
-      width: '650px',
-      data: token
     };
 
     const testToken: TokenTypeDetails = Fixtures.hmacTokenType;
@@ -112,21 +109,17 @@ describe('EnrollmentGridComponent', () => {
     tick();
 
     expect(matDialog.open).toHaveBeenCalledTimes(1);
+    expect(matDialog.open).toHaveBeenCalledWith(EnrollHotpDialogComponent, expectedEnrollDialogConfig);
     expect(notificationService.message).toHaveBeenCalledWith('There was a problem starting the token test, please try manually later.');
     expect(tokenUpdateSpy).toHaveBeenCalledTimes(1);
   }));
 
   it('should not notify the user if the enrollment was cancelled', fakeAsync(() => {
-    const token = Fixtures.activeHotpToken;
     const expectedEnrollDialogConfig = {
       width: '850px',
       autoFocus: false,
       disableClose: true,
       data: { closeLabel: 'Test Token' },
-    };
-    const expectedTestDialogConfig = {
-      width: '650px',
-      data: token
     };
 
     const testToken: TokenTypeDetails = Fixtures.hmacTokenType;
@@ -136,13 +129,39 @@ describe('EnrollmentGridComponent', () => {
     tick();
 
     expect(matDialog.open).toHaveBeenCalledTimes(1);
+    expect(matDialog.open).toHaveBeenCalledWith(EnrollHotpDialogComponent, expectedEnrollDialogConfig);
     expect(notificationService.message).not.toHaveBeenCalled();
     expect(tokenUpdateSpy).toHaveBeenCalledTimes(1);
   }));
 
   it('should open the push dialog and trigger the token list updater', fakeAsync(() => {
-    matDialog.open.and.returnValue({ afterClosed: () => of('serial') });
-    tokenService.getToken.and.returnValue(of(Fixtures.unpairedPushToken));
+    const token = Fixtures.unpairedPushToken;
+    const expectedEnrollDialogConfig = {
+      width: '850px',
+      autoFocus: false,
+      disableClose: true,
+      data: { closeLabel: 'Activate Token' },
+    };
+
+    const testToken: TokenTypeDetails = Fixtures.pushTokenType;
+
+    const expectedTestDialogConfig = {
+      width: '650px',
+      data: token
+    };
+
+
+    matDialog.open.and.returnValues({ afterClosed: () => of(token.serial) }, { afterClosed: () => of(true) });
+    tokenService.getToken.and.returnValue(of(token));
+    component.runEnrollmentWorkflow(testToken);
+    tick();
+
+    expect(matDialog.open).toHaveBeenCalledWith(EnrollPushDialogComponent, expectedEnrollDialogConfig);
+    expect(tokenService.getToken).toHaveBeenCalledWith(token.serial);
+    expect(matDialog.open).toHaveBeenCalledWith(TestPushDialogComponent, expectedTestDialogConfig);
+    expect(tokenUpdateSpy).toHaveBeenCalledTimes(2);
+    expect(notificationService.message).not.toHaveBeenCalled();
+  }));
 
   it('should not notify the user if the token cannot be enrolled', fakeAsync(() => {
 
@@ -155,4 +174,5 @@ describe('EnrollmentGridComponent', () => {
     expect(notificationService.message).toHaveBeenCalledTimes(1);
     expect(notificationService.message).toHaveBeenCalledWith('The selected token type cannot be enrolled at the moment.');
   }));
+
 });
