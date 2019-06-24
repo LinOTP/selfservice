@@ -46,10 +46,10 @@ export class TestPushDialogComponent implements OnInit {
       switchMap(transactionId => this.tokenService.challengePoll(transactionId, pin, this.data.token.serial)),
       catchError(this.handleError('token activation', false)),
     ).subscribe((res: boolean) => {
-      if (res) {
-        this.waitingForResponse = false;
+      this.waitingForResponse = false;
+      if (res === true) {
+        this.restartDialog = false;
       } else {
-        this.waitingForResponse = false;
         this.restartDialog = true;
       }
     });
