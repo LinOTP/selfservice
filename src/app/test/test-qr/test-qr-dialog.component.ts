@@ -1,8 +1,11 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatStepper } from '@angular/material';
-import { TokenService } from '../../api/token.service';
+
 import { catchError, switchMap, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs/index';
+
+import { TokenService } from '../../api/token.service';
+import { Token } from '../../api/token';
 
 @Component({
   selector: 'app-test-qr-dialog',
@@ -21,7 +24,7 @@ export class TestQrDialogComponent implements OnInit {
   constructor(
     private tokenService: TokenService,
     private dialogRef: MatDialogRef<TestQrDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public tokenSerial: string,
+    @Inject(MAT_DIALOG_DATA) public data: { token: Token },
   ) {
   }
 
@@ -38,9 +41,9 @@ export class TestQrDialogComponent implements OnInit {
     this.waitingForResponse = true;
     this.showError = false;
 
-    this.tokenService.activate(this.tokenSerial, pin).pipe(
+    this.tokenService.activate(this.data.token.serial, pin).pipe(
       tap(response => this.tokenQRUrl = response.detail.message),
-      switchMap(response => this.tokenService.challengePoll(response.detail.transactionid, pin, this.tokenSerial),
+      switchMap(response => this.tokenService.challengePoll(response.detail.transactionid, pin, this.data.token.serial),
       ),
       catchError(this.handleError('QR token activation', false)),
     ).subscribe((res: boolean) => {

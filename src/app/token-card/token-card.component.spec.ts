@@ -86,7 +86,7 @@ describe('TokenCardComponent', () => {
       width: '850px',
       autoFocus: false,
       disableClose: true,
-      data: component.token,
+      data: { token: component.token },
     };
   });
 
@@ -247,7 +247,7 @@ describe('TokenCardComponent', () => {
   describe('activate', () => {
     it('should open a Push token activation dialog', fakeAsync(() => {
       matDialog.open.and.returnValue({ afterClosed: () => of({}) });
-      expectedDialogConfig.data = Fixtures.pairedPushToken;
+      expectedDialogConfig.data.token = Fixtures.pairedPushToken;
 
       component.token = Fixtures.pairedPushToken;
       component.activate();
@@ -259,7 +259,7 @@ describe('TokenCardComponent', () => {
 
     it('should open a QR token activation dialog', fakeAsync(() => {
       matDialog.open.and.returnValue({ afterClosed: () => of({}) });
-      expectedDialogConfig.data = Fixtures.pairedQRToken;
+      expectedDialogConfig.data.token = Fixtures.pairedQRToken;
 
       component.token = Fixtures.pairedQRToken;
       component.activate();
@@ -354,7 +354,7 @@ describe('TokenCardComponent', () => {
         width: '850px',
         autoFocus: false,
         disableClose: true,
-        data: component.token
+        data: { token: component.token },
       };
 
       component.testToken();
@@ -372,7 +372,7 @@ describe('TokenCardComponent', () => {
         width: '850px',
         autoFocus: false,
         disableClose: true,
-        data: component.token
+        data: { token: component.token },
       };
 
       component.testToken();

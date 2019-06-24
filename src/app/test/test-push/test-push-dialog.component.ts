@@ -19,7 +19,7 @@ export class TestPushDialogComponent implements OnInit {
   constructor(
     private tokenService: TokenService,
     private dialogRef: MatDialogRef<TestPushDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public token: Token,
+    @Inject(MAT_DIALOG_DATA) public data: { token: Token },
   ) {
   }
 
@@ -35,9 +35,9 @@ export class TestPushDialogComponent implements OnInit {
     this.waitingForResponse = true;
     this.incrementStep(stepper);
 
-    this.tokenService.activate(this.token.serial, pin).pipe(
+    this.tokenService.activate(this.data.token.serial, pin).pipe(
       map(response => response.detail.transactionid),
-      switchMap(transactionId => this.tokenService.challengePoll(transactionId, pin, this.token.serial)
+      switchMap(transactionId => this.tokenService.challengePoll(transactionId, pin, this.data.token.serial)
       ),
       catchError(this.handleError('token activation', false)),
     ).subscribe((res: boolean) => {

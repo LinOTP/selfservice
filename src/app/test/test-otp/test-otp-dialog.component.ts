@@ -28,7 +28,7 @@ export class TestOTPDialogComponent {
   public formDirective: NgForm;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public token: Token,
+    @Inject(MAT_DIALOG_DATA) public data: { token: Token },
     private tokenService: TokenService,
     private formBuilder: FormBuilder,
   ) {
@@ -44,7 +44,7 @@ export class TestOTPDialogComponent {
   public submit() {
     if (this.formGroup.valid) {
       const controls = this.formGroup.controls;
-      this.tokenService.testToken(this.token.serial, controls.pin.value, controls.otp.value)
+      this.tokenService.testToken(this.data.token.serial, controls.pin.value, controls.otp.value)
         .subscribe(result => {
           this.testResult = result;
           this.state = result ? TestState.SUCCESS : TestState.FAILURE;

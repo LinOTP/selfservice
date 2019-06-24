@@ -45,7 +45,7 @@ describe('TestPushDialogComponent', () => {
     dialogRef = TestBed.get(MatDialogRef);
 
     tokenService.getToken.and.returnValue(of(Fixtures.inactivePushToken));
-    component.token = Fixtures.inactivePushToken;
+    component.data = { token: Fixtures.inactivePushToken };
   });
 
   it('should create', () => {

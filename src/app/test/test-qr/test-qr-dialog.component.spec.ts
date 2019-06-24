@@ -44,7 +44,7 @@ describe('TestQrDialogComponent', () => {
     tokenService = TestBed.get(TokenService);
     dialogRef = TestBed.get(MatDialogRef);
     tokenService.activate.and.returnValue(of());
-    component.tokenSerial = Fixtures.inactiveQRToken.serial;
+    component.data = { token: Fixtures.inactiveQRToken };
     fixture.detectChanges();
   });
 

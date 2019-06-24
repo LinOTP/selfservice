@@ -77,7 +77,7 @@ describe('EnrollmentGridComponent', () => {
     };
     const expectedTestDialogConfig = {
       width: '650px',
-      data: token
+      data: { token: token },
     };
 
     const testToken: TokenTypeDetails = Fixtures.hmacTokenType;
@@ -147,9 +147,8 @@ describe('EnrollmentGridComponent', () => {
 
     const expectedTestDialogConfig = {
       width: '650px',
-      data: token
+      data: { token: token },
     };
-
 
     matDialog.open.and.returnValues({ afterClosed: () => of(token.serial) }, { afterClosed: () => of(true) });
     tokenService.getToken.and.returnValue(of(token));

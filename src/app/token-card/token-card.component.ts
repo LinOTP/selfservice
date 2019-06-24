@@ -109,7 +109,7 @@ export class TokenCardComponent implements OnInit {
       width: '850px',
       autoFocus: false,
       disableClose: true,
-      data: this.token
+      data: { token: this.token }
     };
 
     switch (this.token.type) {
@@ -133,7 +133,7 @@ export class TokenCardComponent implements OnInit {
       width: '850px',
       autoFocus: false,
       disableClose: true,
-      data: this.token
+      data: { token: this.token },
     };
 
     this.dialog.open(this.chooseActivationDialog(), dialogConfig)

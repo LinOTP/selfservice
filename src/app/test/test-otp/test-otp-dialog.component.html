@@ -3,7 +3,7 @@
       #formDirective="ngForm">
 
   <h2 mat-dialog-title
-      *ngIf="token">Test {{ token.typeDetails.name }} {{ token.serial }}</h2>
+      *ngIf="data.token">Test {{ data.token.typeDetails.name }} {{ data.token.serial }}</h2>
 
   <div mat-dialog-content>
     <ng-container [ngSwitch]="state">

@@ -43,7 +43,7 @@ describe('TestOTPDialogComponent', () => {
         },
         {
           provide: MAT_DIALOG_DATA,
-          useValue: token
+          useValue: { token: token },
         },
         {
           provide: TokenService,
