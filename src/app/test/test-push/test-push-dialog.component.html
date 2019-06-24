@@ -45,6 +45,7 @@
                 *ngIf="restartDialog">Restart activation</button>
         <button mat-raised-button
                 color="primary"
+                (click)="closeDialog()"
                 *ngIf="!restartDialog">Finish</button>
       </mat-dialog-actions>
     </ng-template>

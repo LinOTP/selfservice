@@ -64,7 +64,11 @@ export class TestPushDialogComponent implements OnInit {
   }
 
   public cancelDialog() {
-    this.dialogRef.close();
+    this.dialogRef.close(false);
+  }
+
+  public closeDialog() {
+    this.dialogRef.close(true);
   }
 
   /**
