@@ -117,6 +117,12 @@ export class TokenCardComponent implements OnInit {
       case TokenType.TOTP:
         testDialog = TestOTPDialogComponent;
         break;
+      case TokenType.PUSH:
+        testDialog = TestPushDialogComponent;
+        break;
+      case TokenType.QR:
+        testDialog = TestQrDialogComponent;
+        break;
       default:
         this.notificationService.message('This token type cannot be tested yet.');
         return;
