@@ -117,6 +117,15 @@ export class Fixtures {
     };
   }
 
+  static get unknownTokenType() {
+    return {
+      type: TokenType.UNKNOWN,
+      name: 'test unknown',
+      description: 'desc',
+      icon: 'icon'
+    };
+  }
+
   static get enrolledToken() {
     return { serial: 'test serial', url: 'testUrl' };
   }

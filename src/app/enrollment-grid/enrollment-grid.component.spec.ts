@@ -144,10 +144,15 @@ describe('EnrollmentGridComponent', () => {
     matDialog.open.and.returnValue({ afterClosed: () => of('serial') });
     tokenService.getToken.and.returnValue(of(Fixtures.unpairedPushToken));
 
-    const testToken: TokenTypeDetails = Fixtures.pushTokenType;
+  it('should not notify the user if the token cannot be enrolled', fakeAsync(() => {
+
+    const testToken: TokenTypeDetails = Fixtures.unknownTokenType;
     component.runEnrollmentWorkflow(testToken);
     tick();
 
-    expect(tokenUpdateSpy).toHaveBeenCalledTimes(2);
+    expect(matDialog.open).toHaveBeenCalledTimes(0);
+    expect(tokenUpdateSpy).toHaveBeenCalledTimes(0);
+    expect(notificationService.message).toHaveBeenCalledTimes(1);
+    expect(notificationService.message).toHaveBeenCalledWith('The selected token type cannot be enrolled at the moment.');
   }));
 });
