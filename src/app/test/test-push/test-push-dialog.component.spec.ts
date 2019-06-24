@@ -31,7 +31,7 @@ describe('TestPushDialogComponent', () => {
           provide: TokenService,
           useValue: spyOnClass(TokenService),
         },
-        { provide: MAT_DIALOG_DATA, useValue: null },
+        { provide: MAT_DIALOG_DATA, useValue: { token: null } },
         { provide: MatDialogRef, useValue: spyOnClass(MatDialogRef) },
       ],
     })

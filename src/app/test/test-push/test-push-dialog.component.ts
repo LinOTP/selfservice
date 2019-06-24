@@ -15,7 +15,7 @@ export class TestPushDialogComponent implements OnInit {
   public readonly maxSteps: number = 2;
   public currentStep: number;
   public restartDialog: boolean;
-  public isActivation: boolean = false;
+  public isActivation = false;
   public transactionId: string = null;
 
   constructor(

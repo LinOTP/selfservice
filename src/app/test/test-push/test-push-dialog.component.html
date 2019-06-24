@@ -1,17 +1,25 @@
+<h2>{{ isActivation? "Activate" : "Test" }} {{ data.token.typeDetails.name }} {{ data.token.serial }}</h2>
 <mat-horizontal-stepper [linear]="true"
                         linear
                         #stepper>
   <mat-step>
-    <p>Activate the token "{{ data.token.serial }}"</p>
+    <p>In the next step your Authenticator app will
+      {{ isActivation?
+        "be verified by the authentication server." :
+        "receive a test challenge."
+      }}
+    </p>
+    <p *ngIf="!isActivation">Please confirm the challenge on the app.</p>
     <mat-dialog-actions align="end">
-      <div>Activation {{currentStep}} of {{maxSteps}}</div>
+      <div>{{ isActivation? "Activation" : "Test" }} {{currentStep}} of
+        {{maxSteps}}</div>
       <span class="spacer"></span>
       <button mat-raised-button
               (click)="cancelDialog()">Cancel</button>
       <button mat-raised-button
               color="primary"
               id="goTo2"
-              (click)="activateToken(stepper)">Activate Push Token</button>
+              (click)="activateToken(stepper)">Next</button>
     </mat-dialog-actions>
   </mat-step>
   <mat-step>
@@ -20,10 +28,12 @@
     <ng-template #spinningBlock>
       <section class="response">
         <mat-spinner></mat-spinner>
-        <p>Waiting for confirmation for transaction {{ transactionId }} via
+        <p>Waiting for confirmation for {{isActivation? "test" : ""}}
+          transaction {{!isActivation? transactionId : "" }} via KeyIdentity
+          Authenticator.</p>
       </section>
       <mat-dialog-actions align="end">
-        <div>Activation {{currentStep}} of {{maxSteps}}</div>
+        <div>{{ isActivation? "Activation" : "Test" }} {{currentStep}} of {{maxSteps}}</div>
         <span class="spacer"></span>
         <button mat-raised-button
                 (click)="cancelDialog()">Cancel</button>
@@ -31,11 +41,13 @@
     </ng-template>
     <ng-template #challengeResponseBlock>
       <section class="response">
-        <h2 *ngIf="restartDialog">Token activation failed</h2>
-        <h2 *ngIf="!restartDialog">Activation successful!</h2>
+        <p *ngIf="restartDialog">{{ isActivation? "Activation" : "Test" }}
+          failed. Please try again, or contact an administrator.</p>
+        <p *ngIf="!restartDialog">{{ isActivation? "Activation" : "Test" }}
+          successful. Your token is ready to be used.</p>
       </section>
       <mat-dialog-actions align="end">
-        <div>Activation {{currentStep}} of {{maxSteps}}</div>
+        <div>{{ isActivation? "Activation" : "Test" }} {{currentStep}} of {{maxSteps}}</div>
         <span class="spacer"></span>
         <button mat-raised-button
                 (click)="cancelDialog()"
