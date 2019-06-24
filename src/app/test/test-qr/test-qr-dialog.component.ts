@@ -19,7 +19,7 @@ export class TestQrDialogComponent implements OnInit {
   public restartDialog: boolean;
   public tokenQRUrl: string;
   public showError: boolean;
-  public isActivation: boolean = false;
+  public isActivation = false;
   @ViewChild('stepper') public stepper: MatStepper;
 
   constructor(
@@ -62,7 +62,11 @@ export class TestQrDialogComponent implements OnInit {
   }
 
   public cancelDialog() {
-    this.dialogRef.close();
+    this.dialogRef.close(false);
+  }
+
+  public closeDialog() {
+    this.dialogRef.close(true);
   }
 
   /**
