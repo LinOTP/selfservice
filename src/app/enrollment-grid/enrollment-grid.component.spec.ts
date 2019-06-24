@@ -150,11 +150,4 @@ describe('EnrollmentGridComponent', () => {
 
     expect(tokenUpdateSpy).toHaveBeenCalledTimes(2);
   }));
-
-  function generateHotpScenario(returnValue: boolean) {
-    matDialog.open.and.returnValue({ afterClosed: () => of({ result: returnValue }) });
-
-    const testToken: TokenTypeDetails = Fixtures.hmacTokenType;
-    component.runEnrollmentWorkflow(testToken);
-  }
 });
