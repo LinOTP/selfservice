@@ -15,12 +15,16 @@ export class TestPushDialogComponent implements OnInit {
   public readonly maxSteps: number = 2;
   public currentStep: number;
   public restartDialog: boolean;
+  public isActivation: boolean = false;
 
   constructor(
     private tokenService: TokenService,
     private dialogRef: MatDialogRef<TestPushDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { token: Token },
+    @Inject(MAT_DIALOG_DATA) public data: { token: Token, activate?: boolean },
   ) {
+    if (data.activate) {
+      this.isActivation = true;
+    }
   }
 
   public ngOnInit() {

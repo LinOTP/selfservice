@@ -19,13 +19,17 @@ export class TestQrDialogComponent implements OnInit {
   public restartDialog: boolean;
   public tokenQRUrl: string;
   public showError: boolean;
+  public isActivation: boolean = false;
   @ViewChild('stepper') public stepper: MatStepper;
 
   constructor(
     private tokenService: TokenService,
     private dialogRef: MatDialogRef<TestQrDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { token: Token },
+    @Inject(MAT_DIALOG_DATA) public data: { token: Token, activate?: boolean },
   ) {
+    if (data.activate) {
+      this.isActivation = true;
+    }
   }
 
   public ngOnInit() {
