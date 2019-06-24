@@ -4,8 +4,15 @@
                         linear
                         #stepper>
   <mat-step>
-    <app-qr-code *ngIf="tokenQRUrl && waitingForResponse"
-                 [qrUrl]="tokenQRUrl"></app-qr-code>
+    <ng-container *ngIf="tokenQRUrl && waitingForResponse">
+      <p>Scan the QR code below with the KI Authenticator to
+        {{isActivation? "activate your token" : "confirm test transaction " +
+        transactionId
+        }}:
+      </p>
+      <app-qr-code [qrUrl]="tokenQRUrl"></app-qr-code>
+    </ng-container>
+
     <section *ngIf="showError"
              class="response">
       <p>An error occurred. Please try again, or contact an administrator.</p>

@@ -20,6 +20,7 @@ export class TestQrDialogComponent implements OnInit {
   public tokenQRUrl: string;
   public showError: boolean;
   public isActivation = false;
+  public transactionId: string = null;
   @ViewChild('stepper') public stepper: MatStepper;
 
   constructor(
@@ -46,15 +47,17 @@ export class TestQrDialogComponent implements OnInit {
     this.showError = false;
 
     this.tokenService.activate(this.data.token.serial, pin).pipe(
-      tap(response => this.tokenQRUrl = response.detail.message),
-      switchMap(response => this.tokenService.challengePoll(response.detail.transactionid, pin, this.data.token.serial),
-      ),
-      catchError(this.handleError('QR token activation', false)),
+      tap(response => {
+        this.tokenQRUrl = response.detail.message;
+        this.transactionId = response.detail.transactionid.toString().slice(0, 6);
+      }),
+      switchMap(response => this.tokenService.challengePoll(response.detail.transactionid, pin, this.data.token.serial)),
+      catchError(this.handleError('QR token activation', false))
     ).subscribe((res: boolean) => {
+      this.waitingForResponse = false;
       if (res) {
-        this.waitingForResponse = false;
+        this.restartDialog = false;
       } else {
-        this.waitingForResponse = false;
         this.restartDialog = true;
       }
       this.incrementStep();
