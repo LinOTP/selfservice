@@ -112,6 +112,15 @@ export class Fixtures {
     };
   }
 
+  static get totpTokenType() {
+    return {
+      type: TokenType.TOTP,
+      name: 'test totp',
+      description: 'desc',
+      icon: 'icon',
+    };
+  }
+
   static get pushTokenType() {
     return {
       type: TokenType.PUSH,

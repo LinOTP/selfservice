@@ -6,14 +6,16 @@ import { SetPinDialogComponent } from '../../common/set-pin-dialog/set-pin-dialo
 import { NotificationService } from '../../common/notification.service';
 
 import { TokenService } from '../../api/token.service';
-import { TokenType } from '../../api/token';
+import { TokenType, TokenTypeDetails, getTypeDetails } from '../../api/token';
 
 @Component({
-  selector: 'app-enroll-hotp',
-  templateUrl: './enroll-hotp-dialog.component.html',
-  styleUrls: ['./enroll-hotp-dialog.component.scss']
+  selector: 'app-enroll-otp',
+  templateUrl: './enroll-otp-dialog.component.html',
+  styleUrls: ['./enroll-otp-dialog.component.scss']
 })
-export class EnrollHotpDialogComponent implements OnInit {
+export class EnrollOtpDialogComponent implements OnInit {
+
+  public tokenTypeDetails: TokenTypeDetails;
 
   public enrollmentForm: FormGroup;
   public enrollmentStep: FormGroup;
@@ -29,21 +31,28 @@ export class EnrollHotpDialogComponent implements OnInit {
     private formBuilder: FormBuilder,
     private tokenService: TokenService,
     public dialog: MatDialog,
-    public dialogRef: MatDialogRef<EnrollHotpDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { closeLabel: string },
+    public dialogRef: MatDialogRef<EnrollOtpDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { type: TokenType, closeLabel: string },
     public notificationService: NotificationService,
   ) {
+    this.tokenTypeDetails = getTypeDetails(data.type);
   }
 
   public ngOnInit() {
     this.currentStep = 1;
     this.enrollmentForm = this.formBuilder.group({
       'description': ['', Validators.required],
-      'type': TokenType.HOTP,
+      'type': this.tokenTypeDetails.type,
       'otplen': 6,
       'hashlib': 'sha1',
-      'genkey': 1
+      'genkey': 1,
+      'timeStep': 30
     });
+
+    if (this.tokenTypeDetails.type !== TokenType.TOTP) {
+      this.enrollmentForm.removeControl('timeStep');
+    }
+
     this.enrollmentStep = this.formBuilder.group({
       'tokenEnrolled': ['', Validators.required],
     });

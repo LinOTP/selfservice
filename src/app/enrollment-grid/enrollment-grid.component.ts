@@ -9,7 +9,7 @@ import { TokenService } from '../api/token.service';
 
 import { NotificationService } from '../common/notification.service';
 
-import { EnrollHotpDialogComponent } from '../enroll/enroll-hotp-dialog/enroll-hotp-dialog.component';
+import { EnrollOtpDialogComponent } from '../enroll/enroll-otp-dialog/enroll-otp-dialog.component';
 import { EnrollPushDialogComponent } from '../enroll/enroll-push-dialog/enroll-push-dialog.component';
 import { TestOTPDialogComponent } from '../test/test-otp/test-otp-dialog.component';
 import { TestPushDialogComponent } from '../test/test-push/test-push-dialog.component';
@@ -33,12 +33,21 @@ export class EnrollmentGridComponent implements OnInit {
   public ngOnInit() { }
 
   public runEnrollmentWorkflow(tokenType: TokenTypeDetails) {
-    let enrollmentDialogRef: MatDialogRef<EnrollHotpDialogComponent | EnrollPushDialogComponent>;
+    let enrollmentDialogRef: MatDialogRef<EnrollOtpDialogComponent | EnrollPushDialogComponent>;
     let testDialogRef: ((any) => MatDialogRef<TestOTPDialogComponent | TestPushDialogComponent>);
+    let enrollmentConfig: MatDialogConfig;
 
     switch (tokenType.type) {
       case TokenType.HOTP:
-        enrollmentDialogRef = this.dialog.open(EnrollHotpDialogComponent, this.getEnrollmentConfig('Test Token'));
+        enrollmentConfig = this.getEnrollmentConfig('Test Token');
+        enrollmentConfig.data.type = TokenType.HOTP;
+        enrollmentDialogRef = this.dialog.open(EnrollOtpDialogComponent, enrollmentConfig);
+        testDialogRef = (token) => this.dialog.open(TestOTPDialogComponent, this.getTestConfig({ token: token }));
+        break;
+      case TokenType.TOTP:
+        enrollmentConfig = this.getEnrollmentConfig('Test Token');
+        enrollmentConfig.data.type = TokenType.TOTP;
+        enrollmentDialogRef = this.dialog.open(EnrollOtpDialogComponent, enrollmentConfig);
         testDialogRef = (token) => this.dialog.open(TestOTPDialogComponent, this.getTestConfig({ token: token }));
         break;
       case TokenType.PUSH:

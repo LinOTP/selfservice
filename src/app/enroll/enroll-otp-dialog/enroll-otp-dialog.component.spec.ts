@@ -12,24 +12,24 @@ import { MockComponent } from '../../../testing/mock-component';
 import { spyOnClass } from '../../../testing/spyOnClass';
 
 import { MaterialModule } from '../../material.module';
+import { TokenType } from '../../api/token';
 import { TokenService } from '../../api/token.service';
 import { NotificationService } from '../../common/notification.service';
 
-import { EnrollHotpDialogComponent } from './enroll-hotp-dialog.component';
-import { TestOTPDialogComponent } from '../../test/test-otp/test-otp-dialog.component';
+import { EnrollOtpDialogComponent } from './enroll-otp-dialog.component';
 
-describe('The EnrollHotpDialogComponent', () => {
-  let component: EnrollHotpDialogComponent;
-  let fixture: ComponentFixture<EnrollHotpDialogComponent>;
+describe('The EnrollOtpDialogComponent', () => {
+  let component: EnrollOtpDialogComponent;
+  let fixture: ComponentFixture<EnrollOtpDialogComponent>;
   let matDialog: jasmine.SpyObj<MatDialog>;
   let notificationService: NotificationService;
   let tokenService: jasmine.SpyObj<TokenService>;
-  let dialogRef: jasmine.SpyObj<MatDialogRef<EnrollHotpDialogComponent>>;
+  let dialogRef: jasmine.SpyObj<MatDialogRef<EnrollOtpDialogComponent>>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        EnrollHotpDialogComponent,
+        EnrollOtpDialogComponent,
         MockComponent({ selector: 'ngx-qrcode', inputs: ['qrc-value', 'qrc-element-type'] }),
       ],
       imports: [
@@ -50,14 +50,14 @@ describe('The EnrollHotpDialogComponent', () => {
         },
         { provide: MatDialog, useValue: spyOnClass(MatDialog) },
         { provide: MatDialogRef, useValue: spyOnClass(MatDialogRef) },
-        { provide: MAT_DIALOG_DATA, useValue: { closeLabel: null } },
+        { provide: MAT_DIALOG_DATA, useValue: { type: TokenType.HOTP, closeLabel: null } },
       ],
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EnrollHotpDialogComponent);
+    fixture = TestBed.createComponent(EnrollOtpDialogComponent);
     component = fixture.componentInstance;
     matDialog = TestBed.get(MatDialog);
     notificationService = TestBed.get(NotificationService);

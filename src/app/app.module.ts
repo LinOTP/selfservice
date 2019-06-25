@@ -18,7 +18,7 @@ import { AppComponent } from './app.component';
 import { TokenListComponent } from './token-list/token-list.component';
 import { LoginComponent } from './login/login.component';
 import { EnrollTotpComponent } from './enroll/enroll-totp/enroll-totp.component';
-import { EnrollHotpDialogComponent } from './enroll/enroll-hotp-dialog/enroll-hotp-dialog.component';
+import { EnrollOtpDialogComponent } from './enroll/enroll-otp-dialog/enroll-otp-dialog.component';
 import { EnrollPushDialogComponent } from './enroll/enroll-push-dialog/enroll-push-dialog.component';
 import { TokenCardComponent } from './token-card/token-card.component';
 import { EnrollmentGridComponent } from './enrollment-grid/enrollment-grid.component';
@@ -33,7 +33,7 @@ import { TestPushDialogComponent } from './test/test-push/test-push-dialog.compo
     AppComponent,
     TokenListComponent,
     LoginComponent,
-    EnrollHotpDialogComponent,
+    EnrollOtpDialogComponent,
     EnrollTotpComponent,
     EnrollPushDialogComponent,
     TokenCardComponent,
@@ -45,7 +45,7 @@ import { TestPushDialogComponent } from './test/test-push/test-push-dialog.compo
   entryComponents: [
     TestPushDialogComponent,
     TestQrDialogComponent,
-    EnrollHotpDialogComponent,
+    EnrollOtpDialogComponent,
     EnrollPushDialogComponent,
     TestOTPDialogComponent,
   ],

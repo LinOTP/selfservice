@@ -1,4 +1,4 @@
-<h2>Enroll soft token (event)</h2>
+<h2>Enroll {{ tokenTypeDetails.name }}</h2>
 
 <mat-horizontal-stepper [linear]="true"
                         linear
@@ -7,22 +7,25 @@
   <mat-step [stepControl]="enrollmentStep"
             id="stepDescription">
     <p>
-      You have chosen to enroll an event-based soft token.
+      You have chosen to enroll a {{ tokenTypeDetails.name }}.
     </p>
     <p>
-      You need an OATH compatible soft token app installed on your mobile device to use this kind of token, such as:
+      You need an OATH compatible soft token app installed on your mobile
+      device to use this kind of token, such as:
     </p>
     <ul>
       <li>FreeOTP</li>
       <li>Google Authenticator</li>
     </ul>
     <p>
-      If you are not sure whether your app is compatible, you will later have the possibility to test the token. Should
+      If you are not sure whether your app is compatible, you will later have
+      the possibility to test the token. Should
       the test
       fail, you can install another app and try again.
     </p>
     <p>
-      Once you have an app installed on your device, you can set a description for your new token and start the
+      Once you have an app installed on your device, you can set a
+      description for your new token and start the
       enrollment process:
     </p>
     <form [formGroup]="enrollmentForm">
@@ -32,12 +35,14 @@
                formControlName="description"
                autofocus>
         <mat-error>
-          The token description is required. It should help you identify the token at a later point. It could, for
+          The token description is required. It should help you identify the
+          token at a later point. It could, for
           example, refer to
           its usage scenario.
         </mat-error>
         <mat-hint>
-          The token description should help you identify the token at a later point. It could, for example, refer to
+          The token description should help you identify the token at a later
+          point. It could, for example, refer to
           its usage scenario.
         </mat-hint>
       </mat-form-field>
@@ -58,9 +63,8 @@
             id="stepShowQR">
     <div *ngIf="enrolledToken">
       <p>
-        A token with the serial number {{enrolledToken.serial}} (description: {{
-        enrollmentForm.get('description').value}}) has been
-        enrolled.
+        A token with the serial number {{enrolledToken.serial}} (description:
+        {{ enrollmentForm.get('description').value}}) has been enrolled.
       </p>
       <p>
         Scan the QR code below with your soft token app or
@@ -97,7 +101,8 @@
         Setting a PIN helps you protect your token against misuse.
       </p>
       <p>
-        To finalize, we will verify if your token is correctly enrolled via a test authentication.
+        To finalize, we will verify if your token is correctly enrolled via a
+        test authentication.
       </p>
       <mat-dialog-actions align="end">
         <div>Enrollment {{currentStep}} of {{maxSteps}}</div>

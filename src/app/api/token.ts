@@ -93,3 +93,7 @@ export interface EnrollToken {
   type: TokenType;
   description: string;
 }
+
+export function getTypeDetails(type: TokenType): TokenTypeDetails {
+  return tokenTypeDetails.find(td => td.type === type);
+}
