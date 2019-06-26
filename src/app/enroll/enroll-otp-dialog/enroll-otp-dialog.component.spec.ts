@@ -48,9 +48,18 @@ describe('The EnrollOtpDialogComponent', () => {
           provide: NotificationService,
           useValue: spyOnClass(NotificationService),
         },
-        { provide: MatDialog, useValue: spyOnClass(MatDialog) },
-        { provide: MatDialogRef, useValue: spyOnClass(MatDialogRef) },
-        { provide: MAT_DIALOG_DATA, useValue: { type: TokenType.HOTP, closeLabel: null } },
+        {
+          provide: MatDialog,
+          useValue: spyOnClass(MatDialog),
+        },
+        {
+          provide: MatDialogRef,
+          useValue: spyOnClass(MatDialogRef),
+        },
+        {
+          provide: MAT_DIALOG_DATA,
+          useValue: { type: TokenType.HOTP, closeLabel: null },
+        },
       ],
     })
       .compileComponents();
