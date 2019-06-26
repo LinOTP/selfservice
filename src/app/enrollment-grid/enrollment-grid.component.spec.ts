@@ -197,5 +197,4 @@ describe('EnrollmentGridComponent', () => {
     expect(notificationService.message).toHaveBeenCalledTimes(1);
     expect(notificationService.message).toHaveBeenCalledWith('The selected token type cannot be enrolled at the moment.');
   }));
-
 });

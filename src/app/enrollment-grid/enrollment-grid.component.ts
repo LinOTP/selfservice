@@ -4,7 +4,7 @@ import { MatDialog, MatDialogRef, MatDialogConfig } from '@angular/material';
 import { Subject } from 'rxjs';
 import { switchMap, filter, tap } from 'rxjs/operators';
 
-import { TokenTypeDetails, tokenTypeDetails, TokenType } from '../api/token';
+import { TokenTypeDetails, tokenTypeDetails, TokenType, Token } from '../api/token';
 import { TokenService } from '../api/token.service';
 
 import { NotificationService } from '../common/notification.service';
@@ -33,23 +33,9 @@ export class EnrollmentGridComponent implements OnInit {
   public ngOnInit() { }
 
   public runEnrollmentWorkflow(tokenType: TokenTypeDetails) {
-    if (tokenType.type === TokenType.UNKNOWN) {
+    if (![TokenType.HOTP, TokenType.TOTP, TokenType.PUSH].includes(tokenType.type)) {
       this.notificationService.message('The selected token type cannot be enrolled at the moment.');
       return;
-    }
-
-    let testDialogRef: ((any) => MatDialogRef<TestOTPDialogComponent | TestPushDialogComponent>);
-
-    switch (tokenType.type) {
-      case TokenType.HOTP:
-        testDialogRef = (token) => this.dialog.open(TestOTPDialogComponent, this.getTestConfig({ token: token }));
-        break;
-      case TokenType.TOTP:
-        testDialogRef = (token) => this.dialog.open(TestOTPDialogComponent, this.getTestConfig({ token: token }));
-        break;
-      case TokenType.PUSH:
-        testDialogRef = (token) => this.dialog.open(TestPushDialogComponent, this.getTestConfig({ token: token }));
-        break;
     }
 
     this.openEnrollmentDialog(tokenType).afterClosed()
@@ -63,7 +49,7 @@ export class EnrollmentGridComponent implements OnInit {
           }
         }),
         filter(token => !!token),
-        switchMap(token => testDialogRef(token).afterClosed())
+        switchMap(token => this.openTestDialog(token).afterClosed())
       ).subscribe(() => this.tokenUpdate.next());
   }
 
@@ -84,11 +70,19 @@ export class EnrollmentGridComponent implements OnInit {
     }
   }
 
-  private getTestConfig(data: any): MatDialogConfig {
-    return {
+  private openTestDialog(token: Token): MatDialogRef<TestOTPDialogComponent | TestPushDialogComponent> {
+    const testConfig: MatDialogConfig = {
       width: '650px',
-      data: data
+      data: { token: token }
     };
+
+    switch (token.type) {
+      case TokenType.HOTP:
+      case TokenType.TOTP:
+        return this.dialog.open(TestOTPDialogComponent, testConfig);
+      case (TokenType.PUSH):
+        return this.dialog.open(TestPushDialogComponent, testConfig);
+    }
   }
 
 }
