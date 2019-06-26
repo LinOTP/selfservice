@@ -70,17 +70,33 @@ describe('The EnrollOtpDialogComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should set pin of token and output message', fakeAsync(() => {
-    matDialog.open.and.returnValue({ afterClosed: () => of(true) });
+  describe('setPin', () => {
+    it('should set pin of token and output message', fakeAsync(() => {
+      matDialog.open.and.returnValue({ afterClosed: () => of(true) });
 
-    component.enrolledToken = { serial: 'testSerial', url: 'testUrl' };
-    component.setPin();
-    tick();
+      component.enrolledToken = { serial: 'testSerial', url: 'testUrl' };
+      component.setPin();
+      tick();
 
-    expect(matDialog.open).toHaveBeenCalledTimes(1);
-    expect(component.pinSet).toEqual(true);
-    expect(notificationService.message).toHaveBeenCalledWith('PIN set');
-  }));
+      expect(matDialog.open).toHaveBeenCalledTimes(1);
+      expect(component.pinSet).toEqual(true);
+      expect(notificationService.message).toHaveBeenCalledWith('PIN set');
+    }));
+
+    it('should inform the user if pin could not be set', fakeAsync(() => {
+      matDialog.open.and.returnValue({ afterClosed: () => of(false) });
+      const oldPinSetValue = component.pinSet;
+
+      component.enrolledToken = { serial: 'testSerial', url: 'testUrl' };
+      component.setPin();
+      tick();
+
+      expect(matDialog.open).toHaveBeenCalledTimes(1);
+      expect(component.pinSet).toEqual(oldPinSetValue);
+      expect(notificationService.message).toHaveBeenCalledWith('There was an error and the new PIN could not be set. Please try again.');
+    }));
+
+  });
 
   it('should enroll the hotp token', fakeAsync(() => {
     const mockEnrollmentResponse = Fixtures.enrollmentResponse;

@@ -86,6 +86,8 @@ export class EnrollOtpDialogComponent implements OnInit {
       if (result) {
         this.pinSet = true;
         this.notificationService.message('PIN set');
+      } else {
+        this.notificationService.message('There was an error and the new PIN could not be set. Please try again.');
       }
     });
   }
