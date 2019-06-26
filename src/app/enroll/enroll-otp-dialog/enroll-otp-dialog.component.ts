@@ -22,8 +22,6 @@ export class EnrollOtpDialogComponent implements OnInit {
   public testStep: FormGroup;
 
   public pinSet: boolean;
-  public readonly maxSteps: number = 3;
-  public currentStep: number;
 
   public enrolledToken: { serial: string, url: string };
 
@@ -39,7 +37,6 @@ export class EnrollOtpDialogComponent implements OnInit {
   }
 
   public ngOnInit() {
-    this.currentStep = 1;
     this.enrollmentForm = this.formBuilder.group({
       'description': ['', Validators.required],
       'type': this.tokenTypeDetails.type,
@@ -63,28 +60,19 @@ export class EnrollOtpDialogComponent implements OnInit {
   }
 
   public goToTokenInfo(stepper: MatStepper) {
-    if (!this.enrolledToken) {
-      this.tokenService.enroll(this.enrollmentForm.value).subscribe(response => {
-        if (response.result && response.result.value === true) {
-          this.enrolledToken = {
-            url: response.detail.googleurl.value,
-            serial: response.detail.serial
-          };
-          this.enrollmentForm.controls.description.disable();
-          this.enrollmentStep.controls.tokenEnrolled.setValue(true);
-          this.incrementStep(stepper);
-        } else {
-          this.notificationService.message('There was a problem while enrolling the new token. Please try again.');
-        }
-      });
-    } else {
-      this.incrementStep(stepper);
-    }
-  }
-
-  public goToAppStep(stepper: MatStepper) {
-    stepper.selectedIndex = 0;
-    this.currentStep = 1;
+    this.tokenService.enroll(this.enrollmentForm.value).subscribe(response => {
+      if (response.result && response.result.value === true) {
+        this.enrolledToken = {
+          url: response.detail.googleurl.value,
+          serial: response.detail.serial
+        };
+        this.enrollmentForm.controls.description.disable();
+        this.enrollmentStep.controls.tokenEnrolled.setValue(true);
+        stepper.next();
+      } else {
+        this.notificationService.message('There was a problem while enrolling the new token. Please try again.');
+      }
+    });
   }
 
   public setPin() {
@@ -100,14 +88,6 @@ export class EnrollOtpDialogComponent implements OnInit {
         this.notificationService.message('PIN set');
       }
     });
-  }
-
-  /**
-   * Increment the current step of the dialog for the view
-   */
-  public incrementStep(stepper: MatStepper) {
-    stepper.next();
-    this.currentStep++;
   }
 
   /**

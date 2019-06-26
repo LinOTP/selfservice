@@ -48,7 +48,7 @@
       </mat-form-field>
     </form>
     <mat-dialog-actions align="end">
-      <div>Enrollment {{currentStep}} of {{maxSteps}}</div>
+      <div>Enrollment 1 of 3</div>
       <span class="spacer"></span>
       <button mat-raised-button
               (click)="cancelDialog()">Cancel</button>
@@ -77,13 +77,13 @@
       Follow the instructions on your app to install the soft token profile.
     </p>
     <mat-dialog-actions align="end">
-      <div>Enrollment {{currentStep}} of {{maxSteps}}</div>
+      <div>Enrollment 2 of 3</div>
       <span class="spacer"></span>
       <button mat-raised-button
               (click)="cancelDialog()">Cancel</button>
       <button mat-raised-button
               color="primary"
-              (click)="incrementStep(stepper)">Next</button>
+              (click)="stepper.next()">Next</button>
     </mat-dialog-actions>
   </mat-step>
 
@@ -104,7 +104,7 @@
       test authentication.
     </p>
     <mat-dialog-actions align="end">
-      <div>Enrollment {{currentStep}} of {{maxSteps}}</div>
+      <div>Enrollment 3 of 3</div>
       <span class="spacer"></span>
       <button mat-raised-button
               color="primary"

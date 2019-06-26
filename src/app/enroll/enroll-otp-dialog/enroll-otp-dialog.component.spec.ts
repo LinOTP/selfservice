@@ -70,11 +70,6 @@ describe('The EnrollOtpDialogComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have an initial step of 1 and max hotp step of 3', () => {
-    expect(component.maxSteps).toEqual(3);
-    expect(component.currentStep).toEqual(1);
-  });
-
   it('should set pin of token and output message', fakeAsync(() => {
     matDialog.open.and.returnValue({ afterClosed: () => of(true) });
 
@@ -96,14 +91,12 @@ describe('The EnrollOtpDialogComponent', () => {
     component.enrollmentForm.controls.description.setValue('descr');
     fixture.detectChanges();
     const result = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
-    expect(component.currentStep).toEqual(1);
     result.click();
     tick();
 
     expect(component.enrolledToken).toEqual(expectedToken);
     expect(component.enrollmentStep.controls.tokenEnrolled.value).toEqual(true);
     expect(component.enrollmentForm.controls.description.disabled).toEqual(true);
-    expect(component.currentStep).toEqual(2);
   }));
 
   it('should output message if enrollment failed', fakeAsync(() => {
@@ -118,7 +111,6 @@ describe('The EnrollOtpDialogComponent', () => {
     tick();
 
     expect(component.enrolledToken).toEqual(undefined);
-    expect(component.currentStep).toEqual(1);
     expect(notificationService.message).toHaveBeenCalledTimes(1);
   }));
 
