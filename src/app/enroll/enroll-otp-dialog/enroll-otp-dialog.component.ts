@@ -41,11 +41,6 @@ export class EnrollOtpDialogComponent implements OnInit {
       'genkey': 1,
       'timeStep': 30
     });
-
-    if (this.data.tokenTypeDetails.type !== TokenType.TOTP) {
-      this.enrollmentForm.removeControl('timeStep');
-    }
-
     this.enrollmentStep = this.formBuilder.group({
       'tokenEnrolled': ['', Validators.required],
     });
@@ -56,6 +51,10 @@ export class EnrollOtpDialogComponent implements OnInit {
   }
 
   public enrollToken(stepper: MatStepper) {
+    if (this.data.tokenTypeDetails.type !== TokenType.TOTP) {
+      this.enrollmentForm.removeControl('timeStep');
+    }
+
     this.tokenService.enroll(this.enrollmentForm.value).subscribe(response => {
       if (response.result && response.result.value === true) {
         this.enrolledToken = {

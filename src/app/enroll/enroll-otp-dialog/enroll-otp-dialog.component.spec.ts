@@ -2,7 +2,7 @@ import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatStepper } from '@angular/material';
 import { By } from '@angular/platform-browser';
 
 import { of } from 'rxjs';
@@ -25,6 +25,7 @@ describe('The EnrollOtpDialogComponent', () => {
   let notificationService: NotificationService;
   let tokenService: jasmine.SpyObj<TokenService>;
   let dialogRef: jasmine.SpyObj<MatDialogRef<EnrollOtpDialogComponent>>;
+  let stepper: MatStepper;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -60,6 +61,10 @@ describe('The EnrollOtpDialogComponent', () => {
           provide: MAT_DIALOG_DATA,
           useValue: { tokenTypeDetails: getTypeDetails(TokenType.HOTP), closeLabel: null },
         },
+        {
+          provide: MatStepper,
+          useValue: spyOnClass(MatStepper),
+        },
       ],
     })
       .compileComponents();
@@ -68,10 +73,13 @@ describe('The EnrollOtpDialogComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(EnrollOtpDialogComponent);
     component = fixture.componentInstance;
+
     matDialog = TestBed.get(MatDialog);
     notificationService = TestBed.get(NotificationService);
     tokenService = TestBed.get(TokenService);
     dialogRef = TestBed.get(MatDialogRef);
+    stepper = TestBed.get(MatStepper);
+
     fixture.detectChanges();
   });
 
@@ -105,24 +113,44 @@ describe('The EnrollOtpDialogComponent', () => {
       expect(component.pinSet).toEqual(oldPinSetValue);
       expect(notificationService.message).toHaveBeenCalledWith('There was an error and the new PIN could not be set. Please try again.');
     }));
-
   });
 
-  it('should enroll the hotp token', fakeAsync(() => {
+  it('should enroll an HOTP token', fakeAsync(() => {
     const mockEnrollmentResponse = Fixtures.enrollmentResponse;
     mockEnrollmentResponse.result.value = true;
 
     tokenService.enroll.and.returnValue(of(mockEnrollmentResponse));
     const expectedToken = { serial: 'testSerial', url: 'testUrl' };
+
     component.enrollmentForm.controls.description.setValue('descr');
     fixture.detectChanges();
-    const result = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
-    result.click();
+
+    component.enrollToken(stepper);
     tick();
 
     expect(component.enrolledToken).toEqual(expectedToken);
     expect(component.enrollmentStep.controls.tokenEnrolled.value).toEqual(true);
     expect(component.enrollmentForm.controls.description.disabled).toEqual(true);
+    expect(stepper.next).toHaveBeenCalledTimes(1);
+  }));
+
+  it('should enroll a TOTP token', fakeAsync(() => {
+    const mockEnrollmentResponse = Fixtures.enrollmentResponse;
+    mockEnrollmentResponse.result.value = true;
+
+    tokenService.enroll.and.returnValue(of(mockEnrollmentResponse));
+    const expectedToken = { serial: 'testSerial', url: 'testUrl' };
+
+    component.data.tokenTypeDetails = getTypeDetails(TokenType.TOTP);
+    component.enrollmentForm.controls.description.setValue('descr');
+    fixture.detectChanges();
+    component.enrollToken(stepper);
+    tick();
+
+    expect(component.enrolledToken).toEqual(expectedToken);
+    expect(component.enrollmentStep.controls.tokenEnrolled.value).toEqual(true);
+    expect(component.enrollmentForm.controls.description.disabled).toEqual(true);
+    expect(stepper.next).toHaveBeenCalledTimes(1);
   }));
 
   it('should output message if enrollment failed', fakeAsync(() => {
