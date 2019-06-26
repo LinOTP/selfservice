@@ -91,26 +91,26 @@
             optional="true"
             id="stepPIN">
     <p>
-      <p>
-        If you wish to set a security PIN, please do so now:
-        <button mat-raised-button
-                color="primary"
-                (click)="setPin()">Set pin</button>
-      </p>
-      <p class="mat-hint hint">
-        Setting a PIN helps you protect your token against misuse.
-      </p>
-      <p>
-        To finalize, we will verify if your token is correctly enrolled via a
-        test authentication.
-      </p>
-      <mat-dialog-actions align="end">
-        <div>Enrollment {{currentStep}} of {{maxSteps}}</div>
-        <span class="spacer"></span>
-        <button mat-raised-button
-                color="primary"
-                (click)="closeDialog()">{{ data.closeLabel || 'Done' }}</button>
+      If you wish to set a security PIN, please do so now:
+      <button mat-raised-button
+              color="primary"
+              (click)="setPin()">Set pin</button>
+    </p>
+    <p class="mat-hint hint">
+      Setting a PIN helps you protect your token against misuse.
+    </p>
+    <p>
+      To finalize, we will verify if your token is correctly enrolled via a
+      test authentication.
+    </p>
+    <mat-dialog-actions align="end">
+      <div>Enrollment {{currentStep}} of {{maxSteps}}</div>
+      <span class="spacer"></span>
+      <button mat-raised-button
+              color="primary"
+              (click)="closeDialog()">{{ data.closeLabel || 'Done' }}
+      </button>
 
-      </mat-dialog-actions>
+    </mat-dialog-actions>
   </mat-step>
 </mat-horizontal-stepper>
