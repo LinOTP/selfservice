@@ -75,7 +75,7 @@ describe('EnrollmentGridComponent', () => {
       width: '850px',
       autoFocus: false,
       disableClose: true,
-      data: { tokenTypeDetails: tokenTypeDetails, closeLabel: 'Test Token' },
+      data: { tokenTypeDetails: tokenTypeDetails },
     };
     const expectedTestDialogConfig = {
       width: '650px',
@@ -100,7 +100,7 @@ describe('EnrollmentGridComponent', () => {
       width: '850px',
       autoFocus: false,
       disableClose: true,
-      data: { tokenTypeDetails: tokenTypeDetails, closeLabel: 'Test Token' },
+      data: { tokenTypeDetails: tokenTypeDetails },
     };
 
     matDialog.open.and.returnValue({ afterClosed: () => of('serial') });
@@ -121,7 +121,7 @@ describe('EnrollmentGridComponent', () => {
       width: '850px',
       autoFocus: false,
       disableClose: true,
-      data: { tokenTypeDetails: tokenTypeDetails, closeLabel: 'Test Token' },
+      data: { tokenTypeDetails: tokenTypeDetails },
     };
 
     matDialog.open.and.returnValue({ afterClosed: () => of(null) });
@@ -142,7 +142,7 @@ describe('EnrollmentGridComponent', () => {
       width: '850px',
       autoFocus: false,
       disableClose: true,
-      data: { tokenTypeDetails: tokenTypeDetails, closeLabel: 'Test Token' },
+      data: { tokenTypeDetails: tokenTypeDetails },
     };
     const expectedTestDialogConfig = {
       width: '650px',
@@ -168,7 +168,6 @@ describe('EnrollmentGridComponent', () => {
       width: '850px',
       autoFocus: false,
       disableClose: true,
-      data: { closeLabel: 'Activate Token' },
     };
 
     const expectedTestDialogConfig = {

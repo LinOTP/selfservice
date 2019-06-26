@@ -39,19 +39,19 @@ export class EnrollmentGridComponent implements OnInit {
 
     switch (tokenType.type) {
       case TokenType.HOTP:
-        enrollmentConfig = this.getEnrollmentConfig('Test Token');
-        enrollmentConfig.data.tokenTypeDetails = tokenType;
+        enrollmentConfig = this.getEnrollmentConfig();
+        enrollmentConfig.data = { tokenTypeDetails: tokenType };
         enrollmentDialogRef = this.dialog.open(EnrollOtpDialogComponent, enrollmentConfig);
         testDialogRef = (token) => this.dialog.open(TestOTPDialogComponent, this.getTestConfig({ token: token }));
         break;
       case TokenType.TOTP:
-        enrollmentConfig = this.getEnrollmentConfig('Test Token');
-        enrollmentConfig.data.tokenTypeDetails = tokenType;
+        enrollmentConfig = this.getEnrollmentConfig();
+        enrollmentConfig.data = { tokenTypeDetails: tokenType };
         enrollmentDialogRef = this.dialog.open(EnrollOtpDialogComponent, enrollmentConfig);
         testDialogRef = (token) => this.dialog.open(TestOTPDialogComponent, this.getTestConfig({ token: token }));
         break;
       case TokenType.PUSH:
-        enrollmentDialogRef = this.dialog.open(EnrollPushDialogComponent, this.getEnrollmentConfig('Activate Token'));
+        enrollmentDialogRef = this.dialog.open(EnrollPushDialogComponent, this.getEnrollmentConfig());
         testDialogRef = (token) => this.dialog.open(TestPushDialogComponent, this.getTestConfig({ token: token, activate: true }));
         break;
       default:
@@ -74,12 +74,11 @@ export class EnrollmentGridComponent implements OnInit {
       ).subscribe(() => this.tokenUpdate.next());
   }
 
-  private getEnrollmentConfig(closeLabel: string): MatDialogConfig {
+  private getEnrollmentConfig(): MatDialogConfig {
     return {
       width: '850px',
       autoFocus: false,
       disableClose: true,
-      data: { closeLabel: closeLabel },
     };
   }
 

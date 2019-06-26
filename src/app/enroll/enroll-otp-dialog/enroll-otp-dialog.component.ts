@@ -28,7 +28,7 @@ export class EnrollOtpDialogComponent implements OnInit {
     private tokenService: TokenService,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<EnrollOtpDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { tokenTypeDetails: TokenTypeDetails, closeLabel: string },
+    @Inject(MAT_DIALOG_DATA) public data: { tokenTypeDetails: TokenTypeDetails },
     public notificationService: NotificationService,
   ) { }
 
