@@ -122,4 +122,26 @@ describe('The EnrollOtpDialogComponent', () => {
     expect(dialogRef.close).toHaveBeenCalledWith(component.enrolledToken.serial);
   }));
 
+  describe('cancel', () => {
+    it('should delete enrolled token and close dialog with false', fakeAsync(() => {
+      component.enrolledToken = { serial: 'testSerial', url: 'testUrl' };
+      fixture.detectChanges();
+
+      tokenService.deleteToken.and.returnValue(of());
+      component.cancelDialog();
+      tick();
+
+      expect(tokenService.deleteToken).toHaveBeenCalledWith('testSerial');
+      expect(dialogRef.close).toHaveBeenCalledWith(false);
+    }));
+
+    it('should not call delete token if no token was enrolled', fakeAsync(() => {
+      component.cancelDialog();
+      tick();
+
+      expect(tokenService.deleteToken).not.toHaveBeenCalled();
+      expect(dialogRef.close).toHaveBeenCalledWith(false);
+    }));
+  });
+
 });
