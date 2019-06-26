@@ -33,33 +33,26 @@ export class EnrollmentGridComponent implements OnInit {
   public ngOnInit() { }
 
   public runEnrollmentWorkflow(tokenType: TokenTypeDetails) {
-    let enrollmentDialogRef: MatDialogRef<EnrollOtpDialogComponent | EnrollPushDialogComponent>;
+    if (tokenType.type === TokenType.UNKNOWN) {
+      this.notificationService.message('The selected token type cannot be enrolled at the moment.');
+      return;
+    }
+
     let testDialogRef: ((any) => MatDialogRef<TestOTPDialogComponent | TestPushDialogComponent>);
-    let enrollmentConfig: MatDialogConfig;
 
     switch (tokenType.type) {
       case TokenType.HOTP:
-        enrollmentConfig = this.getEnrollmentConfig();
-        enrollmentConfig.data = { tokenTypeDetails: tokenType };
-        enrollmentDialogRef = this.dialog.open(EnrollOtpDialogComponent, enrollmentConfig);
         testDialogRef = (token) => this.dialog.open(TestOTPDialogComponent, this.getTestConfig({ token: token }));
         break;
       case TokenType.TOTP:
-        enrollmentConfig = this.getEnrollmentConfig();
-        enrollmentConfig.data = { tokenTypeDetails: tokenType };
-        enrollmentDialogRef = this.dialog.open(EnrollOtpDialogComponent, enrollmentConfig);
         testDialogRef = (token) => this.dialog.open(TestOTPDialogComponent, this.getTestConfig({ token: token }));
         break;
       case TokenType.PUSH:
-        enrollmentDialogRef = this.dialog.open(EnrollPushDialogComponent, this.getEnrollmentConfig());
         testDialogRef = (token) => this.dialog.open(TestPushDialogComponent, this.getTestConfig({ token: token, activate: true }));
         break;
-      default:
-        this.notificationService.message('The selected token type cannot be enrolled at the moment.');
-        return;
     }
 
-    enrollmentDialogRef.afterClosed()
+    this.openEnrollmentDialog(tokenType).afterClosed()
       .pipe(
         tap(() => this.tokenUpdate.next()),
         filter(serial => !!serial),
@@ -74,12 +67,21 @@ export class EnrollmentGridComponent implements OnInit {
       ).subscribe(() => this.tokenUpdate.next());
   }
 
-  private getEnrollmentConfig(): MatDialogConfig {
-    return {
+  private openEnrollmentDialog(typeDetails: TokenTypeDetails): MatDialogRef<EnrollOtpDialogComponent | EnrollPushDialogComponent> {
+    const enrollmentConfig: MatDialogConfig = {
       width: '850px',
       autoFocus: false,
       disableClose: true,
     };
+
+    switch (typeDetails.type) {
+      case TokenType.HOTP:
+      case TokenType.TOTP:
+        enrollmentConfig.data = { tokenTypeDetails: typeDetails };
+        return this.dialog.open(EnrollOtpDialogComponent, enrollmentConfig);
+      case (TokenType.PUSH):
+        return this.dialog.open(EnrollPushDialogComponent, enrollmentConfig);
+    }
   }
 
   private getTestConfig(data: any): MatDialogConfig {
