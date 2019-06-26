@@ -59,7 +59,7 @@ export class EnrollOtpDialogComponent implements OnInit {
     });
   }
 
-  public goToTokenInfo(stepper: MatStepper) {
+  public enrollToken(stepper: MatStepper) {
     this.tokenService.enroll(this.enrollmentForm.value).subscribe(response => {
       if (response.result && response.result.value === true) {
         this.enrolledToken = {
