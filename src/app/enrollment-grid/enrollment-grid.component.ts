@@ -48,7 +48,7 @@ export class EnrollmentGridComponent implements OnInit {
         testDialogRef = (token) => this.dialog.open(TestOTPDialogComponent, this.getTestConfig({ token: token }));
         break;
       case TokenType.PUSH:
-        testDialogRef = (token) => this.dialog.open(TestPushDialogComponent, this.getTestConfig({ token: token, activate: true }));
+        testDialogRef = (token) => this.dialog.open(TestPushDialogComponent, this.getTestConfig({ token: token }));
         break;
     }
 

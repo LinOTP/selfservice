@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { TokenService } from '../../api/token.service';
-import { Token } from '../../api/token';
+import { Token, EnrollmentStatus } from '../../api/token';
 import { MAT_DIALOG_DATA, MatDialogRef, MatStepper } from '@angular/material';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs/index';
@@ -21,9 +21,9 @@ export class TestPushDialogComponent implements OnInit {
   constructor(
     private tokenService: TokenService,
     private dialogRef: MatDialogRef<TestPushDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { token: Token, activate?: boolean },
+    @Inject(MAT_DIALOG_DATA) public data: { token: Token },
   ) {
-    if (data.activate) {
+    if (data.token.enrollmentStatus !== EnrollmentStatus.COMPLETED) {
       this.isActivation = true;
     }
   }

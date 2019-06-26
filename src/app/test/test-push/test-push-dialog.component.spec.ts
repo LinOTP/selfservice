@@ -31,7 +31,7 @@ describe('TestPushDialogComponent', () => {
           provide: TokenService,
           useValue: spyOnClass(TokenService),
         },
-        { provide: MAT_DIALOG_DATA, useValue: { token: null } },
+        { provide: MAT_DIALOG_DATA, useValue: { token: Fixtures.inactivePushToken } },
         { provide: MatDialogRef, useValue: spyOnClass(MatDialogRef) },
       ],
     })
@@ -39,13 +39,12 @@ describe('TestPushDialogComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TestPushDialogComponent);
-    component = fixture.componentInstance;
     tokenService = TestBed.get(TokenService);
     dialogRef = TestBed.get(MatDialogRef);
 
-    tokenService.getToken.and.returnValue(of(Fixtures.inactivePushToken));
-    component.data = { token: Fixtures.inactivePushToken };
+    fixture = TestBed.createComponent(TestPushDialogComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('should create', () => {
@@ -53,7 +52,6 @@ describe('TestPushDialogComponent', () => {
   });
 
   it('should have an initial step of 1 and max activation step of 2', () => {
-    fixture.detectChanges();
     expect(component.maxSteps).toEqual(2);
     expect(component.currentStep).toEqual(1);
   });

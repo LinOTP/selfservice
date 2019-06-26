@@ -172,7 +172,7 @@ describe('EnrollmentGridComponent', () => {
 
     const expectedTestDialogConfig = {
       width: '650px',
-      data: { token: token, activate: true },
+      data: { token: token },
     };
 
     matDialog.open.and.returnValues({ afterClosed: () => of(token.serial) }, { afterClosed: () => of(true) });
