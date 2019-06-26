@@ -1,4 +1,4 @@
-<h2>Enroll {{ tokenTypeDetails.name }}</h2>
+<h2>Enroll {{ data.tokenTypeDetails.name }}</h2>
 
 <mat-horizontal-stepper [linear]="true"
                         linear
@@ -7,7 +7,7 @@
   <mat-step [stepControl]="enrollmentStep"
             id="stepDescription">
     <p>
-      You have chosen to enroll a {{ tokenTypeDetails.name }}.
+      You have chosen to enroll a {{ data.tokenTypeDetails.name }}.
     </p>
     <p>
       You need an OATH compatible soft token app installed on your mobile

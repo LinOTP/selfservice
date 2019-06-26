@@ -65,6 +65,10 @@ export const unknownTokenType: TokenTypeDetails = {
   icon: 'apps',
 };
 
+export function getTypeDetails(type: TokenType): TokenTypeDetails {
+  return tokenTypeDetails.find(td => td.type === type) || unknownTokenType;
+}
+
 export class Token {
   enrollmentStatus: EnrollmentStatus;
 
@@ -77,9 +81,8 @@ export class Token {
     public enabled: boolean,
     public description?: string,
   ) {
-    this.typeDetails = tokenTypeDetails.find(tt => tt.type === this.type) || unknownTokenType;
+    this.typeDetails = getTypeDetails(this.type);
   }
-
 }
 
 export enum EnrollmentStatus {
@@ -94,6 +97,4 @@ export interface EnrollToken {
   description: string;
 }
 
-export function getTypeDetails(type: TokenType): TokenTypeDetails {
-  return tokenTypeDetails.find(td => td.type === type);
-}
+

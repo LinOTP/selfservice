@@ -6,7 +6,7 @@ import { SetPinDialogComponent } from '../../common/set-pin-dialog/set-pin-dialo
 import { NotificationService } from '../../common/notification.service';
 
 import { TokenService } from '../../api/token.service';
-import { TokenType, TokenTypeDetails, getTypeDetails } from '../../api/token';
+import { TokenType, TokenTypeDetails } from '../../api/token';
 
 @Component({
   selector: 'app-enroll-otp',
@@ -14,8 +14,6 @@ import { TokenType, TokenTypeDetails, getTypeDetails } from '../../api/token';
   styleUrls: ['./enroll-otp-dialog.component.scss']
 })
 export class EnrollOtpDialogComponent implements OnInit {
-
-  public tokenTypeDetails: TokenTypeDetails;
 
   public enrollmentForm: FormGroup;
   public enrollmentStep: FormGroup;
@@ -30,23 +28,21 @@ export class EnrollOtpDialogComponent implements OnInit {
     private tokenService: TokenService,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<EnrollOtpDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { type: TokenType, closeLabel: string },
+    @Inject(MAT_DIALOG_DATA) public data: { tokenTypeDetails: TokenTypeDetails, closeLabel: string },
     public notificationService: NotificationService,
-  ) {
-    this.tokenTypeDetails = getTypeDetails(data.type);
-  }
+  ) { }
 
   public ngOnInit() {
     this.enrollmentForm = this.formBuilder.group({
       'description': ['', Validators.required],
-      'type': this.tokenTypeDetails.type,
+      'type': this.data.tokenTypeDetails.type,
       'otplen': 6,
       'hashlib': 'sha1',
       'genkey': 1,
       'timeStep': 30
     });
 
-    if (this.tokenTypeDetails.type !== TokenType.TOTP) {
+    if (this.data.tokenTypeDetails.type !== TokenType.TOTP) {
       this.enrollmentForm.removeControl('timeStep');
     }
 

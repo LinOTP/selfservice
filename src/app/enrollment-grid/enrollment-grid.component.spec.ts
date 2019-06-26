@@ -7,7 +7,7 @@ import { of } from 'rxjs/internal/observable/of';
 import { NotificationService } from '../common/notification.service';
 import { spyOnClass } from '../../testing/spyOnClass';
 import { MatDialog } from '@angular/material';
-import { TokenTypeDetails, TokenType } from '../api/token';
+import { TokenTypeDetails, TokenType, getTypeDetails } from '../api/token';
 import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
 import { Fixtures } from '../../testing/fixtures';
 import { CapitalizePipe } from '../common/pipes/capitalize.pipe';
@@ -69,22 +69,22 @@ describe('EnrollmentGridComponent', () => {
 
   it('should open the HOTP dialog and update the token list when completed', fakeAsync(() => {
     const token = Fixtures.activeHotpToken;
+    const tokenTypeDetails: TokenTypeDetails = getTypeDetails(token.type);
+
     const expectedEnrollDialogConfig = {
       width: '850px',
       autoFocus: false,
       disableClose: true,
-      data: { type: TokenType.HOTP, closeLabel: 'Test Token' },
+      data: { tokenTypeDetails: tokenTypeDetails, closeLabel: 'Test Token' },
     };
     const expectedTestDialogConfig = {
       width: '650px',
       data: { token: token },
     };
 
-    const testToken: TokenTypeDetails = Fixtures.hmacTokenType;
-
     matDialog.open.and.returnValues({ afterClosed: () => of(token.serial) }, { afterClosed: () => of(true) });
     tokenService.getToken.and.returnValue(of(token));
-    component.runEnrollmentWorkflow(testToken);
+    component.runEnrollmentWorkflow(tokenTypeDetails);
     tick();
 
     expect(matDialog.open).toHaveBeenCalledWith(EnrollOtpDialogComponent, expectedEnrollDialogConfig);
@@ -94,18 +94,18 @@ describe('EnrollmentGridComponent', () => {
   }));
 
   it('should notify the user if there was an issue retrieving the token before the test', fakeAsync(() => {
+    const tokenTypeDetails: TokenTypeDetails = getTypeDetails(TokenType.HOTP);
+
     const expectedEnrollDialogConfig = {
       width: '850px',
       autoFocus: false,
       disableClose: true,
-      data: { type: TokenType.HOTP, closeLabel: 'Test Token' },
+      data: { tokenTypeDetails: tokenTypeDetails, closeLabel: 'Test Token' },
     };
-
-    const testToken: TokenTypeDetails = Fixtures.hmacTokenType;
 
     matDialog.open.and.returnValue({ afterClosed: () => of('serial') });
     tokenService.getToken.and.returnValue(of(null));
-    component.runEnrollmentWorkflow(testToken);
+    component.runEnrollmentWorkflow(tokenTypeDetails);
     tick();
 
     expect(matDialog.open).toHaveBeenCalledTimes(1);
@@ -115,17 +115,17 @@ describe('EnrollmentGridComponent', () => {
   }));
 
   it('should not notify the user if the enrollment was cancelled', fakeAsync(() => {
+    const tokenTypeDetails: TokenTypeDetails = getTypeDetails(TokenType.HOTP);
+
     const expectedEnrollDialogConfig = {
       width: '850px',
       autoFocus: false,
       disableClose: true,
-      data: { type: TokenType.HOTP, closeLabel: 'Test Token' },
+      data: { tokenTypeDetails: tokenTypeDetails, closeLabel: 'Test Token' },
     };
 
-    const testToken: TokenTypeDetails = Fixtures.hmacTokenType;
-
     matDialog.open.and.returnValue({ afterClosed: () => of(null) });
-    component.runEnrollmentWorkflow(testToken);
+    component.runEnrollmentWorkflow(tokenTypeDetails);
     tick();
 
     expect(matDialog.open).toHaveBeenCalledTimes(1);
@@ -136,22 +136,22 @@ describe('EnrollmentGridComponent', () => {
 
   it('should open the TOTP dialog and update the token list when completed', fakeAsync(() => {
     const token = Fixtures.activeTotpToken;
+    const tokenTypeDetails: TokenTypeDetails = getTypeDetails(token.type);
+
     const expectedEnrollDialogConfig = {
       width: '850px',
       autoFocus: false,
       disableClose: true,
-      data: { type: TokenType.TOTP, closeLabel: 'Test Token' },
+      data: { tokenTypeDetails: tokenTypeDetails, closeLabel: 'Test Token' },
     };
     const expectedTestDialogConfig = {
       width: '650px',
       data: { token: token },
     };
 
-    const testToken: TokenTypeDetails = Fixtures.totpTokenType;
-
     matDialog.open.and.returnValues({ afterClosed: () => of(token.serial) }, { afterClosed: () => of(true) });
     tokenService.getToken.and.returnValue(of(token));
-    component.runEnrollmentWorkflow(testToken);
+    component.runEnrollmentWorkflow(tokenTypeDetails);
     tick();
 
     expect(matDialog.open).toHaveBeenCalledWith(EnrollOtpDialogComponent, expectedEnrollDialogConfig);
@@ -162,14 +162,14 @@ describe('EnrollmentGridComponent', () => {
 
   it('should open the Push dialog and trigger the token list updater', fakeAsync(() => {
     const token = Fixtures.unpairedPushToken;
+    const tokenTypeDetails: TokenTypeDetails = getTypeDetails(token.type);
+
     const expectedEnrollDialogConfig = {
       width: '850px',
       autoFocus: false,
       disableClose: true,
       data: { closeLabel: 'Activate Token' },
     };
-
-    const testToken: TokenTypeDetails = Fixtures.pushTokenType;
 
     const expectedTestDialogConfig = {
       width: '650px',
@@ -178,7 +178,7 @@ describe('EnrollmentGridComponent', () => {
 
     matDialog.open.and.returnValues({ afterClosed: () => of(token.serial) }, { afterClosed: () => of(true) });
     tokenService.getToken.and.returnValue(of(token));
-    component.runEnrollmentWorkflow(testToken);
+    component.runEnrollmentWorkflow(tokenTypeDetails);
     tick();
 
     expect(matDialog.open).toHaveBeenCalledWith(EnrollPushDialogComponent, expectedEnrollDialogConfig);
@@ -189,9 +189,8 @@ describe('EnrollmentGridComponent', () => {
   }));
 
   it('should notify the user if the token cannot be enrolled', fakeAsync(() => {
-
-    const testToken: TokenTypeDetails = Fixtures.unknownTokenType;
-    component.runEnrollmentWorkflow(testToken);
+    const tokenTypeDetails: TokenTypeDetails = getTypeDetails(TokenType.UNKNOWN);
+    component.runEnrollmentWorkflow(tokenTypeDetails);
     tick();
 
     expect(matDialog.open).toHaveBeenCalledTimes(0);

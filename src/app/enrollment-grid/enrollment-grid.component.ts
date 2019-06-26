@@ -40,13 +40,13 @@ export class EnrollmentGridComponent implements OnInit {
     switch (tokenType.type) {
       case TokenType.HOTP:
         enrollmentConfig = this.getEnrollmentConfig('Test Token');
-        enrollmentConfig.data.type = TokenType.HOTP;
+        enrollmentConfig.data.tokenTypeDetails = tokenType;
         enrollmentDialogRef = this.dialog.open(EnrollOtpDialogComponent, enrollmentConfig);
         testDialogRef = (token) => this.dialog.open(TestOTPDialogComponent, this.getTestConfig({ token: token }));
         break;
       case TokenType.TOTP:
         enrollmentConfig = this.getEnrollmentConfig('Test Token');
-        enrollmentConfig.data.type = TokenType.TOTP;
+        enrollmentConfig.data.tokenTypeDetails = tokenType;
         enrollmentDialogRef = this.dialog.open(EnrollOtpDialogComponent, enrollmentConfig);
         testDialogRef = (token) => this.dialog.open(TestOTPDialogComponent, this.getTestConfig({ token: token }));
         break;

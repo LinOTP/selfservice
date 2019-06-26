@@ -12,7 +12,7 @@ import { MockComponent } from '../../../testing/mock-component';
 import { spyOnClass } from '../../../testing/spyOnClass';
 
 import { MaterialModule } from '../../material.module';
-import { TokenType } from '../../api/token';
+import { TokenType, getTypeDetails } from '../../api/token';
 import { TokenService } from '../../api/token.service';
 import { NotificationService } from '../../common/notification.service';
 
@@ -58,7 +58,7 @@ describe('The EnrollOtpDialogComponent', () => {
         },
         {
           provide: MAT_DIALOG_DATA,
-          useValue: { type: TokenType.HOTP, closeLabel: null },
+          useValue: { tokenTypeDetails: getTypeDetails(TokenType.HOTP), closeLabel: null },
         },
       ],
     })
@@ -77,6 +77,7 @@ describe('The EnrollOtpDialogComponent', () => {
 
   it('should be created', () => {
     expect(component).toBeTruthy();
+    expect(component.data.tokenTypeDetails.type).toEqual(TokenType.HOTP);
   });
 
   describe('setPin', () => {
