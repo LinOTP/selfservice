@@ -59,6 +59,7 @@
               id="goTo2">Next</button>
     </mat-dialog-actions>
   </mat-step>
+
   <mat-step active="false"
             id="stepShowQR">
     <div *ngIf="enrolledToken">
@@ -88,7 +89,6 @@
   </mat-step>
 
   <mat-step active="false"
-            optional="true"
             id="stepPIN">
     <p>
       If you wish to set a security PIN, please do so now:
