@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package.json yarn.lock ./
 
 ## Install all dependencies required for build
-RUN yarn --no-progress
+RUN yarn --no-progress --frozen-lockfile
 
 ## Copy project excluding ignored files
 COPY . .
