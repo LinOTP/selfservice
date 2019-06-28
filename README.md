@@ -24,6 +24,14 @@ This will load a webpack develompment server that transpiles and bundles all fil
 
 The start script will load an api reverse proxy that can be configured via [[proxy.conf.json](proxy.conf.json)]. Per default it expects a LinOTP instance running on [http://localhost:5001](http://localhost:5001).
 
+You can run `yarn start-de` or `yarn start-en` to serve the application with a specific locale.
+
+### Translations
+
+The script `yarn extract-i18n` will collect strings from the html templates and typescript files. The extracted strings will be stored in the file [src/locale/messages.xlf](src/locale/messages.xlf). The language specific translation files in the same folder will be updated. New strings will be added and marked with state _new_ and redundant strings are removed. The default translation file _en_ is already complete and translations are marked with state _final_.
+
+The new translations need to be done per language and checked into the repository. `yarn build` and `yarn start` commands will automatically use the new translations.
+
 ### Running unit tests
 
 Unit tests are executed via [Karma](https://karma-runner.github.io) and watch for file changes to rerun.
