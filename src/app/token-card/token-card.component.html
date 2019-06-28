@@ -18,20 +18,23 @@
     <ng-container [ngSwitch]="token.enrollmentStatus">
       <p *ngSwitchCase="EnrollmentStatus.UNPAIRED">
         <ng-container *ngIf="isPush(); else otherTokenTypes">
-          There was a problem with this token and it cannot be used. Make sure to delete it and reset your
-          Authenticator app before enrolling a new push token.
+          There was a problem with this token and it cannot be used. Make
+          sure to delete it and reset your Authenticator app before enrolling
+          a new push token.
         </ng-container>
         <ng-template #otherTokenTypes>
-          This token needs to be paired with your mobile. You need the enrollment QR code to proceed in the
-          authenticator
-          mobile application. Afterwards you can start the activation here.
+          This token needs to be paired with your mobile. You need the
+          enrollment QR code to proceed in the authenticator mobile
+          application. Afterwards you can start the activation here.
         </ng-template>
       </p>
       <p *ngSwitchCase="EnrollmentStatus.PAIRING_RESPONSE_RECEIVED">
-        This token is paired with your mobile. The next step is the activation:
+        This token is paired with your mobile. The next step is the
+        activation:
       </p>
       <p *ngSwitchCase="EnrollmentStatus.PAIRING_CHALLENGE_SENT">
-        An activation challenge has been generated. Please process it with your authenticator
+        An activation challenge has been generated. Please process it with
+        your authenticator
       </p>
     </ng-container>
   </mat-card-content>
@@ -67,10 +70,12 @@
   <mat-divider></mat-divider>
   <ng-container *ngIf="token.enrollmentStatus === EnrollmentStatus.COMPLETED">
     <ng-container *ngIf="!token.enabled">
-      <ng-container *ngxPermissionsOnly="Permission.ENABLE; then enableBlock; else noEnableBlock"> </ng-container>
+      <ng-container *ngxPermissionsOnly="Permission.ENABLE; then enableBlock; else noEnableBlock">
+      </ng-container>
     </ng-container>
     <ng-container *ngIf="token.enabled">
-      <ng-container *ngxPermissionsOnly="Permission.DISABLE; then disableBlock; else noDisableBlock"> </ng-container>
+      <ng-container *ngxPermissionsOnly="Permission.DISABLE; then disableBlock; else noDisableBlock">
+      </ng-container>
     </ng-container>
   </ng-container>
   <button mat-menu-item

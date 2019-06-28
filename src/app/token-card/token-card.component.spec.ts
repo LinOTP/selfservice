@@ -15,8 +15,8 @@ import { NotificationService } from '../common/notification.service';
 import { TokenService } from '../api/token.service';
 import { Permission, ModifyTokenPermissions } from '../common/permissions';
 import { EnrollmentStatus } from '../api/token';
-import { ActivatePushDialogComponent } from '../activate/activate-push/activate-push-dialog.component';
-import { ActivateQrDialogComponent } from '../activate/activate-qr/activate-qr-dialog.component';
+import { TestPushDialogComponent } from '../test/test-push/test-push-dialog.component';
+import { TestQrDialogComponent } from '../test/test-qr/test-qr-dialog.component';
 import { CapitalizePipe } from '../common/pipes/capitalize.pipe';
 import { TestOTPDialogComponent } from '../test/test-otp/test-otp-dialog.component';
 
@@ -86,7 +86,7 @@ describe('TokenCardComponent', () => {
       width: '850px',
       autoFocus: false,
       disableClose: true,
-      data: null
+      data: { token: component.token },
     };
   });
 
@@ -245,28 +245,30 @@ describe('TokenCardComponent', () => {
   });
 
   describe('activate', () => {
-    it('should open a token activation dialog', fakeAsync(() => {
+    it('should open a Push token activation dialog', fakeAsync(() => {
       matDialog.open.and.returnValue({ afterClosed: () => of({}) });
-      expectedDialogConfig.data = Fixtures.pairedPushToken.serial;
+      expectedDialogConfig.data.token = Fixtures.pairedPushToken;
+      expectedDialogConfig.data.activate = true;
 
       component.token = Fixtures.pairedPushToken;
       component.activate();
       tick();
 
-      expect(matDialog.open).toHaveBeenCalledWith(ActivatePushDialogComponent, expectedDialogConfig);
-      expect(matDialog.open).not.toHaveBeenCalledWith(ActivateQrDialogComponent, expectedDialogConfig);
+      expect(matDialog.open).toHaveBeenCalledWith(TestPushDialogComponent, expectedDialogConfig);
+      expect(matDialog.open).not.toHaveBeenCalledWith(TestQrDialogComponent, expectedDialogConfig);
     }));
 
     it('should open a QR token activation dialog', fakeAsync(() => {
       matDialog.open.and.returnValue({ afterClosed: () => of({}) });
-      expectedDialogConfig.data = Fixtures.pairedQRToken.serial;
+      expectedDialogConfig.data.token = Fixtures.pairedQRToken;
+      expectedDialogConfig.data.activate = true;
 
       component.token = Fixtures.pairedQRToken;
       component.activate();
       tick();
 
-      expect(matDialog.open).toHaveBeenCalledWith(ActivateQrDialogComponent, expectedDialogConfig);
-      expect(matDialog.open).not.toHaveBeenCalledWith(ActivatePushDialogComponent, expectedDialogConfig);
+      expect(matDialog.open).toHaveBeenCalledWith(TestQrDialogComponent, expectedDialogConfig);
+      expect(matDialog.open).not.toHaveBeenCalledWith(TestPushDialogComponent, expectedDialogConfig);
     }));
   });
 
@@ -354,7 +356,7 @@ describe('TokenCardComponent', () => {
         width: '850px',
         autoFocus: false,
         disableClose: true,
-        data: component.token
+        data: { token: component.token },
       };
 
       component.testToken();
@@ -372,7 +374,7 @@ describe('TokenCardComponent', () => {
         width: '850px',
         autoFocus: false,
         disableClose: true,
-        data: component.token
+        data: { token: component.token },
       };
 
       component.testToken();
@@ -381,8 +383,44 @@ describe('TokenCardComponent', () => {
       expect(tokenUpdateSpy).toHaveBeenCalled();
     }));
 
-    it('should not open the TestOTPDialogComponent if token is not HOTP nor TOTP', () => {
-      component.token = Fixtures.activePushToken;
+    it('should open the TestPushDialogComponent if token is Push', fakeAsync(() => {
+      matDialog.open.and.returnValue({ afterClosed: () => of({}) });
+      component.token = Fixtures.completedPushToken;
+      fixture.detectChanges();
+
+      const expectedConfig = {
+        width: '850px',
+        autoFocus: false,
+        disableClose: true,
+        data: { token: component.token },
+      };
+
+      component.testToken();
+
+      expect(matDialog.open).toHaveBeenCalledWith(TestPushDialogComponent, expectedConfig);
+      expect(tokenUpdateSpy).toHaveBeenCalled();
+    }));
+
+    it('should open the TestQRDialogComponent if token is Push', fakeAsync(() => {
+      matDialog.open.and.returnValue({ afterClosed: () => of({}) });
+      component.token = Fixtures.completedQRToken;
+      fixture.detectChanges();
+
+      const expectedConfig = {
+        width: '850px',
+        autoFocus: false,
+        disableClose: true,
+        data: { token: component.token },
+      };
+
+      component.testToken();
+
+      expect(matDialog.open).toHaveBeenCalledWith(TestQrDialogComponent, expectedConfig);
+      expect(tokenUpdateSpy).toHaveBeenCalled();
+    }));
+
+    it('should not open the TestOTPDialogComponent if token is not HOTP/TOTP/Push/QR', () => {
+      component.token = Fixtures.unknownToken;
       fixture.detectChanges();
 
       component.testToken();

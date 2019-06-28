@@ -13,9 +13,9 @@ import { Permission, ModifyTokenPermissions } from '../common/permissions';
 import { Token, EnrollmentStatus, TokenType } from '../api/token';
 import { TokenService } from '../api/token.service';
 
-import { ActivatePushDialogComponent } from '../activate/activate-push/activate-push-dialog.component';
-import { ActivateQrDialogComponent } from '../activate/activate-qr/activate-qr-dialog.component';
 import { TestOTPDialogComponent } from '../test/test-otp/test-otp-dialog.component';
+import { TestPushDialogComponent } from '../test/test-push/test-push-dialog.component';
+import { TestQrDialogComponent } from '../test/test-qr/test-qr-dialog.component';
 
 @Component({
   selector: 'app-token-card',
@@ -109,13 +109,19 @@ export class TokenCardComponent implements OnInit {
       width: '850px',
       autoFocus: false,
       disableClose: true,
-      data: this.token
+      data: { token: this.token }
     };
 
     switch (this.token.type) {
       case TokenType.HOTP:
       case TokenType.TOTP:
         testDialog = TestOTPDialogComponent;
+        break;
+      case TokenType.PUSH:
+        testDialog = TestPushDialogComponent;
+        break;
+      case TokenType.QR:
+        testDialog = TestQrDialogComponent;
         break;
       default:
         this.notificationService.message('This token type cannot be tested yet.');
@@ -133,7 +139,7 @@ export class TokenCardComponent implements OnInit {
       width: '850px',
       autoFocus: false,
       disableClose: true,
-      data: this.token.serial
+      data: { token: this.token, activate: true }
     };
 
     this.dialog.open(this.chooseActivationDialog(), dialogConfig)
@@ -170,10 +176,10 @@ export class TokenCardComponent implements OnInit {
 
   private chooseActivationDialog(): ComponentType<any> {
     if (this.token.type === TokenType.PUSH) {
-      return ActivatePushDialogComponent;
+      return TestPushDialogComponent;
     }
     if (this.token.type === TokenType.QR) {
-      return ActivateQrDialogComponent;
+      return TestQrDialogComponent;
     }
   }
 }

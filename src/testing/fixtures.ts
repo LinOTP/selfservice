@@ -56,6 +56,10 @@ export class Fixtures {
     return token;
   }
 
+  static get unknownToken(): Token {
+    return new Token(5, 'Unknown-Serial', TokenType.UNKNOWN, true, 'Description');
+  }
+
   static get completedQRToken(): Token {
     const token = new Token(5, 'Paired-QRToken-Serial', TokenType.QR, true, 'QR token Description');
     token.enrollmentStatus = EnrollmentStatus.COMPLETED;
@@ -112,6 +116,15 @@ export class Fixtures {
     return {
       type: TokenType.PUSH,
       name: 'test push',
+      description: 'desc',
+      icon: 'icon'
+    };
+  }
+
+  static get unknownTokenType() {
+    return {
+      type: TokenType.UNKNOWN,
+      name: 'test unknown',
       description: 'desc',
       icon: 'icon'
     };

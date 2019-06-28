@@ -13,7 +13,6 @@ import { EnrollPushDialogComponent } from './enroll-push-dialog.component';
 import { NotificationService } from '../../common/notification.service';
 import { spyOnClass } from '../../../testing/spyOnClass';
 import { Fixtures } from '../../../testing/fixtures';
-import { ActivatePushDialogComponent } from '../../activate/activate-push/activate-push-dialog.component';
 import { DialogComponent } from '../../common/dialog/dialog.component';
 
 describe('EnrollPushDialogComponent', () => {
@@ -182,10 +181,9 @@ describe('EnrollPushDialogComponent', () => {
       data: Fixtures.enrolledToken.serial
     };
     component.enrolledToken = Fixtures.enrolledToken;
-    component.goToActivation();
+    component.closeAndReturnSerial();
     tick();
-    expect(matDialog.open).toHaveBeenCalledTimes(1);
-    expect(matDialog.open).toHaveBeenCalledWith(ActivatePushDialogComponent, expectedDialogConfig);
+    expect(matDialog.open).not.toHaveBeenCalled();
     expect(dialogRef.close).toHaveBeenCalledTimes(1);
   }));
 });

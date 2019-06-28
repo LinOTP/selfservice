@@ -1,5 +1,5 @@
 <ng-container *ngFor="let type of tokenTypes">
-  <mat-card (click)="startEnrollment(type)"
+  <mat-card (click)="runEnrollmentWorkflow(type)"
             role="button"
             *ngxPermissionsOnly="type.enrollmentPermission">
     <mat-card-header>

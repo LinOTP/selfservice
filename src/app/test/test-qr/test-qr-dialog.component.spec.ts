@@ -1,19 +1,19 @@
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { By } from '@angular/platform-browser';
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { of } from 'rxjs/internal/observable/of';
 
-import { ActivatePushDialogComponent } from './activate-push-dialog.component';
-import { MaterialModule } from '../../material.module';
+import { TestQrDialogComponent } from './test-qr-dialog.component';
 import { TokenService } from '../../api/token.service';
 import { spyOnClass } from '../../../testing/spyOnClass';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from '../../material.module';
+import { MockComponent } from '../../../testing/mock-component';
+import { of } from 'rxjs/internal/observable/of';
 import { Fixtures } from '../../../testing/fixtures';
 import { EnrollPushDialogComponent } from '../../enroll/enroll-push-dialog/enroll-push-dialog.component';
 
-describe('ActivatePushDialogComponent', () => {
-  let component: ActivatePushDialogComponent;
-  let fixture: ComponentFixture<ActivatePushDialogComponent>;
+describe('TestQrDialogComponent', () => {
+  let component: TestQrDialogComponent;
+  let fixture: ComponentFixture<TestQrDialogComponent>;
   let tokenService: jasmine.SpyObj<TokenService>;
   let dialogRef: jasmine.SpyObj<MatDialogRef<EnrollPushDialogComponent>>;
 
@@ -23,15 +23,15 @@ describe('ActivatePushDialogComponent', () => {
         MaterialModule,
         NoopAnimationsModule,
       ],
-      declarations: [
-        ActivatePushDialogComponent,
+      declarations: [TestQrDialogComponent,
+        MockComponent({ selector: 'app-qr-code', inputs: ['qrUrl'] }),
       ],
       providers: [
         {
           provide: TokenService,
           useValue: spyOnClass(TokenService),
         },
-        { provide: MAT_DIALOG_DATA, useValue: null },
+        { provide: MAT_DIALOG_DATA, useValue: { token: null } },
         { provide: MatDialogRef, useValue: spyOnClass(MatDialogRef) },
       ],
     })
@@ -39,13 +39,13 @@ describe('ActivatePushDialogComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ActivatePushDialogComponent);
+    fixture = TestBed.createComponent(TestQrDialogComponent);
     component = fixture.componentInstance;
     tokenService = TestBed.get(TokenService);
     dialogRef = TestBed.get(MatDialogRef);
-
-    tokenService.getToken.and.returnValue(of(Fixtures.inactivePushToken));
-    component.tokenSerial = Fixtures.inactivePushToken.serial;
+    tokenService.activate.and.returnValue(of());
+    component.data = { token: Fixtures.inactiveQRToken };
+    fixture.detectChanges();
   });
 
   it('should create', () => {
@@ -58,54 +58,51 @@ describe('ActivatePushDialogComponent', () => {
     expect(component.currentStep).toEqual(1);
   });
 
-  it('should activate the push token with success message', fakeAsync(() => {
+  it('should activate the QR token', fakeAsync(() => {
     tokenService.activate.and.returnValue(of(Fixtures.activationResponse));
     tokenService.challengePoll.and.returnValue(of(true));
 
-    fixture.detectChanges();
     expect(component.currentStep).toEqual(1);
 
-    const nextButton = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
-    nextButton.click();
+    component.activateToken();
     tick();
 
     expect(component.waitingForResponse).toEqual(false);
     expect(component.restartDialog).toEqual(false);
     expect(component.currentStep).toEqual(2);
+    expect(component.showError).toEqual(false);
   }));
 
-  it('should fail on token activation', fakeAsync(() => {
+  it('should fail on QR token activation', fakeAsync(() => {
     tokenService.activate.and.returnValue(of({}));
     spyOn(console, 'error');
 
-    fixture.detectChanges();
     expect(component.currentStep).toEqual(1);
 
-    const nextButton = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
-    nextButton.click();
+    component.activateToken();
     tick();
 
     expect(component.waitingForResponse).toEqual(false);
     expect(component.restartDialog).toEqual(true);
     expect(component.currentStep).toEqual(2);
+    expect(component.showError).toEqual(true);
     expect(console.error).toHaveBeenCalled();
 
   }));
 
-  it('should fail on challenge polling', fakeAsync(() => {
+  it('should fail on QR challenge polling', fakeAsync(() => {
     tokenService.activate.and.returnValue(of(Fixtures.activationResponse));
     tokenService.challengePoll.and.returnValue(of(false));
 
-    fixture.detectChanges();
     expect(component.currentStep).toEqual(1);
 
-    const nextButton = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
-    nextButton.click();
+    component.activateToken();
     tick();
 
     expect(component.waitingForResponse).toEqual(false);
     expect(component.restartDialog).toEqual(true);
     expect(component.currentStep).toEqual(2);
+    expect(component.showError).toEqual(false);
   }));
 
   it('should let the user close the dialog', () => {
