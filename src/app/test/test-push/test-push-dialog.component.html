@@ -28,8 +28,7 @@
     </p>
     <p *ngIf="!isActivation">Please confirm the challenge on the app.</p>
     <mat-dialog-actions align="end">
-      <div>{{ isActivation? "Activation" : "Test" }} {{currentStep}} of
-        {{maxSteps}}</div>
+      <div>{{ isActivation? "Activation" : "Test" }} 1 of 3</div>
       <span class="spacer"></span>
       <button mat-raised-button
               (click)="cancelDialog()">Cancel</button>
@@ -50,8 +49,7 @@
           Authenticator.</p>
       </section>
       <mat-dialog-actions align="end">
-        <div>{{ isActivation? "Activation" : "Test" }} {{currentStep}} of
-          {{maxSteps}}</div>
+        <div>{{ isActivation? "Activation" : "Test" }} 2 of 3</div>
         <span class="spacer"></span>
         <button mat-raised-button
                 (click)="cancelDialog()">Cancel</button>
@@ -65,8 +63,7 @@
           successful. Your token is ready to be used.</p>
       </section>
       <mat-dialog-actions align="end">
-        <div>{{ isActivation? "Activation" : "Test" }} {{currentStep}} of
-          {{maxSteps}}</div>
+        <div>{{ isActivation? "Activation" : "Test" }} 3 of 3</div>
         <span class="spacer"></span>
         <button mat-raised-button
                 (click)="cancelDialog()"

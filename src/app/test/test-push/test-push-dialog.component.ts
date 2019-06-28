@@ -12,8 +12,6 @@ import { Observable, of } from 'rxjs/index';
 })
 export class TestPushDialogComponent implements OnInit {
   public waitingForResponse: boolean;
-  public readonly maxSteps: number = 2;
-  public currentStep: number;
   public restartDialog: boolean;
   public isActivation = false;
   public transactionId: string = null;
@@ -31,14 +29,13 @@ export class TestPushDialogComponent implements OnInit {
 
   public ngOnInit() {
     this.waitingForResponse = false;
-    this.currentStep = 1;
   }
 
   public activateToken(stepper: MatStepper): void {
 
     this.restartDialog = false;
     this.waitingForResponse = true;
-    this.incrementStep(stepper);
+    stepper.next();
 
     this.tokenService.activate(this.data.token.serial, this.pin).pipe(
       map(response => response.detail.transactionid),
@@ -72,20 +69,11 @@ export class TestPushDialogComponent implements OnInit {
   }
 
   /**
-   * Increment the current step of the dialog for the view
-   */
-  public incrementStep(stepper: MatStepper) {
-    stepper.next();
-    this.currentStep++;
-  }
-
-  /**
    * Resets the dialog to the initial state and
    * alows to restart the activation process
    */
   public resetDialogToInitial(stepper: MatStepper) {
     stepper.reset();
-    this.currentStep = 1;
   }
 
 }
