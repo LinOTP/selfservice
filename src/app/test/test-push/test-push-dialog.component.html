@@ -39,9 +39,9 @@
     </mat-dialog-actions>
   </mat-step>
   <mat-step>
-    <ng-container *ngIf="waitingForResponse; then spinningBlock else challengeResponseBlock"></ng-container>
+    <ng-container *ngIf="waitingForResponse; then waitingBlock else challengeResponseBlock"></ng-container>
 
-    <ng-template #spinningBlock>
+    <ng-template #waitingBlock>
       <section class="response">
         <mat-spinner></mat-spinner>
         <p>Waiting for confirmation for {{isActivation? "test" : ""}}
