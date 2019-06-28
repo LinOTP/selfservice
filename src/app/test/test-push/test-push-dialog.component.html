@@ -4,6 +4,22 @@
                         linear
                         #stepper>
   <mat-step>
+
+    <div class="dialog-input">
+      <div>
+        Enter your token PIN or password if you have set a PIN or you are
+        required to enter your password for OTP authentication:
+      </div>
+      <mat-form-field>
+        <input matInput
+               type="password"
+               autocomplete="current-password"
+               [(ngModel)]="pin"
+               placeholder="PIN or password"
+               autofocus>
+      </mat-form-field>
+    </div>
+
     <p>In the next step your Authenticator app will
       {{ isActivation?
       "be verified by the authentication server." :
