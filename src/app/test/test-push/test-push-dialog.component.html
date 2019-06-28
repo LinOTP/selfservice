@@ -73,7 +73,9 @@
                 *ngIf="restartDialog">Cancel</button>
         <button mat-raised-button
                 (click)="resetDialogToInitial(stepper)"
-                *ngIf="restartDialog">Restart activation</button>
+                *ngIf="restartDialog">
+          Restart {{ isActivation? "activation" : "test" }}
+        </button>
         <button mat-raised-button
                 color="primary"
                 (click)="closeDialog()"
