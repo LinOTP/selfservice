@@ -5,6 +5,7 @@ import { MaterialModule } from './material.module';
 import { AuthService } from './auth/auth.service';
 import { of } from 'rxjs';
 import { NotificationService } from './common/notification.service';
+import { I18NMock } from '../testing/i18n-mock-provider';
 
 class AuthServiceMock {
   logout = jasmine.createSpy('logout').and.returnValue(of(null));
@@ -37,6 +38,7 @@ describe('AppComponent', () => {
           provide: NotificationService,
           useClass: MockNotificationService,
         },
+        I18NMock,
       ]
     }).compileComponents();
   }));

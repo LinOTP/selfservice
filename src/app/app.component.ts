@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './auth/auth.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { I18n } from '@ngx-translate/i18n-polyfill';
 import { NotificationService } from './common/notification.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { NotificationService } from './common/notification.service';
 export class AppComponent implements OnInit {
   public title = 'LinOTP Selfservice';
   public navLinks = [
-    { 'label': 'Your tokens', 'path': 'tokens/' },
+    { 'label': this.i18n('Your tokens'), 'path': 'tokens/' },
   ];
 
   public isLoggedIn: boolean;
@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private notificationService: NotificationService,
-    private router: Router
+    private i18n: I18n,
   ) {
   }
 
