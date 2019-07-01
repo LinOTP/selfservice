@@ -23,7 +23,6 @@ import { TokenCardComponent } from './token-card/token-card.component';
 import { EnrollmentGridComponent } from './enrollment-grid/enrollment-grid.component';
 import { AppInitService } from './app-init.service';
 import { TestOTPDialogComponent } from './test/test-otp/test-otp-dialog.component';
-import { TestQrDialogComponent } from './test/test-qr/test-qr-dialog.component';
 import { TestPushDialogComponent } from './test/test-push/test-push-dialog.component';
 
 
@@ -38,11 +37,9 @@ import { TestPushDialogComponent } from './test/test-push/test-push-dialog.compo
     EnrollmentGridComponent,
     TestOTPDialogComponent,
     TestPushDialogComponent,
-    TestQrDialogComponent,
   ],
   entryComponents: [
     TestPushDialogComponent,
-    TestQrDialogComponent,
     EnrollOtpDialogComponent,
     EnrollPushDialogComponent,
     TestOTPDialogComponent,

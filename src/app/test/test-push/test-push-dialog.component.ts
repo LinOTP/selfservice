@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { TokenService } from '../../api/token.service';
-import { Token, EnrollmentStatus } from '../../api/token';
+import { Token, EnrollmentStatus, TokenType } from '../../api/token';
 import { MAT_DIALOG_DATA, MatDialogRef, MatStepper } from '@angular/material';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs/index';
@@ -13,8 +13,13 @@ import { Observable, of } from 'rxjs/index';
 export class TestPushDialogComponent implements OnInit {
   public waitingForResponse: boolean;
   public restartDialog: boolean;
+
   public isActivation = false;
+  public isQR = false;
+  public isPush = false;
+
   public transactionId: string = null;
+  public tokenQRUrl: string = null;
   public pin = '';
 
   constructor(
@@ -24,6 +29,12 @@ export class TestPushDialogComponent implements OnInit {
   ) {
     if (data.token.enrollmentStatus !== EnrollmentStatus.COMPLETED) {
       this.isActivation = true;
+    }
+    if (data.token.type === TokenType.PUSH) {
+      this.isPush = true;
+    }
+    if (data.token.type === TokenType.QR) {
+      this.isQR = true;
     }
   }
 
@@ -38,9 +49,14 @@ export class TestPushDialogComponent implements OnInit {
     stepper.next();
 
     this.tokenService.activate(this.data.token.serial, this.pin).pipe(
-      map(response => response.detail.transactionid),
-      tap(transactionId => this.transactionId = transactionId.toString().slice(0, 6)),
-      switchMap(transactionId => this.tokenService.challengePoll(transactionId, this.pin, this.data.token.serial)),
+      map(response => response.detail),
+      tap(detail => {
+        this.transactionId = detail.transactionid.toString().slice(0, 6);
+        if (this.data.token.type === TokenType.QR) {
+          this.tokenQRUrl = detail.message;
+        }
+      }),
+      switchMap(detail => this.tokenService.challengePoll(detail.transactionid, this.pin, this.data.token.serial)),
       catchError(this.handleError('token activation', false)),
     ).subscribe((res: boolean) => {
       this.waitingForResponse = false;
