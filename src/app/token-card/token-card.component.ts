@@ -112,6 +112,7 @@ export class TokenCardComponent implements OnInit {
     };
 
     switch (this.token.type) {
+      case TokenType.PASSWORD:
       case TokenType.HOTP:
       case TokenType.TOTP:
         testDialog = TestOTPDialogComponent;
