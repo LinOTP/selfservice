@@ -72,8 +72,6 @@ build deb:
 build docker image:
   stage: build
   image: docker:latest
-  tags:
-    - multi-stage
   before_script:
     - echo 'skip yarn install'
   script:
@@ -87,8 +85,6 @@ publish docker image:
   image: docker:latest
   only:
     - master
-  tags:
-    - multi-stage
   before_script:
     - echo 'skip yarn install'
   script:
@@ -103,8 +99,6 @@ publish tagged image:
   stage: deploy
   when: manual
   image: docker:latest
-  tags:
-    - multi-stage
   before_script:
     - echo 'skip yarn install'
   script:
