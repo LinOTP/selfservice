@@ -13,11 +13,11 @@ import { spyOnClass } from '../../../testing/spyOnClass';
 import { MaterialModule } from '../../material.module';
 import { TokenService } from '../../api/token.service';
 import { EnrollPushDialogComponent } from '../../enroll/enroll-push-dialog/enroll-push-dialog.component';
-import { TestPushDialogComponent } from './test-push-dialog.component';
+import { TestChallengeResponseDialogComponent } from './test-challenge-response-dialog.component';
 
-describe('TestPushDialogComponent', () => {
-  let component: TestPushDialogComponent;
-  let fixture: ComponentFixture<TestPushDialogComponent>;
+describe('TestChallengeResponseDialogComponent', () => {
+  let component: TestChallengeResponseDialogComponent;
+  let fixture: ComponentFixture<TestChallengeResponseDialogComponent>;
   let tokenService: jasmine.SpyObj<TokenService>;
   let dialogRef: jasmine.SpyObj<MatDialogRef<EnrollPushDialogComponent>>;
 
@@ -29,7 +29,7 @@ describe('TestPushDialogComponent', () => {
         FormsModule,
       ],
       declarations: [
-        TestPushDialogComponent,
+        TestChallengeResponseDialogComponent,
         MockComponent({ selector: 'app-qr-code', inputs: ['qrUrl'] }),
       ],
       providers: [
@@ -48,7 +48,7 @@ describe('TestPushDialogComponent', () => {
     tokenService = TestBed.get(TokenService);
     dialogRef = TestBed.get(MatDialogRef);
 
-    fixture = TestBed.createComponent(TestPushDialogComponent);
+    fixture = TestBed.createComponent(TestChallengeResponseDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

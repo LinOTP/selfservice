@@ -15,7 +15,7 @@ import { NotificationService } from '../common/notification.service';
 import { TokenService } from '../api/token.service';
 import { Permission, ModifyTokenPermissions } from '../common/permissions';
 import { EnrollmentStatus } from '../api/token';
-import { TestPushDialogComponent } from '../test/test-push/test-push-dialog.component';
+import { TestChallengeResponseDialogComponent } from '../test/test-challenge-response/test-challenge-response-dialog.component';
 import { CapitalizePipe } from '../common/pipes/capitalize.pipe';
 import { TestOTPDialogComponent } from '../test/test-otp/test-otp-dialog.component';
 
@@ -253,7 +253,7 @@ describe('TokenCardComponent', () => {
       component.activate();
       tick();
 
-      expect(matDialog.open).toHaveBeenCalledWith(TestPushDialogComponent, expectedDialogConfig);
+      expect(matDialog.open).toHaveBeenCalledWith(TestChallengeResponseDialogComponent, expectedDialogConfig);
     }));
 
     it('should open a Push token activation dialog', fakeAsync(() => {
@@ -265,7 +265,7 @@ describe('TokenCardComponent', () => {
       component.activate();
       tick();
 
-      expect(matDialog.open).toHaveBeenCalledWith(TestPushDialogComponent, expectedDialogConfig);
+      expect(matDialog.open).toHaveBeenCalledWith(TestChallengeResponseDialogComponent, expectedDialogConfig);
     }));
   });
 
@@ -394,7 +394,7 @@ describe('TokenCardComponent', () => {
 
       component.testToken();
 
-      expect(matDialog.open).toHaveBeenCalledWith(TestPushDialogComponent, expectedConfig);
+      expect(matDialog.open).toHaveBeenCalledWith(TestChallengeResponseDialogComponent, expectedConfig);
       expect(tokenUpdateSpy).toHaveBeenCalled();
     }));
 
@@ -412,7 +412,7 @@ describe('TokenCardComponent', () => {
 
       component.testToken();
 
-      expect(matDialog.open).toHaveBeenCalledWith(TestPushDialogComponent, expectedConfig);
+      expect(matDialog.open).toHaveBeenCalledWith(TestChallengeResponseDialogComponent, expectedConfig);
       expect(tokenUpdateSpy).toHaveBeenCalled();
     }));
 

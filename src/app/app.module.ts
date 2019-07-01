@@ -23,7 +23,7 @@ import { TokenCardComponent } from './token-card/token-card.component';
 import { EnrollmentGridComponent } from './enrollment-grid/enrollment-grid.component';
 import { AppInitService } from './app-init.service';
 import { TestOTPDialogComponent } from './test/test-otp/test-otp-dialog.component';
-import { TestPushDialogComponent } from './test/test-push/test-push-dialog.component';
+import { TestChallengeResponseDialogComponent } from './test/test-challenge-response/test-challenge-response-dialog.component';
 
 
 @NgModule({
@@ -36,10 +36,10 @@ import { TestPushDialogComponent } from './test/test-push/test-push-dialog.compo
     TokenCardComponent,
     EnrollmentGridComponent,
     TestOTPDialogComponent,
-    TestPushDialogComponent,
+    TestChallengeResponseDialogComponent,
   ],
   entryComponents: [
-    TestPushDialogComponent,
+    TestChallengeResponseDialogComponent,
     EnrollOtpDialogComponent,
     EnrollPushDialogComponent,
     TestOTPDialogComponent,

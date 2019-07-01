@@ -7,10 +7,10 @@ import { Observable, of } from 'rxjs/index';
 
 @Component({
   selector: 'app-test-push',
-  templateUrl: './test-push-dialog.component.html',
-  styleUrls: ['./test-push-dialog.component.scss']
+  templateUrl: './test-challenge-response-dialog.component.html',
+  styleUrls: ['./test-challenge-response-dialog.component.scss']
 })
-export class TestPushDialogComponent implements OnInit {
+export class TestChallengeResponseDialogComponent implements OnInit {
   public waitingForResponse: boolean;
   public restartDialog: boolean;
 
@@ -24,7 +24,7 @@ export class TestPushDialogComponent implements OnInit {
 
   constructor(
     private tokenService: TokenService,
-    private dialogRef: MatDialogRef<TestPushDialogComponent>,
+    private dialogRef: MatDialogRef<TestChallengeResponseDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { token: Token },
   ) {
     if (data.token.enrollmentStatus !== EnrollmentStatus.COMPLETED) {

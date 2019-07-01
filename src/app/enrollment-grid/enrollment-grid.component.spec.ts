@@ -15,7 +15,7 @@ import { TokenService } from '../api/token.service';
 import { EnrollOtpDialogComponent } from '../enroll/enroll-otp-dialog/enroll-otp-dialog.component';
 import { TestOTPDialogComponent } from '../test/test-otp/test-otp-dialog.component';
 import { EnrollPushDialogComponent } from '../enroll/enroll-push-dialog/enroll-push-dialog.component';
-import { TestPushDialogComponent } from '../test/test-push/test-push-dialog.component';
+import { TestChallengeResponseDialogComponent } from '../test/test-challenge-response/test-challenge-response-dialog.component';
 
 describe('EnrollmentGridComponent', () => {
   let component: EnrollmentGridComponent;
@@ -182,7 +182,7 @@ describe('EnrollmentGridComponent', () => {
 
     expect(matDialog.open).toHaveBeenCalledWith(EnrollPushDialogComponent, expectedEnrollDialogConfig);
     expect(tokenService.getToken).toHaveBeenCalledWith(token.serial);
-    expect(matDialog.open).toHaveBeenCalledWith(TestPushDialogComponent, expectedTestDialogConfig);
+    expect(matDialog.open).toHaveBeenCalledWith(TestChallengeResponseDialogComponent, expectedTestDialogConfig);
     expect(tokenUpdateSpy).toHaveBeenCalledTimes(2);
     expect(notificationService.message).not.toHaveBeenCalled();
   }));

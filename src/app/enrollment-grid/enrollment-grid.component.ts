@@ -12,7 +12,7 @@ import { NotificationService } from '../common/notification.service';
 import { EnrollOtpDialogComponent } from '../enroll/enroll-otp-dialog/enroll-otp-dialog.component';
 import { EnrollPushDialogComponent } from '../enroll/enroll-push-dialog/enroll-push-dialog.component';
 import { TestOTPDialogComponent } from '../test/test-otp/test-otp-dialog.component';
-import { TestPushDialogComponent } from '../test/test-push/test-push-dialog.component';
+import { TestChallengeResponseDialogComponent } from '../test/test-challenge-response/test-challenge-response-dialog.component';
 
 @Component({
   selector: 'app-enrollment-grid',
@@ -70,7 +70,7 @@ export class EnrollmentGridComponent implements OnInit {
     }
   }
 
-  private openTestDialog(token: Token): MatDialogRef<TestOTPDialogComponent | TestPushDialogComponent> {
+  private openTestDialog(token: Token): MatDialogRef<TestOTPDialogComponent | TestChallengeResponseDialogComponent> {
     const testConfig: MatDialogConfig = {
       width: '650px',
       data: { token: token }
@@ -81,7 +81,7 @@ export class EnrollmentGridComponent implements OnInit {
       case TokenType.TOTP:
         return this.dialog.open(TestOTPDialogComponent, testConfig);
       case (TokenType.PUSH):
-        return this.dialog.open(TestPushDialogComponent, testConfig);
+        return this.dialog.open(TestChallengeResponseDialogComponent, testConfig);
     }
   }
 

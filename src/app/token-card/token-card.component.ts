@@ -14,7 +14,7 @@ import { Token, EnrollmentStatus, TokenType } from '../api/token';
 import { TokenService } from '../api/token.service';
 
 import { TestOTPDialogComponent } from '../test/test-otp/test-otp-dialog.component';
-import { TestPushDialogComponent } from '../test/test-push/test-push-dialog.component';
+import { TestChallengeResponseDialogComponent } from '../test/test-challenge-response/test-challenge-response-dialog.component';
 
 @Component({
   selector: 'app-token-card',
@@ -118,7 +118,7 @@ export class TokenCardComponent implements OnInit {
         break;
       case TokenType.PUSH:
       case TokenType.QR:
-        testDialog = TestPushDialogComponent;
+        testDialog = TestChallengeResponseDialogComponent;
         break;
       default:
         this.notificationService.message('This token type cannot be tested yet.');
@@ -139,7 +139,7 @@ export class TokenCardComponent implements OnInit {
       data: { token: this.token, activate: true }
     };
 
-    this.dialog.open(TestPushDialogComponent, dialogConfig)
+    this.dialog.open(TestChallengeResponseDialogComponent, dialogConfig)
       .afterClosed()
       .subscribe(() => {
         this.notificationService.message('Token activated');
