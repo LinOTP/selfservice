@@ -17,21 +17,21 @@ import { TokenType, getTypeDetails } from '../../api/token';
 import { TokenService } from '../../api/token.service';
 import { NotificationService } from '../../common/notification.service';
 
-import { EnrollOtpDialogComponent } from './enroll-otp-dialog.component';
+import { EnrollOATHDialogComponent } from './enroll-oath-dialog.component';
 
-describe('The EnrollOtpDialogComponent', () => {
-  let component: EnrollOtpDialogComponent;
-  let fixture: ComponentFixture<EnrollOtpDialogComponent>;
+describe('The EnrollOATHDialogComponent', () => {
+  let component: EnrollOATHDialogComponent;
+  let fixture: ComponentFixture<EnrollOATHDialogComponent>;
   let matDialog: jasmine.SpyObj<MatDialog>;
   let notificationService: NotificationService;
   let tokenService: jasmine.SpyObj<TokenService>;
-  let dialogRef: jasmine.SpyObj<MatDialogRef<EnrollOtpDialogComponent>>;
+  let dialogRef: jasmine.SpyObj<MatDialogRef<EnrollOATHDialogComponent>>;
   let stepper: MatStepper;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        EnrollOtpDialogComponent,
+        EnrollOATHDialogComponent,
         MockComponent({ selector: 'ngx-qrcode', inputs: ['qrc-value', 'qrc-element-type'] }),
         NgxPermissionsAllowStubDirective,
       ],
@@ -73,7 +73,7 @@ describe('The EnrollOtpDialogComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EnrollOtpDialogComponent);
+    fixture = TestBed.createComponent(EnrollOATHDialogComponent);
     component = fixture.componentInstance;
 
     matDialog = TestBed.get(MatDialog);

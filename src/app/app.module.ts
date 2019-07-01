@@ -17,7 +17,7 @@ import { APIModule } from './api/api.module';
 import { AppComponent } from './app.component';
 import { TokenListComponent } from './token-list/token-list.component';
 import { LoginComponent } from './login/login.component';
-import { EnrollOtpDialogComponent } from './enroll/enroll-otp-dialog/enroll-otp-dialog.component';
+import { EnrollOATHDialogComponent } from './enroll/enroll-oath-dialog/enroll-oath-dialog.component';
 import { EnrollPushDialogComponent } from './enroll/enroll-push-dialog/enroll-push-dialog.component';
 import { TokenCardComponent } from './token-card/token-card.component';
 import { EnrollmentGridComponent } from './enrollment-grid/enrollment-grid.component';
@@ -31,7 +31,7 @@ import { TestChallengeResponseDialogComponent } from './test/test-challenge-resp
     AppComponent,
     TokenListComponent,
     LoginComponent,
-    EnrollOtpDialogComponent,
+    EnrollOATHDialogComponent,
     EnrollPushDialogComponent,
     TokenCardComponent,
     EnrollmentGridComponent,
@@ -40,7 +40,7 @@ import { TestChallengeResponseDialogComponent } from './test/test-challenge-resp
   ],
   entryComponents: [
     TestChallengeResponseDialogComponent,
-    EnrollOtpDialogComponent,
+    EnrollOATHDialogComponent,
     EnrollPushDialogComponent,
     TestOTPDialogComponent,
   ],

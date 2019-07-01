@@ -10,11 +10,11 @@ import { TokenType, TokenTypeDetails } from '../../api/token';
 import { Permission } from '../../common/permissions';
 
 @Component({
-  selector: 'app-enroll-otp',
-  templateUrl: './enroll-otp-dialog.component.html',
-  styleUrls: ['./enroll-otp-dialog.component.scss']
+  selector: 'app-enroll-oath',
+  templateUrl: './enroll-oath-dialog.component.html',
+  styleUrls: ['./enroll-oath-dialog.component.scss']
 })
-export class EnrollOtpDialogComponent implements OnInit {
+export class EnrollOATHDialogComponent implements OnInit {
 
   public Permission = Permission;
 
@@ -31,7 +31,7 @@ export class EnrollOtpDialogComponent implements OnInit {
     private formBuilder: FormBuilder,
     private tokenService: TokenService,
     public dialog: MatDialog,
-    public dialogRef: MatDialogRef<EnrollOtpDialogComponent>,
+    public dialogRef: MatDialogRef<EnrollOATHDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { tokenTypeDetails: TokenTypeDetails },
     public notificationService: NotificationService,
   ) { }
