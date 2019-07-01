@@ -7,6 +7,7 @@ import { NotificationService } from '../../common/notification.service';
 
 import { TokenService } from '../../api/token.service';
 import { TokenType, TokenTypeDetails } from '../../api/token';
+import { Permission } from '../../common/permissions';
 
 @Component({
   selector: 'app-enroll-otp',
@@ -14,6 +15,9 @@ import { TokenType, TokenTypeDetails } from '../../api/token';
   styleUrls: ['./enroll-otp-dialog.component.scss']
 })
 export class EnrollOtpDialogComponent implements OnInit {
+
+  public Permission = Permission;
+
 
   public enrollmentForm: FormGroup;
   public enrollmentStep: FormGroup;

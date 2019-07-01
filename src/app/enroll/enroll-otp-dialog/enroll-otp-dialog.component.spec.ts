@@ -5,6 +5,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatStepper } from '@angular/material';
 import { By } from '@angular/platform-browser';
 
+import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
 import { of } from 'rxjs';
 
 import { Fixtures } from '../../../testing/fixtures';
@@ -32,6 +33,7 @@ describe('The EnrollOtpDialogComponent', () => {
       declarations: [
         EnrollOtpDialogComponent,
         MockComponent({ selector: 'ngx-qrcode', inputs: ['qrc-value', 'qrc-element-type'] }),
+        NgxPermissionsAllowStubDirective,
       ],
       imports: [
         RouterTestingModule,

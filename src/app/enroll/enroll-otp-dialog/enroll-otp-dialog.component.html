@@ -87,15 +87,17 @@
 
   <mat-step active="false"
             id="stepPIN">
-    <p>
-      If you wish to set a security PIN, please do so now:
-      <button mat-raised-button
-              color="primary"
-              (click)="setPin()">Set pin</button>
-    </p>
-    <p class="mat-hint hint">
-      Setting a PIN helps you protect your token against misuse.
-    </p>
+    <ng-container *ngxPermissionsOnly="Permission.SETPIN">
+      <p>
+        If you wish to set a security PIN, please do so now:
+        <button mat-raised-button
+                color="primary"
+                (click)="setPin()">Set pin</button>
+      </p>
+      <p class="mat-hint hint">
+        Setting a PIN helps you protect your token against misuse.
+      </p>
+    </ng-container>
     <p>
       To finalize, we will verify if your token is correctly enrolled via a
       test authentication.
