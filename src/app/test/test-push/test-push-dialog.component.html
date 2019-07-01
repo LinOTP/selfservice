@@ -38,7 +38,9 @@
       <button mat-raised-button
               color="primary"
               id="goTo2"
-              (click)="activateToken(stepper)">Next</button>
+              (click)="activateToken(stepper)">
+        {{ isActivation? "Activate" : "Test" }}
+      </button>
     </mat-dialog-actions>
   </mat-step>
   <mat-step>
