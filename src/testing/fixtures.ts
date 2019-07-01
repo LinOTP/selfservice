@@ -103,33 +103,6 @@ export class Fixtures {
     };
   }
 
-  static get hmacTokenType() {
-    return {
-      type: TokenType.HOTP,
-      name: 'test hmac',
-      description: 'desc',
-      icon: 'icon',
-    };
-  }
-
-  static get pushTokenType() {
-    return {
-      type: TokenType.PUSH,
-      name: 'test push',
-      description: 'desc',
-      icon: 'icon'
-    };
-  }
-
-  static get unknownTokenType() {
-    return {
-      type: TokenType.UNKNOWN,
-      name: 'test unknown',
-      description: 'desc',
-      icon: 'icon'
-    };
-  }
-
   static get enrolledToken() {
     return { serial: 'test serial', url: 'testUrl' };
   }

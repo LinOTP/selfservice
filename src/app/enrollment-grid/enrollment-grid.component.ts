@@ -4,12 +4,12 @@ import { MatDialog, MatDialogRef, MatDialogConfig } from '@angular/material';
 import { Subject } from 'rxjs';
 import { switchMap, filter, tap } from 'rxjs/operators';
 
-import { TokenTypeDetails, tokenTypeDetails, TokenType } from '../api/token';
+import { TokenTypeDetails, tokenTypeDetails, TokenType, Token } from '../api/token';
 import { TokenService } from '../api/token.service';
 
 import { NotificationService } from '../common/notification.service';
 
-import { EnrollHotpDialogComponent } from '../enroll/enroll-hotp-dialog/enroll-hotp-dialog.component';
+import { EnrollOtpDialogComponent } from '../enroll/enroll-otp-dialog/enroll-otp-dialog.component';
 import { EnrollPushDialogComponent } from '../enroll/enroll-push-dialog/enroll-push-dialog.component';
 import { TestOTPDialogComponent } from '../test/test-otp/test-otp-dialog.component';
 import { TestPushDialogComponent } from '../test/test-push/test-push-dialog.component';
@@ -33,24 +33,12 @@ export class EnrollmentGridComponent implements OnInit {
   public ngOnInit() { }
 
   public runEnrollmentWorkflow(tokenType: TokenTypeDetails) {
-    let enrollmentDialogRef: MatDialogRef<EnrollHotpDialogComponent | EnrollPushDialogComponent>;
-    let testDialogRef: ((any) => MatDialogRef<TestOTPDialogComponent | TestPushDialogComponent>);
-
-    switch (tokenType.type) {
-      case TokenType.HOTP:
-        enrollmentDialogRef = this.dialog.open(EnrollHotpDialogComponent, this.getEnrollmentConfig('Test Token'));
-        testDialogRef = (token) => this.dialog.open(TestOTPDialogComponent, this.getTestConfig({ token: token }));
-        break;
-      case TokenType.PUSH:
-        enrollmentDialogRef = this.dialog.open(EnrollPushDialogComponent, this.getEnrollmentConfig('Activate Token'));
-        testDialogRef = (token) => this.dialog.open(TestPushDialogComponent, this.getTestConfig({ token: token, activate: true }));
-        break;
-      default:
-        this.notificationService.message('The selected token type cannot be enrolled at the moment.');
-        return;
+    if (![TokenType.HOTP, TokenType.TOTP, TokenType.PUSH].includes(tokenType.type)) {
+      this.notificationService.message('The selected token type cannot be enrolled at the moment.');
+      return;
     }
 
-    enrollmentDialogRef.afterClosed()
+    this.openEnrollmentDialog(tokenType).afterClosed()
       .pipe(
         tap(() => this.tokenUpdate.next()),
         filter(serial => !!serial),
@@ -61,24 +49,40 @@ export class EnrollmentGridComponent implements OnInit {
           }
         }),
         filter(token => !!token),
-        switchMap(token => testDialogRef(token).afterClosed())
+        switchMap(token => this.openTestDialog(token).afterClosed())
       ).subscribe(() => this.tokenUpdate.next());
   }
 
-  private getEnrollmentConfig(closeLabel: string): MatDialogConfig {
-    return {
+  private openEnrollmentDialog(typeDetails: TokenTypeDetails): MatDialogRef<EnrollOtpDialogComponent | EnrollPushDialogComponent> {
+    const enrollmentConfig: MatDialogConfig = {
       width: '850px',
       autoFocus: false,
       disableClose: true,
-      data: { closeLabel: closeLabel },
     };
+
+    switch (typeDetails.type) {
+      case TokenType.HOTP:
+      case TokenType.TOTP:
+        enrollmentConfig.data = { tokenTypeDetails: typeDetails };
+        return this.dialog.open(EnrollOtpDialogComponent, enrollmentConfig);
+      case (TokenType.PUSH):
+        return this.dialog.open(EnrollPushDialogComponent, enrollmentConfig);
+    }
   }
 
-  private getTestConfig(data: any): MatDialogConfig {
-    return {
+  private openTestDialog(token: Token): MatDialogRef<TestOTPDialogComponent | TestPushDialogComponent> {
+    const testConfig: MatDialogConfig = {
       width: '650px',
-      data: data
+      data: { token: token }
     };
+
+    switch (token.type) {
+      case TokenType.HOTP:
+      case TokenType.TOTP:
+        return this.dialog.open(TestOTPDialogComponent, testConfig);
+      case (TokenType.PUSH):
+        return this.dialog.open(TestPushDialogComponent, testConfig);
+    }
   }
 
 }

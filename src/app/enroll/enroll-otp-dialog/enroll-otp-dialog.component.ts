@@ -6,22 +6,24 @@ import { SetPinDialogComponent } from '../../common/set-pin-dialog/set-pin-dialo
 import { NotificationService } from '../../common/notification.service';
 
 import { TokenService } from '../../api/token.service';
-import { TokenType } from '../../api/token';
+import { TokenType, TokenTypeDetails } from '../../api/token';
+import { Permission } from '../../common/permissions';
 
 @Component({
-  selector: 'app-enroll-hotp',
-  templateUrl: './enroll-hotp-dialog.component.html',
-  styleUrls: ['./enroll-hotp-dialog.component.scss']
+  selector: 'app-enroll-otp',
+  templateUrl: './enroll-otp-dialog.component.html',
+  styleUrls: ['./enroll-otp-dialog.component.scss']
 })
-export class EnrollHotpDialogComponent implements OnInit {
+export class EnrollOtpDialogComponent implements OnInit {
+
+  public Permission = Permission;
+
 
   public enrollmentForm: FormGroup;
   public enrollmentStep: FormGroup;
   public testStep: FormGroup;
 
   public pinSet: boolean;
-  public readonly maxSteps: number = 3;
-  public currentStep: number;
 
   public enrolledToken: { serial: string, url: string };
 
@@ -29,20 +31,19 @@ export class EnrollHotpDialogComponent implements OnInit {
     private formBuilder: FormBuilder,
     private tokenService: TokenService,
     public dialog: MatDialog,
-    public dialogRef: MatDialogRef<EnrollHotpDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { closeLabel: string },
+    public dialogRef: MatDialogRef<EnrollOtpDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { tokenTypeDetails: TokenTypeDetails },
     public notificationService: NotificationService,
-  ) {
-  }
+  ) { }
 
   public ngOnInit() {
-    this.currentStep = 1;
     this.enrollmentForm = this.formBuilder.group({
       'description': ['', Validators.required],
-      'type': TokenType.HOTP,
+      'type': this.data.tokenTypeDetails.type,
       'otplen': 6,
       'hashlib': 'sha1',
-      'genkey': 1
+      'genkey': 1,
+      'timeStep': 30
     });
     this.enrollmentStep = this.formBuilder.group({
       'tokenEnrolled': ['', Validators.required],
@@ -53,29 +54,24 @@ export class EnrollHotpDialogComponent implements OnInit {
     });
   }
 
-  public goToTokenInfo(stepper: MatStepper) {
-    if (!this.enrolledToken) {
-      this.tokenService.enroll(this.enrollmentForm.value).subscribe(response => {
-        if (response.result && response.result.value === true) {
-          this.enrolledToken = {
-            url: response.detail.googleurl.value,
-            serial: response.detail.serial
-          };
-          this.enrollmentForm.controls.description.disable();
-          this.enrollmentStep.controls.tokenEnrolled.setValue(true);
-          this.incrementStep(stepper);
-        } else {
-          this.notificationService.message('There was a problem while enrolling the new token. Please try again.');
-        }
-      });
-    } else {
-      this.incrementStep(stepper);
+  public enrollToken(stepper: MatStepper) {
+    if (this.data.tokenTypeDetails.type !== TokenType.TOTP) {
+      this.enrollmentForm.removeControl('timeStep');
     }
-  }
 
-  public goToAppStep(stepper: MatStepper) {
-    stepper.selectedIndex = 0;
-    this.currentStep = 1;
+    this.tokenService.enroll(this.enrollmentForm.value).subscribe(response => {
+      if (response.result && response.result.value === true) {
+        this.enrolledToken = {
+          url: response.detail.googleurl.value,
+          serial: response.detail.serial
+        };
+        this.enrollmentForm.controls.description.disable();
+        this.enrollmentStep.controls.tokenEnrolled.setValue(true);
+        stepper.next();
+      } else {
+        this.notificationService.message('There was a problem while enrolling the new token. Please try again.');
+      }
+    });
   }
 
   public setPin() {
@@ -89,16 +85,10 @@ export class EnrollHotpDialogComponent implements OnInit {
       if (result) {
         this.pinSet = true;
         this.notificationService.message('PIN set');
+      } else {
+        this.notificationService.message('There was an error and the new PIN could not be set. Please try again.');
       }
     });
-  }
-
-  /**
-   * Increment the current step of the dialog for the view
-   */
-  public incrementStep(stepper: MatStepper) {
-    stepper.next();
-    this.currentStep++;
   }
 
   /**
