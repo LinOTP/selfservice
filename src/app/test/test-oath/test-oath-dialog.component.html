@@ -3,14 +3,16 @@
       #formDirective="ngForm">
 
   <h2 mat-dialog-title
-      *ngIf="data.token">Test {{ data.token.typeDetails.name }} {{ data.token.serial }}</h2>
+      *ngIf="data.token">Test {{ data.token.typeDetails.name }} {{
+    data.token.serial }}</h2>
 
   <div mat-dialog-content>
     <ng-container [ngSwitch]="state">
       <ng-container *ngSwitchCase="TestState.UNTESTED">
         <div mat-dialog-content>
           <div class="dialog-input">
-            <div class="instruction">Enter your token PIN or password if you have set a PIN or you are required to
+            <div class="instruction">Enter your token PIN or password if you
+              have set a PIN or you are required to
               enter your
               password for OTP authentication:</div>
             <mat-form-field>
@@ -23,7 +25,8 @@
             </mat-form-field>
           </div>
           <div class="dialog-input">
-            <div class="instruction">Enter the next OTP value of the selected token:</div>
+            <div class="instruction">Enter the next OTP value of the selected
+              token:</div>
             <mat-form-field>
               <input matInput
                      type="text"
@@ -43,7 +46,8 @@
       </ng-container>
 
       <ng-container *ngSwitchCase="TestState.FAILURE">
-        The test failed. Check if both the OTP and the PIN (if applicable) are correct.
+        The test failed. Check if both the OTP and the PIN (if applicable)
+        are correct.
       </ng-container>
 
     </ng-container>

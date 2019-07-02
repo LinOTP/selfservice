@@ -13,7 +13,7 @@ import { Permission, ModifyTokenPermissions } from '../common/permissions';
 import { Token, EnrollmentStatus, TokenType } from '../api/token';
 import { TokenService } from '../api/token.service';
 
-import { TestOTPDialogComponent } from '../test/test-otp/test-otp-dialog.component';
+import { TestOATHDialogComponent } from '../test/test-oath/test-oath-dialog.component';
 import { TestChallengeResponseDialogComponent } from '../test/test-challenge-response/test-challenge-response-dialog.component';
 
 @Component({
@@ -115,7 +115,7 @@ export class TokenCardComponent implements OnInit {
       case TokenType.PASSWORD:
       case TokenType.HOTP:
       case TokenType.TOTP:
-        testDialog = TestOTPDialogComponent;
+        testDialog = TestOATHDialogComponent;
         break;
       case TokenType.PUSH:
       case TokenType.QR:

@@ -11,7 +11,7 @@ import { NotificationService } from '../common/notification.service';
 
 import { EnrollOATHDialogComponent } from '../enroll/enroll-oath-dialog/enroll-oath-dialog.component';
 import { EnrollPushDialogComponent } from '../enroll/enroll-push-dialog/enroll-push-dialog.component';
-import { TestOTPDialogComponent } from '../test/test-otp/test-otp-dialog.component';
+import { TestOATHDialogComponent } from '../test/test-oath/test-oath-dialog.component';
 import { TestChallengeResponseDialogComponent } from '../test/test-challenge-response/test-challenge-response-dialog.component';
 
 @Component({
@@ -70,7 +70,7 @@ export class EnrollmentGridComponent implements OnInit {
     }
   }
 
-  private openTestDialog(token: Token): MatDialogRef<TestOTPDialogComponent | TestChallengeResponseDialogComponent> {
+  private openTestDialog(token: Token): MatDialogRef<TestOATHDialogComponent | TestChallengeResponseDialogComponent> {
     const testConfig: MatDialogConfig = {
       width: '650px',
       data: { token: token }
@@ -79,7 +79,7 @@ export class EnrollmentGridComponent implements OnInit {
     switch (token.type) {
       case TokenType.HOTP:
       case TokenType.TOTP:
-        return this.dialog.open(TestOTPDialogComponent, testConfig);
+        return this.dialog.open(TestOATHDialogComponent, testConfig);
       case (TokenType.PUSH):
         return this.dialog.open(TestChallengeResponseDialogComponent, testConfig);
     }

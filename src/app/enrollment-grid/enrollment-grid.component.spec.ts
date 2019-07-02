@@ -13,7 +13,7 @@ import { Fixtures } from '../../testing/fixtures';
 import { CapitalizePipe } from '../common/pipes/capitalize.pipe';
 import { TokenService } from '../api/token.service';
 import { EnrollOATHDialogComponent } from '../enroll/enroll-oath-dialog/enroll-oath-dialog.component';
-import { TestOTPDialogComponent } from '../test/test-otp/test-otp-dialog.component';
+import { TestOATHDialogComponent } from '../test/test-oath/test-oath-dialog.component';
 import { EnrollPushDialogComponent } from '../enroll/enroll-push-dialog/enroll-push-dialog.component';
 import { TestChallengeResponseDialogComponent } from '../test/test-challenge-response/test-challenge-response-dialog.component';
 
@@ -89,7 +89,7 @@ describe('EnrollmentGridComponent', () => {
 
     expect(matDialog.open).toHaveBeenCalledWith(EnrollOATHDialogComponent, expectedEnrollDialogConfig);
     expect(tokenService.getToken).toHaveBeenCalledWith(token.serial);
-    expect(matDialog.open).toHaveBeenCalledWith(TestOTPDialogComponent, expectedTestDialogConfig);
+    expect(matDialog.open).toHaveBeenCalledWith(TestOATHDialogComponent, expectedTestDialogConfig);
     expect(tokenUpdateSpy).toHaveBeenCalledTimes(2);
   }));
 
@@ -156,7 +156,7 @@ describe('EnrollmentGridComponent', () => {
 
     expect(matDialog.open).toHaveBeenCalledWith(EnrollOATHDialogComponent, expectedEnrollDialogConfig);
     expect(tokenService.getToken).toHaveBeenCalledWith(token.serial);
-    expect(matDialog.open).toHaveBeenCalledWith(TestOTPDialogComponent, expectedTestDialogConfig);
+    expect(matDialog.open).toHaveBeenCalledWith(TestOATHDialogComponent, expectedTestDialogConfig);
     expect(tokenUpdateSpy).toHaveBeenCalledTimes(2);
   }));
 
