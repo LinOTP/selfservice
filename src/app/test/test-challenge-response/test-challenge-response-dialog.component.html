@@ -31,7 +31,7 @@
     </ng-container>
 
     <mat-dialog-actions align="end">
-      <div>{{ isActivation? "Activation" : "Test" }} 1 of 3</div>
+      <div>{{ isActivation? "Activation" : "Test" }} step 1 of 3</div>
       <span class="spacer"></span>
       <button mat-raised-button
               (click)="cancelDialog()">Cancel</button>
@@ -68,7 +68,7 @@
       </section>
 
       <mat-dialog-actions align="end">
-        <div>{{ isActivation? "Activation" : "Test" }} 2 of 3</div>
+        <div>{{ isActivation? "Activation" : "Test" }} step 2 of 3</div>
         <span class="spacer"></span>
         <button mat-raised-button
                 (click)="cancelDialog()">Cancel</button>
@@ -85,7 +85,7 @@
       </section>
 
       <mat-dialog-actions align="end">
-        <div>{{ isActivation? "Activation" : "Test" }} 3 of 3</div>
+        <div>{{ isActivation? "Activation" : "Test" }} step 3 of 3</div>
         <span class="spacer"></span>
         <button mat-raised-button
                 (click)="cancelDialog()"
