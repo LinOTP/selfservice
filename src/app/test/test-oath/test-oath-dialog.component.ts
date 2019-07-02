@@ -12,11 +12,11 @@ enum TestState {
 }
 
 @Component({
-  selector: 'app-test-otp-dialog',
-  templateUrl: './test-otp-dialog.component.html',
-  styleUrls: ['./test-otp-dialog.component.scss']
+  selector: 'app-test-oath-dialog',
+  templateUrl: './test-oath-dialog.component.html',
+  styleUrls: ['./test-oath-dialog.component.scss']
 })
-export class TestOTPDialogComponent {
+export class TestOATHDialogComponent {
 
   public TestState = TestState;
 

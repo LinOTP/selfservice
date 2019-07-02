@@ -13,9 +13,9 @@ import { MaterialModule } from '../../material.module';
 import { TokenService } from '../../api/token.service';
 import { NotificationService } from '../../common/notification.service';
 
-import { TestOTPDialogComponent } from './test-otp-dialog.component';
+import { TestOATHDialogComponent } from './test-oath-dialog.component';
 
-class Page extends TestingPage<TestOTPDialogComponent> {
+class Page extends TestingPage<TestOATHDialogComponent> {
 
   public getSubmitButton() {
     return this.query('[type="submit"]');
@@ -23,8 +23,8 @@ class Page extends TestingPage<TestOTPDialogComponent> {
 }
 
 describe('TestOTPDialogComponent', () => {
-  let component: TestOTPDialogComponent;
-  let fixture: ComponentFixture<TestOTPDialogComponent>;
+  let component: TestOATHDialogComponent;
+  let fixture: ComponentFixture<TestOATHDialogComponent>;
   let tokenService: jasmine.SpyObj<TokenService>;
   const token = Fixtures.activeHotpToken;
 
@@ -35,7 +35,7 @@ describe('TestOTPDialogComponent', () => {
         FormsModule,
         ReactiveFormsModule,
       ],
-      declarations: [TestOTPDialogComponent],
+      declarations: [TestOATHDialogComponent],
       providers: [
         {
           provide: MatDialogRef,
@@ -60,7 +60,7 @@ describe('TestOTPDialogComponent', () => {
   beforeEach(() => {
     tokenService = TestBed.get(TokenService);
 
-    fixture = TestBed.createComponent(TestOTPDialogComponent);
+    fixture = TestBed.createComponent(TestOATHDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

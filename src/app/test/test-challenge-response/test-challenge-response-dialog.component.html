@@ -4,60 +4,97 @@
                         linear
                         #stepper>
   <mat-step>
-    <p>In the next step your Authenticator app will
-      {{ isActivation?
-      "be verified by the authentication server." :
-      "receive a test challenge."
-      }}
-    </p>
-    <p *ngIf="!isActivation">Please confirm the challenge on the app.</p>
+
+    <div class="dialog-input">
+      <div>
+        Enter your token PIN or password if you have set a PIN or you are
+        required to enter your password for OTP authentication:
+      </div>
+      <mat-form-field>
+        <input matInput
+               type="password"
+               autocomplete="current-password"
+               [(ngModel)]="pin"
+               placeholder="PIN or password"
+               autofocus>
+      </mat-form-field>
+    </div>
+
+    <ng-container *ngIf="isPush">
+      <p>In the next step your Authenticator app will
+        {{ isActivation?
+        "be verified by the authentication server." :
+        "receive a test challenge."
+        }}
+      </p>
+      <p *ngIf="!isActivation">Please confirm the challenge on the app.</p>
+    </ng-container>
+
     <mat-dialog-actions align="end">
-      <div>{{ isActivation? "Activation" : "Test" }} {{currentStep}} of
-        {{maxSteps}}</div>
+      <div>{{ isActivation? "Activation" : "Test" }} step 1 of 3</div>
       <span class="spacer"></span>
       <button mat-raised-button
               (click)="cancelDialog()">Cancel</button>
       <button mat-raised-button
               color="primary"
               id="goTo2"
-              (click)="activateToken(stepper)">Next</button>
+              (click)="activateToken(stepper)">
+        {{ isActivation? "Activate" : "Test" }}
+      </button>
     </mat-dialog-actions>
   </mat-step>
   <mat-step>
-    <ng-container *ngIf="waitingForResponse; then spinningBlock else challengeResponseBlock"></ng-container>
+    <ng-container *ngIf="waitingForResponse; then waitingBlock else challengeResponseBlock"></ng-container>
 
-    <ng-template #spinningBlock>
-      <section class="response">
+    <ng-template #waitingBlock>
+
+      <section class="response"
+               *ngIf="isPush">
         <mat-spinner></mat-spinner>
         <p>Waiting for confirmation for {{isActivation? "test" : ""}}
           transaction {{!isActivation? transactionId : "" }} via KeyIdentity
           Authenticator.</p>
       </section>
+
+      <section class="response"
+               *ngIf="isQR">
+        <p>Scan the QR code below with the KI Authenticator to
+          {{ isActivation?
+          "activate your token"
+          : "confirm test transaction " + transactionId
+          }}:
+        </p>
+        <app-qr-code [qrUrl]="tokenQRUrl"></app-qr-code>
+      </section>
+
       <mat-dialog-actions align="end">
-        <div>{{ isActivation? "Activation" : "Test" }} {{currentStep}} of
-          {{maxSteps}}</div>
+        <div>{{ isActivation? "Activation" : "Test" }} step 2 of 3</div>
         <span class="spacer"></span>
         <button mat-raised-button
                 (click)="cancelDialog()">Cancel</button>
       </mat-dialog-actions>
     </ng-template>
+
     <ng-template #challengeResponseBlock>
+
       <section class="response">
         <p *ngIf="restartDialog">{{ isActivation? "Activation" : "Test" }}
           failed. Please try again, or contact an administrator.</p>
         <p *ngIf="!restartDialog">{{ isActivation? "Activation" : "Test" }}
           successful. Your token is ready to be used.</p>
       </section>
+
       <mat-dialog-actions align="end">
-        <div>{{ isActivation? "Activation" : "Test" }} {{currentStep}} of
-          {{maxSteps}}</div>
+        <div>{{ isActivation? "Activation" : "Test" }} step 3 of 3</div>
         <span class="spacer"></span>
         <button mat-raised-button
                 (click)="cancelDialog()"
                 *ngIf="restartDialog">Cancel</button>
         <button mat-raised-button
                 (click)="resetDialogToInitial(stepper)"
-                *ngIf="restartDialog">Restart activation</button>
+                *ngIf="restartDialog">
+          Restart {{ isActivation? "activation" : "test" }}
+        </button>
         <button mat-raised-button
                 color="primary"
                 (click)="closeDialog()"

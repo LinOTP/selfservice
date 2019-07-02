@@ -1,49 +1,62 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { TokenService } from '../../api/token.service';
-import { Token, EnrollmentStatus } from '../../api/token';
+import { Token, EnrollmentStatus, TokenType } from '../../api/token';
 import { MAT_DIALOG_DATA, MatDialogRef, MatStepper } from '@angular/material';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs/index';
 
 @Component({
   selector: 'app-test-push',
-  templateUrl: './test-push-dialog.component.html',
-  styleUrls: ['./test-push-dialog.component.scss']
+  templateUrl: './test-challenge-response-dialog.component.html',
+  styleUrls: ['./test-challenge-response-dialog.component.scss']
 })
-export class TestPushDialogComponent implements OnInit {
+export class TestChallengeResponseDialogComponent implements OnInit {
   public waitingForResponse: boolean;
-  public readonly maxSteps: number = 2;
-  public currentStep: number;
   public restartDialog: boolean;
+
   public isActivation = false;
+  public isQR = false;
+  public isPush = false;
+
   public transactionId: string = null;
+  public tokenQRUrl: string = null;
+  public pin = '';
 
   constructor(
     private tokenService: TokenService,
-    private dialogRef: MatDialogRef<TestPushDialogComponent>,
+    private dialogRef: MatDialogRef<TestChallengeResponseDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { token: Token },
   ) {
     if (data.token.enrollmentStatus !== EnrollmentStatus.COMPLETED) {
       this.isActivation = true;
     }
+    if (data.token.type === TokenType.PUSH) {
+      this.isPush = true;
+    }
+    if (data.token.type === TokenType.QR) {
+      this.isQR = true;
+    }
   }
 
   public ngOnInit() {
     this.waitingForResponse = false;
-    this.currentStep = 1;
   }
 
   public activateToken(stepper: MatStepper): void {
-    const pin = '';
 
     this.restartDialog = false;
     this.waitingForResponse = true;
-    this.incrementStep(stepper);
+    stepper.next();
 
-    this.tokenService.activate(this.data.token.serial, pin).pipe(
-      map(response => response.detail.transactionid),
-      tap(transactionId => this.transactionId = transactionId.toString().slice(0, 6)),
-      switchMap(transactionId => this.tokenService.challengePoll(transactionId, pin, this.data.token.serial)),
+    this.tokenService.activate(this.data.token.serial, this.pin).pipe(
+      map(response => response.detail),
+      tap(detail => {
+        this.transactionId = detail.transactionid.toString().slice(0, 6);
+        if (this.data.token.type === TokenType.QR) {
+          this.tokenQRUrl = detail.message;
+        }
+      }),
+      switchMap(detail => this.tokenService.challengePoll(detail.transactionid, this.pin, this.data.token.serial)),
       catchError(this.handleError('token activation', false)),
     ).subscribe((res: boolean) => {
       this.waitingForResponse = false;
@@ -72,20 +85,11 @@ export class TestPushDialogComponent implements OnInit {
   }
 
   /**
-   * Increment the current step of the dialog for the view
-   */
-  public incrementStep(stepper: MatStepper) {
-    stepper.next();
-    this.currentStep++;
-  }
-
-  /**
    * Resets the dialog to the initial state and
    * alows to restart the activation process
    */
   public resetDialogToInitial(stepper: MatStepper) {
     stepper.reset();
-    this.currentStep = 1;
   }
 
 }

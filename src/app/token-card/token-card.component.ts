@@ -13,9 +13,8 @@ import { Permission, ModifyTokenPermissions } from '../common/permissions';
 import { Token, EnrollmentStatus, TokenType } from '../api/token';
 import { TokenService } from '../api/token.service';
 
-import { TestOTPDialogComponent } from '../test/test-otp/test-otp-dialog.component';
-import { TestPushDialogComponent } from '../test/test-push/test-push-dialog.component';
-import { TestQrDialogComponent } from '../test/test-qr/test-qr-dialog.component';
+import { TestOATHDialogComponent } from '../test/test-oath/test-oath-dialog.component';
+import { TestChallengeResponseDialogComponent } from '../test/test-challenge-response/test-challenge-response-dialog.component';
 
 @Component({
   selector: 'app-token-card',
@@ -113,15 +112,14 @@ export class TokenCardComponent implements OnInit {
     };
 
     switch (this.token.type) {
+      case TokenType.PASSWORD:
       case TokenType.HOTP:
       case TokenType.TOTP:
-        testDialog = TestOTPDialogComponent;
+        testDialog = TestOATHDialogComponent;
         break;
       case TokenType.PUSH:
-        testDialog = TestPushDialogComponent;
-        break;
       case TokenType.QR:
-        testDialog = TestQrDialogComponent;
+        testDialog = TestChallengeResponseDialogComponent;
         break;
       default:
         this.notificationService.message('This token type cannot be tested yet.');
@@ -142,7 +140,7 @@ export class TokenCardComponent implements OnInit {
       data: { token: this.token, activate: true }
     };
 
-    this.dialog.open(this.chooseActivationDialog(), dialogConfig)
+    this.dialog.open(TestChallengeResponseDialogComponent, dialogConfig)
       .afterClosed()
       .subscribe(() => {
         this.notificationService.message('Token activated');
@@ -172,14 +170,5 @@ export class TokenCardComponent implements OnInit {
 
   public isPush(): boolean {
     return this.token.type === TokenType.PUSH;
-  }
-
-  private chooseActivationDialog(): ComponentType<any> {
-    if (this.token.type === TokenType.PUSH) {
-      return TestPushDialogComponent;
-    }
-    if (this.token.type === TokenType.QR) {
-      return TestQrDialogComponent;
-    }
   }
 }

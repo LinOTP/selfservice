@@ -9,10 +9,10 @@ import { TokenService } from '../api/token.service';
 
 import { NotificationService } from '../common/notification.service';
 
-import { EnrollOtpDialogComponent } from '../enroll/enroll-otp-dialog/enroll-otp-dialog.component';
+import { EnrollOATHDialogComponent } from '../enroll/enroll-oath-dialog/enroll-oath-dialog.component';
 import { EnrollPushDialogComponent } from '../enroll/enroll-push-dialog/enroll-push-dialog.component';
-import { TestOTPDialogComponent } from '../test/test-otp/test-otp-dialog.component';
-import { TestPushDialogComponent } from '../test/test-push/test-push-dialog.component';
+import { TestOATHDialogComponent } from '../test/test-oath/test-oath-dialog.component';
+import { TestChallengeResponseDialogComponent } from '../test/test-challenge-response/test-challenge-response-dialog.component';
 
 @Component({
   selector: 'app-enrollment-grid',
@@ -53,7 +53,7 @@ export class EnrollmentGridComponent implements OnInit {
       ).subscribe(() => this.tokenUpdate.next());
   }
 
-  private openEnrollmentDialog(typeDetails: TokenTypeDetails): MatDialogRef<EnrollOtpDialogComponent | EnrollPushDialogComponent> {
+  private openEnrollmentDialog(typeDetails: TokenTypeDetails): MatDialogRef<EnrollOATHDialogComponent | EnrollPushDialogComponent> {
     const enrollmentConfig: MatDialogConfig = {
       width: '850px',
       autoFocus: false,
@@ -64,13 +64,13 @@ export class EnrollmentGridComponent implements OnInit {
       case TokenType.HOTP:
       case TokenType.TOTP:
         enrollmentConfig.data = { tokenTypeDetails: typeDetails };
-        return this.dialog.open(EnrollOtpDialogComponent, enrollmentConfig);
+        return this.dialog.open(EnrollOATHDialogComponent, enrollmentConfig);
       case (TokenType.PUSH):
         return this.dialog.open(EnrollPushDialogComponent, enrollmentConfig);
     }
   }
 
-  private openTestDialog(token: Token): MatDialogRef<TestOTPDialogComponent | TestPushDialogComponent> {
+  private openTestDialog(token: Token): MatDialogRef<TestOATHDialogComponent | TestChallengeResponseDialogComponent> {
     const testConfig: MatDialogConfig = {
       width: '650px',
       data: { token: token }
@@ -79,9 +79,9 @@ export class EnrollmentGridComponent implements OnInit {
     switch (token.type) {
       case TokenType.HOTP:
       case TokenType.TOTP:
-        return this.dialog.open(TestOTPDialogComponent, testConfig);
+        return this.dialog.open(TestOATHDialogComponent, testConfig);
       case (TokenType.PUSH):
-        return this.dialog.open(TestPushDialogComponent, testConfig);
+        return this.dialog.open(TestChallengeResponseDialogComponent, testConfig);
     }
   }
 

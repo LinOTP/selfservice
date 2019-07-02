@@ -12,10 +12,10 @@ import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
 import { Fixtures } from '../../testing/fixtures';
 import { CapitalizePipe } from '../common/pipes/capitalize.pipe';
 import { TokenService } from '../api/token.service';
-import { EnrollOtpDialogComponent } from '../enroll/enroll-otp-dialog/enroll-otp-dialog.component';
-import { TestOTPDialogComponent } from '../test/test-otp/test-otp-dialog.component';
+import { EnrollOATHDialogComponent } from '../enroll/enroll-oath-dialog/enroll-oath-dialog.component';
+import { TestOATHDialogComponent } from '../test/test-oath/test-oath-dialog.component';
 import { EnrollPushDialogComponent } from '../enroll/enroll-push-dialog/enroll-push-dialog.component';
-import { TestPushDialogComponent } from '../test/test-push/test-push-dialog.component';
+import { TestChallengeResponseDialogComponent } from '../test/test-challenge-response/test-challenge-response-dialog.component';
 
 describe('EnrollmentGridComponent', () => {
   let component: EnrollmentGridComponent;
@@ -87,9 +87,9 @@ describe('EnrollmentGridComponent', () => {
     component.runEnrollmentWorkflow(tokenTypeDetails);
     tick();
 
-    expect(matDialog.open).toHaveBeenCalledWith(EnrollOtpDialogComponent, expectedEnrollDialogConfig);
+    expect(matDialog.open).toHaveBeenCalledWith(EnrollOATHDialogComponent, expectedEnrollDialogConfig);
     expect(tokenService.getToken).toHaveBeenCalledWith(token.serial);
-    expect(matDialog.open).toHaveBeenCalledWith(TestOTPDialogComponent, expectedTestDialogConfig);
+    expect(matDialog.open).toHaveBeenCalledWith(TestOATHDialogComponent, expectedTestDialogConfig);
     expect(tokenUpdateSpy).toHaveBeenCalledTimes(2);
   }));
 
@@ -109,7 +109,7 @@ describe('EnrollmentGridComponent', () => {
     tick();
 
     expect(matDialog.open).toHaveBeenCalledTimes(1);
-    expect(matDialog.open).toHaveBeenCalledWith(EnrollOtpDialogComponent, expectedEnrollDialogConfig);
+    expect(matDialog.open).toHaveBeenCalledWith(EnrollOATHDialogComponent, expectedEnrollDialogConfig);
     expect(notificationService.message).toHaveBeenCalledWith('There was a problem starting the token test, please try manually later.');
     expect(tokenUpdateSpy).toHaveBeenCalledTimes(1);
   }));
@@ -129,7 +129,7 @@ describe('EnrollmentGridComponent', () => {
     tick();
 
     expect(matDialog.open).toHaveBeenCalledTimes(1);
-    expect(matDialog.open).toHaveBeenCalledWith(EnrollOtpDialogComponent, expectedEnrollDialogConfig);
+    expect(matDialog.open).toHaveBeenCalledWith(EnrollOATHDialogComponent, expectedEnrollDialogConfig);
     expect(notificationService.message).not.toHaveBeenCalled();
     expect(tokenUpdateSpy).toHaveBeenCalledTimes(1);
   }));
@@ -154,9 +154,9 @@ describe('EnrollmentGridComponent', () => {
     component.runEnrollmentWorkflow(tokenTypeDetails);
     tick();
 
-    expect(matDialog.open).toHaveBeenCalledWith(EnrollOtpDialogComponent, expectedEnrollDialogConfig);
+    expect(matDialog.open).toHaveBeenCalledWith(EnrollOATHDialogComponent, expectedEnrollDialogConfig);
     expect(tokenService.getToken).toHaveBeenCalledWith(token.serial);
-    expect(matDialog.open).toHaveBeenCalledWith(TestOTPDialogComponent, expectedTestDialogConfig);
+    expect(matDialog.open).toHaveBeenCalledWith(TestOATHDialogComponent, expectedTestDialogConfig);
     expect(tokenUpdateSpy).toHaveBeenCalledTimes(2);
   }));
 
@@ -182,7 +182,7 @@ describe('EnrollmentGridComponent', () => {
 
     expect(matDialog.open).toHaveBeenCalledWith(EnrollPushDialogComponent, expectedEnrollDialogConfig);
     expect(tokenService.getToken).toHaveBeenCalledWith(token.serial);
-    expect(matDialog.open).toHaveBeenCalledWith(TestPushDialogComponent, expectedTestDialogConfig);
+    expect(matDialog.open).toHaveBeenCalledWith(TestChallengeResponseDialogComponent, expectedTestDialogConfig);
     expect(tokenUpdateSpy).toHaveBeenCalledTimes(2);
     expect(notificationService.message).not.toHaveBeenCalled();
   }));

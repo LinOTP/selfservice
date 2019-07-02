@@ -15,10 +15,9 @@ import { NotificationService } from '../common/notification.service';
 import { TokenService } from '../api/token.service';
 import { Permission, ModifyTokenPermissions } from '../common/permissions';
 import { EnrollmentStatus } from '../api/token';
-import { TestPushDialogComponent } from '../test/test-push/test-push-dialog.component';
-import { TestQrDialogComponent } from '../test/test-qr/test-qr-dialog.component';
+import { TestChallengeResponseDialogComponent } from '../test/test-challenge-response/test-challenge-response-dialog.component';
 import { CapitalizePipe } from '../common/pipes/capitalize.pipe';
-import { TestOTPDialogComponent } from '../test/test-otp/test-otp-dialog.component';
+import { TestOATHDialogComponent } from '../test/test-oath/test-oath-dialog.component';
 
 class Page extends TestingPage<TokenCardComponent> {
 
@@ -254,11 +253,10 @@ describe('TokenCardComponent', () => {
       component.activate();
       tick();
 
-      expect(matDialog.open).toHaveBeenCalledWith(TestPushDialogComponent, expectedDialogConfig);
-      expect(matDialog.open).not.toHaveBeenCalledWith(TestQrDialogComponent, expectedDialogConfig);
+      expect(matDialog.open).toHaveBeenCalledWith(TestChallengeResponseDialogComponent, expectedDialogConfig);
     }));
 
-    it('should open a QR token activation dialog', fakeAsync(() => {
+    it('should open a Push token activation dialog', fakeAsync(() => {
       matDialog.open.and.returnValue({ afterClosed: () => of({}) });
       expectedDialogConfig.data.token = Fixtures.pairedQRToken;
       expectedDialogConfig.data.activate = true;
@@ -267,8 +265,7 @@ describe('TokenCardComponent', () => {
       component.activate();
       tick();
 
-      expect(matDialog.open).toHaveBeenCalledWith(TestQrDialogComponent, expectedDialogConfig);
-      expect(matDialog.open).not.toHaveBeenCalledWith(TestPushDialogComponent, expectedDialogConfig);
+      expect(matDialog.open).toHaveBeenCalledWith(TestChallengeResponseDialogComponent, expectedDialogConfig);
     }));
   });
 
@@ -361,7 +358,7 @@ describe('TokenCardComponent', () => {
 
       component.testToken();
 
-      expect(matDialog.open).toHaveBeenCalledWith(TestOTPDialogComponent, expectedConfig);
+      expect(matDialog.open).toHaveBeenCalledWith(TestOATHDialogComponent, expectedConfig);
       expect(tokenUpdateSpy).toHaveBeenCalled();
     }));
 
@@ -379,7 +376,7 @@ describe('TokenCardComponent', () => {
 
       component.testToken();
 
-      expect(matDialog.open).toHaveBeenCalledWith(TestOTPDialogComponent, expectedConfig);
+      expect(matDialog.open).toHaveBeenCalledWith(TestOATHDialogComponent, expectedConfig);
       expect(tokenUpdateSpy).toHaveBeenCalled();
     }));
 
@@ -397,11 +394,11 @@ describe('TokenCardComponent', () => {
 
       component.testToken();
 
-      expect(matDialog.open).toHaveBeenCalledWith(TestPushDialogComponent, expectedConfig);
+      expect(matDialog.open).toHaveBeenCalledWith(TestChallengeResponseDialogComponent, expectedConfig);
       expect(tokenUpdateSpy).toHaveBeenCalled();
     }));
 
-    it('should open the TestQRDialogComponent if token is Push', fakeAsync(() => {
+    it('should open the TestPushDialogComponent if token is QR', fakeAsync(() => {
       matDialog.open.and.returnValue({ afterClosed: () => of({}) });
       component.token = Fixtures.completedQRToken;
       fixture.detectChanges();
@@ -415,7 +412,7 @@ describe('TokenCardComponent', () => {
 
       component.testToken();
 
-      expect(matDialog.open).toHaveBeenCalledWith(TestQrDialogComponent, expectedConfig);
+      expect(matDialog.open).toHaveBeenCalledWith(TestChallengeResponseDialogComponent, expectedConfig);
       expect(tokenUpdateSpy).toHaveBeenCalled();
     }));
 

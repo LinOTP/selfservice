@@ -17,14 +17,13 @@ import { APIModule } from './api/api.module';
 import { AppComponent } from './app.component';
 import { TokenListComponent } from './token-list/token-list.component';
 import { LoginComponent } from './login/login.component';
-import { EnrollOtpDialogComponent } from './enroll/enroll-otp-dialog/enroll-otp-dialog.component';
+import { EnrollOATHDialogComponent } from './enroll/enroll-oath-dialog/enroll-oath-dialog.component';
 import { EnrollPushDialogComponent } from './enroll/enroll-push-dialog/enroll-push-dialog.component';
 import { TokenCardComponent } from './token-card/token-card.component';
 import { EnrollmentGridComponent } from './enrollment-grid/enrollment-grid.component';
 import { AppInitService } from './app-init.service';
-import { TestOTPDialogComponent } from './test/test-otp/test-otp-dialog.component';
-import { TestQrDialogComponent } from './test/test-qr/test-qr-dialog.component';
-import { TestPushDialogComponent } from './test/test-push/test-push-dialog.component';
+import { TestOATHDialogComponent } from './test/test-oath/test-oath-dialog.component';
+import { TestChallengeResponseDialogComponent } from './test/test-challenge-response/test-challenge-response-dialog.component';
 
 
 @NgModule({
@@ -32,20 +31,18 @@ import { TestPushDialogComponent } from './test/test-push/test-push-dialog.compo
     AppComponent,
     TokenListComponent,
     LoginComponent,
-    EnrollOtpDialogComponent,
+    EnrollOATHDialogComponent,
     EnrollPushDialogComponent,
     TokenCardComponent,
     EnrollmentGridComponent,
-    TestOTPDialogComponent,
-    TestPushDialogComponent,
-    TestQrDialogComponent,
+    TestOATHDialogComponent,
+    TestChallengeResponseDialogComponent,
   ],
   entryComponents: [
-    TestPushDialogComponent,
-    TestQrDialogComponent,
-    EnrollOtpDialogComponent,
+    TestChallengeResponseDialogComponent,
+    EnrollOATHDialogComponent,
     EnrollPushDialogComponent,
-    TestOTPDialogComponent,
+    TestOATHDialogComponent,
   ],
   imports: [
     BrowserModule,

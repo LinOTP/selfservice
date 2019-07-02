@@ -86,6 +86,17 @@ describe('SetPinDialogComponent', () => {
     expect(notificationService.message).not.toHaveBeenCalled();
   });
 
+  it('should allow setting an empty pin', () => {
+    component.form.setValue({ 'newPin': '', 'confirmPin': '' });
+    fixture.detectChanges();
+    tokenService.setPin = jasmine.createSpy('setPin').and.returnValue(of(true));
+
+    component.submit();
+    expect(tokenService.setPin).toHaveBeenCalledWith(token, '');
+    expect(matDialogRef.close).toHaveBeenCalledWith(true);
+    expect(notificationService.message).not.toHaveBeenCalled();
+  });
+
   it('should display a notification message if submission fails', () => {
     component.form.setValue({ 'newPin': '1234', 'confirmPin': '1234' });
     fixture.detectChanges();

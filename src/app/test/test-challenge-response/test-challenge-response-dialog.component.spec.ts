@@ -1,30 +1,37 @@
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef, MatStepper } from '@angular/material';
 import { By } from '@angular/platform-browser';
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
+
 import { of } from 'rxjs/internal/observable/of';
 
-import { TestPushDialogComponent } from './test-push-dialog.component';
+import { Fixtures } from '../../../testing/fixtures';
+import { MockComponent } from '../../../testing/mock-component';
+import { spyOnClass } from '../../../testing/spyOnClass';
+
 import { MaterialModule } from '../../material.module';
 import { TokenService } from '../../api/token.service';
-import { spyOnClass } from '../../../testing/spyOnClass';
-import { Fixtures } from '../../../testing/fixtures';
 import { EnrollPushDialogComponent } from '../../enroll/enroll-push-dialog/enroll-push-dialog.component';
+import { TestChallengeResponseDialogComponent } from './test-challenge-response-dialog.component';
 
-describe('TestPushDialogComponent', () => {
-  let component: TestPushDialogComponent;
-  let fixture: ComponentFixture<TestPushDialogComponent>;
+describe('TestChallengeResponseDialogComponent', () => {
+  let component: TestChallengeResponseDialogComponent;
+  let fixture: ComponentFixture<TestChallengeResponseDialogComponent>;
   let tokenService: jasmine.SpyObj<TokenService>;
   let dialogRef: jasmine.SpyObj<MatDialogRef<EnrollPushDialogComponent>>;
+  let stepper: MatStepper;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         MaterialModule,
         NoopAnimationsModule,
+        FormsModule,
       ],
       declarations: [
-        TestPushDialogComponent,
+        TestChallengeResponseDialogComponent,
+        MockComponent({ selector: 'app-qr-code', inputs: ['qrUrl'] }),
       ],
       providers: [
         {
@@ -33,6 +40,7 @@ describe('TestPushDialogComponent', () => {
         },
         { provide: MAT_DIALOG_DATA, useValue: { token: Fixtures.inactivePushToken } },
         { provide: MatDialogRef, useValue: spyOnClass(MatDialogRef) },
+        { provide: MatStepper, useValue: spyOnClass(MatStepper) },
       ],
     })
       .compileComponents();
@@ -41,8 +49,9 @@ describe('TestPushDialogComponent', () => {
   beforeEach(() => {
     tokenService = TestBed.get(TokenService);
     dialogRef = TestBed.get(MatDialogRef);
+    stepper = TestBed.get(MatStepper);
 
-    fixture = TestBed.createComponent(TestPushDialogComponent);
+    fixture = TestBed.createComponent(TestChallengeResponseDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -51,17 +60,11 @@ describe('TestPushDialogComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have an initial step of 1 and max activation step of 2', () => {
-    expect(component.maxSteps).toEqual(2);
-    expect(component.currentStep).toEqual(1);
-  });
-
   it('should activate the push token with success message', fakeAsync(() => {
     tokenService.activate.and.returnValue(of(Fixtures.activationResponse));
     tokenService.challengePoll.and.returnValue(of(true));
 
     fixture.detectChanges();
-    expect(component.currentStep).toEqual(1);
 
     const nextButton = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
     nextButton.click();
@@ -69,7 +72,6 @@ describe('TestPushDialogComponent', () => {
 
     expect(component.waitingForResponse).toEqual(false);
     expect(component.restartDialog).toEqual(false);
-    expect(component.currentStep).toEqual(2);
   }));
 
   it('should fail on token activation', fakeAsync(() => {
@@ -77,7 +79,6 @@ describe('TestPushDialogComponent', () => {
     spyOn(console, 'error');
 
     fixture.detectChanges();
-    expect(component.currentStep).toEqual(1);
 
     const nextButton = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
     nextButton.click();
@@ -85,7 +86,6 @@ describe('TestPushDialogComponent', () => {
 
     expect(component.waitingForResponse).toEqual(false);
     expect(component.restartDialog).toEqual(true);
-    expect(component.currentStep).toEqual(2);
     expect(console.error).toHaveBeenCalled();
 
   }));
@@ -95,7 +95,6 @@ describe('TestPushDialogComponent', () => {
     tokenService.challengePoll.and.returnValue(of(false));
 
     fixture.detectChanges();
-    expect(component.currentStep).toEqual(1);
 
     const nextButton = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
     nextButton.click();
@@ -103,11 +102,22 @@ describe('TestPushDialogComponent', () => {
 
     expect(component.waitingForResponse).toEqual(false);
     expect(component.restartDialog).toEqual(true);
-    expect(component.currentStep).toEqual(2);
   }));
 
-  it('should let the user close the dialog', () => {
+  it('should let the user cancel the test', () => {
     component.cancelDialog();
     expect(dialogRef.close).toHaveBeenCalledTimes(1);
+    expect(dialogRef.close).toHaveBeenCalledWith(false);
+  });
+
+  it('should let the user close the test dialog', () => {
+    component.closeDialog();
+    expect(dialogRef.close).toHaveBeenCalledTimes(1);
+    expect(dialogRef.close).toHaveBeenCalledWith(true);
+  });
+
+  it('should let the user retry a failed test', () => {
+    component.resetDialogToInitial(stepper);
+    expect(stepper.reset).toHaveBeenCalledTimes(1);
   });
 });

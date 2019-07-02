@@ -27,8 +27,8 @@ export class SetPinDialogComponent {
   ) {
     this.form = this.formBuilder.group(
       {
-        newPin: ['', [Validators.required]],
-        confirmPin: ['', [Validators.required]]
+        newPin: [''],
+        confirmPin: ['']
       },
       {
         validator: this.checkPins

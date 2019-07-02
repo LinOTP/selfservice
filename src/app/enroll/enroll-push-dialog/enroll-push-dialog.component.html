@@ -34,7 +34,7 @@
       </mat-form-field>
     </form>
     <mat-dialog-actions align="end">
-      <div>Enrollment {{currentStep}} of {{maxSteps}}</div>
+      <div>Enrollment step {{currentStep}} of {{maxSteps}}</div>
       <span class="spacer"></span>
       <button mat-raised-button
               (click)="close()">Cancel</button>
@@ -62,7 +62,7 @@
                   [qrc-value]="enrolledToken.url"></ngx-qrcode>
     </div>
     <mat-dialog-actions align="end">
-      <div>Enrollment {{currentStep}} of {{maxSteps}}</div>
+      <div>Enrollment step {{currentStep}} of {{maxSteps}}</div>
       <span class="spacer"></span>
       <button mat-raised-button
               (click)="cancel()">Cancel</button>
@@ -73,7 +73,7 @@
     <p>Your token has been successfully paired. In order to use it, you must
       activate it first.</p>
     <mat-dialog-actions align="end">
-      <div>Enrollment {{currentStep}} of {{maxSteps}}</div>
+      <div>Enrollment step {{currentStep}} of {{maxSteps}}</div>
       <span class="spacer"></span>
       <button mat-raised-button
               (click)="close()">Close</button>
