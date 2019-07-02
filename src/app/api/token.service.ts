@@ -6,9 +6,8 @@ import { Observable, of, interval } from 'rxjs';
 import { map, filter, mergeMap, take, catchError, tap } from 'rxjs/operators';
 
 
-import { Token, EnrollToken, EnrollmentStatus } from './token';
+import { Token, EnrollToken, EnrollmentStatus, getTypeDetails, EnrollmentEndpointType } from './token';
 import { AuthService } from '../auth/auth.service';
-import { NotificationService } from '../common/notification.service';
 
 
 interface LinOTPResponse<T> {
@@ -26,6 +25,7 @@ export class TokenService {
     setpin: 'setpin',
     delete: 'delete',
     enroll: 'enroll',
+    webprovision: 'webprovision',
     enable: 'enable',
     disable: 'disable',
   };
@@ -123,10 +123,12 @@ export class TokenService {
       );
   }
 
-  enroll(params: EnrollToken) {
-    const body = { ...params, session: this.authService.getSession() };
+  enroll(token: EnrollToken) {
+    const body = { ...token, session: this.authService.getSession() };
 
-    return this.http.post(this.userserviceBase + this.userserviceEndpoints.enroll, body)
+    const endpointType: EnrollmentEndpointType = getTypeDetails(token.type).enrollmentEndpoint;
+
+    return this.http.post(this.userserviceBase + this.userserviceEndpoints[endpointType], body)
       .pipe(
         catchError(this.handleError('enroll token', null))
       );

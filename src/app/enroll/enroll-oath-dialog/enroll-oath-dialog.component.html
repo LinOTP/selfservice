@@ -24,26 +24,9 @@
       fail, you can install another app and try again.
     </p>
     <p>
-      Once you have an app installed on your device, you can set a
-      description for your new token and start the
+      Once you have an app installed on your device, you can start the
       enrollment process:
     </p>
-    <form [formGroup]="enrollmentForm">
-      <mat-form-field>
-        <input matInput
-               placeholder="Token description"
-               formControlName="description"
-               autofocus>
-        <mat-error>
-          The token description is required.
-        </mat-error>
-        <mat-hint>
-          The token description should help you identify the token at a later
-          point. It could, for example, refer to
-          its usage scenario.
-        </mat-hint>
-      </mat-form-field>
-    </form>
     <mat-dialog-actions align="end">
       <div>Enrollment step 1 of 3</div>
       <span class="spacer"></span>
@@ -51,7 +34,6 @@
               (click)="cancelDialog()">Cancel</button>
       <button mat-raised-button
               color="primary"
-              [disabled]="enrollmentForm.invalid"
               (click)="enrollToken(stepper)"
               id="goTo2">Next</button>
     </mat-dialog-actions>
@@ -61,8 +43,8 @@
             id="stepShowQR">
     <div *ngIf="enrolledToken">
       <p>
-        A token with the serial number {{enrolledToken.serial}} (description:
-        {{ enrollmentForm.get('description').value}}) has been enrolled.
+        A token with the serial number {{enrolledToken.serial}} has been
+        enrolled.
       </p>
       <p>
         Scan the QR code below with your soft token app or

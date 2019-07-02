@@ -91,6 +91,21 @@ export class Fixtures {
     };
   }
 
+  static get OATHEnrollmentResponse() {
+    return {
+      result: {
+        status: true,
+        value: {
+          init: true,
+          oathtoken: {
+            url: 'testUrl',
+            serial: 'testSerial',
+          }
+        }
+      }
+    };
+  }
+
   static get activationResponse() {
     return {
       result: {
