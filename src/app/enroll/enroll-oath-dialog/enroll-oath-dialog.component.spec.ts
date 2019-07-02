@@ -118,49 +118,40 @@ describe('The EnrollOATHDialogComponent', () => {
   });
 
   it('should enroll an HOTP token', fakeAsync(() => {
-    const mockEnrollmentResponse = Fixtures.enrollmentResponse;
-    mockEnrollmentResponse.result.value = true;
-
-    tokenService.enroll.and.returnValue(of(mockEnrollmentResponse));
+    tokenService.enroll.and.returnValue(of(Fixtures.OATHEnrollmentResponse));
     const expectedToken = { serial: 'testSerial', url: 'testUrl' };
 
-    component.enrollmentForm.controls.description.setValue('descr');
     fixture.detectChanges();
 
     component.enrollToken(stepper);
     tick();
 
+    expect(tokenService.enroll).toHaveBeenCalledWith({ type: TokenType.HOTP });
     expect(component.enrolledToken).toEqual(expectedToken);
     expect(component.enrollmentStep.controls.tokenEnrolled.value).toEqual(true);
-    expect(component.enrollmentForm.controls.description.disabled).toEqual(true);
     expect(stepper.next).toHaveBeenCalledTimes(1);
   }));
 
   it('should enroll a TOTP token', fakeAsync(() => {
-    const mockEnrollmentResponse = Fixtures.enrollmentResponse;
-    mockEnrollmentResponse.result.value = true;
-
-    tokenService.enroll.and.returnValue(of(mockEnrollmentResponse));
+    tokenService.enroll.and.returnValue(of(Fixtures.OATHEnrollmentResponse));
     const expectedToken = { serial: 'testSerial', url: 'testUrl' };
 
     component.data.tokenTypeDetails = getTypeDetails(TokenType.TOTP);
-    component.enrollmentForm.controls.description.setValue('descr');
     fixture.detectChanges();
     component.enrollToken(stepper);
     tick();
 
+    expect(tokenService.enroll).toHaveBeenCalledWith({ type: TokenType.TOTP });
     expect(component.enrolledToken).toEqual(expectedToken);
     expect(component.enrollmentStep.controls.tokenEnrolled.value).toEqual(true);
-    expect(component.enrollmentForm.controls.description.disabled).toEqual(true);
     expect(stepper.next).toHaveBeenCalledTimes(1);
   }));
 
   it('should output message if enrollment failed', fakeAsync(() => {
-    const mockEnrollmentResponse = Fixtures.enrollmentResponse;
-    mockEnrollmentResponse.result.value = false;
+    const mockEnrollmentResponse = Fixtures.OATHEnrollmentResponse;
+    mockEnrollmentResponse.result.status = false;
 
     tokenService.enroll.and.returnValue(of(mockEnrollmentResponse));
-    component.enrollmentForm.controls.description.setValue('descr');
     fixture.detectChanges();
     const result = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
     result.click();

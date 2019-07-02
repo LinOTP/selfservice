@@ -1,5 +1,10 @@
 import { Permission } from '../common/permissions';
 
+export enum EnrollmentEndpointType {
+  ENROLL = 'enroll',
+  WEBPROVISION = 'webprovision',
+}
+
 export interface TokenTypeDetails {
   type: TokenType;
   name: string;
@@ -7,12 +12,13 @@ export interface TokenTypeDetails {
   icon: string; // material icon ligature string to use for this token type
   enrollmentPermission?: Permission;
   activationPermission?: Permission;
+  enrollmentEndpoint: EnrollmentEndpointType;
 }
 
 export enum TokenType {
   PASSWORD = 'pw',
-  HOTP = 'hmac',
-  TOTP = 'totp',
+  HOTP = 'googleauthenticator',
+  TOTP = 'googleauthenticator_time',
   PUSH = 'push',
   QR = 'qr',
   UNKNOWN = 'unknown',
@@ -25,6 +31,7 @@ export const tokenTypeDetails: TokenTypeDetails[] = [
     description: 'Personal text-based secret',
     icon: 'keyboard',
     enrollmentPermission: Permission.ENROLLPASSWORD,
+    enrollmentEndpoint: EnrollmentEndpointType.ENROLL,
   },
   {
     type: TokenType.HOTP,
@@ -32,6 +39,7 @@ export const tokenTypeDetails: TokenTypeDetails[] = [
     description: 'Event-based soft token (HOTP)',
     icon: 'cached',
     enrollmentPermission: Permission.ENROLLHOTP,
+    enrollmentEndpoint: EnrollmentEndpointType.WEBPROVISION,
   },
   {
     type: TokenType.TOTP,
@@ -39,6 +47,7 @@ export const tokenTypeDetails: TokenTypeDetails[] = [
     description: 'Time-based soft token (TOTP)',
     icon: 'timelapse',
     enrollmentPermission: Permission.ENROLLTOTP,
+    enrollmentEndpoint: EnrollmentEndpointType.WEBPROVISION,
   },
   {
     type: TokenType.PUSH,
@@ -47,6 +56,7 @@ export const tokenTypeDetails: TokenTypeDetails[] = [
     icon: 'screen_lock_portrait',
     enrollmentPermission: Permission.ENROLLPUSH,
     activationPermission: Permission.ENROLLPUSH,
+    enrollmentEndpoint: EnrollmentEndpointType.ENROLL,
   },
   {
     type: TokenType.QR,
@@ -55,6 +65,7 @@ export const tokenTypeDetails: TokenTypeDetails[] = [
     icon: 'all_out',
     enrollmentPermission: Permission.ENROLLQR,
     activationPermission: Permission.ACTIVATEQR,
+    enrollmentEndpoint: EnrollmentEndpointType.ENROLL,
   },
 ];
 
@@ -63,6 +74,7 @@ export const unknownTokenType: TokenTypeDetails = {
   name: 'Unknown Token',
   description: '',
   icon: 'apps',
+  enrollmentEndpoint: null,
 };
 
 export function getTypeDetails(type: TokenType): TokenTypeDetails {
@@ -94,7 +106,7 @@ export enum EnrollmentStatus {
 
 export interface EnrollToken {
   type: TokenType;
-  description: string;
+  description?: string;
 }
 
 

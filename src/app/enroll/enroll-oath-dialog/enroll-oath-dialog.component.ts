@@ -6,7 +6,7 @@ import { SetPinDialogComponent } from '../../common/set-pin-dialog/set-pin-dialo
 import { NotificationService } from '../../common/notification.service';
 
 import { TokenService } from '../../api/token.service';
-import { TokenType, TokenTypeDetails } from '../../api/token';
+import { TokenType, TokenTypeDetails, EnrollToken } from '../../api/token';
 import { Permission } from '../../common/permissions';
 
 @Component({
@@ -18,8 +18,6 @@ export class EnrollOATHDialogComponent implements OnInit {
 
   public Permission = Permission;
 
-
-  public enrollmentForm: FormGroup;
   public enrollmentStep: FormGroup;
   public testStep: FormGroup;
 
@@ -37,14 +35,6 @@ export class EnrollOATHDialogComponent implements OnInit {
   ) { }
 
   public ngOnInit() {
-    this.enrollmentForm = this.formBuilder.group({
-      'description': ['', Validators.required],
-      'type': this.data.tokenTypeDetails.type,
-      'otplen': 6,
-      'hashlib': 'sha1',
-      'genkey': 1,
-      'timeStep': 30
-    });
     this.enrollmentStep = this.formBuilder.group({
       'tokenEnrolled': ['', Validators.required],
     });
@@ -55,17 +45,23 @@ export class EnrollOATHDialogComponent implements OnInit {
   }
 
   public enrollToken(stepper: MatStepper) {
-    if (this.data.tokenTypeDetails.type !== TokenType.TOTP) {
-      this.enrollmentForm.removeControl('timeStep');
+    const body: EnrollToken = {
+      type: TokenType.HOTP,
+    };
+
+    if (this.data.tokenTypeDetails.type === TokenType.TOTP) {
+      body.type = TokenType.TOTP;
     }
 
-    this.tokenService.enroll(this.enrollmentForm.value).subscribe(response => {
-      if (response.result && response.result.value === true) {
+    this.tokenService.enroll(body).subscribe(response => {
+      if (response.result
+        && response.result.status
+        && response.result.value
+        && response.result.value.oathtoken) {
         this.enrolledToken = {
-          url: response.detail.googleurl.value,
-          serial: response.detail.serial
+          url: response.result.value.oathtoken.url,
+          serial: response.result.value.oathtoken.serial
         };
-        this.enrollmentForm.controls.description.disable();
         this.enrollmentStep.controls.tokenEnrolled.setValue(true);
         stepper.next();
       } else {
