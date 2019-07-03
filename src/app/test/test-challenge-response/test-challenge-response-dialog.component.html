@@ -78,10 +78,22 @@
     <ng-template #challengeResponseBlock>
 
       <section class="response">
-        <p *ngIf="restartDialog">{{ isActivation? "Activation" : "Test" }}
+        <p *ngIf="restartDialog; else displayResult">{{ isActivation?
+          "Activation" : "Test" }}
           failed. Please try again, or contact an administrator.</p>
-        <p *ngIf="!restartDialog">{{ isActivation? "Activation" : "Test" }}
-          successful. Your token is ready to be used.</p>
+
+        <ng-template #displayResult>
+          <p *ngIf="!isActivation && result && result.accept === true">
+            You have accepted the transaction.
+          </p>
+          <p *ngIf="!isActivation && result && result.reject === true">
+            You have rejected the transaction.
+          </p>
+          <p>
+            The {{ isActivation? "activation" : "test" }} was successful.
+            Your token is ready to be used.
+          </p>
+        </ng-template>
       </section>
 
       <mat-dialog-actions align="end">
