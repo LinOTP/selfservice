@@ -58,7 +58,7 @@ export class TestOATHDialogComponent {
    * @memberof TestOTPDialogComponent
    */
   public reset() {
-    this.formDirective.resetForm();
+    this.formDirective.resetForm({ otp: '', pin: '' });
     this.state = TestState.UNTESTED;
   }
 }
