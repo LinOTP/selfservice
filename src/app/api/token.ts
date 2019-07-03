@@ -30,7 +30,7 @@ export const tokenTypeDetails: TokenTypeDetails[] = [
     name: 'password token',
     description: 'Personal text-based secret',
     icon: 'keyboard',
-    enrollmentPermission: Permission.ENROLLPASSWORD,
+    // enrollmentPermission: Permission.ENROLLPASSWORD,
     enrollmentEndpoint: EnrollmentEndpointType.ENROLL,
   },
   {
@@ -63,7 +63,7 @@ export const tokenTypeDetails: TokenTypeDetails[] = [
     name: 'QR-Token',
     description: 'Use the Authenticator app to scan QR code authentication requests',
     icon: 'all_out',
-    enrollmentPermission: Permission.ENROLLQR,
+    // enrollmentPermission: Permission.ENROLLQR,
     activationPermission: Permission.ACTIVATEQR,
     enrollmentEndpoint: EnrollmentEndpointType.ENROLL,
   },
