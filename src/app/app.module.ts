@@ -1,4 +1,4 @@
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule, APP_INITIALIZER, TRANSLATIONS, LOCALE_ID, TRANSLATIONS_FORMAT } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -7,6 +7,7 @@ import { CookieModule } from 'ngx-cookie';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { CustomFormsModule } from 'ng2-validation';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
+import { I18n } from '@ngx-translate/i18n-polyfill';
 
 import { NgSelfServiceCommonModule } from './common/common.module';
 import { AppRoutingModule } from './app-routing.module';
@@ -25,6 +26,7 @@ import { AppInitService } from './app-init.service';
 import { TestOATHDialogComponent } from './test/test-oath/test-oath-dialog.component';
 import { TestChallengeResponseDialogComponent } from './test/test-challenge-response/test-challenge-response-dialog.component';
 
+declare const require;
 
 @NgModule({
   declarations: [
@@ -66,7 +68,17 @@ import { TestChallengeResponseDialogComponent } from './test/test-challenge-resp
       useFactory: (appInit: AppInitService) => () => appInit.init(),
       deps: [AppInitService],
       multi: true
-    }
+    },
+    {
+      provide: TRANSLATIONS,
+      useFactory: (locale) => {
+        console.error(locale);
+        return require(`raw-loader!locale/messages.${locale}.xlf`);
+      },
+      deps: [LOCALE_ID]
+    },
+    { provide: TRANSLATIONS_FORMAT, useValue: 'xlf' },
+    I18n,
   ],
   bootstrap: [AppComponent]
 })

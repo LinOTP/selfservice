@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 
 import { NotificationService } from '../common/notification.service';
 import { AuthService } from '../auth/auth.service';
+import { I18n } from '@ngx-translate/i18n-polyfill';
 
 @Component({
   selector: 'app-login',
@@ -24,6 +25,7 @@ export class LoginComponent implements OnInit {
     public notificationService: NotificationService,
     private route: ActivatedRoute,
     private router: Router,
+    private i18n: I18n,
   ) {
     this.loginFormGroup = new FormGroup({
       username: new FormControl(),
@@ -40,14 +42,14 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.message = 'Waiting for response';
+    this.message = this.i18n('Waiting for response');
 
     const username = this.loginFormGroup.value.username;
     const password = this.loginFormGroup.value.password;
 
     this.authService.login(username, password).subscribe((result: boolean) => {
 
-      const message = (result ? 'Login successful' : 'Login failed');
+      const message = result ? this.i18n('Login successful') : this.i18n('Login failed');
       this.notificationService.message(message);
 
       if (result) {

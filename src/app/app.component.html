@@ -2,9 +2,14 @@
 <mat-toolbar class="mat-primary toolbar">
   <h1 class="title">{{ title }}</h1>
   <nav>
-    <a *ngFor="let link of navLinks" mat-button [routerLink]="link.path">{{ link.label }}</a>
+    <a *ngFor="let link of navLinks"
+       mat-button
+       [routerLink]="link.path">{{ link.label }}</a>
   </nav>
-  <button *ngIf="isLoggedIn" mat-button (click)="logout()">Logout</button>
+  <button *ngIf="isLoggedIn"
+          mat-button
+          (click)="logout()"
+          i18n>Logout</button>
 </mat-toolbar>
 <main>
   <router-outlet></router-outlet>

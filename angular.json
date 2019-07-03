@@ -26,7 +26,7 @@
             "scripts": []
           },
           "configurations": {
-            "production": {
+            "production-en": {
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -41,7 +41,44 @@
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.prod.ts"
                 }
-              ]
+              ],
+              "outputPath": "dist/en",
+              "i18nFile": "src/locale/messages.en.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "en"
+            },
+            "en": {
+              "aot": true,
+              "i18nFile": "src/locale/messages.en.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "en"
+            },
+            "production-de": {
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "outputPath": "dist/de",
+              "i18nFile": "src/locale/messages.de.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "de"
+            },
+            "de": {
+              "aot": true,
+              "i18nFile": "src/locale/messages.de.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "de"
             }
           }
         },
@@ -53,6 +90,12 @@
           "configurations": {
             "production": {
               "browserTarget": "self-service:build:production"
+            },
+            "en": {
+              "browserTarget": "self-service:build:en"
+            },
+            "de": {
+              "browserTarget": "self-service:build:de"
             }
           }
         },
@@ -92,6 +135,23 @@
             "exclude": [
               "**/node_modules/**"
             ]
+          }
+        },
+        "xliffmerge": {
+          "builder": "@ngx-i18nsupport/tooling:xliffmerge",
+          "options": {
+            "xliffmergeOptions": {
+              "i18nFormat": "xlf",
+              "srcDir": "src/locale",
+              "genDir": "src/locale",
+              "defaultLanguage": "en",
+              "languages": [
+                "en",
+                "de"
+              ],
+              "useSourceAsTarget": false,
+              "beautifyOutput": true
+            }
           }
         }
       }

@@ -6,6 +6,7 @@ import { AuthService } from '../auth/auth.service';
 import { MaterialModule } from '../material.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NotificationService } from '../common/notification.service';
+import { I18NMock } from '../../testing/i18n-mock-provider';
 
 class MockNotificationService {
   message = jasmine.createSpy('message');
@@ -39,6 +40,7 @@ describe('LoginComponent', () => {
           provide: NotificationService,
           useClass: MockNotificationService,
         },
+        I18NMock,
       ],
     })
       .compileComponents();
