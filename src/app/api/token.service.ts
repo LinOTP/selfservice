@@ -165,13 +165,23 @@ export class TokenService {
       );
   }
 
-  challengePoll(transactionId: string, pin: string, serial: string): Observable<boolean> {
+  /**
+   * Polls the backend for the state of a transaction secured by a given token and its pin.
+   *
+   * @param transactionId transaction identifier
+   * @param pin token pin
+   * @param serial token serial
+   *
+   * @returns a string-to-boolean mapping, representing whether the transaction was accepted or rejected in case of the Push token,
+   *          or whether the TAN was valid, in case of a QR token.
+   */
+  challengePoll(transactionId: string, pin: string, serial: string):
+    Observable<{ accept?: boolean, reject?: boolean, valid_tan?: boolean }> {
     return interval(2000).pipe(
       mergeMap(() => this.getChallengeStatus(transactionId, pin, serial)),
       filter(res => res.detail.transactions[transactionId].status !== 'open'),
-      map(res => res.detail.transactions[transactionId].accept === true
-        || res.detail.transactions[transactionId].valid_tan === true), // valid_tan attribute exists only for the QR token
-      catchError(() => of(false)),
+      map(res => res.detail.transactions[transactionId]),
+      catchError(() => of({})),
       take(1),
     );
   }

@@ -22,6 +22,8 @@ export class TestChallengeResponseDialogComponent implements OnInit {
   public tokenQRUrl: string = null;
   public pin = '';
 
+  public result = null;
+
   constructor(
     private tokenService: TokenService,
     private dialogRef: MatDialogRef<TestChallengeResponseDialogComponent>,
@@ -46,6 +48,8 @@ export class TestChallengeResponseDialogComponent implements OnInit {
 
     this.restartDialog = false;
     this.waitingForResponse = true;
+    this.result = null;
+
     stepper.next();
 
     this.tokenService.activate(this.data.token.serial, this.pin).pipe(
@@ -58,9 +62,10 @@ export class TestChallengeResponseDialogComponent implements OnInit {
       }),
       switchMap(detail => this.tokenService.challengePoll(detail.transactionid, this.pin, this.data.token.serial)),
       catchError(this.handleError('token activation', false)),
-    ).subscribe((res: boolean) => {
+    ).subscribe((res: { accept?: boolean, reject?: boolean, valid_tan?: boolean }) => {
       this.waitingForResponse = false;
-      if (res === true) {
+      if (res.accept === true || res.reject === true || res.valid_tan === true) {
+        this.result = res;
         this.restartDialog = false;
       } else {
         this.restartDialog = true;

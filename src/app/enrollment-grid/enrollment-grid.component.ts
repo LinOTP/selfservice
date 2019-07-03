@@ -21,7 +21,7 @@ import { TestChallengeResponseDialogComponent } from '../test/test-challenge-res
 })
 export class EnrollmentGridComponent implements OnInit {
 
-  public tokenTypes: TokenTypeDetails[] = tokenTypeDetails;
+  public tokenTypes: TokenTypeDetails[] = tokenTypeDetails.filter(t => t.enrollmentPermission);
   @Output() public tokenUpdate: Subject<null> = new Subject();
 
   constructor(

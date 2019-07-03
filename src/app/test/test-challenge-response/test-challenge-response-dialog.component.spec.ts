@@ -60,9 +60,9 @@ describe('TestChallengeResponseDialogComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should activate the push token with success message', fakeAsync(() => {
+  it('should test the push token with success message in case of accept', fakeAsync(() => {
     tokenService.activate.and.returnValue(of(Fixtures.activationResponse));
-    tokenService.challengePoll.and.returnValue(of(true));
+    tokenService.challengePoll.and.returnValue(of({ accept: true }));
 
     fixture.detectChanges();
 
@@ -72,6 +72,22 @@ describe('TestChallengeResponseDialogComponent', () => {
 
     expect(component.waitingForResponse).toEqual(false);
     expect(component.restartDialog).toEqual(false);
+    expect(component.result).toEqual({ accept: true });
+  }));
+
+  it('should test the push token with success message in case of deny', fakeAsync(() => {
+    tokenService.activate.and.returnValue(of(Fixtures.activationResponse));
+    tokenService.challengePoll.and.returnValue(of({ reject: true }));
+
+    fixture.detectChanges();
+
+    const nextButton = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
+    nextButton.click();
+    tick();
+
+    expect(component.waitingForResponse).toEqual(false);
+    expect(component.restartDialog).toEqual(false);
+    expect(component.result).toEqual({ reject: true });
   }));
 
   it('should fail on token activation', fakeAsync(() => {
@@ -92,7 +108,7 @@ describe('TestChallengeResponseDialogComponent', () => {
 
   it('should fail on challenge polling', fakeAsync(() => {
     tokenService.activate.and.returnValue(of(Fixtures.activationResponse));
-    tokenService.challengePoll.and.returnValue(of(false));
+    tokenService.challengePoll.and.returnValue(of({}));
 
     fixture.detectChanges();
 
@@ -102,6 +118,7 @@ describe('TestChallengeResponseDialogComponent', () => {
 
     expect(component.waitingForResponse).toEqual(false);
     expect(component.restartDialog).toEqual(true);
+    expect(component.result).toBeNull();
   }));
 
   it('should let the user cancel the test', () => {
