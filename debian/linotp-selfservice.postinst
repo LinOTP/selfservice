@@ -49,6 +49,7 @@ check_apache_module() {
 case "$1" in
     configure)
         check_apache_module dir
+        check_apache_module rewrite
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)

@@ -71,11 +71,24 @@ Run `yarn build` to build the project in production mode. The build artifacts wi
 
 Production mode will bundle the [[production environment file](src/environments/environment.prod.ts)] and tries to minimize the bundle size via minification and [tree shaking](https://webpack.js.org/guides/tree-shaking/).
 
+The application needs to know the URL prefix where the project will be served from, so that it can correctly generate URLs that the browser can use to get associated resources and other pages. This is known as the [base tag](https://angular.io/guide/deployment#the-base-tag).
+
+`yarn build` assumes that the application will run as the only application on the root path `/`. You can use `yarn build-with-prefix` with the environment variable `urlprefix` to generate a different base href. Some examples:
+
+```bash
+   yarn build                                                # http://<hostname>
+   urlprefix=/selfservice-v2 yarn build-with-prefix          # http://<hostname>/selfservice-v2
+   urlprefix=https://my.server/users yarn build-with-prefix  # https://my.server/users
+```
+
+
+
 ### Docker
 
 A multi stage [Dockerfile](Dockerfile) is provided to build the sources in the first stage and to produce an nginx based container in the second step.
 
 This can be done by running:
+
 ```bash
 docker build -t linotp-selfservice .
 ```
