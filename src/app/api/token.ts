@@ -13,15 +13,16 @@ export interface TokenTypeDetails {
   enrollmentPermission?: Permission;
   activationPermission?: Permission;
   enrollmentEndpoint: EnrollmentEndpointType;
+  enrollmentType?: string;
 }
 
 export enum TokenType {
   PASSWORD = 'pw',
-  HOTP = 'googleauthenticator',
-  TOTP = 'googleauthenticator_time',
+  HOTP = 'hmac',
+  TOTP = 'totp',
   PUSH = 'push',
   QR = 'qr',
-  UNKNOWN = 'unknown',
+  UNKNOWN = 'unknown'
 }
 
 export const tokenTypeDetails: TokenTypeDetails[] = [
@@ -40,6 +41,7 @@ export const tokenTypeDetails: TokenTypeDetails[] = [
     icon: 'cached',
     enrollmentPermission: Permission.ENROLLHOTP,
     enrollmentEndpoint: EnrollmentEndpointType.WEBPROVISION,
+    enrollmentType: 'googleauthenticator',
   },
   {
     type: TokenType.TOTP,
@@ -48,6 +50,7 @@ export const tokenTypeDetails: TokenTypeDetails[] = [
     icon: 'timelapse',
     enrollmentPermission: Permission.ENROLLTOTP,
     enrollmentEndpoint: EnrollmentEndpointType.WEBPROVISION,
+    enrollmentType: 'googleauthenticator_time',
   },
   {
     type: TokenType.PUSH,

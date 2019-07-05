@@ -6,7 +6,7 @@ import { Observable, of, interval } from 'rxjs';
 import { map, filter, mergeMap, take, catchError, tap } from 'rxjs/operators';
 
 
-import { Token, EnrollToken, EnrollmentStatus, getTypeDetails, EnrollmentEndpointType } from './token';
+import { Token, EnrollToken, EnrollmentStatus, getTypeDetails, EnrollmentEndpointType, TokenType } from './token';
 import { AuthService } from '../auth/auth.service';
 
 
@@ -123,12 +123,21 @@ export class TokenService {
       );
   }
 
-  enroll(token: EnrollToken) {
-    const body = { ...token, session: this.authService.getSession() };
+  enroll(token: EnrollToken): Observable<{ result: any, detail: any }> {
+    const body: { session: string, type: string, description?: string } = {
+      ...token,
+      session: this.authService.getSession(),
+    };
 
-    const endpointType: EnrollmentEndpointType = getTypeDetails(token.type).enrollmentEndpoint;
+    const details = getTypeDetails(token.type);
+    const endpointType: EnrollmentEndpointType = details.enrollmentEndpoint;
+    const enrollEndpoint = this.userserviceBase + this.userserviceEndpoints[endpointType];
 
-    return this.http.post(this.userserviceBase + this.userserviceEndpoints[endpointType], body)
+    if (details.enrollmentType) {
+      body.type = details.enrollmentType;
+    }
+
+    return this.http.post<LinOTPResponse<{ result: any, detail: any }>>(enrollEndpoint, body)
       .pipe(
         catchError(this.handleError('enroll token', null))
       );

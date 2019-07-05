@@ -115,6 +115,30 @@ describe('TokenService', () => {
 
   });
 
+  describe('enroll', () => {
+    [
+      { type: TokenType.TOTP, enrollmentType: 'googleauthenticator_time' },
+      { type: TokenType.HOTP, enrollmentType: 'googleauthenticator' },
+      { type: TokenType.PUSH, enrollmentType: null },
+    ].forEach(({ type, enrollmentType }) => {
+      it(`should use the enrollmentType for ${type}`, async(
+        inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+          tokenService.enroll({
+            type: type,
+          }).subscribe(response => {
+            expect(response).toEqual(null);
+          });
+
+          const expectedType = enrollmentType ? enrollmentType : type;
+          const enrollRequest = backend.expectOne((req) => req.body.type === expectedType);
+
+          enrollRequest.flush(null);
+          backend.verify();
+        })
+      ));
+    });
+  });
+
   describe('getToken', () => {
     const token = mockReadyEnabledToken;
     it('should request a token from the server', async(
