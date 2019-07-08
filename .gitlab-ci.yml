@@ -4,6 +4,9 @@ variables:
   IMAGE_NAME: linotp/ng-selfservice
   COMMIT_SHA_TAG: $REGISTRY_URL/$IMAGE_NAME:$CI_COMMIT_SHA
   LATEST_TAG: $REGISTRY_URL/$IMAGE_NAME:latest
+  DEV_REPO_URL: http://avocado.corp.lsexperts.de/deb-repo
+  LANG: C.UTF-8
+  EMAIL: "KeyIdentity GmbH <packaging@keyidentity.com>"
 
 
 cache:
@@ -46,28 +49,31 @@ build dist:
     paths:
       - dist/
 
-build deb:
+.build-debs:
   stage: build
-  image: debian:stretch
-  when: manual
+  image: debian:${DEBIAN_RELEASE_NAME}
   before_script:
-    - echo 'skip yarn install'
-  script:
     - apt-get update
-    - apt-get install --no-install-recommends --yes apt-transport-https gnupg curl devscripts ca-certificates equivs
-    - curl -sS https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
+    - apt-get install --yes --no-install-recommends devscripts build-essential equivs git-buildpackage lsb-release ca-certificates apt-transport-https gnupg curl
+    - curl -sS https://deb.nodesource.com/gpgkey/nodesource.gpg.key | gpg --dearmor > /etc/apt/trusted.gpg.d/nodesource.gpg
     - echo 'deb https://deb.nodesource.com/node_10.x stretch main' > /etc/apt/sources.list.d/nodesource.list
-    - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+    - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor > /etc/apt/trusted.gpg.d/yarnpkg.gpg
     - echo 'deb https://dl.yarnpkg.com/debian/ stable main' > /etc/apt/sources.list.d/yarn.list
     - apt-get update
-    - mk-build-deps --install --remove --tool "apt-get --no-install-recommends --yes"
+    - apt-get install --yes --no-install-recommends yarn nodejs
+    - yarn config set cache-folder $PWD/.yarn_cache
+    - yarn install --frozen-lockfile
+  script:
+    - ci/update-debian-changelog
+    - mk-build-deps --install --remove --tool "apt-get --yes --no-install-recommends" debian/control
     - debuild -us -uc -b
     - mkdir -p artifacts
-    - mv ../*.build* ../*.changes ../*.deb artifacts/
+    - dcmd mv ../*.changes artifacts/
+
   artifacts:
-    expire_in: 1 week
     paths:
       - artifacts/
+    expire_in: 4 weeks
 
 build docker image:
   stage: build
@@ -78,7 +84,69 @@ build docker image:
     - docker build -t $LATEST_TAG .
     - docker rmi $LATEST_TAG
 
+build:jessie:
+  extends: .build-debs
+  variables:
+    DEBIAN_RELEASE_NAME: jessie
+
+build:stretch:
+  extends: .build-debs
+  variables:
+    DEBIAN_RELEASE_NAME: stretch
+
+build:buster:
+  extends: .build-debs
+  variables:
+    DEBIAN_RELEASE_NAME: buster
+
+.upload-debs:
+  stage: deploy
+  image: debian:latest
+
+  before_script:
+    - test -z "${DEV_REPO_HOST}" && exit 1 # abort early if variable isn't set
+    - test -z "${DEV_REPO_KNOWN_HOSTS}" && exit 1 # abort early if variable isn't set
+    - test -z "${DEV_REPO_SSH_SUBMIT_KEY}" && exit 1 # abort early if variable isn't set
+    - apt-get update && apt-get install -y --no-install-recommends devscripts openssh-client # install dependencies
+    - eval $(ssh-agent -s)
+    - echo "$DEV_REPO_SSH_SUBMIT_KEY" | tr -d '\r' | ssh-add - >/dev/null
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - echo "CheckHostIP no" >>~/.ssh/config
+    - echo "$DEV_REPO_KNOWN_HOSTS" >~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+  script:
+    - find artifacts -ls
+    - dcmd scp artifacts/*.changes dists@$DEV_REPO_HOST:deb-repo/incoming
+
+.upload-debs:manual:
+  extends: .upload-debs
+  when: manual
+  except:
+    - schedules
+
+# Allow a manual step to upload packages directly from a pipeline
+# for testing
+upload-debs:manual:
+  extends: .upload-debs:manual
+
+# Upload packages automatically when tagged
+.upload-debs:tags:
+  extends: .upload-debs
+  only:
+    - tags
+  except:
+    - schedules
+
 ### Run only on master ###
+
+# Upload packages automatically once they are merged to master
+upload-debs:master:
+  extends: .upload-debs
+  only:
+    - master
+  except:
+    - schedules
 
 publish docker image:
   stage: deploy
