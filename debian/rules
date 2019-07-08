@@ -4,12 +4,12 @@
 #export DH_VERBOSE = 1
 
 %:
-	dh $@ --with apache2
+	dh $@ --with apache2  --noenable
 
 override_dh_auto_configure:
 	# Install dependencies. This needs a working internet
 	# connection.
-	yarn install --pure-lockfile
+	yarn install --frozen-lockfile
 
 override_dh_auto_build:
-	ng build --configuration=production-en --base-href=/selfservice-v2 --deploy-url=/selfservice-v2
+	yarn ng build --configuration=production-en --base-href=/selfservice-v2/ --deploy-url=/selfservice-v2/

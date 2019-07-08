@@ -1,1 +1,2 @@
-conf config/apache/linotp-selfservice.conf
+conf config/apache/conf/linotp-selfservice.conf
+site config/apache/site/linotp-selfservice.conf

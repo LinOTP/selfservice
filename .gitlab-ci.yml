@@ -20,7 +20,7 @@ stages:
 
 before_script:
   - yarn config set cache-folder $PWD/.yarn_cache
-  - yarn install --pure-lockfile
+  - yarn install --frozen-lockfile
 
 
 ### Run before merge ###
