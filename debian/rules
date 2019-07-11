@@ -8,7 +8,7 @@
 
 override_dh_clean:
 	# dh_clean cannot recursively delete files in Jessie, so do it manually for now
-	rm -r node_modules
+	rm -r node_modules dist
 	dh_clean
 
 override_dh_auto_configure:
