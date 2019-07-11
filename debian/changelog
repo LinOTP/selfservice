@@ -1,5 +1,12 @@
-linotp-selfservice (0.1.0-1) UNRELEASED; urgency=medium
+linotp-selfservice (0.1.0-1) jessie; urgency=medium
 
-  * Initial release
+  * Set up new tokens of following type: OATH-compatible HOTP and TOTP, and
+    KeyIdentity Push-Token.
+  * Activate KeyIdentity QR-Token and KeyIdentity Push-Token.
+  * Authentication test for aforementioned tokens, as well as password token.
+  * Set token pin.
+  * Disable and enable tokens.
+  * Delete a token.
+  * i18n: English and German added.
 
- -- KeyIdentity GmbH <packaging@keyidentity.com>  Wed, 16 May 2018 16:25:19 +0200
+ -- KeyIdentity GmbH <packaging@keyidentity.com>  Thu, 11 Jul 2019 14:54:47 +0000
