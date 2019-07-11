@@ -7,14 +7,13 @@
 	dh $@ --with apache2  --noenable
 
 override_dh_clean:
-	## dh_clean cannot recursively delete files in Jessie, so do it manually for now
-	rm -r node_modules
+	# dh_clean cannot recursively delete files in Jessie, so do it manually for now
+	-rm -r node_modules dist
 	dh_clean
 
 override_dh_auto_configure:
-	# Install dependencies. This needs a working internet
-	# connection.
+	# Install dependencies. This needs a working internet connection.
 	yarn install --frozen-lockfile
 
 override_dh_auto_build:
-	yarn ng build --configuration=production-en --base-href=/selfservice-v2/ --deploy-url=/selfservice-v2/
+	urlprefix=/selfservice-v2 yarn build-with-prefix
