@@ -101,7 +101,7 @@ The debian build process can be triggerd with the following commands from within
 
 ```bash
 docker build -t ngs-deb-builder -f Dockerfile.deb-build .
-docker run -it --rm -v $(pwd):/app deb-build-ngs
+docker run -it --rm -v $(pwd):/app ngs-deb-builder
 ```
 
 ## Further help
