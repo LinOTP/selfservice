@@ -95,9 +95,9 @@ docker build -t linotp-selfservice .
 
 ### Debian
 
-A separate dockerfile ([Dockerfile.deb-build](Dockerfile.deb-build)) is provided to run an isolated debian environment to build the debian package independent from the host.
+A separate dockerfile ([Dockerfile.deb-build](Dockerfile.deb-build)) is provided to run an isolated debian environment to build the debian package independent from your machine.
 
-The debian build process can be triggerd with the following commands from withing the project root:
+The debian build process can be triggerd with the following commands from withing the project root to build the package locally:
 
 ```bash
 docker build -t ngs-deb-builder -f Dockerfile.deb-build .
