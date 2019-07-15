@@ -1,25 +1,31 @@
 .stepperControls {
-    display: flex;
-    justify-content: flex-end;
-    &>* {
-      margin: 10px;
-    }
+  display: flex;
+  justify-content: flex-end;
+  &>* {
+    margin: 10px;
   }
+}
 
+mat-form-field {
+  width: 100%
+}
+
+.testOTP {
+  width: 100%;
   mat-form-field {
-    width: 100%
+    width: 10em;
   }
-
-  .testOTP {
-    width: 100%;
-    mat-form-field {
-      width: 10em;
-    }
-    button {
-      margin-left: 1em;
-    }
+  button {
+    margin-left: 1em;
   }
+}
 
 .spacer {
   flex: 1 1 auto;
+}
+
+qrcode {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px 0;
 }

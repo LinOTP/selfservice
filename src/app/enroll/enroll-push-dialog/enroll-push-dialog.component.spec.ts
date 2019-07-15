@@ -28,7 +28,7 @@ describe('EnrollPushDialogComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         EnrollPushDialogComponent,
-        MockComponent({ selector: 'ngx-qrcode', inputs: ['qrc-value', 'qrc-element-type'] }),
+        MockComponent({ selector: 'qrcode', inputs: ['qrdata', 'size', 'level'] }),
       ],
       imports: [
         RouterTestingModule,

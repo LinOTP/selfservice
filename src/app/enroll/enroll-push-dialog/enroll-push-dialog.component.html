@@ -58,8 +58,9 @@
         <a target="_blank"
            [href]="enrolledToken.url">follow this link</a> to start the
         activation process of the new token.</p>
-      <ngx-qrcode qrc-element-type="url"
-                  [qrc-value]="enrolledToken.url"></ngx-qrcode>
+      <qrcode [qrdata]="enrolledToken.url"
+              [size]="256"
+              [level]="'L'"></qrcode>
     </div>
     <mat-dialog-actions align="end">
       <div>Enrollment step {{currentStep}} of {{maxSteps}}</div>

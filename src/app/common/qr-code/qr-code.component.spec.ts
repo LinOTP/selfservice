@@ -17,7 +17,7 @@ describe('QRCodeComponent', () => {
       ],
       declarations: [
         QRCodeComponent,
-        MockComponent({ selector: 'ngx-qrcode', inputs: ['qrc-value', 'qrc-element-type'] }),
+        MockComponent({ selector: 'qrcode', inputs: ['qrdata', 'size', 'level'] }),
       ]
     })
       .compileComponents();
