@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
 
   loginFormGroup: FormGroup;
 
-  private redirectUrl: string;
+  redirectUrl: string;
 
   constructor(
     private authService: AuthService,
