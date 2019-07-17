@@ -33,7 +33,34 @@ mat-form-field {
 }
 
 qrcode {
+  margin: 20px 0;
   display: flex;
   justify-content: space-around;
-  margin: 20px 0;
+}
+
+.toggle-details {
+  margin: 10px 0;
+  display: flex;
+  justify-content: space-around;
+  button {
+    font-variant: small-caps;
+  }
+}
+
+.detail {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  .mat-form-field {
+    flex: 1;
+    margin-bottom: 0;
+    font-size: 75%;
+  }
+  .mat-icon {
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+    line-height: 1;
+  }
+
 }

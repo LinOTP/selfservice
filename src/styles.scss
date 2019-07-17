@@ -87,3 +87,20 @@ body {
   margin: 0;
   height: 100%;
 }
+
+/* Remove the spacing needed for hints */
+/* use class .inline-no-hint in mat form fields to activate this rule */
+.mat-form-field.inline-no-hint {
+
+  .mat-form-field-wrapper {
+    padding-bottom: 0;
+  }
+
+  .mat-form-field-underline {
+    bottom: 0;
+  }
+
+  .mat-form-field-subscript-wrapper {
+    display: none;
+  }
+}
