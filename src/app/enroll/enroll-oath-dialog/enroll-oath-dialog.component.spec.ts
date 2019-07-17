@@ -118,7 +118,7 @@ describe('The EnrollOATHDialogComponent', () => {
   });
 
   it('should enroll an HOTP token', fakeAsync(() => {
-    tokenService.enroll.and.returnValue(of(Fixtures.OATHEnrollmentResponse));
+    tokenService.enrollOATH.and.returnValue(of(Fixtures.OATHEnrollmentResponse));
     const expectedToken = { serial: 'testSerial', url: 'testUrl' };
 
     fixture.detectChanges();
@@ -126,14 +126,14 @@ describe('The EnrollOATHDialogComponent', () => {
     component.enrollToken(stepper);
     tick();
 
-    expect(tokenService.enroll).toHaveBeenCalledWith({ type: TokenType.HOTP });
+    expect(tokenService.enrollOATH).toHaveBeenCalledWith({ type: TokenType.HOTP });
     expect(component.enrolledToken).toEqual(expectedToken);
     expect(component.enrollmentStep.controls.tokenEnrolled.value).toEqual(true);
     expect(stepper.next).toHaveBeenCalledTimes(1);
   }));
 
   it('should enroll a TOTP token', fakeAsync(() => {
-    tokenService.enroll.and.returnValue(of(Fixtures.OATHEnrollmentResponse));
+    tokenService.enrollOATH.and.returnValue(of(Fixtures.OATHEnrollmentResponse));
     const expectedToken = { serial: 'testSerial', url: 'testUrl' };
 
     component.data.tokenTypeDetails = getTypeDetails(TokenType.TOTP);
@@ -141,7 +141,7 @@ describe('The EnrollOATHDialogComponent', () => {
     component.enrollToken(stepper);
     tick();
 
-    expect(tokenService.enroll).toHaveBeenCalledWith({ type: TokenType.TOTP });
+    expect(tokenService.enrollOATH).toHaveBeenCalledWith({ type: TokenType.TOTP });
     expect(component.enrolledToken).toEqual(expectedToken);
     expect(component.enrollmentStep.controls.tokenEnrolled.value).toEqual(true);
     expect(stepper.next).toHaveBeenCalledTimes(1);
@@ -151,7 +151,7 @@ describe('The EnrollOATHDialogComponent', () => {
     const mockEnrollmentResponse = Fixtures.OATHEnrollmentResponse;
     mockEnrollmentResponse.result.status = false;
 
-    tokenService.enroll.and.returnValue(of(mockEnrollmentResponse));
+    tokenService.enrollOATH.and.returnValue(of(mockEnrollmentResponse));
     fixture.detectChanges();
     const result = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
     result.click();

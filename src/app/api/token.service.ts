@@ -15,6 +15,21 @@ interface LinOTPResponse<T> {
     status: boolean,
     value: T,
   };
+  detail?: any;
+}
+
+interface OATHEnrollmentData {
+  init: boolean;
+  setpin: boolean;
+  oathtoken: {
+    digits: number,
+    img: string,
+    url: string,
+    counter: number,
+    label: string,
+    key: string,
+    serial: string,
+  };
 }
 
 @Injectable()
@@ -123,21 +138,39 @@ export class TokenService {
       );
   }
 
-  enroll(token: EnrollToken): Observable<{ result: any, detail: any }> {
+  enrollOATH(token: EnrollToken): Observable<LinOTPResponse<OATHEnrollmentData>> {
     const body: { session: string, type: string, description?: string } = {
       ...token,
       session: this.authService.getSession(),
     };
 
     const details = getTypeDetails(token.type);
-    const endpointType: EnrollmentEndpointType = details.enrollmentEndpoint;
-    const enrollEndpoint = this.userserviceBase + this.userserviceEndpoints[endpointType];
+    const enrollEndpoint = this.userserviceBase + this.userserviceEndpoints.webprovision;
 
     if (details.enrollmentType) {
       body.type = details.enrollmentType;
     }
 
-    return this.http.post<LinOTPResponse<{ result: any, detail: any }>>(enrollEndpoint, body)
+    return this.http.post<LinOTPResponse<OATHEnrollmentData>>(enrollEndpoint, body)
+      .pipe(
+        catchError(this.handleError('enroll token', null))
+      );
+  }
+
+  enroll(token: EnrollToken): Observable<LinOTPResponse<boolean>> {
+    const body: { session: string, type: string, description?: string } = {
+      ...token,
+      session: this.authService.getSession(),
+    };
+
+    const details = getTypeDetails(token.type);
+    const enrollEndpoint = this.userserviceBase + this.userserviceEndpoints.enroll;
+
+    if (details.enrollmentType) {
+      body.type = details.enrollmentType;
+    }
+
+    return this.http.post<LinOTPResponse<boolean>>(enrollEndpoint, body)
       .pipe(
         catchError(this.handleError('enroll token', null))
       );

@@ -53,7 +53,7 @@ export class EnrollOATHDialogComponent implements OnInit {
       body.type = TokenType.TOTP;
     }
 
-    this.tokenService.enroll(body).subscribe(response => {
+    this.tokenService.enrollOATH(body).subscribe(response => {
       if (response.result
         && response.result.status
         && response.result.value
