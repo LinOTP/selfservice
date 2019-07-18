@@ -42,7 +42,7 @@ There are several browsers as test targets supported. You can execute one of the
 yarn test:chrome
 yarn test:chromium
 yarn test:firefox
-yarn test:phantomjs
+yarn test:ci
 ```
 
 The script **`yarn test`** will default to chrome as the test target.
