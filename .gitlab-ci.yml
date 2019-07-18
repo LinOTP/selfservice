@@ -164,6 +164,7 @@ upload docker image (release):
   script:
     - docker login -u $REGISTRY_USERNAME -p $REGISTRY_PASSWORD $REGISTRY_URL
     - docker build -t $DOCKERTAG_COMMIT_SHA -t $DOCKERTAG_GIT_TAG .
-    - docker push $DOCKERTAG_COMMIT_SHA $DOCKERTAG_GIT_TAG
+    - docker push $DOCKERTAG_COMMIT_SHA
+    - docker push $DOCKERTAG_GIT_TAG
   only:
     - tags
