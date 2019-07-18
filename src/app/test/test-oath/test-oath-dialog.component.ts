@@ -24,7 +24,7 @@ export class TestOATHDialogComponent {
   public testResult: boolean;
   public formGroup: FormGroup;
 
-  @ViewChild('formDirective')
+  @ViewChild('formDirective', { static: true })
   public formDirective: NgForm;
 
   constructor(

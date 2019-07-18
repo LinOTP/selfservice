@@ -18,7 +18,7 @@ export class EnrollOATHDialogComponent implements OnInit {
 
   public Permission = Permission;
 
-  @ViewChild(MatStepper) public stepper: MatStepper;
+  @ViewChild(MatStepper, { static: true }) public stepper: MatStepper;
   public enrollmentStep: FormGroup;
   public testStep: FormGroup;
 
