@@ -23,7 +23,6 @@ typescript lint:
   stage: test
   image: node:10-stretch
   before_script:
-    - yarn config set cache-folder $PWD/.yarn_cache
     - yarn install --frozen-lockfile
   script:
     - yarn lint
@@ -32,7 +31,6 @@ unit tests:
   stage: test
   image: docker.repos.corp.keyidentity.com/gitlab-images/node-chrome:10-stretch
   before_script:
-    - yarn config set cache-folder $PWD/.yarn_cache
     - yarn install --frozen-lockfile
   script:
     - yarn test:ci-no-sandbox
@@ -42,7 +40,6 @@ build dist:
   stage: build
   image: node:10-stretch
   before_script:
-    - yarn config set cache-folder $PWD/.yarn_cache
     - yarn install --frozen-lockfile
   script:
     - yarn build
@@ -62,8 +59,6 @@ build dist:
     - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor > /etc/apt/trusted.gpg.d/yarnpkg.gpg
     - echo 'deb https://dl.yarnpkg.com/debian/ stable main' > /etc/apt/sources.list.d/yarn.list
     - apt-get update
-    - apt-get install --yes --no-install-recommends yarn nodejs
-    - yarn config set cache-folder $PWD/.yarn_cache
   script:
     - ci/update-debian-changelog
     - mk-build-deps --install --remove --tool "apt-get --yes --no-install-recommends" debian/control
