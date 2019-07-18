@@ -8,9 +8,7 @@ variables:
 
 
 cache:
-  untracked: true
   paths:
-    - .yarn_cache
     - node_modules
 
 
