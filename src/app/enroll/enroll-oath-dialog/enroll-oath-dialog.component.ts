@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject, Input, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogRef, MatStepper, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatStepper } from '@angular/material/stepper';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { SetPinDialogComponent } from '../../common/set-pin-dialog/set-pin-dialog.component';

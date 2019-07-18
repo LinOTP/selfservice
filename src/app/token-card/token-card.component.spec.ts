@@ -6,7 +6,7 @@ import { TestingPage } from '../../testing/page-helper';
 
 import { of } from 'rxjs/internal/observable/of';
 
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
 
 import { TokenCardComponent } from './token-card.component';
