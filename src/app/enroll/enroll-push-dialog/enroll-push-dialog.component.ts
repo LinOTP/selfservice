@@ -4,7 +4,7 @@ import { MatStepper, MatDialogRef, MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 
 import { switchMap } from 'rxjs/operators';
-import { empty } from 'rxjs';
+import { EMPTY } from 'rxjs';
 
 import { TokenService } from '../../api/token.service';
 import { TokenType } from '../../api/token';
@@ -126,7 +126,7 @@ export class EnrollPushDialogComponent implements OnInit {
           if (result) {
             return this.tokenService.deleteToken(this.enrolledToken.serial);
           } else {
-            return empty();
+            return EMPTY;
           }
         })
       ).subscribe(() => {
