@@ -4743,10 +4743,12 @@ ngx-cookie@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/ngx-cookie/-/ngx-cookie-2.0.1.tgz#031d8938bf9026954356b3b3ae668e2e1964e584"
 
-ngx-permissions@^6.0.5:
-  version "6.0.5"
-  resolved "https://registry.yarnpkg.com/ngx-permissions/-/ngx-permissions-6.0.5.tgz#a5ff0cff365604e0894dfc9925795b19d2381558"
-  integrity sha512-Gls6NOeuIxH0Cn7gVVyXE8Jm47JRwqJClj9KWB9l29ciGGUucCEuw8CCJiplSKmFCGuFW7t3eMGwB4Gf2BZ8OQ==
+ngx-permissions@^7.0.3:
+  version "7.0.3"
+  resolved "https://registry.yarnpkg.com/ngx-permissions/-/ngx-permissions-7.0.3.tgz#aefc58a14d5a71042277cbdb322560cb6e9b6535"
+  integrity sha512-WwmUcO2IuE5gSgsR+wf23XkJDJzUzQ9iVNOGGfHq7tavdQK1VBY7C0oJOq7+H5vLDSfc+pEDsBwc03lXhq7J1g==
+  dependencies:
+    tslib "^1.9.0"
 
 nice-try@^1.0.4:
   version "1.0.5"
