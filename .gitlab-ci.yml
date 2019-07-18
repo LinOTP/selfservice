@@ -124,7 +124,9 @@ upload debian packages (manual):
   extends: .upload-debs
   when: manual
   except:
-   - schedules
+    - schedules
+    - master
+    - tags
 
 # Upload packages automatically when merged into master, and for tags
 upload debian packages (automatic):
@@ -146,6 +148,8 @@ upload docker image (manual):
   when: manual
   except:
     - schedules
+    - master
+    - tags
 
 # Upload docker image automatically when merged into master
 upload docker image (automatic):
