@@ -648,10 +648,10 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
 
-angularx-qrcode@^1.5.3:
-  version "1.5.3"
-  resolved "https://registry.yarnpkg.com/angularx-qrcode/-/angularx-qrcode-1.5.3.tgz#4ce9a4e8f4c5b00e87c329c563d8f4389c07cfd9"
-  integrity sha512-9WTsnOGNv3IvSriVSHOc7k6PIBcqqjivAQXhEF9SjDYgcio63zCkcsAC627vSaTqUoDkgE5MRoT4PO2UMROk2w==
+angularx-qrcode@^1.6.2:
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/angularx-qrcode/-/angularx-qrcode-1.6.2.tgz#c9b199404dbce01651633203aa9941cf291403bf"
+  integrity sha512-vspGhZBQP9oeGIBdbORDSmI00nxKwnIq+n02vGVOwxTrpklEwBs1Uoqfcc3iLOqUGuRLU80VBHzJ1tTf4onuVw==
   dependencies:
     qrcodejs2 "0.0.2"
 
