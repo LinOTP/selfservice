@@ -7,14 +7,16 @@ import { MaterialModule } from '../material.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NotificationService } from '../common/notification.service';
 import { I18NMock } from '../../testing/i18n-mock-provider';
-
-class MockNotificationService {
-  message = jasmine.createSpy('message');
-}
+import { spyOnClass } from '../../testing/spyOnClass';
+import { of } from 'rxjs';
+import { Router } from '@angular/router';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
+  let authService: jasmine.SpyObj<AuthService>;
+  let notificationService: jasmine.SpyObj<NotificationService>;
+  let router: jasmine.SpyObj<Router>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -30,15 +32,11 @@ describe('LoginComponent', () => {
       providers: [
         {
           provide: AuthService,
-          useValue: {
-            isLoggedIn: jasmine.createSpy('isLoggedIn'),
-            login: jasmine.createSpy('login'),
-            logout: jasmine.createSpy('logout'),
-          }
+          useValue: spyOnClass(AuthService),
         },
         {
           provide: NotificationService,
-          useClass: MockNotificationService,
+          useValue: spyOnClass(NotificationService),
         },
         I18NMock,
       ],
@@ -47,6 +45,9 @@ describe('LoginComponent', () => {
   }));
 
   beforeEach(() => {
+    authService = TestBed.get(AuthService);
+    notificationService = TestBed.get(NotificationService);
+    router = TestBed.get(Router);
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -54,5 +55,58 @@ describe('LoginComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('login', () => {
+
+    it('should redirect the user on successful login', () => {
+      spyOn(component, 'redirect');
+      component.loginFormGroup.value.username = 'user';
+      component.loginFormGroup.value.password = 'pass';
+      authService.login.and.returnValue(of(true));
+      fixture.detectChanges();
+
+      component.login();
+
+      expect(authService.login).toHaveBeenCalledWith('user', 'pass');
+      expect(notificationService.message).toHaveBeenCalledWith('Login successful');
+      expect(component.redirect).toHaveBeenCalledTimes(1);
+    });
+
+    it('should keep the user on the login page on failed login', () => {
+      spyOn(component, 'redirect');
+      component.loginFormGroup.value.username = 'user';
+      component.loginFormGroup.value.password = 'pass';
+      authService.login.and.returnValue(of(false));
+      fixture.detectChanges();
+
+      component.login();
+
+      expect(authService.login).toHaveBeenCalledWith('user', 'pass');
+      expect(notificationService.message).toHaveBeenCalledWith('Login failed');
+      expect(component.redirect).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('redirect', () => {
+    it('should navigate to the target page if specified', () => {
+      component.redirectUrl = 'somePage';
+      fixture.detectChanges();
+
+      spyOn(router, 'navigate');
+      component.redirect();
+
+      expect(router.navigate).toHaveBeenCalledWith(['somePage']);
+    });
+
+    it('should navigate to root page if no target page specified', () => {
+      component.redirectUrl = null;
+      fixture.detectChanges();
+
+      spyOn(router, 'navigate');
+      component.redirect();
+
+      expect(router.navigate).toHaveBeenCalledWith(['/']);
+    });
   });
 });
