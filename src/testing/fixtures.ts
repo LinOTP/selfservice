@@ -100,6 +100,7 @@ export class Fixtures {
           oathtoken: {
             url: 'testUrl',
             serial: 'testSerial',
+            key: 'random value',
           }
         }
       }
@@ -119,6 +120,6 @@ export class Fixtures {
   }
 
   static get enrolledToken() {
-    return { serial: 'test serial', url: 'testUrl' };
+    return { serial: 'testSerial', url: 'testUrl', seed: 'random value' };
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Input, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef, MatStepper, MAT_DIALOG_DATA } from '@angular/material';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
@@ -18,12 +18,14 @@ export class EnrollOATHDialogComponent implements OnInit {
 
   public Permission = Permission;
 
+  @ViewChild(MatStepper) public stepper: MatStepper;
   public enrollmentStep: FormGroup;
   public testStep: FormGroup;
 
   public pinSet: boolean;
+  public showDetails = false;
 
-  public enrolledToken: { serial: string, url: string };
+  public enrolledToken: { serial: string, url: string, seed: string };
 
   constructor(
     private formBuilder: FormBuilder,
@@ -44,7 +46,7 @@ export class EnrollOATHDialogComponent implements OnInit {
     });
   }
 
-  public enrollToken(stepper: MatStepper) {
+  public enrollToken() {
     const body: EnrollToken = {
       type: TokenType.HOTP,
     };
@@ -53,17 +55,18 @@ export class EnrollOATHDialogComponent implements OnInit {
       body.type = TokenType.TOTP;
     }
 
-    this.tokenService.enroll(body).subscribe(response => {
+    this.tokenService.enrollOATH(body).subscribe(response => {
       if (response.result
         && response.result.status
         && response.result.value
         && response.result.value.oathtoken) {
         this.enrolledToken = {
           url: response.result.value.oathtoken.url,
-          serial: response.result.value.oathtoken.serial
+          serial: response.result.value.oathtoken.serial,
+          seed: response.result.value.oathtoken.key,
         };
         this.enrollmentStep.controls.tokenEnrolled.setValue(true);
-        stepper.next();
+        this.stepper.next();
       } else {
         this.notificationService.message('There was a problem while enrolling the new token. Please try again.');
       }
@@ -103,4 +106,11 @@ export class EnrollOATHDialogComponent implements OnInit {
   public closeDialog() {
     this.dialogRef.close(this.enrolledToken.serial);
   }
+
+  copyInputMessage(inputElement: HTMLInputElement) {
+    inputElement.select();
+    document.execCommand('copy');
+    this.notificationService.message('Copied');
+  }
+
 }

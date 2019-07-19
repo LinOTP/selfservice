@@ -1,8 +1,7 @@
 <h2>Enroll {{ data.tokenTypeDetails.name }}</h2>
 
 <mat-horizontal-stepper [linear]="true"
-                        linear
-                        #stepper>
+                        linear>
 
   <mat-step [stepControl]="enrollmentStep"
             id="stepDescription">
@@ -34,7 +33,7 @@
               (click)="cancelDialog()">Cancel</button>
       <button mat-raised-button
               color="primary"
-              (click)="enrollToken(stepper)"
+              (click)="enrollToken()"
               id="goTo2">Next</button>
     </mat-dialog-actions>
   </mat-step>
@@ -49,14 +48,63 @@
       <p>
         Scan the QR code below with your soft token app or
         <a [href]="enrolledToken.url">follow this link</a>
-        to install it on your mobile device.</p>
+        to install it on your mobile device.
+      </p>
+
       <qrcode [qrdata]="enrolledToken.url"
               [size]="256"
               [level]="'L'"></qrcode>
+
+      <div class="toggle-details">
+        <button (click)="showDetails = !showDetails"
+                mat-button
+                color="primary"
+                matTooltip="Toggle enrollment details"
+                aria-label="Button to toggle the display of enrollment details">
+          {{ showDetails? "hide details": "show details" }}
+        </button>
+      </div>
+
+      <div class="detail"
+           *ngIf="showDetails">
+        <mat-form-field appearance="outline"
+                        class="inline-no-hint">
+          <mat-label>Enrollment URL</mat-label>
+          <input matInput
+                 #enrollmentUrl
+                 [value]="enrolledToken.url"
+                 (focus)="$event.target.select()"
+                 readonly>
+        </mat-form-field>
+        <button mat-icon-button
+                (click)="$event.preventDefault(); copyInputMessage(enrollmentUrl)"
+                matTooltip="Copy"
+                aria-label="Button to copy the enrollment URL">
+          <mat-icon>file_copy</mat-icon>
+        </button>
+      </div>
+
+      <div class="detail"
+           *ngIf="showDetails">
+        <mat-form-field appearance="outline"
+                        class="inline-no-hint">
+          <mat-label>Seed</mat-label>
+          <input matInput
+                 #enrollmentSeed
+                 [value]="enrolledToken.seed"
+                 (focus)="$event.target.select()"
+                 readonly>
+        </mat-form-field>
+        <button mat-icon-button
+                (click)="copyInputMessage(enrollmentSeed)"
+                matTooltip="Copy"
+                aria-label="Button to copy the seed">
+          <mat-icon>file_copy</mat-icon>
+        </button>
+      </div>
+
     </div>
-    <p>
-      Follow the instructions on your app to install the soft token profile.
-    </p>
+
     <mat-dialog-actions align="end">
       <div>Enrollment step 2 of 3</div>
       <span class="spacer"></span>

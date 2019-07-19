@@ -26,7 +26,6 @@ describe('The EnrollOATHDialogComponent', () => {
   let notificationService: NotificationService;
   let tokenService: jasmine.SpyObj<TokenService>;
   let dialogRef: jasmine.SpyObj<MatDialogRef<EnrollOATHDialogComponent>>;
-  let stepper: MatStepper;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -63,10 +62,6 @@ describe('The EnrollOATHDialogComponent', () => {
           provide: MAT_DIALOG_DATA,
           useValue: { tokenTypeDetails: getTypeDetails(TokenType.HOTP), closeLabel: null },
         },
-        {
-          provide: MatStepper,
-          useValue: spyOnClass(MatStepper),
-        },
       ],
     })
       .compileComponents();
@@ -80,7 +75,6 @@ describe('The EnrollOATHDialogComponent', () => {
     notificationService = TestBed.get(NotificationService);
     tokenService = TestBed.get(TokenService);
     dialogRef = TestBed.get(MatDialogRef);
-    stepper = TestBed.get(MatStepper);
 
     fixture.detectChanges();
   });
@@ -94,7 +88,7 @@ describe('The EnrollOATHDialogComponent', () => {
     it('should set pin of token and output message', fakeAsync(() => {
       matDialog.open.and.returnValue({ afterClosed: () => of(true) });
 
-      component.enrolledToken = { serial: 'testSerial', url: 'testUrl' };
+      component.enrolledToken = Fixtures.enrolledToken;
       component.setPin();
       tick();
 
@@ -107,7 +101,7 @@ describe('The EnrollOATHDialogComponent', () => {
       matDialog.open.and.returnValue({ afterClosed: () => of(false) });
       const oldPinSetValue = component.pinSet;
 
-      component.enrolledToken = { serial: 'testSerial', url: 'testUrl' };
+      component.enrolledToken = Fixtures.enrolledToken;
       component.setPin();
       tick();
 
@@ -118,40 +112,44 @@ describe('The EnrollOATHDialogComponent', () => {
   });
 
   it('should enroll an HOTP token', fakeAsync(() => {
-    tokenService.enroll.and.returnValue(of(Fixtures.OATHEnrollmentResponse));
-    const expectedToken = { serial: 'testSerial', url: 'testUrl' };
+    spyOn(component.stepper, 'next');
+
+    tokenService.enrollOATH.and.returnValue(of(Fixtures.OATHEnrollmentResponse));
+    const expectedToken = Fixtures.enrolledToken;
 
     fixture.detectChanges();
 
-    component.enrollToken(stepper);
+    component.enrollToken();
     tick();
 
-    expect(tokenService.enroll).toHaveBeenCalledWith({ type: TokenType.HOTP });
+    expect(tokenService.enrollOATH).toHaveBeenCalledWith({ type: TokenType.HOTP });
     expect(component.enrolledToken).toEqual(expectedToken);
     expect(component.enrollmentStep.controls.tokenEnrolled.value).toEqual(true);
-    expect(stepper.next).toHaveBeenCalledTimes(1);
+    expect(component.stepper.next).toHaveBeenCalledTimes(1);
   }));
 
   it('should enroll a TOTP token', fakeAsync(() => {
-    tokenService.enroll.and.returnValue(of(Fixtures.OATHEnrollmentResponse));
-    const expectedToken = { serial: 'testSerial', url: 'testUrl' };
+    spyOn(component.stepper, 'next');
+
+    tokenService.enrollOATH.and.returnValue(of(Fixtures.OATHEnrollmentResponse));
+    const expectedToken = Fixtures.enrolledToken;
 
     component.data.tokenTypeDetails = getTypeDetails(TokenType.TOTP);
     fixture.detectChanges();
-    component.enrollToken(stepper);
+    component.enrollToken();
     tick();
 
-    expect(tokenService.enroll).toHaveBeenCalledWith({ type: TokenType.TOTP });
+    expect(tokenService.enrollOATH).toHaveBeenCalledWith({ type: TokenType.TOTP });
     expect(component.enrolledToken).toEqual(expectedToken);
     expect(component.enrollmentStep.controls.tokenEnrolled.value).toEqual(true);
-    expect(stepper.next).toHaveBeenCalledTimes(1);
+    expect(component.stepper.next).toHaveBeenCalledTimes(1);
   }));
 
   it('should output message if enrollment failed', fakeAsync(() => {
     const mockEnrollmentResponse = Fixtures.OATHEnrollmentResponse;
     mockEnrollmentResponse.result.status = false;
 
-    tokenService.enroll.and.returnValue(of(mockEnrollmentResponse));
+    tokenService.enrollOATH.and.returnValue(of(mockEnrollmentResponse));
     fixture.detectChanges();
     const result = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
     result.click();
@@ -162,7 +160,7 @@ describe('The EnrollOATHDialogComponent', () => {
   }));
 
   it('close should return token serial', fakeAsync(() => {
-    component.enrolledToken = { serial: 'testSerial', url: 'testUrl' };
+    component.enrolledToken = Fixtures.enrolledToken;
     fixture.detectChanges();
 
     component.closeDialog();
@@ -171,7 +169,7 @@ describe('The EnrollOATHDialogComponent', () => {
 
   describe('cancel', () => {
     it('should delete enrolled token and close dialog with false', fakeAsync(() => {
-      component.enrolledToken = { serial: 'testSerial', url: 'testUrl' };
+      component.enrolledToken = Fixtures.enrolledToken;
       fixture.detectChanges();
 
       tokenService.deleteToken.and.returnValue(of());
@@ -191,4 +189,27 @@ describe('The EnrollOATHDialogComponent', () => {
     }));
   });
 
+  describe('copyInputMessage', () => {
+    let element: HTMLInputElement;
+
+    beforeEach(() => {
+      element = document.createElement('input');
+      element.value = 'thing to copy';
+      document.body.appendChild(element);
+    });
+
+    afterEach(() => {
+      element.remove();
+    });
+
+    it('should copy the content of the input element and notify the user', () => {
+      spyOn(document, 'execCommand');
+      component.copyInputMessage(element);
+
+      expect(document.execCommand).toHaveBeenCalledWith('copy');
+      expect(notificationService.message).toHaveBeenCalledWith('Copied');
+
+      expect(window.getSelection().toString()).toEqual('thing to copy');
+    });
+  });
 });

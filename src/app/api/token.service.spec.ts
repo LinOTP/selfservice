@@ -115,7 +115,7 @@ describe('TokenService', () => {
 
   });
 
-  describe('enroll', () => {
+  describe('enrollChallenge', () => {
     [
       { type: TokenType.TOTP, enrollmentType: 'googleauthenticator_time' },
       { type: TokenType.HOTP, enrollmentType: 'googleauthenticator' },
