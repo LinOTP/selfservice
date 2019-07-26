@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatStepper, MatDialogRef, MatDialog } from '@angular/material';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { MatStepper } from '@angular/material/stepper';
 import { Router } from '@angular/router';
 
 import { switchMap } from 'rxjs/operators';
-import { empty } from 'rxjs';
+import { EMPTY } from 'rxjs';
 
 import { TokenService } from '../../api/token.service';
 import { TokenType } from '../../api/token';
@@ -126,7 +127,7 @@ export class EnrollPushDialogComponent implements OnInit {
           if (result) {
             return this.tokenService.deleteToken(this.enrolledToken.serial);
           } else {
-            return empty();
+            return EMPTY;
           }
         })
       ).subscribe(() => {

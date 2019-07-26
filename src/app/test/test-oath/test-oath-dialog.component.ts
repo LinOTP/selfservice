@@ -1,5 +1,5 @@
 import { Component, Inject, ViewChild } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, Validators, FormBuilder, NgForm } from '@angular/forms';
 
 import { Token } from '../../api/token';
@@ -24,7 +24,7 @@ export class TestOATHDialogComponent {
   public testResult: boolean;
   public formGroup: FormGroup;
 
-  @ViewChild('formDirective')
+  @ViewChild('formDirective', { static: true })
   public formDirective: NgForm;
 
   constructor(

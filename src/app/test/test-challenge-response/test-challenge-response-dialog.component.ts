@@ -1,7 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { TokenService } from '../../api/token.service';
 import { Token, EnrollmentStatus, TokenType } from '../../api/token';
-import { MAT_DIALOG_DATA, MatDialogRef, MatStepper } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatStepper } from '@angular/material/stepper';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs/index';
 

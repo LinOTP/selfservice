@@ -6,7 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs/internal/observable/of';
 import { NotificationService } from '../common/notification.service';
 import { spyOnClass } from '../../testing/spyOnClass';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { TokenTypeDetails, TokenType, getTypeDetails } from '../api/token';
 import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
 import { Fixtures } from '../../testing/fixtures';

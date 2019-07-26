@@ -1,5 +1,5 @@
 import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material';
+import { ErrorStateMatcher } from '@angular/material/core';
 
 /**
  * Error state matcher that allows a form control to display an error in

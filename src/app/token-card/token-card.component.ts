@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 
 import { Subject } from 'rxjs';
 import { filter, switchMap } from 'rxjs/operators';

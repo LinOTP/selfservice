@@ -72,7 +72,6 @@ declare const require;
     {
       provide: TRANSLATIONS,
       useFactory: (locale) => {
-        console.error(locale);
         return require(`raw-loader!locale/messages.${locale}.xlf`);
       },
       deps: [LOCALE_ID]
