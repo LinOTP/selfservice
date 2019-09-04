@@ -8,6 +8,10 @@ import { CookieService } from 'ngx-cookie';
 import { NgxPermissionsService } from 'ngx-permissions';
 import { Permission, PoliciesToPermissionsMapping } from '../common/permissions';
 
+export interface LoginOptions {
+  username: string;
+  password: string;
+}
 @Injectable()
 export class AuthService {
   private _loginChangeEmitter: EventEmitter<boolean> = new EventEmitter();
@@ -50,10 +54,10 @@ export class AuthService {
    * @returns {Observable<boolean>}
    * @memberof AuthService
    */
-  login(username: string, password: string): Observable<boolean> {
+  login(loginOptions: LoginOptions): Observable<boolean> {
     const url = this.baseUrl + this.endpoints.login;
 
-    const params = { login: username, password: password };
+    const params = { login: loginOptions.username, password: loginOptions.password };
 
     return this.http.post<{ result: { status: boolean, value: boolean } }>(url, params)
       .pipe(

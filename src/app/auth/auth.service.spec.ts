@@ -44,7 +44,7 @@ describe('AuthService', () => {
   it('should login on successful request', async(
     inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
 
-      authService.login('user', 'pass').subscribe(response => {
+      authService.login({ username: 'user', password: 'pass' }).subscribe(response => {
         expect(response).toEqual(true);
       });
 
@@ -89,7 +89,7 @@ describe('AuthService', () => {
         'disable',
       ];
 
-      authService.login('user', 'pass').subscribe(response => {
+      authService.login({ username: 'user', password: 'pass' }).subscribe(response => {
         expect(response).toEqual(true);
       });
 
@@ -110,7 +110,7 @@ describe('AuthService', () => {
   it('should not log in on failed request', async(
     inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
 
-      authService.login('user', 'pass').subscribe(response => {
+      authService.login({ username: 'user', password: 'pass' }).subscribe(response => {
         expect(response).toEqual(false);
       });
 
@@ -124,7 +124,7 @@ describe('AuthService', () => {
   it('should not fetch the permissions on failed login', async(
     inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
 
-      authService.login('user', 'pass').subscribe(response => {
+      authService.login({ username: 'user', password: 'pass' }).subscribe(response => {
         expect(response).toEqual(false);
       });
 
@@ -139,7 +139,7 @@ describe('AuthService', () => {
   it('should not map unrecognized policies to permissions', async(
     inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
 
-      authService.login('user', 'pass').subscribe(response => {
+      authService.login({ username: 'user', password: 'pass' }).subscribe(response => {
         expect(response).toEqual(true);
       });
 
@@ -158,7 +158,7 @@ describe('AuthService', () => {
 
       spyOn(console, 'error');
 
-      authService.login('user', 'pass').subscribe(response => {
+      authService.login({ username: 'user', password: 'pass' }).subscribe(response => {
         expect(response).toEqual(false);
       });
 

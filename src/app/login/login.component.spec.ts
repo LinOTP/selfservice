@@ -68,7 +68,7 @@ describe('LoginComponent', () => {
 
       component.login();
 
-      expect(authService.login).toHaveBeenCalledWith('user', 'pass');
+      expect(authService.login).toHaveBeenCalledWith({ username: 'user', password: 'pass' });
       expect(notificationService.message).toHaveBeenCalledWith('Login successful');
       expect(component.redirect).toHaveBeenCalledTimes(1);
     });
@@ -82,7 +82,7 @@ describe('LoginComponent', () => {
 
       component.login();
 
-      expect(authService.login).toHaveBeenCalledWith('user', 'pass');
+      expect(authService.login).toHaveBeenCalledWith({ username: 'user', password: 'pass' });
       expect(notificationService.message).toHaveBeenCalledWith('Login failed');
       expect(component.redirect).not.toHaveBeenCalled();
     });

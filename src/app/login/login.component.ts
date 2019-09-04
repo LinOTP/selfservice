@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
     const username = this.loginFormGroup.value.username;
     const password = this.loginFormGroup.value.password;
 
-    this.authService.login(username, password).subscribe((result: boolean) => {
+    this.authService.login({ username, password }).subscribe((result: boolean) => {
 
       const message = result ? this.i18n('Login successful') : this.i18n('Login failed');
       this.notificationService.message(message);
