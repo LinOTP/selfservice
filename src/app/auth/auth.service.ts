@@ -19,13 +19,6 @@ export class AuthService {
     context: 'context',
   };
 
-  private options = {
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-  };
-
-
   /**
    * maps backend LinOTP policy actions to the available frontend permissions
    *
@@ -47,10 +40,22 @@ export class AuthService {
     private router: Router,
   ) { }
 
+  /**
+   * sends a login request to the backend and acts based on the response
+   *
+   * if the login was successful, the users permissions are loaded before finishing the login.
+   *
+   * @param {string} username
+   * @param {string} password
+   * @returns {Observable<boolean>}
+   * @memberof AuthService
+   */
   login(username: string, password: string): Observable<boolean> {
     const url = this.baseUrl + this.endpoints.login;
-    const params = `login=${username}&password=${password}`;
-    return this.http.post<{ result: { status: boolean, value: boolean } }>(url, params, this.options)
+
+    const params = { login: username, password: password };
+
+    return this.http.post<{ result: { status: boolean, value: boolean } }>(url, params)
       .pipe(
         map(response => response && response.result && response.result.value === true),
         tap(isLoggedin => this._loginChangeEmitter.emit(isLoggedin)),
