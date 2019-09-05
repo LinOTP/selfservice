@@ -9,4 +9,5 @@
   "files.trimTrailingWhitespace": true,
   "html.format.wrapAttributes": "force-aligned",
   "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.preferences.importModuleSpecifier": "relative",
 }
