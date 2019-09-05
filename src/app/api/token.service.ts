@@ -7,6 +7,7 @@ import { map, filter, mergeMap, take, catchError, tap } from 'rxjs/operators';
 import { Token, EnrollToken, EnrollmentStatus, TokenType, TokenTypeDetails } from './token';
 import { AuthService } from '../auth/auth.service';
 import { Permission } from '../common/permissions';
+import { I18n } from '@ngx-translate/i18n-polyfill';
 
 
 interface LinOTPResponse<T> {
@@ -51,39 +52,39 @@ export class TokenService {
     return [
       {
         type: TokenType.PASSWORD,
-        name: 'password token',
-        description: 'Personal text-based secret',
+        name: this.i18n('password token'),
+        description: this.i18n('Personal text-based secret'),
         icon: 'keyboard',
         // enrollmentPermission: Permission.ENROLLPASSWORD,
       },
       {
         type: TokenType.HOTP,
-        name: 'soft token (event)',
-        description: 'Event-based soft token (HOTP)',
+        name: this.i18n('soft token (event)'),
+        description: this.i18n('Event-based soft token (HOTP)'),
         icon: 'cached',
         enrollmentPermission: Permission.ENROLLHOTP,
         enrollmentType: 'googleauthenticator',
       },
       {
         type: TokenType.TOTP,
-        name: 'soft token (time)',
-        description: 'Time-based soft token (TOTP)',
+        name: this.i18n('soft token (time)'),
+        description: this.i18n('Time-based soft token (TOTP)'),
         icon: 'timelapse',
         enrollmentPermission: Permission.ENROLLTOTP,
         enrollmentType: 'googleauthenticator_time',
       },
       {
         type: TokenType.PUSH,
-        name: 'Push-Token',
-        description: 'Confirm authentication requests on your Smartphone with the Authenticator app',
+        name: this.i18n('Push-Token'),
+        description: this.i18n('Confirm authentication requests on your Smartphone with the Authenticator app'),
         icon: 'screen_lock_portrait',
         enrollmentPermission: Permission.ENROLLPUSH,
         activationPermission: Permission.ACTIVATEPUSH,
       },
       {
         type: TokenType.QR,
-        name: 'QR-Token',
-        description: 'Use the Authenticator app to scan QR code authentication requests',
+        name: this.i18n('QR-Token'),
+        description: this.i18n('Use the Authenticator app to scan QR code authentication requests'),
         icon: 'all_out',
         // enrollmentPermission: Permission.ENROLLQR,
         activationPermission: Permission.ACTIVATEQR,
@@ -94,15 +95,16 @@ export class TokenService {
   private get unknownTokenType(): TokenTypeDetails {
     return {
       type: TokenType.UNKNOWN,
-      name: 'Unknown Token',
-      description: '',
+      name: this.i18n('Unknown Token'),
+      description: this.i18n('Unsupported token type'),
       icon: 'apps',
     };
   }
 
   constructor(
     private http: HttpClient,
-    private authService: AuthService
+    private authService: AuthService,
+    private i18n: I18n,
   ) { }
 
   private mapTokenResponse = (res: LinOTPResponse<any[]>) => {
@@ -111,7 +113,7 @@ export class TokenService {
       const t = new Token(
         token['LinOtp.TokenId'],
         token['LinOtp.TokenSerialnumber'],
-        token['LinOtp.TokenType'].toLowerCase(),
+        this.getTypeDetails(token['LinOtp.TokenType']),
         token['LinOtp.Isactive'],
         token['LinOtp.TokenDesc']
       );
@@ -121,7 +123,7 @@ export class TokenService {
   }
 
   public getTypeDetails(type: TokenType): TokenTypeDetails {
-    return this.tokenTypeDetails.find(td => td.type === type) || this.unknownTokenType;
+    return this.tokenTypeDetails.find(td => td.type === type.toLowerCase()) || this.unknownTokenType;
   }
 
   getTokens(): Observable<Token[]> {
