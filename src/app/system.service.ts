@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Permission, PoliciesToPermissionsMapping } from './common/permissions';
+import { AuthService } from './auth/auth.service';
 
 /**
  * Interface that provides available information about the system.
@@ -56,7 +57,10 @@ export interface UserSystemInfo extends SystemInfo {
 })
 export class SystemService {
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService,
+  ) { }
 
   /**
    * maps the policy action list from the backend response to the corresponding
@@ -136,7 +140,11 @@ export class SystemService {
      */
     type apiResponse = Omit<UserSystemInfo, 'realms' | 'permissions'> & { realms: string, actions: string[] };
 
-    return this.http.get<apiResponse>('/userservice/context').pipe(
+    const options = {
+      params: { session: this.authService.getSession() }
+    };
+
+    return this.http.get<apiResponse>('/userservice/context', options).pipe(
       map(SystemService.parseRealmsList),
       map(SystemService.mapPoliciesToPermissions),
     );
