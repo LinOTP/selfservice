@@ -1,4 +1,5 @@
 import { TestBed, async, inject } from '@angular/core/testing';
+import { Fixtures } from '../../testing/fixtures';
 
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
@@ -6,16 +7,17 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { TokenService } from './token.service';
 import { Token, EnrollmentStatus, TokenType } from './token';
 import { AuthService } from '../auth/auth.service';
+import { I18nMock } from '../../testing/i18n-mock-provider';
 
 const session = '';
 
-const mockReadyEnabledToken = new Token(1, 'serial', TokenType.UNKNOWN, true, 'desc');
+const mockReadyEnabledToken = new Token(1, 'serial', Fixtures.tokenTypeDetails[TokenType.UNKNOWN], true, 'desc');
 mockReadyEnabledToken.enrollmentStatus = EnrollmentStatus.COMPLETED;
 
-const mockReadyDisabledToken = new Token(2, 'serial2', TokenType.UNKNOWN, false, 'desc');
+const mockReadyDisabledToken = new Token(2, 'serial2', Fixtures.tokenTypeDetails[TokenType.UNKNOWN], false, 'desc');
 mockReadyDisabledToken.enrollmentStatus = EnrollmentStatus.COMPLETED;
 
-const mockUnreadyDisabledToken = new Token(3, 'serial3', TokenType.UNKNOWN, false, 'desc');
+const mockUnreadyDisabledToken = new Token(3, 'serial3', Fixtures.tokenTypeDetails[TokenType.UNKNOWN], false, 'desc');
 mockUnreadyDisabledToken.enrollmentStatus = EnrollmentStatus.UNPAIRED;
 
 const mockTokens: Token[] = [mockReadyEnabledToken, mockReadyDisabledToken, mockUnreadyDisabledToken];
@@ -26,7 +28,7 @@ const mockResponse = {
       {
         'LinOtp.TokenId': mockReadyEnabledToken.id,
         'LinOtp.TokenSerialnumber': mockReadyEnabledToken.serial,
-        'LinOtp.TokenType': mockReadyEnabledToken.type,
+        'LinOtp.TokenType': mockReadyEnabledToken.typeDetails.type,
         'LinOtp.TokenDesc': mockReadyEnabledToken.description,
         'LinOtp.Isactive': mockReadyEnabledToken.enabled,
         'Enrollment': { 'status': mockReadyEnabledToken.enrollmentStatus }
@@ -34,7 +36,7 @@ const mockResponse = {
       {
         'LinOtp.TokenId': mockReadyDisabledToken.id,
         'LinOtp.TokenSerialnumber': mockReadyDisabledToken.serial,
-        'LinOtp.TokenType': mockReadyDisabledToken.type,
+        'LinOtp.TokenType': mockReadyDisabledToken.typeDetails.type,
         'LinOtp.TokenDesc': mockReadyDisabledToken.description,
         'LinOtp.Isactive': mockReadyDisabledToken.enabled,
         'Enrollment': { 'status': mockReadyDisabledToken.enrollmentStatus }
@@ -42,7 +44,7 @@ const mockResponse = {
       {
         'LinOtp.TokenId': mockUnreadyDisabledToken.id,
         'LinOtp.TokenSerialnumber': mockUnreadyDisabledToken.serial,
-        'LinOtp.TokenType': mockUnreadyDisabledToken.type,
+        'LinOtp.TokenType': mockUnreadyDisabledToken.typeDetails.type,
         'LinOtp.TokenDesc': mockUnreadyDisabledToken.description,
         'LinOtp.Isactive': mockUnreadyDisabledToken.enabled,
         'Enrollment': { 'status': 'not completed', 'detail': mockUnreadyDisabledToken.enrollmentStatus }
@@ -68,7 +70,8 @@ describe('TokenService', () => {
             logout: jasmine.createSpy('logout'),
             getSession: jasmine.createSpy('getSession').and.returnValue(session),
           }
-        }
+        },
+        I18nMock,
       ],
     });
 

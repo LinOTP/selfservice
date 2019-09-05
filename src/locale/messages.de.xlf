@@ -140,12 +140,20 @@
           <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="838805f188595c747b909a3882b9979c42a85c59" datatype="html">
+        <source>Realm</source>
+        <target state="translated">Realm</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/login/login.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="c32ef07f8803a223a83ed17024b38e8d82292407" datatype="html">
         <source>Password</source>
         <target state="translated">Passwort</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/login/login.component.html</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="eb500ae4611f660a817cb45089bca95af573596b" datatype="html">
@@ -155,7 +163,7 @@
         <note priority="1" from="meaning">login action</note>
         <context-group purpose="location">
           <context context-type="sourcefile">app/login/login.component.html</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
       <trans-unit id="c7d761ff7a5f7e7a8f6d3899d4a7fe62e73afab3" datatype="html">
@@ -164,6 +172,102 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/dialog/dialog.component.html</context>
           <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b9390719e13766d54b26e77014b04e7fe9bd8f49" datatype="html">
+        <source>password token</source>
+        <target state="translated">Passworttoken</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="eda9ca08fdbe81b9057d7442873b46ac680e78d1" datatype="html">
+        <source>Personal text-based secret</source>
+        <target state="translated">Persönliches textbasiertes Geheimnis</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="24dd33460b4773c6ae0f9a55b278a7a096e1b12f" datatype="html">
+        <source>soft token (event)</source>
+        <target state="translated">Soft-Token (ereignisbasiert)</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="057b6ae73b84fc219dda13e8ec5d8111eea9c194" datatype="html">
+        <source>Event-based soft token (HOTP)</source>
+        <target state="translated">Ereignisbasierter Software-Token (HOTP)</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="a06af912509b4f6fa4bcfcd4abc9c10ade8a6ea6" datatype="html">
+        <source>soft token (time)</source>
+        <target state="translated">Soft-Token (zeitbasiert)</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2c62ca07af4b81447c09a931b1a45c033685c689" datatype="html">
+        <source>Time-based soft token (TOTP)</source>
+        <target state="translated">Zeitbasierter Software-Token (TOTP)</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5eb3471826f080ed37d79240fbdc2acb4cd3ed8a" datatype="html">
+        <source>Push-Token</source>
+        <target state="translated">Push-Token</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="43ea0f21c90ac4ee5e8e17a26f558712d29f20be" datatype="html">
+        <source>Confirm authentication requests on your Smartphone with the Authenticator app</source>
+        <target state="translated">Bestätigen Sie Authentifizierungsanfragen auf Ihrem Smartphone mit der Authenticator App</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cbee0b533ac241ca3727be5714f397c91115b7e7" datatype="html">
+        <source>QR-Token</source>
+        <target state="translated">QR-Token</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="339f5c827d3973dca9a651873bb5f51a67f63ff1" datatype="html">
+        <source>Use the Authenticator app to scan QR code authentication requests</source>
+        <target state="translated">Nutzen Sie die Authenticator App, um QR-Code Authentifizierungsanfragen zu scannen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c8d7cf44a64f197e640f75cdba7ae9a960f6eec8" datatype="html">
+        <source>Unknown Token</source>
+        <target state="translated">Unbekannter Token</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9b3595be315c0e5f5fffabbe543a12ffe9be819b" datatype="html">
+        <source>Unsupported token type</source>
+        <target state="translated">Nicht-unterstützter Tokentyp</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
       <trans-unit id="28e4509b09a198c23b7fd0bc865bd2b25e3885b2" datatype="html">

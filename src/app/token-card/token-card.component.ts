@@ -111,7 +111,7 @@ export class TokenCardComponent implements OnInit {
       data: { token: this.token }
     };
 
-    switch (this.token.type) {
+    switch (this.token.typeDetails.type) {
       case TokenType.PASSWORD:
       case TokenType.HOTP:
       case TokenType.TOTP:
@@ -155,7 +155,7 @@ export class TokenCardComponent implements OnInit {
   public pendingDelete(): boolean {
     let deletePending = false;
     if (this.token.enrollmentStatus === EnrollmentStatus.UNPAIRED) {
-      deletePending = this.token.type === TokenType.PUSH || this.token.type === TokenType.QR;
+      deletePending = this.token.typeDetails.type === TokenType.PUSH || this.token.typeDetails.type === TokenType.QR;
     }
     return deletePending;
   }
@@ -163,12 +163,12 @@ export class TokenCardComponent implements OnInit {
   public pendingActivate(): boolean {
     let activatePending = false;
     if (this.token.enrollmentStatus === EnrollmentStatus.PAIRING_RESPONSE_RECEIVED) {
-      activatePending = this.token.type === TokenType.PUSH || this.token.type === TokenType.QR;
+      activatePending = this.token.typeDetails.type === TokenType.PUSH || this.token.typeDetails.type === TokenType.QR;
     }
     return activatePending;
   }
 
   public isPush(): boolean {
-    return this.token.type === TokenType.PUSH;
+    return this.token.typeDetails.type === TokenType.PUSH;
   }
 }

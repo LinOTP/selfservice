@@ -24,73 +24,16 @@ export enum TokenType {
   UNKNOWN = 'unknown'
 }
 
-export const tokenTypeDetails: TokenTypeDetails[] = [
-  {
-    type: TokenType.PASSWORD,
-    name: 'password token',
-    description: 'Personal text-based secret',
-    icon: 'keyboard',
-    // enrollmentPermission: Permission.ENROLLPASSWORD,
-  },
-  {
-    type: TokenType.HOTP,
-    name: 'soft token (event)',
-    description: 'Event-based soft token (HOTP)',
-    icon: 'cached',
-    enrollmentPermission: Permission.ENROLLHOTP,
-    enrollmentType: 'googleauthenticator',
-  },
-  {
-    type: TokenType.TOTP,
-    name: 'soft token (time)',
-    description: 'Time-based soft token (TOTP)',
-    icon: 'timelapse',
-    enrollmentPermission: Permission.ENROLLTOTP,
-    enrollmentType: 'googleauthenticator_time',
-  },
-  {
-    type: TokenType.PUSH,
-    name: 'Push-Token',
-    description: 'Confirm authentication requests on your Smartphone with the Authenticator app',
-    icon: 'screen_lock_portrait',
-    enrollmentPermission: Permission.ENROLLPUSH,
-    activationPermission: Permission.ENROLLPUSH,
-  },
-  {
-    type: TokenType.QR,
-    name: 'QR-Token',
-    description: 'Use the Authenticator app to scan QR code authentication requests',
-    icon: 'all_out',
-    // enrollmentPermission: Permission.ENROLLQR,
-    activationPermission: Permission.ACTIVATEQR,
-  },
-];
-
-export const unknownTokenType: TokenTypeDetails = {
-  type: TokenType.UNKNOWN,
-  name: 'Unknown Token',
-  description: '',
-  icon: 'apps',
-};
-
-export function getTypeDetails(type: TokenType): TokenTypeDetails {
-  return tokenTypeDetails.find(td => td.type === type) || unknownTokenType;
-}
-
 export class Token {
   enrollmentStatus: EnrollmentStatus;
-
-  public typeDetails: TokenTypeDetails;
 
   constructor(
     public id: number,
     public serial: string,
-    public type: TokenType,
+    public typeDetails: TokenTypeDetails,
     public enabled: boolean,
     public description?: string,
-  ) {
-    this.typeDetails = getTypeDetails(this.type);
-  }
+  ) { }
 }
 
 export enum EnrollmentStatus {

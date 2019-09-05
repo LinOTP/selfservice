@@ -33,10 +33,10 @@ export class TestChallengeResponseDialogComponent implements OnInit {
     if (data.token.enrollmentStatus !== EnrollmentStatus.COMPLETED) {
       this.isActivation = true;
     }
-    if (data.token.type === TokenType.PUSH) {
+    if (data.token.typeDetails.type === TokenType.PUSH) {
       this.isPush = true;
     }
-    if (data.token.type === TokenType.QR) {
+    if (data.token.typeDetails.type === TokenType.QR) {
       this.isQR = true;
     }
   }
@@ -57,7 +57,7 @@ export class TestChallengeResponseDialogComponent implements OnInit {
       map(response => response.detail),
       tap(detail => {
         this.transactionId = detail.transactionid.toString().slice(0, 6);
-        if (this.data.token.type === TokenType.QR) {
+        if (this.data.token.typeDetails.type === TokenType.QR) {
           this.tokenQRUrl = detail.message;
         }
       }),

@@ -6,7 +6,7 @@ import { AuthService } from '../auth/auth.service';
 import { MaterialModule } from '../material.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NotificationService } from '../common/notification.service';
-import { I18NMock } from '../../testing/i18n-mock-provider';
+import { I18nMock } from '../../testing/i18n-mock-provider';
 import { spyOnClass } from '../../testing/spyOnClass';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
@@ -44,7 +44,7 @@ describe('LoginComponent', () => {
           provide: SystemService,
           useValue: spyOnClass(SystemService),
         },
-        I18NMock,
+        I18nMock,
       ],
     })
       .compileComponents();
