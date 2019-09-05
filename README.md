@@ -14,7 +14,7 @@ yarn
 
 This will create the local environment for developing, running and testing the angular application.
 
-### Develeopment Server
+### Development Server
 
 To run a dev server, execute:
 
