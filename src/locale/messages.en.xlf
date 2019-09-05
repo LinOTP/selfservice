@@ -140,12 +140,20 @@
           <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="838805f188595c747b909a3882b9979c42a85c59" datatype="html">
+        <source>Realm</source>
+        <target state="final">Realm</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/login/login.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="c32ef07f8803a223a83ed17024b38e8d82292407" datatype="html">
         <source>Password</source>
         <target state="final">Password</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/login/login.component.html</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="eb500ae4611f660a817cb45089bca95af573596b" datatype="html">
@@ -155,7 +163,7 @@
         <note priority="1" from="meaning">login action</note>
         <context-group purpose="location">
           <context context-type="sourcefile">app/login/login.component.html</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
       <trans-unit id="c7d761ff7a5f7e7a8f6d3899d4a7fe62e73afab3" datatype="html">
