@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { map } from 'rxjs/operators';
+import { I18n } from '@ngx-translate/i18n-polyfill';
 
 import { NotificationService } from '../common/notification.service';
 import { AuthService } from '../auth/auth.service';
-import { I18n } from '@ngx-translate/i18n-polyfill';
+import { SystemService, SystemInfo } from '../system.service';
 
 @Component({
   selector: 'app-login',
@@ -20,34 +21,55 @@ export class LoginComponent implements OnInit {
 
   redirectUrl: string;
 
+  systemInfo: SystemInfo;
+
   constructor(
     private authService: AuthService,
     public notificationService: NotificationService,
     private route: ActivatedRoute,
     private router: Router,
     private i18n: I18n,
-  ) {
-    this.loginFormGroup = new FormGroup({
-      username: new FormControl(),
-      password: new FormControl()
-    });
-  }
+    private systemService: SystemService,
+    private formBuilder: FormBuilder,
+  ) { }
 
   ngOnInit() {
+    this.loginFormGroup = this.formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+
     this.route.queryParamMap
       .pipe(
         map(params => params.get('redirect')),
       )
       .subscribe(url => this.redirectUrl = url);
+
+    this.systemService.getSystemInfo().subscribe(systemInfo => {
+      this.systemInfo = systemInfo;
+      if (systemInfo.realm_box) {
+        this.loginFormGroup.addControl(
+          'realm',
+          this.formBuilder.control(systemInfo.default_realm, Validators.required)
+        );
+      }
+    });
   }
 
   login() {
     this.message = this.i18n('Waiting for response');
 
-    const username = this.loginFormGroup.value.username;
-    const password = this.loginFormGroup.value.password;
+    const loginOptions = {
+      username: this.loginFormGroup.value.username,
+      password: this.loginFormGroup.value.password,
+      realm: this.loginFormGroup.value.realm,
+    };
 
-    this.authService.login(username, password).subscribe((result: boolean) => {
+    if (loginOptions.realm === undefined) {
+      delete loginOptions.realm;
+    }
+
+    this.authService.login(loginOptions).subscribe((result: boolean) => {
 
       const message = result ? this.i18n('Login successful') : this.i18n('Login failed');
       this.notificationService.message(message);

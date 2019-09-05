@@ -1,3 +1,5 @@
+![pipeline](https://gitbox.corp.keyidentity.com/dev/linotp/ng-selfservice/badges/master/pipeline.svg) ![coverage](https://gitbox.corp.keyidentity.com/dev/linotp/ng-selfservice/badges/master/coverage.svg)
+
 # KI Selfservice
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.1.

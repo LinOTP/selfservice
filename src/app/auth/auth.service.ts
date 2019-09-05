@@ -6,8 +6,14 @@ import { catchError, map, tap, switchMap } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie';
 
 import { NgxPermissionsService } from 'ngx-permissions';
-import { Permission, PoliciesToPermissionsMapping } from '../common/permissions';
+import { Permission } from '../common/permissions';
+import { SystemService } from '../system.service';
 
+export interface LoginOptions {
+  username: string;
+  password: string;
+  realm?: string;
+}
 @Injectable()
 export class AuthService {
   private _loginChangeEmitter: EventEmitter<boolean> = new EventEmitter();
@@ -16,28 +22,14 @@ export class AuthService {
   private endpoints = {
     login: 'login',
     logout: 'logout',
-    context: 'context',
   };
-
-  /**
-   * maps backend LinOTP policy actions to the available frontend permissions
-   *
-   * @private
-   * @param {string[]} policies
-   * @returns {Permission[]}
-   * @memberof AuthService
-   */
-  private static mapPoliciesToPermissions(policies: string[]): Permission[] {
-    return policies
-      .filter(p => PoliciesToPermissionsMapping.hasOwnProperty(p))
-      .map(p => PoliciesToPermissionsMapping[p]);
-  }
 
   constructor(
     private http: HttpClient,
     private cookieService: CookieService,
     private permissionsService: NgxPermissionsService,
     private router: Router,
+    private systemService: SystemService,
   ) { }
 
   /**
@@ -50,10 +42,18 @@ export class AuthService {
    * @returns {Observable<boolean>}
    * @memberof AuthService
    */
-  login(username: string, password: string): Observable<boolean> {
+  login(loginOptions: LoginOptions): Observable<boolean> {
     const url = this.baseUrl + this.endpoints.login;
 
-    const params = { login: username, password: password };
+    const params = {
+      login: loginOptions.username,
+      password: loginOptions.password,
+      realm: loginOptions.realm
+    };
+
+    if (params.realm === undefined) {
+      delete params.realm;
+    }
 
     return this.http.post<{ result: { status: boolean, value: boolean } }>(url, params)
       .pipe(
@@ -125,12 +125,8 @@ export class AuthService {
    * @memberof AuthService
    */
   public refreshPermissions(): Observable<Permission[]> {
-    const endpoint = this.baseUrl + this.endpoints.context;
-    const params = { params: { session: this.getSession() } };
-
-    return this.http.get(endpoint, params).pipe(
-      map(response => response['actions']),
-      map(AuthService.mapPoliciesToPermissions),
+    return this.systemService.getUserSystemInfo().pipe(
+      map(systemInfo => systemInfo.permissions),
       tap(permissions => {
         localStorage.setItem('permissions', JSON.stringify(permissions));
         this.permissionsService.loadPermissions(permissions);

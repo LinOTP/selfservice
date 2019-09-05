@@ -10,6 +10,8 @@ import { I18NMock } from '../../testing/i18n-mock-provider';
 import { spyOnClass } from '../../testing/spyOnClass';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
+import { SystemService } from '../system.service';
+import { Fixtures } from '../../testing/fixtures';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -38,6 +40,10 @@ describe('LoginComponent', () => {
           provide: NotificationService,
           useValue: spyOnClass(NotificationService),
         },
+        {
+          provide: SystemService,
+          useValue: spyOnClass(SystemService),
+        },
         I18NMock,
       ],
     })
@@ -50,6 +56,9 @@ describe('LoginComponent', () => {
     router = TestBed.get(Router);
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
+
+    TestBed.get(SystemService).getSystemInfo.and.returnValue(of(Fixtures.systemInfo));
+
     fixture.detectChanges();
   });
 
@@ -68,7 +77,7 @@ describe('LoginComponent', () => {
 
       component.login();
 
-      expect(authService.login).toHaveBeenCalledWith('user', 'pass');
+      expect(authService.login).toHaveBeenCalledWith({ username: 'user', password: 'pass' });
       expect(notificationService.message).toHaveBeenCalledWith('Login successful');
       expect(component.redirect).toHaveBeenCalledTimes(1);
     });
@@ -82,7 +91,7 @@ describe('LoginComponent', () => {
 
       component.login();
 
-      expect(authService.login).toHaveBeenCalledWith('user', 'pass');
+      expect(authService.login).toHaveBeenCalledWith({ username: 'user', password: 'pass' });
       expect(notificationService.message).toHaveBeenCalledWith('Login failed');
       expect(component.redirect).not.toHaveBeenCalled();
     });

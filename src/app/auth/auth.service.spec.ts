@@ -1,18 +1,21 @@
 import { TestBed, inject, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { spyOnClass } from '../../testing/spyOnClass';
+import { Fixtures } from '../../testing/fixtures';
 
 import { AuthService } from './auth.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { CookieService } from 'ngx-cookie';
 import { NgxPermissionsService } from 'ngx-permissions';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Permission } from '../common/permissions';
 import { Router } from '@angular/router';
+import { SystemService } from '../system.service';
+import { of } from 'rxjs';
 
 describe('AuthService', () => {
   let authService: AuthService;
   let permissionsService: NgxPermissionsService;
+  let systemService: jasmine.SpyObj<SystemService>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -30,11 +33,20 @@ describe('AuthService', () => {
           provide: CookieService,
           useValue: spyOnClass(CookieService),
         },
+        {
+          provide: SystemService,
+          useValue: spyOnClass(SystemService),
+        },
       ],
     });
+  });
 
+  beforeEach(() => {
     authService = TestBed.get(AuthService);
     permissionsService = TestBed.get(NgxPermissionsService);
+
+    systemService = TestBed.get(SystemService);
+    systemService.getUserSystemInfo.and.returnValue(of(Fixtures.userSystemInfo));
   });
 
   it('should be created', inject([AuthService], (service: AuthService) => {
@@ -43,16 +55,12 @@ describe('AuthService', () => {
 
   it('should login on successful request', async(
     inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
-
-      authService.login('user', 'pass').subscribe(response => {
+      authService.login({ username: 'user', password: 'pass' }).subscribe(response => {
         expect(response).toEqual(true);
       });
 
       const loginRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');
       loginRequest.flush({ result: { value: true } });
-
-      const permissionsRequest = backend.expectOne((req) => req.url === '/userservice/context' && req.method === 'GET');
-      permissionsRequest.flush({ actions: [] });
 
       backend.verify();
     })
@@ -62,55 +70,24 @@ describe('AuthService', () => {
     inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
       spyOn(localStorage, 'setItem');
 
-      const permissionSet = [
-        Permission.ENROLLPASSWORD,
-        Permission.ENROLLPUSH,
-        Permission.ACTIVATEPUSH,
-        Permission.ENROLLQR,
-        Permission.ACTIVATEQR,
-        Permission.ENROLLHOTP,
-        Permission.ENROLLTOTP,
-        Permission.DELETE,
-        Permission.SETPIN,
-        Permission.ENABLE,
-        Permission.DISABLE,
-      ];
-      const policyActions = [
-        'enrollPW',
-        'enrollPUSH',
-        'activate_PushToken',
-        'enrollQR',
-        'activate_QRToken',
-        'webprovisionGOOGLE',
-        'webprovisionGOOGLEtime',
-        'delete',
-        'setOTPPIN',
-        'enable',
-        'disable',
-      ];
-
-      authService.login('user', 'pass').subscribe(response => {
+      authService.login({ username: 'user', password: 'pass' }).subscribe(response => {
         expect(response).toEqual(true);
       });
-
 
       const loginRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');
       loginRequest.flush({ result: { value: true } });
 
-      const permissionsRequest = backend.expectOne((req) => req.url === '/userservice/context' && req.method === 'GET');
-      permissionsRequest.flush({
-        actions: policyActions
-      });
+      expect(systemService.getUserSystemInfo).toHaveBeenCalledTimes(1);
 
-      expect(localStorage.setItem).toHaveBeenCalledWith('permissions', JSON.stringify(permissionSet));
-      expect(permissionsService.loadPermissions).toHaveBeenCalledWith(permissionSet);
+      expect(localStorage.setItem).toHaveBeenCalledWith('permissions', JSON.stringify(Fixtures.permissionList));
+      expect(permissionsService.loadPermissions).toHaveBeenCalledWith(Fixtures.permissionList);
     })
   ));
 
   it('should not log in on failed request', async(
     inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
 
-      authService.login('user', 'pass').subscribe(response => {
+      authService.login({ username: 'user', password: 'pass' }).subscribe(response => {
         expect(response).toEqual(false);
       });
 
@@ -124,32 +101,15 @@ describe('AuthService', () => {
   it('should not fetch the permissions on failed login', async(
     inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
 
-      authService.login('user', 'pass').subscribe(response => {
+      authService.login({ username: 'user', password: 'pass' }).subscribe(response => {
         expect(response).toEqual(false);
       });
 
       const loginRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');
-
       loginRequest.flush({ result: { value: false } });
 
+      expect(systemService.getUserSystemInfo).not.toHaveBeenCalled();
       expect(permissionsService.loadPermissions).not.toHaveBeenCalled();
-    })
-  ));
-
-  it('should not map unrecognized policies to permissions', async(
-    inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
-
-      authService.login('user', 'pass').subscribe(response => {
-        expect(response).toEqual(true);
-      });
-
-      const loginRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');
-      loginRequest.flush({ result: { value: true } });
-
-      const permissionsRequest = backend.expectOne((req) => req.url === '/userservice/context' && req.method === 'GET');
-      permissionsRequest.flush({ actions: ['fake policy'] });
-
-      expect(permissionsService.loadPermissions).toHaveBeenCalledWith([]);
     })
   ));
 
@@ -158,7 +118,7 @@ describe('AuthService', () => {
 
       spyOn(console, 'error');
 
-      authService.login('user', 'pass').subscribe(response => {
+      authService.login({ username: 'user', password: 'pass' }).subscribe(response => {
         expect(response).toEqual(false);
       });
 
