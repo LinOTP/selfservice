@@ -1,10 +1,12 @@
 import { TestBed, async, inject } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { ExampleAPIResponses, Fixtures } from '../testing/fixtures';
+import { spyOnClass } from '../testing/spyOnClass';
 
 import { HttpClient } from '@angular/common/http';
 
 import { SystemService } from './system.service';
-import { ExampleAPIResponses, Fixtures } from '../testing/fixtures';
+import { AuthService } from './auth/auth.service';
 
 describe('SystemService', () => {
   let service: SystemService;
@@ -13,10 +15,15 @@ describe('SystemService', () => {
     imports: [
       HttpClientTestingModule,
     ],
+    providers: [
+      SystemService,
+      { provide: AuthService, useValue: spyOnClass(AuthService) },
+    ]
   }));
 
   beforeEach(() => {
     service = TestBed.get(SystemService);
+    TestBed.get(AuthService).getSession.and.returnValue('');
   });
 
   it('should be created', () => {
