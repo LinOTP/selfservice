@@ -38,7 +38,7 @@ export const PasswordPermissions: PermissionSet = {
 
 export const PushPermissions: PermissionSet = {
     enroll: [Permission.ENROLLPUSH],
-    activate: [Permission.ENROLLPUSH],
+    activate: [Permission.ACTIVATEPUSH],
     delete: [Permission.DELETE],
     setPin: [Permission.SETPIN],
 };

@@ -54,7 +54,7 @@ export const tokenTypeDetails: TokenTypeDetails[] = [
     description: 'Confirm authentication requests on your Smartphone with the Authenticator app',
     icon: 'screen_lock_portrait',
     enrollmentPermission: Permission.ENROLLPUSH,
-    activationPermission: Permission.ENROLLPUSH,
+    activationPermission: Permission.ACTIVATEPUSH,
   },
   {
     type: TokenType.QR,
