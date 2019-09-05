@@ -1,7 +1,7 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogRef, MatDialogConfig } from '@angular/material/dialog';
 
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, EMPTY } from 'rxjs';
 import { switchMap, filter, tap } from 'rxjs/operators';
 
 import { TokenTypeDetails, tokenTypeDetails, TokenType, Token } from '../api/token';
@@ -97,6 +97,7 @@ export class EnrollmentGridComponent implements OnInit {
     switch (token.type) {
       case TokenType.HOTP:
       case TokenType.TOTP:
+        return EMPTY; // this decativates the token test for tokens that don't need the activation.
         return this.dialog.open(TestOATHDialogComponent, testConfig).afterClosed();
       case (TokenType.PUSH):
         return this.dialog.open(TestChallengeResponseDialogComponent, testConfig).afterClosed();

@@ -118,6 +118,9 @@
 
   <mat-step active="false"
             id="stepPIN">
+    <p>
+      Your token is now enrolled.
+    </p>
     <ng-container *ngxPermissionsOnly="Permission.SETPIN">
       <p>
         If you wish to set a security PIN, please do so now:
@@ -129,16 +132,12 @@
         Setting a PIN helps you protect your token against misuse.
       </p>
     </ng-container>
-    <p>
-      To finalize, we will verify if your token is correctly enrolled via a
-      test authentication.
-    </p>
     <mat-dialog-actions align="end">
       <div>Enrollment step 3 of 3</div>
       <span class="spacer"></span>
       <button mat-raised-button
               color="primary"
-              (click)="closeDialog()">Test Token</button>
+              (click)="closeDialog()">Close</button>
     </mat-dialog-actions>
   </mat-step>
 

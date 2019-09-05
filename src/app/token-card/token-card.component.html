@@ -61,12 +61,12 @@
     <mat-icon>security</mat-icon>
     <span>set pin</span>
   </button>
-  <button mat-menu-item
+  <!-- <button mat-menu-item
           (click)="testToken()"
           *ngIf="token.enrollmentStatus === EnrollmentStatus.COMPLETED && token.enabled">
     <mat-icon>check_circle</mat-icon>
     <span>test</span>
-  </button>
+  </button> -->
   <mat-divider></mat-divider>
   <ng-container *ngIf="token.enrollmentStatus === EnrollmentStatus.COMPLETED">
     <ng-container *ngIf="!token.enabled">

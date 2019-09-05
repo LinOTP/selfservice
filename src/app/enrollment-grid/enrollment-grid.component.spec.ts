@@ -89,8 +89,10 @@ describe('EnrollmentGridComponent', () => {
 
     expect(matDialog.open).toHaveBeenCalledWith(EnrollOATHDialogComponent, expectedEnrollDialogConfig);
     expect(tokenService.getToken).toHaveBeenCalledWith(token.serial);
-    expect(matDialog.open).toHaveBeenCalledWith(TestOATHDialogComponent, expectedTestDialogConfig);
-    expect(tokenUpdateSpy).toHaveBeenCalledTimes(2);
+    // deactivated token test feature for next release:
+    // expect(matDialog.open).toHaveBeenCalledWith(TestOATHDialogComponent, expectedTestDialogConfig);
+    // expect(tokenUpdateSpy).toHaveBeenCalledTimes(2);
+    expect(tokenUpdateSpy).toHaveBeenCalledTimes(1);
   }));
 
   it('should notify the user if there was an issue retrieving the token before the test', fakeAsync(() => {
@@ -156,8 +158,10 @@ describe('EnrollmentGridComponent', () => {
 
     expect(matDialog.open).toHaveBeenCalledWith(EnrollOATHDialogComponent, expectedEnrollDialogConfig);
     expect(tokenService.getToken).toHaveBeenCalledWith(token.serial);
-    expect(matDialog.open).toHaveBeenCalledWith(TestOATHDialogComponent, expectedTestDialogConfig);
-    expect(tokenUpdateSpy).toHaveBeenCalledTimes(2);
+    // deactivated token test feature for next release:
+    // expect(matDialog.open).toHaveBeenCalledWith(TestOATHDialogComponent, expectedTestDialogConfig);
+    // expect(tokenUpdateSpy).toHaveBeenCalledTimes(2);
+    expect(tokenUpdateSpy).toHaveBeenCalledTimes(1);
   }));
 
   it('should open the Push dialog and trigger the token list updater', fakeAsync(() => {
