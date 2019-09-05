@@ -1,6 +1,6 @@
 import { Token, TokenType, EnrollmentStatus } from '../app/api/token';
 import { Permission } from '../app/common/permissions';
-import { UserSystemInfo } from '../app/system.service';
+import { UserSystemInfo, SystemInfo } from '../app/system.service';
 
 export class Fixtures {
 
@@ -157,6 +157,27 @@ export class Fixtures {
     ];
   }
 
+  static get systemInfo(): SystemInfo {
+    return {
+      realms: {
+        ExampleRealm: {
+          default: false,
+          realmname: 'exampleRealm',
+          entry: '',
+          useridresolver: ['example-resolver']
+        }
+      },
+      autoassign: false,
+      licenseinfo: '',
+      default_realm: '',
+      mfa_login: false,
+      realm_box: false,
+      mfa_3_fields: false,
+      version: '',
+      autoenroll: false,
+    };
+  }
+
   static get userSystemInfo(): UserSystemInfo {
     return {
       realms: {
@@ -184,9 +205,24 @@ export class Fixtures {
 }
 
 export class ExampleAPIResponses {
+  static get userservice_pre_context() {
+    return {
+      realms: '{\n  \"ExampleRealm\": {\n    \"default\": false,\n    \"realmname\": \"exampleRealm\",\n    \"entry\": \"\",\n  \
+  \"useridresolver\": [\"example-resolver\"]\n  }\n}',
+      autoassign: false,
+      licenseinfo: '',
+      default_realm: '',
+      mfa_login: false,
+      realm_box: false,
+      mfa_3_fields: false,
+      version: '',
+      autoenroll: false,
+    };
+  }
   static get userservice_context() {
     return {
-      realms: '{\n  \"ExampleRealm\": {\n    \"default\": false,\n    \"realmname\": \"exampleRealm\",\n    \"entry\": \"\",\n    \"useridresolver\": [\"example-resolver\"]\n  }\n}',
+      realms: '{\n  \"ExampleRealm\": {\n    \"default\": false,\n    \"realmname\": \"exampleRealm\",\n    \"entry\": \"\",\n  \
+    \"useridresolver\": [\"example-resolver\"]\n  }\n}',
       actions: Fixtures.policyActionList,
       imprint: '',
       user: '',

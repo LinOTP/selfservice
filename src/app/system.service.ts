@@ -5,12 +5,17 @@ import { map } from 'rxjs/operators';
 import { Permission, PoliciesToPermissionsMapping } from './common/permissions';
 
 /**
- * Interface that provides available information about the system and the user.
+ * Interface that provides available information about the system.
+ *
+ * Some examples are the linotp version, available realms and login information.
+ *
+ * Another interface UserSystemInfo is available that also contains information of
+ * the logged in user. It extends this interface.
  *
  * @export
- * @interface UserSystemInfo
+ * @interface SystemInfo
  */
-export interface UserSystemInfo {
+export interface SystemInfo {
   autoassign: boolean;
   licenseinfo: string;
   realms: {
@@ -26,7 +31,21 @@ export interface UserSystemInfo {
   version: string;
   realm_box: boolean;
   mfa_3_fields: boolean;
-  autoenroll: boolean; permissions: Permission[];
+  autoenroll: boolean;
+}
+
+/**
+ * Interface that provides available information about the system and the user.
+ *
+ * It extends the SystemInfo interface with additional information about the
+ * logged in user.
+ *
+ * @export
+ * @interface UserSystemInfo
+ * @extends {SystemInfo}
+ */
+export interface UserSystemInfo extends SystemInfo {
+  permissions: Permission[];
   imprint: string;
   user: string;
   realm: string;
@@ -70,8 +89,35 @@ export class SystemService {
    * @returns
    * @memberof SystemService
    */
-  private static parseRealmsList<T extends { realms: string }>(systemInfo: T): T & Pick<UserSystemInfo, 'realms'> {
+  private static parseRealmsList<T extends { realms: string }>(systemInfo: T): T & Pick<SystemInfo, 'realms'> {
     return { ...systemInfo, realms: JSON.parse(systemInfo.realms) };
+  }
+
+  /**
+   * gets system information without a user context.
+   *
+   * The backend provides dynamic details about the system. This API works
+   * without a valid session and does not provide user specific information.
+   * Use the getSystemInfo() method to recieve all available infos with a
+   * session.
+   *
+   * This method is usefull to recieve information about the login process.
+   *
+   * @returns {Observable<SystemInfo>}
+   * @memberof SystemService
+   */
+  getSystemInfo(): Observable<SystemInfo> {
+    /*
+     * the api does not provide the full SystemInfo interface. We need to parse
+     * some parts manually. The typing process is fully covered by replacing the
+     * relevant object types in the apiResponse type.
+     */
+    type apiResponse = Omit<UserSystemInfo, 'realms'> & { realms: string };
+
+    return this.http.get<apiResponse>('/userservice/pre_context').pipe(
+      // parse realms that are returned as stringified json
+      map(SystemService.parseRealmsList),
+    );
   }
 
   /**

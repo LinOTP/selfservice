@@ -12,6 +12,7 @@ import { SystemService } from '../system.service';
 export interface LoginOptions {
   username: string;
   password: string;
+  realm?: string;
 }
 @Injectable()
 export class AuthService {
@@ -44,7 +45,15 @@ export class AuthService {
   login(loginOptions: LoginOptions): Observable<boolean> {
     const url = this.baseUrl + this.endpoints.login;
 
-    const params = { login: loginOptions.username, password: loginOptions.password };
+    const params = {
+      login: loginOptions.username,
+      password: loginOptions.password,
+      realm: loginOptions.realm
+    };
+
+    if (params.realm === undefined) {
+      delete params.realm;
+    }
 
     return this.http.post<{ result: { status: boolean, value: boolean } }>(url, params)
       .pipe(

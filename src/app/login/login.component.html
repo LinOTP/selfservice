@@ -8,6 +8,15 @@
              placeholder="Username"
              i18n-placeholder>
     </mat-form-field>
+    <mat-form-field *ngIf="systemInfo?.realm_box">
+      <mat-label i18n>Realm</mat-label>
+      <mat-select formControlName="realm">
+        <mat-option *ngFor="let realm of systemInfo.realms | keyvalue"
+                    [value]="realm.key">
+          {{realm.value.realmname}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
     <mat-form-field>
       <input matInput
              type="password"
