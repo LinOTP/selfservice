@@ -1,7 +1,7 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogRef, MatDialogConfig } from '@angular/material/dialog';
 
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { switchMap, filter, tap } from 'rxjs/operators';
 
 import { TokenTypeDetails, tokenTypeDetails, TokenType, Token } from '../api/token';
@@ -38,7 +38,7 @@ export class EnrollmentGridComponent implements OnInit {
       return;
     }
 
-    this.openEnrollmentDialog(tokenType).afterClosed()
+    this.openEnrollmentDialog(tokenType)
       .pipe(
         tap(() => this.tokenUpdate.next()),
         filter(serial => !!serial),
@@ -49,11 +49,20 @@ export class EnrollmentGridComponent implements OnInit {
           }
         }),
         filter(token => !!token),
-        switchMap(token => this.openTestDialog(token).afterClosed())
+        switchMap(token => this.openTestDialog(token))
       ).subscribe(() => this.tokenUpdate.next());
   }
 
-  private openEnrollmentDialog(typeDetails: TokenTypeDetails): MatDialogRef<EnrollOATHDialogComponent | EnrollPushDialogComponent> {
+  /**
+   * opens the correct enrollment dialog for the given token type and returns
+   * an observable to the dialog close event
+   *
+   * @private
+   * @param {TokenTypeDetails} typeDetails
+   * @returns {Observable<string>}
+   * @memberof EnrollmentGridComponent
+   */
+  private openEnrollmentDialog(typeDetails: TokenTypeDetails): Observable<string> {
     const enrollmentConfig: MatDialogConfig = {
       width: '850px',
       autoFocus: false,
@@ -64,13 +73,22 @@ export class EnrollmentGridComponent implements OnInit {
       case TokenType.HOTP:
       case TokenType.TOTP:
         enrollmentConfig.data = { tokenTypeDetails: typeDetails };
-        return this.dialog.open(EnrollOATHDialogComponent, enrollmentConfig);
+        return this.dialog.open(EnrollOATHDialogComponent, enrollmentConfig).afterClosed();
       case (TokenType.PUSH):
-        return this.dialog.open(EnrollPushDialogComponent, enrollmentConfig);
+        return this.dialog.open(EnrollPushDialogComponent, enrollmentConfig).afterClosed();
     }
   }
 
-  private openTestDialog(token: Token): MatDialogRef<TestOATHDialogComponent | TestChallengeResponseDialogComponent> {
+  /**
+   * opens the correct testing / activation dialog for the given token type
+   * and returns an observable to the dialog close event
+   *
+   * @private
+   * @param {Token} token
+   * @returns {Observable<any>}
+   * @memberof EnrollmentGridComponent
+   */
+  private openTestDialog(token: Token): Observable<boolean> {
     const testConfig: MatDialogConfig = {
       width: '650px',
       data: { token: token }
@@ -79,9 +97,9 @@ export class EnrollmentGridComponent implements OnInit {
     switch (token.type) {
       case TokenType.HOTP:
       case TokenType.TOTP:
-        return this.dialog.open(TestOATHDialogComponent, testConfig);
+        return this.dialog.open(TestOATHDialogComponent, testConfig).afterClosed();
       case (TokenType.PUSH):
-        return this.dialog.open(TestChallengeResponseDialogComponent, testConfig);
+        return this.dialog.open(TestChallengeResponseDialogComponent, testConfig).afterClosed();
     }
   }
 
