@@ -14,7 +14,7 @@ import { MockComponent } from '../../../testing/mock-component';
 import { spyOnClass } from '../../../testing/spyOnClass';
 
 import { MaterialModule } from '../../material.module';
-import { TokenType, getTypeDetails } from '../../api/token';
+import { TokenType } from '../../api/token';
 import { TokenService } from '../../api/token.service';
 import { NotificationService } from '../../common/notification.service';
 
@@ -61,7 +61,7 @@ describe('The EnrollOATHDialogComponent', () => {
         },
         {
           provide: MAT_DIALOG_DATA,
-          useValue: { tokenTypeDetails: getTypeDetails(TokenType.HOTP), closeLabel: null },
+          useValue: { tokenTypeDetails: Fixtures.tokenTypeDetails[TokenType.HOTP], closeLabel: null },
         },
       ],
     })
@@ -135,7 +135,7 @@ describe('The EnrollOATHDialogComponent', () => {
     tokenService.enrollOATH.and.returnValue(of(Fixtures.OATHEnrollmentResponse));
     const expectedToken = Fixtures.enrolledToken;
 
-    component.data.tokenTypeDetails = getTypeDetails(TokenType.TOTP);
+    component.data.tokenTypeDetails = Fixtures.tokenTypeDetails[TokenType.TOTP];
     fixture.detectChanges();
     component.enrollToken();
     tick();

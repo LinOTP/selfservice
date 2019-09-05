@@ -4,7 +4,7 @@ import { MatDialog, MatDialogRef, MatDialogConfig } from '@angular/material/dial
 import { Subject, Observable, EMPTY } from 'rxjs';
 import { switchMap, filter, tap } from 'rxjs/operators';
 
-import { TokenTypeDetails, tokenTypeDetails, TokenType, Token } from '../api/token';
+import { TokenTypeDetails, TokenType, Token } from '../api/token';
 import { TokenService } from '../api/token.service';
 
 import { NotificationService } from '../common/notification.service';
@@ -21,7 +21,7 @@ import { TestChallengeResponseDialogComponent } from '../test/test-challenge-res
 })
 export class EnrollmentGridComponent implements OnInit {
 
-  public tokenTypes: TokenTypeDetails[] = tokenTypeDetails.filter(t => t.enrollmentPermission);
+  public tokenTypes: TokenTypeDetails[];
   @Output() public tokenUpdate: Subject<null> = new Subject();
 
   constructor(
@@ -30,7 +30,9 @@ export class EnrollmentGridComponent implements OnInit {
     private notificationService: NotificationService,
   ) { }
 
-  public ngOnInit() { }
+  public ngOnInit() {
+    this.tokenTypes = this.tokenService.tokenTypeDetails.filter(t => t.enrollmentPermission);
+  }
 
   public runEnrollmentWorkflow(tokenType: TokenTypeDetails) {
     if (![TokenType.HOTP, TokenType.TOTP, TokenType.PUSH].includes(tokenType.type)) {
@@ -94,7 +96,7 @@ export class EnrollmentGridComponent implements OnInit {
       data: { token: token }
     };
 
-    switch (token.type) {
+    switch (token.typeDetails.type) {
       case TokenType.HOTP:
       case TokenType.TOTP:
         return EMPTY; // this decativates the token test for tokens that don't need the activation.

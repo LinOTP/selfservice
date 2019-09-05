@@ -7,7 +7,7 @@ import { of } from 'rxjs/internal/observable/of';
 import { NotificationService } from '../common/notification.service';
 import { spyOnClass } from '../../testing/spyOnClass';
 import { MatDialog } from '@angular/material/dialog';
-import { TokenTypeDetails, TokenType, getTypeDetails } from '../api/token';
+import { TokenTypeDetails, TokenType } from '../api/token';
 import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
 import { Fixtures } from '../../testing/fixtures';
 import { CapitalizePipe } from '../common/pipes/capitalize.pipe';
@@ -60,6 +60,8 @@ describe('EnrollmentGridComponent', () => {
     matDialog = TestBed.get(MatDialog);
     tokenUpdateSpy = spyOn(component.tokenUpdate, 'next');
 
+    (<any>tokenService).tokenTypeDetails = [Fixtures.tokenTypeDetails.hmac, Fixtures.tokenTypeDetails.push];
+
     fixture.detectChanges();
   });
 
@@ -69,7 +71,7 @@ describe('EnrollmentGridComponent', () => {
 
   it('should open the HOTP dialog and update the token list when completed', fakeAsync(() => {
     const token = Fixtures.activeHotpToken;
-    const tokenTypeDetails: TokenTypeDetails = getTypeDetails(token.type);
+    const tokenTypeDetails: TokenTypeDetails = token.typeDetails;
 
     const expectedEnrollDialogConfig = {
       width: '850px',
@@ -96,7 +98,7 @@ describe('EnrollmentGridComponent', () => {
   }));
 
   it('should notify the user if there was an issue retrieving the token before the test', fakeAsync(() => {
-    const tokenTypeDetails: TokenTypeDetails = getTypeDetails(TokenType.HOTP);
+    const tokenTypeDetails: TokenTypeDetails = Fixtures.tokenTypeDetails[TokenType.HOTP];
 
     const expectedEnrollDialogConfig = {
       width: '850px',
@@ -117,7 +119,7 @@ describe('EnrollmentGridComponent', () => {
   }));
 
   it('should not notify the user if the enrollment was cancelled', fakeAsync(() => {
-    const tokenTypeDetails: TokenTypeDetails = getTypeDetails(TokenType.HOTP);
+    const tokenTypeDetails: TokenTypeDetails = Fixtures.tokenTypeDetails[TokenType.HOTP];
 
     const expectedEnrollDialogConfig = {
       width: '850px',
@@ -138,7 +140,7 @@ describe('EnrollmentGridComponent', () => {
 
   it('should open the TOTP dialog and update the token list when completed', fakeAsync(() => {
     const token = Fixtures.activeTotpToken;
-    const tokenTypeDetails: TokenTypeDetails = getTypeDetails(token.type);
+    const tokenTypeDetails: TokenTypeDetails = token.typeDetails;
 
     const expectedEnrollDialogConfig = {
       width: '850px',
@@ -166,7 +168,7 @@ describe('EnrollmentGridComponent', () => {
 
   it('should open the Push dialog and trigger the token list updater', fakeAsync(() => {
     const token = Fixtures.unpairedPushToken;
-    const tokenTypeDetails: TokenTypeDetails = getTypeDetails(token.type);
+    const tokenTypeDetails: TokenTypeDetails = token.typeDetails;
 
     const expectedEnrollDialogConfig = {
       width: '850px',
@@ -192,7 +194,7 @@ describe('EnrollmentGridComponent', () => {
   }));
 
   it('should notify the user if the token cannot be enrolled', fakeAsync(() => {
-    const tokenTypeDetails: TokenTypeDetails = getTypeDetails(TokenType.UNKNOWN);
+    const tokenTypeDetails: TokenTypeDetails = Fixtures.tokenTypeDetails[TokenType.UNKNOWN];
     component.runEnrollmentWorkflow(tokenTypeDetails);
     tick();
 

@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Resolve, RouterStateSnapshot, ActivatedRouteSnapshot, Router } from '@angular/router';
 
 import { Observable, of, interval } from 'rxjs';
 import { map, filter, mergeMap, take, catchError, tap } from 'rxjs/operators';
 
-
-import { Token, EnrollToken, EnrollmentStatus, getTypeDetails, EnrollmentEndpointType, TokenType } from './token';
+import { Token, EnrollToken, EnrollmentStatus, TokenType, TokenTypeDetails } from './token';
 import { AuthService } from '../auth/auth.service';
+import { Permission } from '../common/permissions';
 
 
 interface LinOTPResponse<T> {
@@ -48,6 +47,59 @@ export class TokenService {
   private validateCheckS = '/validate/check_s'; // generate a challenge with a given serial
   private validateCheckStatus = '/validate/check_status'; // view challenge status
 
+  get tokenTypeDetails(): TokenTypeDetails[] {
+    return [
+      {
+        type: TokenType.PASSWORD,
+        name: 'password token',
+        description: 'Personal text-based secret',
+        icon: 'keyboard',
+        // enrollmentPermission: Permission.ENROLLPASSWORD,
+      },
+      {
+        type: TokenType.HOTP,
+        name: 'soft token (event)',
+        description: 'Event-based soft token (HOTP)',
+        icon: 'cached',
+        enrollmentPermission: Permission.ENROLLHOTP,
+        enrollmentType: 'googleauthenticator',
+      },
+      {
+        type: TokenType.TOTP,
+        name: 'soft token (time)',
+        description: 'Time-based soft token (TOTP)',
+        icon: 'timelapse',
+        enrollmentPermission: Permission.ENROLLTOTP,
+        enrollmentType: 'googleauthenticator_time',
+      },
+      {
+        type: TokenType.PUSH,
+        name: 'Push-Token',
+        description: 'Confirm authentication requests on your Smartphone with the Authenticator app',
+        icon: 'screen_lock_portrait',
+        enrollmentPermission: Permission.ENROLLPUSH,
+        activationPermission: Permission.ACTIVATEPUSH,
+      },
+      {
+        type: TokenType.QR,
+        name: 'QR-Token',
+        description: 'Use the Authenticator app to scan QR code authentication requests',
+        icon: 'all_out',
+        // enrollmentPermission: Permission.ENROLLQR,
+        activationPermission: Permission.ACTIVATEQR,
+      },
+    ];
+  }
+
+  private get unknownTokenType(): TokenTypeDetails {
+    return {
+      type: TokenType.UNKNOWN,
+      name: 'Unknown Token',
+      description: '',
+      icon: 'apps',
+    };
+  }
+
   constructor(
     private http: HttpClient,
     private authService: AuthService
@@ -66,6 +118,10 @@ export class TokenService {
       t.enrollmentStatus = token['Enrollment']['status'] === 'completed' ? 'completed' : token['Enrollment']['detail'];
       return t;
     });
+  }
+
+  public getTypeDetails(type: TokenType): TokenTypeDetails {
+    return this.tokenTypeDetails.find(td => td.type === type) || this.unknownTokenType;
   }
 
   getTokens(): Observable<Token[]> {
@@ -144,7 +200,7 @@ export class TokenService {
       session: this.authService.getSession(),
     };
 
-    const details = getTypeDetails(token.type);
+    const details = this.getTypeDetails(token.type);
     const enrollEndpoint = this.userserviceBase + this.userserviceEndpoints.webprovision;
 
     if (details.enrollmentType) {
@@ -163,7 +219,7 @@ export class TokenService {
       session: this.authService.getSession(),
     };
 
-    const details = getTypeDetails(token.type);
+    const details = this.getTypeDetails(token.type);
     const enrollEndpoint = this.userserviceBase + this.userserviceEndpoints.enroll;
 
     if (details.enrollmentType) {
