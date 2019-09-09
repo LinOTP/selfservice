@@ -107,4 +107,10 @@ export class LoginComponent implements OnInit {
     const target = this.redirectUrl || '/';
     this.router.navigate([target]);
   }
+
+  resetAuthForm() {
+    this.loginFormGroup.reset();
+    this.secondFactorFormGroup.reset();
+    this.displaySecondFactor = false;
+  }
 }

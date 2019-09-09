@@ -41,6 +41,11 @@
              placeholder="OTP"
              i18n-placeholder>
     </mat-form-field>
+    <button mat-button
+            type="reset"
+            color="primary"
+            (click)="resetAuthForm()"
+            i18n="2nd factor login action|login page second factor cancel button">Cancel</button>
     <button mat-raised-button
             type="submit"
             color="primary"

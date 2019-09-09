@@ -178,4 +178,21 @@ describe('LoginComponent', () => {
       expect(router.navigate).toHaveBeenCalledWith(['/']);
     });
   });
+
+  describe('resetAuthForm', () => {
+    it('should empty both forms and return to the first step form', () => {
+      component.loginFormGroup.value.username = 'user';
+      component.loginFormGroup.value.password = 'pass';
+      component.secondFactorFormGroup.value.otp = 'otp';
+      component.displaySecondFactor = true;
+      fixture.detectChanges();
+
+      component.resetAuthForm();
+
+      expect(component.loginFormGroup.value.username).toBeNull();
+      expect(component.loginFormGroup.value.password).toBeNull();
+      expect(component.secondFactorFormGroup.value.otp).toBeNull();
+      expect(component.displaySecondFactor).toBe(false);
+    });
+  });
 });
