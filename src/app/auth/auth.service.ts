@@ -14,6 +14,13 @@ export interface LoginOptions {
   password: string;
   realm?: string;
 }
+
+interface LoginResponse {
+  needsSecondFactor: boolean;
+  success: boolean;
+  hasTokens?: boolean;
+}
+
 @Injectable()
 export class AuthService {
   private _loginChangeEmitter: EventEmitter<boolean> = new EventEmitter();
@@ -22,6 +29,7 @@ export class AuthService {
   private endpoints = {
     login: 'login',
     logout: 'logout',
+    tokens: 'usertokenlist',
   };
 
   constructor(
@@ -33,17 +41,25 @@ export class AuthService {
   ) { }
 
   /**
-   * sends a login request to the backend and acts based on the response
+   * Sends a login request to the backend and acts based on the response.
    *
-   * if the login was successful, the users permissions are loaded before finishing the login.
+   * If the username and password are correct, but a 2nd factor is required for a successful login
+   * (i.e. mfa_login policy is set), we request a list of tokens for the user, then trigger a second
+   * factor transaction for the first available token on the list.
    *
-   * @param {string} username
-   * @param {string} password
-   * @returns {Observable<boolean>}
+   * Should the user have no tokens for a second factor authentication, the backend does not send an
+   * empty list. Instead, depending on whether the policy mfa_passOnNoToken was set, it either sends
+   * a successful authentication message or a failed one.
+   *
+   * If the login was successful, the user's permissions are loaded before finishing the login.
+   *
+   * @param {LoginOptions} loginOptions An object containing username, password and realm, if applicable.
+   * @returns {Observable<LoginResponse>} An object with the state of login success, and whether a second step is required.
    * @memberof AuthService
    */
-  login(loginOptions: LoginOptions): Observable<boolean> {
+  login(loginOptions: LoginOptions): Observable<LoginResponse> {
     const url = this.baseUrl + this.endpoints.login;
+    const secondFactorMessage = 'credential verified - additional authentication parameter required';
 
     const params = {
       login: loginOptions.username,
@@ -55,15 +71,109 @@ export class AuthService {
       delete params.realm;
     }
 
+    interface FirstStepResponseType {
+      detail: {
+        message: string;
+      };
+      result: {
+        status: boolean;
+        value: boolean;
+      };
+    }
+
+    return this.http.post<FirstStepResponseType>(url, params)
+      .pipe(
+        map(rsp => {
+          return {
+            needsSecondFactor: !!rsp && !!rsp.detail && !!rsp.detail.message && rsp.detail.message === secondFactorMessage,
+            success: !!rsp && !!rsp.result && !!rsp.result.value && rsp.result.value === true
+          };
+        }),
+        tap(loginState => this._loginChangeEmitter.emit(loginState.success)),
+        switchMap(loginState => loginState.success ? // refresh permissions (but only if login was successful)
+          this.refreshPermissions().pipe(map(() => loginState)) :
+          of(loginState)
+        ),
+        switchMap(loginState => loginState.needsSecondFactor ?
+          this.getSecondFactorSerial().pipe(
+            switchMap(serial => serial === '' ?
+              of({ needsSecondFactor: true, success: false, hasTokens: false }) :
+              this.requestSecondFactorTransaction(loginOptions.username, serial).pipe(
+                map(() => {
+                  return { needsSecondFactor: true, success: false, hasTokens: true };
+                })
+              )
+            )
+          ) :
+          of(loginState)
+        ),
+        catchError(this.handleError('login', { needsSecondFactor: null, success: false })),
+      );
+  }
+
+  /**
+   * Returns the serial of the token to be used for second factor authentication
+   *
+   * @returns {Observable<string>} token serial, empty string if no tokens available and null if an error occurred.
+   * @memberof AuthService
+   */
+  private getSecondFactorSerial(): Observable<string> {
+    const url = this.baseUrl + this.endpoints.tokens;
+    const body = { active: 'true', session: this.getSession() };
+    interface SecondStepResponseType {
+      result: {
+        status: boolean;
+        value: {
+          'LinOtp.TokenSerialnumber': string;
+        }[];
+      };
+    }
+    return this.http.post<SecondStepResponseType>(url, body)
+      .pipe(
+        switchMap(response => response.result.value.length > 0 ?
+          of(response.result.value[0]['LinOtp.TokenSerialnumber']) :
+          of('')
+        ),
+        catchError(this.handleError('getAvailableSecondFactors', null)),
+      );
+  }
+
+  /**
+   * Inform the backend of the token that the user intends to use in the 2nd login step.
+   *
+   * @param {string} username identifies the user attempting 2nd factor authentication
+   * @param {string} serial identifies the token to be used during authentication
+   */
+  private requestSecondFactorTransaction(username: string, serial: string): Observable<any> {
+    const url = this.baseUrl + this.endpoints.login;
+    const body = {
+      serial: serial,
+      data: `Selfservice+Login+Request User:+${username}`,
+      content_type: 0,
+      session: this.getSession()
+    };
+    return this.http.post(url, body).pipe(
+      catchError(this.handleError('requestSecondFactorTransaction', null))
+    );
+  }
+
+  /**
+   * Sent the OTP generated by the second factor token specified at the end of the first step.
+   *
+   * @param {string} otp OTP generated by the second factor and entered by the user.
+   */
+  loginSecondStep(otp: string): Observable<boolean> {
+    const url = this.baseUrl + this.endpoints.login;
+    const params = { otp: otp, session: this.getSession() };
+
     return this.http.post<{ result: { status: boolean, value: boolean } }>(url, params)
       .pipe(
         map(response => response && response.result && response.result.value === true),
-        tap(isLoggedin => this._loginChangeEmitter.emit(isLoggedin)),
-        switchMap(isLoggedin => isLoggedin ? // refresh permissions (but only if login was successful)
-          this.refreshPermissions().pipe(map(() => isLoggedin)) :
-          of(isLoggedin)
-        ),
-        catchError(this.handleError('login', false)),
+        tap(success => this._loginChangeEmitter.emit(success)),
+        switchMap(success => success ? // refresh permissions (but only if login was successful)
+          this.refreshPermissions().pipe(map(() => success)) :
+          of(success)
+        )
       );
   }
 

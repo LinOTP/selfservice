@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, tick } from '@angular/core/testing';
 
 import { LoginComponent } from './login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -72,7 +72,7 @@ describe('LoginComponent', () => {
       spyOn(component, 'redirect');
       component.loginFormGroup.value.username = 'user';
       component.loginFormGroup.value.password = 'pass';
-      authService.login.and.returnValue(of(true));
+      authService.login.and.returnValue(of({ needsSecondFactor: false, success: true }));
       fixture.detectChanges();
 
       component.login();
@@ -86,7 +86,7 @@ describe('LoginComponent', () => {
       spyOn(component, 'redirect');
       component.loginFormGroup.value.username = 'user';
       component.loginFormGroup.value.password = 'pass';
-      authService.login.and.returnValue(of(false));
+      authService.login.and.returnValue(of({ needsSecondFactor: false, success: false }));
       fixture.detectChanges();
 
       component.login();
@@ -95,7 +95,67 @@ describe('LoginComponent', () => {
       expect(notificationService.message).toHaveBeenCalledWith('Login failed');
       expect(component.redirect).not.toHaveBeenCalled();
     });
+
+    it('should display OTP input if second factor is needed and user has tokens', () => {
+      spyOn(component, 'redirect');
+      component.loginFormGroup.value.username = 'user';
+      component.loginFormGroup.value.password = 'pass';
+      authService.login.and.returnValue(of({ needsSecondFactor: true, success: false, hasTokens: true }));
+      fixture.detectChanges();
+
+      component.login();
+
+      expect(authService.login).toHaveBeenCalledWith({ username: 'user', password: 'pass' });
+      expect(notificationService.message).not.toHaveBeenCalledWith('Login failed');
+      expect(component.redirect).not.toHaveBeenCalled();
+      expect(component.displaySecondFactor).toBeTruthy();
+    });
+
+    it('should display error notification if second factor is needed but user has no tokens', () => {
+      const noTokensMessage = 'Login failed: you do not have a second factor set up. Please contact an admin.';
+      spyOn(component, 'redirect');
+
+      component.loginFormGroup.value.username = 'user';
+      component.loginFormGroup.value.password = 'pass';
+      authService.login.and.returnValue(of({ needsSecondFactor: true, success: false, hasTokens: false }));
+      fixture.detectChanges();
+
+      component.login();
+
+      expect(authService.login).toHaveBeenCalledWith({ username: 'user', password: 'pass' });
+      expect(notificationService.message).toHaveBeenCalledWith(noTokensMessage, 20000);
+      expect(component.redirect).not.toHaveBeenCalled();
+      expect(component.displaySecondFactor).toBeFalsy();
+    });
+
   });
+
+  describe('submitSecondFactor', () => {
+    it('should submit the OTP to the AuthService for the 2nd login step and return true on success', () => {
+      spyOn(component, 'finalAuthenticationHandling');
+      authService.loginSecondStep.and.returnValue(of(true));
+      component.secondFactorFormGroup.value.otp = 'otp';
+      fixture.detectChanges();
+
+      component.submitSecondFactor();
+
+      expect(authService.loginSecondStep).toHaveBeenCalledWith('otp');
+      expect(component.finalAuthenticationHandling).toHaveBeenCalledWith(true);
+    });
+
+    it('should submit the OTP to the AuthService for the 2nd login step and return false on failure', () => {
+      spyOn(component, 'finalAuthenticationHandling');
+      authService.loginSecondStep.and.returnValue(of(false));
+      component.secondFactorFormGroup.value.otp = 'otp';
+      fixture.detectChanges();
+
+      component.submitSecondFactor();
+
+      expect(authService.loginSecondStep).toHaveBeenCalledWith('otp');
+      expect(component.finalAuthenticationHandling).toHaveBeenCalledWith(false);
+    });
+  });
+
 
   describe('redirect', () => {
     it('should navigate to the target page if specified', () => {

@@ -1,7 +1,8 @@
 <mat-card id="loginCard">
   <mat-card-title i18n="card header|login page title">Login</mat-card-title>
   <form [formGroup]="loginFormGroup"
-        (ngSubmit)="login()">
+        (ngSubmit)="login()"
+        *ngIf="!displaySecondFactor; else secondFactor">
     <mat-form-field>
       <input matInput
              formControlName="username"
@@ -30,3 +31,19 @@
             i18n="login action|login page submit button">Login</button>
   </form>
 </mat-card>
+
+<ng-template #secondFactor>
+  <form [formGroup]="secondFactorFormGroup"
+        (ngSubmit)="submitSecondFactor()">
+    <mat-form-field>
+      <input matInput
+             formControlName="otp"
+             placeholder="OTP"
+             i18n-placeholder>
+    </mat-form-field>
+    <button mat-raised-button
+            type="submit"
+            color="primary"
+            i18n="2nd factor login action|login page second factor submit button">Submit</button>
+  </form>
+</ng-template>
