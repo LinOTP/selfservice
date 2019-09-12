@@ -53,86 +53,143 @@ describe('AuthService', () => {
     expect(service).toBeTruthy();
   }));
 
-  it('should login on successful request', async(
-    inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
-      authService.login({ username: 'user', password: 'pass' }).subscribe(response => {
-        expect(response).toEqual(true);
-      });
+  describe('password login', () => {
+    it('should be successful on successful request', async(
+      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
 
-      const loginRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');
-      loginRequest.flush({ result: { value: true } });
+        authService.login({ username: 'user', password: 'pass' }).subscribe(response => {
+          expect(response).toEqual({ needsSecondFactor: false, success: true });
+        });
 
-      backend.verify();
-    })
-  ));
+        const loginRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');
+        loginRequest.flush({ result: { value: true } });
 
-  it('should fetch the permissions on successful login', async(
-    inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
-      spyOn(localStorage, 'setItem');
+        backend.verify();
+      })
+    ));
 
-      authService.login({ username: 'user', password: 'pass' }).subscribe(response => {
-        expect(response).toEqual(true);
-      });
+    it('should fetch the permissions on successful login', async(
+      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+        spyOn(localStorage, 'setItem');
 
-      const loginRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');
-      loginRequest.flush({ result: { value: true } });
+        authService.login({ username: 'user', password: 'pass' }).subscribe(response => {
+          expect(response).toEqual({ needsSecondFactor: false, success: true });
+        });
 
-      expect(systemService.getUserSystemInfo).toHaveBeenCalledTimes(1);
+        const loginRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');
+        loginRequest.flush({ result: { value: true } });
 
-      expect(localStorage.setItem).toHaveBeenCalledWith('permissions', JSON.stringify(Fixtures.permissionList));
-      expect(permissionsService.loadPermissions).toHaveBeenCalledWith(Fixtures.permissionList);
-    })
-  ));
+        expect(systemService.getUserSystemInfo).toHaveBeenCalledTimes(1);
 
-  it('should not log in on failed request', async(
-    inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+        expect(localStorage.setItem).toHaveBeenCalledWith('permissions', JSON.stringify(Fixtures.permissionList));
+        expect(permissionsService.loadPermissions).toHaveBeenCalledWith(Fixtures.permissionList);
+      })
+    ));
 
-      authService.login({ username: 'user', password: 'pass' }).subscribe(response => {
-        expect(response).toEqual(false);
-      });
+    it('should not log in on failed request', async(
+      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
 
-      const loginRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');
+        authService.login({ username: 'user', password: 'pass' }).subscribe(response => {
+          expect(response).toEqual({ needsSecondFactor: false, success: false });
+        });
 
-      loginRequest.flush({ result: { value: false } });
-      backend.verify();
-    })
-  ));
+        const loginRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');
 
-  it('should not fetch the permissions on failed login', async(
-    inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+        loginRequest.flush({ result: { value: false } });
+        backend.verify();
+      })
+    ));
 
-      authService.login({ username: 'user', password: 'pass' }).subscribe(response => {
-        expect(response).toEqual(false);
-      });
+    it('should not fetch the permissions on failed login', async(
+      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
 
-      const loginRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');
-      loginRequest.flush({ result: { value: false } });
+        authService.login({ username: 'user', password: 'pass' }).subscribe(response => {
+          expect(response).toEqual({ needsSecondFactor: false, success: false });
+        });
 
-      expect(systemService.getUserSystemInfo).not.toHaveBeenCalled();
-      expect(permissionsService.loadPermissions).not.toHaveBeenCalled();
-    })
-  ));
+        const loginRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');
+        loginRequest.flush({ result: { value: false } });
 
-  it('should call the error handler on request failure', async(
-    inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+        expect(systemService.getUserSystemInfo).not.toHaveBeenCalled();
+        expect(permissionsService.loadPermissions).not.toHaveBeenCalled();
+      })
+    ));
 
-      spyOn(console, 'error');
+    it('should call the error handler on request failure', async(
+      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
 
-      authService.login({ username: 'user', password: 'pass' }).subscribe(response => {
-        expect(response).toEqual(false);
-      });
+        spyOn(console, 'error');
 
-      const loginRequest = backend.expectOne({
-        url: '/userservice/login',
-        method: 'POST'
-      });
+        authService.login({ username: 'user', password: 'pass' }).subscribe(response => {
+          expect(response).toEqual({ needsSecondFactor: null, success: false });
+        });
 
-      loginRequest.error(new ErrorEvent('Error logging in'));
-      backend.verify();
+        const loginRequest = backend.expectOne({
+          url: '/userservice/login',
+          method: 'POST'
+        });
 
-      expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
-    })
-  ));
+        loginRequest.error(new ErrorEvent('Error logging in'));
+        backend.verify();
+
+        expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
+      })
+    ));
+  });
+
+  describe('MFA login when the user has tokens', () => {
+
+    it('should send a request to fetch a list of tokens for the user and another to tell the serial of the chosen token', async(
+      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+        const secondFactorMessage = 'credential verified - additional authentication parameter required';
+
+        authService.login({ username: 'user', password: 'pass' }).subscribe(response => {
+          expect(response).toEqual({ needsSecondFactor: true, success: false, hasTokens: true });
+        });
+
+        const loginRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');
+        loginRequest.flush({ detail: { message: secondFactorMessage }, result: { value: false } });
+
+
+        const tokenListRequest = backend.expectOne((req) => req.url === '/userservice/usertokenlist' && req.method === 'POST');
+        tokenListRequest.flush({ result: { value: [{ 'LinOTP.TokenSerialnumber': 'serial' }] } });
+
+        const tokenValidationRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');
+        tokenValidationRequest.flush({});
+
+        backend.verify();
+      })
+    ));
+
+    it('loginSecondStep should authenticate the user on correct OTP', async(
+      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+
+        authService.loginSecondStep('otp').subscribe(response => {
+          expect(response).toEqual(true);
+        });
+
+        const loginRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');
+        loginRequest.flush({ result: { value: true } });
+
+        backend.verify();
+      })
+    ));
+
+    it('loginSecondStep should fail to authenticate the user on wwrong OTP', async(
+      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+
+        authService.loginSecondStep('otp').subscribe(response => {
+          expect(response).toEqual(false);
+        });
+
+        const loginRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');
+        loginRequest.flush({ result: { value: false } });
+
+        backend.verify();
+      })
+    ));
+
+  });
 
   describe('logout', () => {
 

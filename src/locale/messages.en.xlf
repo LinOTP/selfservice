@@ -125,19 +125,23 @@
       <trans-unit id="4dbcd560e5fbfde4c9083b7823784b22dfce71a3" datatype="html">
         <source>Login</source>
         <target state="final">Login</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/login/login.component.html</context>
-          <context context-type="linenumber">2</context>
-        </context-group>
         <note priority="1" from="description">login page title</note>
         <note priority="1" from="meaning">card header</note>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/login/login.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/login/login.component.html</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="08c74dc9762957593b91f6eb5d65efdfc975bf48" datatype="html">
         <source>Username</source>
         <target state="final">Username</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/login/login.component.html</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
       <trans-unit id="838805f188595c747b909a3882b9979c42a85c59" datatype="html">
@@ -145,7 +149,7 @@
         <target state="final">Realm</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/login/login.component.html</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="c32ef07f8803a223a83ed17024b38e8d82292407" datatype="html">
@@ -153,7 +157,7 @@
         <target state="final">Password</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/login/login.component.html</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="eb500ae4611f660a817cb45089bca95af573596b" datatype="html">
@@ -163,7 +167,35 @@
         <note priority="1" from="meaning">login action</note>
         <context-group purpose="location">
           <context context-type="sourcefile">app/login/login.component.html</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="41f9d2b008b1ac61c20fd6bc7a600b4ac84b3370" datatype="html">
+        <source>OTP</source>
+        <target state="final">OTP</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/login/login.component.html</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="55ea7b3be28fd98468c556f91595fd1222e66f3d" datatype="html">
+        <source>Cancel</source>
+        <target state="final">Cancel</target>
+        <note priority="1" from="description">login page second factor cancel button</note>
+        <note priority="1" from="meaning">2nd factor login action</note>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/login/login.component.html</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="525364a6908ae8e6c2df13a331dbb15b222b8a85" datatype="html">
+        <source>Submit</source>
+        <target state="final">Submit</target>
+        <note priority="1" from="description">login page second factor submit button</note>
+        <note priority="1" from="meaning">2nd factor login action</note>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/login/login.component.html</context>
+          <context context-type="linenumber">61</context>
         </context-group>
       </trans-unit>
       <trans-unit id="c7d761ff7a5f7e7a8f6d3899d4a7fe62e73afab3" datatype="html">
