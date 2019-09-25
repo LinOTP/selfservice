@@ -1,7 +1,5 @@
 <ng-container *ngFor="let type of tokenTypes">
-  <mat-card (click)="runEnrollmentWorkflow(type)"
-            role="button"
-            *ngxPermissionsOnly="type.enrollmentPermission">
+  <mat-card *ngxPermissionsOnly="type.enrollmentPermission">
     <mat-card-header>
       <mat-icon mat-card-avatar>{{type.icon}}</mat-icon>
       <mat-card-title>{{type.name | capitalize }}</mat-card-title>
@@ -9,5 +7,12 @@
         {{type.description}}
       </mat-card-subtitle>
     </mat-card-header>
+    <div class="spacer"></div>
+    <mat-card-actions>
+      <button mat-button
+              color="primary"
+              (click)="runEnrollmentWorkflow(type)"
+              i18n>Enroll</button>
+    </mat-card-actions>
   </mat-card>
 </ng-container>

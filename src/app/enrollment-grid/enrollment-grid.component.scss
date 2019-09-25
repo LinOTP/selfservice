@@ -2,11 +2,22 @@
 
 :host {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 1em;
+  grid-template-columns: repeat(auto-fit, minmax(33.33%, 1fr));
+  margin: -.5em -.5em;
 }
 
-mat-card:hover {
-  @include mat-elevation(3);
-  cursor: pointer;
+mat-card {
+  display: flex;
+  flex-direction: column;
+  margin: .5em .5em;
+
+  mat-card-actions {
+    display: flex;
+    justify-content: center;
+
+    button {
+      flex: 1;
+      text-transform: uppercase;
+    }
+  }
 }
