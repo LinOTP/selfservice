@@ -65,18 +65,18 @@ export class SessionService {
   }
 
   /**
-* handles a closed login session to clear up the frontend state
-*
-* - loginChangeEmitter is updated
-* - all persistent data is cleared
-* - the user is redirected to the login screen.
-*   If the parameter `storeCurrentRoute` is set to true, the current router url
-*   will be stored so that the application returns to the current view once the
-*   user logs back in.
-*
-* @param {boolean} storeCurrentRoute
-* @memberof AuthService
-*/
+  * handles a closed login session to clear up the frontend state
+  *
+  * - loginChangeEmitter is updated
+  * - all persistent data is cleared
+  * - the user is redirected to the login screen.
+  *   If the parameter `storeCurrentRoute` is set to true, the current router url
+  *   will be stored so that the application returns to the current view once the
+  *   user logs back in.
+  *
+  * @param {boolean} storeCurrentRoute
+  * @memberof AuthService
+  */
   public handleLogout(storeCurrentRoute: boolean) {
     localStorage.removeItem('permissions');
     this.permissionsService.flushPermissions();

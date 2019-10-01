@@ -1,11 +1,10 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { NgxPermissionsService } from 'ngx-permissions';
 import { SessionService } from '../auth/session.service';
-import { SystemService } from '../system.service';
 import { Observable, of } from 'rxjs';
-import { Router, NavigationExtras } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { map, tap, switchMap, catchError } from 'rxjs/operators';
+import { Token, EnrollmentStatus } from '../api/token';
+import { TokenService } from '../api/token.service';
 
 export interface LoginOptions {
   username: string;
@@ -34,6 +33,7 @@ export class LoginService {
   constructor(
     private http: HttpClient,
     private sessionService: SessionService,
+    private tokenService: TokenService,
   ) { }
 
   /**
@@ -87,7 +87,14 @@ export class LoginService {
         }),
         tap(loginState => this.sessionService.handleLogin(loginState.success)),
         switchMap(loginState => loginState.needsSecondFactor ?
-          this.getSecondFactorSerial().pipe(
+          this.getAvailableSecondFactors().pipe(
+            map(tokens => {
+              if (tokens.length > 0) {
+                return tokens[0].serial;
+              } else {
+                return '';
+              }
+            }),
             switchMap(serial => serial === '' ?
               of({ needsSecondFactor: true, success: false, hasTokens: false }) :
               this.requestSecondFactorTransaction(loginOptions.username, serial).pipe(
@@ -104,30 +111,15 @@ export class LoginService {
   }
 
   /**
-   * Returns the serial of the token to be used for second factor authentication
+   * Returns the tokens available for second factor authentication
    *
-   * @returns {Observable<string>} token serial, empty string if no tokens available and null if an error occurred.
+   * @returns {Observable<Token[]>} list of tokens, or null if an error occurred.
    * @memberof AuthService
    */
-  private getSecondFactorSerial(): Observable<string> {
-    const url = this.baseUrl + this.endpoints.tokens;
-    const body = { active: 'true', session: this.sessionService.getSession() };
-    interface SecondStepResponseType {
-      result: {
-        status: boolean;
-        value: {
-          'LinOtp.TokenSerialnumber': string;
-        }[];
-      };
-    }
-    return this.http.post<SecondStepResponseType>(url, body)
-      .pipe(
-        switchMap(response => response.result.value.length > 0 ?
-          of(response.result.value[0]['LinOtp.TokenSerialnumber']) :
-          of('')
-        ),
-        catchError(this.handleError('getAvailableSecondFactors', null)),
-      );
+  getAvailableSecondFactors(): Observable<Token[]> {
+    return this.tokenService.getTokens().pipe(
+      map(tokens => tokens.filter(t => t.enabled && t.enrollmentStatus === EnrollmentStatus.COMPLETED))
+    );
   }
 
   /**
@@ -136,7 +128,7 @@ export class LoginService {
    * @param {string} username identifies the user attempting 2nd factor authentication
    * @param {string} serial identifies the token to be used during authentication
    */
-  private requestSecondFactorTransaction(username: string, serial: string): Observable<any> {
+  requestSecondFactorTransaction(username: string, serial: string): Observable<any> {
     const url = this.baseUrl + this.endpoints.login;
     const body = {
       serial: serial,

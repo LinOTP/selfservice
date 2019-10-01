@@ -5,10 +5,14 @@ import { SessionService } from '../auth/session.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { spyOnClass } from '../../testing/spyOnClass';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { of } from 'rxjs';
+import { TokenService } from '../api/token.service';
+import { Fixtures } from '../../testing/fixtures';
 
 describe('LoginService', () => {
   let loginService: LoginService;
   let sessionService: jasmine.SpyObj<SessionService>;
+  let tokenService: jasmine.SpyObj<TokenService>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -21,6 +25,10 @@ describe('LoginService', () => {
           provide: SessionService,
           useValue: spyOnClass(SessionService),
         },
+        {
+          provide: TokenService,
+          useValue: spyOnClass(TokenService),
+        },
       ],
     });
   });
@@ -28,6 +36,7 @@ describe('LoginService', () => {
   beforeEach(() => {
     loginService = TestBed.get(LoginService);
     sessionService = TestBed.get(SessionService);
+    tokenService = TestBed.get(TokenService);
   });
 
   it('should be created', () => {
@@ -115,20 +124,20 @@ describe('LoginService', () => {
 
   describe('MFA login when the user has tokens', () => {
 
-    it('should send a request to fetch a list of tokens for the user and another to tell the serial of the chosen token', async(
+    it('should request a list of tokens for the user and request a challenge transaction for the first token', async(
       inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
         const secondFactorMessage = 'credential verified - additional authentication parameter required';
+        tokenService.getTokens.and.returnValue(of([Fixtures.completedPushToken, Fixtures.completedQRToken]));
+        const spy = spyOn(loginService, 'requestSecondFactorTransaction').and.callThrough();
 
         loginService.login({ username: 'user', password: 'pass' }).subscribe(response => {
           expect(response).toEqual({ needsSecondFactor: true, success: false, hasTokens: true });
+          expect(tokenService.getTokens).toHaveBeenCalled();
+          expect(spy).toHaveBeenCalledWith('user', Fixtures.completedPushToken.serial);
         });
 
         const loginRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');
         loginRequest.flush({ detail: { message: secondFactorMessage }, result: { value: false } });
-
-
-        const tokenListRequest = backend.expectOne((req) => req.url === '/userservice/usertokenlist' && req.method === 'POST');
-        tokenListRequest.flush({ result: { value: [{ 'LinOTP.TokenSerialnumber': 'serial' }] } });
 
         const tokenValidationRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');
         tokenValidationRequest.flush({});
