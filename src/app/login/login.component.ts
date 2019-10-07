@@ -8,11 +8,12 @@ import { I18n } from '@ngx-translate/i18n-polyfill';
 import { NotificationService } from '../common/notification.service';
 import { LoginService } from './login.service';
 import { SystemService, SystemInfo } from '../system.service';
+import { Token } from '../api/token';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
   message: string;
@@ -24,6 +25,7 @@ export class LoginComponent implements OnInit {
 
   systemInfo: SystemInfo;
 
+  factors: Token[] = [];
   displaySecondFactor = false;
 
   constructor(
@@ -80,12 +82,24 @@ export class LoginComponent implements OnInit {
 
       if (!result.needsSecondFactor) {
         this.finalAuthenticationHandling(result.success);
-      } else if (!result.hasTokens) {
+      } else if (result.tokens.length === 0) {
         this.notificationService.message('Login failed: you do not have a second factor set up. Please contact an admin.', 20000);
       } else {
-        this.displaySecondFactor = true;
+        this.chooseSecondFactor(result.tokens[0]);
       }
     });
+  }
+
+  chooseSecondFactor(token: Token) {
+    const user = this.loginFormGroup.value.username;
+    this.loginService.requestSecondFactorTransaction(user, token.serial)
+      .subscribe(requestOK => {
+        if (requestOK) {
+          this.displaySecondFactor = true;
+        } else {
+          this.finalAuthenticationHandling(false);
+        }
+      });
   }
 
   submitSecondFactor() {
@@ -112,5 +126,6 @@ export class LoginComponent implements OnInit {
     this.loginFormGroup.reset();
     this.secondFactorFormGroup.reset();
     this.displaySecondFactor = false;
+    this.factors = [];
   }
 }

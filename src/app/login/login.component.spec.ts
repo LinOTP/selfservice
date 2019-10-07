@@ -96,17 +96,21 @@ describe('LoginComponent', () => {
       expect(component.redirect).not.toHaveBeenCalled();
     });
 
-    it('should display OTP input if second factor is needed and user has tokens', () => {
+    it('should choose the first valid token if second factor is needed and user has tokens', () => {
       spyOn(component, 'redirect');
+      spyOn(component, 'chooseSecondFactor').and.callThrough();
       component.loginFormGroup.value.username = 'user';
       component.loginFormGroup.value.password = 'pass';
-      loginService.login.and.returnValue(of({ needsSecondFactor: true, success: false, hasTokens: true }));
+      const tokens = [Fixtures.completedPushToken, Fixtures.completedQRToken];
+      loginService.login.and.returnValue(of({ needsSecondFactor: true, success: false, tokens: tokens }));
+      loginService.requestSecondFactorTransaction.and.returnValue(of(true));
       fixture.detectChanges();
 
       component.login();
 
       expect(loginService.login).toHaveBeenCalledWith({ username: 'user', password: 'pass' });
       expect(notificationService.message).not.toHaveBeenCalledWith('Login failed');
+      expect(component.chooseSecondFactor).toHaveBeenCalledWith(tokens[0]);
       expect(component.redirect).not.toHaveBeenCalled();
       expect(component.displaySecondFactor).toBeTruthy();
     });
@@ -117,7 +121,7 @@ describe('LoginComponent', () => {
 
       component.loginFormGroup.value.username = 'user';
       component.loginFormGroup.value.password = 'pass';
-      loginService.login.and.returnValue(of({ needsSecondFactor: true, success: false, hasTokens: false }));
+      loginService.login.and.returnValue(of({ needsSecondFactor: true, success: false, tokens: [] }));
       fixture.detectChanges();
 
       component.login();
@@ -127,6 +131,10 @@ describe('LoginComponent', () => {
       expect(component.redirect).not.toHaveBeenCalled();
       expect(component.displaySecondFactor).toBeFalsy();
     });
+
+  });
+
+  describe('chooseSecondFactor', () => {
 
   });
 

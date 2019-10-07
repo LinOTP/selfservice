@@ -15,7 +15,7 @@ export interface LoginOptions {
 interface LoginResponse {
   needsSecondFactor: boolean;
   success: boolean;
-  hasTokens?: boolean;
+  tokens?: Token[];
 }
 
 @Injectable({
@@ -89,21 +89,8 @@ export class LoginService {
         switchMap(loginState => loginState.needsSecondFactor ?
           this.getAvailableSecondFactors().pipe(
             map(tokens => {
-              if (tokens.length > 0) {
-                return tokens[0].serial;
-              } else {
-                return '';
-              }
-            }),
-            switchMap(serial => serial === '' ?
-              of({ needsSecondFactor: true, success: false, hasTokens: false }) :
-              this.requestSecondFactorTransaction(loginOptions.username, serial).pipe(
-                map(() => {
-                  return { needsSecondFactor: true, success: false, hasTokens: true };
-                })
-              )
-            )
-          ) :
+              return { needsSecondFactor: true, success: false, tokens: tokens };
+            })) :
           of(loginState)
         ),
         catchError(this.handleError('login', { needsSecondFactor: null, success: false })),
@@ -127,8 +114,9 @@ export class LoginService {
    *
    * @param {string} username identifies the user attempting 2nd factor authentication
    * @param {string} serial identifies the token to be used during authentication
+   * @returns {boolean} true when the http request was successful, false otherwise
    */
-  requestSecondFactorTransaction(username: string, serial: string): Observable<any> {
+  requestSecondFactorTransaction(username: string, serial: string): Observable<boolean> {
     const url = this.baseUrl + this.endpoints.login;
     const body = {
       serial: serial,
@@ -136,7 +124,8 @@ export class LoginService {
       content_type: 0,
       session: this.sessionService.getSession()
     };
-    return this.http.post(url, body).pipe(
+    return this.http.post<{ result: { status: boolean } }>(url, body).pipe(
+      map(res => res.result.status),
       catchError(this.handleError('requestSecondFactorTransaction', null))
     );
   }

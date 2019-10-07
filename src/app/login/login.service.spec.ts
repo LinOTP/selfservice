@@ -122,25 +122,37 @@ describe('LoginService', () => {
     ));
   });
 
+  describe('requestSecondFactorTransaction', () => {
+
+    it('should request a challenge transaction for the first token and return its status', async(
+      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+        loginService.requestSecondFactorTransaction('user', Fixtures.completedPushToken.serial).subscribe(response => {
+          expect(response).toEqual(true);
+        });
+
+        const tokenValidationRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');
+        tokenValidationRequest.flush({ result: { status: true } });
+
+        backend.verify();
+      })
+    ));
+  });
+
   describe('MFA login when the user has tokens', () => {
 
-    it('should request a list of tokens for the user and request a challenge transaction for the first token', async(
+    it('should request a list of completed tokens for the user and return them', async(
       inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
         const secondFactorMessage = 'credential verified - additional authentication parameter required';
-        tokenService.getTokens.and.returnValue(of([Fixtures.completedPushToken, Fixtures.completedQRToken]));
-        const spy = spyOn(loginService, 'requestSecondFactorTransaction').and.callThrough();
+        const tokens = [Fixtures.completedPushToken, Fixtures.completedQRToken];
+        tokenService.getTokens.and.returnValue(of(tokens));
 
         loginService.login({ username: 'user', password: 'pass' }).subscribe(response => {
-          expect(response).toEqual({ needsSecondFactor: true, success: false, hasTokens: true });
+          expect(response).toEqual({ needsSecondFactor: true, success: false, tokens: tokens });
           expect(tokenService.getTokens).toHaveBeenCalled();
-          expect(spy).toHaveBeenCalledWith('user', Fixtures.completedPushToken.serial);
         });
 
         const loginRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');
         loginRequest.flush({ detail: { message: secondFactorMessage }, result: { value: false } });
-
-        const tokenValidationRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');
-        tokenValidationRequest.flush({});
 
         backend.verify();
       })
