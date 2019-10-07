@@ -5,7 +5,7 @@ import { Observable, of, interval } from 'rxjs';
 import { map, filter, mergeMap, take, catchError, tap } from 'rxjs/operators';
 
 import { Token, EnrollToken, EnrollmentStatus, TokenType, TokenTypeDetails } from './token';
-import { AuthService } from '../auth/auth.service';
+import { SessionService } from '../auth/session.service';
 import { Permission } from '../common/permissions';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 
@@ -103,7 +103,7 @@ export class TokenService {
 
   constructor(
     private http: HttpClient,
-    private authService: AuthService,
+    private sessionService: SessionService,
     private i18n: I18n,
   ) { }
 
@@ -128,7 +128,7 @@ export class TokenService {
 
   getTokens(): Observable<Token[]> {
     const url = this.userserviceBase + this.userserviceEndpoints.tokens;
-    return this.http.get<LinOTPResponse<any[]>>(url, { params: { session: this.authService.getSession() } }).pipe(
+    return this.http.get<LinOTPResponse<any[]>>(url, { params: { session: this.sessionService.getSession() } }).pipe(
       map(this.mapTokenResponse))
       .pipe(
         catchError(this.handleError('getTokens', []))
@@ -144,7 +144,7 @@ export class TokenService {
   deleteToken(serial: string): Observable<any> {
     const body = {
       serial: serial,
-      session: this.authService.getSession()
+      session: this.sessionService.getSession()
     };
 
     return this.http.post<LinOTPResponse<{ 'delete token': number }>>(this.userserviceBase + this.userserviceEndpoints.delete, body)
@@ -158,7 +158,7 @@ export class TokenService {
     const body = {
       userpin: pin,
       serial: token.serial,
-      session: this.authService.getSession()
+      session: this.sessionService.getSession()
     };
 
     return this.http.post<LinOTPResponse<{ 'set userpin': number }>>(url, body)
@@ -172,7 +172,7 @@ export class TokenService {
     const url = this.userserviceBase + this.userserviceEndpoints.enable;
     const body = {
       serial: token.serial,
-      session: this.authService.getSession()
+      session: this.sessionService.getSession()
     };
 
     return this.http.post<LinOTPResponse<{ 'enable token': number }>>(url, body)
@@ -186,7 +186,7 @@ export class TokenService {
     const url = this.userserviceBase + this.userserviceEndpoints.disable;
     const body = {
       serial: token.serial,
-      session: this.authService.getSession()
+      session: this.sessionService.getSession()
     };
 
     return this.http.post<LinOTPResponse<{ 'disable token': number }>>(url, body)
@@ -199,7 +199,7 @@ export class TokenService {
   enrollOATH(token: EnrollToken): Observable<LinOTPResponse<OATHEnrollmentData>> {
     const body: { session: string, type: string, description?: string } = {
       ...token,
-      session: this.authService.getSession(),
+      session: this.sessionService.getSession(),
     };
 
     const details = this.getTypeDetails(token.type);
@@ -218,7 +218,7 @@ export class TokenService {
   enroll(token: EnrollToken): Observable<LinOTPResponse<boolean>> {
     const body: { session: string, type: string, description?: string } = {
       ...token,
-      session: this.authService.getSession(),
+      session: this.sessionService.getSession(),
     };
 
     const details = this.getTypeDetails(token.type);

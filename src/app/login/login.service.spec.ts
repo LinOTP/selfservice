@@ -1,14 +1,14 @@
 import { TestBed, async, inject } from '@angular/core/testing';
 
 import { LoginService } from './login.service';
-import { AuthService } from '../auth/auth.service';
+import { SessionService } from '../auth/session.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { spyOnClass } from '../../testing/spyOnClass';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 describe('LoginService', () => {
   let loginService: LoginService;
-  let authService: jasmine.SpyObj<AuthService>;
+  let sessionService: jasmine.SpyObj<SessionService>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -18,8 +18,8 @@ describe('LoginService', () => {
       providers: [
         LoginService,
         {
-          provide: AuthService,
-          useValue: spyOnClass(AuthService),
+          provide: SessionService,
+          useValue: spyOnClass(SessionService),
         },
       ],
     });
@@ -27,7 +27,7 @@ describe('LoginService', () => {
 
   beforeEach(() => {
     loginService = TestBed.get(LoginService);
-    authService = TestBed.get(AuthService);
+    sessionService = TestBed.get(SessionService);
   });
 
   it('should be created', () => {
@@ -59,7 +59,7 @@ describe('LoginService', () => {
         const loginRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');
         loginRequest.flush({ result: { value: true } });
 
-        expect(authService.handleLogin).toHaveBeenCalledWith(true);
+        expect(sessionService.handleLogin).toHaveBeenCalledWith(true);
       })
     ));
 
@@ -87,7 +87,7 @@ describe('LoginService', () => {
         const loginRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');
         loginRequest.flush({ result: { value: false } });
 
-        expect(authService.handleLogin).toHaveBeenCalledWith(false);
+        expect(sessionService.handleLogin).toHaveBeenCalledWith(false);
       })
     ));
 
@@ -179,7 +179,7 @@ describe('LoginService', () => {
 
         backend.verify();
 
-        expect(authService.handleLogout).toHaveBeenCalled();
+        expect(sessionService.handleLogout).toHaveBeenCalled();
       })
     ));
 
@@ -193,7 +193,7 @@ describe('LoginService', () => {
 
         backend.verify();
 
-        expect(authService.handleLogout).not.toHaveBeenCalled();
+        expect(sessionService.handleLogout).not.toHaveBeenCalled();
       })
     ));
 

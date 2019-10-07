@@ -5,7 +5,7 @@ import { spyOnClass } from '../../testing/spyOnClass';
 
 import { Router, RouterStateSnapshot } from '@angular/router';
 
-import { AuthService } from './auth.service';
+import { SessionService } from './session.service';
 
 import { AuthGuard } from './auth-guard.service';
 
@@ -13,7 +13,7 @@ describe('AuthService', () => {
 
   const routeSnapshot = spyOnClass(RouterStateSnapshot);
 
-  let authService: jasmine.SpyObj<AuthService>;
+  let authService: jasmine.SpyObj<SessionService>;
   let router: Router;
 
   beforeEach(() => {
@@ -24,15 +24,15 @@ describe('AuthService', () => {
       providers: [
         AuthGuard,
         {
-          provide: AuthService,
-          useValue: spyOnClass(AuthService)
+          provide: SessionService,
+          useValue: spyOnClass(SessionService)
         },
       ],
     });
   });
 
   beforeEach(() => {
-    authService = TestBed.get(AuthService);
+    authService = TestBed.get(SessionService);
     router = TestBed.get(Router);
   });
 
@@ -61,13 +61,14 @@ describe('AuthService', () => {
         expect(result).toBe(false);
       }));
 
-      it('should let the authService handle the closed seesion if the user is not logged in', inject([AuthGuard], (service: AuthGuard) => {
-        authService.isLoggedIn.and.returnValue(false);
+      it('should let the authService handle the closed seesion if the user is not logged in',
+        inject([AuthGuard], (service: AuthGuard) => {
+          authService.isLoggedIn.and.returnValue(false);
 
-        service[method](null, routeSnapshot);
+          service[method](null, routeSnapshot);
 
-        expect(authService.handleLogout).toHaveBeenCalledTimes(1);
-      }));
+          expect(authService.handleLogout).toHaveBeenCalledTimes(1);
+        }));
 
     });
   }

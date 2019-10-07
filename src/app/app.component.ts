@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from './auth/auth.service';
+import { SessionService } from './auth/session.service';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { NotificationService } from './common/notification.service';
 import { LoginService } from './login/login.service';
@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
 
 
   constructor(
-    private authService: AuthService,
+    private sessionService: SessionService,
     private loginService: LoginService,
     private notificationService: NotificationService,
     private i18n: I18n,
@@ -27,8 +27,8 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.isLoggedIn = this.authService.isLoggedIn();
-    this.authService.loginChangeEmitter
+    this.isLoggedIn = this.sessionService.isLoggedIn();
+    this.sessionService.loginChangeEmitter
       .subscribe((isLoggedIn) => this.isLoggedIn = isLoggedIn);
   }
 

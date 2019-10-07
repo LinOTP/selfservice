@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Permission, PoliciesToPermissionsMapping } from './common/permissions';
-import { AuthService } from './auth/auth.service';
+import { SessionService } from './auth/session.service';
 
 /**
  * Interface that provides available information about the system.
@@ -59,7 +59,7 @@ export class SystemService {
 
   constructor(
     private http: HttpClient,
-    private authService: AuthService,
+    private sessionService: SessionService,
   ) { }
 
   /**
@@ -141,7 +141,7 @@ export class SystemService {
     type apiResponse = Omit<UserSystemInfo, 'realms' | 'permissions'> & { realms: string, actions: string[] };
 
     const options = {
-      params: { session: this.authService.getSession() }
+      params: { session: this.sessionService.getSession() }
     };
 
     return this.http.get<apiResponse>('/userservice/context', options).pipe(

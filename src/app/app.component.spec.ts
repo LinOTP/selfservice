@@ -2,7 +2,7 @@ import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
-import { AuthService } from './auth/auth.service';
+import { SessionService } from './auth/session.service';
 import { of } from 'rxjs';
 import { NotificationService } from './common/notification.service';
 import { I18nMock } from '../testing/i18n-mock-provider';
@@ -33,7 +33,7 @@ describe('AppComponent', () => {
       ],
       providers: [
         {
-          provide: AuthService,
+          provide: SessionService,
           useClass: AuthServiceMock
         },
         {

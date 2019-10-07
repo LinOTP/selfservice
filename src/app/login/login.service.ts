@@ -1,6 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { NgxPermissionsService } from 'ngx-permissions';
-import { AuthService } from '../auth/auth.service';
+import { SessionService } from '../auth/session.service';
 import { SystemService } from '../system.service';
 import { Observable, of } from 'rxjs';
 import { Router, NavigationExtras } from '@angular/router';
@@ -33,7 +33,7 @@ export class LoginService {
 
   constructor(
     private http: HttpClient,
-    private authService: AuthService,
+    private sessionService: SessionService,
   ) { }
 
   /**
@@ -85,7 +85,7 @@ export class LoginService {
             success: !!rsp && !!rsp.result && !!rsp.result.value && rsp.result.value === true
           };
         }),
-        tap(loginState => this.authService.handleLogin(loginState.success)),
+        tap(loginState => this.sessionService.handleLogin(loginState.success)),
         switchMap(loginState => loginState.needsSecondFactor ?
           this.getSecondFactorSerial().pipe(
             switchMap(serial => serial === '' ?
@@ -111,7 +111,7 @@ export class LoginService {
    */
   private getSecondFactorSerial(): Observable<string> {
     const url = this.baseUrl + this.endpoints.tokens;
-    const body = { active: 'true', session: this.authService.getSession() };
+    const body = { active: 'true', session: this.sessionService.getSession() };
     interface SecondStepResponseType {
       result: {
         status: boolean;
@@ -142,7 +142,7 @@ export class LoginService {
       serial: serial,
       data: `Selfservice+Login+Request User:+${username}`,
       content_type: 0,
-      session: this.authService.getSession()
+      session: this.sessionService.getSession()
     };
     return this.http.post(url, body).pipe(
       catchError(this.handleError('requestSecondFactorTransaction', null))
@@ -156,12 +156,12 @@ export class LoginService {
    */
   loginSecondStep(otp: string): Observable<boolean> {
     const url = this.baseUrl + this.endpoints.login;
-    const params = { otp: otp, session: this.authService.getSession() };
+    const params = { otp: otp, session: this.sessionService.getSession() };
 
     return this.http.post<{ result: { status: boolean, value: boolean } }>(url, params)
       .pipe(
         map(response => response && response.result && response.result.value === true),
-        tap(success => this.authService.handleLogin(success))
+        tap(success => this.sessionService.handleLogin(success))
       );
   }
 
@@ -179,7 +179,7 @@ export class LoginService {
         map(response => response && response.result && response.result.value === true),
         tap(logoutSuccess => {
           if (logoutSuccess) {
-            this.authService.handleLogout(false);
+            this.sessionService.handleLogout(false);
           }
         }),
         catchError(this.handleError('logout', false))

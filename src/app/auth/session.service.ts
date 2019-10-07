@@ -11,7 +11,7 @@ import { NavigationExtras, Router } from '@angular/router';
 
 
 @Injectable()
-export class AuthService {
+export class SessionService {
   public _loginChangeEmitter: EventEmitter<boolean> = new EventEmitter();
 
   constructor(

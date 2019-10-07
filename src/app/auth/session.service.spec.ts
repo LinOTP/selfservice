@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { spyOnClass } from '../../testing/spyOnClass';
 import { Fixtures } from '../../testing/fixtures';
 
-import { AuthService } from './auth.service';
+import { SessionService } from './session.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { CookieService } from 'ngx-cookie';
 import { NgxPermissionsService } from 'ngx-permissions';
@@ -12,8 +12,8 @@ import { of } from 'rxjs';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
-describe('AuthService', () => {
-  let authService: AuthService;
+describe('SessionService', () => {
+  let sessionService: SessionService;
   let permissionsService: NgxPermissionsService;
   let systemService: jasmine.SpyObj<SystemService>;
   let router: Router;
@@ -25,7 +25,7 @@ describe('AuthService', () => {
         RouterTestingModule,
       ],
       providers: [
-        AuthService,
+        SessionService,
         {
           provide: NgxPermissionsService,
           useValue: spyOnClass(NgxPermissionsService),
@@ -43,7 +43,7 @@ describe('AuthService', () => {
   });
 
   beforeEach(() => {
-    authService = TestBed.get(AuthService);
+    sessionService = TestBed.get(SessionService);
     permissionsService = TestBed.get(NgxPermissionsService);
     router = TestBed.get(Router);
 
@@ -52,7 +52,7 @@ describe('AuthService', () => {
   });
 
   it('should be created', () => {
-    expect(authService).toBeTruthy();
+    expect(sessionService).toBeTruthy();
   });
 
   describe('refreshPermissions', () => {
@@ -62,7 +62,7 @@ describe('AuthService', () => {
       const permissions = Fixtures.permissionList;
       systemService.getUserSystemInfo.and.returnValue(of({ permissions: permissions }));
 
-      authService.refreshPermissions().subscribe(() => {
+      sessionService.refreshPermissions().subscribe(() => {
         expect(permissionsService.loadPermissions).toHaveBeenCalledWith(permissions);
         expect(localStorage.setItem).toHaveBeenCalledWith('permissions', JSON.stringify(permissions));
       });
@@ -74,15 +74,15 @@ describe('AuthService', () => {
     it('should flush permissions and remove them from local storage', () => {
       spyOn(localStorage, 'removeItem');
 
-      authService.handleLogout(false);
+      sessionService.handleLogout(false);
 
       expect(localStorage.removeItem).toHaveBeenCalledWith('permissions');
       expect(permissionsService.flushPermissions).toHaveBeenCalled();
     });
 
     it('should emit a loginChange event', () => {
-      const emitterSpy = spyOn(authService._loginChangeEmitter, 'emit');
-      authService.handleLogout(false);
+      const emitterSpy = spyOn(sessionService._loginChangeEmitter, 'emit');
+      sessionService.handleLogout(false);
 
       expect(emitterSpy).toHaveBeenCalledWith(false);
     });
@@ -91,7 +91,7 @@ describe('AuthService', () => {
       inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
         const routerSpy = spyOn(router, 'navigate');
 
-        authService.handleLogout(false);
+        sessionService.handleLogout(false);
 
         expect(routerSpy).toHaveBeenCalledWith(['/login'], {});
       })
@@ -101,7 +101,7 @@ describe('AuthService', () => {
       inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
         const routerSpy = spyOn(router, 'navigate');
 
-        authService.handleLogout(true);
+        sessionService.handleLogout(true);
 
         const navExtras = { queryParams: { redirect: router.url } };
         expect(routerSpy).toHaveBeenCalledWith(['/login'], navExtras);

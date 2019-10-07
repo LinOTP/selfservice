@@ -4,14 +4,14 @@ import { HttpInterceptor, HttpErrorResponse, HttpRequest, HttpHandler, HttpEvent
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { AuthService } from './auth.service';
+import { SessionService } from './session.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
 
   constructor(
-    private authService: AuthService,
+    private sessionService: SessionService,
   ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -19,7 +19,7 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse, caught) => {
         if (error.status === 401) {
-          this.authService.handleLogout(true);
+          this.sessionService.handleLogout(true);
         }
         return throwError(error);
       }));
