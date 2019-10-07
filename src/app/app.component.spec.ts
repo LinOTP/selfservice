@@ -6,6 +6,8 @@ import { AuthService } from './auth/auth.service';
 import { of } from 'rxjs';
 import { NotificationService } from './common/notification.service';
 import { I18nMock } from '../testing/i18n-mock-provider';
+import { LoginService } from './login/login.service';
+import { spyOnClass } from '../testing/spyOnClass';
 
 class AuthServiceMock {
   logout = jasmine.createSpy('logout').and.returnValue(of(null));
@@ -33,6 +35,10 @@ describe('AppComponent', () => {
         {
           provide: AuthService,
           useClass: AuthServiceMock
+        },
+        {
+          provide: LoginService,
+          useValue: spyOnClass(LoginService),
         },
         {
           provide: NotificationService,

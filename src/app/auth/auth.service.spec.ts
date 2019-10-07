@@ -7,15 +7,16 @@ import { AuthService } from './auth.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { CookieService } from 'ngx-cookie';
 import { NgxPermissionsService } from 'ngx-permissions';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
 import { SystemService } from '../system.service';
 import { of } from 'rxjs';
+import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 describe('AuthService', () => {
   let authService: AuthService;
   let permissionsService: NgxPermissionsService;
   let systemService: jasmine.SpyObj<SystemService>;
+  let router: Router;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -44,218 +45,67 @@ describe('AuthService', () => {
   beforeEach(() => {
     authService = TestBed.get(AuthService);
     permissionsService = TestBed.get(NgxPermissionsService);
+    router = TestBed.get(Router);
 
     systemService = TestBed.get(SystemService);
     systemService.getUserSystemInfo.and.returnValue(of(Fixtures.userSystemInfo));
   });
 
-  it('should be created', inject([AuthService], (service: AuthService) => {
-    expect(service).toBeTruthy();
-  }));
-
-  describe('password login', () => {
-    it('should be successful on successful request', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
-
-        authService.login({ username: 'user', password: 'pass' }).subscribe(response => {
-          expect(response).toEqual({ needsSecondFactor: false, success: true });
-        });
-
-        const loginRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');
-        loginRequest.flush({ result: { value: true } });
-
-        backend.verify();
-      })
-    ));
-
-    it('should fetch the permissions on successful login', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
-        spyOn(localStorage, 'setItem');
-
-        authService.login({ username: 'user', password: 'pass' }).subscribe(response => {
-          expect(response).toEqual({ needsSecondFactor: false, success: true });
-        });
-
-        const loginRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');
-        loginRequest.flush({ result: { value: true } });
-
-        expect(systemService.getUserSystemInfo).toHaveBeenCalledTimes(1);
-
-        expect(localStorage.setItem).toHaveBeenCalledWith('permissions', JSON.stringify(Fixtures.permissionList));
-        expect(permissionsService.loadPermissions).toHaveBeenCalledWith(Fixtures.permissionList);
-      })
-    ));
-
-    it('should not log in on failed request', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
-
-        authService.login({ username: 'user', password: 'pass' }).subscribe(response => {
-          expect(response).toEqual({ needsSecondFactor: false, success: false });
-        });
-
-        const loginRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');
-
-        loginRequest.flush({ result: { value: false } });
-        backend.verify();
-      })
-    ));
-
-    it('should not fetch the permissions on failed login', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
-
-        authService.login({ username: 'user', password: 'pass' }).subscribe(response => {
-          expect(response).toEqual({ needsSecondFactor: false, success: false });
-        });
-
-        const loginRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');
-        loginRequest.flush({ result: { value: false } });
-
-        expect(systemService.getUserSystemInfo).not.toHaveBeenCalled();
-        expect(permissionsService.loadPermissions).not.toHaveBeenCalled();
-      })
-    ));
-
-    it('should call the error handler on request failure', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
-
-        spyOn(console, 'error');
-
-        authService.login({ username: 'user', password: 'pass' }).subscribe(response => {
-          expect(response).toEqual({ needsSecondFactor: null, success: false });
-        });
-
-        const loginRequest = backend.expectOne({
-          url: '/userservice/login',
-          method: 'POST'
-        });
-
-        loginRequest.error(new ErrorEvent('Error logging in'));
-        backend.verify();
-
-        expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
-      })
-    ));
+  it('should be created', () => {
+    expect(authService).toBeTruthy();
   });
 
-  describe('MFA login when the user has tokens', () => {
+  describe('refreshPermissions', () => {
 
-    it('should send a request to fetch a list of tokens for the user and another to tell the serial of the chosen token', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
-        const secondFactorMessage = 'credential verified - additional authentication parameter required';
+    it('should set the permissions in local storage', () => {
+      spyOn(localStorage, 'setItem');
+      const permissions = Fixtures.permissionList;
+      systemService.getUserSystemInfo.and.returnValue(of({ permissions: permissions }));
 
-        authService.login({ username: 'user', password: 'pass' }).subscribe(response => {
-          expect(response).toEqual({ needsSecondFactor: true, success: false, hasTokens: true });
-        });
-
-        const loginRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');
-        loginRequest.flush({ detail: { message: secondFactorMessage }, result: { value: false } });
-
-
-        const tokenListRequest = backend.expectOne((req) => req.url === '/userservice/usertokenlist' && req.method === 'POST');
-        tokenListRequest.flush({ result: { value: [{ 'LinOTP.TokenSerialnumber': 'serial' }] } });
-
-        const tokenValidationRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');
-        tokenValidationRequest.flush({});
-
-        backend.verify();
-      })
-    ));
-
-    it('loginSecondStep should authenticate the user on correct OTP', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
-
-        authService.loginSecondStep('otp').subscribe(response => {
-          expect(response).toEqual(true);
-        });
-
-        const loginRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');
-        loginRequest.flush({ result: { value: true } });
-
-        backend.verify();
-      })
-    ));
-
-    it('loginSecondStep should fail to authenticate the user on wwrong OTP', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
-
-        authService.loginSecondStep('otp').subscribe(response => {
-          expect(response).toEqual(false);
-        });
-
-        const loginRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');
-        loginRequest.flush({ result: { value: false } });
-
-        backend.verify();
-      })
-    ));
-
+      authService.refreshPermissions().subscribe(() => {
+        expect(permissionsService.loadPermissions).toHaveBeenCalledWith(permissions);
+        expect(localStorage.setItem).toHaveBeenCalledWith('permissions', JSON.stringify(permissions));
+      });
+    });
   });
 
-  describe('logout', () => {
+  describe('handleLogout', () => {
 
-    it('should flush permissions', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
-        spyOn(localStorage, 'removeItem');
-        spyOn(TestBed.get(Router), 'navigate');
+    it('should flush permissions and remove them from local storage', () => {
+      spyOn(localStorage, 'removeItem');
 
-        authService.logout().subscribe();
+      authService.handleLogout(false);
 
-        const logoutRequest = backend.expectOne((req) => req.url === '/userservice/logout' && req.method === 'GET');
-        logoutRequest.flush({ result: { value: true } });
+      expect(localStorage.removeItem).toHaveBeenCalledWith('permissions');
+      expect(permissionsService.flushPermissions).toHaveBeenCalled();
+    });
 
-        backend.verify();
+    it('should emit a loginChange event', () => {
+      const emitterSpy = spyOn(authService._loginChangeEmitter, 'emit');
+      authService.handleLogout(false);
 
-        expect(permissionsService.flushPermissions).toHaveBeenCalled();
-        expect(localStorage.removeItem).toHaveBeenCalledWith('permissions');
-      })
-    ));
+      expect(emitterSpy).toHaveBeenCalledWith(false);
+    });
 
     it('should not set redirect param for the login route', async(
       inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
-        const routerSpy = spyOn(TestBed.get(Router), 'navigate');
+        const routerSpy = spyOn(router, 'navigate');
 
-        authService.logout().subscribe();
-
-        const logoutRequest = backend.expectOne((req) => req.url === '/userservice/logout' && req.method === 'GET');
-        logoutRequest.flush({ result: { value: true } });
-
-        backend.verify();
+        authService.handleLogout(false);
 
         expect(routerSpy).toHaveBeenCalledWith(['/login'], {});
       })
     ));
 
-    it('should emit a loginChange event during logout', async(
+    it('should set redirect param for the login route', async(
       inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
-        spyOn(TestBed.get(Router), 'navigate');
-        authService.loginChangeEmitter.subscribe(change => {
-          expect(change).toEqual(false);
-        });
+        const routerSpy = spyOn(router, 'navigate');
 
-        authService.logout().subscribe();
+        authService.handleLogout(true);
 
-        const logoutRequest = backend.expectOne((req) => req.url === '/userservice/logout' && req.method === 'GET');
-        logoutRequest.flush({ result: { value: true } });
-
-        backend.verify();
+        const navExtras = { queryParams: { redirect: router.url } };
+        expect(routerSpy).toHaveBeenCalledWith(['/login'], navExtras);
       })
     ));
-
-    it('should handle logout errors', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
-
-        spyOn(console, 'error');
-
-        authService.logout().subscribe();
-
-        const logoutRequest = backend.expectOne((req) => req.url === '/userservice/logout' && req.method === 'GET');
-        logoutRequest.error(new ErrorEvent('Error logging out'));
-
-        backend.verify();
-
-        expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
-      })
-    ));
-
   });
 });

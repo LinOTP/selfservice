@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from './auth/auth.service';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { NotificationService } from './common/notification.service';
+import { LoginService } from './login/login.service';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
+    private loginService: LoginService,
     private notificationService: NotificationService,
     private i18n: I18n,
   ) {
@@ -31,7 +33,7 @@ export class AppComponent implements OnInit {
   }
 
   logout() {
-    this.authService.logout().subscribe(logoutSuccess => {
+    this.loginService.logout().subscribe(logoutSuccess => {
       const message = (logoutSuccess ? 'Logout successful' : 'Logout failed');
       this.notificationService.message(message);
     });

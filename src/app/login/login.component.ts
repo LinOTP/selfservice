@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 
 import { NotificationService } from '../common/notification.service';
-import { AuthService } from '../auth/auth.service';
+import { LoginService } from './login.service';
 import { SystemService, SystemInfo } from '../system.service';
 
 @Component({
@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
   displaySecondFactor = false;
 
   constructor(
-    private authService: AuthService,
+    private loginService: LoginService,
     public notificationService: NotificationService,
     private route: ActivatedRoute,
     private router: Router,
@@ -76,7 +76,7 @@ export class LoginComponent implements OnInit {
       delete loginOptions.realm;
     }
 
-    this.authService.login(loginOptions).subscribe(result => {
+    this.loginService.login(loginOptions).subscribe(result => {
 
       if (!result.needsSecondFactor) {
         this.finalAuthenticationHandling(result.success);
@@ -89,7 +89,7 @@ export class LoginComponent implements OnInit {
   }
 
   submitSecondFactor() {
-    this.authService.loginSecondStep(this.secondFactorFormGroup.value.otp)
+    this.loginService.loginSecondStep(this.secondFactorFormGroup.value.otp)
       .subscribe(result => this.finalAuthenticationHandling(result));
   }
 

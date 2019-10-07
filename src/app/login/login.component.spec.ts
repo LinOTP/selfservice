@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed, tick } from '@angular/core/testing';
 
 import { LoginComponent } from './login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from '../auth/auth.service';
+import { LoginService } from './login.service';
 import { MaterialModule } from '../material.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NotificationService } from '../common/notification.service';
@@ -16,7 +16,7 @@ import { Fixtures } from '../../testing/fixtures';
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
-  let authService: jasmine.SpyObj<AuthService>;
+  let loginService: jasmine.SpyObj<LoginService>;
   let notificationService: jasmine.SpyObj<NotificationService>;
   let router: jasmine.SpyObj<Router>;
 
@@ -33,8 +33,8 @@ describe('LoginComponent', () => {
       ],
       providers: [
         {
-          provide: AuthService,
-          useValue: spyOnClass(AuthService),
+          provide: LoginService,
+          useValue: spyOnClass(LoginService),
         },
         {
           provide: NotificationService,
@@ -51,7 +51,7 @@ describe('LoginComponent', () => {
   }));
 
   beforeEach(() => {
-    authService = TestBed.get(AuthService);
+    loginService = TestBed.get(LoginService);
     notificationService = TestBed.get(NotificationService);
     router = TestBed.get(Router);
     fixture = TestBed.createComponent(LoginComponent);
@@ -72,12 +72,12 @@ describe('LoginComponent', () => {
       spyOn(component, 'redirect');
       component.loginFormGroup.value.username = 'user';
       component.loginFormGroup.value.password = 'pass';
-      authService.login.and.returnValue(of({ needsSecondFactor: false, success: true }));
+      loginService.login.and.returnValue(of({ needsSecondFactor: false, success: true }));
       fixture.detectChanges();
 
       component.login();
 
-      expect(authService.login).toHaveBeenCalledWith({ username: 'user', password: 'pass' });
+      expect(loginService.login).toHaveBeenCalledWith({ username: 'user', password: 'pass' });
       expect(notificationService.message).toHaveBeenCalledWith('Login successful');
       expect(component.redirect).toHaveBeenCalledTimes(1);
     });
@@ -86,12 +86,12 @@ describe('LoginComponent', () => {
       spyOn(component, 'redirect');
       component.loginFormGroup.value.username = 'user';
       component.loginFormGroup.value.password = 'pass';
-      authService.login.and.returnValue(of({ needsSecondFactor: false, success: false }));
+      loginService.login.and.returnValue(of({ needsSecondFactor: false, success: false }));
       fixture.detectChanges();
 
       component.login();
 
-      expect(authService.login).toHaveBeenCalledWith({ username: 'user', password: 'pass' });
+      expect(loginService.login).toHaveBeenCalledWith({ username: 'user', password: 'pass' });
       expect(notificationService.message).toHaveBeenCalledWith('Login failed');
       expect(component.redirect).not.toHaveBeenCalled();
     });
@@ -100,12 +100,12 @@ describe('LoginComponent', () => {
       spyOn(component, 'redirect');
       component.loginFormGroup.value.username = 'user';
       component.loginFormGroup.value.password = 'pass';
-      authService.login.and.returnValue(of({ needsSecondFactor: true, success: false, hasTokens: true }));
+      loginService.login.and.returnValue(of({ needsSecondFactor: true, success: false, hasTokens: true }));
       fixture.detectChanges();
 
       component.login();
 
-      expect(authService.login).toHaveBeenCalledWith({ username: 'user', password: 'pass' });
+      expect(loginService.login).toHaveBeenCalledWith({ username: 'user', password: 'pass' });
       expect(notificationService.message).not.toHaveBeenCalledWith('Login failed');
       expect(component.redirect).not.toHaveBeenCalled();
       expect(component.displaySecondFactor).toBeTruthy();
@@ -117,12 +117,12 @@ describe('LoginComponent', () => {
 
       component.loginFormGroup.value.username = 'user';
       component.loginFormGroup.value.password = 'pass';
-      authService.login.and.returnValue(of({ needsSecondFactor: true, success: false, hasTokens: false }));
+      loginService.login.and.returnValue(of({ needsSecondFactor: true, success: false, hasTokens: false }));
       fixture.detectChanges();
 
       component.login();
 
-      expect(authService.login).toHaveBeenCalledWith({ username: 'user', password: 'pass' });
+      expect(loginService.login).toHaveBeenCalledWith({ username: 'user', password: 'pass' });
       expect(notificationService.message).toHaveBeenCalledWith(noTokensMessage, 20000);
       expect(component.redirect).not.toHaveBeenCalled();
       expect(component.displaySecondFactor).toBeFalsy();
@@ -131,27 +131,27 @@ describe('LoginComponent', () => {
   });
 
   describe('submitSecondFactor', () => {
-    it('should submit the OTP to the AuthService for the 2nd login step and return true on success', () => {
+    it('should submit the OTP to the LoginService for the 2nd login step and return true on success', () => {
       spyOn(component, 'finalAuthenticationHandling');
-      authService.loginSecondStep.and.returnValue(of(true));
+      loginService.loginSecondStep.and.returnValue(of(true));
       component.secondFactorFormGroup.value.otp = 'otp';
       fixture.detectChanges();
 
       component.submitSecondFactor();
 
-      expect(authService.loginSecondStep).toHaveBeenCalledWith('otp');
+      expect(loginService.loginSecondStep).toHaveBeenCalledWith('otp');
       expect(component.finalAuthenticationHandling).toHaveBeenCalledWith(true);
     });
 
-    it('should submit the OTP to the AuthService for the 2nd login step and return false on failure', () => {
+    it('should submit the OTP to the LoginService for the 2nd login step and return false on failure', () => {
       spyOn(component, 'finalAuthenticationHandling');
-      authService.loginSecondStep.and.returnValue(of(false));
+      loginService.loginSecondStep.and.returnValue(of(false));
       component.secondFactorFormGroup.value.otp = 'otp';
       fixture.detectChanges();
 
       component.submitSecondFactor();
 
-      expect(authService.loginSecondStep).toHaveBeenCalledWith('otp');
+      expect(loginService.loginSecondStep).toHaveBeenCalledWith('otp');
       expect(component.finalAuthenticationHandling).toHaveBeenCalledWith(false);
     });
   });
