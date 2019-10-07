@@ -32,7 +32,9 @@ interface OATHEnrollmentData {
   };
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class TokenService {
   private userserviceBase = `/userservice/`;
   private userserviceEndpoints = {
