@@ -112,7 +112,7 @@ describe('LoginComponent', () => {
       expect(notificationService.message).not.toHaveBeenCalledWith('Login failed');
       expect(component.chooseSecondFactor).toHaveBeenCalledWith(tokens[0]);
       expect(component.redirect).not.toHaveBeenCalled();
-      expect(component.displaySecondFactor).toBeTruthy();
+      expect(component.loginStage).toEqual(2);
     });
 
     it('should display error notification if second factor is needed but user has no tokens', () => {
@@ -129,7 +129,7 @@ describe('LoginComponent', () => {
       expect(loginService.login).toHaveBeenCalledWith({ username: 'user', password: 'pass' });
       expect(notificationService.message).toHaveBeenCalledWith(noTokensMessage, 20000);
       expect(component.redirect).not.toHaveBeenCalled();
-      expect(component.displaySecondFactor).toBeFalsy();
+      expect(component.loginStage).toEqual(1);
     });
 
   });
@@ -192,7 +192,7 @@ describe('LoginComponent', () => {
       component.loginFormGroup.value.username = 'user';
       component.loginFormGroup.value.password = 'pass';
       component.secondFactorFormGroup.value.otp = 'otp';
-      component.displaySecondFactor = true;
+      component.loginStage = 2;
       fixture.detectChanges();
 
       component.resetAuthForm();
@@ -200,7 +200,7 @@ describe('LoginComponent', () => {
       expect(component.loginFormGroup.value.username).toBeNull();
       expect(component.loginFormGroup.value.password).toBeNull();
       expect(component.secondFactorFormGroup.value.otp).toBeNull();
-      expect(component.displaySecondFactor).toBe(false);
+      expect(component.loginStage).toEqual(1);
     });
   });
 });

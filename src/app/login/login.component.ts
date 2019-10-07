@@ -26,7 +26,8 @@ export class LoginComponent implements OnInit {
   systemInfo: SystemInfo;
 
   factors: Token[] = [];
-  displaySecondFactor = false;
+
+  loginStage = 1;
 
   constructor(
     private loginService: LoginService,
@@ -95,7 +96,7 @@ export class LoginComponent implements OnInit {
     this.loginService.requestSecondFactorTransaction(user, token.serial)
       .subscribe(requestOK => {
         if (requestOK) {
-          this.displaySecondFactor = true;
+          this.loginStage = 2;
         } else {
           this.finalAuthenticationHandling(false);
         }
@@ -113,7 +114,7 @@ export class LoginComponent implements OnInit {
     if (success) {
       this.redirect();
     } else {
-      this.displaySecondFactor = false;
+      this.loginStage = 1;
     }
   }
 
@@ -125,7 +126,7 @@ export class LoginComponent implements OnInit {
   resetAuthForm() {
     this.loginFormGroup.reset();
     this.secondFactorFormGroup.reset();
-    this.displaySecondFactor = false;
+    this.loginStage = 1;
     this.factors = [];
   }
 }
