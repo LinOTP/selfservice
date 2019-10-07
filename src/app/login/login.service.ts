@@ -126,7 +126,7 @@ export class LoginService {
     };
     return this.http.post<{ result: { status: boolean } }>(url, body).pipe(
       map(res => res.result.status),
-      catchError(this.handleError('requestSecondFactorTransaction', null))
+      catchError(this.handleError('requestSecondFactorTransaction', false))
     );
   }
 

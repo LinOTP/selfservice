@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
   systemInfo: SystemInfo;
 
   factors: Token[] = [];
+  selectedToken: Token;
 
   loginStage = 1;
 
@@ -84,9 +85,14 @@ export class LoginComponent implements OnInit {
       if (!result.needsSecondFactor) {
         this.finalAuthenticationHandling(result.success);
       } else if (result.tokens.length === 0) {
-        this.notificationService.message('Login failed: you do not have a second factor set up. Please contact an admin.', 20000);
+        this.notificationService.message(
+          this.i18n('Login failed: you do not have a second factor set up. Please contact an admin.'),
+          20000
+        );
       } else {
-        this.chooseSecondFactor(result.tokens[0]);
+        this.factors = result.tokens;
+        this.selectedToken = this.factors[0];
+        this.loginStage = 2;
       }
     });
   }
@@ -96,9 +102,12 @@ export class LoginComponent implements OnInit {
     this.loginService.requestSecondFactorTransaction(user, token.serial)
       .subscribe(requestOK => {
         if (requestOK) {
-          this.loginStage = 2;
+          this.loginStage = 3;
         } else {
-          this.finalAuthenticationHandling(false);
+          this.notificationService.message(
+            this.i18n('There was a problem selecting the token. Please try again or contact an admin.'),
+            20000
+          );
         }
       });
   }
@@ -115,6 +124,7 @@ export class LoginComponent implements OnInit {
       this.redirect();
     } else {
       this.loginStage = 1;
+      this.selectedToken = null;
     }
   }
 
@@ -128,5 +138,6 @@ export class LoginComponent implements OnInit {
     this.secondFactorFormGroup.reset();
     this.loginStage = 1;
     this.factors = [];
+    this.selectedToken = null;
   }
 }

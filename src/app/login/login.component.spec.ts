@@ -12,6 +12,7 @@ import { of } from 'rxjs';
 import { Router } from '@angular/router';
 import { SystemService } from '../system.service';
 import { Fixtures } from '../../testing/fixtures';
+import { MockPipe } from '../../testing/mock-pipe';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -30,6 +31,7 @@ describe('LoginComponent', () => {
       ],
       declarations: [
         LoginComponent,
+        MockPipe({ 'name': 'capitalize' }),
       ],
       providers: [
         {
@@ -96,22 +98,26 @@ describe('LoginComponent', () => {
       expect(component.redirect).not.toHaveBeenCalled();
     });
 
-    it('should choose the first valid token if second factor is needed and user has tokens', () => {
-      spyOn(component, 'redirect');
-      spyOn(component, 'chooseSecondFactor').and.callThrough();
-      component.loginFormGroup.value.username = 'user';
-      component.loginFormGroup.value.password = 'pass';
+    it('should store tokens and preselect the first valid token if second factor is needed and user has tokens', () => {
       const tokens = [Fixtures.completedPushToken, Fixtures.completedQRToken];
       loginService.login.and.returnValue(of({ needsSecondFactor: true, success: false, tokens: tokens }));
-      loginService.requestSecondFactorTransaction.and.returnValue(of(true));
+      spyOn(component, 'redirect');
+
+      component.loginFormGroup.value.username = 'user';
+      component.loginFormGroup.value.password = 'pass';
       fixture.detectChanges();
+
+      expect(component.factors).toEqual([]);
+      expect(component.selectedToken).toBeFalsy();
 
       component.login();
 
       expect(loginService.login).toHaveBeenCalledWith({ username: 'user', password: 'pass' });
       expect(notificationService.message).not.toHaveBeenCalledWith('Login failed');
-      expect(component.chooseSecondFactor).toHaveBeenCalledWith(tokens[0]);
       expect(component.redirect).not.toHaveBeenCalled();
+
+      expect(component.factors).toEqual(tokens);
+      expect(component.selectedToken).toEqual(tokens[0]);
       expect(component.loginStage).toEqual(2);
     });
 
@@ -135,7 +141,39 @@ describe('LoginComponent', () => {
   });
 
   describe('chooseSecondFactor', () => {
+    it('should go to the third login stage if factor was chosen successfully', () => {
+      spyOn(component, 'redirect');
+      loginService.requestSecondFactorTransaction.and.returnValue(of(true));
+      const token = Fixtures.activeHotpToken;
 
+      component.loginFormGroup.value.username = 'user';
+      component.loginStage = 2;
+      fixture.detectChanges();
+
+      component.chooseSecondFactor(token);
+
+      expect(loginService.requestSecondFactorTransaction).toHaveBeenCalledWith('user', token.serial);
+      expect(component.redirect).not.toHaveBeenCalled();
+      expect(component.loginStage).toEqual(3);
+    });
+
+    it('should notify the user if there was a problem starting the transaction', () => {
+      spyOn(component, 'redirect');
+      loginService.requestSecondFactorTransaction.and.returnValue(of(false));
+      const token = Fixtures.activeHotpToken;
+      const problemMessage = 'There was a problem selecting the token. Please try again or contact an admin.';
+
+      component.loginFormGroup.value.username = 'user';
+      component.loginStage = 2;
+      fixture.detectChanges();
+
+      component.chooseSecondFactor(token);
+
+      expect(loginService.requestSecondFactorTransaction).toHaveBeenCalledWith('user', token.serial);
+      expect(component.redirect).not.toHaveBeenCalled();
+      expect(notificationService.message).toHaveBeenCalledWith(problemMessage, 20000);
+      expect(component.loginStage).toEqual(2);
+    });
   });
 
   describe('submitSecondFactor', () => {
@@ -192,7 +230,7 @@ describe('LoginComponent', () => {
       component.loginFormGroup.value.username = 'user';
       component.loginFormGroup.value.password = 'pass';
       component.secondFactorFormGroup.value.otp = 'otp';
-      component.loginStage = 2;
+      component.loginStage = 3;
       fixture.detectChanges();
 
       component.resetAuthForm();
