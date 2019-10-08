@@ -6,7 +6,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 
 import { TokenService } from './token.service';
 import { Token, EnrollmentStatus, TokenType } from './token';
-import { AuthService } from '../auth/auth.service';
+import { SessionService } from '../auth/session.service';
 import { I18nMock } from '../../testing/i18n-mock-provider';
 
 const session = '';
@@ -63,7 +63,7 @@ describe('TokenService', () => {
       providers: [
         TokenService,
         {
-          provide: AuthService,
+          provide: SessionService,
           useValue: {
             isLoggedIn: jasmine.createSpy('isLoggedIn'),
             login: jasmine.createSpy('login'),

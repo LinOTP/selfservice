@@ -1,6 +1,6 @@
 <form [formGroup]="loginFormGroup"
       (ngSubmit)="login()"
-      *ngIf="!displaySecondFactor; else secondFactor">
+      *ngIf="loginStage === 1">
   <mat-card id="loginCard">
     <mat-card-title i18n="card header|login page title">Login</mat-card-title>
     <mat-card-content>
@@ -36,30 +36,65 @@
   </mat-card>
 </form>
 
-<ng-template #secondFactor>
-  <form [formGroup]="secondFactorFormGroup"
-        (ngSubmit)="submitSecondFactor()">
-    <mat-card id="loginCard">
-      <mat-card-title i18n="card header|login page title">Login</mat-card-title>
-      <mat-card-content>
+<div *ngIf="loginStage === 2">
+  <mat-card id="loginCard">
+    <mat-card-title i18n="card header|login page title">Login</mat-card-title>
+    <mat-card-content>
+      <div *ngIf="factors && factors.length > 0; else noFactors">
+        <p>Please select which token to use as your second factor:</p>
         <mat-form-field>
-          <input matInput
-                 formControlName="otp"
-                 placeholder="OTP"
-                 i18n-placeholder>
+          <mat-select [(ngModel)]="selectedToken">
+            <mat-option *ngFor="let token of factors"
+                        [value]="token"
+                        cdkFocusInitial>
+              <strong>{{ token.typeDetails.type | capitalize}}</strong> {{token.serial}} ({{ token.description }})
+            </mat-option>
+          </mat-select>
         </mat-form-field>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-button
-                type="reset"
-                color="primary"
-                (click)="resetAuthForm()"
-                i18n="2nd factor login action|login page second factor cancel button">Cancel</button>
-        <button mat-raised-button
-                type="submit"
-                color="primary"
-                i18n="2nd factor login action|login page second factor submit button">Submit</button>
-      </mat-card-actions>
-    </mat-card>
-  </form>
-</ng-template>
+      </div>
+      <ng-template #noFactors>
+        <p>You do not own any valid tokens or there was a problem retrieving them from the server.
+          Please contact an administrator.</p>
+      </ng-template>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button
+              type="reset"
+              color="primary"
+              (click)="resetAuthForm()"
+              i18n="2nd factor login action|login page second factor cancel button">Cancel</button>
+      <button mat-raised-button
+              type="submit"
+              (click)="chooseSecondFactor(selectedToken)"
+              color="primary"
+              i18n="2nd factor login action|login page second factor submit button">Submit</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+<form [formGroup]="secondFactorFormGroup"
+      (ngSubmit)="submitSecondFactor()"
+      *ngIf="loginStage === 3">
+  <mat-card id="loginCard">
+    <mat-card-title i18n="card header|login page title">Login</mat-card-title>
+    <mat-card-content>
+      <mat-form-field>
+        <input matInput
+               formControlName="otp"
+               placeholder="OTP"
+               i18n-placeholder>
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button
+              type="reset"
+              color="primary"
+              (click)="resetAuthForm()"
+              i18n="2nd factor login action|login page second factor cancel button">Cancel</button>
+      <button mat-raised-button
+              type="submit"
+              color="primary"
+              i18n="2nd factor login action|login page second factor submit button">Submit</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

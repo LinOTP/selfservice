@@ -13,7 +13,6 @@ import { NgSelfServiceCommonModule } from './common/common.module';
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './material.module';
 import { AuthModule } from './auth/auth.module';
-import { APIModule } from './api/api.module';
 
 import { AppComponent } from './app.component';
 import { TokenListComponent } from './token-list/token-list.component';
@@ -57,7 +56,6 @@ declare const require;
     AppRoutingModule,
     MaterialModule,
     NgSelfServiceCommonModule,
-    APIModule,
     AuthModule,
     NgxPermissionsModule.forRoot(),
   ],

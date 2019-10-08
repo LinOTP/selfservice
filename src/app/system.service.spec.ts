@@ -6,7 +6,7 @@ import { spyOnClass } from '../testing/spyOnClass';
 import { HttpClient } from '@angular/common/http';
 
 import { SystemService } from './system.service';
-import { AuthService } from './auth/auth.service';
+import { SessionService } from './auth/session.service';
 
 describe('SystemService', () => {
   let service: SystemService;
@@ -17,13 +17,13 @@ describe('SystemService', () => {
     ],
     providers: [
       SystemService,
-      { provide: AuthService, useValue: spyOnClass(AuthService) },
+      { provide: SessionService, useValue: spyOnClass(SessionService) },
     ]
   }));
 
   beforeEach(() => {
     service = TestBed.get(SystemService);
-    TestBed.get(AuthService).getSession.and.returnValue('');
+    TestBed.get(SessionService).getSession.and.returnValue('');
   });
 
   it('should be created', () => {

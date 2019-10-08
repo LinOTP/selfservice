@@ -5,7 +5,7 @@ import { spyOnClass } from '../../testing/spyOnClass';
 import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AuthInterceptor } from './auth-interceptor.service';
-import { AuthService } from './auth.service';
+import { SessionService } from './session.service';
 
 describe('AuthInterceptor', () => {
 
@@ -25,8 +25,8 @@ describe('AuthInterceptor', () => {
           multi: true
         },
         {
-          provide: AuthService,
-          useValue: spyOnClass(AuthService)
+          provide: SessionService,
+          useValue: spyOnClass(SessionService)
         }
       ],
     });
@@ -57,7 +57,7 @@ describe('AuthInterceptor', () => {
     expect(successCallback).not.toHaveBeenCalled();
     expect(errorCallback).toHaveBeenCalled();
 
-    expect(TestBed.get(AuthService).handleLogout).toHaveBeenCalledTimes(1);
+    expect(TestBed.get(SessionService).handleLogout).toHaveBeenCalledTimes(1);
   });
 
   it(`should not intercept nor redirect successful api requests`, () => {
@@ -72,7 +72,7 @@ describe('AuthInterceptor', () => {
     expect(successCallback).toHaveBeenCalled();
     expect(errorCallback).not.toHaveBeenCalled();
 
-    expect(TestBed.get(AuthService).handleLogout).not.toHaveBeenCalled();
+    expect(TestBed.get(SessionService).handleLogout).not.toHaveBeenCalled();
 
     http.verify();
   });
@@ -88,7 +88,7 @@ describe('AuthInterceptor', () => {
     expect(successCallback).not.toHaveBeenCalled();
     expect(errorCallback).toHaveBeenCalled();
 
-    expect(TestBed.get(AuthService).handleLogout).not.toHaveBeenCalled();
+    expect(TestBed.get(SessionService).handleLogout).not.toHaveBeenCalled();
 
     http.verify();
   });

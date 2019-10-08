@@ -6,13 +6,20 @@ import { map } from 'rxjs/operators';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 
 import { NotificationService } from '../common/notification.service';
-import { AuthService } from '../auth/auth.service';
+import { LoginService } from './login.service';
 import { SystemService, SystemInfo } from '../system.service';
+import { Token } from '../api/token';
+
+export enum LoginStage {
+  USER_PW_INPUT = 1,
+  TOKEN_CHOICE = 2,
+  OTP_INPUT = 3
+}
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
   message: string;
@@ -24,10 +31,13 @@ export class LoginComponent implements OnInit {
 
   systemInfo: SystemInfo;
 
-  displaySecondFactor = false;
+  factors: Token[] = [];
+  selectedToken: Token;
+
+  loginStage = LoginStage.USER_PW_INPUT;
 
   constructor(
-    private authService: AuthService,
+    private loginService: LoginService,
     public notificationService: NotificationService,
     private route: ActivatedRoute,
     private router: Router,
@@ -76,20 +86,40 @@ export class LoginComponent implements OnInit {
       delete loginOptions.realm;
     }
 
-    this.authService.login(loginOptions).subscribe(result => {
+    this.loginService.login(loginOptions).subscribe(result => {
 
       if (!result.needsSecondFactor) {
         this.finalAuthenticationHandling(result.success);
-      } else if (!result.hasTokens) {
-        this.notificationService.message('Login failed: you do not have a second factor set up. Please contact an admin.', 20000);
+      } else if (result.tokens.length === 0) {
+        this.notificationService.message(
+          this.i18n('Login failed: you do not have a second factor set up. Please contact an admin.'),
+          20000
+        );
       } else {
-        this.displaySecondFactor = true;
+        this.factors = result.tokens;
+        this.selectedToken = this.factors[0];
+        this.loginStage = LoginStage.TOKEN_CHOICE;
       }
     });
   }
 
+  chooseSecondFactor(token: Token) {
+    const user = this.loginFormGroup.value.username;
+    this.loginService.requestSecondFactorTransaction(user, token.serial)
+      .subscribe(requestOK => {
+        if (requestOK) {
+          this.loginStage = LoginStage.OTP_INPUT;
+        } else {
+          this.notificationService.message(
+            this.i18n('There was a problem selecting the token. Please try again or contact an admin.'),
+            20000
+          );
+        }
+      });
+  }
+
   submitSecondFactor() {
-    this.authService.loginSecondStep(this.secondFactorFormGroup.value.otp)
+    this.loginService.loginSecondStep(this.secondFactorFormGroup.value.otp)
       .subscribe(result => this.finalAuthenticationHandling(result));
   }
 
@@ -99,7 +129,8 @@ export class LoginComponent implements OnInit {
     if (success) {
       this.redirect();
     } else {
-      this.displaySecondFactor = false;
+      this.loginStage = LoginStage.USER_PW_INPUT;
+      this.selectedToken = null;
     }
   }
 
@@ -111,6 +142,8 @@ export class LoginComponent implements OnInit {
   resetAuthForm() {
     this.loginFormGroup.reset();
     this.secondFactorFormGroup.reset();
-    this.displaySecondFactor = false;
+    this.loginStage = LoginStage.USER_PW_INPUT;
+    this.factors = [];
+    this.selectedToken = null;
   }
 }
