@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed, tick } from '@angular/core/testing';
 
-import { LoginComponent } from './login.component';
+import { LoginComponent, LoginStage } from './login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginService } from './login.service';
 import { MaterialModule } from '../material.module';
@@ -118,7 +118,7 @@ describe('LoginComponent', () => {
 
       expect(component.factors).toEqual(tokens);
       expect(component.selectedToken).toEqual(tokens[0]);
-      expect(component.loginStage).toEqual(2);
+      expect(component.loginStage).toEqual(LoginStage.TOKEN_CHOICE);
     });
 
     it('should display error notification if second factor is needed but user has no tokens', () => {
@@ -135,7 +135,7 @@ describe('LoginComponent', () => {
       expect(loginService.login).toHaveBeenCalledWith({ username: 'user', password: 'pass' });
       expect(notificationService.message).toHaveBeenCalledWith(noTokensMessage, 20000);
       expect(component.redirect).not.toHaveBeenCalled();
-      expect(component.loginStage).toEqual(1);
+      expect(component.loginStage.valueOf()).toEqual(LoginStage.USER_PW_INPUT);
     });
 
   });
@@ -147,14 +147,14 @@ describe('LoginComponent', () => {
       const token = Fixtures.activeHotpToken;
 
       component.loginFormGroup.value.username = 'user';
-      component.loginStage = 2;
+      component.loginStage = LoginStage.TOKEN_CHOICE;
       fixture.detectChanges();
 
       component.chooseSecondFactor(token);
 
       expect(loginService.requestSecondFactorTransaction).toHaveBeenCalledWith('user', token.serial);
       expect(component.redirect).not.toHaveBeenCalled();
-      expect(component.loginStage).toEqual(3);
+      expect(component.loginStage.valueOf()).toEqual(LoginStage.OTP_INPUT);
     });
 
     it('should notify the user if there was a problem starting the transaction', () => {
@@ -164,7 +164,7 @@ describe('LoginComponent', () => {
       const problemMessage = 'There was a problem selecting the token. Please try again or contact an admin.';
 
       component.loginFormGroup.value.username = 'user';
-      component.loginStage = 2;
+      component.loginStage = LoginStage.TOKEN_CHOICE;
       fixture.detectChanges();
 
       component.chooseSecondFactor(token);
@@ -172,7 +172,7 @@ describe('LoginComponent', () => {
       expect(loginService.requestSecondFactorTransaction).toHaveBeenCalledWith('user', token.serial);
       expect(component.redirect).not.toHaveBeenCalled();
       expect(notificationService.message).toHaveBeenCalledWith(problemMessage, 20000);
-      expect(component.loginStage).toEqual(2);
+      expect(component.loginStage.valueOf()).toEqual(LoginStage.TOKEN_CHOICE);
     });
   });
 
@@ -230,7 +230,7 @@ describe('LoginComponent', () => {
       component.loginFormGroup.value.username = 'user';
       component.loginFormGroup.value.password = 'pass';
       component.secondFactorFormGroup.value.otp = 'otp';
-      component.loginStage = 3;
+      component.loginStage = LoginStage.OTP_INPUT;
       fixture.detectChanges();
 
       component.resetAuthForm();
@@ -238,7 +238,7 @@ describe('LoginComponent', () => {
       expect(component.loginFormGroup.value.username).toBeNull();
       expect(component.loginFormGroup.value.password).toBeNull();
       expect(component.secondFactorFormGroup.value.otp).toBeNull();
-      expect(component.loginStage).toEqual(1);
+      expect(component.loginStage.valueOf()).toEqual(LoginStage.USER_PW_INPUT);
     });
   });
 });

@@ -10,6 +10,12 @@ import { LoginService } from './login.service';
 import { SystemService, SystemInfo } from '../system.service';
 import { Token } from '../api/token';
 
+export enum LoginStage {
+  USER_PW_INPUT = 1,
+  TOKEN_CHOICE = 2,
+  OTP_INPUT = 3
+}
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -28,7 +34,7 @@ export class LoginComponent implements OnInit {
   factors: Token[] = [];
   selectedToken: Token;
 
-  loginStage = 1;
+  loginStage = LoginStage.USER_PW_INPUT;
 
   constructor(
     private loginService: LoginService,
@@ -92,7 +98,7 @@ export class LoginComponent implements OnInit {
       } else {
         this.factors = result.tokens;
         this.selectedToken = this.factors[0];
-        this.loginStage = 2;
+        this.loginStage = LoginStage.TOKEN_CHOICE;
       }
     });
   }
@@ -102,7 +108,7 @@ export class LoginComponent implements OnInit {
     this.loginService.requestSecondFactorTransaction(user, token.serial)
       .subscribe(requestOK => {
         if (requestOK) {
-          this.loginStage = 3;
+          this.loginStage = LoginStage.OTP_INPUT;
         } else {
           this.notificationService.message(
             this.i18n('There was a problem selecting the token. Please try again or contact an admin.'),
@@ -123,7 +129,7 @@ export class LoginComponent implements OnInit {
     if (success) {
       this.redirect();
     } else {
-      this.loginStage = 1;
+      this.loginStage = LoginStage.USER_PW_INPUT;
       this.selectedToken = null;
     }
   }
@@ -136,7 +142,7 @@ export class LoginComponent implements OnInit {
   resetAuthForm() {
     this.loginFormGroup.reset();
     this.secondFactorFormGroup.reset();
-    this.loginStage = 1;
+    this.loginStage = LoginStage.USER_PW_INPUT;
     this.factors = [];
     this.selectedToken = null;
   }
