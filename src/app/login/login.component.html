@@ -10,7 +10,8 @@
                name="username"
                placeholder="Username"
                i18n-placeholder
-               autocomplete="username">
+               autocomplete="username"
+               appFocusOnInit>
       </mat-form-field>
       <mat-form-field *ngIf="systemInfo?.realm_box">
         <mat-label i18n>Realm</mat-label>
@@ -47,10 +48,10 @@
       <div *ngIf="factors && factors.length > 0; else noFactors">
         <p>Please select which token to use as your second factor:</p>
         <mat-form-field>
-          <mat-select [(ngModel)]="selectedToken">
+          <mat-select [(ngModel)]="selectedToken"
+                      appFocusOnInit>
             <mat-option *ngFor="let token of factors"
-                        [value]="token"
-                        cdkFocusInitial>
+                        [value]="token">
               <strong>{{ token.typeDetails.type | capitalize}}</strong> {{token.serial}} ({{ token.description }})
             </mat-option>
           </mat-select>
@@ -88,7 +89,8 @@
                placeholder="OTP"
                name="otp"
                i18n-placeholder
-               autocomplete="one-time-code">
+               autocomplete="one-time-code"
+               appFocusOnInit>
       </mat-form-field>
     </mat-card-content>
     <mat-card-actions>
