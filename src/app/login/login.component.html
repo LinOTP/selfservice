@@ -7,8 +7,10 @@
       <mat-form-field>
         <input matInput
                formControlName="username"
+               name="username"
                placeholder="Username"
-               i18n-placeholder>
+               i18n-placeholder
+               autocomplete="username">
       </mat-form-field>
       <mat-form-field *ngIf="systemInfo?.realm_box">
         <mat-label i18n>Realm</mat-label>
@@ -23,8 +25,10 @@
         <input matInput
                type="password"
                formControlName="password"
+               name="password"
                placeholder="Password"
-               i18n-placeholder>
+               i18n-placeholder
+               autocomplete="current-password">
       </mat-form-field>
     </mat-card-content>
     <mat-card-actions>
@@ -82,7 +86,9 @@
         <input matInput
                formControlName="otp"
                placeholder="OTP"
-               i18n-placeholder>
+               name="otp"
+               i18n-placeholder
+               autocomplete="one-time-code">
       </mat-form-field>
     </mat-card-content>
     <mat-card-actions>
