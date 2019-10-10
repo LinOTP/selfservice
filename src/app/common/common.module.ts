@@ -16,7 +16,8 @@ import { ArrayNotEmptyPipe } from './pipes/array-not-empty.pipe';
 import { SortTokensByStatePipe } from './pipes/sort-tokens-by-state.pipe';
 import { QRCodeComponent } from './qr-code/qr-code.component';
 import { QRCodeModule } from 'angularx-qrcode';
-import { CapitalizePipe } from '../common/pipes/capitalize.pipe';
+import { CapitalizePipe } from './pipes/capitalize.pipe';
+import { FocusOnInitDirective } from './focus-on-init/focus-on-init.directive';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { CapitalizePipe } from '../common/pipes/capitalize.pipe';
     ArrayNotEmptyPipe,
     SortTokensByStatePipe,
     CapitalizePipe,
+    FocusOnInitDirective,
   ],
   entryComponents: [
     DialogComponent,
@@ -53,6 +55,7 @@ import { CapitalizePipe } from '../common/pipes/capitalize.pipe';
     ArrayNotEmptyPipe,
     SortTokensByStatePipe,
     CapitalizePipe,
+    FocusOnInitDirective,
   ]
 })
 export class NgSelfServiceCommonModule { }
