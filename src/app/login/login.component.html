@@ -1,7 +1,8 @@
 <form [formGroup]="loginFormGroup"
       (ngSubmit)="login()"
+      id="loginFormStage1"
       *ngIf="loginStage === 1">
-  <mat-card id="loginCard">
+  <mat-card>
     <mat-card-title i18n="card header|login page title">Login</mat-card-title>
     <mat-card-content>
       <mat-form-field>
@@ -15,7 +16,8 @@
       </mat-form-field>
       <mat-form-field *ngIf="systemInfo?.realm_box">
         <mat-label i18n>Realm</mat-label>
-        <mat-select formControlName="realm">
+        <mat-select formControlName="realm"
+                    name="realm">
           <mat-option *ngFor="let realm of systemInfo.realms | keyvalue"
                       [value]="realm.key">
             {{realm.value.realmname}}
@@ -31,6 +33,14 @@
                i18n-placeholder
                autocomplete="current-password">
       </mat-form-field>
+      <mat-form-field *ngIf="systemInfo?.mfa_3_fields">
+        <input matInput
+               formControlName="otp"
+               placeholder="OTP"
+               name="otp"
+               i18n-placeholder
+               autocomplete="one-time-code">
+      </mat-form-field>
     </mat-card-content>
     <mat-card-actions>
       <button mat-raised-button
@@ -41,14 +51,17 @@
   </mat-card>
 </form>
 
-<div *ngIf="loginStage === 2">
-  <mat-card id="loginCard">
+<form (ngSubmit)="chooseSecondFactor(selectedToken)"
+      id="loginFormStage2"
+      *ngIf="loginStage === 2">
+  <mat-card>
     <mat-card-title i18n="card header|login page title">Login</mat-card-title>
     <mat-card-content>
       <div *ngIf="factors && factors.length > 0; else noFactors">
         <p>Please select which token to use as your second factor:</p>
         <mat-form-field>
           <mat-select [(ngModel)]="selectedToken"
+                      name="selectedToken"
                       appFocusOnInit>
             <mat-option *ngFor="let token of factors"
                         [value]="token">
@@ -70,17 +83,17 @@
               i18n="2nd factor login action|login page second factor cancel button">Cancel</button>
       <button mat-raised-button
               type="submit"
-              (click)="chooseSecondFactor(selectedToken)"
               color="primary"
               i18n="2nd factor login action|login page second factor submit button">Submit</button>
     </mat-card-actions>
   </mat-card>
-</div>
+</form>
 
 <form [formGroup]="secondFactorFormGroup"
       (ngSubmit)="submitSecondFactor()"
+      id="loginFormStage3"
       *ngIf="loginStage === 3">
-  <mat-card id="loginCard">
+  <mat-card>
     <mat-card-title i18n="card header|login page title">Login</mat-card-title>
     <mat-card-content>
       <mat-form-field>
