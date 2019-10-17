@@ -14,6 +14,7 @@ export interface LoginOptions {
   username: string;
   password: string;
   realm?: string;
+  otp?: string;
 }
 
 interface LoginResponse {
@@ -69,11 +70,15 @@ export class LoginService {
     const params = {
       login: loginOptions.username,
       password: loginOptions.password,
-      realm: loginOptions.realm
+      realm: loginOptions.realm,
+      otp: loginOptions.otp,
     };
 
     if (params.realm === undefined) {
       delete params.realm;
+    }
+    if (params.otp === undefined) {
+      delete params.otp;
     }
 
     interface FirstStepResponseType {

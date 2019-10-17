@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 
 import { NotificationService } from '../common/notification.service';
-import { LoginService } from './login.service';
+import { LoginService, LoginOptions } from './login.service';
 import { SystemService, SystemInfo } from '../system.service';
 import { Token } from '../api/token';
 
@@ -70,20 +70,30 @@ export class LoginComponent implements OnInit {
           this.formBuilder.control(systemInfo.default_realm, Validators.required)
         );
       }
+      if (systemInfo.mfa_3_fields) {
+        this.loginFormGroup.addControl(
+          'otp',
+          this.formBuilder.control('')
+        );
+      }
     });
   }
 
   login() {
     this.message = this.i18n('Waiting for response');
 
-    const loginOptions = {
+    const loginOptions: LoginOptions = {
       username: this.loginFormGroup.value.username,
       password: this.loginFormGroup.value.password,
       realm: this.loginFormGroup.value.realm,
+      otp: this.loginFormGroup.value.otp,
     };
 
     if (loginOptions.realm === undefined) {
       delete loginOptions.realm;
+    }
+    if (loginOptions.otp === undefined) {
+      delete loginOptions.otp;
     }
 
     this.loginService.login(loginOptions).subscribe(result => {
