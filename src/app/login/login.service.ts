@@ -5,6 +5,10 @@ import { HttpClient } from '@angular/common/http';
 import { map, tap, switchMap, catchError } from 'rxjs/operators';
 import { Token, EnrollmentStatus } from '../api/token';
 import { TokenService } from '../api/token.service';
+import { SystemService } from '../system.service';
+import { Permission } from '../common/permissions';
+import { NgxPermissionsService } from 'ngx-permissions';
+import { NavigationExtras, Router } from '@angular/router';
 
 export interface LoginOptions {
   username: string;
@@ -30,10 +34,15 @@ export class LoginService {
     tokens: 'usertokenlist',
   };
 
+  public _loginChangeEmitter: EventEmitter<boolean> = new EventEmitter();
+
   constructor(
     private http: HttpClient,
     private sessionService: SessionService,
     private tokenService: TokenService,
+    private systemService: SystemService,
+    private permissionsService: NgxPermissionsService,
+    private router: Router,
   ) { }
 
   /**
@@ -85,7 +94,7 @@ export class LoginService {
             success: !!rsp && !!rsp.result && !!rsp.result.value && rsp.result.value === true
           };
         }),
-        tap(loginState => this.sessionService.handleLogin(loginState.success)),
+        tap(loginState => this.handleLogin(loginState.success)),
         switchMap(loginState => loginState.needsSecondFactor ?
           this.getAvailableSecondFactors().pipe(
             map(tokens => {
@@ -142,7 +151,7 @@ export class LoginService {
     return this.http.post<{ result: { status: boolean, value: boolean } }>(url, params)
       .pipe(
         map(response => response && response.result && response.result.value === true),
-        tap(success => this.sessionService.handleLogin(success))
+        tap(success => this.handleLogin(success))
       );
   }
 
@@ -160,11 +169,82 @@ export class LoginService {
         map(response => response && response.result && response.result.value === true),
         tap(logoutSuccess => {
           if (logoutSuccess) {
-            this.sessionService.handleLogout(false);
+            this.handleLogout(false);
           }
         }),
         catchError(this.handleError('logout', false))
       );
+  }
+
+  /**
+   * requests the permissions for the currently logged in user.
+   *
+   * This is done by evaluating the selfservice context that provides the
+   * policy actions. They get mapped to the frontend permissions and are loaded
+   * into the NgxPermissionsService.
+   *
+   * @returns {Observable<Permission[]>}
+   * @memberof AuthService
+   */
+  public refreshPermissions(): Observable<Permission[]> {
+    return this.systemService.getUserSystemInfo().pipe(
+      map(systemInfo => systemInfo.permissions),
+      tap(permissions => {
+        localStorage.setItem('permissions', JSON.stringify(permissions));
+        this.permissionsService.loadPermissions(permissions);
+      }),
+      catchError(this.handleError('loadPermissions', [])),
+    );
+  }
+
+  /**
+   * Getter for the login change emitter, which issues events when the login
+   * state changes.
+   *
+   * @readonly
+   * @type {Observable<boolean>} observable of the login state
+   * @memberof AuthService
+   */
+  get loginChangeEmitter(): Observable<boolean> {
+    return this._loginChangeEmitter.asObservable();
+  }
+
+  /**
+   * Emits the login state and, if the user was successfully logged in, reloads their permissions.
+   * @param success true when the user was successfully logged in, false otherwise
+   * @memberof AuthService
+   */
+  public handleLogin(success: boolean) {
+    this._loginChangeEmitter.emit(success);
+    if (success) {
+      this.refreshPermissions().subscribe();
+    }
+  }
+
+  /**
+  * handles a closed login session to clear up the frontend state
+  *
+  * - loginChangeEmitter is updated
+  * - all persistent data is cleared
+  * - the user is redirected to the login screen.
+  *   If the parameter `storeCurrentRoute` is set to true, the current router url
+  *   will be stored so that the application returns to the current view once the
+  *   user logs back in.
+  *
+  * @param {boolean} storeCurrentRoute
+  * @memberof AuthService
+  */
+  public handleLogout(storeCurrentRoute: boolean) {
+    localStorage.removeItem('permissions');
+    this.permissionsService.flushPermissions();
+
+    const navigationExtras: NavigationExtras = {};
+    if (storeCurrentRoute) {
+      navigationExtras.queryParams = { 'redirect': this.router.url };
+    }
+    this.router.navigate(['/login'], navigationExtras);
+
+    this._loginChangeEmitter.emit(false);
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
