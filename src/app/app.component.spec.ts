@@ -9,19 +9,10 @@ import { I18nMock } from '../testing/i18n-mock-provider';
 import { LoginService } from './login/login.service';
 import { spyOnClass } from '../testing/spyOnClass';
 
-class AuthServiceMock {
-  logout = jasmine.createSpy('logout').and.returnValue(of(null));
-  isLoggedIn = jasmine.createSpy('isLoggedIn').and.returnValue(of(true));
-  loginChangeEmitter = {
-    subscribe: jasmine.createSpy('subscribe')
-  };
-}
-
-class MockNotificationService {
-  message = jasmine.createSpy('message');
-}
-
 describe('AppComponent', () => {
+  let loginService: jasmine.SpyObj<LoginService>;
+  let sessionService: jasmine.SpyObj<SessionService>;
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -34,7 +25,7 @@ describe('AppComponent', () => {
       providers: [
         {
           provide: SessionService,
-          useClass: AuthServiceMock
+          useValue: spyOnClass(SessionService)
         },
         {
           provide: LoginService,
@@ -42,12 +33,21 @@ describe('AppComponent', () => {
         },
         {
           provide: NotificationService,
-          useClass: MockNotificationService,
+          useValue: spyOnClass(NotificationService),
         },
         I18nMock,
       ]
     }).compileComponents();
   }));
+
+  beforeEach(() => {
+    loginService = TestBed.get(LoginService);
+    sessionService = TestBed.get(SessionService);
+
+    loginService.logout.and.returnValue(of(null));
+    sessionService.isLoggedIn.and.returnValue(of(null));
+    (loginService as any).loginChangeEmitter = of();
+  });
 
   it('should create the app', async(() => {
     const fixture = TestBed.createComponent(AppComponent);

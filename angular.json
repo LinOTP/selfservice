@@ -88,11 +88,14 @@
             "browserTarget": "self-service:build"
           },
           "configurations": {
-            "production": {
-              "browserTarget": "self-service:build:production"
+            "production-en": {
+              "browserTarget": "self-service:build:production-en"
             },
             "en": {
               "browserTarget": "self-service:build:en"
+            },
+            "production-de": {
+              "browserTarget": "self-service:build:production-de"
             },
             "de": {
               "browserTarget": "self-service:build:de"

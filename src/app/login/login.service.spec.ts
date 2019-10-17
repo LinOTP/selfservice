@@ -8,16 +8,22 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { of } from 'rxjs';
 import { TokenService } from '../api/token.service';
 import { Fixtures } from '../../testing/fixtures';
+import { SystemService } from '../system.service';
+import { NgxPermissionsService } from 'ngx-permissions';
+import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('LoginService', () => {
   let loginService: LoginService;
-  let sessionService: jasmine.SpyObj<SessionService>;
   let tokenService: jasmine.SpyObj<TokenService>;
+  let systemService: jasmine.SpyObj<SystemService>;
+  let permissionsService: NgxPermissionsService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
+        RouterTestingModule,
       ],
       providers: [
         LoginService,
@@ -29,14 +35,26 @@ describe('LoginService', () => {
           provide: TokenService,
           useValue: spyOnClass(TokenService),
         },
+        {
+          provide: SystemService,
+          useValue: spyOnClass(SystemService),
+        },
+        {
+          provide: NgxPermissionsService,
+          useValue: spyOnClass(NgxPermissionsService)
+        },
       ],
     });
   });
 
   beforeEach(() => {
     loginService = TestBed.get(LoginService);
-    sessionService = TestBed.get(SessionService);
     tokenService = TestBed.get(TokenService);
+
+    systemService = TestBed.get(SystemService);
+    systemService.getUserSystemInfo.and.returnValue(of(Fixtures.userSystemInfo));
+
+    permissionsService = TestBed.get(NgxPermissionsService);
   });
 
   it('should be created', () => {
@@ -60,6 +78,7 @@ describe('LoginService', () => {
 
     it('should refresh the permissions on successful login', async(
       inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+        spyOn(loginService, 'handleLogin');
 
         loginService.login({ username: 'user', password: 'pass' }).subscribe(response => {
           expect(response).toEqual({ needsSecondFactor: false, success: true });
@@ -68,7 +87,7 @@ describe('LoginService', () => {
         const loginRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');
         loginRequest.flush({ result: { value: true } });
 
-        expect(sessionService.handleLogin).toHaveBeenCalledWith(true);
+        expect(loginService.handleLogin).toHaveBeenCalledWith(true);
       })
     ));
 
@@ -88,6 +107,7 @@ describe('LoginService', () => {
 
     it('should not fetch the permissions on failed login', async(
       inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+        spyOn(loginService, 'handleLogin');
 
         loginService.login({ username: 'user', password: 'pass' }).subscribe(response => {
           expect(response).toEqual({ needsSecondFactor: false, success: false });
@@ -96,7 +116,7 @@ describe('LoginService', () => {
         const loginRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');
         loginRequest.flush({ result: { value: false } });
 
-        expect(sessionService.handleLogin).toHaveBeenCalledWith(false);
+        expect(loginService.handleLogin).toHaveBeenCalledWith(false);
       })
     ));
 
@@ -190,8 +210,9 @@ describe('LoginService', () => {
 
   describe('logout', () => {
 
-    it('should call AuthService.handleLogout if the response is successful', async(
+    it('should call LoginService.handleLogout if the response is successful', async(
       inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+        spyOn(loginService, 'handleLogout');
 
         loginService.logout().subscribe();
 
@@ -200,12 +221,13 @@ describe('LoginService', () => {
 
         backend.verify();
 
-        expect(sessionService.handleLogout).toHaveBeenCalled();
+        expect(loginService.handleLogout).toHaveBeenCalled();
       })
     ));
 
-    it('should not call AuthService.handleLogout if the response fails', async(
+    it('should not call LoginService.handleLogout if the response fails', async(
       inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+        spyOn(loginService, 'handleLogout');
 
         loginService.logout().subscribe();
 
@@ -214,7 +236,7 @@ describe('LoginService', () => {
 
         backend.verify();
 
-        expect(sessionService.handleLogout).not.toHaveBeenCalled();
+        expect(loginService.handleLogout).not.toHaveBeenCalled();
       })
     ));
 
@@ -233,7 +255,64 @@ describe('LoginService', () => {
         expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
       })
     ));
+  });
 
+  describe('refreshPermissions', () => {
+    it('should set the permissions in local storage', () => {
+      spyOn(localStorage, 'setItem');
+      const permissions = Fixtures.permissionList;
+      systemService.getUserSystemInfo.and.returnValue(of({ permissions: permissions }));
+
+      loginService.refreshPermissions().subscribe(() => {
+        expect(permissionsService.loadPermissions).toHaveBeenCalledWith(permissions);
+        expect(localStorage.setItem).toHaveBeenCalledWith('permissions', JSON.stringify(permissions));
+      });
+    });
+  });
+
+  describe('handleLogout', () => {
+    let router: Router;
+
+    beforeEach(() => {
+      router = TestBed.get(Router);
+    });
+
+    it('should flush permissions and remove them from local storage', () => {
+      spyOn(localStorage, 'removeItem');
+
+      loginService.handleLogout(false);
+
+      expect(localStorage.removeItem).toHaveBeenCalledWith('permissions');
+      expect(permissionsService.flushPermissions).toHaveBeenCalled();
+    });
+
+    it('should emit a loginChange event', () => {
+      const emitterSpy = spyOn(loginService._loginChangeEmitter, 'emit');
+      loginService.handleLogout(false);
+
+      expect(emitterSpy).toHaveBeenCalledWith(false);
+    });
+
+    it('should not set redirect param for the login route', async(
+      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+        const routerSpy = spyOn(router, 'navigate');
+
+        loginService.handleLogout(false);
+
+        expect(routerSpy).toHaveBeenCalledWith(['/login'], {});
+      })
+    ));
+
+    it('should set redirect param for the login route', async(
+      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+        const routerSpy = spyOn(router, 'navigate');
+
+        loginService.handleLogout(true);
+
+        const navExtras = { queryParams: { redirect: router.url } };
+        expect(routerSpy).toHaveBeenCalledWith(['/login'], navExtras);
+      })
+    ));
   });
 
 });

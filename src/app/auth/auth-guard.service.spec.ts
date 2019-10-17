@@ -5,16 +5,17 @@ import { spyOnClass } from '../../testing/spyOnClass';
 
 import { Router, RouterStateSnapshot } from '@angular/router';
 
+import { LoginService } from '../login/login.service';
 import { SessionService } from './session.service';
 
 import { AuthGuard } from './auth-guard.service';
 
-describe('AuthService', () => {
+describe('AuthGuard', () => {
 
   const routeSnapshot = spyOnClass(RouterStateSnapshot);
 
-  let authService: jasmine.SpyObj<SessionService>;
-  let router: Router;
+  let loginService: jasmine.SpyObj<LoginService>;
+  let sessionService: jasmine.SpyObj<SessionService>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -24,6 +25,10 @@ describe('AuthService', () => {
       providers: [
         AuthGuard,
         {
+          provide: LoginService,
+          useValue: spyOnClass(LoginService)
+        },
+        {
           provide: SessionService,
           useValue: spyOnClass(SessionService)
         },
@@ -32,8 +37,8 @@ describe('AuthService', () => {
   });
 
   beforeEach(() => {
-    authService = TestBed.get(SessionService);
-    router = TestBed.get(Router);
+    loginService = TestBed.get(LoginService);
+    sessionService = TestBed.get(SessionService);
   });
 
   it('should be created', inject([AuthGuard], (service: AuthGuard) => {
@@ -45,16 +50,16 @@ describe('AuthService', () => {
     describe(method, () => {
 
       it('should be able to load route if user is logged in', inject([AuthGuard], (service: AuthGuard) => {
-        authService.isLoggedIn.and.returnValue(true);
+        sessionService.isLoggedIn.and.returnValue(true);
 
         const result = service[method](null, routeSnapshot);
 
         expect(result).toBe(true);
-        expect(authService.handleLogout).not.toHaveBeenCalled();
+        expect(loginService.handleLogout).not.toHaveBeenCalled();
       }));
 
       it('should prevent loading the route if user is not logged in', inject([AuthGuard], (service: AuthGuard) => {
-        authService.isLoggedIn.and.returnValue(false);
+        sessionService.isLoggedIn.and.returnValue(false);
 
         const result = service[method](null, routeSnapshot);
 
@@ -63,11 +68,11 @@ describe('AuthService', () => {
 
       it('should let the authService handle the closed seesion if the user is not logged in',
         inject([AuthGuard], (service: AuthGuard) => {
-          authService.isLoggedIn.and.returnValue(false);
+          sessionService.isLoggedIn.and.returnValue(false);
 
           service[method](null, routeSnapshot);
 
-          expect(authService.handleLogout).toHaveBeenCalledTimes(1);
+          expect(loginService.handleLogout).toHaveBeenCalledTimes(1);
         }));
 
     });

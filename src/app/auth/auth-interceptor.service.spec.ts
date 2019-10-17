@@ -5,12 +5,13 @@ import { spyOnClass } from '../../testing/spyOnClass';
 import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AuthInterceptor } from './auth-interceptor.service';
-import { SessionService } from './session.service';
+import { LoginService } from '../login/login.service';
 
 describe('AuthInterceptor', () => {
 
   let http: HttpTestingController;
   let httpClient: HttpClient;
+  let loginService: jasmine.SpyObj<LoginService>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -25,8 +26,8 @@ describe('AuthInterceptor', () => {
           multi: true
         },
         {
-          provide: SessionService,
-          useValue: spyOnClass(SessionService)
+          provide: LoginService,
+          useValue: spyOnClass(LoginService)
         }
       ],
     });
@@ -35,7 +36,7 @@ describe('AuthInterceptor', () => {
   beforeEach(() => {
     http = TestBed.get(HttpTestingController);
     httpClient = TestBed.get(HttpClient);
-
+    loginService = TestBed.get(LoginService);
   });
 
   it('should be created', inject([AuthInterceptor], (service: AuthInterceptor) => {
@@ -57,7 +58,7 @@ describe('AuthInterceptor', () => {
     expect(successCallback).not.toHaveBeenCalled();
     expect(errorCallback).toHaveBeenCalled();
 
-    expect(TestBed.get(SessionService).handleLogout).toHaveBeenCalledTimes(1);
+    expect(loginService.handleLogout).toHaveBeenCalledTimes(1);
   });
 
   it(`should not intercept nor redirect successful api requests`, () => {
@@ -72,7 +73,7 @@ describe('AuthInterceptor', () => {
     expect(successCallback).toHaveBeenCalled();
     expect(errorCallback).not.toHaveBeenCalled();
 
-    expect(TestBed.get(SessionService).handleLogout).not.toHaveBeenCalled();
+    expect(loginService.handleLogout).not.toHaveBeenCalled();
 
     http.verify();
   });
@@ -88,7 +89,7 @@ describe('AuthInterceptor', () => {
     expect(successCallback).not.toHaveBeenCalled();
     expect(errorCallback).toHaveBeenCalled();
 
-    expect(TestBed.get(SessionService).handleLogout).not.toHaveBeenCalled();
+    expect(loginService.handleLogout).not.toHaveBeenCalled();
 
     http.verify();
   });
