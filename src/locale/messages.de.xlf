@@ -222,6 +222,54 @@
           <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="27519312d637e580e17f84189b3136b4d5459ea1" datatype="html">
+        <source>Set pin</source>
+        <target state="translated">PIN setzen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/token-card/token-card.component.html</context>
+          <context context-type="linenumber">62</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="610cdb8fefc2b57d6f2ed06634e9d7bf1195d5c3" datatype="html">
+        <source>Reset failcounter</source>
+        <target state="translated">Fehlzähler zurücksetzen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/token-card/token-card.component.html</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="826b25211922a1b46436589233cb6f1a163d89b7" datatype="html">
+        <source>Delete</source>
+        <target state="translated">Löschen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/token-card/token-card.component.html</context>
+          <context context-type="linenumber">91</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ac6c9212896d39b23811ed2dadab7d07336ec559" datatype="html">
+        <source>Enable</source>
+        <target state="translated">Aktivieren</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/token-card/token-card.component.html</context>
+          <context context-type="linenumber">99</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/token-card/token-card.component.html</context>
+          <context context-type="linenumber">108</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6766a926d80bb7763785621098dae459d6226429" datatype="html">
+        <source>Disable</source>
+        <target state="translated">Deaktivieren</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/token-card/token-card.component.html</context>
+          <context context-type="linenumber">116</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/token-card/token-card.component.html</context>
+          <context context-type="linenumber">125</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="0d1f680afd203b05cca8fc3cf3664314da17ef7b" datatype="html">
         <source>Enroll</source>
         <target state="translated">Ausrollen</target>
