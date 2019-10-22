@@ -15,9 +15,11 @@ import { ActiveTokensPipe } from './pipes/active-tokens.pipe';
 import { InactiveTokensPipe } from './pipes/inactive-tokens.pipe';
 import { ArrayNotEmptyPipe } from './pipes/array-not-empty.pipe';
 import { SortTokensByStatePipe } from './pipes/sort-tokens-by-state.pipe';
+import { CapitalizePipe } from './pipes/capitalize.pipe';
+
 import { QRCodeComponent } from './qr-code/qr-code.component';
 import { QRCodeModule } from 'angularx-qrcode';
-import { CapitalizePipe } from './pipes/capitalize.pipe';
+
 import { FocusOnInitDirective } from './focus-on-init/focus-on-init.directive';
 
 
