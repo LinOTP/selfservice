@@ -453,4 +453,31 @@ describe('TokenCardComponent', () => {
       expect(notificationService.message).toHaveBeenCalledWith(message);
     });
   });
+
+  describe('resync', () => {
+
+    it('should display a success message if token is synchronized', fakeAsync(() => {
+      matDialog.open.and.returnValue({ afterClosed: () => of(true) });
+
+      component.token = Fixtures.activeHotpToken;
+      component.resync();
+      tick();
+
+      expect(matDialog.open).toHaveBeenCalledTimes(1);
+      expect(notificationService.message).toHaveBeenCalledTimes(1);
+      expect(notificationService.message).toHaveBeenCalledWith('Token synchronized');
+    }));
+
+    it('should not notify user if resync was cancelled', fakeAsync(() => {
+      matDialog.open.and.returnValue({ afterClosed: () => of(false) });
+
+      component.token = Fixtures.activeHotpToken;
+      component.resync();
+      tick();
+
+      expect(notificationService.message).not.toHaveBeenCalled();
+    }));
+
+  });
+
 });

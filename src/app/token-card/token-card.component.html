@@ -73,6 +73,14 @@
     <mat-icon>replay</mat-icon>
     <span i18n>Reset failcounter</span>
   </button>
+  <ng-container *ngIf="isSynchronizeable">
+    <button mat-menu-item
+            (click)="resync()"
+            *ngxPermissionsOnly="Permission.RESYNC">
+      <mat-icon>sync_alt</mat-icon>
+      <span i18n>Synchronize</span>
+    </button>
+  </ng-container>
   <mat-divider></mat-divider>
   <ng-container *ngIf="token.enrollmentStatus === EnrollmentStatus.COMPLETED">
     <ng-container *ngIf="!token.enabled">

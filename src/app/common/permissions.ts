@@ -11,6 +11,7 @@ export enum Permission {
     ENABLE = 'ENABLE',
     DISABLE = 'DISABLE',
     RESET = 'RESET',
+    RESYNC = 'RESYNC',
 }
 
 export const PoliciesToPermissionsMapping: { [policy: string]: Permission } = {
@@ -26,6 +27,7 @@ export const PoliciesToPermissionsMapping: { [policy: string]: Permission } = {
     'enable': Permission.ENABLE,
     'disable': Permission.DISABLE,
     'reset': Permission.RESET,
+    'resync': Permission.RESYNC,
 };
 
 export interface PermissionSet {
@@ -78,4 +80,5 @@ export const ModifyTokenPermissions = [
     Permission.ENABLE,
     Permission.DISABLE,
     Permission.RESET,
+    Permission.RESYNC,
 ];
