@@ -45,6 +45,7 @@ export class TokenService {
     webprovision: 'webprovision',
     enable: 'enable',
     disable: 'disable',
+    reset: 'reset',
   };
 
   private validateCheckS = '/validate/check_s'; // generate a challenge with a given serial
@@ -295,6 +296,20 @@ export class TokenService {
       .pipe(
         map(response => response && response.result && response.result.value === true),
         catchError(this.handleError('test token', null))
+      );
+  }
+
+  resetFailcounter(tokenSerial: String): Observable<boolean> {
+    const body = {
+      serial: tokenSerial,
+      session: this.sessionService.getSession()
+    };
+    const url = this.userserviceBase + this.userserviceEndpoints.reset;
+
+    return this.http.post<LinOTPResponse<{ 'reset Failcounter': number }>>(url, body)
+      .pipe(
+        map(response => response && response.result && response.result.value && response.result.value['reset Failcounter'] === 1),
+        catchError(this.handleError('reset failcounter', false))
       );
   }
 
