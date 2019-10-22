@@ -67,6 +67,12 @@
     <mat-icon>check_circle</mat-icon>
     <span>test</span>
   </button> -->
+  <button mat-menu-item
+          (click)="resetFailcounter()"
+          *ngxPermissionsOnly="Permission.RESET">
+    <mat-icon>replay</mat-icon>
+    <span>reset failcounter</span>
+  </button>
   <mat-divider></mat-divider>
   <ng-container *ngIf="token.enrollmentStatus === EnrollmentStatus.COMPLETED">
     <ng-container *ngIf="!token.enabled">

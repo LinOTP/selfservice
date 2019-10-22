@@ -18,6 +18,7 @@ import { EnrollmentStatus } from '../api/token';
 import { TestChallengeResponseDialogComponent } from '../test/test-challenge-response/test-challenge-response-dialog.component';
 import { CapitalizePipe } from '../common/pipes/capitalize.pipe';
 import { TestOATHDialogComponent } from '../test/test-oath/test-oath-dialog.component';
+import { I18nMock } from '../../testing/i18n-mock-provider';
 
 class Page extends TestingPage<TokenCardComponent> {
 
@@ -61,7 +62,11 @@ describe('TokenCardComponent', () => {
           provide: TokenService,
           useValue: spyOnClass(TokenService)
         },
-        { provide: MatDialog, useValue: spyOnClass(MatDialog) },
+        {
+          provide: MatDialog,
+          useValue: spyOnClass(MatDialog)
+        },
+        I18nMock,
       ]
     })
       .compileComponents();
@@ -426,4 +431,26 @@ describe('TokenCardComponent', () => {
     });
   });
 
+  describe('resetFailcounter', () => {
+
+    it('should display a success message if failcounter is reset', () => {
+      tokenService.resetFailcounter.and.returnValue(of(true));
+      const message = 'Failcounter successfully reset';
+
+      component.resetFailcounter();
+
+      expect(tokenService.resetFailcounter).toHaveBeenCalledWith(component.token.serial);
+      expect(notificationService.message).toHaveBeenCalledWith(message);
+    });
+
+    it('should display a failure message if failcounter could not be reset', () => {
+      tokenService.resetFailcounter.and.returnValue(of(false));
+      const message = 'Error: could not reset failcounter. Please try again or contact your administrator.';
+
+      component.resetFailcounter();
+
+      expect(tokenService.resetFailcounter).toHaveBeenCalledWith(component.token.serial);
+      expect(notificationService.message).toHaveBeenCalledWith(message);
+    });
+  });
 });

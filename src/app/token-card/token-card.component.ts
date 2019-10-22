@@ -15,6 +15,7 @@ import { TokenService } from '../api/token.service';
 
 import { TestOATHDialogComponent } from '../test/test-oath/test-oath-dialog.component';
 import { TestChallengeResponseDialogComponent } from '../test/test-challenge-response/test-challenge-response-dialog.component';
+import { I18n } from '@ngx-translate/i18n-polyfill';
 
 @Component({
   selector: 'app-token-card',
@@ -35,6 +36,7 @@ export class TokenCardComponent implements OnInit {
     private dialog: MatDialog,
     private notificationService: NotificationService,
     private tokenService: TokenService,
+    private i18n: I18n,
   ) { }
 
   public ngOnInit() { }
@@ -170,5 +172,17 @@ export class TokenCardComponent implements OnInit {
 
   public isPush(): boolean {
     return this.token.typeDetails.type === TokenType.PUSH;
+  }
+
+  public resetFailcounter() {
+    this.tokenService.resetFailcounter(this.token.serial).subscribe(success => {
+      let message: String;
+      if (success) {
+        message = this.i18n('Failcounter successfully reset');
+      } else {
+        message = this.i18n('Error: could not reset failcounter. Please try again or contact your administrator.');
+      }
+      this.notificationService.message(message);
+    });
   }
 }

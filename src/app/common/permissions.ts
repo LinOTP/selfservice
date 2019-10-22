@@ -10,6 +10,7 @@ export enum Permission {
     SETPIN = 'SETPIN',
     ENABLE = 'ENABLE',
     DISABLE = 'DISABLE',
+    RESET = 'RESET',
 }
 
 export const PoliciesToPermissionsMapping: { [policy: string]: Permission } = {
@@ -24,6 +25,7 @@ export const PoliciesToPermissionsMapping: { [policy: string]: Permission } = {
     'setOTPPIN': Permission.SETPIN,
     'enable': Permission.ENABLE,
     'disable': Permission.DISABLE,
+    'reset': Permission.RESET,
 };
 
 export interface PermissionSet {
@@ -75,4 +77,5 @@ export const ModifyTokenPermissions = [
     Permission.DELETE,
     Permission.ENABLE,
     Permission.DISABLE,
+    Permission.RESET,
 ];
