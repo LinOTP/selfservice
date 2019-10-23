@@ -174,6 +174,24 @@
           <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="5ada07493410634b7a6aaea251fdfc4f53dc9e47" datatype="html">
+        <source>Please select which token to use as your second factor:</source>
+        <target state="final">Please select which token to use as your second factor:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/login/login.component.html</context>
+          <context context-type="linenumber">61</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="944f1990aad7d081f5a8afacc4ee6e09ee8f0d04" datatype="html">
+        <source>You do not own any valid tokens or there was a problem retrieving them from the server.
+          Please contact an administrator.</source>
+        <target state="final">You do not own any valid tokens or there was a problem retrieving them from the server.
+          Please contact an administrator.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/login/login.component.html</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="41f9d2b008b1ac61c20fd6bc7a600b4ac84b3370" datatype="html">
         <source>OTP</source>
         <target state="final">OTP</target>
