@@ -45,6 +45,8 @@ export class TokenService {
     webprovision: 'webprovision',
     enable: 'enable',
     disable: 'disable',
+    reset: 'reset',
+    resync: 'resync',
   };
 
   private validateCheckS = '/validate/check_s'; // generate a challenge with a given serial
@@ -295,6 +297,36 @@ export class TokenService {
       .pipe(
         map(response => response && response.result && response.result.value === true),
         catchError(this.handleError('test token', null))
+      );
+  }
+
+  resetFailcounter(tokenSerial: String): Observable<boolean> {
+    const body = {
+      serial: tokenSerial,
+      session: this.sessionService.getSession()
+    };
+    const url = this.userserviceBase + this.userserviceEndpoints.reset;
+
+    return this.http.post<LinOTPResponse<{ 'reset Failcounter': number }>>(url, body)
+      .pipe(
+        map(response => response && response.result && response.result.value && response.result.value['reset Failcounter'] === 1),
+        catchError(this.handleError('reset failcounter', false))
+      );
+  }
+
+  resync(tokenSerial: String, OTP1: string, OTP2: string): Observable<boolean> {
+    const body = {
+      serial: tokenSerial,
+      otp1: OTP1,
+      otp2: OTP2,
+      session: this.sessionService.getSession()
+    };
+    const url = this.userserviceBase + this.userserviceEndpoints.resync;
+
+    return this.http.post<LinOTPResponse<{ 'resync Token': boolean }>>(url, body)
+      .pipe(
+        map(response => response && response.result && response.result.value && response.result.value['resync Token'] === true),
+        catchError(this.handleError('resync', false))
       );
   }
 

@@ -59,7 +59,7 @@
           (click)="setPin()"
           *ngxPermissionsOnly="Permission.SETPIN">
     <mat-icon>security</mat-icon>
-    <span>set pin</span>
+    <span i18n>Set pin</span>
   </button>
   <!-- <button mat-menu-item
           (click)="testToken()"
@@ -67,6 +67,20 @@
     <mat-icon>check_circle</mat-icon>
     <span>test</span>
   </button> -->
+  <button mat-menu-item
+          (click)="resetFailcounter()"
+          *ngxPermissionsOnly="Permission.RESET">
+    <mat-icon>replay</mat-icon>
+    <span i18n>Reset failcounter</span>
+  </button>
+  <ng-container *ngIf="isSynchronizeable">
+    <button mat-menu-item
+            (click)="resync()"
+            *ngxPermissionsOnly="Permission.RESYNC">
+      <mat-icon>sync_alt</mat-icon>
+      <span i18n>Synchronize</span>
+    </button>
+  </ng-container>
   <mat-divider></mat-divider>
   <ng-container *ngIf="token.enrollmentStatus === EnrollmentStatus.COMPLETED">
     <ng-container *ngIf="!token.enabled">
@@ -82,7 +96,7 @@
           (click)="delete()"
           *ngxPermissionsOnly="Permission.DELETE">
     <mat-icon>delete</mat-icon>
-    <span>delete</span>
+    <span i18n>Delete</span>
   </button>
 </mat-menu>
 
@@ -90,7 +104,7 @@
   <button mat-menu-item
           (click)="enable()">
     <mat-icon>check_box</mat-icon>
-    <span>enable</span>
+    <span i18n>Enable</span>
   </button>
 </ng-template>
 
@@ -99,7 +113,7 @@
           disabled
           matTooltip="You do not have permissions to enable the token">
     <mat-icon>check_box</mat-icon>
-    <span>enable</span>
+    <span i18n>Enable</span>
   </button>
 </ng-template>
 
@@ -107,7 +121,7 @@
   <button mat-menu-item
           (click)="disable()">
     <mat-icon>indeterminate_check_box</mat-icon>
-    <span>disable</span>
+    <span i18n>Disable</span>
   </button>
 </ng-template>
 
@@ -116,6 +130,6 @@
           disabled
           matTooltip="You do not have permissions to disable this token.">
     <mat-icon>indeterminate_check_box</mat-icon>
-    <span>disable</span>
+    <span i18n>Disable</span>
   </button>
 </ng-template>

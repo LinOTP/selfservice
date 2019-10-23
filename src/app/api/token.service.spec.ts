@@ -312,4 +312,74 @@ describe('TokenService', () => {
       })
     ));
   });
+
+  describe('resetFailcounter', () => {
+    it('should request a failcounter reset from the server', async(
+      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+
+        tokenService.resetFailcounter('serial').subscribe(response => {
+          expect(response).toEqual(true);
+        });
+
+        const request = backend.expectOne((req) => req.url === '/userservice/reset' && req.method === 'POST');
+
+        request.flush({ result: { status: true, value: { 'reset Failcounter': 1 } } });
+        backend.verify();
+      })
+    ));
+
+    it('should call the error handler on request failure', async(
+      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+
+        spyOn(console, 'error');
+
+        tokenService.resetFailcounter('serial').subscribe(response => {
+          expect(response).toEqual(false);
+        });
+
+        const request = backend.expectOne((req) => req.url === '/userservice/reset' && req.method === 'POST');
+
+        request.error(new ErrorEvent('Error resetting failcounter'));
+        backend.verify();
+
+        expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
+      })
+    ));
+
+  });
+
+  describe('resync', () => {
+    it('should request a token resync from the server', async(
+      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+
+        tokenService.resync('serial', 'otp1', 'otp2').subscribe(response => {
+          expect(response).toEqual(true);
+        });
+
+        const request = backend.expectOne((req) => req.url === '/userservice/resync' && req.method === 'POST');
+
+        request.flush({ result: { status: true, value: { 'resync Token': true } } });
+        backend.verify();
+      })
+    ));
+
+    it('should call the error handler on request failure', async(
+      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+
+        spyOn(console, 'error');
+
+        tokenService.resync('serial', 'otp1', 'otp2').subscribe(response => {
+          expect(response).toEqual(false);
+        });
+
+        const request = backend.expectOne((req) => req.url === '/userservice/resync' && req.method === 'POST');
+
+        request.error(new ErrorEvent('Error resyncing token'));
+        backend.verify();
+
+        expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
+      })
+    ));
+  });
+
 });
