@@ -6,6 +6,7 @@ import { Token } from '../../api/token';
 import { TokenService } from '../../api/token.service';
 import { ErrorStateRootMatcher } from '../form-helpers/error-state-root-matcher';
 import { NotificationService } from '../notification.service';
+import { I18n } from '@ngx-translate/i18n-polyfill';
 
 @Component({
   selector: 'app-set-pin-dialog',
@@ -18,12 +19,16 @@ export class SetPinDialogComponent {
   public matcher = new ErrorStateRootMatcher();
   public form: FormGroup;
 
+  public newPinPlaceholder = this.i18n('New PIN');
+  public confirmPinPlaceholder = this.i18n('Confirm your new PIN');
+
   constructor(
     private dialogRef: MatDialogRef<SetPinDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private token: Token,
     private tokenService: TokenService,
     private formBuilder: FormBuilder,
     private notificationService: NotificationService,
+    private i18n: I18n,
   ) {
     this.form = this.formBuilder.group(
       {
@@ -63,7 +68,7 @@ export class SetPinDialogComponent {
           this.dialogRef.close(true);
         } else {
           this.awaitingResponse = false;
-          this.notificationService.message('Pin could not be set. Please try again.');
+          this.notificationService.message(this.i18n('Pin could not be set. Please try again.'));
         }
       });
     }

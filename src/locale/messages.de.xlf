@@ -214,9 +214,29 @@
           <context context-type="linenumber">118</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="ab83372b3d4d9be3ad01e4e94dd5b94dd34411f0" datatype="html">
+        <source>Set a new PIN</source>
+        <target state="translated">Neue PIN setzen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/set-pin-dialog/set-pin-dialog.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9e933103ce72f32184d1f2a2921abc6d37a0d09b" datatype="html">
+        <source>Entered PINs do not match</source>
+        <target state="translated">Die eingegebenen PINs sind nicht gleich.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/set-pin-dialog/set-pin-dialog.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="c7d761ff7a5f7e7a8f6d3899d4a7fe62e73afab3" datatype="html">
         <source>cancel</source>
         <target state="translated">abbrechen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/set-pin-dialog/set-pin-dialog.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/dialog/dialog.component.html</context>
           <context context-type="linenumber">7</context>
@@ -224,6 +244,14 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/resync-dialog/resync-dialog.component.html</context>
           <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="f2b2d173a24e0919e72325bdee1e98019613fd1d" datatype="html">
+        <source>set pin</source>
+        <target state="translated">PIN setzen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/set-pin-dialog/set-pin-dialog.component.html</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="e31efdfcc0b21b460ebc5f386962aa2b7a3a2c79" datatype="html">
@@ -423,6 +451,30 @@
         <target state="translated">Token-Synchronisierung fehlgeschlagen. Bitte versuchen Sie es erneut.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/resync-dialog/resync-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b9d077968de03f540746b3c89daba5e006153e78" datatype="html">
+        <source>New PIN</source>
+        <target state="translated">Neue PIN</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c38593e9087ed6d09c0e23b718550f082beb1404" datatype="html">
+        <source>Confirm your new PIN</source>
+        <target state="translated">Bestätigen Sie Ihre neue PIN</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="55f14d81da249a5da5db6f23297827299e59b329" datatype="html">
+        <source>Pin could not be set. Please try again.</source>
+        <target state="translated">PIN-Setzen fehlgeschlagen. Bitte versuchen Sie es erneut.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
