@@ -216,7 +216,7 @@
       </trans-unit>
       <trans-unit id="ab83372b3d4d9be3ad01e4e94dd5b94dd34411f0" datatype="html">
         <source>Set a new PIN</source>
-        <target state="translated">Neue PIN setzen</target>
+        <target state="translated">Neuen PIN setzen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/set-pin-dialog/set-pin-dialog.component.html</context>
           <context context-type="linenumber">2</context>
@@ -254,6 +254,146 @@
           <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="52db4409bbb3dd4bd80626ae77b8809344012c26" datatype="html">
+        <source>Enroll <x id="INTERPOLATION" equiv-text="{{ data.tokenTypeDetails.name }}"/></source>
+        <target state="translated"><x id="INTERPOLATION" equiv-text="{{ data.tokenTypeDetails.name }}"/> ausrollen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b95e7be384170fa802e18eb5a95b16f094ffd350" datatype="html">
+        <source>You need an OATH compatible soft token app installed on your mobile
+      device to use this kind of token, such as:</source>
+        <target state="translated">Sie benötigen eine OATH-kompatible Soft-Token-App auf Ihrem Smartphone, um diese Art von Token zu benutzen. Zum Beispiel:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="f302069d66aed8b813a09a298ffaf3958b9b7f0b" datatype="html">
+        <source>If you are not sure whether your app is compatible, you will later have
+      the possibility to test the token. Should the test fail, you can install another app and try again.</source>
+        <target state="translated">Wenn Sie nicht sicher sind, ob Ihre App kompatibel ist, haben Sie später die Möglichkeit, den Token zu testen. Sollte der Test fehlschlagen, können Sie eine andere App installieren und es noch einmal versuchen.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="33eaeb87a4e063e4ccc060cd446f38d15aac6ba3" datatype="html">
+        <source>Once you have an app installed on your device, you can start the
+      enrollment process.</source>
+        <target state="translated">Sobald Sie eine App auf Ihrem Smartphone installiert haben, können Sie das Ausrollen starten.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="86573a8c423bc537f6caa349d2cce36529ff2f57" datatype="html">
+        <source>Enrollment step 1 of 3</source>
+        <target state="translated">Ausrollen: Schritt 1 von 3</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d7b35c384aecd25a516200d6921836374613dfe7" datatype="html">
+        <source>Cancel</source>
+        <target state="translated">Abbrechen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
+          <context context-type="linenumber">105</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="f732c304c7433e5a83ffcd862c3dce709a0f4982" datatype="html">
+        <source>Next</source>
+        <target state="translated">Weiter</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
+          <context context-type="linenumber">109</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="055a80ae41e1b038fc4339b814a210a3d243b04c" datatype="html">
+        <source>A token with the serial number <x id="INTERPOLATION" equiv-text="{{enrolledToken.serial}}"/> has been enrolled.</source>
+        <target state="translated">Ein Token mit der Seriennummer <x id="INTERPOLATION" equiv-text="{{enrolledToken.serial}}"/> wurde ausgerollt.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c0929ac085d19df44887c34a87af1a10611fc691" datatype="html">
+        <source>Scan the QR code below with your soft token app or <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>follow this link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/> to
+        install it on your mobile device.</source>
+        <target state="translated">Scannen Sie den untenstehenden QR-Code mit Ihrer Soft-Token-App oder <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>folgen Sie diesem Link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>, um den Token auf Ihrem Smartphone hinzuzufügen.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="21e26a3f79d538871ff7782dbc55c76a7e5da3ef" datatype="html">
+        <source>hide details</source>
+        <target state="translated">Details ausblenden</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9caaa1de898865b94baefb06156db1e040edc26f" datatype="html">
+        <source>show details</source>
+        <target state="translated">Details einblenden</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fe0d31ab17a3c5f7e1427d436d32b9c7e82982df" datatype="html">
+        <source>Enrollment URL</source>
+        <target state="translated">URL zum Ausrollen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
+          <context context-type="linenumber">64</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="a6c09c3b932b35a552020c24b37d5f517e2d4c3b" datatype="html">
+        <source>Seed</source>
+        <target state="translated">Seed</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
+          <context context-type="linenumber">83</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7ce32ebdca3fa54087d8bc1849db00a4ca71b653" datatype="html">
+        <source>Enrollment step 2 of 3</source>
+        <target state="translated">Ausrollen: Schritt 2 von 3</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
+          <context context-type="linenumber">101</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fa458bb847cca8c429bf96b143fa148db0db351b" datatype="html">
+        <source>Your token is now enrolled.</source>
+        <target state="translated">Ihr Token ist jetzt ausgerollt.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
+          <context context-type="linenumber">115</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1f4d7a1b7bba32d080b5653c85f2e0028f317411" datatype="html">
+        <source>If you wish to set a security PIN, please do so now:</source>
+        <target state="translated">Wenn Sie einen PIN setzen wollen, dann setzen Sie ihn hier:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
+          <context context-type="linenumber">117</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="e31efdfcc0b21b460ebc5f386962aa2b7a3a2c79" datatype="html">
         <source>Synchronize token</source>
         <target state="translated">Token synchronisieren</target>
@@ -282,8 +422,36 @@
         <source>Set pin</source>
         <target state="translated">PIN setzen</target>
         <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
+          <context context-type="linenumber">121</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
           <context context-type="linenumber">62</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1f2015488439a54808759dcd3521bf1a2f0b5510" datatype="html">
+        <source>Setting a PIN helps you protect your token against misuse.</source>
+        <target state="translated">Einen PIN zu setzen erhöht die Sicherheit gegen Missbrauch des Tokens.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
+          <context context-type="linenumber">123</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="62ac199e84e66442bb5e50ffc675d1f335e29e6c" datatype="html">
+        <source>Enrollment step 3 of 3</source>
+        <target state="translated">Ausrollen: Schritt 3 von 3</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
+          <context context-type="linenumber">126</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="f4e529ae5ffd73001d1ff4bbdeeb0a72e342e5c8" datatype="html">
+        <source>Close</source>
+        <target state="translated">Beenden</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
+          <context context-type="linenumber">131</context>
         </context-group>
       </trans-unit>
       <trans-unit id="610cdb8fefc2b57d6f2ed06634e9d7bf1195d5c3" datatype="html">
@@ -464,7 +632,7 @@
       </trans-unit>
       <trans-unit id="b9d077968de03f540746b3c89daba5e006153e78" datatype="html">
         <source>New PIN</source>
-        <target state="translated">Neue PIN</target>
+        <target state="translated">Neuer PIN</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.ts</context>
           <context context-type="linenumber">1</context>
@@ -472,7 +640,7 @@
       </trans-unit>
       <trans-unit id="c38593e9087ed6d09c0e23b718550f082beb1404" datatype="html">
         <source>Confirm your new PIN</source>
-        <target state="translated">Bestätigen Sie Ihre neue PIN</target>
+        <target state="translated">Bestätigen Sie Ihren neuen PIN</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.ts</context>
           <context context-type="linenumber">1</context>
@@ -480,9 +648,41 @@
       </trans-unit>
       <trans-unit id="55f14d81da249a5da5db6f23297827299e59b329" datatype="html">
         <source>Pin could not be set. Please try again.</source>
-        <target state="translated">PIN-Setzen fehlgeschlagen. Bitte versuchen Sie es erneut.</target>
+        <target state="translated">PIN setzen fehlgeschlagen. Bitte versuchen Sie es erneut.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1383b563fb42c99fe41e29e48102403f5c451d6b" datatype="html">
+        <source>There was a problem while enrolling the new token. Please try again.</source>
+        <target state="translated">Token ausrollen fehlgeschlagen. Bitte versuchen Sie es erneut.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="a29d777afd8f76138a586b1012731e9b5d7d6704" datatype="html">
+        <source>PIN set</source>
+        <target state="translated">PIN gesetzt</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8ce17783f02f27aaee008c8c39a415aae6b502b5" datatype="html">
+        <source>There was an error and the new PIN could not be set. Please try again.</source>
+        <target state="translated">PIN setzen fehlgeschlagen. Bitte versuchen Sie es erneut.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ef90545bc832876c0d7f9a10363c75137472bbb5" datatype="html">
+        <source>Copied</source>
+        <target state="translated">Kopiert</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
