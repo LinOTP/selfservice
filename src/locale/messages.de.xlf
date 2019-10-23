@@ -841,6 +841,22 @@
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="098bcd645671f58947bbe5c882392383da44e7c6" datatype="html">
+        <source>The selected token type cannot be enrolled at the moment.</source>
+        <target state="translated">Der von Ihnen gewählte Tokentyp kann zur Zeit nicht ausgrollt werden.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enrollment-grid/enrollment-grid.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="68aecd24266297ee200b878362811adbcc4f2c95" datatype="html">
+        <source>There was a problem starting the token test, please try manually later.</source>
+        <target state="translated">Ein Problem ist beim Starten vom Token-Test aufgetreten,  bitte versuchen Sie es später erneut.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enrollment-grid/enrollment-grid.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="8ddf7d586e5a7c177b267fb1c0ef9e253b7ab496" datatype="html">
         <source>Waiting for response</source>
         <target state="translated">Warten auf Antwort</target>

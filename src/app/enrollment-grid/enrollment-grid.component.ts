@@ -1,6 +1,8 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogRef, MatDialogConfig } from '@angular/material/dialog';
 
+import { I18n } from '@ngx-translate/i18n-polyfill';
+
 import { Subject, Observable, EMPTY } from 'rxjs';
 import { switchMap, filter, tap } from 'rxjs/operators';
 
@@ -28,6 +30,7 @@ export class EnrollmentGridComponent implements OnInit {
     public dialog: MatDialog,
     private tokenService: TokenService,
     private notificationService: NotificationService,
+    private i18n: I18n,
   ) { }
 
   public ngOnInit() {
@@ -36,7 +39,7 @@ export class EnrollmentGridComponent implements OnInit {
 
   public runEnrollmentWorkflow(tokenType: TokenTypeDetails) {
     if (![TokenType.HOTP, TokenType.TOTP, TokenType.PUSH].includes(tokenType.type)) {
-      this.notificationService.message('The selected token type cannot be enrolled at the moment.');
+      this.notificationService.message(this.i18n('The selected token type cannot be enrolled at the moment.'));
       return;
     }
 
@@ -47,7 +50,7 @@ export class EnrollmentGridComponent implements OnInit {
         switchMap(serial => this.tokenService.getToken(serial)),
         tap(token => {
           if (!token) {
-            this.notificationService.message('There was a problem starting the token test, please try manually later.');
+            this.notificationService.message(this.i18n('There was a problem starting the token test, please try manually later.'));
           }
         }),
         filter(token => !!token),
