@@ -452,6 +452,74 @@
           <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="3a73b582d58222fbcc89defb53f1b0ddc4ab2d42" datatype="html">
+        <source>Serial: <x id="INTERPOLATION" equiv-text="{{ token.serial }}"/></source>
+        <target state="final">Serial: <x id="INTERPOLATION" equiv-text="{{ token.serial }}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/token-card/token-card.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="31c5dfc782294dbfa8f246de865f7a94ba78daed" datatype="html">
+        <source> There was a problem with this token and it cannot be used. Make
+          sure to delete it and reset your Authenticator app before enrolling
+          a new push token. </source>
+        <target state="final"> There was a problem with this token and it cannot be used. Make
+          sure to delete it and reset your Authenticator app before enrolling
+          a new push token. </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/token-card/token-card.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="f48e01a7ac0ab44bd867fb58027c5f0a5bfc3b2a" datatype="html">
+        <source> This token needs to be paired with your mobile. You need the
+          enrollment QR code to proceed in the authenticator mobile
+          application. Afterwards you can start the activation here. </source>
+        <target state="final"> This token needs to be paired with your mobile. You need the
+          enrollment QR code to proceed in the authenticator mobile
+          application. Afterwards you can start the activation here. </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/token-card/token-card.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d473d029d358e150abd113d09d002da620ff73a3" datatype="html">
+        <source> This token is paired with your mobile. The next step is the
+        activation: </source>
+        <target state="final"> This token is paired with your mobile. The next step is the
+        activation: </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/token-card/token-card.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="afec43bc64ee5c8c75a71c560bccf04ffd37d68f" datatype="html">
+        <source> An activation challenge has been generated. Please process it with
+        your Authenticator app. </source>
+        <target state="final"> An activation challenge has been generated. Please process it with
+        your Authenticator app. </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/token-card/token-card.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="daa52b3eb35d393bd15ae121c96b502ef4011163" datatype="html">
+        <source> Delete </source>
+        <target state="final"> Delete </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/token-card/token-card.component.html</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d5b409d921a6b3d222bd97d2b886c5be68c41a98" datatype="html">
+        <source> Activate </source>
+        <target state="final"> Activate </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/token-card/token-card.component.html</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="27519312d637e580e17f84189b3136b4d5459ea1" datatype="html">
         <source>Set pin</source>
         <target state="final">Set pin</target>
@@ -461,7 +529,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">62</context>
+          <context context-type="linenumber">56</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1f2015488439a54808759dcd3521bf1a2f0b5510" datatype="html">
@@ -597,7 +665,7 @@
         <target state="final">Reset failcounter</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">74</context>
+          <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
       <trans-unit id="0012706153bcbfdd0b8eafae8a34bc2b509b5749" datatype="html">
@@ -605,7 +673,7 @@
         <target state="final">Synchronize</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">81</context>
+          <context context-type="linenumber">75</context>
         </context-group>
       </trans-unit>
       <trans-unit id="826b25211922a1b46436589233cb6f1a163d89b7" datatype="html">
@@ -613,7 +681,7 @@
         <target state="final">Delete</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">99</context>
+          <context context-type="linenumber">93</context>
         </context-group>
       </trans-unit>
       <trans-unit id="ac6c9212896d39b23811ed2dadab7d07336ec559" datatype="html">
@@ -621,11 +689,11 @@
         <target state="final">Enable</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">107</context>
+          <context context-type="linenumber">101</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">116</context>
+          <context context-type="linenumber">110</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6766a926d80bb7763785621098dae459d6226429" datatype="html">
@@ -633,11 +701,11 @@
         <target state="final">Disable</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">124</context>
+          <context context-type="linenumber">118</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">133</context>
+          <context context-type="linenumber">127</context>
         </context-group>
       </trans-unit>
       <trans-unit id="0d1f680afd203b05cca8fc3cf3664314da17ef7b" datatype="html">
@@ -811,6 +879,10 @@
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="8ce17783f02f27aaee008c8c39a415aae6b502b5" datatype="html">
         <source>There was an error and the new PIN could not be set. Please try again.</source>
@@ -921,6 +993,86 @@
         <target state="final">Login failed</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="321b29f9dd7a790b801763132229fd2103960e16" datatype="html">
+        <source>Delete token?</source>
+        <target state="final">Delete token?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7cdd314ce32c234b022ef6d356929ab2c8013178" datatype="html">
+        <source>You won't be able to use it to authenticate yourself anymore.</source>
+        <target state="final">You won't be able to use it to authenticate yourself anymore.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="70ef158c584bafe788e319a0bffa11b02ee9abf1" datatype="html">
+        <source>delete</source>
+        <target state="final">delete</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="80808f75fd180a085d2a394d2a0d520ba69aa51f" datatype="html">
+        <source>Token deleted</source>
+        <target state="final">Token deleted</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6e1cbef743386c5c90b5bc2755cfc3539e92434e" datatype="html">
+        <source>Token enabled</source>
+        <target state="final">Token enabled</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8b4948d1c359329bc87847f77bb92ecbffce2d2a" datatype="html">
+        <source>Error: Could not enable token</source>
+        <target state="final">Error: Could not enable token</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="52e9c9de3381a0ff45b5480964f84aac45bd4db9" datatype="html">
+        <source>Token disabled</source>
+        <target state="final">Token disabled</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="a760e04ac31b7b924df9431329cca4db459a4de7" datatype="html">
+        <source>Error: Could not disable token</source>
+        <target state="final">Error: Could not disable token</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b08640dfad04e4dd4163c174679e7e5e8bfd8a8b" datatype="html">
+        <source>This token type cannot be tested yet.</source>
+        <target state="final">This token type cannot be tested yet.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="67825c5bec4425c39e5171800d781892fb33d66f" datatype="html">
+        <source>Token activated</source>
+        <target state="final">Token activated</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>

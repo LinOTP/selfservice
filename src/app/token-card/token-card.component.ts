@@ -61,7 +61,7 @@ export class TokenCardComponent implements OnInit {
         filter(result => !!result)
       )
       .subscribe(() => {
-        this.notificationService.message('PIN set');
+        this.notificationService.message(this.i18n('PIN set'));
       });
   }
 
@@ -70,9 +70,9 @@ export class TokenCardComponent implements OnInit {
       width: '25em',
       data:
       {
-        title: 'Delete token?',
-        text: 'You won\'t be able to use it to authenticate yourself anymore.',
-        confirmationLabel: 'delete'
+        title: this.i18n('Delete token?'),
+        text: this.i18n('You won\'t be able to use it to authenticate yourself anymore.'),
+        confirmationLabel: this.i18n('delete')
       }
     };
 
@@ -84,7 +84,7 @@ export class TokenCardComponent implements OnInit {
         switchMap(() => this.tokenService.deleteToken(this.token.serial)),
       )
       .subscribe(() => {
-        this.notificationService.message('Token deleted');
+        this.notificationService.message(this.i18n('Token deleted'));
         this.tokenUpdate.next();
       });
   }
@@ -92,10 +92,10 @@ export class TokenCardComponent implements OnInit {
   public enable(): void {
     this.tokenService.enable(this.token).subscribe(isSuccessful => {
       if (isSuccessful) {
-        this.notificationService.message('Token enabled');
+        this.notificationService.message(this.i18n('Token enabled'));
         this.tokenUpdate.next();
       } else {
-        this.notificationService.message('Error: Could not enable token');
+        this.notificationService.message(this.i18n('Error: Could not enable token'));
       }
     });
   }
@@ -103,10 +103,10 @@ export class TokenCardComponent implements OnInit {
   public disable(): void {
     this.tokenService.disable(this.token).subscribe(isSuccessful => {
       if (isSuccessful) {
-        this.notificationService.message('Token disabled');
+        this.notificationService.message(this.i18n('Token disabled'));
         this.tokenUpdate.next();
       } else {
-        this.notificationService.message('Error: Could not disable token');
+        this.notificationService.message(this.i18n('Error: Could not disable token'));
       }
     });
   }
@@ -131,7 +131,7 @@ export class TokenCardComponent implements OnInit {
         testDialog = TestChallengeResponseDialogComponent;
         break;
       default:
-        this.notificationService.message('This token type cannot be tested yet.');
+        this.notificationService.message(this.i18n('This token type cannot be tested yet.'));
         return;
     }
     this.dialog.open(testDialog, dialogConfig)
@@ -152,7 +152,7 @@ export class TokenCardComponent implements OnInit {
     this.dialog.open(TestChallengeResponseDialogComponent, dialogConfig)
       .afterClosed()
       .subscribe(() => {
-        this.notificationService.message('Token activated');
+        this.notificationService.message(this.i18n('Token activated'));
         this.tokenUpdate.next();
       });
   }
