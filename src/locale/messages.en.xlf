@@ -221,6 +221,34 @@
           <context context-type="sourcefile">app/common/dialog/dialog.component.html</context>
           <context context-type="linenumber">7</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/resync-dialog/resync-dialog.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e31efdfcc0b21b460ebc5f386962aa2b7a3a2c79" datatype="html">
+        <source>Synchronize token</source>
+        <target state="final">Synchronize token</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/resync-dialog/resync-dialog.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ac8b929afe1598357e157a6ac48a0e2b6cc00267" datatype="html">
+        <source>Generate two OTP values and enter them below:</source>
+        <target state="final">Generate two OTP values and enter them below:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/resync-dialog/resync-dialog.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e682cdbdb50e5ed0d4df256736a7a56fda7d192a" datatype="html">
+        <source>synchronize</source>
+        <target state="final">synchronize</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/resync-dialog/resync-dialog.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="27519312d637e580e17f84189b3136b4d5459ea1" datatype="html">
         <source>Set pin</source>
@@ -238,12 +266,20 @@
           <context context-type="linenumber">74</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="0012706153bcbfdd0b8eafae8a34bc2b509b5749" datatype="html">
+        <source>Synchronize</source>
+        <target state="final">Synchronize</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/token-card/token-card.component.html</context>
+          <context context-type="linenumber">81</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="826b25211922a1b46436589233cb6f1a163d89b7" datatype="html">
         <source>Delete</source>
         <target state="final">Delete</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">91</context>
+          <context context-type="linenumber">99</context>
         </context-group>
       </trans-unit>
       <trans-unit id="ac6c9212896d39b23811ed2dadab7d07336ec559" datatype="html">
@@ -251,11 +287,11 @@
         <target state="final">Enable</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">99</context>
+          <context context-type="linenumber">107</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">108</context>
+          <context context-type="linenumber">116</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6766a926d80bb7763785621098dae459d6226429" datatype="html">
@@ -263,11 +299,11 @@
         <target state="final">Disable</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">116</context>
+          <context context-type="linenumber">124</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">125</context>
+          <context context-type="linenumber">133</context>
         </context-group>
       </trans-unit>
       <trans-unit id="0d1f680afd203b05cca8fc3cf3664314da17ef7b" datatype="html">
@@ -382,6 +418,14 @@
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="89d87944027410f162b6dfcb4ddae99cab7ad478" datatype="html">
+        <source>Token could not be synchronized. Please try again.</source>
+        <target state="final">Token could not be synchronized. Please try again.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/resync-dialog/resync-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="8ddf7d586e5a7c177b267fb1c0ef9e253b7ab496" datatype="html">
         <source>Waiting for response</source>
         <target state="final">Waiting for response</target>
@@ -433,6 +477,14 @@
       <trans-unit id="48b854b8a6d69df35eda2e8b4c945291368afa57" datatype="html">
         <source>Error: could not reset failcounter. Please try again or contact your administrator.</source>
         <target state="final">Error: could not reset failcounter. Please try again or contact your administrator.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e58101b041fe132b8b05eb784392759154db2a1d" datatype="html">
+        <source>Token synchronized</source>
+        <target state="final">Token synchronized</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
           <context context-type="linenumber">1</context>
