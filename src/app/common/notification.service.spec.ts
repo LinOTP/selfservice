@@ -1,5 +1,7 @@
 import { TestBed, inject } from '@angular/core/testing';
 
+import { I18nMock } from '../../testing/i18n-mock-provider';
+
 import { MaterialModule } from '../material.module';
 
 import { NotificationService } from './notification.service';
@@ -12,6 +14,7 @@ describe('NotificationService', () => {
       ],
       providers: [
         NotificationService,
+        I18nMock,
       ]
     });
   });
