@@ -4,6 +4,8 @@ import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import { Router } from '@angular/router';
 
+import { I18n } from '@ngx-translate/i18n-polyfill';
+
 import { switchMap } from 'rxjs/operators';
 import { EMPTY } from 'rxjs';
 
@@ -38,6 +40,7 @@ export class EnrollPushDialogComponent implements OnInit {
     private router: Router,
     private dialogRef: MatDialogRef<EnrollPushDialogComponent>,
     private dialog: MatDialog,
+    private i18n: I18n,
   ) {
   }
 
@@ -75,7 +78,7 @@ export class EnrollPushDialogComponent implements OnInit {
         this.incrementStep(stepper);
 
       } else {
-        this.notificationService.message('There was a problem while enrolling the new token. Please try again.');
+        this.notificationService.message(this.i18n('There was a problem while enrolling the new token. Please try again.'));
       }
     });
   }
@@ -114,10 +117,10 @@ export class EnrollPushDialogComponent implements OnInit {
       autoFocus: false,
       disableClose: true,
       data: {
-        title: 'Stop enrollment?',
-        text: 'The incomplete token will be deleted. ' +
-          'You will have to restart the enrollment process and reset the Authenticator app.',
-        confirmationLabel: 'Confirm',
+        title: this.i18n('Stop enrollment?'),
+        text: this.i18n('The incomplete token will be deleted. ') +
+          this.i18n('You will have to restart the enrollment process and reset the Authenticator app.'),
+        confirmationLabel: this.i18n('Confirm'),
       }
     };
     this.dialog.open(DialogComponent, dialogConfig)
@@ -131,7 +134,7 @@ export class EnrollPushDialogComponent implements OnInit {
           }
         })
       ).subscribe(() => {
-        this.notificationService.message('Incomplete Push token was deleted');
+        this.notificationService.message(this.i18n('Incomplete Push token was deleted'));
         this.dialogRef.close();
       });
   }

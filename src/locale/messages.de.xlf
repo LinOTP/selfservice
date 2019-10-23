@@ -308,6 +308,14 @@
           <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
           <context context-type="linenumber">105</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
+          <context context-type="linenumber">61</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="f732c304c7433e5a83ffcd862c3dce709a0f4982" datatype="html">
         <source>Next</source>
@@ -320,6 +328,10 @@
           <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
           <context context-type="linenumber">109</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="055a80ae41e1b038fc4339b814a210a3d243b04c" datatype="html">
         <source>A token with the serial number <x id="INTERPOLATION" equiv-text="{{enrolledToken.serial}}"/> has been enrolled.</source>
@@ -330,9 +342,9 @@
         </context-group>
       </trans-unit>
       <trans-unit id="c0929ac085d19df44887c34a87af1a10611fc691" datatype="html">
-        <source>Scan the QR code below with your soft token app or <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>follow this link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/> to
+        <source>Scan the QR code below with your soft token app or <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>follow this link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> to
         install it on your mobile device.</source>
-        <target state="translated">Scannen Sie den untenstehenden QR-Code mit Ihrer Soft-Token-App oder <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>folgen Sie diesem Link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>, um den Token auf Ihrem Smartphone hinzuzufügen.</target>
+        <target state="translated">Scannen Sie den untenstehenden QR-Code mit Ihrer Soft-Token-App oder <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>folgen Sie diesem Link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>, um den Token auf Ihrem Smartphone hinzuzufügen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
           <context context-type="linenumber">36</context>
@@ -452,6 +464,105 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
           <context context-type="linenumber">131</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
+          <context context-type="linenumber">72</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b7079f2a5119f06042eeb03991d4553793a75157" datatype="html">
+        <source>Enroll Push token</source>
+        <target state="translated">Push-Token ausrollen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c9e590d9729b5cfa7fc659312ea572feecb0c7da" datatype="html">
+        <source>You need the KI Authenticator app installed on your mobile device to
+      use this kind of token. You can get the app
+      here:</source>
+        <target state="translated">Sie benötigen die KI-Authenticator-App auf Ihrem Smartphone, um diese Art von Token zu benutzen. Die App können Sie hier herunterladen:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="a161141eb7485456b70c3934c4459a962ec8f61d" datatype="html">
+        <source>Once you have the KI Authenticator installed on your device, you can set a description for your new token
+      and start the enrollment process: </source>
+        <target state="translated">Sobald Sie die KI-Authenticator-App auf Ihrem Smartphone installiert haben, können Sie eine Beschreibung für Ihren Token setzen und das Ausrollen starten:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ed0f3d3cb95f967ba8f93b4554cd656f4db6a6db" datatype="html">
+        <source>The token description is required. </source>
+        <target state="translated">Die Token-Beschreibung ist erforderlich.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="a08fadd2cf449c1a75e4c2e859cc9b5bb8d8deb8" datatype="html">
+        <source>The token description should help you identify the token at a later point. It could, for example,
+          refer to its usage scenario.</source>
+        <target state="translated">Die Token-Beschreibung soll Ihnen helfen, den Token später zu erkennen. Sie könnte z.B. auf seinen Verwendungszweck hinweisen.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="02112193518590d0db29cf623996e19547fe7839" datatype="html">
+        <source>Enrollment step <x id="INTERPOLATION" equiv-text="{{currentStep}}"/> of <x id="INTERPOLATION_1" equiv-text="{{maxSteps}}"/></source>
+        <target state="translated">Ausrollen: Schritt <x id="INTERPOLATION" equiv-text="{{currentStep}}"/> von <x id="INTERPOLATION_1" equiv-text="{{maxSteps}}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
+          <context context-type="linenumber">68</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="0f9d11a779ad67b09a0e2144a1998f2f4e8509c0" datatype="html">
+        <source>A token with the serial number <x id="INTERPOLATION" equiv-text="{{enrolledToken.serial}}"/> (description:
+        <x id="INTERPOLATION_1" equiv-text="{{ enrollmentForm.get('description').value }}"/>) has been enrolled.</source>
+        <target state="translated">Ein Token mit der Seriennummer <x id="INTERPOLATION" equiv-text="{{enrolledToken.serial}}"/> (Beschreibung:
+        <x id="INTERPOLATION_1" equiv-text="{{ enrollmentForm.get('description').value }}"/>) wurde ausgerollt.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="0ec8dbf3f7d69d4c9c65fb9236a75775d31546ae" datatype="html">
+        <source>Scan the QR code below with the KI Authenticator app or <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>follow this link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> to start the
+        activation process of the new token.</source>
+        <target state="translated">Scannen Sie den unterliegenden QR-Code mit der KI-Authenticator-App, oder <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>folgen Sie diesen Link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>, um die Aktivierung des neuen Tokens zu starten.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d188313b315687b9bf14cfc6195ed7267ad42ba7" datatype="html">
+        <source>Your token has been successfully paired. In order to use it, you must activate it first.</source>
+        <target state="translated">Ihr Token wurde erfolgreich  installiert. Um ihn benutzen zu dürfen, müssen Sie ihn zuerst aktivieren.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
+          <context context-type="linenumber">66</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="deea5e10bb9b9ce77f7a01e6ea084d555a9276d7" datatype="html">
+        <source>Activate Token</source>
+        <target state="translated">Token Aktivieren</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
+          <context context-type="linenumber">76</context>
         </context-group>
       </trans-unit>
       <trans-unit id="610cdb8fefc2b57d6f2ed06634e9d7bf1195d5c3" datatype="html">
@@ -661,6 +772,10 @@
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/enroll-push-dialog/enroll-push-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="a29d777afd8f76138a586b1012731e9b5d7d6704" datatype="html">
         <source>PIN set</source>
@@ -683,6 +798,46 @@
         <target state="translated">Kopiert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9b80040b4753602b7d828e712ac2a383a3b71f1d" datatype="html">
+        <source>Stop enrollment?</source>
+        <target state="translated">Ausrollen abbrechen?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/enroll-push-dialog/enroll-push-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b61172b32380de015358f483bac7ce618485b9e6" datatype="html">
+        <source>The incomplete token will be deleted. </source>
+        <target state="translated">Der noch nicht aktivierten Token muss gelöscht werden. </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/enroll-push-dialog/enroll-push-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d45bf80edb2b066ac646c8717373356fb07b0ca9" datatype="html">
+        <source>You will have to restart the enrollment process and reset the Authenticator app.</source>
+        <target state="translated">Sie werden den Ausrollvorgang neustarten und die Authenticator-App zurücksetzen müssen.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/enroll-push-dialog/enroll-push-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="68e710782ccb5398b3acb8844caf0b199da2c3da" datatype="html">
+        <source>Confirm</source>
+        <target state="translated">Bestätigen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/enroll-push-dialog/enroll-push-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cc8e8dc2b3dc484bbe7e734eaacd73203c89f771" datatype="html">
+        <source>Incomplete Push token was deleted</source>
+        <target state="translated">Nicht aktivierter Push-Token wurde gelöscht</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/enroll-push-dialog/enroll-push-dialog.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
