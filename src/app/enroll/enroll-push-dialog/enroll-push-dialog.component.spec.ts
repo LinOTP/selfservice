@@ -143,8 +143,8 @@ describe('EnrollPushDialogComponent', () => {
       disableClose: true,
       data: {
         title: 'Stop enrollment?',
-        text: 'The incomplete token will be deleted. ' +
-          'You will have to restart the enrollment process and reset the Authenticator app.',
+        text: 'The incomplete token will be deleted and you will have to restart ' +
+          'the enrollment process in order to use this type of token.',
         confirmationLabel: 'Confirm',
       }
     };
