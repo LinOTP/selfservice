@@ -121,7 +121,7 @@ describe('EnrollmentGridComponent', () => {
 
     expect(matDialog.open).toHaveBeenCalledTimes(1);
     expect(matDialog.open).toHaveBeenCalledWith(EnrollOATHDialogComponent, expectedEnrollDialogConfig);
-    expect(notificationService.message).toHaveBeenCalledWith('There was a problem starting the token test, please try manually later.');
+    expect(notificationService.message).toHaveBeenCalledWith('There was a problem starting the token test, please try again later.');
     expect(tokenUpdateSpy).toHaveBeenCalledTimes(1);
   }));
 

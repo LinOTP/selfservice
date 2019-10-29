@@ -940,9 +940,9 @@
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="68aecd24266297ee200b878362811adbcc4f2c95" datatype="html">
-        <source>There was a problem starting the token test, please try manually later.</source>
-        <target state="final">There was a problem starting the token test, please try manually later.</target>
+      <trans-unit id="7cc29674fbcefc6acddd3c4e86f7764d0c2cc1a2" datatype="html">
+        <source>There was a problem starting the token test, please try again later.</source>
+        <target state="final">There was a problem starting the token test, please try again later.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enrollment-grid/enrollment-grid.component.ts</context>
           <context context-type="linenumber">1</context>

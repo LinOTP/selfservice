@@ -50,7 +50,7 @@ export class EnrollmentGridComponent implements OnInit {
         switchMap(serial => this.tokenService.getToken(serial)),
         tap(token => {
           if (!token) {
-            this.notificationService.message(this.i18n('There was a problem starting the token test, please try manually later.'));
+            this.notificationService.message(this.i18n('There was a problem starting the token test, please try again later.'));
           }
         }),
         filter(token => !!token),
