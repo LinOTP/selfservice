@@ -568,11 +568,11 @@
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="c9e590d9729b5cfa7fc659312ea572feecb0c7da" datatype="html">
-        <source>You need the KI Authenticator app installed on your mobile device to
+      <trans-unit id="bcb5d6944e6f7c5f074e8204848c9eeb81dbface" datatype="html">
+        <source>You need the Authenticator app installed on your mobile device to
       use this kind of token. You can get the app
       here:</source>
-        <target state="final">You need the KI Authenticator app installed on your mobile device to
+        <target state="final">You need the Authenticator app installed on your mobile device to
       use this kind of token. You can get the app
       here:</target>
         <context-group purpose="location">
@@ -580,10 +580,10 @@
           <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="a161141eb7485456b70c3934c4459a962ec8f61d" datatype="html">
-        <source>Once you have the KI Authenticator installed on your device, you can set a description for your new token
+      <trans-unit id="4363e0b383a29643fd4e5cd36d997afc268c4189" datatype="html">
+        <source>Once you have the Authenticator installed on your device, you can set a description for your new token
       and start the enrollment process: </source>
-        <target state="final">Once you have the KI Authenticator installed on your device, you can set a description for your new token
+        <target state="final">Once you have the Authenticator installed on your device, you can set a description for your new token
       and start the enrollment process: </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
@@ -634,10 +634,10 @@
           <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="0ec8dbf3f7d69d4c9c65fb9236a75775d31546ae" datatype="html">
-        <source>Scan the QR code below with the KI Authenticator app or <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>follow this link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/> to start the
+      <trans-unit id="9f07949527737a3222b7d101f194ccaea4259b9f" datatype="html">
+        <source>Scan the QR code below with the Authenticator app or <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>follow this link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/> to start the
         activation process of the new token.</source>
-        <target state="final">Scan the QR code below with the KI Authenticator app or <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>follow this link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/> to start the
+        <target state="final">Scan the QR code below with the Authenticator app or <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>follow this link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/> to start the
         activation process of the new token.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>

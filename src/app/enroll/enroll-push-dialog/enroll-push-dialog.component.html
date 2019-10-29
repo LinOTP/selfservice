@@ -5,7 +5,7 @@
 
   <mat-step [stepControl]="enrollmentStep"
             id="stepDescription">
-    <p i18n>You need the KI Authenticator app installed on your mobile device to
+    <p i18n>You need the Authenticator app installed on your mobile device to
       use this kind of token. You can get the app
       here:</p>
     <ul>
@@ -14,7 +14,7 @@
       <li><a href="TextResources.AUTHENTICATOR_APPLE_APP_STORE_URL">Apple App
           Store</a></li>
     </ul>
-    <p i18n>Once you have the KI Authenticator installed on your device, you can set a description for your new token
+    <p i18n>Once you have the Authenticator installed on your device, you can set a description for your new token
       and start the enrollment process: </p>
     <form [formGroup]="enrollmentForm">
       <mat-form-field>
@@ -46,7 +46,7 @@
     <div *ngIf="enrolledToken">
       <p i18n>A token with the serial number {{enrolledToken.serial}} (description:
         {{ enrollmentForm.get('description').value }}) has been enrolled.</p>
-      <p i18n>Scan the QR code below with the KI Authenticator app or <a target="_blank"
+      <p i18n>Scan the QR code below with the Authenticator app or <a target="_blank"
            [href]="enrolledToken.url">follow this link</a> to start the
         activation process of the new token.</p>
       <qrcode [qrdata]="enrolledToken.url"
