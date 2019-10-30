@@ -118,9 +118,8 @@ export class EnrollPushDialogComponent implements OnInit {
       disableClose: true,
       data: {
         title: this.i18n('Stop enrollment?'),
-        text: this.i18n(
-          'The incomplete token will be deleted and you will have to restart the enrollment process in order to use this type of token.'
-        ),
+        text: this.i18n('The incomplete token will be deleted.') + ' ' +
+          this.i18n('You will have to restart the enrollment process in order to use this type of token.'),
         confirmationLabel: this.i18n('Confirm'),
       }
     };
