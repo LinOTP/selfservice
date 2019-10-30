@@ -1,3 +1,44 @@
+<a name="0.3.0"></a>
+## 0.3.0 (2019-10-31)
+
+
+### Features:
+* Multi-factor authentication login support:
+  * 2-step MFA login requires second factor (OTP) after the first factor
+    (username + password) is verified (LINOTP-1106)
+  * 2-step MFA login allows token selection from a dropdown for the second
+    step (LINOTP-1126)
+  * 1-step MFA login allows to enter username, password and OTP on the same
+    page (3-field mode)
+  * Improved autofocus handling for login fields (LINOTP-1157)
+* A more refined color theme with intermediate color steps is now supported
+* Improved enrollment grid styling:
+  * The token enrollment interface now shows enrollment buttons inside the
+  cards to improve the workflow (LINOTP-1133)
+  * If only one or two options are available, the card sizing is improved to
+  utilize the full component width (LINOTP-1132)
+* Reset token failcounter from within the token action menu (LINOTP-1128)
+* Resync OATH tokens from within the token action menu (LINOTP-1129)
+
+
+### Bug Fixes:
+* Use correct input name and autocomplete attributes for the selfservice
+  login to allow browsers to correctly autofill passwords and provide auto-
+  completion hints.
+
+
+### Translations:
+* Added German translations for:
+  * Token menu
+  * Set pin dialog
+  * Oath token enrollment workflow
+  * Push token enrollment workflow
+  * Enrollment grid
+  * Token list
+  (LINOTP-1192)
+
+
+
 <a name="0.2.0"></a>
 ## 0.2.0 (2019-09-05)
 
