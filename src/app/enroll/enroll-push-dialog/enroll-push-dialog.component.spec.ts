@@ -4,16 +4,20 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
+
 import { of } from 'rxjs/internal/observable/of';
 
 import { MockComponent } from '../../../testing/mock-component';
-import { MaterialModule } from '../../material.module';
-import { TokenService } from '../../api/token.service';
-import { EnrollPushDialogComponent } from './enroll-push-dialog.component';
-import { NotificationService } from '../../common/notification.service';
 import { spyOnClass } from '../../../testing/spyOnClass';
+import { I18nMock } from '../../../testing/i18n-mock-provider';
 import { Fixtures } from '../../../testing/fixtures';
+
+import { TokenService } from '../../api/token.service';
+import { MaterialModule } from '../../material.module';
+import { NotificationService } from '../../common/notification.service';
 import { DialogComponent } from '../../common/dialog/dialog.component';
+
+import { EnrollPushDialogComponent } from './enroll-push-dialog.component';
 
 describe('EnrollPushDialogComponent', () => {
   let component: EnrollPushDialogComponent;
@@ -54,6 +58,7 @@ describe('EnrollPushDialogComponent', () => {
           provide: MatDialogRef,
           useValue: spyOnClass(MatDialogRef)
         },
+        I18nMock,
       ],
     })
       .compileComponents();
@@ -138,8 +143,8 @@ describe('EnrollPushDialogComponent', () => {
       disableClose: true,
       data: {
         title: 'Stop enrollment?',
-        text: 'The incomplete token will be deleted. ' +
-          'You will have to restart the enrollment process and reset the Authenticator app.',
+        text: 'The incomplete token will be deleted and you will have to restart ' +
+          'the enrollment process in order to use this type of token.',
         confirmationLabel: 'Confirm',
       }
     };

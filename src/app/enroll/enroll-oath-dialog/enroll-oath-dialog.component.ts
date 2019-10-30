@@ -9,6 +9,7 @@ import { NotificationService } from '../../common/notification.service';
 import { TokenService } from '../../api/token.service';
 import { TokenType, TokenTypeDetails, EnrollToken } from '../../api/token';
 import { Permission } from '../../common/permissions';
+import { I18n } from '@ngx-translate/i18n-polyfill';
 
 @Component({
   selector: 'app-enroll-oath',
@@ -35,6 +36,7 @@ export class EnrollOATHDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<EnrollOATHDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { tokenTypeDetails: TokenTypeDetails },
     public notificationService: NotificationService,
+    public i18n: I18n,
   ) { }
 
   public ngOnInit() {
@@ -69,7 +71,7 @@ export class EnrollOATHDialogComponent implements OnInit {
         this.enrollmentStep.controls.tokenEnrolled.setValue(true);
         this.stepper.next();
       } else {
-        this.notificationService.message('There was a problem while enrolling the new token. Please try again.');
+        this.notificationService.message(this.i18n('There was a problem while enrolling the new token. Please try again.'));
       }
     });
   }
@@ -84,9 +86,9 @@ export class EnrollOATHDialogComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.pinSet = true;
-        this.notificationService.message('PIN set');
+        this.notificationService.message(this.i18n('PIN set'));
       } else {
-        this.notificationService.message('There was an error and the new PIN could not be set. Please try again.');
+        this.notificationService.message(this.i18n('There was an error and the new PIN could not be set. Please try again.'));
       }
     });
   }
@@ -111,7 +113,7 @@ export class EnrollOATHDialogComponent implements OnInit {
   copyInputMessage(inputElement: HTMLInputElement) {
     inputElement.select();
     document.execCommand('copy');
-    this.notificationService.message('Copied');
+    this.notificationService.message(this.i18n('Copied'));
   }
 
 }

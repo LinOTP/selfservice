@@ -14,43 +14,37 @@
     </button>
   </mat-card-header>
   <mat-card-content>
-    <p>Serial: {{ token.serial }}</p>
+    <p i18n>Serial: {{ token.serial }}</p>
     <ng-container [ngSwitch]="token.enrollmentStatus">
       <p *ngSwitchCase="EnrollmentStatus.UNPAIRED">
-        <ng-container *ngIf="isPush(); else otherTokenTypes">
-          There was a problem with this token and it cannot be used. Make
+        <ng-container *ngIf="isPush(); else otherTokenTypes"
+                      i18n> There was a problem with this token and it cannot be used. Make
           sure to delete it and reset your Authenticator app before enrolling
-          a new push token.
-        </ng-container>
-        <ng-template #otherTokenTypes>
-          This token needs to be paired with your mobile. You need the
+          a new push token. </ng-container>
+        <ng-template #otherTokenTypes
+                     i18n> This token needs to be paired with your mobile. You need the
           enrollment QR code to proceed in the authenticator mobile
-          application. Afterwards you can start the activation here.
-        </ng-template>
+          application. Afterwards you can start the activation here. </ng-template>
       </p>
-      <p *ngSwitchCase="EnrollmentStatus.PAIRING_RESPONSE_RECEIVED">
-        This token is paired with your mobile. The next step is the
-        activation:
-      </p>
-      <p *ngSwitchCase="EnrollmentStatus.PAIRING_CHALLENGE_SENT">
-        An activation challenge has been generated. Please process it with
-        your authenticator
-      </p>
+      <p *ngSwitchCase="EnrollmentStatus.PAIRING_RESPONSE_RECEIVED"
+         i18n> This token is paired with your mobile. The next step is the
+        activation: </p>
+      <p *ngSwitchCase="EnrollmentStatus.PAIRING_CHALLENGE_SENT"
+         i18n> An activation challenge has been generated. Please process it with
+        your Authenticator app. </p>
     </ng-container>
   </mat-card-content>
   <mat-card-footer *ngIf="pendingActions()">
     <button mat-raised-button
             color="primary"
             (click)="delete()"
-            *ngIf="pendingDelete()">
-      Delete
-    </button>
+            *ngIf="pendingDelete()"
+            i18n> Delete </button>
     <button mat-raised-button
             color="primary"
             (click)="activate()"
-            *ngIf="pendingActivate()">
-      Activate
-    </button>
+            *ngIf="pendingActivate()"
+            i18n> Activate </button>
   </mat-card-footer>
 </mat-card>
 

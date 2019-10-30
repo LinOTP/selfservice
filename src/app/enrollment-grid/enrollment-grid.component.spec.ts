@@ -1,21 +1,25 @@
+import { RouterTestingModule } from '@angular/router/testing';
+import { MatDialog } from '@angular/material/dialog';
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 
-import { EnrollmentGridComponent } from './enrollment-grid.component';
-import { MaterialModule } from '../material.module';
-import { RouterTestingModule } from '@angular/router/testing';
-import { of } from 'rxjs/internal/observable/of';
-import { NotificationService } from '../common/notification.service';
-import { spyOnClass } from '../../testing/spyOnClass';
-import { MatDialog } from '@angular/material/dialog';
-import { TokenTypeDetails, TokenType } from '../api/token';
 import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
+import { of } from 'rxjs/internal/observable/of';
+
+import { spyOnClass } from '../../testing/spyOnClass';
 import { Fixtures } from '../../testing/fixtures';
+import { I18nMock } from '../../testing/i18n-mock-provider';
+
+import { MaterialModule } from '../material.module';
+import { NotificationService } from '../common/notification.service';
+import { TokenTypeDetails, TokenType } from '../api/token';
 import { CapitalizePipe } from '../common/pipes/capitalize.pipe';
 import { TokenService } from '../api/token.service';
+
+import { EnrollmentGridComponent } from './enrollment-grid.component';
 import { EnrollOATHDialogComponent } from '../enroll/enroll-oath-dialog/enroll-oath-dialog.component';
-import { TestOATHDialogComponent } from '../test/test-oath/test-oath-dialog.component';
 import { EnrollPushDialogComponent } from '../enroll/enroll-push-dialog/enroll-push-dialog.component';
 import { TestChallengeResponseDialogComponent } from '../test/test-challenge-response/test-challenge-response-dialog.component';
+
 
 describe('EnrollmentGridComponent', () => {
   let component: EnrollmentGridComponent;
@@ -45,8 +49,11 @@ describe('EnrollmentGridComponent', () => {
           provide: TokenService,
           useValue: spyOnClass(TokenService),
         },
-        { provide: MatDialog, useValue: spyOnClass(MatDialog) }
-
+        {
+          provide: MatDialog,
+          useValue: spyOnClass(MatDialog)
+        },
+        I18nMock,
       ]
     })
       .compileComponents();
@@ -114,7 +121,7 @@ describe('EnrollmentGridComponent', () => {
 
     expect(matDialog.open).toHaveBeenCalledTimes(1);
     expect(matDialog.open).toHaveBeenCalledWith(EnrollOATHDialogComponent, expectedEnrollDialogConfig);
-    expect(notificationService.message).toHaveBeenCalledWith('There was a problem starting the token test, please try manually later.');
+    expect(notificationService.message).toHaveBeenCalledWith('There was a problem starting the token test, please try again later.');
     expect(tokenUpdateSpy).toHaveBeenCalledTimes(1);
   }));
 

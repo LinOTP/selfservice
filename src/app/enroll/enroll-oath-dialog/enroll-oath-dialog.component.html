@@ -1,55 +1,40 @@
-<h2>Enroll {{ data.tokenTypeDetails.name }}</h2>
+<h2 i18n>Enroll {{ data.tokenTypeDetails.name }}</h2>
 
 <mat-horizontal-stepper [linear]="true"
                         linear>
 
   <mat-step [stepControl]="enrollmentStep"
             id="stepDescription">
-    <p>
-      You have chosen to enroll a {{ data.tokenTypeDetails.name }}.
-    </p>
-    <p>
-      You need an OATH compatible soft token app installed on your mobile
-      device to use this kind of token, such as:
-    </p>
+    <p i18n>You need an OATH compatible soft token app installed on your mobile
+      device to use this kind of token, such as:</p>
     <ul>
       <li>FreeOTP</li>
       <li>Google Authenticator</li>
     </ul>
-    <p>
-      If you are not sure whether your app is compatible, you will later have
-      the possibility to test the token. Should
-      the test
-      fail, you can install another app and try again.
-    </p>
-    <p>
-      Once you have an app installed on your device, you can start the
-      enrollment process:
-    </p>
+    <p i18n>If you are not sure whether your app is compatible, you will later have
+      the possibility to test the token. Should the test fail, you can install another app and try again.</p>
+    <p i18n>Once you have an app installed on your device, you can start the
+      enrollment process.</p>
     <mat-dialog-actions align="end">
-      <div>Enrollment step 1 of 3</div>
+      <div i18n>Enrollment step 1 of 3</div>
       <span class="spacer"></span>
       <button mat-raised-button
-              (click)="cancelDialog()">Cancel</button>
+              (click)="cancelDialog()"
+              i18n>Cancel</button>
       <button mat-raised-button
               color="primary"
               (click)="enrollToken()"
-              id="goTo2">Next</button>
+              id="goTo2"
+              i18n>Next</button>
     </mat-dialog-actions>
   </mat-step>
 
   <mat-step active="false"
             id="stepShowQR">
     <div *ngIf="enrolledToken">
-      <p>
-        A token with the serial number {{enrolledToken.serial}} has been
-        enrolled.
-      </p>
-      <p>
-        Scan the QR code below with your soft token app or
-        <a [href]="enrolledToken.url">follow this link</a>
-        to install it on your mobile device.
-      </p>
+      <p i18n>A token with the serial number {{enrolledToken.serial}} has been enrolled.</p>
+      <p i18n>Scan the QR code below with your soft token app or <a [href]="enrolledToken.url">follow this link</a> to
+        install it on your mobile device.</p>
 
       <qrcode [qrdata]="enrolledToken.url"
               [size]="256"
@@ -60,16 +45,23 @@
                 mat-button
                 color="primary"
                 matTooltip="Toggle enrollment details"
-                aria-label="Button to toggle the display of enrollment details">
-          {{ showDetails? "hide details": "show details" }}
-        </button>
+                aria-label="Button to toggle the display of enrollment details"
+                *ngIf="showDetails"
+                i18n>hide details</button>
+        <button (click)="showDetails = !showDetails"
+                mat-button
+                color="primary"
+                matTooltip="Toggle enrollment details"
+                aria-label="Button to toggle the display of enrollment details"
+                *ngIf="!showDetails"
+                i18n>show details</button>
       </div>
 
       <div class="detail"
            *ngIf="showDetails">
         <mat-form-field appearance="outline"
                         class="inline-no-hint">
-          <mat-label>Enrollment URL</mat-label>
+          <mat-label i18n>Enrollment URL</mat-label>
           <input matInput
                  #enrollmentUrl
                  [value]="enrolledToken.url"
@@ -88,7 +80,7 @@
            *ngIf="showDetails">
         <mat-form-field appearance="outline"
                         class="inline-no-hint">
-          <mat-label>Seed</mat-label>
+          <mat-label i18n>Seed</mat-label>
           <input matInput
                  #enrollmentSeed
                  [value]="enrolledToken.seed"
@@ -106,38 +98,37 @@
     </div>
 
     <mat-dialog-actions align="end">
-      <div>Enrollment step 2 of 3</div>
+      <div i18n>Enrollment step 2 of 3</div>
       <span class="spacer"></span>
       <button mat-raised-button
-              (click)="cancelDialog()">Cancel</button>
+              (click)="cancelDialog()"
+              i18n>Cancel</button>
       <button mat-raised-button
               color="primary"
-              (click)="stepper.next()">Next</button>
+              (click)="stepper.next()"
+              i18n>Next</button>
     </mat-dialog-actions>
   </mat-step>
 
   <mat-step active="false"
             id="stepPIN">
-    <p>
-      Your token is now enrolled.
-    </p>
+    <p i18n>Your token is now enrolled.</p>
     <ng-container *ngxPermissionsOnly="Permission.SETPIN">
-      <p>
-        If you wish to set a security PIN, please do so now:
-        <button mat-raised-button
-                color="primary"
-                (click)="setPin()">Set pin</button>
-      </p>
-      <p class="mat-hint hint">
-        Setting a PIN helps you protect your token against misuse.
-      </p>
+      <p i18n>If you wish to set a security PIN, please do so now:</p>
+      <button mat-raised-button
+              color="primary"
+              (click)="setPin()"
+              i18n>Set pin</button>
+      <p class="mat-hint hint"
+         i18n>Setting a PIN helps you protect your token against misuse.</p>
     </ng-container>
     <mat-dialog-actions align="end">
-      <div>Enrollment step 3 of 3</div>
+      <div i18n>Enrollment step 3 of 3</div>
       <span class="spacer"></span>
       <button mat-raised-button
               color="primary"
-              (click)="closeDialog()">Close</button>
+              (click)="closeDialog()"
+              i18n>Close</button>
     </mat-dialog-actions>
   </mat-step>
 

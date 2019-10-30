@@ -58,7 +58,7 @@
     <mat-card-title i18n="card header|login page title">Login</mat-card-title>
     <mat-card-content>
       <div *ngIf="factors && factors.length > 0; else noFactors">
-        <p>Please select which token to use as your second factor:</p>
+        <p i18n>Please select which token to use as your second factor:</p>
         <mat-form-field>
           <mat-select [(ngModel)]="selectedToken"
                       name="selectedToken"
@@ -71,7 +71,7 @@
         </mat-form-field>
       </div>
       <ng-template #noFactors>
-        <p>You do not own any valid tokens or there was a problem retrieving them from the server.
+        <p i18n>You do not own any valid tokens or there was a problem retrieving them from the server.
           Please contact an administrator.</p>
       </ng-template>
     </mat-card-content>

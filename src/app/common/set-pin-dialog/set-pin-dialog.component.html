@@ -1,4 +1,5 @@
-<h3 mat-dialog-title>Set a new PIN</h3>
+<h3 mat-dialog-title
+    i18n>Set a new PIN</h3>
 <form [formGroup]="form"
       (ngSubmit)="submit()">
   <div mat-dialog-content>
@@ -6,24 +7,28 @@
       <input matInput
              type="password"
              formControlName="newPin"
-             placeholder="New PIN"
+             placeholder="{{ newPinPlaceholder }}"
              autofocus>
     </mat-form-field>
     <mat-form-field>
       <input matInput
-             type="password"
+             type="
+             password"
              formControlName="confirmPin"
-             placeholder="Confirm your new PIN"
+             placeholder="{{ confirmPinPlaceholder }}"
              [errorStateMatcher]="matcher">
-      <mat-error *ngIf="form.hasError('pinsDoNotMatch')">Entered PINs do not match</mat-error>
+      <mat-error *ngIf="form.hasError('pinsDoNotMatch')"
+                 i18n>Entered PINs do not match</mat-error>
     </mat-form-field>
     <div class="button-row">
       <button mat-button
-              mat-dialog-close>cancel</button>
+              mat-dialog-close
+              i18n>cancel</button>
       <button mat-button
               color="primary"
               type="submit"
-              [disabled]="preventSubmit()">set</button>
+              [disabled]="preventSubmit()"
+              i18n>set pin</button>
     </div>
   </div>
 </form>

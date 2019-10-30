@@ -12,6 +12,7 @@ import { of } from 'rxjs';
 import { Fixtures } from '../../../testing/fixtures';
 import { MockComponent } from '../../../testing/mock-component';
 import { spyOnClass } from '../../../testing/spyOnClass';
+import { I18nMock } from '../../../testing/i18n-mock-provider';
 
 import { MaterialModule } from '../../material.module';
 import { TokenType } from '../../api/token';
@@ -63,6 +64,7 @@ describe('The EnrollOATHDialogComponent', () => {
           provide: MAT_DIALOG_DATA,
           useValue: { tokenTypeDetails: Fixtures.tokenTypeDetails[TokenType.HOTP], closeLabel: null },
         },
+        I18nMock,
       ],
     })
       .compileComponents();
