@@ -1,3 +1,39 @@
+linotp-selfservice (0.3.0-1) jessie; urgency=medium
+
+  Features:
+  * Multi-factor authentication login support:
+    * 2-step MFA login requires second factor (OTP) after the first factor
+      (username + password) is verified
+    * 2-step MFA login allows token selection from a dropdown for the second
+      step
+    * 1-step MFA login allows to enter username, password and OTP on the same
+      page (3-field mode)
+    * Improved autofocus handling for login fields
+  * A more refined color theme with intermediate color steps is now supported
+  * Improved enrollment grid styling:
+    * The token enrollment interface now shows enrollment buttons inside the
+    cards to improve the workflow
+    * If only one or two options are available, the card sizing is improved to
+    utilize the full component width
+  * Reset token failcounter from within the token action menu
+  * Resync OATH tokens from within the token action menu
+
+  Bug Fixes:
+  * Use correct input name and autocomplete attributes for the selfservice
+    login to allow browsers to correctly autofill passwords and provide auto-
+    completion hints.
+
+  Translations:
+  * Added German translations for:
+    * Token menu
+    * Set pin dialog
+    * Oath token enrollment workflow
+    * Push token enrollment workflow
+    * Enrollment grid
+    * Token list
+
+ -- KeyIdentity GmbH <packaging@keyidentity.com>  Thu, 30 Oct 2019 15:14:47 +0200
+
 linotp-selfservice (0.2.0-1) jessie; urgency=medium
 
   Features:
