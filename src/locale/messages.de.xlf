@@ -359,9 +359,9 @@
         </context-group>
       </trans-unit>
       <trans-unit id="c0929ac085d19df44887c34a87af1a10611fc691" datatype="html">
-        <source>Scan the QR code below with your soft token app or <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>follow this link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> to
+        <source>Scan the QR code below with your soft token app or <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>follow this link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/> to
         install it on your mobile device.</source>
-        <target state="translated">Scannen Sie den untenstehenden QR-Code mit Ihrer Soft-Token-App oder <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>folgen Sie diesem Link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>, um den Token auf Ihrem Smartphone hinzuzufügen.</target>
+        <target state="translated">Scannen Sie den untenstehenden QR-Code mit Ihrer Soft-Token-App oder <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>folgen Sie diesem Link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>, um den Token auf Ihrem Smartphone hinzuzufügen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
           <context context-type="linenumber">36</context>
@@ -620,9 +620,9 @@
         </context-group>
       </trans-unit>
       <trans-unit id="9f07949527737a3222b7d101f194ccaea4259b9f" datatype="html">
-        <source>Scan the QR code below with the Authenticator app or <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>follow this link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> to start the
+        <source>Scan the QR code below with the Authenticator app or <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>follow this link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/> to start the
         activation process of the new token.</source>
-        <target state="translated">Scannen Sie den nachfolgenden QR-Code mit der Authenticator-App, oder <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/> folgen Sie diesen Link <x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>, um die Aktivierung des neuen Tokens zu starten.</target>
+        <target state="translated">Scannen Sie den nachfolgenden QR-Code mit der Authenticator-App, oder <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/> folgen Sie diesen Link <x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>, um die Aktivierung des neuen Tokens zu starten.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
           <context context-type="linenumber">49</context>
@@ -865,14 +865,6 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="8ce17783f02f27aaee008c8c39a415aae6b502b5" datatype="html">
-        <source>There was an error and the new PIN could not be set. Please try again.</source>
-        <target state="translated">Das Setzen des PINs ist fehlgeschlagen. Bitte versuchen Sie es erneut.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>

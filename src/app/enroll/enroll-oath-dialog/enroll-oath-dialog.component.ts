@@ -87,8 +87,6 @@ export class EnrollOATHDialogComponent implements OnInit {
       if (result) {
         this.pinSet = true;
         this.notificationService.message(this.i18n('PIN set'));
-      } else {
-        this.notificationService.message(this.i18n('There was an error and the new PIN could not be set. Please try again.'));
       }
     });
   }

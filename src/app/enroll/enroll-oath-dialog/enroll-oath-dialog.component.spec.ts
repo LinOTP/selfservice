@@ -100,17 +100,15 @@ describe('The EnrollOATHDialogComponent', () => {
       expect(notificationService.message).toHaveBeenCalledWith('PIN set');
     }));
 
-    it('should inform the user if pin could not be set', fakeAsync(() => {
+    it('should not do anything if the user closes the dialog', fakeAsync(() => {
       matDialog.open.and.returnValue({ afterClosed: () => of(false) });
-      const oldPinSetValue = component.pinSet;
 
       component.enrolledToken = Fixtures.enrolledToken;
       component.setPin();
       tick();
 
       expect(matDialog.open).toHaveBeenCalledTimes(1);
-      expect(component.pinSet).toEqual(oldPinSetValue);
-      expect(notificationService.message).toHaveBeenCalledWith('There was an error and the new PIN could not be set. Please try again.');
+      expect(notificationService.message).not.toHaveBeenCalled();
     }));
   });
 
