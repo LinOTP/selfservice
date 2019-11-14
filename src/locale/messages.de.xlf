@@ -696,8 +696,24 @@
         <source>Enroll</source>
         <target state="translated">Ausrollen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/enrollment-grid/enrollment-grid.component.html</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
       <trans-unit id="b9390719e13766d54b26e77014b04e7fe9bd8f49" datatype="html">
@@ -775,6 +791,30 @@
       <trans-unit id="339f5c827d3973dca9a651873bb5f51a67f63ff1" datatype="html">
         <source>Use the Authenticator app to scan QR code authentication requests</source>
         <target state="translated">Nutzen Sie die Authenticator-App, um QR-Code Authentifizierungsanfragen zu scannen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="f5e196cc0cae1ad716ac589b815c51a5be105ea0" datatype="html">
+        <source>Assign Token</source>
+        <target state="translated">Token zuweisen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="39372a4b8f0015502015b905eda8158cbc812481" datatype="html">
+        <source>Claim an existing token and link it to your user account</source>
+        <target state="translated">Verknüpfen Sie einen exitstierenden Token mit Ihrem Benutzerkonto</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1da6e5076d6a884a4241733942825718559f3075" datatype="html">
+        <source>Assign</source>
+        <target state="translated">Zuweisen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.service.ts</context>
           <context context-type="linenumber">1</context>

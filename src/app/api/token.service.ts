@@ -60,6 +60,7 @@ export class TokenService {
         description: this.i18n('Personal text-based secret'),
         icon: 'keyboard',
         // enrollmentPermission: Permission.ENROLLPASSWORD,
+        enrollmentActionLabel: this.i18n('Enroll'),
       },
       {
         type: TokenType.HOTP,
@@ -68,6 +69,7 @@ export class TokenService {
         icon: 'cached',
         enrollmentPermission: Permission.ENROLLHOTP,
         enrollmentType: 'googleauthenticator',
+        enrollmentActionLabel: this.i18n('Enroll'),
       },
       {
         type: TokenType.TOTP,
@@ -76,6 +78,7 @@ export class TokenService {
         icon: 'timelapse',
         enrollmentPermission: Permission.ENROLLTOTP,
         enrollmentType: 'googleauthenticator_time',
+        enrollmentActionLabel: this.i18n('Enroll'),
       },
       {
         type: TokenType.PUSH,
@@ -84,6 +87,7 @@ export class TokenService {
         icon: 'screen_lock_portrait',
         enrollmentPermission: Permission.ENROLLPUSH,
         activationPermission: Permission.ACTIVATEPUSH,
+        enrollmentActionLabel: this.i18n('Enroll'),
       },
       {
         type: TokenType.QR,
@@ -92,7 +96,16 @@ export class TokenService {
         icon: 'all_out',
         // enrollmentPermission: Permission.ENROLLQR,
         activationPermission: Permission.ACTIVATEQR,
+        enrollmentActionLabel: this.i18n('Enroll'),
       },
+      {
+        type: TokenType.ASSIGN,
+        name: this.i18n('Assign Token'),
+        description: this.i18n('Claim an existing token and link it to your user account'),
+        icon: 'link',
+        enrollmentPermission: Permission.ASSIGN,
+        enrollmentActionLabel: this.i18n('Assign'),
+      }
     ];
   }
 

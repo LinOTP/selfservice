@@ -13,6 +13,7 @@ export interface TokenTypeDetails {
   enrollmentPermission?: Permission;
   activationPermission?: Permission;
   enrollmentType?: string;
+  enrollmentActionLabel?: string;
 }
 
 export enum TokenType {
@@ -21,7 +22,8 @@ export enum TokenType {
   TOTP = 'totp',
   PUSH = 'push',
   QR = 'qr',
-  UNKNOWN = 'unknown'
+  ASSIGN = 'assign', // virtual type for token assignment
+  UNKNOWN = 'unknown', // fallback type
 }
 
 export class Token {
