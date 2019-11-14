@@ -241,7 +241,7 @@
       </trans-unit>
       <trans-unit id="9e933103ce72f32184d1f2a2921abc6d37a0d09b" datatype="html">
         <source>Entered PINs do not match</source>
-        <target state="translated">Die eingegebenen PINs sind nicht gleich.</target>
+        <target state="translated">Die eingegebenen PINs sind nicht gleich</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/set-pin-dialog/set-pin-dialog.component.html</context>
           <context context-type="linenumber">21</context>
@@ -578,7 +578,7 @@
       </trans-unit>
       <trans-unit id="ed0f3d3cb95f967ba8f93b4554cd656f4db6a6db" datatype="html">
         <source>The token description is required. </source>
-        <target state="translated">Die Token-Beschreibung ist erforderlich.</target>
+        <target state="translated">Die Token-Beschreibung ist erforderlich</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
           <context context-type="linenumber">25</context>
