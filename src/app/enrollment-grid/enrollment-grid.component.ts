@@ -13,6 +13,7 @@ import { NotificationService } from '../common/notification.service';
 
 import { EnrollOATHDialogComponent } from '../enroll/enroll-oath-dialog/enroll-oath-dialog.component';
 import { EnrollPushDialogComponent } from '../enroll/enroll-push-dialog/enroll-push-dialog.component';
+import { AssignTokenDialogComponent } from '../enroll/assign-token-dialog/assign-token-dialog.component';
 import { TestOATHDialogComponent } from '../test/test-oath/test-oath-dialog.component';
 import { TestChallengeResponseDialogComponent } from '../test/test-challenge-response/test-challenge-response-dialog.component';
 
@@ -38,7 +39,7 @@ export class EnrollmentGridComponent implements OnInit {
   }
 
   public runEnrollmentWorkflow(tokenType: TokenTypeDetails) {
-    if (![TokenType.HOTP, TokenType.TOTP, TokenType.PUSH].includes(tokenType.type)) {
+    if (![TokenType.HOTP, TokenType.TOTP, TokenType.PUSH, TokenType.ASSIGN].includes(tokenType.type)) {
       this.notificationService.message(this.i18n('The selected token type cannot be enrolled at the moment.'));
       return;
     }
@@ -79,8 +80,10 @@ export class EnrollmentGridComponent implements OnInit {
       case TokenType.TOTP:
         enrollmentConfig.data = { tokenTypeDetails: typeDetails };
         return this.dialog.open(EnrollOATHDialogComponent, enrollmentConfig).afterClosed();
-      case (TokenType.PUSH):
+      case TokenType.PUSH:
         return this.dialog.open(EnrollPushDialogComponent, enrollmentConfig).afterClosed();
+      case TokenType.ASSIGN:
+        return this.dialog.open(AssignTokenDialogComponent, enrollmentConfig).afterClosed();
     }
   }
 

@@ -24,6 +24,7 @@ import { EnrollmentGridComponent } from './enrollment-grid/enrollment-grid.compo
 import { AppInitService } from './app-init.service';
 import { TestOATHDialogComponent } from './test/test-oath/test-oath-dialog.component';
 import { TestChallengeResponseDialogComponent } from './test/test-challenge-response/test-challenge-response-dialog.component';
+import { AssignTokenDialogComponent } from './enroll/assign-token-dialog/assign-token-dialog.component';
 
 declare const require;
 
@@ -32,10 +33,11 @@ declare const require;
     AppComponent,
     TokenListComponent,
     LoginComponent,
-    EnrollOATHDialogComponent,
-    EnrollPushDialogComponent,
     TokenCardComponent,
     EnrollmentGridComponent,
+    EnrollOATHDialogComponent,
+    EnrollPushDialogComponent,
+    AssignTokenDialogComponent,
     TestOATHDialogComponent,
     TestChallengeResponseDialogComponent,
   ],
@@ -43,6 +45,7 @@ declare const require;
     TestChallengeResponseDialogComponent,
     EnrollOATHDialogComponent,
     EnrollPushDialogComponent,
+    AssignTokenDialogComponent,
     TestOATHDialogComponent,
   ],
   imports: [
