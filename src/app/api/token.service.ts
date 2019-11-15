@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Observable, of, interval } from 'rxjs';
-import { map, filter, mergeMap, take, catchError, tap } from 'rxjs/operators';
+import { map, filter, mergeMap, take, catchError } from 'rxjs/operators';
 
 import { Token, EnrollToken, EnrollmentStatus, TokenType, TokenTypeDetails } from './token';
 import { SessionService } from '../auth/session.service';
@@ -11,9 +11,12 @@ import { I18n } from '@ngx-translate/i18n-polyfill';
 
 
 interface LinOTPResponse<T> {
-  result: {
+  result?: {
     status: boolean,
     value: T,
+    error?: {
+      message: string,
+    };
   };
   detail?: any;
 }
@@ -47,6 +50,7 @@ export class TokenService {
     disable: 'disable',
     reset: 'reset',
     resync: 'resync',
+    assign: 'assign',
   };
 
   private validateCheckS = '/validate/check_s'; // generate a challenge with a given serial
@@ -340,6 +344,43 @@ export class TokenService {
       .pipe(
         map(response => response && response.result && response.result.value && response.result.value['resync Token'] === true),
         catchError(this.handleError('resync', false))
+      );
+  }
+
+  assign(tokenSerial: string, description: string): Observable<{ success: boolean, message?: string }> {
+    const tryAgainMessage = this.i18n('Please try again or contact an administrator.');
+    const body = {
+      serial: tokenSerial,
+      description: description,
+      session: this.sessionService.getSession()
+    };
+    const url = this.userserviceBase + this.userserviceEndpoints.assign;
+
+    return this.http.post<LinOTPResponse<{ 'assign token': boolean }>>(url, body)
+      .pipe(
+        map(response => {
+          if (response && response.result && response.result.value) {
+            return { success: response.result.value['assign token'] === true };
+          } else if (response && response.result.error && response.result.error.message) {
+            let message = '';
+            switch (response.result.error.message) {
+              case 'The token is already assigned to another user.':
+              case 'Der Token ist bereits einem anderen Benutzer zugewiesen.':
+                message = this.i18n('The token is already assigned to you or to another user. Please contact an administrator.');
+                break;
+              case 'The token you want to assign is  not contained in your realm!':
+                message = this.i18n('The token you want to assign is not valid (wrong realm). Please contact an administrator.');
+                break;
+              default:
+                message = tryAgainMessage;
+            }
+            return { success: false, message: message };
+          } else {
+            return { success: false, message: tryAgainMessage };
+          }
+        }),
+        catchError(this.handleError('assign', { success: false })
+        )
       );
   }
 
