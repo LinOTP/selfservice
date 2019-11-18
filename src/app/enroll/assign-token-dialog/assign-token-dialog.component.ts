@@ -4,6 +4,8 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 
 import { TokenService } from '../../api/token.service';
+import { concatMap, tap } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-assign-token-dialog',
@@ -27,6 +29,7 @@ export class AssignTokenDialogComponent implements OnInit {
   ngOnInit() {
     this.assignmentForm = this.formBuilder.group({
       'serial': ['', Validators.required],
+      'description': [''],
     });
   }
 
@@ -58,13 +61,24 @@ export class AssignTokenDialogComponent implements OnInit {
   public assignToken() {
     this.stepper.selectedIndex = 1;
     const serial = this.assignmentForm.get('serial').value;
+    const description = this.assignmentForm.get('description').value;
     this.errorMessage = '';
-    this.tokenService.assign(serial, 'self+assigned').subscribe(result => {
+    this.tokenService.assign(serial).pipe(
+      tap(result => {
+        this.success = result.success;
+        if (result.message) {
+          this.errorMessage = result.message;
+        }
+      }),
+      concatMap(result => {
+        if (result.success) {
+          return this.tokenService.setDescription(serial, description);
+        } else {
+          return of(result);
+        }
+      })
+    ).subscribe(_ => {
       this.stepper.selectedIndex = 2;
-      this.success = result.success;
-      if (result.message) {
-        this.errorMessage = result.message;
-      }
     });
   }
 
