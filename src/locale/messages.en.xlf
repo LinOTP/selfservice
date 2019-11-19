@@ -337,6 +337,10 @@
           <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
           <context context-type="linenumber">61</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="f732c304c7433e5a83ffcd862c3dce709a0f4982" datatype="html">
         <source>Next</source>
@@ -559,6 +563,18 @@
           <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
           <context context-type="linenumber">72</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
+          <context context-type="linenumber">63</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="b7079f2a5119f06042eeb03991d4553793a75157" datatype="html">
         <source>Enroll Push token</source>
@@ -712,8 +728,24 @@
         <source>Enroll</source>
         <target state="final">Enroll</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/enrollment-grid/enrollment-grid.component.html</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
       <trans-unit id="b9390719e13766d54b26e77014b04e7fe9bd8f49" datatype="html">
@@ -796,6 +828,96 @@
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="f5e196cc0cae1ad716ac589b815c51a5be105ea0" datatype="html">
+        <source>Assign Token</source>
+        <target state="final">Assign Token</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="f440290abd522afee47eaffebedbd3c40964b94c" datatype="html">
+        <source>Claim an existing token and link it to your user account. You need to know the respective token serial in
+      advance.</source>
+        <target state="final">Claim an existing token and link it to your user account. You need to know the respective token serial in
+      advance.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5bee2bd1a7afd2d05d9f479ae8f49ce493eb76af" datatype="html">
+        <source>Token serial</source>
+        <target state="final">Token serial</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5de35df98b2d7dd370d208c2b4bd6c8a6775ddfa" datatype="html">
+        <source>The token serial is required.</source>
+        <target state="final">The token serial is required.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="58d4db95797b50b24a414c08581d0c6aafa52a0b" datatype="html">
+        <source>Enter the serial of the token you want to link to your user account.</source>
+        <target state="final">Enter the serial of the token you want to link to your user account.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1572365d5f052b4ab327739abe91c8cb09d2a5b4" datatype="html">
+        <source>Assign token</source>
+        <target state="final">Assign token</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c8dc3bbd3e851ab333ac19aa5f32c3d9552843ff" datatype="html">
+        <source>The token was successfully linked to your user account.</source>
+        <target state="final">The token was successfully linked to your user account.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="123f1bb142272c75605b74b2352d62c830a9578b" datatype="html">
+        <source>The token assignment failed.</source>
+        <target state="final">The token assignment failed.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="38e0956efb7c78e758d638c8f1e5c99859b82836" datatype="html">
+        <source>Retry</source>
+        <target state="final">Retry</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
+          <context context-type="linenumber">59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="39372a4b8f0015502015b905eda8158cbc812481" datatype="html">
+        <source>Claim an existing token and link it to your user account</source>
+        <target state="final">Claim an existing token and link it to your user account</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1da6e5076d6a884a4241733942825718559f3075" datatype="html">
+        <source>Assign</source>
+        <target state="final">Assign</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="c8d7cf44a64f197e640f75cdba7ae9a960f6eec8" datatype="html">
         <source>Unknown Token</source>
         <target state="final">Unknown Token</target>
@@ -807,6 +929,30 @@
       <trans-unit id="9b3595be315c0e5f5fffabbe543a12ffe9be819b" datatype="html">
         <source>Unsupported token type</source>
         <target state="final">Unsupported token type</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="13c393450aa72efa40058dabf5f96a67a1e4d0d7" datatype="html">
+        <source>Please try again or contact an administrator.</source>
+        <target state="final">Please try again or contact an administrator.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="06f5596638b1dd42e92a9ac97278e4a5c595c89c" datatype="html">
+        <source>The token is already assigned to you or to another user. Please contact an administrator.</source>
+        <target state="final">The token is already assigned to you or to another user. Please contact an administrator.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8d67183780d69d4d69ac826a50c11e3804163574" datatype="html">
+        <source>The token you want to assign is not valid (wrong realm). Please contact an administrator.</source>
+        <target state="final">The token you want to assign is not valid (wrong realm). Please contact an administrator.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.service.ts</context>
           <context context-type="linenumber">1</context>

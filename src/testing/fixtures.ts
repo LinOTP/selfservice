@@ -12,6 +12,7 @@ export class Fixtures {
         description: 'Personal text-based secret',
         icon: 'keyboard',
         // enrollmentPermission: Permission.ENROLLPASSWORD,
+        enrollmentActionLabel: 'Enroll',
       },
       hmac: {
         type: TokenType.HOTP,
@@ -20,6 +21,7 @@ export class Fixtures {
         icon: 'cached',
         enrollmentPermission: Permission.ENROLLHOTP,
         enrollmentType: 'googleauthenticator',
+        enrollmentActionLabel: 'Enroll',
       },
       totp: {
         type: TokenType.TOTP,
@@ -28,6 +30,7 @@ export class Fixtures {
         icon: 'timelapse',
         enrollmentPermission: Permission.ENROLLTOTP,
         enrollmentType: 'googleauthenticator_time',
+        enrollmentActionLabel: 'Enroll',
       },
       push: {
         type: TokenType.PUSH,
@@ -36,6 +39,7 @@ export class Fixtures {
         icon: 'screen_lock_portrait',
         enrollmentPermission: Permission.ENROLLPUSH,
         activationPermission: Permission.ACTIVATEPUSH,
+        enrollmentActionLabel: 'Enroll',
       },
       qr: {
         type: TokenType.QR,
@@ -44,6 +48,15 @@ export class Fixtures {
         icon: 'all_out',
         // enrollmentPermission: Permission.ENROLLQR,
         activationPermission: Permission.ACTIVATEQR,
+        enrollmentActionLabel: 'Enroll',
+      },
+      assign: {
+        type: TokenType.ASSIGN,
+        name: 'Assign Token',
+        description: 'Claim an existing token and link it to your user account',
+        icon: 'link',
+        enrollmentPermission: Permission.ASSIGN,
+        enrollmentActionLabel: 'Assign',
       },
       unknown: {
         type: TokenType.UNKNOWN,

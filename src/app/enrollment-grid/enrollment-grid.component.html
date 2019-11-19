@@ -11,8 +11,9 @@
     <mat-card-actions>
       <button mat-button
               color="primary"
-              (click)="runEnrollmentWorkflow(type)"
-              i18n>Enroll</button>
+              (click)="runEnrollmentWorkflow(type)">
+        {{type.enrollmentActionLabel}}
+      </button>
     </mat-card-actions>
   </mat-card>
 </ng-container>

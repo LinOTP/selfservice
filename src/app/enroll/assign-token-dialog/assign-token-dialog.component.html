@@ -1,0 +1,66 @@
+<h2 i18n>Assign Token</h2>
+<mat-horizontal-stepper [linear]="true"
+                        linear
+                        #stepper>
+
+  <mat-step [stepControl]="assignmentForm">
+    <p i18n>Claim an existing token and link it to your user account. You need to know the respective token serial in
+      advance.</p>
+
+    <form [formGroup]="assignmentForm">
+      <mat-form-field>
+        <input matInput
+               i18n-placeholder
+               placeholder="Token serial"
+               formControlName="serial"
+               autofocus>
+        <mat-error i18n>The token serial is required.</mat-error>
+        <mat-hint i18n>Enter the serial of the token you want to link to your user account.</mat-hint>
+      </mat-form-field>
+    </form>
+    <mat-dialog-actions align="end">
+      <button mat-raised-button
+              (click)="close()"
+              i18n>Cancel</button>
+      <button mat-raised-button
+              color="primary"
+              (click)="assignToken()"
+              [disabled]="assignmentForm.invalid"
+              i18n>Assign token</button>
+    </mat-dialog-actions>
+  </mat-step>
+
+  <mat-step>
+    <mat-spinner class="loading"></mat-spinner>
+    <mat-dialog-actions align="end">
+      <button mat-raised-button
+              (click)="close()"
+              i18n>Close</button>
+    </mat-dialog-actions>
+  </mat-step>
+
+  <mat-step>
+    <ng-container *ngIf="success; else error">
+      <p i18n>The token was successfully linked to your user account.</p>
+      <mat-dialog-actions align="end">
+        <button mat-raised-button
+                (click)="close()"
+                i18n>Close</button>
+      </mat-dialog-actions>
+    </ng-container>
+
+    <ng-template #error>
+      <p i18n>The token assignment failed.</p>
+      <p>{{ errorMessage }}</p>
+      <mat-dialog-actions align="end">
+        <button mat-raised-button
+                (click)="retry()"
+                i18n>Retry</button>
+        <button mat-raised-button
+                (click)="close()"
+                color="primary"
+                i18n>Cancel</button>
+      </mat-dialog-actions>
+    </ng-template>
+  </mat-step>
+</mat-horizontal-stepper>
