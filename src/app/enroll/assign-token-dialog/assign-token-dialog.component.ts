@@ -2,9 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
+import { I18n } from '@ngx-translate/i18n-polyfill';
 
 import { TokenService } from '../../api/token.service';
-import { concatMap, tap } from 'rxjs/operators';
+import { concatMap, tap, filter } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 @Component({
@@ -18,12 +19,14 @@ export class AssignTokenDialogComponent implements OnInit {
   @ViewChild(MatStepper, { static: false }) public stepper: MatStepper;
 
   public success: boolean;
+  public errorTypeMessage = '';
   public errorMessage = '';
 
   constructor(
     private dialogRef: MatDialogRef<AssignTokenDialogComponent>,
     private formBuilder: FormBuilder,
     private tokenService: TokenService,
+    private i18n: I18n,
   ) { }
 
   ngOnInit() {
@@ -67,6 +70,7 @@ export class AssignTokenDialogComponent implements OnInit {
       tap(result => {
         this.success = result.success;
         if (result.message) {
+          this.errorTypeMessage = this.i18n('The token assignment failed.');
           this.errorMessage = result.message;
         }
       }),
@@ -74,12 +78,17 @@ export class AssignTokenDialogComponent implements OnInit {
         if (result.success) {
           return this.tokenService.setDescription(serial, description);
         } else {
-          return of(result);
+          return of(null);
+        }
+      }),
+      tap(result => {
+        if (result && !result.success) {
+          this.success = false;
+          this.errorTypeMessage = this.i18n('Setting the token description failed.');
+          this.errorMessage = this.i18n('The token was assigned to you, but an error ocurred while setting the description.');
         }
       })
-    ).subscribe(_ => {
-      this.stepper.selectedIndex = 2;
-    });
+    ).subscribe(_ => this.stepper.selectedIndex = 2);
   }
 
 }

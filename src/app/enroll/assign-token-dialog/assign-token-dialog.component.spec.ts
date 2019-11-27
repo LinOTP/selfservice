@@ -9,6 +9,7 @@ import { MaterialModule } from '../../material.module';
 import { TokenService } from '../../api/token.service';
 
 import { AssignTokenDialogComponent } from './assign-token-dialog.component';
+import { I18nMock } from '../../../testing/i18n-mock-provider';
 
 describe('AssignTokenDialogComponent', () => {
   let component: AssignTokenDialogComponent;
@@ -35,6 +36,7 @@ describe('AssignTokenDialogComponent', () => {
           provide: MatDialogRef,
           useValue: spyOnClass(MatDialogRef),
         },
+        I18nMock,
       ],
     })
       .compileComponents();

@@ -58,7 +58,7 @@
     </ng-container>
 
     <ng-template #error>
-      <p i18n>The token assignment failed.</p>
+      <p>{{ errorTypeMessage }}</p>
       <p>{{ errorMessage }}</p>
       <mat-dialog-actions align="end">
         <button mat-raised-button

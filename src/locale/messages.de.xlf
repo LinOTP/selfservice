@@ -889,8 +889,24 @@
         <source>The token assignment failed.</source>
         <target state="translated">Die Token-Zuweisung ist fehlgeschlagen.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
-          <context context-type="linenumber">61</context>
+          <context context-type="sourcefile">src/app/enroll/assign-token-dialog/assign-token-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="23349c0abe2d5f7e13d84f4998f8b64cedb03fea" datatype="html">
+        <source>Setting the token description failed.</source>
+        <target state="translated">Das Festlegen der Token-Beschreibung ist fehlgeschlagen.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/assign-token-dialog/assign-token-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="18c23f23e039c5525fa4988a1d16e8b8ad611209" datatype="html">
+        <source>The token was assigned to you, but an error ocurred while setting the description.</source>
+        <target state="translated">Der Token wurde Ihnen erfolgreich zugewiesen, allerdings konnte die Beschreibung nicht gesetzt werden.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/assign-token-dialog/assign-token-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
       <trans-unit id="38e0956efb7c78e758d638c8f1e5c99859b82836" datatype="html">
