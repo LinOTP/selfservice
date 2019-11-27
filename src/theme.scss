@@ -1,30 +1,23 @@
-/* Global imports */
-
-@import url('https://fonts.googleapis.com/css?family=Roboto|Material+Icons');
-@import './styles/stepper.material-theming';
-
-/* end of global imports */
-
 /* Theming: */
 
 @import '~@angular/material/theming';
 @include mat-core();
 
 $primary-colors: (
-  50: #e4e4e6,
-  100: #bcbcc0,
-  200: #8f9096,
-  300: #62646c,
-  400: #40424d,
-  500: #1e212d,
-  600: #1a1d28,
-  700: #161822,
-  800: #12141c,
-  900: #0a0b11,
-  A100: #557fff,
-  A200: #2259ff,
-  A400: #003bee,
-  A700: #0035d4,
+  50 : #e4e4e6,
+  100 : #bcbcc0,
+  200 : #8f9096,
+  300 : #62646c,
+  400 : #40424d,
+  500 : #1e212d,
+  600 : #1a1d28,
+  700 : #161822,
+  800 : #12141c,
+  900 : #0a0b11,
+  A100 : #557fff,
+  A200 : #2259ff,
+  A400 : #003bee,
+  A700 : #0035d4,
   contrast: (
     50: black,
     100: black,
@@ -44,20 +37,20 @@ $primary-colors: (
 );
 
 $accent-colors: (
-  50: #fdf9ea,
-  100: #f9efca,
-  200: #f6e5a7,
-  300: #f2db84,
-  400: #efd369,
-  500: #eccb4f,
-  600: #eac648,
-  700: #e7be3f,
-  800: #e4b836,
-  900: #dfac26,
-  A100: #ffffff,
-  A200: #fff8e7,
-  A400: #ffe9b4,
-  A700: #ffe29b,
+  50 : #fdf9ea,
+  100 : #f9efca,
+  200 : #f6e5a7,
+  300 : #f2db84,
+  400 : #efd369,
+  500 : #eccb4f,
+  600 : #eac648,
+  700 : #e7be3f,
+  800 : #e4b836,
+  900 : #dfac26,
+  A100 : #ffffff,
+  A200 : #fff8e7,
+  A400 : #ffe9b4,
+  A700 : #ffe29b,
   contrast: (
     50: black,
     100: black,
@@ -114,37 +107,3 @@ $theme-app-accent: mat-palette($accent-colors, A200, A100, A400);
 $theme-app-warn: mat-palette($warn-colors);
 $theme: mat-light-theme($theme-app-primary, $theme-app-accent, $theme-app-warn);
 @include angular-material-theme($theme);
-
-
-/* Global styles: */
-
-html,
-body {
-  margin: 0;
-  height: 100%;
-}
-
-/* Remove the spacing needed for hints */
-/* use class .inline-no-hint in mat form fields to activate this rule */
-.mat-form-field.inline-no-hint {
-
-  .mat-form-field-wrapper {
-    padding-bottom: 0;
-  }
-
-  .mat-form-field-underline {
-    bottom: 0;
-  }
-
-  .mat-form-field-subscript-wrapper {
-    display: none;
-  }
-}
-
-.mat-form-field {
-  margin-bottom: 10px;
-}
-
-.spacer {
-  flex: 1;
-}
