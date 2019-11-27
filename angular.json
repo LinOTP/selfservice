@@ -16,12 +16,18 @@
             "main": "src/main.ts",
             "tsConfig": "src/tsconfig.app.json",
             "polyfills": "src/polyfills.ts",
+            "extractCss": true,
             "assets": [
               "src/assets",
               "src/favicon.ico"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              {
+                "input": "src/custom-styles.css",
+                "bundleName": "customization/styles",
+                "inject": false
+              }
             ],
             "scripts": []
           },
