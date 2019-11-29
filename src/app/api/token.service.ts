@@ -51,6 +51,7 @@ export class TokenService {
     reset: 'reset',
     resync: 'resync',
     assign: 'assign',
+    setDescription: 'setdescription',
   };
 
   private validateCheckS = '/validate/check_s'; // generate a challenge with a given serial
@@ -347,16 +348,15 @@ export class TokenService {
       );
   }
 
-  assign(tokenSerial: string, description: string): Observable<{ success: boolean, message?: string }> {
+  assign(tokenSerial: string): Observable<{ success: boolean, message?: string }> {
     const tryAgainMessage = this.i18n('Please try again or contact an administrator.');
-    const body = {
+    const bodyAssign = {
       serial: tokenSerial,
-      description: description,
       session: this.sessionService.getSession()
     };
     const url = this.userserviceBase + this.userserviceEndpoints.assign;
 
-    return this.http.post<LinOTPResponse<{ 'assign token': boolean }>>(url, body)
+    return this.http.post<LinOTPResponse<{ 'assign token': boolean }>>(url, bodyAssign)
       .pipe(
         map(response => {
           if (response && response.result && response.result.value) {
@@ -377,6 +377,26 @@ export class TokenService {
             return { success: false, message: message };
           } else {
             return { success: false, message: tryAgainMessage };
+          }
+        }),
+        catchError(this.handleError('assign', { success: false })
+        )
+      );
+  }
+
+  setDescription(tokenSerial: string, description: string): Observable<{ success: boolean, message?: string }> {
+    const bodyAssign = {
+      serial: tokenSerial,
+      description: description,
+      session: this.sessionService.getSession()
+    };
+    const url = this.userserviceBase + this.userserviceEndpoints.setDescription;
+
+    return this.http.post<LinOTPResponse<{ 'assign token': boolean }>>(url, bodyAssign)
+      .pipe(
+        map(response => {
+          if (response && response.result && response.result.value) {
+            return { success: response.result.value['set description'] > 0 };
           }
         }),
         catchError(this.handleError('assign', { success: false })

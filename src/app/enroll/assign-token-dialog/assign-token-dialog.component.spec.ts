@@ -9,6 +9,7 @@ import { MaterialModule } from '../../material.module';
 import { TokenService } from '../../api/token.service';
 
 import { AssignTokenDialogComponent } from './assign-token-dialog.component';
+import { I18nMock } from '../../../testing/i18n-mock-provider';
 
 describe('AssignTokenDialogComponent', () => {
   let component: AssignTokenDialogComponent;
@@ -35,6 +36,7 @@ describe('AssignTokenDialogComponent', () => {
           provide: MatDialogRef,
           useValue: spyOnClass(MatDialogRef),
         },
+        I18nMock,
       ],
     })
       .compileComponents();
@@ -56,7 +58,7 @@ describe('AssignTokenDialogComponent', () => {
   describe('close', () => {
     it('should return the token serial if assignment was successful', () => {
       component.success = true;
-      component.assignmentForm.setValue({ serial: 'abc123' });
+      component.assignmentForm.setValue({ serial: 'abc123', description: '' });
       fixture.detectChanges();
 
       component.close();
@@ -75,7 +77,7 @@ describe('AssignTokenDialogComponent', () => {
 
   describe('retry', () => {
     it('should reset the dialog to its original state', () => {
-      component.assignmentForm.setValue({ serial: 'abc123' });
+      component.assignmentForm.setValue({ serial: 'abc123', description: 'my new token' });
       component.errorMessage = 'error';
       component.stepper.selectedIndex = 2;
       fixture.detectChanges();
@@ -83,6 +85,7 @@ describe('AssignTokenDialogComponent', () => {
       component.retry();
 
       expect(component.assignmentForm.get('serial').value).toBeNull();
+      expect(component.assignmentForm.get('description').value).toBeNull();
       expect(component.errorMessage).toBe('');
       expect(component.stepper.selectedIndex).toEqual(0);
     });
@@ -92,9 +95,10 @@ describe('AssignTokenDialogComponent', () => {
 
     it('should move the stepper to step 2 when assignment request returns', () => {
       tokenService.assign.and.returnValue(of({ success: true }));
+      tokenService.setDescription.and.returnValue(of({ success: true }));
 
       component.stepper.selectedIndex = 0;
-      component.assignmentForm.setValue({ serial: 'abc123' });
+      component.assignmentForm.setValue({ serial: 'abc123', description: 'my new token' });
       fixture.detectChanges();
 
       component.assignToken();
@@ -106,7 +110,7 @@ describe('AssignTokenDialogComponent', () => {
       tokenService.assign.and.returnValue(of({ success: false, message: 'an error occurred' }));
 
       component.stepper.selectedIndex = 0;
-      component.assignmentForm.setValue({ serial: 'abc123' });
+      component.assignmentForm.setValue({ serial: 'abc123', description: 'my new token' });
       fixture.detectChanges();
 
       component.assignToken();

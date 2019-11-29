@@ -386,7 +386,7 @@ describe('TokenService', () => {
     it('should request a token assignment from the server', async(
       inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
 
-        tokenService.assign('serial', 'description').subscribe(response => {
+        tokenService.assign('serial').subscribe(response => {
           expect(response).toEqual({ success: true });
         });
 
@@ -401,7 +401,7 @@ describe('TokenService', () => {
       inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
         const returnedMessage = 'The token is already assigned to you or to another user. Please contact an administrator.';
 
-        tokenService.assign('serial', 'description').subscribe(response => {
+        tokenService.assign('serial').subscribe(response => {
           expect(response).toEqual({ success: false, message: returnedMessage });
         });
 
@@ -417,7 +417,7 @@ describe('TokenService', () => {
       inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
         const returnedMessage = 'The token you want to assign is not valid (wrong realm). Please contact an administrator.';
 
-        tokenService.assign('serial', 'description').subscribe(response => {
+        tokenService.assign('serial').subscribe(response => {
           expect(response).toEqual({ success: false, message: returnedMessage });
         });
 
@@ -433,7 +433,7 @@ describe('TokenService', () => {
       inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
         const returnedMessage = 'Please try again or contact an administrator.';
 
-        tokenService.assign('serial', 'description').subscribe(response => {
+        tokenService.assign('serial').subscribe(response => {
           expect(response).toEqual({ success: false, message: returnedMessage });
         });
 
@@ -449,7 +449,7 @@ describe('TokenService', () => {
       inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
         const returnedMessage = 'Please try again or contact an administrator.';
 
-        tokenService.assign('serial', 'description').subscribe(response => {
+        tokenService.assign('serial').subscribe(response => {
           expect(response).toEqual({ success: false, message: returnedMessage });
         });
 
@@ -465,13 +465,47 @@ describe('TokenService', () => {
 
         spyOn(console, 'error');
 
-        tokenService.assign('serial', 'description').subscribe(response => {
+        tokenService.assign('serial').subscribe(response => {
           expect(response).toEqual({ success: false });
         });
 
         const request = backend.expectOne((req) => req.url === '/userservice/assign' && req.method === 'POST');
 
         request.error(new ErrorEvent('Error assigning token'));
+        backend.verify();
+
+        expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
+      })
+    ));
+  });
+
+  describe('setDescription', () => {
+    it('should request setting a token description from the server', async(
+      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+
+        tokenService.setDescription('serial', 'description').subscribe(response => {
+          expect(response).toEqual({ success: true });
+        });
+
+        const request = backend.expectOne((req) => req.url === '/userservice/setdescription' && req.method === 'POST');
+
+        request.flush({ result: { status: true, value: { 'set description': true } } });
+        backend.verify();
+      })
+    ));
+
+    it('should call the error handler on request failure', async(
+      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+
+        spyOn(console, 'error');
+
+        tokenService.setDescription('serial', 'description').subscribe(response => {
+          expect(response).toEqual({ success: false });
+        });
+
+        const request = backend.expectOne((req) => req.url === '/userservice/setdescription' && req.method === 'POST');
+
+        request.error(new ErrorEvent('Error setting token description'));
         backend.verify();
 
         expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));

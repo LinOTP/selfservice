@@ -335,7 +335,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
+          <context context-type="linenumber">70</context>
         </context-group>
       </trans-unit>
       <trans-unit id="f732c304c7433e5a83ffcd862c3dce709a0f4982" datatype="html">
@@ -554,15 +558,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
-          <context context-type="linenumber">38</context>
+          <context context-type="linenumber">46</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
-          <context context-type="linenumber">48</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
-          <context context-type="linenumber">63</context>
+          <context context-type="linenumber">56</context>
         </context-group>
       </trans-unit>
       <trans-unit id="b7079f2a5119f06042eeb03991d4553793a75157" datatype="html">
@@ -853,12 +853,28 @@
           <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="edf0eb379820c9c27f89ede50b4b4ce05732dc9e" datatype="html">
+        <source>Token description</source>
+        <target state="translated">Token-Beschreibung</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5c069965db47012ba7e64b7540ae2362a8b27fb3" datatype="html">
+        <source>Enter a description for your token.</source>
+        <target state="translated">Geben sie eine Beschreibung für den Token ein.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="1572365d5f052b4ab327739abe91c8cb09d2a5b4" datatype="html">
         <source>Assign token</source>
         <target state="translated">Token zuweisen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
-          <context context-type="linenumber">29</context>
+          <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit>
       <trans-unit id="c8dc3bbd3e851ab333ac19aa5f32c3d9552843ff" datatype="html">
@@ -866,15 +882,31 @@
         <target state="translated">Der Token wurde mit ihrem Benutzerkonto erfolgreich verknüpft.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
       <trans-unit id="123f1bb142272c75605b74b2352d62c830a9578b" datatype="html">
         <source>The token assignment failed.</source>
         <target state="translated">Die Token-Zuweisung ist fehlgeschlagen.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
-          <context context-type="linenumber">53</context>
+          <context context-type="sourcefile">src/app/enroll/assign-token-dialog/assign-token-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="23349c0abe2d5f7e13d84f4998f8b64cedb03fea" datatype="html">
+        <source>Setting the token description failed.</source>
+        <target state="translated">Das Festlegen der Token-Beschreibung ist fehlgeschlagen.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/assign-token-dialog/assign-token-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="18c23f23e039c5525fa4988a1d16e8b8ad611209" datatype="html">
+        <source>The token was assigned to you, but an error ocurred while setting the description.</source>
+        <target state="translated">Der Token wurde Ihnen erfolgreich zugewiesen, allerdings konnte die Beschreibung nicht gesetzt werden.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/assign-token-dialog/assign-token-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
       <trans-unit id="38e0956efb7c78e758d638c8f1e5c99859b82836" datatype="html">
@@ -882,7 +914,7 @@
         <target state="translated">Wiederholen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
-          <context context-type="linenumber">59</context>
+          <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
       <trans-unit id="39372a4b8f0015502015b905eda8158cbc812481" datatype="html">

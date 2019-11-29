@@ -2,8 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
+import { I18n } from '@ngx-translate/i18n-polyfill';
 
 import { TokenService } from '../../api/token.service';
+import { concatMap, tap, filter } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-assign-token-dialog',
@@ -16,17 +19,20 @@ export class AssignTokenDialogComponent implements OnInit {
   @ViewChild(MatStepper, { static: false }) public stepper: MatStepper;
 
   public success: boolean;
+  public errorTypeMessage = '';
   public errorMessage = '';
 
   constructor(
     private dialogRef: MatDialogRef<AssignTokenDialogComponent>,
     private formBuilder: FormBuilder,
     private tokenService: TokenService,
+    private i18n: I18n,
   ) { }
 
   ngOnInit() {
     this.assignmentForm = this.formBuilder.group({
       'serial': ['', Validators.required],
+      'description': [''],
     });
   }
 
@@ -58,14 +64,31 @@ export class AssignTokenDialogComponent implements OnInit {
   public assignToken() {
     this.stepper.selectedIndex = 1;
     const serial = this.assignmentForm.get('serial').value;
+    const description = this.assignmentForm.get('description').value;
     this.errorMessage = '';
-    this.tokenService.assign(serial, 'self+assigned').subscribe(result => {
-      this.stepper.selectedIndex = 2;
-      this.success = result.success;
-      if (result.message) {
-        this.errorMessage = result.message;
-      }
-    });
+    this.tokenService.assign(serial).pipe(
+      tap(result => {
+        this.success = result.success;
+        if (result.message) {
+          this.errorTypeMessage = this.i18n('The token assignment failed.');
+          this.errorMessage = result.message;
+        }
+      }),
+      concatMap(result => {
+        if (result.success) {
+          return this.tokenService.setDescription(serial, description);
+        } else {
+          return of(null);
+        }
+      }),
+      tap(result => {
+        if (result && !result.success) {
+          this.success = false;
+          this.errorTypeMessage = this.i18n('Setting the token description failed.');
+          this.errorMessage = this.i18n('The token was assigned to you, but an error ocurred while setting the description.');
+        }
+      })
+    ).subscribe(_ => this.stepper.selectedIndex = 2);
   }
 
 }
