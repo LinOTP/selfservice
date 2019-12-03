@@ -83,8 +83,6 @@ The application needs to know the URL prefix where the project will be served fr
    urlprefix=https://my.server/users yarn build-with-prefix  # https://my.server/users
 ```
 
-
-
 ### Docker
 
 A multi stage [Dockerfile](Dockerfile) is provided to build the sources in the first stage and to produce an nginx based container in the second step.
@@ -105,6 +103,16 @@ The debian build process can be triggerd with the following commands from within
 docker build -t ngs-deb-builder -f Dockerfile.deb-build .
 docker run -it --rm -v $(pwd):/app ngs-deb-builder
 ```
+
+## Customization
+
+The application allows to customize the look and feel after the build. This means that, once installed on a server, support is available to modify the styles served to the customer.
+
+Currently only support for manual modifications is available. We **strongly** advise against relying on this feature because it will not be update proof if newer Selfservice versions modify the templates (which is pretty common). In the future we might provide more advanced features for customization that will be update proof.
+
+If you agree with this limitation and want to use the custom stylesheet, you can put custom files under this location: `/etc/linotp-selfservice/customization/`. Files in this directory will be be served with the url starting with `/selfservice-v2/(en|de)/customization/`.
+
+The file `/etc/linotp-selfservice/customization/styles.css` is the entry point, it will be used from the application automatically.
 
 ## Further help
 
