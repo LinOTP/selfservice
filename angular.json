@@ -18,16 +18,10 @@
             "polyfills": "src/polyfills.ts",
             "extractCss": true,
             "assets": [
-              "src/assets",
-              "src/favicon.ico"
+              "src/assets"
             ],
             "styles": [
-              "src/styles.scss",
-              {
-                "input": "src/custom-styles.css",
-                "bundleName": "customization/styles",
-                "inject": false
-              }
+              "src/styles.scss"
             ],
             "scripts": []
           },
@@ -129,8 +123,7 @@
               "src/styles.scss"
             ],
             "assets": [
-              "src/assets",
-              "src/favicon.ico"
+              "src/assets"
             ]
           }
         },

@@ -1,6 +1,12 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <mat-toolbar class="mat-primary toolbar">
-  <h1 class="title">{{ title }}</h1>
+  <div id="title">
+    <img id="logo"
+         src="assets/logo.png"
+         alt="Company Logo"
+         i18n-alt>
+    <h1 id="app-name">{{ title }}</h1>
+  </div>
   <nav>
     <a *ngFor="let link of navLinks"
        mat-button
