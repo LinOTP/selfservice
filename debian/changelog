@@ -1,3 +1,14 @@
+linotp-selfservice (0.4.0-1) jessie; urgency=medium
+
+  Features:
+  * Token assignment with custom token description
+  * Customization of logo, favicon and CSS
+
+  Bug Fixes:
+  * Closing set pin dialog is not treated as an error
+
+ -- KeyIdentity GmbH <packaging@keyidentity.com>  Thu, 19 Dec 2019 14:15:00 +0100
+
 linotp-selfservice (0.3.0-1) jessie; urgency=medium
 
   Features:
