@@ -1,3 +1,14 @@
+<a name="0.4.0"></a>
+## 0.4.0 (2019-12-19)
+
+### Features:
+* Token assignment with custom token description
+* Customization of logo, favicon and CSS
+
+### Bug Fixes:
+* Closing set pin dialog is not treated as an error
+
+
 <a name="0.3.0"></a>
 ## 0.3.0 (2019-10-31)
 
