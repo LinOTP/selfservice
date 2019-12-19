@@ -10,7 +10,7 @@ import { LoginService } from './login/login.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  public title = 'LinOTP Selfservice';
+  public title = 'Self Service';
   public navLinks = [
     { 'label': this.i18n('Your tokens'), 'path': 'tokens/' },
   ];

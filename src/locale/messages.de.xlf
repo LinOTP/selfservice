@@ -2,12 +2,20 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en" datatype="plaintext" original="ng2.template" target-language="de">
     <body>
+      <trans-unit id="761502dddafb231d014be079e2e6f3651d061f07" datatype="html">
+        <source>Company Logo</source>
+        <target state="translated">Firmenlogo</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="bb694b49d408265c91c62799c2b3a7e3151c824d" datatype="html">
         <source>Logout</source>
         <target state="translated">Abmelden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/app.component.html</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="e77b7184c15023e4183ece6097d1b8405de9bec3" datatype="html">
@@ -503,7 +511,7 @@
       </trans-unit>
       <trans-unit id="daa52b3eb35d393bd15ae121c96b502ef4011163" datatype="html">
         <source> Delete </source>
-        <target state="translated">Löschen</target>
+        <target state="translated"> Löschen </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
           <context context-type="linenumber">42</context>
@@ -511,7 +519,7 @@
       </trans-unit>
       <trans-unit id="d5b409d921a6b3d222bd97d2b886c5be68c41a98" datatype="html">
         <source> Activate </source>
-        <target state="translated">Aktivieren</target>
+        <target state="translated"> Aktivieren </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
           <context context-type="linenumber">47</context>
@@ -594,7 +602,7 @@
       </trans-unit>
       <trans-unit id="ed0f3d3cb95f967ba8f93b4554cd656f4db6a6db" datatype="html">
         <source>The token description is required. </source>
-        <target state="translated">Die Token-Beschreibung ist erforderlich</target>
+        <target state="translated">Die Token-Beschreibung ist erforderlich. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
           <context context-type="linenumber">25</context>

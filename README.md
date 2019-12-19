@@ -108,11 +108,13 @@ docker run -it --rm -v $(pwd):/app ngs-deb-builder
 
 The application allows to customize the look and feel after the build. This means that, once installed on a server, support is available to modify the styles served to the customer.
 
-Currently only support for manual modifications is available. We **strongly** advise against relying on this feature because it will not be update proof if newer Selfservice versions modify the templates (which is pretty common). In the future we might provide more advanced features for customization that will be update proof.
+You can put custom files under this location: `/etc/linotp-selfservice/customization/`. Files in this directory will be be served with the url starting with `/selfservice-v2/(en|de)/assets/`.
 
-If you agree with this limitation and want to use the custom stylesheet, you can put custom files under this location: `/etc/linotp-selfservice/customization/`. Files in this directory will be be served with the url starting with `/selfservice-v2/(en|de)/customization/`.
+For example, this feature allows you to replace logo.png and favicon.ico to define your own design.
 
-The file `/etc/linotp-selfservice/customization/styles.css` is the entry point, it will be used from the application automatically.
+Support for color modifications is currently limited. Manual css rules can be set to override application colors. We **strongly** advise against relying on this feature because it will not be update proof if newer Selfservice versions modify the templates (which is pretty common). In the future we might provide more advanced features for customization that will be update proof.
+
+If you agree with this limitation and want to use the custom stylesheet, you can create `/etc/linotp-selfservice/customization/custom-styles.css`. The stylesheet will be used from the application automatically.
 
 ## Further help
 
