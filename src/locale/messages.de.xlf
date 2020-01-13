@@ -259,16 +259,20 @@
         <source>cancel</source>
         <target state="translated">abbrechen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/common/set-pin-dialog/set-pin-dialog.component.html</context>
-          <context context-type="linenumber">26</context>
-        </context-group>
-        <context-group purpose="location">
           <context context-type="sourcefile">app/common/dialog/dialog.component.html</context>
           <context context-type="linenumber">7</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">app/common/set-pin-dialog/set-pin-dialog.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/common/resync-dialog/resync-dialog.component.html</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="f2b2d173a24e0919e72325bdee1e98019613fd1d" datatype="html">
@@ -277,6 +281,179 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/set-pin-dialog/set-pin-dialog.component.html</context>
           <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="69389b62f68f3432238c0115bedcabbaa06b5f6b" datatype="html">
+        <source>Test <x id="INTERPOLATION" equiv-text="{{ data.token.typeDetails.name }}"/> <x id="INTERPOLATION_1" equiv-text="{{     data.token.serial }}"/></source>
+        <target state="translated"><x id="INTERPOLATION" equiv-text="{{ data.token.typeDetails.name }}"/><x id="INTERPOLATION_1" equiv-text="{{     data.token.serial }}"/> testen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9e8b921ded6e2b3dc0edb831dac77acf970b1149" datatype="html">
+        <source>Enter your token PIN or password if you
+              have set a PIN or you are required to
+              enter your
+              password for OTP authentication:</source>
+        <target state="translated">Geben Sie Ihren PIN oder Ihr Passwort ein, wenn Sie einen PIN gesetzt haben oder für die OTP-Authentifizierung ein PIN erforderlich ist:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="0acb1ae0dee82f3c10a35b8dfa3df11797c78d9b" datatype="html">
+        <source>PIN or password</source>
+        <target state="translated">PIN oder Passwort</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e8266a019c703dde9d7cdd07afc4ee42b18cf582" datatype="html">
+        <source>Enter the next OTP value of the selected token:</source>
+        <target state="translated">Den nächsten OTP-Wert des ausgewählten Tokens eingeben:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1bf37e5629d9486c25bc79a1e48909eed31e71b3" datatype="html">
+        <source>OTP value</source>
+        <target state="translated">OTP-Wert</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c5413d7c401c1e8f1ed49300bce4e20ed44efd67" datatype="html">
+        <source>The OTP cannot be empty</source>
+        <target state="translated">Das OTP-Feld darf nicht leer sein</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="844dce2da0f9f3f52c4731b878adc8128cc4b5d0" datatype="html">
+        <source>
+          Test successful. You may use your token for authentication.
+        </source>
+        <target state="translated">Test erfolgreich. Sie dürfen sich mit Ihrem Token authentizieren.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="30003673a41b0adb5bf362276588ff733d03c595" datatype="html">
+        <source>
+        The test failed. Check if both the OTP and the PIN (if applicable)
+        are correct.
+      </source>
+        <target state="translated">Test fehlgeschlagen. Überprüfen Sie sowohl das OTP als auch ggf. den PIN.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="73c0e63efed06b6de0786d1d4b68641347b02772" datatype="html">
+        <source>restart test</source>
+        <target state="translated">Test neustarten</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
+          <context context-type="linenumber">71</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="92ab7c01f5cc09b449c305d32cc88c1df7486783" datatype="html">
+        <source>test</source>
+        <target state="translated">testen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
+          <context context-type="linenumber">77</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bd5b97bd37c0d6c89b0f05384d3e5a0daea1b16a" datatype="html">
+        <source>done</source>
+        <target state="translated">abschließen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
+          <context context-type="linenumber">82</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="aa6096fc163996886c8bafd0770a20e1727db7f0" datatype="html">
+        <source>Activate <x id="INTERPOLATION" equiv-text="{{ data.token.typeDetails.name }}"/> <x id="INTERPOLATION_1" equiv-text="{{ data.token.serial }}"/></source>
+        <target state="translated"><x id="INTERPOLATION" equiv-text="{{ data.token.typeDetails.name }}"/><x id="INTERPOLATION_1" equiv-text="{{ data.token.serial }}"/> aktivieren</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c5d0b78b54c49e29cf28b30c4f09c5923bd4ef28" datatype="html">
+        <source>Test <x id="INTERPOLATION" equiv-text="{{ data.token.typeDetails.name }}"/> <x id="INTERPOLATION_1" equiv-text="{{ data.token.serial }}"/></source>
+        <target state="translated"><x id="INTERPOLATION" equiv-text="{{ data.token.typeDetails.name }}"/><x id="INTERPOLATION_1" equiv-text="{{ data.token.serial }}"/> testen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c2b7ba12c335df8aac5bbf6940c4dccda6631c39" datatype="html">
+        <source>
+        Enter your token PIN or password if you have set a PIN or you are
+        required to enter your password for OTP authentication:
+      </source>
+        <target state="translated">Geben Sie Ihren PIN oder Ihr Passwort ein, falls Sie eine PIN gesetzt haben, oder für die Authentifizierung ein Passwort erforderlich ist:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7acb81fa79d28c21be59f8d8618bb1020386a915" datatype="html">
+        <source>
+        In the next step your Authenticator app will be verified by the authentication server.
+      </source>
+        <target state="translated">Im nächsten Schritt wird der Authentifizierungsserver Ihre Authenticator App verifizieren.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="01ce0471aa3aedb04008c2bc385b3e06a9a58b9d" datatype="html">
+        <source>
+        In the next step your Authenticator app will receive a test challenge.
+      </source>
+        <target state="translated">Im nächsten Schritt wird Ihre Authenticator App eine Test-Challenge erhalten.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="170bb2f3bd384bed4d1cbb762264423768fe4984" datatype="html">
+        <source>
+        Please confirm the challenge on the app.
+      </source>
+        <target state="translated">Bitte bestätigen Sie die Challenge auf der App.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="757cb61f36da965aad5133eb765f4caf90e82d86" datatype="html">
+        <source>Activation step 1 of 3</source>
+        <target state="translated">Aktivierungsschritt 1 von 3</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ef5c424dd7fdea655e0d95864d89076eb1b49154" datatype="html">
+        <source>Test step 1 of 3</source>
+        <target state="translated">Testschritt 1 von 3</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="linenumber">45</context>
         </context-group>
       </trans-unit>
       <trans-unit id="52db4409bbb3dd4bd80626ae77b8809344012c26" datatype="html">
@@ -326,20 +503,32 @@
         <source>Cancel</source>
         <target state="translated">Abbrechen</target>
         <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="linenumber">98</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="linenumber">137</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
           <context context-type="linenumber">23</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">105</context>
+          <context context-type="linenumber">109</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">36</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
-          <context context-type="linenumber">61</context>
+          <context context-type="linenumber">62</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
@@ -348,6 +537,163 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
           <context context-type="linenumber">70</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="a8f5a3b30397a5dc1051a9c90c1cfa22537d7c4d" datatype="html">
+        <source>Activate</source>
+        <target state="translated">Aktivieren</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="a79d938b5ed20249b4ab6bef86c12633d2f346a0" datatype="html">
+        <source>Test</source>
+        <target state="translated">Testen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="linenumber">61</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e3bc642526b593deb61469f6d5616fc9f3411485" datatype="html">
+        <source>Waiting for confirmation for test transaction via Authenticator app.</source>
+        <target state="translated">Warte auf Bestätigung für die Test-Transaktion per Authenticator App.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="0630807d1da72145bd5b4d155daf8a4c652dfa1d" datatype="html">
+        <source>Waiting for confirmation for transaction <x id="INTERPOLATION" equiv-text="{{ transactionId }}"/> via Authenticator app.</source>
+        <target state="translated">Warte auf Bestätigung für die Transaktion <x id="INTERPOLATION" equiv-text="{{ transactionId }}"/> per Authenticator App.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="linenumber">77</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8f950a3f8eedf24132ed363b1724434341462413" datatype="html">
+        <source>Scan the QR code below with the Authenticator app to activate your token:</source>
+        <target state="translated">Scannen Sie den untenstehenden QR-Code mit der Authenticator App ein, um Ihr Token zu aktivieren:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="linenumber">83</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5ecbbb1535a96d49ef55469c9d5eeca30993679e" datatype="html">
+        <source>Scan the QR code below with the Authenticator app to confirm test transaction
+          <x id="INTERPOLATION" equiv-text="{{ transactionId }}"/>:</source>
+        <target state="translated">Scannen Sie den untenstehenden QR-Code mit der Authenticator App ein, um die Test-Transaktion <x id="INTERPOLATION" equiv-text="{{ transactionId }}"/> zu bestätigen:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="linenumber">85</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="736674798d71471304ff9eef947c5f3ec85bdd64" datatype="html">
+        <source>Activation step 2 of 3</source>
+        <target state="translated">Aktivierungsschritt 2 von 3</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="linenumber">92</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b1b3e99eea3969fca29799c3cf7b0d65c2251137" datatype="html">
+        <source>Test step 2 of 3</source>
+        <target state="translated">Testschritt 2 von 3</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="linenumber">94</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9146aa5475e06ddd15c6357d18cdb879fc7e3dd7" datatype="html">
+        <source>Activation failed. Please try again, or contact an administrator. </source>
+        <target state="translated">Aktivierung fehlgeschlagen. Bitte versuchen Sie erneut, oder kontaktieren Sie einen Administrator.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="linenumber">107</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4a8cea38b1e551b84e8bd8829675ba9b76db53a7" datatype="html">
+        <source>Test failed. Please try again, or contact an administrator. </source>
+        <target state="translated">Test fehlgeschlagen. Bitte versuchen Sie erneut, oder kontaktieren Sie einen Administrator.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="linenumber">109</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4dcaf7791b27fd18b9d4939df6b7a9ebbe893faa" datatype="html">
+        <source>
+            You have accepted the transaction.
+          </source>
+        <target state="translated">Sie haben der Transaktion zugestimmt.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="linenumber">114</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="803d78e7f3aaa59ed1e4b88192aab41952df6ff2" datatype="html">
+        <source>
+            You have rejected the transaction.
+          </source>
+        <target state="translated">Sie haben die Transaktion abgelehnt.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="linenumber">118</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="465c9124367167d05be50609f0e6fe54003933a3" datatype="html">
+        <source> The activation was successful. Your token is ready to be used. </source>
+        <target state="translated">Die Aktivierung war erfolgreich. Ihr Token ist betriebsbereit.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="linenumber">122</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b1819d619f3c742a688fad4aa657be36234f7391" datatype="html">
+        <source> The test was successful. Your token is ready to be used. </source>
+        <target state="translated">Der Test war erfolgreich. Ihr Token ist betriebsbereit.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="linenumber">124</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7b8eae0d2bcb978536655aaf1e4a8380f5e4c4b4" datatype="html">
+        <source>Activation step 3 of 3</source>
+        <target state="translated">Aktivierungsschritt 3 von 3</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="linenumber">130</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2d3fdac0d4d6629e0410ae889872cb59099924fc" datatype="html">
+        <source>Test step 3 of 3</source>
+        <target state="translated">Testschritt 3 von 3</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="linenumber">132</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="951febbd09e10bb8a7aafc4cab659fd59d0c8274" datatype="html">
+        <source> Restart activation </source>
+        <target state="translated">Aktivierung neustarten</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="linenumber">142</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="aba7b8c677251d42c2d5d65187240d9ad9f84a51" datatype="html">
+        <source> Restart test </source>
+        <target state="translated">Test neustarten</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="linenumber">147</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3ea51cf415feffef55e82c7b60e9486055837661" datatype="html">
+        <source>Finish</source>
+        <target state="translated">Beenden</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="linenumber">152</context>
         </context-group>
       </trans-unit>
       <trans-unit id="f732c304c7433e5a83ffcd862c3dce709a0f4982" datatype="html">
@@ -359,11 +705,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">109</context>
+          <context context-type="linenumber">113</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
-          <context context-type="linenumber">41</context>
+          <context context-type="linenumber">42</context>
         </context-group>
       </trans-unit>
       <trans-unit id="055a80ae41e1b038fc4339b814a210a3d243b04c" datatype="html">
@@ -388,7 +734,19 @@
         <target state="translated">Details ausblenden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">50</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2904f0a5063fe0782706c95b1f5ef4fc30180b1e" datatype="html">
+        <source>Toggle enrollment details</source>
+        <target state="translated">Registrierungsdetails ein-/ausblenden</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
+          <context context-type="linenumber">55</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9caaa1de898865b94baefb06156db1e040edc26f" datatype="html">
@@ -396,7 +754,7 @@
         <target state="translated">Details einblenden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">57</context>
+          <context context-type="linenumber">59</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fe0d31ab17a3c5f7e1427d436d32b9c7e82982df" datatype="html">
@@ -404,7 +762,19 @@
         <target state="translated">URL zum Ausrollen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">64</context>
+          <context context-type="linenumber">66</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1979da7460819153e11d2078244645d94291b69c" datatype="html">
+        <source>Copy</source>
+        <target state="translated">Kopieren</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
+          <context context-type="linenumber">75</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
+          <context context-type="linenumber">95</context>
         </context-group>
       </trans-unit>
       <trans-unit id="a6c09c3b932b35a552020c24b37d5f517e2d4c3b" datatype="html">
@@ -412,7 +782,7 @@
         <target state="translated">Seed</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">83</context>
+          <context context-type="linenumber">86</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7ce32ebdca3fa54087d8bc1849db00a4ca71b653" datatype="html">
@@ -420,7 +790,7 @@
         <target state="translated">Ausrollen: Schritt 2 von 3</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">101</context>
+          <context context-type="linenumber">105</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fa458bb847cca8c429bf96b143fa148db0db351b" datatype="html">
@@ -428,7 +798,7 @@
         <target state="translated">Ihr Token ist jetzt ausgerollt.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">115</context>
+          <context context-type="linenumber">119</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1f4d7a1b7bba32d080b5653c85f2e0028f317411" datatype="html">
@@ -436,7 +806,7 @@
         <target state="translated">Wenn Sie einen PIN setzen wollen, dann setzen Sie ihn hier:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">117</context>
+          <context context-type="linenumber">121</context>
         </context-group>
       </trans-unit>
       <trans-unit id="e31efdfcc0b21b460ebc5f386962aa2b7a3a2c79" datatype="html">
@@ -455,12 +825,28 @@
           <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="a07cdd15aa16e7984670f07cf8c9ec388affc2c0" datatype="html">
+        <source>OTP 1</source>
+        <target state="translated">OTP 1</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/resync-dialog/resync-dialog.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="426764cf9c2b2f018cd8770baac10d0a571fba10" datatype="html">
+        <source>OTP 2</source>
+        <target state="translated">OTP 2</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/resync-dialog/resync-dialog.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="e682cdbdb50e5ed0d4df256736a7a56fda7d192a" datatype="html">
         <source>synchronize</source>
         <target state="translated">synchronisieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/resync-dialog/resync-dialog.component.html</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3a73b582d58222fbcc89defb53f1b0ddc4ab2d42" datatype="html">
@@ -529,12 +915,12 @@
         <source>Set pin</source>
         <target state="translated">PIN setzen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">121</context>
-        </context-group>
-        <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
           <context context-type="linenumber">56</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
+          <context context-type="linenumber">125</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1f2015488439a54808759dcd3521bf1a2f0b5510" datatype="html">
@@ -542,7 +928,7 @@
         <target state="translated">Einen PIN zu setzen erhöht die Sicherheit gegen Missbrauch des Tokens.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">123</context>
+          <context context-type="linenumber">127</context>
         </context-group>
       </trans-unit>
       <trans-unit id="62ac199e84e66442bb5e50ffc675d1f335e29e6c" datatype="html">
@@ -550,7 +936,7 @@
         <target state="translated">Ausrollen: Schritt 3 von 3</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">126</context>
+          <context context-type="linenumber">130</context>
         </context-group>
       </trans-unit>
       <trans-unit id="f4e529ae5ffd73001d1ff4bbdeeb0a72e342e5c8" datatype="html">
@@ -558,11 +944,11 @@
         <target state="translated">Beenden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">131</context>
+          <context context-type="linenumber">135</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
-          <context context-type="linenumber">72</context>
+          <context context-type="linenumber">73</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
@@ -605,7 +991,7 @@
         <target state="translated">Die Token-Beschreibung ist erforderlich. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="a08fadd2cf449c1a75e4c2e859cc9b5bb8d8deb8" datatype="html">
@@ -614,7 +1000,7 @@
         <target state="translated">Die Token-Beschreibung soll Ihnen helfen, den Token später zu erkennen. Sie könnte z.B. auf seinen Verwendungszweck hinweisen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="02112193518590d0db29cf623996e19547fe7839" datatype="html">
@@ -622,15 +1008,15 @@
         <target state="translated">Ausrollen: Schritt <x id="INTERPOLATION" equiv-text="{{currentStep}}"/> von <x id="INTERPOLATION_1" equiv-text="{{maxSteps}}"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">32</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
-          <context context-type="linenumber">57</context>
+          <context context-type="linenumber">58</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="linenumber">69</context>
         </context-group>
       </trans-unit>
       <trans-unit id="0f9d11a779ad67b09a0e2144a1998f2f4e8509c0" datatype="html">
@@ -640,7 +1026,7 @@
         <x id="INTERPOLATION_1" equiv-text="{{ enrollmentForm.get('description').value }}"/>) wurde ausgerollt.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="linenumber">48</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9f07949527737a3222b7d101f194ccaea4259b9f" datatype="html">
@@ -649,7 +1035,7 @@
         <target state="translated">Scannen Sie den nachfolgenden QR-Code mit der Authenticator-App, oder <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/> folgen Sie diesen Link <x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>, um die Aktivierung des neuen Tokens zu starten.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
-          <context context-type="linenumber">49</context>
+          <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
       <trans-unit id="d188313b315687b9bf14cfc6195ed7267ad42ba7" datatype="html">
@@ -657,7 +1043,7 @@
         <target state="translated">Ihr Token wurde erfolgreich initialisiert. Um ihn benutzen zu können, müssen Sie ihn jedoch zuerst aktivieren.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
-          <context context-type="linenumber">66</context>
+          <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
       <trans-unit id="deea5e10bb9b9ce77f7a01e6ea084d555a9276d7" datatype="html">
@@ -665,7 +1051,7 @@
         <target state="translated">Token Aktivieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
-          <context context-type="linenumber">76</context>
+          <context context-type="linenumber">77</context>
         </context-group>
       </trans-unit>
       <trans-unit id="610cdb8fefc2b57d6f2ed06634e9d7bf1195d5c3" datatype="html">
@@ -701,7 +1087,15 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">110</context>
+          <context context-type="linenumber">111</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="95724277f3d8682a670cb4df13b822f6dd74119b" datatype="html">
+        <source>You do not have permissions to enable the token</source>
+        <target state="translated">Sie sind nicht berechtigt, den Token zu aktivieren</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/token-card/token-card.component.html</context>
+          <context context-type="linenumber">108</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6766a926d80bb7763785621098dae459d6226429" datatype="html">
@@ -709,11 +1103,19 @@
         <target state="translated">Deaktivieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">118</context>
+          <context context-type="linenumber">119</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">127</context>
+          <context context-type="linenumber">129</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8b29018f336508426906d0fb7ac6f9665e62e530" datatype="html">
+        <source>You do not have permissions to disable this token.</source>
+        <target state="translated">Sie sind nicht berechtigt, den Token zu deaktivieren</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/token-card/token-card.component.html</context>
+          <context context-type="linenumber">126</context>
         </context-group>
       </trans-unit>
       <trans-unit id="0d1f680afd203b05cca8fc3cf3664314da17ef7b" datatype="html">
@@ -865,6 +1267,10 @@
         <source>Token description</source>
         <target state="translated">Token-Beschreibung</target>
         <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
           <context context-type="linenumber">23</context>
         </context-group>
@@ -984,6 +1390,22 @@
       <trans-unit id="28e4509b09a198c23b7fd0bc865bd2b25e3885b2" datatype="html">
         <source>Your tokens</source>
         <target state="translated">Meine Token</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4fd7384e31110ee0fc38af279d893b962f21034d" datatype="html">
+        <source>Logout successful</source>
+        <target state="translated">Abmeldung erfolgreich</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5929ea68a2a7479dc3e3df671de230322ca970a7" datatype="html">
+        <source>Logout failed</source>
+        <target state="translated">Abmeldung fehlgeschlagen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.ts</context>
           <context context-type="linenumber">1</context>
