@@ -2,6 +2,8 @@ import { Component, Inject, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, Validators, FormBuilder, NgForm } from '@angular/forms';
 
+import { I18n } from '@ngx-translate/i18n-polyfill';
+
 import { Token } from '../../api/token';
 import { TokenService } from '../../api/token.service';
 
@@ -31,6 +33,7 @@ export class TestOATHDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: { token: Token },
     private tokenService: TokenService,
     private formBuilder: FormBuilder,
+    private i18n: I18n,
   ) {
     this.formGroup = this.formBuilder.group({
       otp: ['', Validators.required],
