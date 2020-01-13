@@ -45,6 +45,7 @@
                 mat-button
                 color="primary"
                 matTooltip="Toggle enrollment details"
+                i18n-matTooltip
                 aria-label="Button to toggle the display of enrollment details"
                 *ngIf="showDetails"
                 i18n>hide details</button>
@@ -52,6 +53,7 @@
                 mat-button
                 color="primary"
                 matTooltip="Toggle enrollment details"
+                i18n-matTooltip
                 aria-label="Button to toggle the display of enrollment details"
                 *ngIf="!showDetails"
                 i18n>show details</button>
@@ -71,6 +73,7 @@
         <button mat-icon-button
                 (click)="$event.preventDefault(); copyInputMessage(enrollmentUrl)"
                 matTooltip="Copy"
+                i18n-matTooltip
                 aria-label="Button to copy the enrollment URL">
           <mat-icon>file_copy</mat-icon>
         </button>
@@ -90,6 +93,7 @@
         <button mat-icon-button
                 (click)="copyInputMessage(enrollmentSeed)"
                 matTooltip="Copy"
+                i18n-matTooltip
                 aria-label="Button to copy the seed">
           <mat-icon>file_copy</mat-icon>
         </button>
