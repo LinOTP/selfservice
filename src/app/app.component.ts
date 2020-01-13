@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
 
   logout() {
     this.loginService.logout().subscribe(logoutSuccess => {
-      const message = (logoutSuccess ? 'Logout successful' : 'Logout failed');
+      const message = (logoutSuccess ? this.i18n('Logout successful') : this.i18n('Logout failed'));
       this.notificationService.message(message);
     });
   }

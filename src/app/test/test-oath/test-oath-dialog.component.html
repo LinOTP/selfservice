@@ -3,7 +3,8 @@
       #formDirective="ngForm">
 
   <h2 mat-dialog-title
-      *ngIf="data.token">Test {{ data.token.typeDetails.name }} {{
+      *ngIf="data.token"
+      i18n>Test {{ data.token.typeDetails.name }} {{
     data.token.serial }}</h2>
 
   <div mat-dialog-content>
@@ -11,7 +12,8 @@
       <ng-container *ngSwitchCase="TestState.UNTESTED">
         <div mat-dialog-content>
           <div class="dialog-input">
-            <div class="instruction">Enter your token PIN or password if you
+            <div class="instruction"
+                 i18n>Enter your token PIN or password if you
               have set a PIN or you are required to
               enter your
               password for OTP authentication:</div>
@@ -21,31 +23,34 @@
                      autocomplete="current-password"
                      formControlName="pin"
                      placeholder="PIN or password"
+                     i18n-placeholder
                      autofocus>
             </mat-form-field>
           </div>
           <div class="dialog-input">
-            <div class="instruction">Enter the next OTP value of the selected
-              token:</div>
+            <div class="instruction"
+                 i18n>Enter the next OTP value of the selected token:</div>
             <mat-form-field>
               <input matInput
                      type="text"
                      autocomplete="one-time-code"
                      formControlName="otp"
-                     placeholder="OTP value">
-              <mat-error>The OTP cannot be empty</mat-error>
+                     placeholder="OTP value"
+                     i18n-placeholder>
+              <mat-error i18n>The OTP cannot be empty</mat-error>
             </mat-form-field>
           </div>
         </div>
       </ng-container>
 
       <ng-container *ngSwitchCase="TestState.SUCCESS">
-        <div>
+        <div i18n>
           Test successful. You may use your token for authentication.
         </div>
       </ng-container>
 
-      <ng-container *ngSwitchCase="TestState.FAILURE">
+      <ng-container *ngSwitchCase="TestState.FAILURE"
+                    i18n>
         The test failed. Check if both the OTP and the PIN (if applicable)
         are correct.
       </ng-container>
@@ -56,21 +61,25 @@
   <div mat-dialog-actions>
     <button mat-button
             mat-dialog-close
-            *ngIf="state !== TestState.SUCCESS">cancel</button>
+            *ngIf="state !== TestState.SUCCESS"
+            i18n>cancel</button>
     <button mat-raised-button
             color="primary"
             type="reset"
             (click)="reset()"
-            *ngIf="state === TestState.FAILURE">restart test</button>
+            *ngIf="state === TestState.FAILURE"
+            i18n>restart test</button>
     <button mat-raised-button
             color="primary"
             type="submit"
             [disabled]="formGroup.invalid"
-            *ngIf="state === TestState.UNTESTED">test</button>
+            *ngIf="state === TestState.UNTESTED"
+            i18n>test</button>
     <button mat-raised-button
             color="primary"
             mat-dialog-close
-            *ngIf="state === TestState.SUCCESS">done</button>
+            *ngIf="state === TestState.SUCCESS"
+            i18n>done</button>
   </div>
 
 </form>

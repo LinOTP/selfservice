@@ -5,6 +5,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs/index';
+import { I18n } from '@ngx-translate/i18n-polyfill';
 
 @Component({
   selector: 'app-test-push',
@@ -27,6 +28,7 @@ export class TestChallengeResponseDialogComponent implements OnInit {
 
   constructor(
     private tokenService: TokenService,
+    private i18n: I18n,
     private dialogRef: MatDialogRef<TestChallengeResponseDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { token: Token },
   ) {

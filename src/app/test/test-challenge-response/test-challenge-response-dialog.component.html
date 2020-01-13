@@ -1,12 +1,14 @@
-<h2>{{ isActivation? "Activate" : "Test" }} {{ data.token.typeDetails.name }}
-  {{ data.token.serial }}</h2>
+<h2 *ngIf="isActivation"
+    i18n>Activate {{ data.token.typeDetails.name }} {{ data.token.serial }}</h2>
+<h2 *ngIf="!isActivation"
+    i18n>Test {{ data.token.typeDetails.name }} {{ data.token.serial }}</h2>
 <mat-horizontal-stepper [linear]="true"
                         linear
                         #stepper>
   <mat-step>
 
     <div class="dialog-input">
-      <div>
+      <div i18n>
         Enter your token PIN or password if you have set a PIN or you are
         required to enter your password for OTP authentication:
       </div>
@@ -16,31 +18,47 @@
                autocomplete="current-password"
                [(ngModel)]="pin"
                placeholder="PIN or password"
+               i18n-placeholder
                autofocus>
       </mat-form-field>
     </div>
 
     <ng-container *ngIf="isPush">
-      <p>In the next step your Authenticator app will
-        {{ isActivation?
-        "be verified by the authentication server." :
-        "receive a test challenge."
-        }}
+      <p i18n
+         *ngIf="isActivation">
+        In the next step your Authenticator app will be verified by the authentication server.
       </p>
-      <p *ngIf="!isActivation">Please confirm the challenge on the app.</p>
+      <p i18n
+         *ngIf="!isActivation">
+        In the next step your Authenticator app will receive a test challenge.
+      </p>
+      <p i18n
+         *ngIf="!isActivation">
+        Please confirm the challenge on the app.
+      </p>
     </ng-container>
 
     <mat-dialog-actions align="end">
-      <div>{{ isActivation? "Activation" : "Test" }} step 1 of 3</div>
+      <div i18n
+           *ngIf="isActivation">Activation step 1 of 3</div>
+      <div i18n
+           *ngIf="!isActivation">Test step 1 of 3</div>
       <span class="spacer"></span>
       <button mat-raised-button
-              (click)="cancelDialog()">Cancel</button>
+              (click)="cancelDialog()"
+              i18n>Cancel</button>
       <button mat-raised-button
               color="primary"
               id="goTo2"
-              (click)="activateToken(stepper)">
-        {{ isActivation? "Activate" : "Test" }}
-      </button>
+              (click)="activateToken(stepper)"
+              *ngIf="isActivation"
+              i18n>Activate</button>
+      <button mat-raised-button
+              color="primary"
+              id="goTo2"
+              (click)="activateToken(stepper)"
+              *ngIf="!isActivation"
+              i18n>Test</button>
     </mat-dialog-actions>
   </mat-step>
   <mat-step>
@@ -51,26 +69,32 @@
       <section class="response"
                *ngIf="isPush">
         <mat-spinner></mat-spinner>
-        <p>Waiting for confirmation for {{isActivation? "test" : ""}}
-          transaction {{!isActivation? transactionId : "" }} via KeyIdentity
-          Authenticator.</p>
+        <p div
+           i18n
+           *ngIf="isActivation">Waiting for confirmation for test transaction via Authenticator app.</p>
+        <p div
+           i18n
+           *ngIf="!isActivation">Waiting for confirmation for transaction {{ transactionId }} via Authenticator app.</p>
       </section>
 
       <section class="response"
                *ngIf="isQR">
-        <p>Scan the QR code below with the Authenticator to
-          {{ isActivation?
-          "activate your token"
-          : "confirm test transaction " + transactionId
-          }}:
-        </p>
+        <p i18n
+           *ngIf="isActivation">Scan the QR code below with the Authenticator app to activate your token:</p>
+        <p i18n
+           *ngIf="!isActivation">Scan the QR code below with the Authenticator app to confirm test transaction
+          {{ transactionId }}:</p>
         <app-qr-code [qrUrl]="tokenQRUrl"></app-qr-code>
       </section>
 
       <mat-dialog-actions align="end">
-        <div>{{ isActivation? "Activation" : "Test" }} step 2 of 3</div>
+        <div i18n
+             *ngIf="isActivation">Activation step 2 of 3</div>
+        <div i18n
+             *ngIf="!isActivation">Test step 2 of 3</div>
         <span class="spacer"></span>
         <button mat-raised-button
+                i18n
                 (click)="cancelDialog()">Cancel</button>
       </mat-dialog-actions>
     </ng-template>
@@ -78,40 +102,54 @@
     <ng-template #challengeResponseBlock>
 
       <section class="response">
-        <p *ngIf="restartDialog; else displayResult">{{ isActivation?
-          "Activation" : "Test" }}
-          failed. Please try again, or contact an administrator.</p>
+        <ng-container *ngIf="restartDialog; else displayResult">
+          <p *ngIf="isActivation"
+             i18n>Activation failed. Please try again, or contact an administrator. </p>
+          <p *ngIf="!isActivation"
+             i18n>Test failed. Please try again, or contact an administrator. </p>
+        </ng-container>
 
         <ng-template #displayResult>
-          <p *ngIf="!isActivation && result && result.accept === true">
+          <p i18n
+             *ngIf="!isActivation && result && result.accept === true">
             You have accepted the transaction.
           </p>
-          <p *ngIf="!isActivation && result && result.reject === true">
+          <p i18n
+             *ngIf="!isActivation && result && result.reject === true">
             You have rejected the transaction.
           </p>
-          <p>
-            The {{ isActivation? "activation" : "test" }} was successful.
-            Your token is ready to be used.
-          </p>
+          <p i18n
+             *ngIf="isActivation"> The activation was successful. Your token is ready to be used. </p>
+          <p i18n
+             *ngIf="!isActivation"> The test was successful. Your token is ready to be used. </p>
         </ng-template>
       </section>
 
       <mat-dialog-actions align="end">
-        <div>{{ isActivation? "Activation" : "Test" }} step 3 of 3</div>
+        <div i18n
+             *ngIf="isActivation">Activation step 3 of 3</div>
+        <div i18n
+             *ngIf="!isActivation">Test step 3 of 3</div>
         <span class="spacer"></span>
         <button mat-raised-button
                 (click)="cancelDialog()"
-                *ngIf="restartDialog">Cancel</button>
+                *ngIf="restartDialog"
+                i18n>Cancel</button>
         <button mat-raised-button
                 color="primary"
                 (click)="resetDialogToInitial(stepper)"
-                *ngIf="restartDialog">
-          Restart {{ isActivation? "activation" : "test" }}
-        </button>
+                *ngIf="restartDialog && isActivation"
+                i18n> Restart activation </button>
+        <button mat-raised-button
+                color="primary"
+                (click)="resetDialogToInitial(stepper)"
+                *ngIf="restartDialog && !isActivation"
+                i18n> Restart test </button>
         <button mat-raised-button
                 color="primary"
                 (click)="closeDialog()"
-                *ngIf="!restartDialog">Finish</button>
+                *ngIf="!restartDialog"
+                i18n>Finish</button>
       </mat-dialog-actions>
     </ng-template>
 

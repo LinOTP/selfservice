@@ -8,6 +8,7 @@ import { of } from 'rxjs';
 import { Fixtures } from '../../../testing/fixtures';
 import { TestingPage } from '../../../testing/page-helper';
 import { spyOnClass } from '../../../testing/spyOnClass';
+import { I18nMock } from '../../../testing/i18n-mock-provider';
 
 import { MaterialModule } from '../../material.module';
 import { TokenService } from '../../api/token.service';
@@ -53,6 +54,7 @@ describe('TestOTPDialogComponent', () => {
           provide: NotificationService,
           useValue: spyOnClass(NotificationService),
         },
+        I18nMock,
       ]
     }).compileComponents();
   }));
