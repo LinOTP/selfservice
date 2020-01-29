@@ -2,7 +2,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MatDialog } from '@angular/material/dialog';
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 
-import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
+import { NgxPermissionsAllowStubDirective, NgxPermissionsService } from 'ngx-permissions';
 import { of } from 'rxjs/internal/observable/of';
 
 import { spyOnClass } from '../../testing/spyOnClass';
@@ -18,6 +18,7 @@ import { TokenService } from '../api/token.service';
 import { EnrollmentGridComponent } from './enrollment-grid.component';
 import { EnrollOATHDialogComponent } from '../enroll/enroll-oath-dialog/enroll-oath-dialog.component';
 import { EnrollPushDialogComponent } from '../enroll/enroll-push-dialog/enroll-push-dialog.component';
+import { TestOATHDialogComponent } from '../test/test-oath/test-oath-dialog.component';
 import { TestChallengeResponseDialogComponent } from '../test/test-challenge-response/test-challenge-response-dialog.component';
 
 
@@ -28,6 +29,7 @@ describe('EnrollmentGridComponent', () => {
   let tokenService: jasmine.SpyObj<TokenService>;
   let matDialog: jasmine.SpyObj<MatDialog>;
   let tokenUpdateSpy;
+  let permissionsService: jasmine.SpyObj<NgxPermissionsService>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -54,6 +56,10 @@ describe('EnrollmentGridComponent', () => {
           useValue: spyOnClass(MatDialog)
         },
         I18nMock,
+        {
+          provide: NgxPermissionsService,
+          useValue: spyOnClass(NgxPermissionsService)
+        },
       ]
     })
       .compileComponents();
@@ -66,9 +72,12 @@ describe('EnrollmentGridComponent', () => {
     tokenService = TestBed.get(TokenService);
     matDialog = TestBed.get(MatDialog);
     tokenUpdateSpy = spyOn(component.tokenUpdate, 'next');
+    permissionsService = TestBed.get(NgxPermissionsService);
+    permissionsService.hasPermission.and.returnValue(Promise.resolve(true));
 
     (<any>tokenService).tokenTypeDetails = [Fixtures.tokenTypeDetails.hmac, Fixtures.tokenTypeDetails.push];
 
+    component.testAfterEnrollment = true;
     fixture.detectChanges();
   });
 
@@ -84,7 +93,10 @@ describe('EnrollmentGridComponent', () => {
       width: '850px',
       autoFocus: false,
       disableClose: true,
-      data: { tokenTypeDetails: tokenTypeDetails },
+      data: {
+        tokenTypeDetails: tokenTypeDetails,
+        closeLabel: 'Test',
+      },
     };
     const expectedTestDialogConfig = {
       width: '650px',
@@ -98,10 +110,9 @@ describe('EnrollmentGridComponent', () => {
 
     expect(matDialog.open).toHaveBeenCalledWith(EnrollOATHDialogComponent, expectedEnrollDialogConfig);
     expect(tokenService.getToken).toHaveBeenCalledWith(token.serial);
-    // deactivated token test feature for next release:
-    // expect(matDialog.open).toHaveBeenCalledWith(TestOATHDialogComponent, expectedTestDialogConfig);
-    // expect(tokenUpdateSpy).toHaveBeenCalledTimes(2);
-    expect(tokenUpdateSpy).toHaveBeenCalledTimes(1);
+
+    expect(matDialog.open).toHaveBeenCalledWith(TestOATHDialogComponent, expectedTestDialogConfig);
+    expect(tokenUpdateSpy).toHaveBeenCalledTimes(2);
   }));
 
   it('should notify the user if there was an issue retrieving the token before the test', fakeAsync(() => {
@@ -111,7 +122,10 @@ describe('EnrollmentGridComponent', () => {
       width: '850px',
       autoFocus: false,
       disableClose: true,
-      data: { tokenTypeDetails: tokenTypeDetails },
+      data: {
+        tokenTypeDetails: tokenTypeDetails,
+        closeLabel: 'Test',
+      },
     };
 
     matDialog.open.and.returnValue({ afterClosed: () => of('serial') });
@@ -132,7 +146,10 @@ describe('EnrollmentGridComponent', () => {
       width: '850px',
       autoFocus: false,
       disableClose: true,
-      data: { tokenTypeDetails: tokenTypeDetails },
+      data: {
+        tokenTypeDetails: tokenTypeDetails,
+        closeLabel: 'Test',
+      },
     };
 
     matDialog.open.and.returnValue({ afterClosed: () => of(null) });
@@ -153,7 +170,10 @@ describe('EnrollmentGridComponent', () => {
       width: '850px',
       autoFocus: false,
       disableClose: true,
-      data: { tokenTypeDetails: tokenTypeDetails },
+      data: {
+        tokenTypeDetails: tokenTypeDetails,
+        closeLabel: 'Test',
+      },
     };
     const expectedTestDialogConfig = {
       width: '650px',
@@ -167,10 +187,9 @@ describe('EnrollmentGridComponent', () => {
 
     expect(matDialog.open).toHaveBeenCalledWith(EnrollOATHDialogComponent, expectedEnrollDialogConfig);
     expect(tokenService.getToken).toHaveBeenCalledWith(token.serial);
-    // deactivated token test feature for next release:
-    // expect(matDialog.open).toHaveBeenCalledWith(TestOATHDialogComponent, expectedTestDialogConfig);
-    // expect(tokenUpdateSpy).toHaveBeenCalledTimes(2);
-    expect(tokenUpdateSpy).toHaveBeenCalledTimes(1);
+
+    expect(matDialog.open).toHaveBeenCalledWith(TestOATHDialogComponent, expectedTestDialogConfig);
+    expect(tokenUpdateSpy).toHaveBeenCalledTimes(2);
   }));
 
   it('should open the Push dialog and trigger the token list updater', fakeAsync(() => {
@@ -210,4 +229,30 @@ describe('EnrollmentGridComponent', () => {
     expect(notificationService.message).toHaveBeenCalledTimes(1);
     expect(notificationService.message).toHaveBeenCalledWith('The selected token type cannot be enrolled at the moment.');
   }));
+
+  it('should label the final enrollment button with Close and not open the testing dialog if user has no permissions to test',
+    fakeAsync(() => {
+      component.testAfterEnrollment = false;
+      fixture.detectChanges();
+
+      const token = Fixtures.activeTotpToken;
+      const tokenTypeDetails: TokenTypeDetails = Fixtures.tokenTypeDetails[TokenType.HOTP];
+
+      const expectedEnrollDialogConfig = {
+        width: '850px',
+        autoFocus: false,
+        disableClose: true,
+        data: {
+          tokenTypeDetails: tokenTypeDetails,
+          closeLabel: 'Close',
+        },
+      };
+
+      matDialog.open.and.returnValue({ afterClosed: () => of(token.serial) });
+      component.runEnrollmentWorkflow(tokenTypeDetails);
+      tick();
+
+      expect(matDialog.open).toHaveBeenCalledTimes(1);
+      expect(matDialog.open).toHaveBeenCalledWith(EnrollOATHDialogComponent, expectedEnrollDialogConfig);
+    }));
 });
