@@ -52,6 +52,7 @@ export class TokenService {
     resync: 'resync',
     assign: 'assign',
     setDescription: 'setdescription',
+    verify: 'verify',
   };
 
   private validateCheckS = '/validate/check_s'; // generate a challenge with a given serial
@@ -308,10 +309,23 @@ export class TokenService {
     );
   }
 
-  testToken(tokenSerial: String, pin: String = '', otp: String): Observable<boolean> {
-    const body = { serial: tokenSerial, pass: `${pin}${otp}` };
+  /**
+   * Sends a verification request for an OTP-based token.
+   *
+   * @param tokenSerial the serial of the token to be verified
+   * @param otp the OTP for the verification transaction
+   *
+   * @returns an observable of a boolean, true if the verification was successful and false otherwise
+   */
+  testToken(tokenSerial: String, otp: String): Observable<boolean> {
+    const url = this.userserviceBase + this.userserviceEndpoints.verify;
+    const body = {
+      session: this.sessionService.getSession(),
+      serial: tokenSerial,
+      otp: otp,
+    };
 
-    return this.http.post<LinOTPResponse<boolean>>(this.validateCheckS, body)
+    return this.http.post<LinOTPResponse<boolean>>(url, body)
       .pipe(
         map(response => response && response.result && response.result.value === true),
         catchError(this.handleError('test token', null))

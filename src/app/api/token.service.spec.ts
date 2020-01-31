@@ -513,4 +513,39 @@ describe('TokenService', () => {
     ));
   });
 
+  describe('testToken', () => {
+    const testRequestBody = { serial: 'serial', otp: 'otp', session: session };
+    it('should send a verify request', async(
+      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+        tokenService.testToken('serial', 'otp').subscribe();
+
+        const req = backend.expectOne({
+          url: '/userservice/verify',
+          method: 'POST'
+        });
+
+        expect(req.request.body).toEqual(testRequestBody);
+        backend.verify();
+      })
+    ));
+
+    it('should call the error handler on request failure', async(
+      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+
+        spyOn(console, 'error');
+
+        tokenService.testToken('serial', 'otp').subscribe();
+        const testRequest = backend.expectOne({
+          url: '/userservice/verify',
+          method: 'POST'
+        });
+
+        testRequest.error(new ErrorEvent('Error testing token'));
+        backend.verify();
+
+        expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
+      })
+    ));
+  });
+
 });
