@@ -13,6 +13,7 @@ export enum Permission {
     RESET = 'RESET',
     RESYNC = 'RESYNC',
     ASSIGN = 'ASSIGN',
+    VERIFY = 'VERIFY',
 }
 
 export const PoliciesToPermissionsMapping: { [policy: string]: Permission } = {
@@ -30,6 +31,7 @@ export const PoliciesToPermissionsMapping: { [policy: string]: Permission } = {
     'reset': Permission.RESET,
     'resync': Permission.RESYNC,
     'assign': Permission.ASSIGN,
+    'verify': Permission.VERIFY,
 };
 
 export interface PermissionSet {
@@ -40,6 +42,7 @@ export const PasswordPermissions: PermissionSet = {
     enroll: [Permission.ENROLLPASSWORD],
     delete: [Permission.DELETE],
     setPin: [Permission.SETPIN],
+    verify: [Permission.VERIFY],
 };
 
 export const PushPermissions: PermissionSet = {
@@ -47,6 +50,7 @@ export const PushPermissions: PermissionSet = {
     activate: [Permission.ACTIVATEPUSH],
     delete: [Permission.DELETE],
     setPin: [Permission.SETPIN],
+    verify: [Permission.VERIFY],
 };
 
 export const QRPermissions: PermissionSet = {
@@ -54,18 +58,21 @@ export const QRPermissions: PermissionSet = {
     activate: [Permission.ACTIVATEQR],
     delete: [Permission.DELETE],
     setPin: [Permission.SETPIN],
+    verify: [Permission.VERIFY],
 };
 
 export const HOTPPermissions: PermissionSet = {
     enroll: [Permission.ENROLLHOTP],
     delete: [Permission.DELETE],
     setPin: [Permission.SETPIN],
+    verify: [Permission.VERIFY],
 };
 
 export const TOTPPermissions: PermissionSet = {
     enroll: [Permission.ENROLLTOTP],
     delete: [Permission.DELETE],
     setPin: [Permission.SETPIN],
+    verify: [Permission.VERIFY],
 };
 
 export const EnrollmentPermissions = [
@@ -75,6 +82,7 @@ export const EnrollmentPermissions = [
     Permission.ENROLLTOTP,
     Permission.ENROLLPASSWORD,
     Permission.ASSIGN,
+    Permission.VERIFY,
 ];
 
 export const ModifyTokenPermissions = [
@@ -84,4 +92,5 @@ export const ModifyTokenPermissions = [
     Permission.DISABLE,
     Permission.RESET,
     Permission.RESYNC,
+    Permission.VERIFY,
 ];

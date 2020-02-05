@@ -34,7 +34,7 @@ export class EnrollOATHDialogComponent implements OnInit {
     private tokenService: TokenService,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<EnrollOATHDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { tokenTypeDetails: TokenTypeDetails },
+    @Inject(MAT_DIALOG_DATA) public data: { tokenTypeDetails: TokenTypeDetails, closeLabel: String },
     public notificationService: NotificationService,
     public i18n: I18n,
   ) { }

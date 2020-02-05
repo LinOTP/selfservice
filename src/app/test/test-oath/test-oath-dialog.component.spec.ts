@@ -79,11 +79,11 @@ describe('TestOTPDialogComponent', () => {
     it('should call token service to test token if form is valid', async(() => {
       const otp = '123456';
       tokenService.testToken.and.returnValue(of(true));
-      component.formGroup.setValue({ 'otp': otp, 'pin': otp });
+      component.formGroup.setValue({ 'otp': otp });
       fixture.detectChanges();
 
       component.submit();
-      expect(tokenService.testToken).toHaveBeenCalledWith(token.serial, otp, otp);
+      expect(tokenService.testToken).toHaveBeenCalledWith(token.serial, otp);
     }));
 
     it('should not call token service to test token if form is invalid', async(() => {
@@ -99,7 +99,7 @@ describe('TestOTPDialogComponent', () => {
     it('should set component to success state if test succeeds', () => {
       const otp = '123456';
       tokenService.testToken.and.returnValue(of(true));
-      component.formGroup.setValue({ 'otp': otp, 'pin': otp });
+      component.formGroup.setValue({ 'otp': otp });
       fixture.detectChanges();
 
       component.submit();
@@ -109,7 +109,7 @@ describe('TestOTPDialogComponent', () => {
     it('should set component to failure state if test fails', () => {
       const otp = '123456';
       tokenService.testToken.and.returnValue(of(false));
-      component.formGroup.setValue({ 'otp': otp, 'pin': otp });
+      component.formGroup.setValue({ 'otp': otp });
       fixture.detectChanges();
 
       component.submit();
@@ -119,7 +119,7 @@ describe('TestOTPDialogComponent', () => {
 
   describe('reset', () => {
     it('should reset form', () => {
-      component.formGroup.setValue({ 'otp': 'otp', 'pin': 'pin' });
+      component.formGroup.setValue({ 'otp': 'otp' });
       fixture.detectChanges();
 
       component.reset();
@@ -134,7 +134,7 @@ describe('TestOTPDialogComponent', () => {
     });
 
     it('should make form pristine', () => {
-      component.formGroup.setValue({ 'otp': 'otp', 'pin': 'pin' });
+      component.formGroup.setValue({ 'otp': 'otp' });
       fixture.detectChanges();
 
       component.reset();

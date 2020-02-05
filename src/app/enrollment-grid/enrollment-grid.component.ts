@@ -17,6 +17,9 @@ import { AssignTokenDialogComponent } from '../enroll/assign-token-dialog/assign
 import { TestOATHDialogComponent } from '../test/test-oath/test-oath-dialog.component';
 import { TestChallengeResponseDialogComponent } from '../test/test-challenge-response/test-challenge-response-dialog.component';
 
+import { NgxPermissionsService } from 'ngx-permissions';
+import { Permission } from '../common/permissions';
+
 @Component({
   selector: 'app-enrollment-grid',
   templateUrl: './enrollment-grid.component.html',
@@ -26,16 +29,20 @@ export class EnrollmentGridComponent implements OnInit {
 
   public tokenTypes: TokenTypeDetails[];
   @Output() public tokenUpdate: Subject<null> = new Subject();
+  public testAfterEnrollment: boolean;
 
   constructor(
     public dialog: MatDialog,
     private tokenService: TokenService,
     private notificationService: NotificationService,
+    private permissionService: NgxPermissionsService,
     private i18n: I18n,
   ) { }
 
   public ngOnInit() {
     this.tokenTypes = this.tokenService.tokenTypeDetails.filter(t => t.enrollmentPermission);
+    this.permissionService.hasPermission(Permission.VERIFY)
+      .then(hasPermission => this.testAfterEnrollment = hasPermission);
   }
 
   public runEnrollmentWorkflow(tokenType: TokenTypeDetails) {
@@ -47,6 +54,7 @@ export class EnrollmentGridComponent implements OnInit {
     this.openEnrollmentDialog(tokenType)
       .pipe(
         tap(() => this.tokenUpdate.next()),
+        filter(() => this.testAfterEnrollment),
         filter(serial => !!serial),
         switchMap(serial => this.tokenService.getToken(serial)),
         tap(token => {
@@ -55,8 +63,9 @@ export class EnrollmentGridComponent implements OnInit {
           }
         }),
         filter(token => !!token),
-        switchMap(token => this.openTestDialog(token))
-      ).subscribe(() => this.tokenUpdate.next());
+        switchMap(token => this.openTestDialog(token)),
+        tap(() => this.tokenUpdate.next()),
+      ).subscribe();
   }
 
   /**
@@ -78,7 +87,10 @@ export class EnrollmentGridComponent implements OnInit {
     switch (typeDetails.type) {
       case TokenType.HOTP:
       case TokenType.TOTP:
-        enrollmentConfig.data = { tokenTypeDetails: typeDetails };
+        enrollmentConfig.data = {
+          tokenTypeDetails: typeDetails,
+          closeLabel: this.testAfterEnrollment ? this.i18n('Test') : this.i18n('Close')
+        };
         return this.dialog.open(EnrollOATHDialogComponent, enrollmentConfig).afterClosed();
       case TokenType.PUSH:
         return this.dialog.open(EnrollPushDialogComponent, enrollmentConfig).afterClosed();
@@ -105,7 +117,6 @@ export class EnrollmentGridComponent implements OnInit {
     switch (token.typeDetails.type) {
       case TokenType.HOTP:
       case TokenType.TOTP:
-        return EMPTY; // this decativates the token test for tokens that don't need the activation.
         return this.dialog.open(TestOATHDialogComponent, testConfig).afterClosed();
       case (TokenType.PUSH):
         return this.dialog.open(TestChallengeResponseDialogComponent, testConfig).afterClosed();

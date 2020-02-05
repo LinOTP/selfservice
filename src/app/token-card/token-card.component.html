@@ -55,12 +55,14 @@
     <mat-icon>security</mat-icon>
     <span i18n>Set pin</span>
   </button>
-  <!-- <button mat-menu-item
-          (click)="testToken()"
-          *ngIf="token.enrollmentStatus === EnrollmentStatus.COMPLETED && token.enabled">
-    <mat-icon>check_circle</mat-icon>
-    <span>test</span>
-  </button> -->
+  <ng-container *ngIf="token.enrollmentStatus === EnrollmentStatus.COMPLETED && token.enabled">
+    <button mat-menu-item
+            (click)="testToken()"
+            *ngxPermissionsOnly="Permission.VERIFY">
+      <mat-icon>check_circle</mat-icon>
+      <span>Test</span>
+    </button>
+  </ng-container>
   <button mat-menu-item
           (click)="resetFailcounter()"
           *ngxPermissionsOnly="Permission.RESET">

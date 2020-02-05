@@ -37,7 +37,6 @@ export class TestOATHDialogComponent {
   ) {
     this.formGroup = this.formBuilder.group({
       otp: ['', Validators.required],
-      pin: [''],
     });
   }
 
@@ -47,7 +46,7 @@ export class TestOATHDialogComponent {
   public submit() {
     if (this.formGroup.valid) {
       const controls = this.formGroup.controls;
-      this.tokenService.testToken(this.data.token.serial, controls.pin.value, controls.otp.value)
+      this.tokenService.testToken(this.data.token.serial, controls.otp.value)
         .subscribe(result => {
           this.testResult = result;
           this.state = result ? TestState.SUCCESS : TestState.FAILURE;
