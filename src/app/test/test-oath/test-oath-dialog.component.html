@@ -4,8 +4,7 @@
 
   <h2 mat-dialog-title
       *ngIf="data.token"
-      i18n>Test {{ data.token.typeDetails.name }} {{
-    data.token.serial }}</h2>
+      i18n>Test {{ data.token.typeDetails.name }} {{ data.token.serial }}</h2>
 
   <div mat-dialog-content>
     <ng-container [ngSwitch]="state">
@@ -13,7 +12,7 @@
         <div mat-dialog-content>
           <div class="dialog-input">
             <div class="instruction"
-                 i18n>Enter the next OTP value of the selected token:</div>
+                 i18n>Enter the next OTP value for the selected token:</div>
             <mat-form-field>
               <input matInput
                      type="text"
@@ -22,16 +21,14 @@
                      placeholder="OTP value"
                      i18n-placeholder
                      autofocus>
-              <mat-error i18n>The OTP cannot be empty</mat-error>
+              <mat-error i18n>The OTP field cannot be empty</mat-error>
             </mat-form-field>
           </div>
         </div>
       </ng-container>
 
       <ng-container *ngSwitchCase="TestState.SUCCESS">
-        <div i18n>
-          Test successful. You may use your token for authentication.
-        </div>
+        <div i18n>Test successful. You may use your token for authentication.</div>
       </ng-container>
 
       <ng-container *ngSwitchCase="TestState.FAILURE"

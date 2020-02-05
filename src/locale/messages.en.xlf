@@ -269,7 +269,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
-          <context context-type="linenumber">65</context>
+          <context context-type="linenumber">45</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/resync-dialog/resync-dialog.component.html</context>
@@ -284,48 +284,12 @@
           <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="69389b62f68f3432238c0115bedcabbaa06b5f6b" datatype="html">
-        <source>Test <x id="INTERPOLATION" equiv-text="{{ data.token.typeDetails.name }}"/> <x id="INTERPOLATION_1" equiv-text="{{
-    data.token.serial }}"/></source>
-        <target state="final">Test <x id="INTERPOLATION" equiv-text="{{ data.token.typeDetails.name }}"/> <x id="INTERPOLATION_1" equiv-text="{{
-    data.token.serial }}"/></target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
-          <context context-type="linenumber">7</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="9e8b921ded6e2b3dc0edb831dac77acf970b1149" datatype="html">
-        <source>Enter your token PIN or password if you
-              have set a PIN or you are required to
-              enter your
-              password for OTP authentication:</source>
-        <target state="final">Enter your token PIN or password if you
-              have set a PIN or you are required to
-              enter your
-              password for OTP authentication:</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
-          <context context-type="linenumber">16</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="0acb1ae0dee82f3c10a35b8dfa3df11797c78d9b" datatype="html">
         <source>PIN or password</source>
         <target state="final">PIN or password</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
-          <context context-type="linenumber">25</context>
-        </context-group>
-        <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
           <context context-type="linenumber">20</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="e8266a019c703dde9d7cdd07afc4ee42b18cf582" datatype="html">
-        <source>Enter the next OTP value of the selected token:</source>
-        <target state="final">Enter the next OTP value of the selected token:</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
-          <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1bf37e5629d9486c25bc79a1e48909eed31e71b3" datatype="html">
@@ -333,41 +297,35 @@
         <target state="final">OTP value</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
-          <context context-type="linenumber">38</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="c5413d7c401c1e8f1ed49300bce4e20ed44efd67" datatype="html">
-        <source>The OTP cannot be empty</source>
-        <target state="final">The OTP cannot be empty</target>
+      <trans-unit id="f99dfbc4e069350a6a42e28a40021d2f06453b86" datatype="html">
+        <source>The OTP field cannot be empty</source>
+        <target state="final">The OTP field cannot be empty</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="844dce2da0f9f3f52c4731b878adc8128cc4b5d0" datatype="html">
-        <source>
-          Test successful. You may use your token for authentication.
-        </source>
-        <target state="final">
-          Test successful. You may use your token for authentication.
-        </target>
+      <trans-unit id="d724952fdf8a1d17c89270728eeeb1afe7bab606" datatype="html">
+        <source>Test successful. You may use your token for authentication.</source>
+        <target state="final">Test successful. You may use your token for authentication.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="30003673a41b0adb5bf362276588ff733d03c595" datatype="html">
+      <trans-unit id="68b1aeb7ca74d1222c790ed143f30c53fc4f0883" datatype="html">
         <source>
-        The test failed. Check if both the OTP and the PIN (if applicable)
-        are correct.
+        The test failed. Check if the OTP is correct or try again.
       </source>
         <target state="final">
-        The test failed. Check if both the OTP and the PIN (if applicable)
-        are correct.
+        The test failed. Check if the OTP is correct or try again.
       </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
-          <context context-type="linenumber">53</context>
+          <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="73c0e63efed06b6de0786d1d4b68641347b02772" datatype="html">
@@ -375,7 +333,7 @@
         <target state="final">restart test</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
-          <context context-type="linenumber">71</context>
+          <context context-type="linenumber">51</context>
         </context-group>
       </trans-unit>
       <trans-unit id="92ab7c01f5cc09b449c305d32cc88c1df7486783" datatype="html">
@@ -383,7 +341,7 @@
         <target state="final">test</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
-          <context context-type="linenumber">77</context>
+          <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="bd5b97bd37c0d6c89b0f05384d3e5a0daea1b16a" datatype="html">
@@ -391,7 +349,7 @@
         <target state="final">done</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
-          <context context-type="linenumber">82</context>
+          <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit>
       <trans-unit id="aa6096fc163996886c8bafd0770a20e1727db7f0" datatype="html">
@@ -406,8 +364,20 @@
         <source>Test <x id="INTERPOLATION" equiv-text="{{ data.token.typeDetails.name }}"/> <x id="INTERPOLATION_1" equiv-text="{{ data.token.serial }}"/></source>
         <target state="final">Test <x id="INTERPOLATION" equiv-text="{{ data.token.typeDetails.name }}"/> <x id="INTERPOLATION_1" equiv-text="{{ data.token.serial }}"/></target>
         <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
           <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="a25f1d2aea018a3e102bf35ca6c2e24658afbcc6" datatype="html">
+        <source>Enter the next OTP value for the selected token:</source>
+        <target state="final">Enter the next OTP value for the selected token:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="c2b7ba12c335df8aac5bbf6940c4dccda6631c39" datatype="html">
@@ -978,10 +948,6 @@
         <source>Close</source>
         <target state="final">Close</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">135</context>
-        </context-group>
-        <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
           <context context-type="linenumber">73</context>
         </context-group>
@@ -1099,7 +1065,7 @@
         <target state="final">Reset failcounter</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="linenumber">70</context>
         </context-group>
       </trans-unit>
       <trans-unit id="0012706153bcbfdd0b8eafae8a34bc2b509b5749" datatype="html">
@@ -1107,7 +1073,7 @@
         <target state="final">Synchronize</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">75</context>
+          <context context-type="linenumber">77</context>
         </context-group>
       </trans-unit>
       <trans-unit id="826b25211922a1b46436589233cb6f1a163d89b7" datatype="html">
@@ -1115,7 +1081,7 @@
         <target state="final">Delete</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">93</context>
+          <context context-type="linenumber">95</context>
         </context-group>
       </trans-unit>
       <trans-unit id="ac6c9212896d39b23811ed2dadab7d07336ec559" datatype="html">
@@ -1123,11 +1089,11 @@
         <target state="final">Enable</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">101</context>
+          <context context-type="linenumber">103</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">111</context>
+          <context context-type="linenumber">113</context>
         </context-group>
       </trans-unit>
       <trans-unit id="95724277f3d8682a670cb4df13b822f6dd74119b" datatype="html">
@@ -1135,7 +1101,7 @@
         <target state="final">You do not have permissions to enable the token</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">108</context>
+          <context context-type="linenumber">110</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6766a926d80bb7763785621098dae459d6226429" datatype="html">
@@ -1143,11 +1109,11 @@
         <target state="final">Disable</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">119</context>
+          <context context-type="linenumber">121</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">129</context>
+          <context context-type="linenumber">131</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8b29018f336508426906d0fb7ac6f9665e62e530" datatype="html">
@@ -1155,7 +1121,7 @@
         <target state="final">You do not have permissions to disable this token.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">126</context>
+          <context context-type="linenumber">128</context>
         </context-group>
       </trans-unit>
       <trans-unit id="0d1f680afd203b05cca8fc3cf3664314da17ef7b" datatype="html">
