@@ -161,7 +161,31 @@ describe('LoginComponent', () => {
       expect(component.redirect).not.toHaveBeenCalled();
     });
 
-    it('should store tokens and preselect the first valid token if second factor is needed and user has tokens', () => {
+    it('should request OTP of the user\'s token if second factor is needed and user has exactly one token', () => {
+      fixture.detectChanges();
+
+      const tokens = [Fixtures.completedPushToken];
+      loginService.login.and.returnValue(of({ needsSecondFactor: true, success: false, tokens: tokens }));
+      spyOn(component, 'redirect');
+      spyOn(component, 'chooseSecondFactor');
+
+      component.loginFormGroup.value.username = 'user';
+      component.loginFormGroup.value.password = 'pass';
+      fixture.detectChanges();
+
+      component.login();
+
+      fixture.detectChanges();
+
+      expect(loginService.login).toHaveBeenCalledWith({ username: 'user', password: 'pass' });
+      expect(component.chooseSecondFactor).toHaveBeenCalledWith(tokens[0]);
+      expect(notificationService.message).not.toHaveBeenCalledWith('Login failed');
+      expect(component.redirect).not.toHaveBeenCalled();
+
+      expect(component.selectedToken).toEqual(tokens[0]);
+    });
+
+    it('should store tokens and preselect the first valid token if second factor is needed and user has more than one token', () => {
       fixture.detectChanges();
 
       expect(page.getLoginForm()).toBeTruthy();
@@ -231,6 +255,7 @@ describe('LoginComponent', () => {
 
       component.loginFormGroup.value.username = 'user';
       component.loginStage = LoginStage.TOKEN_CHOICE;
+      component.selectedToken = token;
       fixture.detectChanges();
 
       component.chooseSecondFactor(token);
@@ -323,6 +348,7 @@ describe('LoginComponent', () => {
     });
 
     it('should empty both forms and return to the first step form', () => {
+      component.selectedToken = Fixtures.activeHotpToken;
       component.loginFormGroup.value.username = 'user';
       component.loginFormGroup.value.password = 'pass';
       component.secondFactorFormGroup.value.otp = 'otp';

@@ -105,6 +105,9 @@ export class LoginComponent implements OnInit {
           this.i18n('Login failed: you do not have a second factor set up. Please contact an admin.'),
           20000
         );
+      } else if (result.tokens.length === 1) {
+        this.selectedToken = result.tokens[0];
+        this.chooseSecondFactor(result.tokens[0]);
       } else {
         this.factors = result.tokens;
         this.selectedToken = this.factors[0];

@@ -17,3 +17,11 @@ mat-card-actions {
 mat-card-title {
   margin-bottom: 1em;
 }
+
+span.selectedToken {
+  display: inline-block;
+
+  &::first-letter {
+    text-transform: uppercase
+  }
+}
