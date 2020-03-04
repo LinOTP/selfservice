@@ -193,7 +193,7 @@
       <trans-unit id="944f1990aad7d081f5a8afacc4ee6e09ee8f0d04" datatype="html">
         <source>You do not own any valid tokens or there was a problem retrieving them from the server.
           Please contact an administrator.</source>
-        <target state="translated">Sie besitzen keine gültige Tokens oder es ist ein Problem aufgetreten. Kontaktieren Sie bitte einen Administrator.</target>
+        <target state="translated">Sie besitzen keine gültige Token oder es ist ein Problem aufgetreten. Kontaktieren Sie bitte einen Administrator.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/login/login.component.html</context>
           <context context-type="linenumber">74</context>
