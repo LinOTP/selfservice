@@ -106,6 +106,7 @@ export class LoginComponent implements OnInit {
           20000
         );
       } else if (result.tokens.length === 1) {
+        this.selectedToken = result.tokens[0];
         this.chooseSecondFactor(result.tokens[0]);
       } else {
         this.factors = result.tokens;

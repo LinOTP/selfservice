@@ -181,6 +181,8 @@ describe('LoginComponent', () => {
       expect(component.chooseSecondFactor).toHaveBeenCalledWith(tokens[0]);
       expect(notificationService.message).not.toHaveBeenCalledWith('Login failed');
       expect(component.redirect).not.toHaveBeenCalled();
+
+      expect(component.selectedToken).toEqual(tokens[0]);
     });
 
     it('should store tokens and preselect the first valid token if second factor is needed and user has more than one token', () => {
@@ -253,6 +255,7 @@ describe('LoginComponent', () => {
 
       component.loginFormGroup.value.username = 'user';
       component.loginStage = LoginStage.TOKEN_CHOICE;
+      component.selectedToken = token;
       fixture.detectChanges();
 
       component.chooseSecondFactor(token);
@@ -345,6 +348,7 @@ describe('LoginComponent', () => {
     });
 
     it('should empty both forms and return to the first step form', () => {
+      component.selectedToken = Fixtures.activeHotpToken;
       component.loginFormGroup.value.username = 'user';
       component.loginFormGroup.value.password = 'pass';
       component.secondFactorFormGroup.value.otp = 'otp';
