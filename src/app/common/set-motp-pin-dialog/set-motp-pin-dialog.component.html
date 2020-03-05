@@ -1,0 +1,33 @@
+<h3 mat-dialog-title
+    i18n>Set a new MOTP PIN</h3>
+<form [formGroup]="form"
+      (ngSubmit)="submit()">
+  <div mat-dialog-content>
+    <mat-form-field>
+      <input matInput
+             type="password"
+             formControlName="newPin"
+             placeholder="{{ newPinPlaceholder }}"
+             autofocus>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput
+             type="password"
+             formControlName="confirmPin"
+             placeholder="{{ confirmPinPlaceholder }}"
+             [errorStateMatcher]="matcher">
+      <mat-error *ngIf="form.hasError('pinsDoNotMatch')"
+                 i18n>Entered PINs do not match</mat-error>
+    </mat-form-field>
+    <div class="button-row">
+      <button mat-button
+              mat-dialog-close
+              i18n>cancel</button>
+      <button mat-button
+              color="primary"
+              type="submit"
+              [disabled]="preventSubmit()"
+              i18n>set mOTP pin</button>
+    </div>
+  </div>
+</form>

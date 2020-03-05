@@ -8,6 +8,7 @@ import { NotificationService } from './notification.service';
 
 import { DialogComponent } from './dialog/dialog.component';
 import { SetPinDialogComponent } from './set-pin-dialog/set-pin-dialog.component';
+import { SetMOTPPinDialogComponent } from './set-motp-pin-dialog/set-motp-pin-dialog.component';
 import { ResyncDialogComponent } from './resync-dialog/resync-dialog.component';
 
 import { UnreadyTokensPipe } from './pipes/unready-tokens.pipe';
@@ -35,6 +36,7 @@ import { FocusOnInitDirective } from './focus-on-init/focus-on-init.directive';
     QRCodeComponent,
     DialogComponent,
     SetPinDialogComponent,
+    SetMOTPPinDialogComponent,
     ResyncDialogComponent,
     UnreadyTokensPipe,
     ActiveTokensPipe,
@@ -47,6 +49,7 @@ import { FocusOnInitDirective } from './focus-on-init/focus-on-init.directive';
   entryComponents: [
     DialogComponent,
     SetPinDialogComponent,
+    SetMOTPPinDialogComponent,
     ResyncDialogComponent,
   ],
   providers: [

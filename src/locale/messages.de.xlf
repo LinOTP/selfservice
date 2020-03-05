@@ -277,6 +277,10 @@
           <context context-type="sourcefile">app/common/set-pin-dialog/set-pin-dialog.component.html</context>
           <context context-type="linenumber">20</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/set-motp-pin-dialog/set-motp-pin-dialog.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="c7d761ff7a5f7e7a8f6d3899d4a7fe62e73afab3" datatype="html">
         <source>cancel</source>
@@ -295,6 +299,10 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/resync-dialog/resync-dialog.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/set-motp-pin-dialog/set-motp-pin-dialog.component.html</context>
           <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
@@ -1344,6 +1352,22 @@
           <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="39bf713e42b2e423f1ab783918625f0cf4db2009" datatype="html">
+        <source>Set a new MOTP PIN</source>
+        <target state="translated">Neuer mOTP-PIN setzen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/set-motp-pin-dialog/set-motp-pin-dialog.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fb5d5837c0dc6ecfc0231c2c145fe8cc83f19b1e" datatype="html">
+        <source>set mOTP pin</source>
+        <target state="translated">mOTP-PIN setzen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/set-motp-pin-dialog/set-motp-pin-dialog.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="39372a4b8f0015502015b905eda8158cbc812481" datatype="html">
         <source>Claim an existing token and link it to your user account</source>
         <target state="translated">Verknüpfen Sie einen existierenden Token mit Ihrem Benutzerkonto</target>
@@ -1444,6 +1468,10 @@
         <source>New PIN</source>
         <target state="translated">Neuer PIN</target>
         <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/set-motp-pin-dialog/set-motp-pin-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
@@ -1452,13 +1480,25 @@
         <source>Confirm your new PIN</source>
         <target state="translated">Bestätigen Sie Ihren neuen PIN</target>
         <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/set-motp-pin-dialog/set-motp-pin-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="21e903036ed17c59a63818f0e2b11e5c3cf5745a" datatype="html">
+        <source>mOTP pin could not be set. Please try again.</source>
+        <target state="translated">Das Setzen des mOTP-PIN ist fehlgeschlagen. Bitte versuchen Sie es erneut.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/set-motp-pin-dialog/set-motp-pin-dialog.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
       <trans-unit id="55f14d81da249a5da5db6f23297827299e59b329" datatype="html">
         <source>Pin could not be set. Please try again.</source>
-        <target state="translated">Das Setzen der PIN ist fehlgeschlagen. Bitte versuchen Sie es erneut.</target>
+        <target state="translated">Das Setzen des PIN ist fehlgeschlagen. Bitte versuchen Sie es erneut.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.ts</context>
           <context context-type="linenumber">1</context>

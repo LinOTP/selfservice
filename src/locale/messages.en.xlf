@@ -281,6 +281,10 @@
           <context context-type="sourcefile">app/common/set-pin-dialog/set-pin-dialog.component.html</context>
           <context context-type="linenumber">20</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/set-motp-pin-dialog/set-motp-pin-dialog.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="c7d761ff7a5f7e7a8f6d3899d4a7fe62e73afab3" datatype="html">
         <source>cancel</source>
@@ -299,6 +303,10 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/resync-dialog/resync-dialog.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/set-motp-pin-dialog/set-motp-pin-dialog.component.html</context>
           <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
@@ -1380,6 +1388,22 @@
           <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="39bf713e42b2e423f1ab783918625f0cf4db2009" datatype="html">
+        <source>Set a new MOTP PIN</source>
+        <target state="final">Set a new MOTP PIN</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/set-motp-pin-dialog/set-motp-pin-dialog.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fb5d5837c0dc6ecfc0231c2c145fe8cc83f19b1e" datatype="html">
+        <source>set mOTP pin</source>
+        <target state="final">set mOTP pin</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/set-motp-pin-dialog/set-motp-pin-dialog.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="39372a4b8f0015502015b905eda8158cbc812481" datatype="html">
         <source>Claim an existing token and link it to your user account</source>
         <target state="final">Claim an existing token and link it to your user account</target>
@@ -1480,6 +1504,10 @@
         <source>New PIN</source>
         <target state="final">New PIN</target>
         <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/set-motp-pin-dialog/set-motp-pin-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
@@ -1488,7 +1516,19 @@
         <source>Confirm your new PIN</source>
         <target state="final">Confirm your new PIN</target>
         <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/set-motp-pin-dialog/set-motp-pin-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="21e903036ed17c59a63818f0e2b11e5c3cf5745a" datatype="html">
+        <source>mOTP pin could not be set. Please try again.</source>
+        <target state="final">mOTP pin could not be set. Please try again.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/set-motp-pin-dialog/set-motp-pin-dialog.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
