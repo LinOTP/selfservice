@@ -43,6 +43,7 @@ export class TokenService {
   private userserviceEndpoints = {
     tokens: 'usertokenlist',
     setpin: 'setpin',
+    setMOTPPin: 'setmpin',
     delete: 'delete',
     enroll: 'enroll',
     webprovision: 'webprovision',
@@ -194,6 +195,25 @@ export class TokenService {
       .pipe(
         map((response) => response && response.result && response.result.value['set userpin'] === 1),
         catchError(this.handleError('setTokenPin', false))
+      );
+  }
+
+  setMOTPPin(token: Token, pin: string): Observable<boolean> {
+    if (token.typeDetails.type !== TokenType.MOTP) {
+      return of(false);
+    }
+
+    const url = this.userserviceBase + this.userserviceEndpoints.setMOTPPin;
+    const body = {
+      pin: pin,
+      serial: token.serial,
+      session: this.sessionService.getSession()
+    };
+
+    return this.http.post<LinOTPResponse<{ 'set userpin': number }>>(url, body)
+      .pipe(
+        map((response) => response && response.result && response.result.value['set userpin'] === 1),
+        catchError(this.handleError('setMOTPPin', false))
       );
   }
 
