@@ -932,6 +932,14 @@
           <context context-type="linenumber">125</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="06f038853e7c3e4afb905dcd1d0c816afcd7187d" datatype="html">
+        <source>Set mOTP pin</source>
+        <target state="translated">mOTP-PIN setzen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/token-card/token-card.component.html</context>
+          <context context-type="linenumber">63</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="1f2015488439a54808759dcd3521bf1a2f0b5510" datatype="html">
         <source>Setting a PIN helps you protect your token against misuse.</source>
         <target state="translated">Einen PIN zu setzen erhöht die Sicherheit gegen Missbrauch des Tokens.</target>
@@ -1064,7 +1072,7 @@
         <target state="translated">Fehlerzähler zurücksetzen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">70</context>
+          <context context-type="linenumber">78</context>
         </context-group>
       </trans-unit>
       <trans-unit id="0012706153bcbfdd0b8eafae8a34bc2b509b5749" datatype="html">
@@ -1072,7 +1080,7 @@
         <target state="translated">Synchronisieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">77</context>
+          <context context-type="linenumber">85</context>
         </context-group>
       </trans-unit>
       <trans-unit id="826b25211922a1b46436589233cb6f1a163d89b7" datatype="html">
@@ -1080,7 +1088,7 @@
         <target state="translated">Löschen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">95</context>
+          <context context-type="linenumber">103</context>
         </context-group>
       </trans-unit>
       <trans-unit id="ac6c9212896d39b23811ed2dadab7d07336ec559" datatype="html">
@@ -1088,11 +1096,11 @@
         <target state="translated">Aktivieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">103</context>
+          <context context-type="linenumber">111</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">113</context>
+          <context context-type="linenumber">121</context>
         </context-group>
       </trans-unit>
       <trans-unit id="95724277f3d8682a670cb4df13b822f6dd74119b" datatype="html">
@@ -1100,7 +1108,7 @@
         <target state="translated">Sie sind nicht berechtigt, den Token zu aktivieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">110</context>
+          <context context-type="linenumber">118</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6766a926d80bb7763785621098dae459d6226429" datatype="html">
@@ -1108,11 +1116,11 @@
         <target state="translated">Deaktivieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">121</context>
+          <context context-type="linenumber">129</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">131</context>
+          <context context-type="linenumber">139</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8b29018f336508426906d0fb7ac6f9665e62e530" datatype="html">
@@ -1120,7 +1128,7 @@
         <target state="translated">Sie sind nicht berechtigt, den Token zu deaktivieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">128</context>
+          <context context-type="linenumber">136</context>
         </context-group>
       </trans-unit>
       <trans-unit id="0d1f680afd203b05cca8fc3cf3664314da17ef7b" datatype="html">
@@ -1629,6 +1637,14 @@
         <target state="translated">Anmeldung fehlgeschlagen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="04a6e1947d0d5d75e3ff2db077fac8c825cddafc" datatype="html">
+        <source>mOTP PIN set</source>
+        <target state="translated">mOTP-PIN gesetzt</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>

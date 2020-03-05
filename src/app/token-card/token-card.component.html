@@ -55,6 +55,14 @@
     <mat-icon>security</mat-icon>
     <span i18n>Set pin</span>
   </button>
+  <ng-container *ngIf="isMOTP">
+    <button mat-menu-item
+            (click)="setMOTPPin()"
+            *ngxPermissionsOnly="Permission.SETMOTPPIN">
+      <mat-icon>dialpad</mat-icon>
+      <span i18n>Set mOTP pin</span>
+    </button>
+  </ng-container>
   <ng-container *ngIf="token.enrollmentStatus === EnrollmentStatus.COMPLETED && token.enabled">
     <button mat-menu-item
             (click)="testToken()"
