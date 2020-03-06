@@ -17,7 +17,7 @@ describe('QRCodeComponent', () => {
       ],
       declarations: [
         QRCodeComponent,
-        MockComponent({ selector: 'qrcode', inputs: ['qrdata', 'size', 'level'] }),
+        MockComponent({ selector: 'qrcode', inputs: ['qrdata', 'width', 'errorCorrectionLevel'] }),
       ]
     })
       .compileComponents();

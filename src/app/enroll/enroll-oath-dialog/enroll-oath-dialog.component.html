@@ -37,8 +37,8 @@
         install it on your mobile device.</p>
 
       <qrcode [qrdata]="enrolledToken.url"
-              [size]="256"
-              [level]="'L'"></qrcode>
+              [width]="256"
+              [errorCorrectionLevel]="'L'"></qrcode>
 
       <div class="toggle-details">
         <button (click)="showDetails = !showDetails"

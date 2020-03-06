@@ -51,8 +51,8 @@
            [href]="enrolledToken.url">follow this link</a> to start the
         activation process of the new token.</p>
       <qrcode [qrdata]="enrolledToken.url"
-              [size]="256"
-              [level]="'L'"></qrcode>
+              [width]="256"
+              [errorCorrectionLevel]="'L'"></qrcode>
     </div>
     <mat-dialog-actions align="end">
       <div i18n>Enrollment step {{currentStep}} of {{maxSteps}}</div>
