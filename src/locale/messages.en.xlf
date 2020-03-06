@@ -1254,6 +1254,22 @@
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="d8bec5b95b61ac855d2df3e3a42b00857714817f" datatype="html">
+        <source>mOTP token</source>
+        <target state="final">mOTP token</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="56d3f767088f6e8d40411574aa9e4381a575c9dc" datatype="html">
+        <source>Generate OTPs from your mobile device given a secret password and a custom pin</source>
+        <target state="final">Generate OTPs from your mobile device given a secret password and a custom pin</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="f5e196cc0cae1ad716ac589b815c51a5be105ea0" datatype="html">
         <source>Assign Token</source>
         <target state="final">Assign Token</target>

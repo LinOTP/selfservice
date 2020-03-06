@@ -22,6 +22,7 @@ export enum TokenType {
   TOTP = 'totp',
   PUSH = 'push',
   QR = 'qr',
+  MOTP = 'motp',
   ASSIGN = 'assign', // virtual type for token assignment
   UNKNOWN = 'unknown', // fallback type
 }

@@ -105,6 +105,12 @@ export class TokenService {
         enrollmentActionLabel: this.i18n('Enroll'),
       },
       {
+        type: TokenType.MOTP,
+        name: this.i18n('mOTP token'),
+        description: this.i18n('Generate OTPs from your mobile device given a secret password and a custom pin'),
+        icon: 'stay_current_portrait',
+      },
+      {
         type: TokenType.ASSIGN,
         name: this.i18n('Assign Token'),
         description: this.i18n('Claim an existing token and link it to your user account'),
