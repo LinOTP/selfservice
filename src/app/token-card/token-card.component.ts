@@ -17,6 +17,7 @@ import { TestOATHDialogComponent } from '../test/test-oath/test-oath-dialog.comp
 import { TestChallengeResponseDialogComponent } from '../test/test-challenge-response/test-challenge-response-dialog.component';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { ResyncDialogComponent } from '../common/resync-dialog/resync-dialog.component';
+import { SetMOTPPinDialogComponent } from '../common/set-motp-pin-dialog/set-motp-pin-dialog.component';
 
 @Component({
   selector: 'app-token-card',
@@ -33,6 +34,7 @@ export class TokenCardComponent implements OnInit {
   public Permission = Permission;
   public ModifyTokenPermissions = ModifyTokenPermissions;
   public isSynchronizeable: boolean;
+  public isMOTP: boolean;
 
   constructor(
     private dialog: MatDialog,
@@ -45,6 +47,9 @@ export class TokenCardComponent implements OnInit {
     const synchronizeableTokenTypes = [TokenType.HOTP, TokenType.TOTP];
     if (synchronizeableTokenTypes.find(t => t === this.token.typeDetails.type)) {
       this.isSynchronizeable = true;
+    }
+    if (this.token.typeDetails.type === TokenType.MOTP) {
+      this.isMOTP = true;
     }
   }
 
@@ -62,6 +67,23 @@ export class TokenCardComponent implements OnInit {
       )
       .subscribe(() => {
         this.notificationService.message(this.i18n('PIN set'));
+      });
+  }
+
+  public setMOTPPin(): void {
+    const config = {
+      width: '25em',
+      data: this.token
+    };
+
+    this.dialog
+      .open(SetMOTPPinDialogComponent, config)
+      .afterClosed()
+      .pipe(
+        filter(result => !!result)
+      )
+      .subscribe(() => {
+        this.notificationService.message(this.i18n('mOTP PIN set'));
       });
   }
 

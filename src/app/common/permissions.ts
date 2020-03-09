@@ -6,8 +6,10 @@ export enum Permission {
     ENROLLHOTP = 'HOTP.ENROLL',
     ENROLLTOTP = 'TOTP.ENROLL',
     ENROLLPASSWORD = 'PW.ENROLL',
+    ENROLLMOTP = 'MOTP.ENROLL',
     DELETE = 'DELETE',
     SETPIN = 'SETPIN',
+    SETMOTPPIN = 'SETMOTPPIN',
     ENABLE = 'ENABLE',
     DISABLE = 'DISABLE',
     RESET = 'RESET',
@@ -24,8 +26,10 @@ export const PoliciesToPermissionsMapping: { [policy: string]: Permission } = {
     'webprovisionGOOGLE': Permission.ENROLLHOTP,
     'webprovisionGOOGLEtime': Permission.ENROLLTOTP,
     'enrollPW': Permission.ENROLLPASSWORD,
+    'enrollMOTP': Permission.ENROLLMOTP,
     'delete': Permission.DELETE,
     'setOTPPIN': Permission.SETPIN,
+    'setMOTPPIN': Permission.SETMOTPPIN,
     'enable': Permission.ENABLE,
     'disable': Permission.DISABLE,
     'reset': Permission.RESET,
@@ -37,43 +41,6 @@ export const PoliciesToPermissionsMapping: { [policy: string]: Permission } = {
 export interface PermissionSet {
     [permissionScope: string]: Permission[];
 }
-
-export const PasswordPermissions: PermissionSet = {
-    enroll: [Permission.ENROLLPASSWORD],
-    delete: [Permission.DELETE],
-    setPin: [Permission.SETPIN],
-    verify: [Permission.VERIFY],
-};
-
-export const PushPermissions: PermissionSet = {
-    enroll: [Permission.ENROLLPUSH],
-    activate: [Permission.ACTIVATEPUSH],
-    delete: [Permission.DELETE],
-    setPin: [Permission.SETPIN],
-    verify: [Permission.VERIFY],
-};
-
-export const QRPermissions: PermissionSet = {
-    enroll: [Permission.ENROLLQR],
-    activate: [Permission.ACTIVATEQR],
-    delete: [Permission.DELETE],
-    setPin: [Permission.SETPIN],
-    verify: [Permission.VERIFY],
-};
-
-export const HOTPPermissions: PermissionSet = {
-    enroll: [Permission.ENROLLHOTP],
-    delete: [Permission.DELETE],
-    setPin: [Permission.SETPIN],
-    verify: [Permission.VERIFY],
-};
-
-export const TOTPPermissions: PermissionSet = {
-    enroll: [Permission.ENROLLTOTP],
-    delete: [Permission.DELETE],
-    setPin: [Permission.SETPIN],
-    verify: [Permission.VERIFY],
-};
 
 export const EnrollmentPermissions = [
     Permission.ENROLLPUSH,
@@ -93,4 +60,5 @@ export const ModifyTokenPermissions = [
     Permission.RESET,
     Permission.RESYNC,
     Permission.VERIFY,
+    Permission.SETMOTPPIN,
 ];

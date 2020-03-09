@@ -50,6 +50,12 @@ export class Fixtures {
         activationPermission: Permission.ACTIVATEQR,
         enrollmentActionLabel: 'Enroll',
       },
+      motp: {
+        type: TokenType.MOTP,
+        name: 'mOTP token',
+        description: 'Software-generated tokens from your mobile device',
+        icon: 'stay_current_portrait',
+      },
       assign: {
         type: TokenType.ASSIGN,
         name: 'Assign Token',

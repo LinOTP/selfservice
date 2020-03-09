@@ -20,6 +20,9 @@ mockReadyDisabledToken.enrollmentStatus = EnrollmentStatus.COMPLETED;
 const mockUnreadyDisabledToken = new Token(3, 'serial3', Fixtures.tokenTypeDetails[TokenType.UNKNOWN], false, 'desc');
 mockUnreadyDisabledToken.enrollmentStatus = EnrollmentStatus.UNPAIRED;
 
+const mockReadyEnabledMOTPToken = new Token(4, 'serial', Fixtures.tokenTypeDetails[TokenType.MOTP], true, 'desc');
+mockReadyEnabledToken.enrollmentStatus = EnrollmentStatus.COMPLETED;
+
 const mockTokens: Token[] = [mockReadyEnabledToken, mockReadyDisabledToken, mockUnreadyDisabledToken];
 
 const mockResponse = {
@@ -189,6 +192,58 @@ describe('TokenService', () => {
         });
         const setPinRequest = backend.expectOne({
           url: '/userservice/setpin',
+          method: 'POST'
+        });
+
+        setPinRequest.error(new ErrorEvent('Error setting token pin'));
+        backend.verify();
+
+        expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
+      })
+    ));
+  });
+
+  describe('set mOTP pin', () => {
+    const setPinRequestBody = { pin: '01234', serial: 'serial', session: session };
+    it('should send a mOTP pin request', async(
+      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+        tokenService.setMOTPPin(mockReadyEnabledMOTPToken, '01234').subscribe(res => {
+          expect(res).toEqual(true);
+        });
+
+        const req = backend.expectOne({
+          url: '/userservice/setmpin',
+          method: 'POST'
+        });
+
+        expect(req.request.body).toEqual(setPinRequestBody);
+        req.flush({ result: { value: { 'set userpin': 1 } } });
+
+        backend.verify();
+      })
+    ));
+
+    it('should not call the backend if the token is not an mOTP token', async(
+      inject([HttpClient], (http: HttpClient) => {
+        spyOn(http, 'post');
+
+        tokenService.setMOTPPin(mockReadyEnabledToken, '01234').subscribe(response => {
+          expect(response).toEqual(false);
+          expect(http.post).not.toHaveBeenCalled();
+        });
+      })
+    ));
+
+    it('should call the error handler on request failure', async(
+      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+
+        spyOn(console, 'error');
+
+        tokenService.setMOTPPin(mockReadyEnabledMOTPToken, '01234').subscribe(response => {
+          expect(response).toEqual(false);
+        });
+        const setPinRequest = backend.expectOne({
+          url: '/userservice/setmpin',
           method: 'POST'
         });
 

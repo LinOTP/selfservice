@@ -281,6 +281,10 @@
           <context context-type="sourcefile">app/common/set-pin-dialog/set-pin-dialog.component.html</context>
           <context context-type="linenumber">20</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/set-motp-pin-dialog/set-motp-pin-dialog.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="c7d761ff7a5f7e7a8f6d3899d4a7fe62e73afab3" datatype="html">
         <source>cancel</source>
@@ -299,6 +303,10 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/resync-dialog/resync-dialog.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/set-motp-pin-dialog/set-motp-pin-dialog.component.html</context>
           <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
@@ -954,6 +962,14 @@
           <context context-type="linenumber">125</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="06f038853e7c3e4afb905dcd1d0c816afcd7187d" datatype="html">
+        <source>Set mOTP pin</source>
+        <target state="final">Set mOTP pin</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/token-card/token-card.component.html</context>
+          <context context-type="linenumber">63</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="1f2015488439a54808759dcd3521bf1a2f0b5510" datatype="html">
         <source>Setting a PIN helps you protect your token against misuse.</source>
         <target state="final">Setting a PIN helps you protect your token against misuse.</target>
@@ -1091,7 +1107,7 @@
         <target state="final">Reset failcounter</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">70</context>
+          <context context-type="linenumber">78</context>
         </context-group>
       </trans-unit>
       <trans-unit id="0012706153bcbfdd0b8eafae8a34bc2b509b5749" datatype="html">
@@ -1099,7 +1115,7 @@
         <target state="final">Synchronize</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">77</context>
+          <context context-type="linenumber">85</context>
         </context-group>
       </trans-unit>
       <trans-unit id="826b25211922a1b46436589233cb6f1a163d89b7" datatype="html">
@@ -1107,7 +1123,7 @@
         <target state="final">Delete</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">95</context>
+          <context context-type="linenumber">103</context>
         </context-group>
       </trans-unit>
       <trans-unit id="ac6c9212896d39b23811ed2dadab7d07336ec559" datatype="html">
@@ -1115,11 +1131,11 @@
         <target state="final">Enable</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">103</context>
+          <context context-type="linenumber">111</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">113</context>
+          <context context-type="linenumber">121</context>
         </context-group>
       </trans-unit>
       <trans-unit id="95724277f3d8682a670cb4df13b822f6dd74119b" datatype="html">
@@ -1127,7 +1143,7 @@
         <target state="final">You do not have permissions to enable the token</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">110</context>
+          <context context-type="linenumber">118</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6766a926d80bb7763785621098dae459d6226429" datatype="html">
@@ -1135,11 +1151,11 @@
         <target state="final">Disable</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">121</context>
+          <context context-type="linenumber">129</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">131</context>
+          <context context-type="linenumber">139</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8b29018f336508426906d0fb7ac6f9665e62e530" datatype="html">
@@ -1147,7 +1163,7 @@
         <target state="final">You do not have permissions to disable this token.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">128</context>
+          <context context-type="linenumber">136</context>
         </context-group>
       </trans-unit>
       <trans-unit id="0d1f680afd203b05cca8fc3cf3664314da17ef7b" datatype="html">
@@ -1249,6 +1265,22 @@
       <trans-unit id="339f5c827d3973dca9a651873bb5f51a67f63ff1" datatype="html">
         <source>Use the Authenticator app to scan QR code authentication requests</source>
         <target state="final">Use the Authenticator app to scan QR code authentication requests</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d8bec5b95b61ac855d2df3e3a42b00857714817f" datatype="html">
+        <source>mOTP token</source>
+        <target state="final">mOTP token</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="56d3f767088f6e8d40411574aa9e4381a575c9dc" datatype="html">
+        <source>Generate OTPs from your mobile device given a secret password and a custom pin</source>
+        <target state="final">Generate OTPs from your mobile device given a secret password and a custom pin</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.service.ts</context>
           <context context-type="linenumber">1</context>
@@ -1364,6 +1396,22 @@
           <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="39bf713e42b2e423f1ab783918625f0cf4db2009" datatype="html">
+        <source>Set a new MOTP PIN</source>
+        <target state="final">Set a new MOTP PIN</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/set-motp-pin-dialog/set-motp-pin-dialog.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fb5d5837c0dc6ecfc0231c2c145fe8cc83f19b1e" datatype="html">
+        <source>set mOTP pin</source>
+        <target state="final">set mOTP pin</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/set-motp-pin-dialog/set-motp-pin-dialog.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="39372a4b8f0015502015b905eda8158cbc812481" datatype="html">
         <source>Claim an existing token and link it to your user account</source>
         <target state="final">Claim an existing token and link it to your user account</target>
@@ -1464,6 +1512,10 @@
         <source>New PIN</source>
         <target state="final">New PIN</target>
         <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/set-motp-pin-dialog/set-motp-pin-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
@@ -1472,7 +1524,19 @@
         <source>Confirm your new PIN</source>
         <target state="final">Confirm your new PIN</target>
         <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/set-motp-pin-dialog/set-motp-pin-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="21e903036ed17c59a63818f0e2b11e5c3cf5745a" datatype="html">
+        <source>mOTP pin could not be set. Please try again.</source>
+        <target state="final">mOTP pin could not be set. Please try again.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/set-motp-pin-dialog/set-motp-pin-dialog.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
@@ -1609,6 +1673,14 @@
         <target state="final">Login failed</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="04a6e1947d0d5d75e3ff2db077fac8c825cddafc" datatype="html">
+        <source>mOTP PIN set</source>
+        <target state="final">mOTP PIN set</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
