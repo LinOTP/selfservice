@@ -137,6 +137,10 @@ export class Fixtures {
     return token;
   }
 
+  static get activeMotpToken(): Token {
+    return new Token(1, 'Active-mOTP-Token-Serial', this.tokenTypeDetails[TokenType.MOTP], true, 'Description');
+  }
+
   static get tokens(): Token[] {
     return [
       this.activeHotpToken,

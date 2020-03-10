@@ -142,6 +142,32 @@ describe('TokenCardComponent', () => {
 
   });
 
+  describe('set mOTP token pin', () => {
+
+    it('should set mOTP pin of an mOTP token and notify user after success', fakeAsync(() => {
+      matDialog.open.and.returnValue({ afterClosed: () => of(true) });
+
+      component.token = Fixtures.activeMotpToken;
+      component.setMOTPPin();
+      tick();
+
+      expect(matDialog.open).toHaveBeenCalledTimes(1);
+      expect(notificationService.message).toHaveBeenCalledTimes(1);
+      expect(notificationService.message).toHaveBeenCalledWith('mOTP PIN set');
+    }));
+
+    it('should not notify user if set pin was cancelled', fakeAsync(() => {
+      matDialog.open.and.returnValue({ afterClosed: () => of(false) });
+
+      component.token = Fixtures.activeMotpToken;
+      component.setMOTPPin();
+      tick();
+
+      expect(notificationService.message).not.toHaveBeenCalled();
+    }));
+
+  });
+
   describe('token deletion', () => {
 
     it('should notify user of deletion', fakeAsync(() => {
