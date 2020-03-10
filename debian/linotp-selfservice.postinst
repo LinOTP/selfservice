@@ -19,17 +19,17 @@ check_apache_module() {
   # user, depending on the system configuration
   local module=$1
 
-  if ! which a2query >/dev/null ; then
+  if ! which a2query >/dev/null; then
     echo "Could not find a2query - module check skipped"
     return 0
   fi
 
   local ret=0
   a2query -q -m $module || ret=$?
-  if [ $ret -eq 32 -o $ret -eq 1 ] ; then
+  if [ $ret -eq 32 -o $ret -eq 1 ]; then
     # Module was disabled by administrator or is not available
 
-    if dpkg-query --status lseappliance >/dev/null 2>&1 ; then
+    if dpkg-query --status lseappliance >/dev/null 2>&1; then
       # If we are running on the SVA2, the module was disabled by
       # the installation script and we must force reenable the
       # module
@@ -47,18 +47,18 @@ check_apache_module() {
 }
 
 case "$1" in
-    configure)
-        check_apache_module dir
-        check_apache_module rewrite
-    ;;
+  configure)
+    check_apache_module dir
+    check_apache_module rewrite
+  ;;
 
-    abort-upgrade|abort-remove|abort-deconfigure)
-    ;;
+  abort-upgrade | abort-remove | abort-deconfigure)
+  ;;
 
-    *)
-        echo "postinst called with unknown argument \`$1'" >&2
-        exit 1
-    ;;
+  *)
+    echo "postinst called with unknown argument \`$1'" >&2
+    exit 1
+  ;;
 esac
 
 # dh_installdeb will replace this with shell code automatically
