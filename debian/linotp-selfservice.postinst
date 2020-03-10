@@ -48,8 +48,15 @@ check_apache_module() {
 
 case "$1" in
   configure)
+    # Check required apache modules
     check_apache_module dir
     check_apache_module rewrite
+
+    # Enable the linotp-selfservice via symlink for integration in a linotp site
+    if [ -z "$2" ]; then
+      # Do this only for a fresh install, in case the linotp-selfservice was manually disabled
+      ln -s /etc/apache2/conf-available/linotp-selfservice.conf /etc/linotp2/apache-site-includes/
+    fi
   ;;
 
   abort-upgrade | abort-remove | abort-deconfigure)
