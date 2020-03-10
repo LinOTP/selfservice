@@ -33,7 +33,7 @@ describe('The EnrollOATHDialogComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         EnrollOATHDialogComponent,
-        MockComponent({ selector: 'qrcode', inputs: ['qrdata', 'level', 'size'] }),
+        MockComponent({ selector: 'qrcode', inputs: ['qrdata', 'width', 'errorCorrectionLevel'] }),
         NgxPermissionsAllowStubDirective,
       ],
       imports: [
