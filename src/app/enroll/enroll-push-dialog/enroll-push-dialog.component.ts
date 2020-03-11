@@ -9,7 +9,7 @@ import { I18n } from '@ngx-translate/i18n-polyfill';
 import { switchMap } from 'rxjs/operators';
 import { EMPTY } from 'rxjs';
 
-import { TokenService } from '../../api/token.service';
+import { TokenService, PushEnrollmentDetail } from '../../api/token.service';
 import { TokenType } from '../../api/token';
 import { NotificationService } from '../../common/notification.service';
 import { TextResources } from '../../common/static-resources';
@@ -59,7 +59,7 @@ export class EnrollPushDialogComponent implements OnInit {
    * Enroll the push token and proceed to the next step
    */
   goToTokenInfo(stepper: MatStepper) {
-    this.tokenService.enroll(this.enrollmentForm.value).subscribe(response => {
+    this.tokenService.enroll<PushEnrollmentDetail>(this.enrollmentForm.value).subscribe(response => {
       if (response.result && response.result.value === true) {
         this.enrolledToken = {
           url: response.detail.lse_qr_url.value,

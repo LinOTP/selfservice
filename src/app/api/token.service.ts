@@ -10,7 +10,7 @@ import { Permission } from '../common/permissions';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 
 
-interface LinOTPResponse<T> {
+interface LinOTPResponse<T, U = undefined> {
   result?: {
     status: boolean,
     value: T,
@@ -18,7 +18,27 @@ interface LinOTPResponse<T> {
       message: string,
     };
   };
-  detail?: any;
+  detail?: U;
+}
+
+export interface PushEnrollmentDetail {
+  lse_qr_url: {
+    value: string;
+  };
+  serial: string;
+}
+
+interface ActivationDetail {
+  transactionid: string;
+  message: string;
+}
+
+interface ChallengeStatusDetail {
+  transactions: {
+    [transactionId: string]: {
+      status: string;
+    }
+  };
 }
 
 interface OATHEnrollmentData {
@@ -264,7 +284,7 @@ export class TokenService {
       );
   }
 
-  enroll(token: EnrollToken): Observable<LinOTPResponse<boolean>> {
+  enroll<T>(token: EnrollToken): Observable<LinOTPResponse<boolean, T>> {
     const body: { session: string, type: string, description?: string } = {
       ...token,
       session: this.sessionService.getSession(),
@@ -277,7 +297,7 @@ export class TokenService {
       body.type = details.enrollmentType;
     }
 
-    return this.http.post<LinOTPResponse<boolean>>(enrollEndpoint, body)
+    return this.http.post<LinOTPResponse<boolean, T>>(enrollEndpoint, body)
       .pipe(
         catchError(this.handleError('enroll token', null))
       );
@@ -290,25 +310,25 @@ export class TokenService {
       take(1));
   }
 
-  activate(serial: string, pin: string): Observable<any> {
+  activate(serial: string, pin: string): Observable<LinOTPResponse<boolean, ActivationDetail>> {
     const body = {
       serial: serial,
       data: serial,
       pass: pin,
     };
-    return this.http.post(this.validateCheckS, body)
+    return this.http.post<LinOTPResponse<boolean, ActivationDetail>>(this.validateCheckS, body)
       .pipe(
         catchError(this.handleError('activate token', null))
       );
   }
 
-  getChallengeStatus(transactionId: string, pin: string, serial: string): Observable<any> {
+  getChallengeStatus(transactionId: string, pin: string, serial: string): Observable<LinOTPResponse<boolean, ChallengeStatusDetail>> {
     const body = {
       transactionid: transactionId,
       pass: pin,
       serial: serial,
     };
-    return this.http.post(this.validateCheckStatus, body)
+    return this.http.post<LinOTPResponse<boolean, ChallengeStatusDetail>>(this.validateCheckStatus, body)
       .pipe(
         catchError(this.handleError('get challenge status', null))
       );
@@ -336,14 +356,17 @@ export class TokenService {
   }
 
   /**
-   * Sends a verification request for an OTP-based token.
+   * Sends a verification request for a token. There are two usage scenarios:
+   * 1) If an OTP is sent, the return object contains a `result` key set to true or false, depending on whether the verification was
+   *    successful or not.
+   * 2) If no OTP is sent, the return object additionally contains a challenge, to be used in a subsequent authentication step.
    *
    * @param tokenSerial the serial of the token to be verified
-   * @param otp the OTP for the verification transaction
+   * @param otp the OTP for the verification transaction. Optional parameter.
    *
    * @returns an observable of a boolean, true if the verification was successful and false otherwise
    */
-  testToken(tokenSerial: String, otp: String): Observable<boolean> {
+  testToken(tokenSerial: String, otp?: String): Observable<boolean> {
     const url = this.userserviceBase + this.userserviceEndpoints.verify;
     const body = {
       session: this.sessionService.getSession(),
