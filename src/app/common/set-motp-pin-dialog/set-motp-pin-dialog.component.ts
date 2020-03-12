@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators, ValidationErrors, AbstractControl } from '@angular/forms';
 
 import { Token } from '../../api/token';
-import { TokenService } from '../../api/token.service';
+import { OperationsService } from '../../api/operations.service';
 import { ErrorStateRootMatcher } from '../form-helpers/error-state-root-matcher';
 import { NotificationService } from '../notification.service';
 import { I18n } from '@ngx-translate/i18n-polyfill';
@@ -25,7 +25,7 @@ export class SetMOTPPinDialogComponent {
   constructor(
     private dialogRef: MatDialogRef<SetMOTPPinDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private token: Token,
-    private tokenService: TokenService,
+    private operationsService: OperationsService,
     private formBuilder: FormBuilder,
     private notificationService: NotificationService,
     private i18n: I18n,
@@ -63,7 +63,7 @@ export class SetMOTPPinDialogComponent {
   public submit() {
     if (!this.awaitingResponse && this.form.valid) {
       this.awaitingResponse = true;
-      this.tokenService.setMOTPPin(this.token, this.form.controls.newPin.value).subscribe((result) => {
+      this.operationsService.setMOTPPin(this.token, this.form.controls.newPin.value).subscribe((result) => {
         if (result) {
           this.dialogRef.close(true);
         } else {

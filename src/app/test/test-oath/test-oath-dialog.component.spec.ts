@@ -11,7 +11,7 @@ import { spyOnClass } from '../../../testing/spyOnClass';
 import { I18nMock } from '../../../testing/i18n-mock-provider';
 
 import { MaterialModule } from '../../material.module';
-import { TokenService } from '../../api/token.service';
+import { TestService } from '../../api/test.service';
 import { NotificationService } from '../../common/notification.service';
 
 import { TestOATHDialogComponent } from './test-oath-dialog.component';
@@ -26,7 +26,7 @@ class Page extends TestingPage<TestOATHDialogComponent> {
 describe('TestOTPDialogComponent', () => {
   let component: TestOATHDialogComponent;
   let fixture: ComponentFixture<TestOATHDialogComponent>;
-  let tokenService: jasmine.SpyObj<TokenService>;
+  let testService: jasmine.SpyObj<TestService>;
   const token = Fixtures.activeHotpToken;
 
   beforeEach(async(() => {
@@ -47,8 +47,8 @@ describe('TestOTPDialogComponent', () => {
           useValue: { token: token },
         },
         {
-          provide: TokenService,
-          useValue: spyOnClass(TokenService),
+          provide: TestService,
+          useValue: spyOnClass(TestService),
         },
         {
           provide: NotificationService,
@@ -60,7 +60,7 @@ describe('TestOTPDialogComponent', () => {
   }));
 
   beforeEach(() => {
-    tokenService = TestBed.get(TokenService);
+    testService = TestBed.get(TestService);
 
     fixture = TestBed.createComponent(TestOATHDialogComponent);
     component = fixture.componentInstance;
@@ -78,12 +78,12 @@ describe('TestOTPDialogComponent', () => {
   describe('submit', () => {
     it('should call token service to test token if form is valid', async(() => {
       const otp = '123456';
-      tokenService.testToken.and.returnValue(of(true));
+      testService.testToken.and.returnValue(of(true));
       component.formGroup.setValue({ 'otp': otp });
       fixture.detectChanges();
 
       component.submit();
-      expect(tokenService.testToken).toHaveBeenCalledWith(token.serial, otp);
+      expect(testService.testToken).toHaveBeenCalledWith(token.serial, otp);
     }));
 
     it('should not call token service to test token if form is invalid', async(() => {
@@ -92,13 +92,13 @@ describe('TestOTPDialogComponent', () => {
       expect(component.state).toBe(component.TestState.UNTESTED);
 
       component.submit();
-      expect(tokenService.testToken).not.toHaveBeenCalled();
+      expect(testService.testToken).not.toHaveBeenCalled();
       expect(component.state).toBe(component.TestState.UNTESTED);
     }));
 
     it('should set component to success state if test succeeds', () => {
       const otp = '123456';
-      tokenService.testToken.and.returnValue(of(true));
+      testService.testToken.and.returnValue(of(true));
       component.formGroup.setValue({ 'otp': otp });
       fixture.detectChanges();
 
@@ -108,7 +108,7 @@ describe('TestOTPDialogComponent', () => {
 
     it('should set component to failure state if test fails', () => {
       const otp = '123456';
-      tokenService.testToken.and.returnValue(of(false));
+      testService.testToken.and.returnValue(of(false));
       component.formGroup.setValue({ 'otp': otp });
       fixture.detectChanges();
 

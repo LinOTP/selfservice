@@ -13,14 +13,14 @@ import { spyOnClass } from '../../../testing/spyOnClass';
 import { I18nMock } from '../../../testing/i18n-mock-provider';
 
 import { MaterialModule } from '../../material.module';
-import { TokenService } from '../../api/token.service';
+import { EnrollmentService } from '../../api/enrollment.service';
 import { EnrollPushDialogComponent } from '../../enroll/enroll-push-dialog/enroll-push-dialog.component';
 import { TestChallengeResponseDialogComponent } from './test-challenge-response-dialog.component';
 
 describe('TestChallengeResponseDialogComponent', () => {
   let component: TestChallengeResponseDialogComponent;
   let fixture: ComponentFixture<TestChallengeResponseDialogComponent>;
-  let tokenService: jasmine.SpyObj<TokenService>;
+  let enrollmentService: jasmine.SpyObj<EnrollmentService>;
   let dialogRef: jasmine.SpyObj<MatDialogRef<EnrollPushDialogComponent>>;
   let stepper: MatStepper;
 
@@ -37,8 +37,8 @@ describe('TestChallengeResponseDialogComponent', () => {
       ],
       providers: [
         {
-          provide: TokenService,
-          useValue: spyOnClass(TokenService),
+          provide: EnrollmentService,
+          useValue: spyOnClass(EnrollmentService),
         },
         { provide: MAT_DIALOG_DATA, useValue: { token: Fixtures.inactivePushToken } },
         { provide: MatDialogRef, useValue: spyOnClass(MatDialogRef) },
@@ -50,7 +50,7 @@ describe('TestChallengeResponseDialogComponent', () => {
   }));
 
   beforeEach(() => {
-    tokenService = TestBed.get(TokenService);
+    enrollmentService = TestBed.get(EnrollmentService);
     dialogRef = TestBed.get(MatDialogRef);
     stepper = TestBed.get(MatStepper);
 
@@ -64,8 +64,8 @@ describe('TestChallengeResponseDialogComponent', () => {
   });
 
   it('should test the push token with success message in case of accept', fakeAsync(() => {
-    tokenService.activate.and.returnValue(of(Fixtures.activationResponse));
-    tokenService.challengePoll.and.returnValue(of({ accept: true }));
+    enrollmentService.activate.and.returnValue(of(Fixtures.activationResponse));
+    enrollmentService.challengePoll.and.returnValue(of({ accept: true }));
 
     fixture.detectChanges();
 
@@ -79,8 +79,8 @@ describe('TestChallengeResponseDialogComponent', () => {
   }));
 
   it('should test the push token with success message in case of deny', fakeAsync(() => {
-    tokenService.activate.and.returnValue(of(Fixtures.activationResponse));
-    tokenService.challengePoll.and.returnValue(of({ reject: true }));
+    enrollmentService.activate.and.returnValue(of(Fixtures.activationResponse));
+    enrollmentService.challengePoll.and.returnValue(of({ reject: true }));
 
     fixture.detectChanges();
 
@@ -94,7 +94,7 @@ describe('TestChallengeResponseDialogComponent', () => {
   }));
 
   it('should fail on token activation', fakeAsync(() => {
-    tokenService.activate.and.returnValue(of({}));
+    enrollmentService.activate.and.returnValue(of({}));
     spyOn(console, 'error');
 
     fixture.detectChanges();
@@ -110,8 +110,8 @@ describe('TestChallengeResponseDialogComponent', () => {
   }));
 
   it('should fail on challenge polling', fakeAsync(() => {
-    tokenService.activate.and.returnValue(of(Fixtures.activationResponse));
-    tokenService.challengePoll.and.returnValue(of({}));
+    enrollmentService.activate.and.returnValue(of(Fixtures.activationResponse));
+    enrollmentService.challengePoll.and.returnValue(of({}));
 
     fixture.detectChanges();
 

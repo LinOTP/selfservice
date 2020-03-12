@@ -6,7 +6,7 @@ import { of } from 'rxjs';
 
 import { spyOnClass } from '../../../testing/spyOnClass';
 import { MaterialModule } from '../../material.module';
-import { TokenService } from '../../api/token.service';
+import { EnrollmentService } from '../../api/enrollment.service';
 
 import { AssignTokenDialogComponent } from './assign-token-dialog.component';
 import { I18nMock } from '../../../testing/i18n-mock-provider';
@@ -15,7 +15,7 @@ describe('AssignTokenDialogComponent', () => {
   let component: AssignTokenDialogComponent;
   let fixture: ComponentFixture<AssignTokenDialogComponent>;
   let dialogRef: jasmine.SpyObj<MatDialogRef<AssignTokenDialogComponent>>;
-  let tokenService: jasmine.SpyObj<TokenService>;
+  let enrollmentService: jasmine.SpyObj<EnrollmentService>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -29,8 +29,8 @@ describe('AssignTokenDialogComponent', () => {
       ],
       providers: [
         {
-          provide: TokenService,
-          useValue: spyOnClass(TokenService)
+          provide: EnrollmentService,
+          useValue: spyOnClass(EnrollmentService)
         },
         {
           provide: MatDialogRef,
@@ -48,7 +48,7 @@ describe('AssignTokenDialogComponent', () => {
     fixture.detectChanges();
 
     dialogRef = TestBed.get(MatDialogRef);
-    tokenService = TestBed.get(TokenService);
+    enrollmentService = TestBed.get(EnrollmentService);
   });
 
   it('should be created', () => {
@@ -94,8 +94,8 @@ describe('AssignTokenDialogComponent', () => {
   describe('assignToken', () => {
 
     it('should move the stepper to step 2 when assignment request returns', () => {
-      tokenService.assign.and.returnValue(of({ success: true }));
-      tokenService.setDescription.and.returnValue(of({ success: true }));
+      enrollmentService.assign.and.returnValue(of({ success: true }));
+      enrollmentService.setDescription.and.returnValue(of({ success: true }));
 
       component.stepper.selectedIndex = 0;
       component.assignmentForm.setValue({ serial: 'abc123', description: 'my new token' });
@@ -107,7 +107,7 @@ describe('AssignTokenDialogComponent', () => {
     });
 
     it('should move the stepper to step 2 when assignment request returns and display an error message on failure', () => {
-      tokenService.assign.and.returnValue(of({ success: false, message: 'an error occurred' }));
+      enrollmentService.assign.and.returnValue(of({ success: false, message: 'an error occurred' }));
 
       component.stepper.selectedIndex = 0;
       component.assignmentForm.setValue({ serial: 'abc123', description: 'my new token' });

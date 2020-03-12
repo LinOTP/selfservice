@@ -1,12 +1,12 @@
 import { Component, OnInit, Output } from '@angular/core';
-import { MatDialog, MatDialogRef, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 import { I18n } from '@ngx-translate/i18n-polyfill';
 
 import { Subject, Observable, EMPTY } from 'rxjs';
 import { switchMap, filter, tap } from 'rxjs/operators';
 
-import { TokenTypeDetails, TokenType, Token } from '../api/token';
+import { TokenType, Token, TokenTypeDetails } from '../api/token';
 import { TokenService } from '../api/token.service';
 
 import { NotificationService } from '../common/notification.service';
@@ -27,7 +27,7 @@ import { Permission } from '../common/permissions';
 })
 export class EnrollmentGridComponent implements OnInit {
 
-  public tokenTypes: TokenTypeDetails[];
+  public tokenTypes: TokenTypeDetails[] = this.tokenService.getEnrollableTypes();
   @Output() public tokenUpdate: Subject<null> = new Subject();
   public testAfterEnrollment: boolean;
 
@@ -40,7 +40,6 @@ export class EnrollmentGridComponent implements OnInit {
   ) { }
 
   public ngOnInit() {
-    this.tokenTypes = this.tokenService.tokenTypeDetails.filter(t => t.enrollmentPermission);
     this.permissionService.hasPermission(Permission.VERIFY)
       .then(hasPermission => this.testAfterEnrollment = hasPermission);
   }

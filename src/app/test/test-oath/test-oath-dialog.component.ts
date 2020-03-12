@@ -5,7 +5,7 @@ import { FormGroup, Validators, FormBuilder, NgForm } from '@angular/forms';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 
 import { Token } from '../../api/token';
-import { TokenService } from '../../api/token.service';
+import { TestService } from '../../api/test.service';
 
 enum TestState {
   UNTESTED = 'untested',
@@ -31,9 +31,8 @@ export class TestOATHDialogComponent {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { token: Token },
-    private tokenService: TokenService,
+    private testService: TestService,
     private formBuilder: FormBuilder,
-    private i18n: I18n,
   ) {
     this.formGroup = this.formBuilder.group({
       otp: ['', Validators.required],
@@ -46,7 +45,7 @@ export class TestOATHDialogComponent {
   public submit() {
     if (this.formGroup.valid) {
       const controls = this.formGroup.controls;
-      this.tokenService.testToken(this.data.token.serial, controls.otp.value)
+      this.testService.testToken(this.data.token.serial, controls.otp.value)
         .subscribe(result => {
           this.testResult = result;
           this.state = result ? TestState.SUCCESS : TestState.FAILURE;

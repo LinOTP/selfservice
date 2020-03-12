@@ -12,7 +12,8 @@ import { spyOnClass } from '../../../testing/spyOnClass';
 import { I18nMock } from '../../../testing/i18n-mock-provider';
 import { Fixtures } from '../../../testing/fixtures';
 
-import { TokenService } from '../../api/token.service';
+import { OperationsService } from '../../api/operations.service';
+import { EnrollmentService } from '../../api/enrollment.service';
 import { MaterialModule } from '../../material.module';
 import { NotificationService } from '../../common/notification.service';
 import { DialogComponent } from '../../common/dialog/dialog.component';
@@ -22,7 +23,8 @@ import { EnrollPushDialogComponent } from './enroll-push-dialog.component';
 describe('EnrollPushDialogComponent', () => {
   let component: EnrollPushDialogComponent;
   let fixture: ComponentFixture<EnrollPushDialogComponent>;
-  let tokenService: jasmine.SpyObj<TokenService>;
+  let operationsService: jasmine.SpyObj<OperationsService>;
+  let enrollmentService: jasmine.SpyObj<EnrollmentService>;
   let notificationService: NotificationService;
   let dialogRef: jasmine.SpyObj<MatDialogRef<EnrollPushDialogComponent>>;
   let matDialog: jasmine.SpyObj<MatDialog>;
@@ -43,8 +45,11 @@ describe('EnrollPushDialogComponent', () => {
       ],
       providers: [
         {
-          provide: TokenService,
-          useValue: spyOnClass(TokenService),
+          provide: OperationsService,
+          useValue: spyOnClass(OperationsService),
+        }, {
+          provide: EnrollmentService,
+          useValue: spyOnClass(EnrollmentService),
         },
         {
           provide: NotificationService,
@@ -67,7 +72,8 @@ describe('EnrollPushDialogComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(EnrollPushDialogComponent);
     component = fixture.componentInstance;
-    tokenService = TestBed.get(TokenService);
+    operationsService = TestBed.get(OperationsService);
+    enrollmentService = TestBed.get(EnrollmentService);
     notificationService = TestBed.get(NotificationService);
     dialogRef = TestBed.get(MatDialogRef);
     matDialog = TestBed.get(MatDialog);
@@ -91,8 +97,8 @@ describe('EnrollPushDialogComponent', () => {
       url: mockedEnrollResponse.detail.lse_qr_url.value
     };
 
-    tokenService.enroll.and.returnValue(of(mockedEnrollResponse));
-    tokenService.pairingPoll.and.returnValue(of(Fixtures.activePushToken));
+    enrollmentService.enroll.and.returnValue(of(mockedEnrollResponse));
+    enrollmentService.pairingPoll.and.returnValue(of(Fixtures.activePushToken));
 
     component.enrollmentForm.controls.description.setValue('descr');
     fixture.detectChanges();
@@ -114,7 +120,7 @@ describe('EnrollPushDialogComponent', () => {
     const mockedEnrollResponse = Fixtures.enrollmentResponse;
     mockedEnrollResponse.result.value = false;
 
-    tokenService.enroll.and.returnValue(of(mockedEnrollResponse));
+    enrollmentService.enroll.and.returnValue(of(mockedEnrollResponse));
 
     component.enrollmentForm.controls.description.setValue('descr');
     fixture.detectChanges();
@@ -158,7 +164,7 @@ describe('EnrollPushDialogComponent', () => {
 
   it('should notify the user on confirmed enrollment cancelation', fakeAsync(() => {
     matDialog.open.and.returnValue({ afterClosed: () => of(true) });
-    tokenService.deleteToken.and.returnValue(of({}));
+    operationsService.deleteToken.and.returnValue(of({}));
     component.enrolledToken = Fixtures.enrolledToken;
     component.cancel();
     tick();

@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, RequiredValidator, Validators } from '@angular/
 import { I18n } from '@ngx-translate/i18n-polyfill';
 
 import { Token } from '../../api/token';
-import { TokenService } from '../../api/token.service';
+import { OperationsService } from '../../api/operations.service';
 import { NotificationService } from '../notification.service';
 
 @Component({
@@ -21,7 +21,7 @@ export class ResyncDialogComponent {
   constructor(
     private dialogRef: MatDialogRef<ResyncDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private token: Token,
-    private tokenService: TokenService,
+    private operationsService: OperationsService,
     private formBuilder: FormBuilder,
     private notificationService: NotificationService,
     private i18n: I18n,
@@ -43,7 +43,7 @@ export class ResyncDialogComponent {
   public submit() {
     if (!this.awaitingResponse && this.form.valid) {
       this.awaitingResponse = true;
-      this.tokenService.resync(this.token.serial, this.form.controls.otp1.value, this.form.controls.otp2.value).subscribe((result) => {
+      this.operationsService.resync(this.token.serial, this.form.controls.otp1.value, this.form.controls.otp2.value).subscribe((result) => {
         if (result) {
           this.dialogRef.close(true);
         } else {
