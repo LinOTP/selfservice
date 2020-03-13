@@ -45,7 +45,12 @@ export class TestOTPDialogComponent {
   public submit() {
     if (this.formGroup.valid) {
       const controls = this.formGroup.controls;
-      this.testService.testToken(this.data.token.serial, controls.otp.value)
+      const options = {
+        serial: this.data.token.serial,
+        otp: controls.otp.value,
+      };
+
+      this.testService.testToken(options)
         .subscribe(result => {
           this.testResult = result === true;
           this.state = result ? TestState.SUCCESS : TestState.FAILURE;

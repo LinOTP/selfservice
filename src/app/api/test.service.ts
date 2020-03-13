@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
-import { map, catchError, filter } from 'rxjs/operators';
+import { map, catchError, filter, tap } from 'rxjs/operators';
 
 import { SessionService } from '../auth/session.service';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 
 import { LinOTPResponse } from './token.service';
 
-enum ReplyMode {
+export enum ReplyMode {
   ONLINE = 'online',
   OFFLINE = 'offline',
 }
@@ -19,6 +19,12 @@ interface TransactionDetail {
   transactionid?: string;
   transactiondata?: string; // content of QR code
   message?: string;        // user facing message
+}
+
+export interface TestOptions {
+  serial: String;
+  otp?: String;
+  transactionid?: String;
 }
 
 @Injectable({
@@ -50,18 +56,30 @@ export class TestService {
    *          verification was successful, otherwise false.
    *          Alernatively, it will instead return a TransactionDetail observable if further verification steps are required.
    */
-  testToken(tokenSerial: String, otp?: String): Observable<boolean | TransactionDetail> {
+  testToken(options: TestOptions): Observable<boolean | TransactionDetail> {
     const url = this.userserviceBase + this.userserviceEndpoints.verify;
-    const body = {
+    const body: TestOptions & { session: string } = {
       session: this.sessionService.getSession(),
-      serial: tokenSerial,
-      otp: otp,
+      serial: options.serial,
     };
 
-    return this.http.post<any>(url, body)
+    if (options.otp) {
+      body.otp = options.otp;
+    }
+
+    if (options.transactionid) {
+      body.transactionid = options.transactionid;
+    }
+
+    return this.http.post<LinOTPResponse<boolean, TransactionDetail>>(url, body)
       .pipe(
-        filter(response => response && response.result),
-        map(response => response.result.value === true || response.detail),
+        filter(response => !!response),
+        map(response => {
+          if (!response.result || !response.result.status) {
+            throw new Error('Failure during token test.');
+          }
+          return response.detail ? response.detail : response.result.value;
+        }),
         catchError(this.handleError('test token', null))
       );
   }
