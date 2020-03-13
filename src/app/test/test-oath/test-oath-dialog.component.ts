@@ -47,7 +47,7 @@ export class TestOATHDialogComponent {
       const controls = this.formGroup.controls;
       this.testService.testToken(this.data.token.serial, controls.otp.value)
         .subscribe(result => {
-          this.testResult = result;
+          this.testResult = result === true;
           this.state = result ? TestState.SUCCESS : TestState.FAILURE;
         });
     }
