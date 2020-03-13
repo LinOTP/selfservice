@@ -23,6 +23,8 @@ export enum TokenType {
   PUSH = 'push',
   QR = 'qr',
   MOTP = 'motp',
+  SMS = 'sms',
+  EMAIL = 'email',
   ASSIGN = 'assign', // virtual type for token assignment
   UNKNOWN = 'unknown', // fallback type
 }

@@ -118,6 +118,18 @@ export class TokenService {
       icon: 'stay_current_portrait',
     },
     {
+      type: TokenType.SMS,
+      name: this.i18n('SMS token'),
+      description: this.i18n('Receive an OTP via SMS'),
+      icon: 'textsms',
+    },
+    {
+      type: TokenType.EMAIL,
+      name: this.i18n('e-mail token'),
+      description: this.i18n('Receive an OTP via e-mail'),
+      icon: 'email',
+    },
+    {
       type: TokenType.ASSIGN,
       name: this.i18n('Assign Token'),
       description: this.i18n('Claim an existing token and link it to your user account'),

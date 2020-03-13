@@ -56,6 +56,18 @@ export class Fixtures {
         description: 'Software-generated tokens from your mobile device',
         icon: 'stay_current_portrait',
       },
+      sms: {
+        type: TokenType.SMS,
+        name: 'SMS token',
+        description: 'Receive an OTP via SMS',
+        icon: 'stay_current_portrait',
+      },
+      email: {
+        type: TokenType.EMAIL,
+        name: 'e-mail token',
+        description: 'Receive an OTP via e-mail',
+        icon: 'stay_current_portrait',
+      },
       assign: {
         type: TokenType.ASSIGN,
         name: 'Assign Token',
