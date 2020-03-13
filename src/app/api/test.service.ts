@@ -14,7 +14,7 @@ export enum ReplyMode {
   OFFLINE = 'offline',
 }
 
-interface TransactionDetail {
+export interface TransactionDetail {
   reply_mode: ReplyMode[];
   transactionid?: string;
   transactiondata?: string; // content of QR code
