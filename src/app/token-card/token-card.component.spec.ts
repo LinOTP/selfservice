@@ -17,7 +17,7 @@ import { Permission, ModifyTokenPermissions } from '../common/permissions';
 import { EnrollmentStatus } from '../api/token';
 import { TestChallengeResponseDialogComponent } from '../test/test-challenge-response/test-challenge-response-dialog.component';
 import { CapitalizePipe } from '../common/pipes/capitalize.pipe';
-import { TestOATHDialogComponent } from '../test/test-oath/test-oath-dialog.component';
+import { TestOTPDialogComponent } from '../test/test-otp/test-otp-dialog.component';
 import { I18nMock } from '../../testing/i18n-mock-provider';
 
 class Page extends TestingPage<TokenCardComponent> {
@@ -389,7 +389,7 @@ describe('TokenCardComponent', () => {
 
       component.testToken();
 
-      expect(matDialog.open).toHaveBeenCalledWith(TestOATHDialogComponent, expectedConfig);
+      expect(matDialog.open).toHaveBeenCalledWith(TestOTPDialogComponent, expectedConfig);
       expect(tokenUpdateSpy).toHaveBeenCalled();
     }));
 
@@ -407,7 +407,7 @@ describe('TokenCardComponent', () => {
 
       component.testToken();
 
-      expect(matDialog.open).toHaveBeenCalledWith(TestOATHDialogComponent, expectedConfig);
+      expect(matDialog.open).toHaveBeenCalledWith(TestOTPDialogComponent, expectedConfig);
       expect(tokenUpdateSpy).toHaveBeenCalled();
     }));
 

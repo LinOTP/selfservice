@@ -13,7 +13,7 @@ import { Permission, ModifyTokenPermissions } from '../common/permissions';
 import { Token, EnrollmentStatus, TokenType } from '../api/token';
 import { OperationsService } from '../api/operations.service';
 
-import { TestOATHDialogComponent } from '../test/test-oath/test-oath-dialog.component';
+import { TestOTPDialogComponent } from '../test/test-otp/test-otp-dialog.component';
 import { TestChallengeResponseDialogComponent } from '../test/test-challenge-response/test-challenge-response-dialog.component';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { ResyncDialogComponent } from '../common/resync-dialog/resync-dialog.component';
@@ -146,7 +146,7 @@ export class TokenCardComponent implements OnInit {
       case TokenType.PASSWORD:
       case TokenType.HOTP:
       case TokenType.TOTP:
-        testDialog = TestOATHDialogComponent;
+        testDialog = TestOTPDialogComponent;
         break;
       case TokenType.PUSH:
       case TokenType.QR:

@@ -14,9 +14,9 @@ import { MaterialModule } from '../../material.module';
 import { TestService } from '../../api/test.service';
 import { NotificationService } from '../../common/notification.service';
 
-import { TestOATHDialogComponent } from './test-oath-dialog.component';
+import { TestOTPDialogComponent } from './test-otp-dialog.component';
 
-class Page extends TestingPage<TestOATHDialogComponent> {
+class Page extends TestingPage<TestOTPDialogComponent> {
 
   public getSubmitButton() {
     return this.query('[type="submit"]');
@@ -24,8 +24,8 @@ class Page extends TestingPage<TestOATHDialogComponent> {
 }
 
 describe('TestOTPDialogComponent', () => {
-  let component: TestOATHDialogComponent;
-  let fixture: ComponentFixture<TestOATHDialogComponent>;
+  let component: TestOTPDialogComponent;
+  let fixture: ComponentFixture<TestOTPDialogComponent>;
   let testService: jasmine.SpyObj<TestService>;
   const token = Fixtures.activeHotpToken;
 
@@ -36,7 +36,7 @@ describe('TestOTPDialogComponent', () => {
         FormsModule,
         ReactiveFormsModule,
       ],
-      declarations: [TestOATHDialogComponent],
+      declarations: [TestOTPDialogComponent],
       providers: [
         {
           provide: MatDialogRef,
@@ -62,7 +62,7 @@ describe('TestOTPDialogComponent', () => {
   beforeEach(() => {
     testService = TestBed.get(TestService);
 
-    fixture = TestBed.createComponent(TestOATHDialogComponent);
+    fixture = TestBed.createComponent(TestOTPDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
