@@ -146,6 +146,8 @@ export class TokenCardComponent implements OnInit {
       case TokenType.PASSWORD:
       case TokenType.HOTP:
       case TokenType.TOTP:
+      case TokenType.SMS:
+      case TokenType.EMAIL:
         testDialog = TestOTPDialogComponent;
         break;
       case TokenType.PUSH:

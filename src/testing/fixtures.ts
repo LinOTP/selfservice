@@ -153,6 +153,14 @@ export class Fixtures {
     return new Token(1, 'Active-mOTP-Token-Serial', this.tokenTypeDetails[TokenType.MOTP], true, 'Description');
   }
 
+  static get activeSMSToken(): Token {
+    return new Token(1, 'Active-SMS-Token-Serial', this.tokenTypeDetails[TokenType.SMS], true, 'Description');
+  }
+
+  static get activeEmailToken(): Token {
+    return new Token(1, 'Active-Email-Token-Serial', this.tokenTypeDetails[TokenType.EMAIL], true, 'Description');
+  }
+
   static get tokens(): Token[] {
     return [
       this.activeHotpToken,
