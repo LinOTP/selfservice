@@ -1,12 +1,12 @@
 import { Component, OnInit, Output } from '@angular/core';
-import { MatDialog, MatDialogRef, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 import { I18n } from '@ngx-translate/i18n-polyfill';
 
 import { Subject, Observable, EMPTY } from 'rxjs';
 import { switchMap, filter, tap } from 'rxjs/operators';
 
-import { TokenTypeDetails, TokenType, Token } from '../api/token';
+import { TokenType, Token, TokenTypeDetails } from '../api/token';
 import { TokenService } from '../api/token.service';
 
 import { NotificationService } from '../common/notification.service';
@@ -14,7 +14,7 @@ import { NotificationService } from '../common/notification.service';
 import { EnrollOATHDialogComponent } from '../enroll/enroll-oath-dialog/enroll-oath-dialog.component';
 import { EnrollPushDialogComponent } from '../enroll/enroll-push-dialog/enroll-push-dialog.component';
 import { AssignTokenDialogComponent } from '../enroll/assign-token-dialog/assign-token-dialog.component';
-import { TestOATHDialogComponent } from '../test/test-oath/test-oath-dialog.component';
+import { TestOTPDialogComponent } from '../test/test-otp/test-otp-dialog.component';
 import { TestChallengeResponseDialogComponent } from '../test/test-challenge-response/test-challenge-response-dialog.component';
 
 import { NgxPermissionsService } from 'ngx-permissions';
@@ -27,7 +27,7 @@ import { Permission } from '../common/permissions';
 })
 export class EnrollmentGridComponent implements OnInit {
 
-  public tokenTypes: TokenTypeDetails[];
+  public tokenTypes: TokenTypeDetails[] = this.tokenService.getEnrollableTypes();
   @Output() public tokenUpdate: Subject<null> = new Subject();
   public testAfterEnrollment: boolean;
 
@@ -40,7 +40,6 @@ export class EnrollmentGridComponent implements OnInit {
   ) { }
 
   public ngOnInit() {
-    this.tokenTypes = this.tokenService.tokenTypeDetails.filter(t => t.enrollmentPermission);
     this.permissionService.hasPermission(Permission.VERIFY)
       .then(hasPermission => this.testAfterEnrollment = hasPermission);
   }
@@ -117,7 +116,7 @@ export class EnrollmentGridComponent implements OnInit {
     switch (token.typeDetails.type) {
       case TokenType.HOTP:
       case TokenType.TOTP:
-        return this.dialog.open(TestOATHDialogComponent, testConfig).afterClosed();
+        return this.dialog.open(TestOTPDialogComponent, testConfig).afterClosed();
       case (TokenType.PUSH):
         return this.dialog.open(TestChallengeResponseDialogComponent, testConfig).afterClosed();
     }

@@ -4,8 +4,8 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 
-import { TokenService } from '../../api/token.service';
-import { concatMap, tap, filter } from 'rxjs/operators';
+import { EnrollmentService } from '../../api/enrollment.service';
+import { concatMap, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 @Component({
@@ -25,7 +25,7 @@ export class AssignTokenDialogComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<AssignTokenDialogComponent>,
     private formBuilder: FormBuilder,
-    private tokenService: TokenService,
+    private enrollmentService: EnrollmentService,
     private i18n: I18n,
   ) { }
 
@@ -66,7 +66,7 @@ export class AssignTokenDialogComponent implements OnInit {
     const serial = this.assignmentForm.get('serial').value;
     const description = this.assignmentForm.get('description').value;
     this.errorMessage = '';
-    this.tokenService.assign(serial).pipe(
+    this.enrollmentService.assign(serial).pipe(
       tap(result => {
         this.success = result.success;
         if (result.message) {
@@ -76,7 +76,7 @@ export class AssignTokenDialogComponent implements OnInit {
       }),
       concatMap(result => {
         if (result.success) {
-          return this.tokenService.setDescription(serial, description);
+          return this.enrollmentService.setDescription(serial, description);
         } else {
           return of(null);
         }

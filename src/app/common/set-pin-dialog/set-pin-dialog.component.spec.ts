@@ -11,7 +11,7 @@ import { spyOnClass } from '../../../testing/spyOnClass';
 import { I18nMock } from '../../../testing/i18n-mock-provider';
 
 import { MaterialModule } from '../../material.module';
-import { TokenService } from '../../api/token.service';
+import { OperationsService } from '../../api/operations.service';
 import { NotificationService } from '../notification.service';
 
 import { SetPinDialogComponent } from './set-pin-dialog.component';
@@ -26,7 +26,7 @@ class Page extends TestingPage<SetPinDialogComponent> {
 describe('SetPinDialogComponent', () => {
   let component: SetPinDialogComponent;
   let fixture: ComponentFixture<SetPinDialogComponent>;
-  let tokenService: TokenService;
+  let operationsService: OperationsService;
   let notificationService: NotificationService;
   const token = Fixtures.activeHotpToken;
   let page: Page;
@@ -50,8 +50,8 @@ describe('SetPinDialogComponent', () => {
           useValue: token
         },
         {
-          provide: TokenService,
-          useValue: spyOnClass(TokenService),
+          provide: OperationsService,
+          useValue: spyOnClass(OperationsService),
         },
         {
           provide: NotificationService,
@@ -63,7 +63,7 @@ describe('SetPinDialogComponent', () => {
   }));
 
   beforeEach(() => {
-    tokenService = TestBed.get(TokenService);
+    operationsService = TestBed.get(OperationsService);
     notificationService = TestBed.get(NotificationService);
     matDialogRef = TestBed.get(MatDialogRef);
 
@@ -80,10 +80,10 @@ describe('SetPinDialogComponent', () => {
   it('should call setPin and close dialog if pin values are equal on submit', () => {
     component.form.setValue({ 'newPin': '1234', 'confirmPin': '1234' });
     fixture.detectChanges();
-    tokenService.setPin = jasmine.createSpy('setPin').and.returnValue(of(true));
+    operationsService.setPin = jasmine.createSpy('setPin').and.returnValue(of(true));
 
     component.submit();
-    expect(tokenService.setPin).toHaveBeenCalledWith(token, '1234');
+    expect(operationsService.setPin).toHaveBeenCalledWith(token, '1234');
     expect(matDialogRef.close).toHaveBeenCalledWith(true);
     expect(notificationService.message).not.toHaveBeenCalled();
   });
@@ -91,10 +91,10 @@ describe('SetPinDialogComponent', () => {
   it('should allow setting an empty pin', () => {
     component.form.setValue({ 'newPin': '', 'confirmPin': '' });
     fixture.detectChanges();
-    tokenService.setPin = jasmine.createSpy('setPin').and.returnValue(of(true));
+    operationsService.setPin = jasmine.createSpy('setPin').and.returnValue(of(true));
 
     component.submit();
-    expect(tokenService.setPin).toHaveBeenCalledWith(token, '');
+    expect(operationsService.setPin).toHaveBeenCalledWith(token, '');
     expect(matDialogRef.close).toHaveBeenCalledWith(true);
     expect(notificationService.message).not.toHaveBeenCalled();
   });
@@ -102,7 +102,7 @@ describe('SetPinDialogComponent', () => {
   it('should display a notification message if submission fails', () => {
     component.form.setValue({ 'newPin': '1234', 'confirmPin': '1234' });
     fixture.detectChanges();
-    tokenService.setPin = jasmine.createSpy('setPin').and.returnValue(of(false));
+    operationsService.setPin = jasmine.createSpy('setPin').and.returnValue(of(false));
 
     component.submit();
     expect(notificationService.message).toHaveBeenCalledWith('Pin could not be set. Please try again.');
@@ -113,7 +113,7 @@ describe('SetPinDialogComponent', () => {
     fixture.detectChanges();
 
     component.submit();
-    expect(tokenService.setPin).not.toHaveBeenCalled();
+    expect(operationsService.setPin).not.toHaveBeenCalled();
     expect(matDialogRef.close).not.toHaveBeenCalled();
     expect(notificationService.message).not.toHaveBeenCalled();
   });
@@ -123,7 +123,7 @@ describe('SetPinDialogComponent', () => {
     fixture.detectChanges();
 
     component.submit();
-    expect(tokenService.setPin).not.toHaveBeenCalled();
+    expect(operationsService.setPin).not.toHaveBeenCalled();
     expect(matDialogRef.close).not.toHaveBeenCalled();
     expect(notificationService.message).not.toHaveBeenCalled();
   });

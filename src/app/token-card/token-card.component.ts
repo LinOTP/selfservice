@@ -11,9 +11,9 @@ import { NotificationService } from '../common/notification.service';
 import { Permission, ModifyTokenPermissions } from '../common/permissions';
 
 import { Token, EnrollmentStatus, TokenType } from '../api/token';
-import { TokenService } from '../api/token.service';
+import { OperationsService } from '../api/operations.service';
 
-import { TestOATHDialogComponent } from '../test/test-oath/test-oath-dialog.component';
+import { TestOTPDialogComponent } from '../test/test-otp/test-otp-dialog.component';
 import { TestChallengeResponseDialogComponent } from '../test/test-challenge-response/test-challenge-response-dialog.component';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { ResyncDialogComponent } from '../common/resync-dialog/resync-dialog.component';
@@ -39,7 +39,7 @@ export class TokenCardComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private notificationService: NotificationService,
-    private tokenService: TokenService,
+    private operationsService: OperationsService,
     private i18n: I18n,
   ) { }
 
@@ -103,7 +103,7 @@ export class TokenCardComponent implements OnInit {
       .afterClosed()
       .pipe(
         filter((confirmed: boolean) => !!confirmed),
-        switchMap(() => this.tokenService.deleteToken(this.token.serial)),
+        switchMap(() => this.operationsService.deleteToken(this.token.serial)),
       )
       .subscribe(() => {
         this.notificationService.message(this.i18n('Token deleted'));
@@ -112,7 +112,7 @@ export class TokenCardComponent implements OnInit {
   }
 
   public enable(): void {
-    this.tokenService.enable(this.token).subscribe(isSuccessful => {
+    this.operationsService.enable(this.token).subscribe(isSuccessful => {
       if (isSuccessful) {
         this.notificationService.message(this.i18n('Token enabled'));
         this.tokenUpdate.next();
@@ -123,7 +123,7 @@ export class TokenCardComponent implements OnInit {
   }
 
   public disable(): void {
-    this.tokenService.disable(this.token).subscribe(isSuccessful => {
+    this.operationsService.disable(this.token).subscribe(isSuccessful => {
       if (isSuccessful) {
         this.notificationService.message(this.i18n('Token disabled'));
         this.tokenUpdate.next();
@@ -146,7 +146,9 @@ export class TokenCardComponent implements OnInit {
       case TokenType.PASSWORD:
       case TokenType.HOTP:
       case TokenType.TOTP:
-        testDialog = TestOATHDialogComponent;
+      case TokenType.SMS:
+      case TokenType.EMAIL:
+        testDialog = TestOTPDialogComponent;
         break;
       case TokenType.PUSH:
       case TokenType.QR:
@@ -204,7 +206,7 @@ export class TokenCardComponent implements OnInit {
   }
 
   public resetFailcounter() {
-    this.tokenService.resetFailcounter(this.token.serial).subscribe(success => {
+    this.operationsService.resetFailcounter(this.token.serial).subscribe(success => {
       let message: String;
       if (success) {
         message = this.i18n('Failcounter successfully reset');

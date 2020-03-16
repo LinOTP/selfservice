@@ -56,6 +56,18 @@ export class Fixtures {
         description: 'Software-generated tokens from your mobile device',
         icon: 'stay_current_portrait',
       },
+      sms: {
+        type: TokenType.SMS,
+        name: 'SMS token',
+        description: 'Receive an OTP via SMS',
+        icon: 'stay_current_portrait',
+      },
+      email: {
+        type: TokenType.EMAIL,
+        name: 'e-mail token',
+        description: 'Receive an OTP via e-mail',
+        icon: 'stay_current_portrait',
+      },
       assign: {
         type: TokenType.ASSIGN,
         name: 'Assign Token',
@@ -139,6 +151,18 @@ export class Fixtures {
 
   static get activeMotpToken(): Token {
     return new Token(1, 'Active-mOTP-Token-Serial', this.tokenTypeDetails[TokenType.MOTP], true, 'Description');
+  }
+
+  static get activeSMSToken(): Token {
+    return new Token(1, 'Active-SMS-Token-Serial', this.tokenTypeDetails[TokenType.SMS], true, 'Description');
+  }
+
+  static get activeEmailToken(): Token {
+    return new Token(1, 'Active-Email-Token-Serial', this.tokenTypeDetails[TokenType.EMAIL], true, 'Description');
+  }
+
+  static get activePasswordToken(): Token {
+    return new Token(1, 'Active-Password-Token-Serial', this.tokenTypeDetails[TokenType.PASSWORD], true, 'Description');
   }
 
   static get tokens(): Token[] {

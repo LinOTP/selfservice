@@ -3,7 +3,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatStepper } from '@angular/material/stepper';
 import { By } from '@angular/platform-browser';
 
 import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
@@ -16,7 +15,8 @@ import { I18nMock } from '../../../testing/i18n-mock-provider';
 
 import { MaterialModule } from '../../material.module';
 import { TokenType } from '../../api/token';
-import { TokenService } from '../../api/token.service';
+import { OperationsService } from '../../api/operations.service';
+import { EnrollmentService } from '../../api/enrollment.service';
 import { NotificationService } from '../../common/notification.service';
 
 import { EnrollOATHDialogComponent } from './enroll-oath-dialog.component';
@@ -26,7 +26,8 @@ describe('The EnrollOATHDialogComponent', () => {
   let fixture: ComponentFixture<EnrollOATHDialogComponent>;
   let matDialog: jasmine.SpyObj<MatDialog>;
   let notificationService: NotificationService;
-  let tokenService: jasmine.SpyObj<TokenService>;
+  let operationsService: jasmine.SpyObj<OperationsService>;
+  let enrollmentService: jasmine.SpyObj<EnrollmentService>;
   let dialogRef: jasmine.SpyObj<MatDialogRef<EnrollOATHDialogComponent>>;
 
   beforeEach(async(() => {
@@ -45,8 +46,12 @@ describe('The EnrollOATHDialogComponent', () => {
       ],
       providers: [
         {
-          provide: TokenService,
-          useValue: spyOnClass(TokenService)
+          provide: OperationsService,
+          useValue: spyOnClass(OperationsService)
+        },
+        {
+          provide: EnrollmentService,
+          useValue: spyOnClass(EnrollmentService)
         },
         {
           provide: NotificationService,
@@ -76,7 +81,8 @@ describe('The EnrollOATHDialogComponent', () => {
 
     matDialog = TestBed.get(MatDialog);
     notificationService = TestBed.get(NotificationService);
-    tokenService = TestBed.get(TokenService);
+    operationsService = TestBed.get(OperationsService);
+    enrollmentService = TestBed.get(EnrollmentService);
     dialogRef = TestBed.get(MatDialogRef);
 
     fixture.detectChanges();
@@ -115,7 +121,7 @@ describe('The EnrollOATHDialogComponent', () => {
   it('should enroll an HOTP token', fakeAsync(() => {
     spyOn(component.stepper, 'next');
 
-    tokenService.enrollOATH.and.returnValue(of(Fixtures.OATHEnrollmentResponse));
+    enrollmentService.enrollOATH.and.returnValue(of(Fixtures.OATHEnrollmentResponse));
     const expectedToken = Fixtures.enrolledToken;
 
     fixture.detectChanges();
@@ -123,7 +129,7 @@ describe('The EnrollOATHDialogComponent', () => {
     component.enrollToken();
     tick();
 
-    expect(tokenService.enrollOATH).toHaveBeenCalledWith({ type: TokenType.HOTP });
+    expect(enrollmentService.enrollOATH).toHaveBeenCalledWith({ type: TokenType.HOTP });
     expect(component.enrolledToken).toEqual(expectedToken);
     expect(component.enrollmentStep.controls.tokenEnrolled.value).toEqual(true);
     expect(component.stepper.next).toHaveBeenCalledTimes(1);
@@ -132,7 +138,7 @@ describe('The EnrollOATHDialogComponent', () => {
   it('should enroll a TOTP token', fakeAsync(() => {
     spyOn(component.stepper, 'next');
 
-    tokenService.enrollOATH.and.returnValue(of(Fixtures.OATHEnrollmentResponse));
+    enrollmentService.enrollOATH.and.returnValue(of(Fixtures.OATHEnrollmentResponse));
     const expectedToken = Fixtures.enrolledToken;
 
     component.data.tokenTypeDetails = Fixtures.tokenTypeDetails[TokenType.TOTP];
@@ -140,7 +146,7 @@ describe('The EnrollOATHDialogComponent', () => {
     component.enrollToken();
     tick();
 
-    expect(tokenService.enrollOATH).toHaveBeenCalledWith({ type: TokenType.TOTP });
+    expect(enrollmentService.enrollOATH).toHaveBeenCalledWith({ type: TokenType.TOTP });
     expect(component.enrolledToken).toEqual(expectedToken);
     expect(component.enrollmentStep.controls.tokenEnrolled.value).toEqual(true);
     expect(component.stepper.next).toHaveBeenCalledTimes(1);
@@ -150,7 +156,7 @@ describe('The EnrollOATHDialogComponent', () => {
     const mockEnrollmentResponse = Fixtures.OATHEnrollmentResponse;
     mockEnrollmentResponse.result.status = false;
 
-    tokenService.enrollOATH.and.returnValue(of(mockEnrollmentResponse));
+    enrollmentService.enrollOATH.and.returnValue(of(mockEnrollmentResponse));
     fixture.detectChanges();
     const result = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
     result.click();
@@ -173,11 +179,11 @@ describe('The EnrollOATHDialogComponent', () => {
       component.enrolledToken = Fixtures.enrolledToken;
       fixture.detectChanges();
 
-      tokenService.deleteToken.and.returnValue(of());
+      operationsService.deleteToken.and.returnValue(of());
       component.cancelDialog();
       tick();
 
-      expect(tokenService.deleteToken).toHaveBeenCalledWith('testSerial');
+      expect(operationsService.deleteToken).toHaveBeenCalledWith('testSerial');
       expect(dialogRef.close).toHaveBeenCalledWith(false);
     }));
 
@@ -185,7 +191,7 @@ describe('The EnrollOATHDialogComponent', () => {
       component.cancelDialog();
       tick();
 
-      expect(tokenService.deleteToken).not.toHaveBeenCalled();
+      expect(operationsService.deleteToken).not.toHaveBeenCalled();
       expect(dialogRef.close).toHaveBeenCalledWith(false);
     }));
   });

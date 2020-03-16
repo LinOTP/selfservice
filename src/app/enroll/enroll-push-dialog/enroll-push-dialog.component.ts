@@ -2,18 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
-import { Router } from '@angular/router';
 
 import { I18n } from '@ngx-translate/i18n-polyfill';
 
 import { switchMap } from 'rxjs/operators';
 import { EMPTY } from 'rxjs';
 
-import { TokenService } from '../../api/token.service';
+import { EnrollmentService, PushEnrollmentDetail } from '../../api/enrollment.service';
 import { TokenType } from '../../api/token';
 import { NotificationService } from '../../common/notification.service';
 import { TextResources } from '../../common/static-resources';
 import { DialogComponent } from '../../common/dialog/dialog.component';
+import { OperationsService } from '../../api/operations.service';
 
 @Component({
   selector: 'app-enroll-push',
@@ -34,10 +34,10 @@ export class EnrollPushDialogComponent implements OnInit {
   public enrolledToken: { serial: string, url: string };
 
   constructor(
-    private tokenService: TokenService,
+    private enrollmentService: EnrollmentService,
+    private operationsService: OperationsService,
     private formBuilder: FormBuilder,
     private notificationService: NotificationService,
-    private router: Router,
     private dialogRef: MatDialogRef<EnrollPushDialogComponent>,
     private dialog: MatDialog,
     private i18n: I18n,
@@ -59,7 +59,7 @@ export class EnrollPushDialogComponent implements OnInit {
    * Enroll the push token and proceed to the next step
    */
   goToTokenInfo(stepper: MatStepper) {
-    this.tokenService.enroll(this.enrollmentForm.value).subscribe(response => {
+    this.enrollmentService.enroll<PushEnrollmentDetail>(this.enrollmentForm.value).subscribe(response => {
       if (response.result && response.result.value === true) {
         this.enrolledToken = {
           url: response.detail.lse_qr_url.value,
@@ -69,7 +69,7 @@ export class EnrollPushDialogComponent implements OnInit {
         this.enrollmentForm.controls.description.disable();
         this.enrollmentStep.controls.tokenEnrolled.setValue(true);
 
-        this.tokenService.pairingPoll(this.enrolledToken.serial).subscribe(data => {
+        this.enrollmentService.pairingPoll(this.enrolledToken.serial).subscribe(data => {
           this.isPaired = true;
           this.currentStep++;
           stepper.selectedIndex = 2;
@@ -128,7 +128,7 @@ export class EnrollPushDialogComponent implements OnInit {
       .pipe(
         switchMap(result => {
           if (result) {
-            return this.tokenService.deleteToken(this.enrolledToken.serial);
+            return this.operationsService.deleteToken(this.enrolledToken.serial);
           } else {
             return EMPTY;
           }

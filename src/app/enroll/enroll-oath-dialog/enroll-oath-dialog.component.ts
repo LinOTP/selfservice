@@ -6,10 +6,11 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SetPinDialogComponent } from '../../common/set-pin-dialog/set-pin-dialog.component';
 import { NotificationService } from '../../common/notification.service';
 
-import { TokenService } from '../../api/token.service';
+import { EnrollmentService } from '../../api/enrollment.service';
 import { TokenType, TokenTypeDetails, EnrollToken } from '../../api/token';
 import { Permission } from '../../common/permissions';
 import { I18n } from '@ngx-translate/i18n-polyfill';
+import { OperationsService } from '../../api/operations.service';
 
 @Component({
   selector: 'app-enroll-oath',
@@ -31,7 +32,8 @@ export class EnrollOATHDialogComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private tokenService: TokenService,
+    private operationsService: OperationsService,
+    private enrollmentService: EnrollmentService,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<EnrollOATHDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { tokenTypeDetails: TokenTypeDetails, closeLabel: String },
@@ -58,7 +60,7 @@ export class EnrollOATHDialogComponent implements OnInit {
       body.type = TokenType.TOTP;
     }
 
-    this.tokenService.enrollOATH(body).subscribe(response => {
+    this.enrollmentService.enrollOATH(body).subscribe(response => {
       if (response.result
         && response.result.status
         && response.result.value
@@ -96,7 +98,7 @@ export class EnrollOATHDialogComponent implements OnInit {
    */
   public cancelDialog() {
     if (this.enrolledToken) {
-      this.tokenService.deleteToken(this.enrolledToken.serial).subscribe();
+      this.operationsService.deleteToken(this.enrolledToken.serial).subscribe();
     }
     this.dialogRef.close(false);
   }

@@ -242,13 +242,13 @@
       <trans-unit id="5c62052c5de6811ae77d69038645b41fed7495ec" datatype="html">
         <source>
         Second factor:
-        <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/>
+        <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span>"/>
           <x id="INTERPOLATION" equiv-text="{{ selectedToken.typeDetails.name }}"/> with serial <x id="INTERPOLATION_1" equiv-text="{{ selectedToken.serial }}"/>
-        <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/>
+        <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span>"/>
       </source>
         <target state="translated">
         Zweiten Faktor:
-        <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/><x id="INTERPOLATION" equiv-text="{{ selectedToken.typeDetails.name }}"/> mit Seriennummer <x id="INTERPOLATION_1" equiv-text="{{ selectedToken.serial }}"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></target>
+        <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span>"/><x id="INTERPOLATION" equiv-text="{{ selectedToken.typeDetails.name }}"/> mit Seriennummer <x id="INTERPOLATION_1" equiv-text="{{ selectedToken.serial }}"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span>"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/login/login.component.html</context>
           <context context-type="linenumber">99</context>
@@ -294,8 +294,8 @@
           <context context-type="linenumber">25</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="sourcefile">app/test/test-otp/test-otp-dialog.component.html</context>
+          <context context-type="linenumber">49</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/resync-dialog/resync-dialog.component.html</context>
@@ -326,33 +326,23 @@
         <source>OTP value</source>
         <target state="translated">OTP-Wert</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="sourcefile">app/test/test-otp/test-otp-dialog.component.html</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="f99dfbc4e069350a6a42e28a40021d2f06453b86" datatype="html">
         <source>The OTP field cannot be empty</source>
         <target state="translated">Das OTP-Feld darf nicht leer sein</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="sourcefile">app/test/test-otp/test-otp-dialog.component.html</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="d724952fdf8a1d17c89270728eeeb1afe7bab606" datatype="html">
         <source>Test successful. You may use your token for authentication.</source>
         <target state="translated">Test erfolgreich. Sie dürfen sich mit Ihrem Token authentifizieren.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
-          <context context-type="linenumber">31</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="68b1aeb7ca74d1222c790ed143f30c53fc4f0883" datatype="html">
-        <source>
-        The test failed. Check if the OTP is correct or try again.
-      </source>
-        <target state="translated">Test fehlgeschlagen. Überprüfen Sie den OTP-Wert.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
+          <context context-type="sourcefile">app/test/test-otp/test-otp-dialog.component.html</context>
           <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
@@ -360,24 +350,24 @@
         <source>restart test</source>
         <target state="translated">Test neustarten</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
-          <context context-type="linenumber">52</context>
+          <context context-type="sourcefile">app/test/test-otp/test-otp-dialog.component.html</context>
+          <context context-type="linenumber">55</context>
         </context-group>
       </trans-unit>
       <trans-unit id="92ab7c01f5cc09b449c305d32cc88c1df7486783" datatype="html">
         <source>test</source>
         <target state="translated">testen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
-          <context context-type="linenumber">58</context>
+          <context context-type="sourcefile">app/test/test-otp/test-otp-dialog.component.html</context>
+          <context context-type="linenumber">61</context>
         </context-group>
       </trans-unit>
       <trans-unit id="bd5b97bd37c0d6c89b0f05384d3e5a0daea1b16a" datatype="html">
         <source>done</source>
         <target state="translated">abschließen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
-          <context context-type="linenumber">63</context>
+          <context context-type="sourcefile">app/test/test-otp/test-otp-dialog.component.html</context>
+          <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
       <trans-unit id="aa6096fc163996886c8bafd0770a20e1727db7f0" datatype="html">
@@ -392,7 +382,7 @@
         <source>Test <x id="INTERPOLATION" equiv-text="{{ data.token.typeDetails.name }}"/> <x id="INTERPOLATION_1" equiv-text="{{ data.token.serial }}"/></source>
         <target state="translated"><x id="INTERPOLATION" equiv-text="{{ data.token.typeDetails.name }}"/><x id="INTERPOLATION_1" equiv-text="{{ data.token.serial }}"/> testen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
+          <context context-type="sourcefile">app/test/test-otp/test-otp-dialog.component.html</context>
           <context context-type="linenumber">7</context>
         </context-group>
         <context-group purpose="location">
@@ -404,8 +394,8 @@
         <source>Enter the next OTP value for the selected token:</source>
         <target state="translated">Geben Sie den nächsten OTP-Wert für den ausgewählten Token ein:</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="sourcefile">app/test/test-otp/test-otp-dialog.component.html</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="c2b7ba12c335df8aac5bbf6940c4dccda6631c39" datatype="html">
@@ -730,9 +720,9 @@
         </context-group>
       </trans-unit>
       <trans-unit id="c0929ac085d19df44887c34a87af1a10611fc691" datatype="html">
-        <source>Scan the QR code below with your soft token app or <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>follow this link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> to
+        <source>Scan the QR code below with your soft token app or <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>follow this link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/> to
         install it on your mobile device.</source>
-        <target state="translated">Scannen Sie den untenstehenden QR-Code mit Ihrer Soft-Token-App oder <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>folgen Sie diesem Link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>, um den Token auf Ihrem Smartphone hinzuzufügen.</target>
+        <target state="translated">Scannen Sie den untenstehenden QR-Code mit Ihrer Soft-Token-App oder <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>folgen Sie diesem Link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>, um den Token auf Ihrem Smartphone hinzuzufügen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
           <context context-type="linenumber">36</context>
@@ -1043,9 +1033,9 @@
         </context-group>
       </trans-unit>
       <trans-unit id="9f07949527737a3222b7d101f194ccaea4259b9f" datatype="html">
-        <source>Scan the QR code below with the Authenticator app or <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>follow this link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> to start the
+        <source>Scan the QR code below with the Authenticator app or <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>follow this link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/> to start the
         activation process of the new token.</source>
-        <target state="translated">Scannen Sie den nachfolgenden QR-Code mit der Authenticator-App, oder <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/> folgen Sie diesen Link <x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>, um die Aktivierung des neuen Tokens zu starten.</target>
+        <target state="translated">Scannen Sie den nachfolgenden QR-Code mit der Authenticator-App, oder <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/> folgen Sie diesen Link <x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>, um die Aktivierung des neuen Tokens zu starten.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
           <context context-type="linenumber">50</context>
@@ -1412,7 +1402,7 @@
         <source>Please try again or contact an administrator.</source>
         <target state="translated">Bitte versuchen Sie es erneut oder kontaktieren Sie einen Administrator.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="sourcefile">src/app/api/enrollment.service.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
@@ -1420,13 +1410,45 @@
         <source>The token is already assigned to you or to another user. Please contact an administrator.</source>
         <target state="translated">Der Token ist Ihnen oder einem anderen Benutzer bereits zugewiesen. Kontaktieren Sie bitte einen Administrator.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="sourcefile">src/app/api/enrollment.service.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8d67183780d69d4d69ac826a50c11e3804163574" datatype="html">
         <source>The token you want to assign is not valid (wrong realm). Please contact an administrator.</source>
         <target state="translated">Der Token, den Sie zuweisen wollen, ist ungültig (falscher Realm). Kontaktieren Sie bitte einen Administrator.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/enrollment.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cec7afadbf79ce9842dd8e8f03b4f7214a95df66" datatype="html">
+        <source>SMS token</source>
+        <target state="translated">SMS-Token</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="84f769091b51842edd5a53885c89dddddb33756a" datatype="html">
+        <source>Receive an OTP via SMS</source>
+        <target state="translated">OTP per SMS empfangen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="0b69cb313fb37fb0f15e110527b068d3f88d44bf" datatype="html">
+        <source>e-mail token</source>
+        <target state="translated">E-Mail-Token</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ce0a71a2eeb4fce2e03965d44d2e3f6becb7ada0" datatype="html">
+        <source>Receive an OTP via e-mail</source>
+        <target state="translated">OTP per E-Mail empfangen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.service.ts</context>
           <context context-type="linenumber">1</context>
@@ -1637,6 +1659,30 @@
         <target state="translated">Anmeldung fehlgeschlagen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="37fa980965b1dc9ef9377fb8ba9c281d4f4ef0ac" datatype="html">
+        <source>There was a problem starting your token test.</source>
+        <target state="translated">Beim Starten des Token-Tests ist ein Problem aufgetreten.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/test/test-otp/test-otp-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="565635f2ffa47c4eed5a6fb6787fbd79679b6c98" datatype="html">
+        <source>Please wait some time and try again later, or contact an administrator.</source>
+        <target state="translated">Bitte warten Sie einige Zeit und versuchen Sie es später erneut, oder kontaktieren Sie einen Administrator.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/test/test-otp/test-otp-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9c8f4c0be3f7a2cb61024fbf122c6265aa3b14e1" datatype="html">
+        <source> The test failed. Check if the OTP is correct or try again.</source>
+        <target state="translated">Test fehlgeschlagen. Überprüfen Sie den OTP-Wert oder versuchen Sie es erneut.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/test/test-otp/test-otp-dialog.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>

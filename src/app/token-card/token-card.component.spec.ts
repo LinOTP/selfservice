@@ -12,12 +12,12 @@ import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
 import { TokenCardComponent } from './token-card.component';
 import { MaterialModule } from '../material.module';
 import { NotificationService } from '../common/notification.service';
-import { TokenService } from '../api/token.service';
+import { OperationsService } from '../api/operations.service';
 import { Permission, ModifyTokenPermissions } from '../common/permissions';
 import { EnrollmentStatus } from '../api/token';
 import { TestChallengeResponseDialogComponent } from '../test/test-challenge-response/test-challenge-response-dialog.component';
 import { CapitalizePipe } from '../common/pipes/capitalize.pipe';
-import { TestOATHDialogComponent } from '../test/test-oath/test-oath-dialog.component';
+import { TestOTPDialogComponent } from '../test/test-otp/test-otp-dialog.component';
 import { I18nMock } from '../../testing/i18n-mock-provider';
 
 class Page extends TestingPage<TokenCardComponent> {
@@ -37,7 +37,7 @@ describe('TokenCardComponent', () => {
 
   let notificationService: jasmine.SpyObj<NotificationService>;
   let matDialog: jasmine.SpyObj<MatDialog>;
-  let tokenService: jasmine.SpyObj<TokenService>;
+  let operationsService: jasmine.SpyObj<OperationsService>;
   let tokenUpdateSpy: jasmine.Spy;
 
   let page: Page;
@@ -59,8 +59,8 @@ describe('TokenCardComponent', () => {
           useValue: spyOnClass(NotificationService),
         },
         {
-          provide: TokenService,
-          useValue: spyOnClass(TokenService)
+          provide: OperationsService,
+          useValue: spyOnClass(OperationsService)
         },
         {
           provide: MatDialog,
@@ -78,8 +78,8 @@ describe('TokenCardComponent', () => {
     component.token = Fixtures.activeHotpToken;
 
     notificationService = TestBed.get(NotificationService);
-    tokenService = TestBed.get(TokenService);
-    tokenService.deleteToken.and.returnValue(of({}));
+    operationsService = TestBed.get(OperationsService);
+    operationsService.deleteToken.and.returnValue(of({}));
     matDialog = TestBed.get(MatDialog);
     tokenUpdateSpy = spyOn(component.tokenUpdate, 'next');
 
@@ -210,7 +210,7 @@ describe('TokenCardComponent', () => {
       tick();
 
       expect(matDialog.open).toHaveBeenCalledTimes(1);
-      expect(tokenService.deleteToken).toHaveBeenCalledWith(Fixtures.activeHotpToken.serial);
+      expect(operationsService.deleteToken).toHaveBeenCalledWith(Fixtures.activeHotpToken.serial);
     }));
 
     it('should not delete the token if confirmation is cancelled', fakeAsync(() => {
@@ -220,14 +220,14 @@ describe('TokenCardComponent', () => {
       tick();
 
       expect(matDialog.open).toHaveBeenCalledTimes(1);
-      expect(tokenService.deleteToken).not.toHaveBeenCalled();
+      expect(operationsService.deleteToken).not.toHaveBeenCalled();
     }));
   });
 
   describe('enable', () => {
 
     it('should notify user after success and emit token list update', fakeAsync(() => {
-      tokenService.enable.and.returnValue(of(true));
+      operationsService.enable.and.returnValue(of(true));
 
       component.token = Fixtures.inactiveHotpToken;
       component.enable();
@@ -238,7 +238,7 @@ describe('TokenCardComponent', () => {
     }));
 
     it('should notify user after failure and not emit token list update', fakeAsync(() => {
-      tokenService.enable.and.returnValue(of(false));
+      operationsService.enable.and.returnValue(of(false));
 
       component.token = Fixtures.inactiveHotpToken;
       component.enable();
@@ -252,7 +252,7 @@ describe('TokenCardComponent', () => {
   describe('disable', () => {
 
     it('should notify user after success and emit token list update', fakeAsync(() => {
-      tokenService.disable.and.returnValue(of(true));
+      operationsService.disable.and.returnValue(of(true));
 
       component.token = Fixtures.activeHotpToken;
       component.disable();
@@ -263,7 +263,7 @@ describe('TokenCardComponent', () => {
     }));
 
     it('should notify user after failure and not emit token list update', fakeAsync(() => {
-      tokenService.disable.and.returnValue(of(false));
+      operationsService.disable.and.returnValue(of(false));
 
       component.token = Fixtures.activeHotpToken;
       component.disable();
@@ -389,7 +389,7 @@ describe('TokenCardComponent', () => {
 
       component.testToken();
 
-      expect(matDialog.open).toHaveBeenCalledWith(TestOATHDialogComponent, expectedConfig);
+      expect(matDialog.open).toHaveBeenCalledWith(TestOTPDialogComponent, expectedConfig);
       expect(tokenUpdateSpy).toHaveBeenCalled();
     }));
 
@@ -407,7 +407,62 @@ describe('TokenCardComponent', () => {
 
       component.testToken();
 
-      expect(matDialog.open).toHaveBeenCalledWith(TestOATHDialogComponent, expectedConfig);
+      expect(matDialog.open).toHaveBeenCalledWith(TestOTPDialogComponent, expectedConfig);
+      expect(tokenUpdateSpy).toHaveBeenCalled();
+    }));
+
+    it('should open the TestOTPDialogComponent if token is SMS', fakeAsync(() => {
+      matDialog.open.and.returnValue({ afterClosed: () => of({}) });
+      component.token = Fixtures.activeSMSToken;
+      fixture.detectChanges();
+
+      const expectedConfig = {
+        width: '850px',
+        autoFocus: false,
+        disableClose: true,
+        data: { token: component.token },
+      };
+
+      component.testToken();
+
+      expect(matDialog.open).toHaveBeenCalledWith(TestOTPDialogComponent, expectedConfig);
+      expect(tokenUpdateSpy).toHaveBeenCalled();
+    }));
+
+
+    it('should open the TestOTPDialogComponent if token is Email', fakeAsync(() => {
+      matDialog.open.and.returnValue({ afterClosed: () => of({}) });
+      component.token = Fixtures.activeEmailToken;
+      fixture.detectChanges();
+
+      const expectedConfig = {
+        width: '850px',
+        autoFocus: false,
+        disableClose: true,
+        data: { token: component.token },
+      };
+
+      component.testToken();
+
+      expect(matDialog.open).toHaveBeenCalledWith(TestOTPDialogComponent, expectedConfig);
+      expect(tokenUpdateSpy).toHaveBeenCalled();
+    }));
+
+    it('should open the TestOTPDialogComponent if token is Password', fakeAsync(() => {
+      matDialog.open.and.returnValue({ afterClosed: () => of({}) });
+      component.token = Fixtures.activePasswordToken;
+      fixture.detectChanges();
+
+      const expectedConfig = {
+        width: '850px',
+        autoFocus: false,
+        disableClose: true,
+        data: { token: component.token },
+      };
+
+      component.testToken();
+
+      expect(matDialog.open).toHaveBeenCalledWith(TestOTPDialogComponent, expectedConfig);
       expect(tokenUpdateSpy).toHaveBeenCalled();
     }));
 
@@ -460,22 +515,22 @@ describe('TokenCardComponent', () => {
   describe('resetFailcounter', () => {
 
     it('should display a success message if failcounter is reset', () => {
-      tokenService.resetFailcounter.and.returnValue(of(true));
+      operationsService.resetFailcounter.and.returnValue(of(true));
       const message = 'Failcounter successfully reset';
 
       component.resetFailcounter();
 
-      expect(tokenService.resetFailcounter).toHaveBeenCalledWith(component.token.serial);
+      expect(operationsService.resetFailcounter).toHaveBeenCalledWith(component.token.serial);
       expect(notificationService.message).toHaveBeenCalledWith(message);
     });
 
     it('should display a failure message if failcounter could not be reset', () => {
-      tokenService.resetFailcounter.and.returnValue(of(false));
+      operationsService.resetFailcounter.and.returnValue(of(false));
       const message = 'Error: could not reset failcounter. Please try again or contact your administrator.';
 
       component.resetFailcounter();
 
-      expect(tokenService.resetFailcounter).toHaveBeenCalledWith(component.token.serial);
+      expect(operationsService.resetFailcounter).toHaveBeenCalledWith(component.token.serial);
       expect(notificationService.message).toHaveBeenCalledWith(message);
     });
   });

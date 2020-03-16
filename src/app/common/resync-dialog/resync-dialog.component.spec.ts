@@ -10,7 +10,7 @@ import { TestingPage } from '../../../testing/page-helper';
 import { spyOnClass } from '../../../testing/spyOnClass';
 
 import { MaterialModule } from '../../material.module';
-import { TokenService } from '../../api/token.service';
+import { OperationsService } from '../../api/operations.service';
 import { NotificationService } from '../notification.service';
 
 import { ResyncDialogComponent } from './resync-dialog.component';
@@ -26,7 +26,7 @@ class Page extends TestingPage<ResyncDialogComponent> {
 describe('ResyncDialogComponent', () => {
   let component: ResyncDialogComponent;
   let fixture: ComponentFixture<ResyncDialogComponent>;
-  let tokenService: TokenService;
+  let operationsService: OperationsService;
   let notificationService: NotificationService;
   const token = Fixtures.activeHotpToken;
   let page: Page;
@@ -50,8 +50,8 @@ describe('ResyncDialogComponent', () => {
           useValue: token
         },
         {
-          provide: TokenService,
-          useValue: spyOnClass(TokenService),
+          provide: OperationsService,
+          useValue: spyOnClass(OperationsService),
         },
         {
           provide: NotificationService,
@@ -63,7 +63,7 @@ describe('ResyncDialogComponent', () => {
   }));
 
   beforeEach(() => {
-    tokenService = TestBed.get(TokenService);
+    operationsService = TestBed.get(OperationsService);
     notificationService = TestBed.get(NotificationService);
     matDialogRef = TestBed.get(MatDialogRef);
 
@@ -80,10 +80,10 @@ describe('ResyncDialogComponent', () => {
   it('should call resync and close dialog if successful', () => {
     component.form.setValue({ 'otp1': '1234', 'otp2': '5678' });
     fixture.detectChanges();
-    tokenService.resync = jasmine.createSpy('resync').and.returnValue(of(true));
+    operationsService.resync = jasmine.createSpy('resync').and.returnValue(of(true));
 
     component.submit();
-    expect(tokenService.resync).toHaveBeenCalledWith(token.serial, '1234', '5678');
+    expect(operationsService.resync).toHaveBeenCalledWith(token.serial, '1234', '5678');
     expect(matDialogRef.close).toHaveBeenCalledWith(true);
     expect(notificationService.message).not.toHaveBeenCalled();
   });
@@ -91,7 +91,7 @@ describe('ResyncDialogComponent', () => {
   it('should display a notification message if submission fails', () => {
     component.form.setValue({ 'otp1': '1234', 'otp2': '4567' });
     fixture.detectChanges();
-    tokenService.resync = jasmine.createSpy('resync').and.returnValue(of(false));
+    operationsService.resync = jasmine.createSpy('resync').and.returnValue(of(false));
 
     component.submit();
     expect(notificationService.message).toHaveBeenCalledWith('Token could not be synchronized. Please try again.');
@@ -116,7 +116,7 @@ describe('ResyncDialogComponent', () => {
     fixture.detectChanges();
 
     component.submit();
-    expect(tokenService.resync).not.toHaveBeenCalled();
+    expect(operationsService.resync).not.toHaveBeenCalled();
     expect(matDialogRef.close).not.toHaveBeenCalled();
     expect(notificationService.message).not.toHaveBeenCalled();
   });

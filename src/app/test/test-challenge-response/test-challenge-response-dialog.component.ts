@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { TokenService } from '../../api/token.service';
+import { EnrollmentService } from '../../api/enrollment.service';
 import { Token, EnrollmentStatus, TokenType } from '../../api/token';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
@@ -27,7 +27,7 @@ export class TestChallengeResponseDialogComponent implements OnInit {
   public result = null;
 
   constructor(
-    private tokenService: TokenService,
+    private enrollmentService: EnrollmentService,
     private i18n: I18n,
     private dialogRef: MatDialogRef<TestChallengeResponseDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { token: Token },
@@ -55,7 +55,7 @@ export class TestChallengeResponseDialogComponent implements OnInit {
 
     stepper.next();
 
-    this.tokenService.activate(this.data.token.serial, this.pin).pipe(
+    this.enrollmentService.activate(this.data.token.serial, this.pin).pipe(
       map(response => response.detail),
       tap(detail => {
         this.transactionId = detail.transactionid.toString().slice(0, 6);
@@ -63,7 +63,7 @@ export class TestChallengeResponseDialogComponent implements OnInit {
           this.tokenQRUrl = detail.message;
         }
       }),
-      switchMap(detail => this.tokenService.challengePoll(detail.transactionid, this.pin, this.data.token.serial)),
+      switchMap(detail => this.enrollmentService.challengePoll(detail.transactionid, this.pin, this.data.token.serial)),
       catchError(this.handleError('token activation', false)),
     ).subscribe((res: { accept?: boolean, reject?: boolean, valid_tan?: boolean }) => {
       this.waitingForResponse = false;
