@@ -448,6 +448,24 @@ describe('TokenCardComponent', () => {
       expect(tokenUpdateSpy).toHaveBeenCalled();
     }));
 
+    it('should open the TestOTPDialogComponent if token is Password', fakeAsync(() => {
+      matDialog.open.and.returnValue({ afterClosed: () => of({}) });
+      component.token = Fixtures.activePasswordToken;
+      fixture.detectChanges();
+
+      const expectedConfig = {
+        width: '850px',
+        autoFocus: false,
+        disableClose: true,
+        data: { token: component.token },
+      };
+
+      component.testToken();
+
+      expect(matDialog.open).toHaveBeenCalledWith(TestOTPDialogComponent, expectedConfig);
+      expect(tokenUpdateSpy).toHaveBeenCalled();
+    }));
+
     it('should open the TestPushDialogComponent if token is Push', fakeAsync(() => {
       matDialog.open.and.returnValue({ afterClosed: () => of({}) });
       component.token = Fixtures.completedPushToken;

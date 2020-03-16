@@ -161,6 +161,10 @@ export class Fixtures {
     return new Token(1, 'Active-Email-Token-Serial', this.tokenTypeDetails[TokenType.EMAIL], true, 'Description');
   }
 
+  static get activePasswordToken(): Token {
+    return new Token(1, 'Active-Password-Token-Serial', this.tokenTypeDetails[TokenType.PASSWORD], true, 'Description');
+  }
+
   static get tokens(): Token[] {
     return [
       this.activeHotpToken,
