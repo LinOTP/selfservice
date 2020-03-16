@@ -298,8 +298,8 @@
           <context context-type="linenumber">25</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="sourcefile">app/test/test-otp/test-otp-dialog.component.html</context>
+          <context context-type="linenumber">49</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/resync-dialog/resync-dialog.component.html</context>
@@ -330,35 +330,23 @@
         <source>OTP value</source>
         <target state="final">OTP value</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="sourcefile">app/test/test-otp/test-otp-dialog.component.html</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="f99dfbc4e069350a6a42e28a40021d2f06453b86" datatype="html">
         <source>The OTP field cannot be empty</source>
         <target state="final">The OTP field cannot be empty</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="sourcefile">app/test/test-otp/test-otp-dialog.component.html</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="d724952fdf8a1d17c89270728eeeb1afe7bab606" datatype="html">
         <source>Test successful. You may use your token for authentication.</source>
         <target state="final">Test successful. You may use your token for authentication.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
-          <context context-type="linenumber">31</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="68b1aeb7ca74d1222c790ed143f30c53fc4f0883" datatype="html">
-        <source>
-        The test failed. Check if the OTP is correct or try again.
-      </source>
-        <target state="final">
-        The test failed. Check if the OTP is correct or try again.
-      </target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
+          <context context-type="sourcefile">app/test/test-otp/test-otp-dialog.component.html</context>
           <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
@@ -366,24 +354,24 @@
         <source>restart test</source>
         <target state="final">restart test</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
-          <context context-type="linenumber">52</context>
+          <context context-type="sourcefile">app/test/test-otp/test-otp-dialog.component.html</context>
+          <context context-type="linenumber">55</context>
         </context-group>
       </trans-unit>
       <trans-unit id="92ab7c01f5cc09b449c305d32cc88c1df7486783" datatype="html">
         <source>test</source>
         <target state="final">test</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
-          <context context-type="linenumber">58</context>
+          <context context-type="sourcefile">app/test/test-otp/test-otp-dialog.component.html</context>
+          <context context-type="linenumber">61</context>
         </context-group>
       </trans-unit>
       <trans-unit id="bd5b97bd37c0d6c89b0f05384d3e5a0daea1b16a" datatype="html">
         <source>done</source>
         <target state="final">done</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
-          <context context-type="linenumber">63</context>
+          <context context-type="sourcefile">app/test/test-otp/test-otp-dialog.component.html</context>
+          <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
       <trans-unit id="aa6096fc163996886c8bafd0770a20e1727db7f0" datatype="html">
@@ -398,7 +386,7 @@
         <source>Test <x id="INTERPOLATION" equiv-text="{{ data.token.typeDetails.name }}"/> <x id="INTERPOLATION_1" equiv-text="{{ data.token.serial }}"/></source>
         <target state="final">Test <x id="INTERPOLATION" equiv-text="{{ data.token.typeDetails.name }}"/> <x id="INTERPOLATION_1" equiv-text="{{ data.token.serial }}"/></target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
+          <context context-type="sourcefile">app/test/test-otp/test-otp-dialog.component.html</context>
           <context context-type="linenumber">7</context>
         </context-group>
         <context-group purpose="location">
@@ -410,8 +398,8 @@
         <source>Enter the next OTP value for the selected token:</source>
         <target state="final">Enter the next OTP value for the selected token:</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-oath/test-oath-dialog.component.html</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="sourcefile">app/test/test-otp/test-otp-dialog.component.html</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="c2b7ba12c335df8aac5bbf6940c4dccda6631c39" datatype="html">
@@ -1448,7 +1436,7 @@
         <source>Please try again or contact an administrator.</source>
         <target state="final">Please try again or contact an administrator.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="sourcefile">src/app/api/enrollment.service.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
@@ -1456,13 +1444,45 @@
         <source>The token is already assigned to you or to another user. Please contact an administrator.</source>
         <target state="final">The token is already assigned to you or to another user. Please contact an administrator.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="sourcefile">src/app/api/enrollment.service.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8d67183780d69d4d69ac826a50c11e3804163574" datatype="html">
         <source>The token you want to assign is not valid (wrong realm). Please contact an administrator.</source>
         <target state="final">The token you want to assign is not valid (wrong realm). Please contact an administrator.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/enrollment.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cec7afadbf79ce9842dd8e8f03b4f7214a95df66" datatype="html">
+        <source>SMS token</source>
+        <target state="final">SMS token</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="84f769091b51842edd5a53885c89dddddb33756a" datatype="html">
+        <source>Receive an OTP via SMS</source>
+        <target state="final">Receive an OTP via SMS</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="0b69cb313fb37fb0f15e110527b068d3f88d44bf" datatype="html">
+        <source>e-mail token</source>
+        <target state="final">e-mail token</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ce0a71a2eeb4fce2e03965d44d2e3f6becb7ada0" datatype="html">
+        <source>Receive an OTP via e-mail</source>
+        <target state="final">Receive an OTP via e-mail</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.service.ts</context>
           <context context-type="linenumber">1</context>
@@ -1673,6 +1693,30 @@
         <target state="final">Login failed</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="37fa980965b1dc9ef9377fb8ba9c281d4f4ef0ac" datatype="html">
+        <source>There was a problem starting your token test.</source>
+        <target state="final">There was a problem starting your token test.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/test/test-otp/test-otp-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="565635f2ffa47c4eed5a6fb6787fbd79679b6c98" datatype="html">
+        <source>Please wait some time and try again later, or contact an administrator.</source>
+        <target state="final">Please wait some time and try again later, or contact an administrator.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/test/test-otp/test-otp-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9c8f4c0be3f7a2cb61024fbf122c6265aa3b14e1" datatype="html">
+        <source> The test failed. Check if the OTP is correct or try again.</source>
+        <target state="final"> The test failed. Check if the OTP is correct or try again.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/test/test-otp/test-otp-dialog.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
