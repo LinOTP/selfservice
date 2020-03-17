@@ -134,7 +134,6 @@ export class TokenCardComponent implements OnInit {
   }
 
   public testToken(): void {
-    let testDialog;
     const dialogConfig = {
       width: '850px',
       autoFocus: false,
@@ -142,23 +141,7 @@ export class TokenCardComponent implements OnInit {
       data: { token: this.token }
     };
 
-    switch (this.token.typeDetails.type) {
-      case TokenType.PASSWORD:
-      case TokenType.HOTP:
-      case TokenType.TOTP:
-      case TokenType.SMS:
-      case TokenType.EMAIL:
-        testDialog = TestOTPDialogComponent;
-        break;
-      case TokenType.PUSH:
-      case TokenType.QR:
-        testDialog = TestChallengeResponseDialogComponent;
-        break;
-      default:
-        this.notificationService.message(this.i18n('This token type cannot be tested yet.'));
-        return;
-    }
-    this.dialog.open(testDialog, dialogConfig)
+    this.dialog.open(TestOTPDialogComponent, dialogConfig)
       .afterClosed()
       .subscribe(() => {
         this.tokenUpdate.next();
