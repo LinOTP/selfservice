@@ -13,11 +13,30 @@
         <mat-spinner class="loading"></mat-spinner>
       </ng-container>
       <ng-container *ngSwitchCase="TestState.UNTESTED">
+
         <div mat-dialog-content>
           <div class="dialog-input">
             <div class="instruction"
-                 i18n>Enter the next OTP value for the selected token:</div>
-            <mat-form-field>
+                 i18n
+                 *ngIf="!hasOnlineMode">
+              Enter the next OTP value for the selected token:
+            </div>
+
+            <ng-container *ngIf="qrCodeData">
+              <div class="instruction"
+                   i18n>
+                Scan the QR code with your LinOTP Authenticator app:
+              </div>
+              <app-qr-code [qrUrl]="qrCodeData"></app-qr-code>
+            </ng-container>
+
+            <div class="instruction"
+                 i18n
+                 *ngIf="hasOnlineMode && hasOfflineMode">
+              If your device is offline, please generate a TAN and enter it below:
+            </div>
+
+            <mat-form-field *ngIf="hasOfflineMode">
               <input matInput
                      type="text"
                      autocomplete="one-time-code"
@@ -27,8 +46,10 @@
                      autofocus>
               <mat-error i18n>The OTP field cannot be empty</mat-error>
             </mat-form-field>
+
           </div>
         </div>
+
       </ng-container>
 
       <ng-container *ngSwitchCase="TestState.SUCCESS">
@@ -57,8 +78,8 @@
             color="primary"
             type="submit"
             [disabled]="formGroup.invalid"
-            *ngIf="state === TestState.UNTESTED"
-            i18n>test</button>
+            *ngIf="state === TestState.UNTESTED && hasOfflineMode"
+            i18n>submit</button>
     <button mat-raised-button
             color="primary"
             mat-dialog-close
