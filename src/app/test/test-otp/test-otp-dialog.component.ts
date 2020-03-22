@@ -35,6 +35,8 @@ export class TestOTPDialogComponent implements OnInit {
   public serial: string;
   public transactionDetail: TransactionDetail;
 
+  public showInputField = false;
+
   private pollingSubscription: Subscription;
 
   @ViewChild('formDirective', { static: true })
@@ -116,6 +118,7 @@ export class TestOTPDialogComponent implements OnInit {
    * @memberof TestOTPDialogComponent
    */
   public reset() {
+    this.showInputField = false;
     this.formDirective.resetForm({ otp: '', pin: '' });
     this.triggerTest();
   }
@@ -141,4 +144,7 @@ export class TestOTPDialogComponent implements OnInit {
     return this.transactionDetail.transactiondata;
   }
 
+  public showInput() {
+    this.showInputField = true;
+  }
 }

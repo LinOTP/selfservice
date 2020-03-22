@@ -350,5 +350,34 @@ describe('TestOTPDialogComponent', () => {
       component.reset();
       expect(component.formGroup.pristine).toBe(true);
     });
+
+    it('should set showInputField to false', () => {
+      testService.testToken.and.returnValue(of(successfulOfflineDetail));
+
+      fixture = TestBed.createComponent(TestOTPDialogComponent);
+      component = fixture.componentInstance;
+      expect(component.showInputField).toEqual(false);
+
+      component.showInput();
+      expect(component.showInputField).toEqual(true);
+
+      fixture.detectChanges();
+
+      component.reset();
+      expect(component.showInputField).toEqual(false);
+    });
+  });
+
+  describe('showInput', () => {
+    it('should set showInputField to true', () => {
+      testService.testToken.and.returnValue(of(successfulOfflineDetail));
+
+      fixture = TestBed.createComponent(TestOTPDialogComponent);
+      component = fixture.componentInstance;
+      expect(component.showInputField).toEqual(false);
+
+      component.showInput();
+      expect(component.showInputField).toEqual(true);
+    });
   });
 });

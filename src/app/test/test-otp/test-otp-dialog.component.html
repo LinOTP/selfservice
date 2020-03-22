@@ -30,22 +30,23 @@
               <app-qr-code [qrUrl]="qrCodeData"></app-qr-code>
             </ng-container>
 
-            <div class="instruction"
-                 i18n
-                 *ngIf="hasOnlineMode && hasOfflineMode">
-              If your device is offline, please generate a TAN and enter it below:
-            </div>
+            <div class="otpInput">
+              <button mat-raised-button
+                      (click)="showInput()"
+                      *ngIf="hasOnlineMode && hasOfflineMode && !showInputField"
+                      i18n>Manually enter OTP</button>
 
-            <mat-form-field *ngIf="hasOfflineMode">
-              <input matInput
-                     type="text"
-                     autocomplete="one-time-code"
-                     formControlName="otp"
-                     placeholder="OTP value"
-                     i18n-placeholder
-                     autofocus>
-              <mat-error i18n>The OTP field cannot be empty</mat-error>
-            </mat-form-field>
+              <mat-form-field *ngIf="!hasOnlineMode || showInputField">
+                <input matInput
+                       type="text"
+                       autocomplete="one-time-code"
+                       formControlName="otp"
+                       placeholder="OTP value"
+                       i18n-placeholder
+                       autofocus>
+                <mat-error i18n>The OTP field cannot be empty</mat-error>
+              </mat-form-field>
+            </div>
 
           </div>
         </div>
