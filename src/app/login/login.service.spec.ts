@@ -12,6 +12,7 @@ import { SystemService } from '../system.service';
 import { NgxPermissionsService } from 'ngx-permissions';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { MaterialModule } from '../material.module';
 
 describe('LoginService', () => {
   let loginService: LoginService;
@@ -24,6 +25,7 @@ describe('LoginService', () => {
       imports: [
         HttpClientTestingModule,
         RouterTestingModule,
+        MaterialModule,
       ],
       providers: [
         LoginService,
