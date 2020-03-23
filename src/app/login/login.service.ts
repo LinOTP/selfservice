@@ -9,6 +9,7 @@ import { SystemService } from '../system.service';
 import { Permission } from '../common/permissions';
 import { NgxPermissionsService } from 'ngx-permissions';
 import { NavigationExtras, Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 
 export interface LoginOptions {
   username: string;
@@ -44,6 +45,7 @@ export class LoginService {
     private systemService: SystemService,
     private permissionsService: NgxPermissionsService,
     private router: Router,
+    private dialogRef: MatDialog,
   ) { }
 
   /**
@@ -242,6 +244,8 @@ export class LoginService {
   public handleLogout(storeCurrentRoute: boolean) {
     localStorage.removeItem('permissions');
     this.permissionsService.flushPermissions();
+
+    this.dialogRef.closeAll();
 
     const navigationExtras: NavigationExtras = {};
     if (storeCurrentRoute) {
