@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { of, Subscription, Observable, Observer } from 'rxjs';
+import { of, Observable, Observer } from 'rxjs';
 
-import { Fixtures } from '../../../testing/fixtures';
-import { TestingPage } from '../../../testing/page-helper';
-import { spyOnClass } from '../../../testing/spyOnClass';
-import { I18nMock } from '../../../testing/i18n-mock-provider';
-import { MockComponent } from '../../../testing/mock-component';
+import { Fixtures } from '../../testing/fixtures';
+import { TestingPage } from '../../testing/page-helper';
+import { spyOnClass } from '../../testing/spyOnClass';
+import { I18nMock } from '../../testing/i18n-mock-provider';
+import { MockComponent } from '../../testing/mock-component';
 
-import { MaterialModule } from '../../material.module';
-import { TestService, TestOptions, ReplyMode } from '../../api/test.service';
+import { MaterialModule } from '../material.module';
+import { TestService, TestOptions, ReplyMode } from '../api/test.service';
 
-import { TestOTPDialogComponent } from './test-otp-dialog.component';
-import { EnrollmentService } from '../../api/enrollment.service';
+import { TestDialogComponent } from './test-dialog.component';
+import { EnrollmentService } from '../api/enrollment.service';
 
-class Page extends TestingPage<TestOTPDialogComponent> {
+class Page extends TestingPage<TestDialogComponent> {
 
   public getSubmitButton() {
     return this.query('[type="submit"]');
@@ -27,9 +27,9 @@ class Page extends TestingPage<TestOTPDialogComponent> {
 const successfulOfflineDetail = { transactionid: 'id', reply_mode: ['offline'] };
 const successfulOnlineDetail = { transactionid: 'id', reply_mode: ['online'] };
 
-describe('TestOTPDialogComponent', () => {
-  let component: TestOTPDialogComponent;
-  let fixture: ComponentFixture<TestOTPDialogComponent>;
+describe('TestDialogComponent', () => {
+  let component: TestDialogComponent;
+  let fixture: ComponentFixture<TestDialogComponent>;
   let testService: jasmine.SpyObj<TestService>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
   const token = Fixtures.activeHotpToken;
@@ -42,7 +42,7 @@ describe('TestOTPDialogComponent', () => {
         ReactiveFormsModule,
       ],
       declarations: [
-        TestOTPDialogComponent,
+        TestDialogComponent,
         MockComponent({ selector: 'app-qr-code', inputs: ['qrUrl'] }),
       ],
       providers: [
@@ -71,7 +71,7 @@ describe('TestOTPDialogComponent', () => {
   it('should start in untested state if a transaction detail was received', () => {
     testService.testToken.and.returnValue(of(successfulOfflineDetail));
 
-    fixture = TestBed.createComponent(TestOTPDialogComponent);
+    fixture = TestBed.createComponent(TestDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
 
@@ -82,7 +82,7 @@ describe('TestOTPDialogComponent', () => {
     testService.testToken.and.returnValue(of(successfulOnlineDetail));
     enrollmentService.challengePoll.and.returnValue(of({ valid_tan: false }));
 
-    fixture = TestBed.createComponent(TestOTPDialogComponent);
+    fixture = TestBed.createComponent(TestDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
 
@@ -93,7 +93,7 @@ describe('TestOTPDialogComponent', () => {
   it('should start in failure state if a transaction detail was not received', () => {
     testService.testToken.and.returnValue(of(null));
 
-    fixture = TestBed.createComponent(TestOTPDialogComponent);
+    fixture = TestBed.createComponent(TestDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
 
@@ -104,7 +104,7 @@ describe('TestOTPDialogComponent', () => {
   it('should call the backend with the token\'s serial on init', () => {
     testService.testToken.and.returnValue(of(successfulOfflineDetail));
 
-    fixture = TestBed.createComponent(TestOTPDialogComponent);
+    fixture = TestBed.createComponent(TestDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
 
@@ -123,7 +123,7 @@ describe('TestOTPDialogComponent', () => {
         challPollObserver = observer;
       }));
 
-      fixture = TestBed.createComponent(TestOTPDialogComponent);
+      fixture = TestBed.createComponent(TestDialogComponent);
       component = fixture.componentInstance;
       component.state = component.TestState.UNTESTED;
       component.transactionDetail = {
@@ -148,7 +148,7 @@ describe('TestOTPDialogComponent', () => {
         challPollObserver = observer;
       }));
 
-      fixture = TestBed.createComponent(TestOTPDialogComponent);
+      fixture = TestBed.createComponent(TestDialogComponent);
       component = fixture.componentInstance;
       component.state = component.TestState.UNTESTED;
       component.transactionDetail = {
@@ -173,7 +173,7 @@ describe('TestOTPDialogComponent', () => {
         challPollObserver = observer;
       }));
 
-      fixture = TestBed.createComponent(TestOTPDialogComponent);
+      fixture = TestBed.createComponent(TestDialogComponent);
       component = fixture.componentInstance;
       component.state = component.TestState.UNTESTED;
       component.transactionDetail = {
@@ -198,7 +198,7 @@ describe('TestOTPDialogComponent', () => {
         challPollObserver = observer;
       }));
 
-      fixture = TestBed.createComponent(TestOTPDialogComponent);
+      fixture = TestBed.createComponent(TestDialogComponent);
       component = fixture.componentInstance;
       component.state = component.TestState.UNTESTED;
       component.transactionDetail = {
@@ -219,7 +219,7 @@ describe('TestOTPDialogComponent', () => {
     it('should call token service to test token if form is valid', async(() => {
       testService.testToken.and.returnValue(of(successfulOfflineDetail));
 
-      fixture = TestBed.createComponent(TestOTPDialogComponent);
+      fixture = TestBed.createComponent(TestDialogComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
 
@@ -237,7 +237,7 @@ describe('TestOTPDialogComponent', () => {
     it('should not call token service to test token if form is invalid', async(() => {
       testService.testToken.and.returnValue(of(successfulOfflineDetail));
 
-      fixture = TestBed.createComponent(TestOTPDialogComponent);
+      fixture = TestBed.createComponent(TestDialogComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
 
@@ -255,7 +255,7 @@ describe('TestOTPDialogComponent', () => {
     it('should set component to success state if test succeeds', () => {
       testService.testToken.and.returnValue(of(successfulOfflineDetail));
 
-      fixture = TestBed.createComponent(TestOTPDialogComponent);
+      fixture = TestBed.createComponent(TestDialogComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
 
@@ -271,7 +271,7 @@ describe('TestOTPDialogComponent', () => {
     it('should set component to failure state if test fails', () => {
       testService.testToken.and.returnValue(of(successfulOfflineDetail));
 
-      fixture = TestBed.createComponent(TestOTPDialogComponent);
+      fixture = TestBed.createComponent(TestDialogComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
 
@@ -288,7 +288,7 @@ describe('TestOTPDialogComponent', () => {
       testService.testToken.and.returnValues(of(successfulOnlineDetail), of(false));
       enrollmentService.challengePoll.and.returnValue(new Observable(() => { }));
 
-      fixture = TestBed.createComponent(TestOTPDialogComponent);
+      fixture = TestBed.createComponent(TestDialogComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
 
@@ -308,7 +308,7 @@ describe('TestOTPDialogComponent', () => {
     it('should reset form', () => {
       testService.testToken.and.returnValue(of(successfulOfflineDetail));
 
-      fixture = TestBed.createComponent(TestOTPDialogComponent);
+      fixture = TestBed.createComponent(TestDialogComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
 
@@ -323,7 +323,7 @@ describe('TestOTPDialogComponent', () => {
     it('should set component to untested state and call the token test again', () => {
       testService.testToken.and.returnValue(of(successfulOfflineDetail));
 
-      fixture = TestBed.createComponent(TestOTPDialogComponent);
+      fixture = TestBed.createComponent(TestDialogComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
 
@@ -340,7 +340,7 @@ describe('TestOTPDialogComponent', () => {
     it('should make form pristine', () => {
       testService.testToken.and.returnValue(of(successfulOfflineDetail));
 
-      fixture = TestBed.createComponent(TestOTPDialogComponent);
+      fixture = TestBed.createComponent(TestDialogComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
 
@@ -354,7 +354,7 @@ describe('TestOTPDialogComponent', () => {
     it('should set showInputField to false', () => {
       testService.testToken.and.returnValue(of(successfulOfflineDetail));
 
-      fixture = TestBed.createComponent(TestOTPDialogComponent);
+      fixture = TestBed.createComponent(TestDialogComponent);
       component = fixture.componentInstance;
       expect(component.showInputField).toEqual(false);
 
@@ -372,7 +372,7 @@ describe('TestOTPDialogComponent', () => {
     it('should set showInputField to true', () => {
       testService.testToken.and.returnValue(of(successfulOfflineDetail));
 
-      fixture = TestBed.createComponent(TestOTPDialogComponent);
+      fixture = TestBed.createComponent(TestDialogComponent);
       component = fixture.componentInstance;
       expect(component.showInputField).toEqual(false);
 

@@ -4,9 +4,9 @@ import { FormGroup, Validators, FormBuilder, NgForm } from '@angular/forms';
 
 import { I18n } from '@ngx-translate/i18n-polyfill';
 
-import { Token, TokenType } from '../../api/token';
-import { TestService, TransactionDetail, TestOptions, ReplyMode } from '../../api/test.service';
-import { EnrollmentService } from '../../api/enrollment.service';
+import { Token, TokenType } from '../api/token';
+import { TestService, TransactionDetail, TestOptions, ReplyMode } from '../api/test.service';
+import { EnrollmentService } from '../api/enrollment.service';
 import { Subscription } from 'rxjs';
 
 enum TestState {
@@ -17,11 +17,11 @@ enum TestState {
 }
 
 @Component({
-  selector: 'app-test-otp-dialog',
-  templateUrl: './test-otp-dialog.component.html',
-  styleUrls: ['./test-otp-dialog.component.scss']
+  selector: 'app-test-dialog',
+  templateUrl: './test-dialog.component.html',
+  styleUrls: ['./test-dialog.component.scss']
 })
-export class TestOTPDialogComponent implements OnInit {
+export class TestDialogComponent implements OnInit {
 
   public TestState = TestState;
   public ReplyMode = ReplyMode;
@@ -115,7 +115,7 @@ export class TestOTPDialogComponent implements OnInit {
   /**
    * Returns the user to the empty input form, by setting the component state to untested and resetting the NgForm.
    *
-   * @memberof TestOTPDialogComponent
+   * @memberof TestDialogComponent
    */
   public reset() {
     this.showInputField = false;

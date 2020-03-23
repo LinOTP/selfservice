@@ -13,7 +13,7 @@ import { Permission, ModifyTokenPermissions } from '../common/permissions';
 import { Token, EnrollmentStatus, TokenType } from '../api/token';
 import { OperationsService } from '../api/operations.service';
 
-import { TestOTPDialogComponent } from '../test/test-otp/test-otp-dialog.component';
+import { TestDialogComponent } from '../test/test-dialog.component';
 import { ActivateDialogComponent } from '../activate/activate-dialog.component';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { ResyncDialogComponent } from '../common/resync-dialog/resync-dialog.component';
@@ -141,7 +141,7 @@ export class TokenCardComponent implements OnInit {
       data: { token: this.token }
     };
 
-    this.dialog.open(TestOTPDialogComponent, dialogConfig)
+    this.dialog.open(TestDialogComponent, dialogConfig)
       .afterClosed()
       .subscribe(() => {
         this.tokenUpdate.next();

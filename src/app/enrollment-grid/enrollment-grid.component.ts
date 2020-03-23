@@ -14,7 +14,7 @@ import { NotificationService } from '../common/notification.service';
 import { EnrollOATHDialogComponent } from '../enroll/enroll-oath-dialog/enroll-oath-dialog.component';
 import { EnrollPushDialogComponent } from '../enroll/enroll-push-dialog/enroll-push-dialog.component';
 import { AssignTokenDialogComponent } from '../enroll/assign-token-dialog/assign-token-dialog.component';
-import { TestOTPDialogComponent } from '../test/test-otp/test-otp-dialog.component';
+import { TestDialogComponent } from '../test/test-dialog.component';
 import { ActivateDialogComponent } from '../activate/activate-dialog.component';
 
 import { NgxPermissionsService } from 'ngx-permissions';
@@ -116,7 +116,7 @@ export class EnrollmentGridComponent implements OnInit {
     switch (token.typeDetails.type) {
       case TokenType.HOTP:
       case TokenType.TOTP:
-        return this.dialog.open(TestOTPDialogComponent, testConfig).afterClosed();
+        return this.dialog.open(TestDialogComponent, testConfig).afterClosed();
       case (TokenType.PUSH):
         return this.dialog.open(ActivateDialogComponent, testConfig).afterClosed();
     }

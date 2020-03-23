@@ -22,7 +22,7 @@ import { EnrollPushDialogComponent } from './enroll/enroll-push-dialog/enroll-pu
 import { TokenCardComponent } from './token-card/token-card.component';
 import { EnrollmentGridComponent } from './enrollment-grid/enrollment-grid.component';
 import { AppInitService } from './app-init.service';
-import { TestOTPDialogComponent } from './test/test-otp/test-otp-dialog.component';
+import { TestDialogComponent } from './test/test-dialog.component';
 import { ActivateDialogComponent } from './activate/activate-dialog.component';
 import { AssignTokenDialogComponent } from './enroll/assign-token-dialog/assign-token-dialog.component';
 
@@ -38,7 +38,7 @@ declare const require;
     EnrollOATHDialogComponent,
     EnrollPushDialogComponent,
     AssignTokenDialogComponent,
-    TestOTPDialogComponent,
+    TestDialogComponent,
     ActivateDialogComponent,
   ],
   entryComponents: [
@@ -46,7 +46,7 @@ declare const require;
     EnrollOATHDialogComponent,
     EnrollPushDialogComponent,
     AssignTokenDialogComponent,
-    TestOTPDialogComponent,
+    TestDialogComponent,
   ],
   imports: [
     BrowserModule,

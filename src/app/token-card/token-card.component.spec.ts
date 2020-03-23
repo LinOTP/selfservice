@@ -17,7 +17,7 @@ import { Permission, ModifyTokenPermissions } from '../common/permissions';
 import { EnrollmentStatus } from '../api/token';
 import { ActivateDialogComponent } from '../activate/activate-dialog.component';
 import { CapitalizePipe } from '../common/pipes/capitalize.pipe';
-import { TestOTPDialogComponent } from '../test/test-otp/test-otp-dialog.component';
+import { TestDialogComponent } from '../test/test-dialog.component';
 import { I18nMock } from '../../testing/i18n-mock-provider';
 
 class Page extends TestingPage<TokenCardComponent> {
@@ -389,7 +389,7 @@ describe('TokenCardComponent', () => {
 
       component.testToken();
 
-      expect(matDialog.open).toHaveBeenCalledWith(TestOTPDialogComponent, expectedConfig);
+      expect(matDialog.open).toHaveBeenCalledWith(TestDialogComponent, expectedConfig);
       expect(tokenUpdateSpy).toHaveBeenCalled();
     }));
   });
