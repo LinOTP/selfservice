@@ -78,6 +78,29 @@ describe('LoginService', () => {
       })
     ));
 
+    it('allows to select a realm and submit an OTP value directly with the first request', async(
+      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+
+        loginService.login({ username: 'user', password: 'pass', realm: 'myrealm', otp: 'myotp' })
+          .subscribe(response => {
+            expect(response).toEqual({ needsSecondFactor: false, success: true });
+          });
+
+        const loginRequest = backend.expectOne('/userservice/login');
+        expect(loginRequest.request.url).toBe('/userservice/login');
+        expect(loginRequest.request.method).toBe('POST');
+        expect(Object.keys(loginRequest.request.body).sort()).toEqual(
+          ['login', 'password', 'realm', 'otp'].sort()
+        );
+        expect(loginRequest.request.body.realm).toBe('myrealm');
+        expect(loginRequest.request.body.otp).toBe('myotp');
+
+        loginRequest.flush({ result: { value: true } });
+
+        backend.verify();
+      })
+    ));
+
     it('should refresh the permissions on successful login', async(
       inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
         spyOn(loginService, 'handleLogin');
