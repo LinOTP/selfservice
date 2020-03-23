@@ -15,7 +15,7 @@ import { EnrollOATHDialogComponent } from '../enroll/enroll-oath-dialog/enroll-o
 import { EnrollPushDialogComponent } from '../enroll/enroll-push-dialog/enroll-push-dialog.component';
 import { AssignTokenDialogComponent } from '../enroll/assign-token-dialog/assign-token-dialog.component';
 import { TestOTPDialogComponent } from '../test/test-otp/test-otp-dialog.component';
-import { TestChallengeResponseDialogComponent } from '../test/test-challenge-response/test-challenge-response-dialog.component';
+import { ActivateDialogComponent } from '../activate/activate-dialog.component';
 
 import { NgxPermissionsService } from 'ngx-permissions';
 import { Permission } from '../common/permissions';
@@ -118,7 +118,7 @@ export class EnrollmentGridComponent implements OnInit {
       case TokenType.TOTP:
         return this.dialog.open(TestOTPDialogComponent, testConfig).afterClosed();
       case (TokenType.PUSH):
-        return this.dialog.open(TestChallengeResponseDialogComponent, testConfig).afterClosed();
+        return this.dialog.open(ActivateDialogComponent, testConfig).afterClosed();
     }
   }
 

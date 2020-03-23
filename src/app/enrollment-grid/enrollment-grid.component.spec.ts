@@ -19,7 +19,7 @@ import { EnrollmentGridComponent } from './enrollment-grid.component';
 import { EnrollOATHDialogComponent } from '../enroll/enroll-oath-dialog/enroll-oath-dialog.component';
 import { EnrollPushDialogComponent } from '../enroll/enroll-push-dialog/enroll-push-dialog.component';
 import { TestOTPDialogComponent } from '../test/test-otp/test-otp-dialog.component';
-import { TestChallengeResponseDialogComponent } from '../test/test-challenge-response/test-challenge-response-dialog.component';
+import { ActivateDialogComponent } from '../activate/activate-dialog.component';
 
 
 describe('EnrollmentGridComponent', () => {
@@ -214,7 +214,7 @@ describe('EnrollmentGridComponent', () => {
 
     expect(matDialog.open).toHaveBeenCalledWith(EnrollPushDialogComponent, expectedEnrollDialogConfig);
     expect(tokenService.getToken).toHaveBeenCalledWith(token.serial);
-    expect(matDialog.open).toHaveBeenCalledWith(TestChallengeResponseDialogComponent, expectedTestDialogConfig);
+    expect(matDialog.open).toHaveBeenCalledWith(ActivateDialogComponent, expectedTestDialogConfig);
     expect(tokenUpdateSpy).toHaveBeenCalledTimes(2);
     expect(notificationService.message).not.toHaveBeenCalled();
   }));

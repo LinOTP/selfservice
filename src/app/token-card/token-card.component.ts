@@ -14,7 +14,7 @@ import { Token, EnrollmentStatus, TokenType } from '../api/token';
 import { OperationsService } from '../api/operations.service';
 
 import { TestOTPDialogComponent } from '../test/test-otp/test-otp-dialog.component';
-import { TestChallengeResponseDialogComponent } from '../test/test-challenge-response/test-challenge-response-dialog.component';
+import { ActivateDialogComponent } from '../activate/activate-dialog.component';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { ResyncDialogComponent } from '../common/resync-dialog/resync-dialog.component';
 import { SetMOTPPinDialogComponent } from '../common/set-motp-pin-dialog/set-motp-pin-dialog.component';
@@ -156,7 +156,7 @@ export class TokenCardComponent implements OnInit {
       data: { token: this.token, activate: true }
     };
 
-    this.dialog.open(TestChallengeResponseDialogComponent, dialogConfig)
+    this.dialog.open(ActivateDialogComponent, dialogConfig)
       .afterClosed()
       .subscribe(() => {
         this.notificationService.message(this.i18n('Token activated'));

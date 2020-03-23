@@ -23,7 +23,7 @@ import { TokenCardComponent } from './token-card/token-card.component';
 import { EnrollmentGridComponent } from './enrollment-grid/enrollment-grid.component';
 import { AppInitService } from './app-init.service';
 import { TestOTPDialogComponent } from './test/test-otp/test-otp-dialog.component';
-import { TestChallengeResponseDialogComponent } from './test/test-challenge-response/test-challenge-response-dialog.component';
+import { ActivateDialogComponent } from './activate/activate-dialog.component';
 import { AssignTokenDialogComponent } from './enroll/assign-token-dialog/assign-token-dialog.component';
 
 declare const require;
@@ -39,10 +39,10 @@ declare const require;
     EnrollPushDialogComponent,
     AssignTokenDialogComponent,
     TestOTPDialogComponent,
-    TestChallengeResponseDialogComponent,
+    ActivateDialogComponent,
   ],
   entryComponents: [
-    TestChallengeResponseDialogComponent,
+    ActivateDialogComponent,
     EnrollOATHDialogComponent,
     EnrollPushDialogComponent,
     AssignTokenDialogComponent,

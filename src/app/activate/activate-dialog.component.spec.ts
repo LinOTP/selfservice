@@ -7,19 +7,19 @@ import { FormsModule } from '@angular/forms';
 
 import { of } from 'rxjs/internal/observable/of';
 
-import { Fixtures } from '../../../testing/fixtures';
-import { MockComponent } from '../../../testing/mock-component';
-import { spyOnClass } from '../../../testing/spyOnClass';
-import { I18nMock } from '../../../testing/i18n-mock-provider';
+import { Fixtures } from '../../testing/fixtures';
+import { MockComponent } from '../../testing/mock-component';
+import { spyOnClass } from '../../testing/spyOnClass';
+import { I18nMock } from '../../testing/i18n-mock-provider';
 
-import { MaterialModule } from '../../material.module';
-import { EnrollmentService } from '../../api/enrollment.service';
-import { EnrollPushDialogComponent } from '../../enroll/enroll-push-dialog/enroll-push-dialog.component';
-import { TestChallengeResponseDialogComponent } from './test-challenge-response-dialog.component';
+import { MaterialModule } from '../material.module';
+import { EnrollmentService } from '../api/enrollment.service';
+import { EnrollPushDialogComponent } from '../enroll/enroll-push-dialog/enroll-push-dialog.component';
+import { ActivateDialogComponent } from './activate-dialog.component';
 
-describe('TestChallengeResponseDialogComponent', () => {
-  let component: TestChallengeResponseDialogComponent;
-  let fixture: ComponentFixture<TestChallengeResponseDialogComponent>;
+describe('ActivateDialogComponent', () => {
+  let component: ActivateDialogComponent;
+  let fixture: ComponentFixture<ActivateDialogComponent>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
   let dialogRef: jasmine.SpyObj<MatDialogRef<EnrollPushDialogComponent>>;
   let stepper: MatStepper;
@@ -32,7 +32,7 @@ describe('TestChallengeResponseDialogComponent', () => {
         FormsModule,
       ],
       declarations: [
-        TestChallengeResponseDialogComponent,
+        ActivateDialogComponent,
         MockComponent({ selector: 'app-qr-code', inputs: ['qrUrl'] }),
       ],
       providers: [
@@ -54,7 +54,7 @@ describe('TestChallengeResponseDialogComponent', () => {
     dialogRef = TestBed.get(MatDialogRef);
     stepper = TestBed.get(MatStepper);
 
-    fixture = TestBed.createComponent(TestChallengeResponseDialogComponent);
+    fixture = TestBed.createComponent(ActivateDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

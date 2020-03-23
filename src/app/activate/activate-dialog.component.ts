@@ -1,18 +1,18 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { EnrollmentService } from '../../api/enrollment.service';
-import { Token, EnrollmentStatus, TokenType } from '../../api/token';
+import { EnrollmentService } from '../api/enrollment.service';
+import { Token, EnrollmentStatus, TokenType } from '../api/token';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
-import { Observable, of } from 'rxjs/index';
+import { Observable, of } from 'rxjs';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 
 @Component({
-  selector: 'app-test-push',
-  templateUrl: './test-challenge-response-dialog.component.html',
-  styleUrls: ['./test-challenge-response-dialog.component.scss']
+  selector: 'app-activate-dialog',
+  templateUrl: './activate-dialog.component.html',
+  styleUrls: ['./activate-dialog.component.scss']
 })
-export class TestChallengeResponseDialogComponent implements OnInit {
+export class ActivateDialogComponent implements OnInit {
   public waitingForResponse: boolean;
   public restartDialog: boolean;
 
@@ -29,7 +29,7 @@ export class TestChallengeResponseDialogComponent implements OnInit {
   constructor(
     private enrollmentService: EnrollmentService,
     private i18n: I18n,
-    private dialogRef: MatDialogRef<TestChallengeResponseDialogComponent>,
+    private dialogRef: MatDialogRef<ActivateDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { token: Token },
   ) {
     if (data.token.enrollmentStatus !== EnrollmentStatus.COMPLETED) {

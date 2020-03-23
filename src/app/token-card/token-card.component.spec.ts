@@ -15,7 +15,7 @@ import { NotificationService } from '../common/notification.service';
 import { OperationsService } from '../api/operations.service';
 import { Permission, ModifyTokenPermissions } from '../common/permissions';
 import { EnrollmentStatus } from '../api/token';
-import { TestChallengeResponseDialogComponent } from '../test/test-challenge-response/test-challenge-response-dialog.component';
+import { ActivateDialogComponent } from '../activate/activate-dialog.component';
 import { CapitalizePipe } from '../common/pipes/capitalize.pipe';
 import { TestOTPDialogComponent } from '../test/test-otp/test-otp-dialog.component';
 import { I18nMock } from '../../testing/i18n-mock-provider';
@@ -284,7 +284,7 @@ describe('TokenCardComponent', () => {
       component.activate();
       tick();
 
-      expect(matDialog.open).toHaveBeenCalledWith(TestChallengeResponseDialogComponent, expectedDialogConfig);
+      expect(matDialog.open).toHaveBeenCalledWith(ActivateDialogComponent, expectedDialogConfig);
     }));
 
     it('should open a Push token activation dialog', fakeAsync(() => {
@@ -296,7 +296,7 @@ describe('TokenCardComponent', () => {
       component.activate();
       tick();
 
-      expect(matDialog.open).toHaveBeenCalledWith(TestChallengeResponseDialogComponent, expectedDialogConfig);
+      expect(matDialog.open).toHaveBeenCalledWith(ActivateDialogComponent, expectedDialogConfig);
     }));
   });
 
