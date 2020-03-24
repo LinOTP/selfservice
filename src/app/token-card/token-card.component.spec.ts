@@ -15,9 +15,9 @@ import { NotificationService } from '../common/notification.service';
 import { OperationsService } from '../api/operations.service';
 import { Permission, ModifyTokenPermissions } from '../common/permissions';
 import { EnrollmentStatus } from '../api/token';
-import { TestChallengeResponseDialogComponent } from '../test/test-challenge-response/test-challenge-response-dialog.component';
+import { ActivateDialogComponent } from '../activate/activate-dialog.component';
 import { CapitalizePipe } from '../common/pipes/capitalize.pipe';
-import { TestOTPDialogComponent } from '../test/test-otp/test-otp-dialog.component';
+import { TestDialogComponent } from '../test/test-dialog.component';
 import { I18nMock } from '../../testing/i18n-mock-provider';
 
 class Page extends TestingPage<TokenCardComponent> {
@@ -284,7 +284,7 @@ describe('TokenCardComponent', () => {
       component.activate();
       tick();
 
-      expect(matDialog.open).toHaveBeenCalledWith(TestChallengeResponseDialogComponent, expectedDialogConfig);
+      expect(matDialog.open).toHaveBeenCalledWith(ActivateDialogComponent, expectedDialogConfig);
     }));
 
     it('should open a Push token activation dialog', fakeAsync(() => {
@@ -296,7 +296,7 @@ describe('TokenCardComponent', () => {
       component.activate();
       tick();
 
-      expect(matDialog.open).toHaveBeenCalledWith(TestChallengeResponseDialogComponent, expectedDialogConfig);
+      expect(matDialog.open).toHaveBeenCalledWith(ActivateDialogComponent, expectedDialogConfig);
     }));
   });
 
@@ -375,7 +375,7 @@ describe('TokenCardComponent', () => {
   });
 
   describe('testToken', () => {
-    it('should open the TestOTPDialogComponent if token is HOTP', fakeAsync(() => {
+    it('should open the TestOTPDialogComponent', fakeAsync(() => {
       matDialog.open.and.returnValue({ afterClosed: () => of({}) });
       component.token = Fixtures.activeHotpToken;
       fixture.detectChanges();
@@ -389,127 +389,9 @@ describe('TokenCardComponent', () => {
 
       component.testToken();
 
-      expect(matDialog.open).toHaveBeenCalledWith(TestOTPDialogComponent, expectedConfig);
+      expect(matDialog.open).toHaveBeenCalledWith(TestDialogComponent, expectedConfig);
       expect(tokenUpdateSpy).toHaveBeenCalled();
     }));
-
-    it('should open the TestOTPDialogComponent if token is TOTP', fakeAsync(() => {
-      matDialog.open.and.returnValue({ afterClosed: () => of({}) });
-      component.token = Fixtures.activeTotpToken;
-      fixture.detectChanges();
-
-      const expectedConfig = {
-        width: '850px',
-        autoFocus: false,
-        disableClose: true,
-        data: { token: component.token },
-      };
-
-      component.testToken();
-
-      expect(matDialog.open).toHaveBeenCalledWith(TestOTPDialogComponent, expectedConfig);
-      expect(tokenUpdateSpy).toHaveBeenCalled();
-    }));
-
-    it('should open the TestOTPDialogComponent if token is SMS', fakeAsync(() => {
-      matDialog.open.and.returnValue({ afterClosed: () => of({}) });
-      component.token = Fixtures.activeSMSToken;
-      fixture.detectChanges();
-
-      const expectedConfig = {
-        width: '850px',
-        autoFocus: false,
-        disableClose: true,
-        data: { token: component.token },
-      };
-
-      component.testToken();
-
-      expect(matDialog.open).toHaveBeenCalledWith(TestOTPDialogComponent, expectedConfig);
-      expect(tokenUpdateSpy).toHaveBeenCalled();
-    }));
-
-
-    it('should open the TestOTPDialogComponent if token is Email', fakeAsync(() => {
-      matDialog.open.and.returnValue({ afterClosed: () => of({}) });
-      component.token = Fixtures.activeEmailToken;
-      fixture.detectChanges();
-
-      const expectedConfig = {
-        width: '850px',
-        autoFocus: false,
-        disableClose: true,
-        data: { token: component.token },
-      };
-
-      component.testToken();
-
-      expect(matDialog.open).toHaveBeenCalledWith(TestOTPDialogComponent, expectedConfig);
-      expect(tokenUpdateSpy).toHaveBeenCalled();
-    }));
-
-    it('should open the TestOTPDialogComponent if token is Password', fakeAsync(() => {
-      matDialog.open.and.returnValue({ afterClosed: () => of({}) });
-      component.token = Fixtures.activePasswordToken;
-      fixture.detectChanges();
-
-      const expectedConfig = {
-        width: '850px',
-        autoFocus: false,
-        disableClose: true,
-        data: { token: component.token },
-      };
-
-      component.testToken();
-
-      expect(matDialog.open).toHaveBeenCalledWith(TestOTPDialogComponent, expectedConfig);
-      expect(tokenUpdateSpy).toHaveBeenCalled();
-    }));
-
-    it('should open the TestPushDialogComponent if token is Push', fakeAsync(() => {
-      matDialog.open.and.returnValue({ afterClosed: () => of({}) });
-      component.token = Fixtures.completedPushToken;
-      fixture.detectChanges();
-
-      const expectedConfig = {
-        width: '850px',
-        autoFocus: false,
-        disableClose: true,
-        data: { token: component.token },
-      };
-
-      component.testToken();
-
-      expect(matDialog.open).toHaveBeenCalledWith(TestChallengeResponseDialogComponent, expectedConfig);
-      expect(tokenUpdateSpy).toHaveBeenCalled();
-    }));
-
-    it('should open the TestPushDialogComponent if token is QR', fakeAsync(() => {
-      matDialog.open.and.returnValue({ afterClosed: () => of({}) });
-      component.token = Fixtures.completedQRToken;
-      fixture.detectChanges();
-
-      const expectedConfig = {
-        width: '850px',
-        autoFocus: false,
-        disableClose: true,
-        data: { token: component.token },
-      };
-
-      component.testToken();
-
-      expect(matDialog.open).toHaveBeenCalledWith(TestChallengeResponseDialogComponent, expectedConfig);
-      expect(tokenUpdateSpy).toHaveBeenCalled();
-    }));
-
-    it('should not open the TestOTPDialogComponent if token is not HOTP/TOTP/Push/QR', () => {
-      component.token = Fixtures.unknownToken;
-      fixture.detectChanges();
-
-      component.testToken();
-      expect(notificationService.message).toHaveBeenCalledWith('This token type cannot be tested yet.');
-      expect(tokenUpdateSpy).not.toHaveBeenCalled();
-    });
   });
 
   describe('resetFailcounter', () => {

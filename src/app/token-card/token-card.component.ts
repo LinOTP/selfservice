@@ -13,8 +13,8 @@ import { Permission, ModifyTokenPermissions } from '../common/permissions';
 import { Token, EnrollmentStatus, TokenType } from '../api/token';
 import { OperationsService } from '../api/operations.service';
 
-import { TestOTPDialogComponent } from '../test/test-otp/test-otp-dialog.component';
-import { TestChallengeResponseDialogComponent } from '../test/test-challenge-response/test-challenge-response-dialog.component';
+import { TestDialogComponent } from '../test/test-dialog.component';
+import { ActivateDialogComponent } from '../activate/activate-dialog.component';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { ResyncDialogComponent } from '../common/resync-dialog/resync-dialog.component';
 import { SetMOTPPinDialogComponent } from '../common/set-motp-pin-dialog/set-motp-pin-dialog.component';
@@ -134,7 +134,6 @@ export class TokenCardComponent implements OnInit {
   }
 
   public testToken(): void {
-    let testDialog;
     const dialogConfig = {
       width: '850px',
       autoFocus: false,
@@ -142,23 +141,7 @@ export class TokenCardComponent implements OnInit {
       data: { token: this.token }
     };
 
-    switch (this.token.typeDetails.type) {
-      case TokenType.PASSWORD:
-      case TokenType.HOTP:
-      case TokenType.TOTP:
-      case TokenType.SMS:
-      case TokenType.EMAIL:
-        testDialog = TestOTPDialogComponent;
-        break;
-      case TokenType.PUSH:
-      case TokenType.QR:
-        testDialog = TestChallengeResponseDialogComponent;
-        break;
-      default:
-        this.notificationService.message(this.i18n('This token type cannot be tested yet.'));
-        return;
-    }
-    this.dialog.open(testDialog, dialogConfig)
+    this.dialog.open(TestDialogComponent, dialogConfig)
       .afterClosed()
       .subscribe(() => {
         this.tokenUpdate.next();
@@ -173,7 +156,7 @@ export class TokenCardComponent implements OnInit {
       data: { token: this.token, activate: true }
     };
 
-    this.dialog.open(TestChallengeResponseDialogComponent, dialogConfig)
+    this.dialog.open(ActivateDialogComponent, dialogConfig)
       .afterClosed()
       .subscribe(() => {
         this.notificationService.message(this.i18n('Token activated'));

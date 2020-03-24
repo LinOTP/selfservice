@@ -1,0 +1,108 @@
+<form [formGroup]="formGroup"
+      (ngSubmit)="submit()"
+      #formDirective="ngForm">
+
+  <h2 mat-dialog-title
+      *ngIf="data.token"
+      i18n>Test {{ data.token.typeDetails.name }} {{ data.token.serial }}</h2>
+
+
+  <div mat-dialog-content>
+    <ng-container [ngSwitch]="state">
+      <ng-container *ngSwitchCase="TestState.LOADING">
+        <mat-spinner class="loading"></mat-spinner>
+      </ng-container>
+      <ng-container *ngSwitchCase="TestState.UNTESTED">
+
+        <div mat-dialog-content>
+          <div class="dialog-input">
+            <div class="instruction"
+                 i18n
+                 *ngIf="!hasOnlineMode">
+              Enter the next OTP value for the selected token:
+            </div>
+
+            <ng-container *ngIf="qrCodeData">
+              <div class="instruction"
+                   i18n>
+                Scan the QR code with your LinOTP Authenticator app:
+              </div>
+              <app-qr-code [qrUrl]="qrCodeData"></app-qr-code>
+            </ng-container>
+
+            <ng-container *ngIf="!hasOfflineMode">
+              <mat-spinner class="polling"></mat-spinner>
+              <div class="instruction"
+                   i18n>
+                Waiting for confirmation of transaction
+                <b><code>{{ shortTransactionId }}</code></b> via your LinOTP Authenticator app.
+              </div>
+            </ng-container>
+
+            <div class="otpInput">
+              <button mat-raised-button
+                      (click)="showInput()"
+                      *ngIf="hasOnlineMode && hasOfflineMode && !showInputField"
+                      i18n>Manually enter OTP</button>
+
+              <mat-form-field *ngIf="!hasOnlineMode || showInputField">
+                <input matInput
+                       type="text"
+                       autocomplete="one-time-code"
+                       formControlName="otp"
+                       placeholder="OTP value"
+                       i18n-placeholder
+                       autofocus>
+                <mat-error i18n>The OTP field cannot be empty</mat-error>
+              </mat-form-field>
+            </div>
+
+          </div>
+        </div>
+
+      </ng-container>
+
+      <ng-container *ngSwitchCase="TestState.SUCCESS">
+        <p i18n
+           *ngIf="challResult && challResult.accept === true">
+          You have accepted the transaction.
+        </p>
+        <p i18n
+           *ngIf="challResult && challResult.reject === true">
+          You have rejected the transaction.
+        </p>
+        <div i18n>Test successful. You may use your token for authentication.</div>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="TestState.FAILURE">
+        {{ errorMessage }}
+      </ng-container>
+
+    </ng-container>
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-button
+            mat-dialog-close
+            *ngIf="state !== TestState.SUCCESS"
+            i18n>cancel</button>
+    <button mat-raised-button
+            color="primary"
+            type="reset"
+            (click)="reset()"
+            *ngIf="state === TestState.FAILURE"
+            i18n>restart test</button>
+    <button mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="formGroup.invalid"
+            *ngIf="state === TestState.UNTESTED && hasOfflineMode"
+            i18n>submit</button>
+    <button mat-raised-button
+            color="primary"
+            mat-dialog-close
+            *ngIf="state === TestState.SUCCESS"
+            i18n>done</button>
+  </div>
+
+</form>

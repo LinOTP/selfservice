@@ -22,8 +22,8 @@ import { EnrollPushDialogComponent } from './enroll/enroll-push-dialog/enroll-pu
 import { TokenCardComponent } from './token-card/token-card.component';
 import { EnrollmentGridComponent } from './enrollment-grid/enrollment-grid.component';
 import { AppInitService } from './app-init.service';
-import { TestOTPDialogComponent } from './test/test-otp/test-otp-dialog.component';
-import { TestChallengeResponseDialogComponent } from './test/test-challenge-response/test-challenge-response-dialog.component';
+import { TestDialogComponent } from './test/test-dialog.component';
+import { ActivateDialogComponent } from './activate/activate-dialog.component';
 import { AssignTokenDialogComponent } from './enroll/assign-token-dialog/assign-token-dialog.component';
 
 declare const require;
@@ -38,15 +38,15 @@ declare const require;
     EnrollOATHDialogComponent,
     EnrollPushDialogComponent,
     AssignTokenDialogComponent,
-    TestOTPDialogComponent,
-    TestChallengeResponseDialogComponent,
+    TestDialogComponent,
+    ActivateDialogComponent,
   ],
   entryComponents: [
-    TestChallengeResponseDialogComponent,
+    ActivateDialogComponent,
     EnrollOATHDialogComponent,
     EnrollPushDialogComponent,
     AssignTokenDialogComponent,
-    TestOTPDialogComponent,
+    TestDialogComponent,
   ],
   imports: [
     BrowserModule,
