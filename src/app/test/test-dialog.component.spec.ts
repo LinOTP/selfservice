@@ -15,7 +15,6 @@ import { MaterialModule } from '../material.module';
 import { TestService, TestOptions, ReplyMode } from '../api/test.service';
 
 import { TestDialogComponent } from './test-dialog.component';
-import { EnrollmentService } from '../api/enrollment.service';
 
 class Page extends TestingPage<TestDialogComponent> {
 
@@ -24,6 +23,7 @@ class Page extends TestingPage<TestDialogComponent> {
   }
 }
 
+const challengeOnlyDetail = { reply_mode: ['offline'] };
 const successfulOfflineDetail = { transactionid: 'id', reply_mode: ['offline'] };
 const successfulOnlineDetail = { transactionid: 'id', reply_mode: ['online'] };
 
@@ -31,7 +31,6 @@ describe('TestDialogComponent', () => {
   let component: TestDialogComponent;
   let fixture: ComponentFixture<TestDialogComponent>;
   let testService: jasmine.SpyObj<TestService>;
-  let enrollmentService: jasmine.SpyObj<EnrollmentService>;
   const token = Fixtures.activeHotpToken;
 
   beforeEach(async(() => {
@@ -54,10 +53,6 @@ describe('TestDialogComponent', () => {
           provide: TestService,
           useValue: spyOnClass(TestService),
         },
-        {
-          provide: EnrollmentService,
-          useValue: spyOnClass(EnrollmentService),
-        },
         I18nMock,
       ]
     }).compileComponents();
@@ -65,7 +60,6 @@ describe('TestDialogComponent', () => {
 
   beforeEach(() => {
     testService = TestBed.get(TestService);
-    enrollmentService = TestBed.get(EnrollmentService);
   });
 
   it('should start in untested state if a transaction detail was received', () => {
@@ -80,13 +74,13 @@ describe('TestDialogComponent', () => {
 
   it('should check transaction state on init if the token supports online mode', () => {
     testService.testToken.and.returnValue(of(successfulOnlineDetail));
-    enrollmentService.challengePoll.and.returnValue(of({ valid_tan: false }));
+    testService.statusPoll.and.returnValue(new Observable(() => { }));
 
     fixture = TestBed.createComponent(TestDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
 
-    expect(enrollmentService.challengePoll).toHaveBeenCalled();
+    expect(testService.statusPoll).toHaveBeenCalled();
     expect(component.state).toBe(component.TestState.UNTESTED);
   });
 
@@ -119,7 +113,7 @@ describe('TestDialogComponent', () => {
 
       let challPollObserver: Observer<any>;
 
-      enrollmentService.challengePoll.and.returnValue(new Observable(observer => {
+      testService.statusPoll.and.returnValue(new Observable(observer => {
         challPollObserver = observer;
       }));
 
@@ -144,7 +138,7 @@ describe('TestDialogComponent', () => {
 
       let challPollObserver: Observer<any>;
 
-      enrollmentService.challengePoll.and.returnValue(new Observable(observer => {
+      testService.statusPoll.and.returnValue(new Observable(observer => {
         challPollObserver = observer;
       }));
 
@@ -169,7 +163,7 @@ describe('TestDialogComponent', () => {
 
       let challPollObserver: Observer<any>;
 
-      enrollmentService.challengePoll.and.returnValue(new Observable(observer => {
+      testService.statusPoll.and.returnValue(new Observable(observer => {
         challPollObserver = observer;
       }));
 
@@ -194,7 +188,7 @@ describe('TestDialogComponent', () => {
 
       let challPollObserver: Observer<any>;
 
-      enrollmentService.challengePoll.and.returnValue(new Observable(observer => {
+      testService.statusPoll.and.returnValue(new Observable(observer => {
         challPollObserver = observer;
       }));
 
@@ -217,7 +211,7 @@ describe('TestDialogComponent', () => {
 
   describe('submit', () => {
     it('should call token service to test token if form is valid', async(() => {
-      testService.testToken.and.returnValue(of(successfulOfflineDetail));
+      testService.testToken.and.returnValue(of(challengeOnlyDetail));
 
       fixture = TestBed.createComponent(TestDialogComponent);
       component = fixture.componentInstance;
@@ -226,11 +220,12 @@ describe('TestDialogComponent', () => {
       const otp = '123456';
 
       testService.testToken.and.returnValue(of(true));
+      testService.testToken.calls.reset();
       component.formGroup.setValue({ 'otp': otp });
       fixture.detectChanges();
 
       component.submit();
-      const options: TestOptions = { serial: token.serial, otp: otp, transactionid: 'id' };
+      const options: TestOptions = { serial: token.serial, otp: otp, transactionid: undefined };
       expect(testService.testToken).toHaveBeenCalledWith(options);
     }));
 
@@ -286,7 +281,7 @@ describe('TestDialogComponent', () => {
 
     it('should call unsubscribe on existing subscription', () => {
       testService.testToken.and.returnValues(of(successfulOnlineDetail), of(false));
-      enrollmentService.challengePoll.and.returnValue(new Observable(() => { }));
+      testService.statusPoll.and.returnValue(new Observable(() => { }));
 
       fixture = TestBed.createComponent(TestDialogComponent);
       component = fixture.componentInstance;

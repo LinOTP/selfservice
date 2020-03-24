@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Observable, of } from 'rxjs';
-import { map, catchError, filter, tap } from 'rxjs/operators';
+import { Observable, of, interval } from 'rxjs';
+import { map, catchError, filter, mergeMap, take } from 'rxjs/operators';
 
 import { SessionService } from '../auth/session.service';
 import { I18n } from '@ngx-translate/i18n-polyfill';
@@ -19,6 +19,16 @@ export interface TransactionDetail {
   transactionid?: string;
   transactiondata?: string; // content of QR code
   message?: string;        // user facing message
+}
+
+export interface StatusDetail {
+  'received_count': number;
+  'received_tan': boolean;
+  'valid_tan': boolean;
+  'message': string;
+  'status': string;
+  'accept': boolean;
+  'reject': boolean;
 }
 
 export interface TestOptions {
@@ -82,6 +92,22 @@ export class TestService {
         }),
         catchError(this.handleError('test token', null))
       );
+  }
+
+  statusPoll(transactionId: string): Observable<StatusDetail> {
+    const url = this.userserviceBase + this.userserviceEndpoints.verify;
+    const params = {
+      transactionid: transactionId,
+      session: this.sessionService.getSession()
+    };
+    return interval(2000).pipe(
+      mergeMap(() =>
+        this.http.get<LinOTPResponse<boolean, StatusDetail>>(url, { params })),
+      filter(res => res.detail.status !== 'open'),
+      map(res => res.detail),
+      catchError(this.handleError<StatusDetail>('test token status poll')),
+      take(1),
+    );
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

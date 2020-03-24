@@ -15,7 +15,14 @@ mat-spinner {
 }
 
 .dialog-input {
-  margin: 1em 0;
+  margin: 20px 0;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.instruction {
+  margin: 2em 0;
 }
 
 .otpInput {

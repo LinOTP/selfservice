@@ -1,12 +1,11 @@
-import { Component, Inject, ViewChild, OnInit } from '@angular/core';
+import { Component, Inject, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, Validators, FormBuilder, NgForm } from '@angular/forms';
 
 import { I18n } from '@ngx-translate/i18n-polyfill';
 
-import { Token, TokenType } from '../api/token';
-import { TestService, TransactionDetail, TestOptions, ReplyMode } from '../api/test.service';
-import { EnrollmentService } from '../api/enrollment.service';
+import { Token } from '../api/token';
+import { TestService, TransactionDetail, TestOptions, ReplyMode, StatusDetail } from '../api/test.service';
 import { Subscription } from 'rxjs';
 
 enum TestState {
@@ -21,13 +20,14 @@ enum TestState {
   templateUrl: './test-dialog.component.html',
   styleUrls: ['./test-dialog.component.scss']
 })
-export class TestDialogComponent implements OnInit {
+export class TestDialogComponent implements OnInit, OnDestroy {
 
   public TestState = TestState;
   public ReplyMode = ReplyMode;
 
   public state: TestState;
   public testResult: boolean;
+  public challResult: StatusDetail;
   public errorMessage: string;
 
   public formGroup: FormGroup;
@@ -45,7 +45,6 @@ export class TestDialogComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { token: Token },
     private testService: TestService,
-    private enrollmentService: EnrollmentService,
     private formBuilder: FormBuilder,
     private i18n: I18n,
   ) {
@@ -57,6 +56,12 @@ export class TestDialogComponent implements OnInit {
 
   ngOnInit() {
     this.triggerTest();
+  }
+
+  ngOnDestroy(): void {
+    if (this.pollingSubscription) {
+      this.pollingSubscription.unsubscribe();
+    }
   }
 
   private triggerTest() {
@@ -80,8 +85,8 @@ export class TestDialogComponent implements OnInit {
 
   public checkTransactionState() {
     const txId = this.transactionDetail.transactionid;
-    this.pollingSubscription = this.enrollmentService.challengePoll(txId, '1234', this.serial).subscribe(data => {
-      this.pollingSubscription.unsubscribe();
+    this.pollingSubscription = this.testService.statusPoll(txId).subscribe(data => {
+      this.challResult = data;
       if (data.accept || data.reject || data.valid_tan) {
         this.goToSuccess();
       } else {
