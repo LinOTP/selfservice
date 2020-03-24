@@ -294,8 +294,8 @@
           <context context-type="linenumber">25</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-otp/test-otp-dialog.component.html</context>
-          <context context-type="linenumber">49</context>
+          <context context-type="sourcefile">app/test/test-dialog.component.html</context>
+          <context context-type="linenumber">88</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/resync-dialog/resync-dialog.component.html</context>
@@ -318,7 +318,7 @@
         <source>PIN or password</source>
         <target state="translated">PIN oder Passwort</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="sourcefile">app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
@@ -326,55 +326,79 @@
         <source>OTP value</source>
         <target state="translated">OTP-Wert</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-otp/test-otp-dialog.component.html</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="sourcefile">app/test/test-dialog.component.html</context>
+          <context context-type="linenumber">53</context>
         </context-group>
       </trans-unit>
       <trans-unit id="f99dfbc4e069350a6a42e28a40021d2f06453b86" datatype="html">
         <source>The OTP field cannot be empty</source>
         <target state="translated">Das OTP-Feld darf nicht leer sein</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-otp/test-otp-dialog.component.html</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="sourcefile">app/test/test-dialog.component.html</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fa9aed977ffb78dbefd717d8fc12b0134bb8df8b" datatype="html">
+        <source>
+          You have accepted the transaction.
+        </source>
+        <target state="translated">
+          Sie haben die Transaktion bestätigt.
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-dialog.component.html</context>
+          <context context-type="linenumber">67</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dc9d7161089691a466fa3b4b0f7a290efbd8f365" datatype="html">
+        <source>
+          You have rejected the transaction.
+        </source>
+        <target state="translated">
+          Sie haben die Transaktion abgelehnt..
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-dialog.component.html</context>
+          <context context-type="linenumber">71</context>
         </context-group>
       </trans-unit>
       <trans-unit id="d724952fdf8a1d17c89270728eeeb1afe7bab606" datatype="html">
         <source>Test successful. You may use your token for authentication.</source>
         <target state="translated">Test erfolgreich. Sie dürfen sich mit Ihrem Token authentifizieren.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-otp/test-otp-dialog.component.html</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="sourcefile">app/test/test-dialog.component.html</context>
+          <context context-type="linenumber">74</context>
         </context-group>
       </trans-unit>
       <trans-unit id="73c0e63efed06b6de0786d1d4b68641347b02772" datatype="html">
         <source>restart test</source>
         <target state="translated">Test neustarten</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-otp/test-otp-dialog.component.html</context>
-          <context context-type="linenumber">55</context>
+          <context context-type="sourcefile">app/test/test-dialog.component.html</context>
+          <context context-type="linenumber">94</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="92ab7c01f5cc09b449c305d32cc88c1df7486783" datatype="html">
-        <source>test</source>
-        <target state="translated">testen</target>
+      <trans-unit id="c98077fe229df56d1df276acd22818bd2885eddc" datatype="html">
+        <source>submit</source>
+        <target state="translated">absenden</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-otp/test-otp-dialog.component.html</context>
-          <context context-type="linenumber">61</context>
+          <context context-type="sourcefile">app/test/test-dialog.component.html</context>
+          <context context-type="linenumber">100</context>
         </context-group>
       </trans-unit>
       <trans-unit id="bd5b97bd37c0d6c89b0f05384d3e5a0daea1b16a" datatype="html">
         <source>done</source>
         <target state="translated">abschließen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-otp/test-otp-dialog.component.html</context>
-          <context context-type="linenumber">66</context>
+          <context context-type="sourcefile">app/test/test-dialog.component.html</context>
+          <context context-type="linenumber">105</context>
         </context-group>
       </trans-unit>
       <trans-unit id="aa6096fc163996886c8bafd0770a20e1727db7f0" datatype="html">
         <source>Activate <x id="INTERPOLATION" equiv-text="{{ data.token.typeDetails.name }}"/> <x id="INTERPOLATION_1" equiv-text="{{ data.token.serial }}"/></source>
         <target state="translated"><x id="INTERPOLATION" equiv-text="{{ data.token.typeDetails.name }}"/><x id="INTERPOLATION_1" equiv-text="{{ data.token.serial }}"/> aktivieren</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="sourcefile">app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
@@ -382,20 +406,58 @@
         <source>Test <x id="INTERPOLATION" equiv-text="{{ data.token.typeDetails.name }}"/> <x id="INTERPOLATION_1" equiv-text="{{ data.token.serial }}"/></source>
         <target state="translated"><x id="INTERPOLATION" equiv-text="{{ data.token.typeDetails.name }}"/><x id="INTERPOLATION_1" equiv-text="{{ data.token.serial }}"/> testen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-otp/test-otp-dialog.component.html</context>
+          <context context-type="sourcefile">app/test/test-dialog.component.html</context>
           <context context-type="linenumber">7</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="sourcefile">app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="a25f1d2aea018a3e102bf35ca6c2e24658afbcc6" datatype="html">
-        <source>Enter the next OTP value for the selected token:</source>
-        <target state="translated">Geben Sie den nächsten OTP-Wert für den ausgewählten Token ein:</target>
+      <trans-unit id="755d76ad87a3838258a670a303ba0246cc9ed291" datatype="html">
+        <source>
+              Enter the next OTP value for the selected token:
+            </source>
+        <target state="translated">
+              Geben sie für den ausgewählten Token den nächsten OTP-Wert ein::
+            </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-otp/test-otp-dialog.component.html</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="sourcefile">app/test/test-dialog.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="277d1db2ea95bf694075486ab6f5c6b0922b6d7d" datatype="html">
+        <source>
+                Scan the QR code with your LinOTP Authenticator app:
+              </source>
+        <target state="translated">
+                Scannen Sie bitte den QR-Code mit Ihrer LinOTP Authenticator App:
+              </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-dialog.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ee602f7430a1c12f340a39d4897fc8fb1dfd3f21" datatype="html">
+        <source>
+                Waiting for confirmation of transaction
+                <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/><x id="START_TAG_CODE" ctype="x-code" equiv-text="&lt;code>"/><x id="INTERPOLATION" equiv-text="{{ shortTransactionId }}"/><x id="CLOSE_TAG_CODE" ctype="x-code" equiv-text="&lt;/code>"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/> via your LinOTP Authenticator app.
+              </source>
+        <target state="translated">
+                Warte auf Bestätigung der Transaktion
+                <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/><x id="START_TAG_CODE" ctype="x-code" equiv-text="&lt;code>"/><x id="INTERPOLATION" equiv-text="{{ shortTransactionId }}"/><x id="CLOSE_TAG_CODE" ctype="x-code" equiv-text="&lt;/code>"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/> durch Ihre LinOTP Authenticator App.
+              </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-dialog.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3b72a82fcd5cf129324571886ec7e4ef0f194438" datatype="html">
+        <source>Manually enter OTP</source>
+        <target state="translated">OTP manuell eingeben</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-dialog.component.html</context>
+          <context context-type="linenumber">46</context>
         </context-group>
       </trans-unit>
       <trans-unit id="c2b7ba12c335df8aac5bbf6940c4dccda6631c39" datatype="html">
@@ -405,7 +467,7 @@
       </source>
         <target state="translated">Geben Sie Ihren PIN oder Ihr Passwort ein, falls Sie eine PIN gesetzt haben, oder für die Authentifizierung ein Passwort erforderlich ist:</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="sourcefile">app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
@@ -415,7 +477,7 @@
       </source>
         <target state="translated">Im nächsten Schritt wird der Authentifizierungsserver Ihre Authenticator App verifizieren.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="sourcefile">app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
@@ -425,7 +487,7 @@
       </source>
         <target state="translated">Im nächsten Schritt wird Ihre Authenticator App eine Test-Challenge erhalten.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="sourcefile">app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
@@ -435,7 +497,7 @@
       </source>
         <target state="translated">Bitte bestätigen Sie die Challenge auf der App.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="sourcefile">app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
@@ -443,7 +505,7 @@
         <source>Activation step 1 of 3</source>
         <target state="translated">Aktivierungsschritt 1 von 3</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="sourcefile">app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
@@ -451,7 +513,7 @@
         <source>Test step 1 of 3</source>
         <target state="translated">Testschritt 1 von 3</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="sourcefile">app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">45</context>
         </context-group>
       </trans-unit>
@@ -502,15 +564,15 @@
         <source>Cancel</source>
         <target state="translated">Abbrechen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="sourcefile">app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">49</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="sourcefile">app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">98</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="sourcefile">app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">137</context>
         </context-group>
         <context-group purpose="location">
@@ -542,7 +604,7 @@
         <source>Activate</source>
         <target state="translated">Aktivieren</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="sourcefile">app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">55</context>
         </context-group>
       </trans-unit>
@@ -550,7 +612,7 @@
         <source>Test</source>
         <target state="translated">Testen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="sourcefile">app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">61</context>
         </context-group>
       </trans-unit>
@@ -558,7 +620,7 @@
         <source>Waiting for confirmation for test transaction via Authenticator app.</source>
         <target state="translated">Warte auf Bestätigung für die Test-Transaktion per Authenticator App.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="sourcefile">app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">74</context>
         </context-group>
       </trans-unit>
@@ -566,7 +628,7 @@
         <source>Waiting for confirmation for transaction <x id="INTERPOLATION" equiv-text="{{ transactionId }}"/> via Authenticator app.</source>
         <target state="translated">Warte auf Bestätigung für die Transaktion <x id="INTERPOLATION" equiv-text="{{ transactionId }}"/> per Authenticator App.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="sourcefile">app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">77</context>
         </context-group>
       </trans-unit>
@@ -574,7 +636,7 @@
         <source>Scan the QR code below with the Authenticator app to activate your token:</source>
         <target state="translated">Scannen Sie den untenstehenden QR-Code mit der Authenticator App ein, um Ihr Token zu aktivieren:</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="sourcefile">app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">83</context>
         </context-group>
       </trans-unit>
@@ -583,7 +645,7 @@
           <x id="INTERPOLATION" equiv-text="{{ transactionId }}"/>:</source>
         <target state="translated">Scannen Sie den untenstehenden QR-Code mit der Authenticator App ein, um die Test-Transaktion <x id="INTERPOLATION" equiv-text="{{ transactionId }}"/> zu bestätigen:</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="sourcefile">app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">85</context>
         </context-group>
       </trans-unit>
@@ -591,7 +653,7 @@
         <source>Activation step 2 of 3</source>
         <target state="translated">Aktivierungsschritt 2 von 3</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="sourcefile">app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">92</context>
         </context-group>
       </trans-unit>
@@ -599,7 +661,7 @@
         <source>Test step 2 of 3</source>
         <target state="translated">Testschritt 2 von 3</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="sourcefile">app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">94</context>
         </context-group>
       </trans-unit>
@@ -607,7 +669,7 @@
         <source>Activation failed. Please try again, or contact an administrator. </source>
         <target state="translated">Aktivierung fehlgeschlagen. Bitte versuchen Sie erneut, oder kontaktieren Sie einen Administrator.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="sourcefile">app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">107</context>
         </context-group>
       </trans-unit>
@@ -615,7 +677,7 @@
         <source>Test failed. Please try again, or contact an administrator. </source>
         <target state="translated">Test fehlgeschlagen. Bitte versuchen Sie erneut, oder kontaktieren Sie einen Administrator.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="sourcefile">app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">109</context>
         </context-group>
       </trans-unit>
@@ -623,9 +685,11 @@
         <source>
             You have accepted the transaction.
           </source>
-        <target state="translated">Sie haben der Transaktion zugestimmt.</target>
+        <target state="translated">
+            Sie haben die Transaktion bestätigt.
+          </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="sourcefile">app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">114</context>
         </context-group>
       </trans-unit>
@@ -633,9 +697,11 @@
         <source>
             You have rejected the transaction.
           </source>
-        <target state="translated">Sie haben die Transaktion abgelehnt.</target>
+        <target state="translated">
+            Sie haben die Transaktion abgelehnt.
+          </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="sourcefile">app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">118</context>
         </context-group>
       </trans-unit>
@@ -643,7 +709,7 @@
         <source> The activation was successful. Your token is ready to be used. </source>
         <target state="translated">Die Aktivierung war erfolgreich. Ihr Token ist betriebsbereit.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="sourcefile">app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">122</context>
         </context-group>
       </trans-unit>
@@ -651,7 +717,7 @@
         <source> The test was successful. Your token is ready to be used. </source>
         <target state="translated">Der Test war erfolgreich. Ihr Token ist betriebsbereit.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="sourcefile">app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">124</context>
         </context-group>
       </trans-unit>
@@ -659,7 +725,7 @@
         <source>Activation step 3 of 3</source>
         <target state="translated">Aktivierungsschritt 3 von 3</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="sourcefile">app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">130</context>
         </context-group>
       </trans-unit>
@@ -667,7 +733,7 @@
         <source>Test step 3 of 3</source>
         <target state="translated">Testschritt 3 von 3</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="sourcefile">app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">132</context>
         </context-group>
       </trans-unit>
@@ -675,7 +741,7 @@
         <source> Restart activation </source>
         <target state="translated">Aktivierung neustarten</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="sourcefile">app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">142</context>
         </context-group>
       </trans-unit>
@@ -683,7 +749,7 @@
         <source> Restart test </source>
         <target state="translated">Test neustarten</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="sourcefile">app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">147</context>
         </context-group>
       </trans-unit>
@@ -691,7 +757,7 @@
         <source>Finish</source>
         <target state="translated">Beenden</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-challenge-response/test-challenge-response-dialog.component.html</context>
+          <context context-type="sourcefile">app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">152</context>
         </context-group>
       </trans-unit>
@@ -1666,7 +1732,7 @@
         <source>There was a problem starting your token test.</source>
         <target state="translated">Beim Starten des Token-Tests ist ein Problem aufgetreten.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/test/test-otp/test-otp-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/test/test-dialog.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
@@ -1674,15 +1740,15 @@
         <source>Please wait some time and try again later, or contact an administrator.</source>
         <target state="translated">Bitte warten Sie einige Zeit und versuchen Sie es später erneut, oder kontaktieren Sie einen Administrator.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/test/test-otp/test-otp-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/test/test-dialog.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="9c8f4c0be3f7a2cb61024fbf122c6265aa3b14e1" datatype="html">
-        <source> The test failed. Check if the OTP is correct or try again.</source>
-        <target state="translated">Test fehlgeschlagen. Überprüfen Sie den OTP-Wert oder versuchen Sie es erneut.</target>
+      <trans-unit id="23e00afae4079b95a151f9ac00bd0990197597bb" datatype="html">
+        <source>The test failed. Check if the OTP is correct or try again.</source>
+        <target state="translated">Der Test ist fehlgeschlagen. Bitte prüfen Sie die Korrektheit des OTP-Wertes oder versuchen sie es erneut</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/test/test-otp/test-otp-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/test/test-dialog.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
@@ -1753,14 +1819,6 @@
       <trans-unit id="a760e04ac31b7b924df9431329cca4db459a4de7" datatype="html">
         <source>Error: Could not disable token</source>
         <target state="translated">Tokendeaktivierung fehlgeschlagen</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="b08640dfad04e4dd4163c174679e7e5e8bfd8a8b" datatype="html">
-        <source>This token type cannot be tested yet.</source>
-        <target state="translated">Dieser Tokentyp kann noch nicht getestet werden.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
           <context context-type="linenumber">1</context>
