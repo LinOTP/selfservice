@@ -30,6 +30,15 @@
               <app-qr-code [qrUrl]="qrCodeData"></app-qr-code>
             </ng-container>
 
+            <ng-container *ngIf="!hasOfflineMode">
+              <mat-spinner class="polling"></mat-spinner>
+              <div class="instruction"
+                   i18n>
+                Waiting for confirmation of transaction
+                <b><code>{{ shortTransactionId }}</code></b> via your LinOTP Authenticator app.
+              </div>
+            </ng-container>
+
             <div class="otpInput">
               <button mat-raised-button
                       (click)="showInput()"
@@ -54,6 +63,14 @@
       </ng-container>
 
       <ng-container *ngSwitchCase="TestState.SUCCESS">
+        <p i18n
+           *ngIf="challResult && challResult.accept === true">
+          You have accepted the transaction.
+        </p>
+        <p i18n
+           *ngIf="challResult && challResult.reject === true">
+          You have rejected the transaction.
+        </p>
         <div i18n>Test successful. You may use your token for authentication.</div>
       </ng-container>
 

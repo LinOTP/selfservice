@@ -10,7 +10,7 @@ mat-form-field {
   display: block;
 }
 
-mat-spinner {
+.loading {
   margin: 100px auto;
 }
 
@@ -21,8 +21,8 @@ mat-spinner {
   flex-direction: column;
 }
 
-.instruction {
-  margin: 2em 0;
+.instruction, .polling {
+  margin: 1em 0;
 }
 
 .otpInput {

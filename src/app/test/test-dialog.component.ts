@@ -34,6 +34,7 @@ export class TestDialogComponent implements OnInit, OnDestroy {
 
   public serial: string;
   public transactionDetail: TransactionDetail;
+  public shortTransactionId: string;
 
   public showInputField = false;
 
@@ -75,6 +76,9 @@ export class TestDialogComponent implements OnInit, OnDestroy {
         this.state = TestState.FAILURE;
       } else {
         this.transactionDetail = response;
+        if (response.transactionid) {
+          this.shortTransactionId = response.transactionid.toString().slice(0, 6);
+        }
         this.state = TestState.UNTESTED;
         if (this.hasOnlineMode) {
           this.checkTransactionState();
