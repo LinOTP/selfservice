@@ -105,7 +105,7 @@ export class TestService {
         this.http.get<LinOTPResponse<boolean, StatusDetail>>(url, { params })),
       filter(res => res.detail.status !== 'open'),
       map(res => res.detail),
-      catchError(this.handleError<StatusDetail>('test token status poll')),
+      catchError(this.handleError<any>('test token status poll', {})),
       take(1),
     );
   }
