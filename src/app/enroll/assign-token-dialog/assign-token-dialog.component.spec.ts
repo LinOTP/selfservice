@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { of } from 'rxjs';
 
@@ -35,6 +35,10 @@ describe('AssignTokenDialogComponent', () => {
         {
           provide: MatDialogRef,
           useValue: spyOnClass(MatDialogRef),
+        },
+        {
+          provide: MAT_DIALOG_DATA,
+          useValue: { closeLabel: null },
         },
         I18nMock,
       ],
@@ -93,7 +97,7 @@ describe('AssignTokenDialogComponent', () => {
 
   describe('assignToken', () => {
 
-    it('should move the stepper to step 2 when assignment request returns', () => {
+    it('should be successful when assignment and set-description requests are successful', () => {
       enrollmentService.assign.and.returnValue(of({ success: true }));
       enrollmentService.setDescription.and.returnValue(of({ success: true }));
 
@@ -106,7 +110,22 @@ describe('AssignTokenDialogComponent', () => {
       expect(component.success).toEqual(true);
     });
 
-    it('should move the stepper to step 2 when assignment request returns and display an error message on failure', () => {
+    it('should fail if assignment worked, but setting the description failed', () => {
+      enrollmentService.assign.and.returnValue(of({ success: true }));
+      enrollmentService.setDescription.and.returnValue(of({ success: false }));
+
+      component.stepper.selectedIndex = 0;
+      component.assignmentForm.setValue({ serial: 'abc123', description: 'my new token' });
+      fixture.detectChanges();
+
+      component.assignToken();
+      expect(component.stepper.selectedIndex).toEqual(2);
+      expect(component.success).toEqual(false);
+      expect(component.errorTypeMessage).toEqual('Setting the token description failed.');
+      expect(component.errorMessage).toEqual('The token was assigned to you, but an error ocurred while setting the description.');
+    });
+
+    it('should fail when assignment request returns and display an error message on failure', () => {
       enrollmentService.assign.and.returnValue(of({ success: false, message: 'an error occurred' }));
 
       component.stepper.selectedIndex = 0;

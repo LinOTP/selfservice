@@ -20,6 +20,7 @@ import { EnrollOATHDialogComponent } from '../enroll/enroll-oath-dialog/enroll-o
 import { EnrollPushDialogComponent } from '../enroll/enroll-push-dialog/enroll-push-dialog.component';
 import { TestDialogComponent } from '../test/test-dialog.component';
 import { ActivateDialogComponent } from '../activate/activate-dialog.component';
+import { AssignTokenDialogComponent } from '../enroll/assign-token-dialog/assign-token-dialog.component';
 
 
 describe('EnrollmentGridComponent', () => {
@@ -217,6 +218,35 @@ describe('EnrollmentGridComponent', () => {
     expect(matDialog.open).toHaveBeenCalledWith(ActivateDialogComponent, expectedTestDialogConfig);
     expect(tokenUpdateSpy).toHaveBeenCalledTimes(2);
     expect(notificationService.message).not.toHaveBeenCalled();
+  }));
+
+  it('should open the assignment dialog and update the token list when completed', fakeAsync(() => {
+    const token = Fixtures.activeTotpToken;
+    const tokenTypeDetails = Fixtures.tokenTypeDetails[TokenType.ASSIGN];
+
+    const expectedEnrollDialogConfig = {
+      width: '850px',
+      autoFocus: false,
+      disableClose: true,
+      data: {
+        closeLabel: 'Test',
+      },
+    };
+    const expectedTestDialogConfig = {
+      width: '650px',
+      data: { token: token },
+    };
+
+    matDialog.open.and.returnValues({ afterClosed: () => of(token.serial) }, { afterClosed: () => of(true) });
+    tokenService.getToken.and.returnValue(of(token));
+    component.runEnrollmentWorkflow(tokenTypeDetails);
+    tick();
+
+    expect(matDialog.open).toHaveBeenCalledWith(AssignTokenDialogComponent, expectedEnrollDialogConfig);
+    expect(tokenService.getToken).toHaveBeenCalledWith(token.serial);
+
+    expect(matDialog.open).toHaveBeenCalledWith(TestDialogComponent, expectedTestDialogConfig);
+    expect(tokenUpdateSpy).toHaveBeenCalledTimes(2);
   }));
 
   it('should notify the user if the token cannot be enrolled', fakeAsync(() => {
