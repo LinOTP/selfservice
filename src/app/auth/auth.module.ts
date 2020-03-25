@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgSelfServiceCommonModule } from '../common/common.module';
 import { SessionService } from './session.service';
 import { AuthGuard } from './auth-guard.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -7,7 +7,7 @@ import { AuthInterceptor } from './auth-interceptor.service';
 
 @NgModule({
   imports: [
-    CommonModule,
+    NgSelfServiceCommonModule,
     HttpClientModule,
   ],
   declarations: [

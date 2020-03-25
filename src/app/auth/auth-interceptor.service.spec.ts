@@ -6,6 +6,8 @@ import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AuthInterceptor } from './auth-interceptor.service';
 import { LoginService } from '../login/login.service';
+import { NotificationService } from '../common/notification.service';
+import { I18nMock } from '../../testing/i18n-mock-provider';
 
 describe('AuthInterceptor', () => {
 
@@ -28,7 +30,12 @@ describe('AuthInterceptor', () => {
         {
           provide: LoginService,
           useValue: spyOnClass(LoginService)
-        }
+        },
+        {
+          provide: NotificationService,
+          useValue: spyOnClass(NotificationService)
+        },
+        I18nMock,
       ],
     });
   });
@@ -58,6 +65,8 @@ describe('AuthInterceptor', () => {
     expect(successCallback).not.toHaveBeenCalled();
     expect(errorCallback).toHaveBeenCalled();
 
+    expect(TestBed.get(NotificationService).message).toHaveBeenCalled();
+
     expect(loginService.handleLogout).toHaveBeenCalledTimes(1);
   });
 
@@ -74,12 +83,12 @@ describe('AuthInterceptor', () => {
     expect(errorCallback).not.toHaveBeenCalled();
 
     expect(loginService.handleLogout).not.toHaveBeenCalled();
+    expect(TestBed.get(NotificationService).message).not.toHaveBeenCalled();
 
     http.verify();
   });
 
-  it(`should not intercept nor redirect differently failing api requests`, () => {
-
+  it(`should inform user of server side errors during requests`, () => {
     const successCallback = jasmine.createSpy('successCallback');
     const errorCallback = jasmine.createSpy('errorCallback');
 
@@ -90,6 +99,24 @@ describe('AuthInterceptor', () => {
     expect(errorCallback).toHaveBeenCalled();
 
     expect(loginService.handleLogout).not.toHaveBeenCalled();
+    expect(TestBed.get(NotificationService).message).toHaveBeenCalled();
+
+    http.verify();
+  });
+
+  it(`should not intercept nor redirect differently failing api requests`, () => {
+
+    const successCallback = jasmine.createSpy('successCallback');
+    const errorCallback = jasmine.createSpy('errorCallback');
+
+    httpClient.get('/api').subscribe(successCallback, errorCallback);
+    http.expectOne('/api').error(new ErrorEvent('I\’m a teapot'), { status: 418 });
+
+    expect(successCallback).not.toHaveBeenCalled();
+    expect(errorCallback).toHaveBeenCalled();
+
+    expect(loginService.handleLogout).not.toHaveBeenCalled();
+    expect(TestBed.get(NotificationService).message).not.toHaveBeenCalled();
 
     http.verify();
   });

@@ -1570,6 +1570,22 @@
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="7212d5787c09a552df7bcdc8a8665189bcf654da" datatype="html">
+        <source>Your session timed out, please login again.</source>
+        <target state="final">Your session timed out, please login again.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/auth/auth-interceptor.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1ae634e36fb1362e3a5b6dc7bdb666941cf605c8" datatype="html">
+        <source>Server error encounterd, request failed.</source>
+        <target state="final">Server error encounterd, request failed.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/auth/auth-interceptor.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="d0db489b32e76eb8d9b97475032910320b00974f" datatype="html">
         <source>dismiss</source>
         <target state="final">dismiss</target>
