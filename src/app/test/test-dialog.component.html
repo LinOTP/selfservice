@@ -52,7 +52,7 @@
                        formControlName="otp"
                        placeholder="OTP value"
                        i18n-placeholder
-                       autofocus>
+                       appFocusOnInit>
                 <mat-error i18n>The OTP field cannot be empty</mat-error>
               </mat-form-field>
             </div>
@@ -91,6 +91,7 @@
             type="reset"
             (click)="reset()"
             *ngIf="state === TestState.FAILURE"
+            appFocusOnInit
             i18n>restart test</button>
     <button mat-raised-button
             color="primary"
@@ -102,6 +103,7 @@
             color="primary"
             mat-dialog-close
             *ngIf="state === TestState.SUCCESS"
+            appFocusOnInit
             i18n>done</button>
   </div>
 
