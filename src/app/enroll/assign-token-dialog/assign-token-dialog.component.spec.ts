@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { of } from 'rxjs';
 
@@ -35,6 +35,10 @@ describe('AssignTokenDialogComponent', () => {
         {
           provide: MatDialogRef,
           useValue: spyOnClass(MatDialogRef),
+        },
+        {
+          provide: MAT_DIALOG_DATA,
+          useValue: { closeLabel: null },
         },
         I18nMock,
       ],

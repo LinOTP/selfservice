@@ -94,6 +94,9 @@ export class EnrollmentGridComponent implements OnInit {
       case TokenType.PUSH:
         return this.dialog.open(EnrollPushDialogComponent, enrollmentConfig).afterClosed();
       case TokenType.ASSIGN:
+        enrollmentConfig.data = {
+          closeLabel: this.testAfterEnrollment ? this.i18n('Test') : this.i18n('Close')
+        };
         return this.dialog.open(AssignTokenDialogComponent, enrollmentConfig).afterClosed();
     }
   }

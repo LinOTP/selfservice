@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 
@@ -22,12 +22,17 @@ export class AssignTokenDialogComponent implements OnInit {
   public errorTypeMessage = '';
   public errorMessage = '';
 
+  public closeLabel = this.i18n('Close');
+
   constructor(
     private dialogRef: MatDialogRef<AssignTokenDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { closeLabel: string },
     private formBuilder: FormBuilder,
     private enrollmentService: EnrollmentService,
     private i18n: I18n,
-  ) { }
+  ) {
+    this.closeLabel = data.closeLabel;
+  }
 
   ngOnInit() {
     this.assignmentForm = this.formBuilder.group({

@@ -1023,10 +1023,6 @@
           <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
           <context context-type="linenumber">46</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
-          <context context-type="linenumber">56</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="b7079f2a5119f06042eeb03991d4553793a75157" datatype="html">
         <source>Enroll Push token</source>
