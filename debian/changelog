@@ -1,3 +1,20 @@
+linotp-selfservice (0.5.0-1) buster; urgency=medium
+
+  Features:
+  * MFA login skips token selection if the user has exactly one token and displays token information in the last step
+  * Inactive sessions are automatically logged out and the user gets redirected to the login page
+  * Recognize and manage existing e-mail, SMS and mOTP tokens
+  * Token tests are enabled with the LinOTP policy 'verify' in the selfservice scope
+  * Token test is performed  after a token is enrolled
+  * Tokens can be tested from the token action menu
+  * Set mOTP pin from the token action menu
+  * Completed the German translation
+
+  Bug Fixes:
+  * Pin field is handled again as a password in the set pin dialog (broken since v0.3.0)
+
+ -- KeyIdentity GmbH <packaging@keyidentity.com>  Thu, 26 Mar 2020 12:30:00 +0100
+
 linotp-selfservice (0.4.0-1) jessie; urgency=medium
 
   Features:

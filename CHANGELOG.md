@@ -1,3 +1,21 @@
+<a name="0.5.0"></a>
+## 0.5.0 (2020-03-26)
+
+### Features:
+* MFA login skips token selection if the user has exactly one token and displays token information in the last step
+* Inactive sessions are automatically logged out and the user gets redirected to the login page
+* Recognize and manage existing e-mail, SMS and mOTP tokens
+* Token tests are enabled with the LinOTP policy 'verify' in the selfservice scope
+* Token test is performed  after a token is enrolled
+* Tokens can be tested from the token action menu
+* Set mOTP pin from the token action menu
+* Completed the German translation
+
+### Bug Fixes:
+* Pin field is handled again as a password in the set pin dialog (broken since v0.3.0)
+
+
+
 <a name="0.4.0"></a>
 ## 0.4.0 (2019-12-19)
 
@@ -7,6 +25,7 @@
 
 ### Bug Fixes:
 * Closing set pin dialog is not treated as an error
+
 
 
 <a name="0.3.0"></a>
