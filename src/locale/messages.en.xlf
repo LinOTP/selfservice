@@ -299,7 +299,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">88</context>
+          <context context-type="linenumber">90</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/resync-dialog/resync-dialog.component.html</context>
@@ -331,7 +331,7 @@
         <target state="final">OTP value</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">53</context>
+          <context context-type="linenumber">58</context>
         </context-group>
       </trans-unit>
       <trans-unit id="f99dfbc4e069350a6a42e28a40021d2f06453b86" datatype="html">
@@ -339,7 +339,7 @@
         <target state="final">The OTP field cannot be empty</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">56</context>
+          <context context-type="linenumber">61</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fa9aed977ffb78dbefd717d8fc12b0134bb8df8b" datatype="html">
@@ -351,7 +351,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">67</context>
+          <context context-type="linenumber">69</context>
         </context-group>
       </trans-unit>
       <trans-unit id="dc9d7161089691a466fa3b4b0f7a290efbd8f365" datatype="html">
@@ -363,7 +363,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">71</context>
+          <context context-type="linenumber">73</context>
         </context-group>
       </trans-unit>
       <trans-unit id="d724952fdf8a1d17c89270728eeeb1afe7bab606" datatype="html">
@@ -371,7 +371,7 @@
         <target state="final">Test successful. You may use your token for authentication.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">74</context>
+          <context context-type="linenumber">76</context>
         </context-group>
       </trans-unit>
       <trans-unit id="73c0e63efed06b6de0786d1d4b68641347b02772" datatype="html">
@@ -379,7 +379,7 @@
         <target state="final">restart test</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">94</context>
+          <context context-type="linenumber">97</context>
         </context-group>
       </trans-unit>
       <trans-unit id="c98077fe229df56d1df276acd22818bd2885eddc" datatype="html">
@@ -387,7 +387,7 @@
         <target state="final">submit</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">100</context>
+          <context context-type="linenumber">103</context>
         </context-group>
       </trans-unit>
       <trans-unit id="bd5b97bd37c0d6c89b0f05384d3e5a0daea1b16a" datatype="html">
@@ -395,7 +395,7 @@
         <target state="final">done</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">105</context>
+          <context context-type="linenumber">109</context>
         </context-group>
       </trans-unit>
       <trans-unit id="aa6096fc163996886c8bafd0770a20e1727db7f0" datatype="html">
@@ -418,42 +418,42 @@
           <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="755d76ad87a3838258a670a303ba0246cc9ed291" datatype="html">
+      <trans-unit id="a0cbd22fcb9777db2e7fa9692cd2b3b426765a01" datatype="html">
         <source>
-              Enter the next OTP value for the selected token:
-            </source>
+          Enter the next OTP value for the selected token:
+        </source>
         <target state="final">
-              Enter the next OTP value for the selected token:
-            </target>
+          Enter the next OTP value for the selected token:
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-dialog.component.html</context>
           <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="277d1db2ea95bf694075486ab6f5c6b0922b6d7d" datatype="html">
+      <trans-unit id="c1c1e3878e811351e8fa2d769645cea3eb3ec06e" datatype="html">
         <source>
-                Scan the QR code with your LinOTP Authenticator app:
-              </source>
+            Scan the QR code with your LinOTP Authenticator app:
+          </source>
         <target state="final">
-                Scan the QR code with your LinOTP Authenticator app:
-              </target>
+            Scan the QR code with your LinOTP Authenticator app:
+          </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-dialog.component.html</context>
           <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="ee602f7430a1c12f340a39d4897fc8fb1dfd3f21" datatype="html">
+      <trans-unit id="026a85359a52370b1385c0c844479305250beb76" datatype="html">
         <source>
-                Waiting for confirmation of transaction
-                <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/><x id="START_TAG_CODE" ctype="x-code" equiv-text="&lt;code>"/><x id="INTERPOLATION" equiv-text="{{ shortTransactionId }}"/><x id="CLOSE_TAG_CODE" ctype="x-code" equiv-text="&lt;/code>"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/> via your LinOTP Authenticator app.
-              </source>
+            Waiting for confirmation of transaction
+            <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/><x id="START_TAG_CODE" ctype="x-code" equiv-text="&lt;code>"/><x id="INTERPOLATION" equiv-text="{{ shortTransactionId }}"/><x id="CLOSE_TAG_CODE" ctype="x-code" equiv-text="&lt;/code>"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/> via your LinOTP Authenticator app.
+          </source>
         <target state="final">
-                Waiting for confirmation of transaction
-                <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/><x id="START_TAG_CODE" ctype="x-code" equiv-text="&lt;code>"/><x id="INTERPOLATION" equiv-text="{{ shortTransactionId }}"/><x id="CLOSE_TAG_CODE" ctype="x-code" equiv-text="&lt;/code>"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/> via your LinOTP Authenticator app.
-              </target>
+            Waiting for confirmation of transaction
+            <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/><x id="START_TAG_CODE" ctype="x-code" equiv-text="&lt;code>"/><x id="INTERPOLATION" equiv-text="{{ shortTransactionId }}"/><x id="CLOSE_TAG_CODE" ctype="x-code" equiv-text="&lt;/code>"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/> via your LinOTP Authenticator app.
+          </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3b72a82fcd5cf129324571886ec7e4ef0f194438" datatype="html">
@@ -461,7 +461,7 @@
         <target state="final">Manually enter OTP</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit>
       <trans-unit id="c2b7ba12c335df8aac5bbf6940c4dccda6631c39" datatype="html">

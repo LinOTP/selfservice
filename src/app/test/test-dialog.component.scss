@@ -10,18 +10,22 @@ mat-form-field {
   display: block;
 }
 
-.loading {
-  margin: 100px auto;
+mat-spinner {
+  margin: 50px auto;
 }
 
-.dialog-input {
+.center-content {
   margin: 20px 0;
   align-items: center;
   display: flex;
   flex-direction: column;
 }
 
-.instruction, .polling {
+.center-text {
+  text-align: center;
+}
+
+.instruction {
   margin: 1em 0;
 }
 
