@@ -66,10 +66,21 @@ build dist:
     - mkdir -p artifacts
     - dcmd mv ../*.changes artifacts/
 
+.normal_build: &normal_build
   artifacts:
     paths:
       - artifacts/
     expire_in: 4 weeks
+  except:
+    - tags
+
+.tag_build: &tag_build
+  artifacts:
+    paths:
+      - artifacts/
+    expire_in: 1000 years
+  only:
+    - tags
 
 build docker image:
   stage: build
@@ -80,16 +91,37 @@ build docker image:
 
 build jessie packages:
   extends: .build-debs
+  <<: *normal_build
+  variables:
+    DEBIAN_RELEASE_NAME: jessie
+
+build jessie packages (tags):
+  extends: .build-debs
+  <<: *tag_build
   variables:
     DEBIAN_RELEASE_NAME: jessie
 
 build stretch packages:
   extends: .build-debs
+  <<: *normal_build
+  variables:
+    DEBIAN_RELEASE_NAME: stretch
+
+build stretch packages (tags):
+  extends: .build-debs
+  <<: *tag_build
   variables:
     DEBIAN_RELEASE_NAME: stretch
 
 build buster packages:
   extends: .build-debs
+  <<: *normal_build
+  variables:
+    DEBIAN_RELEASE_NAME: buster
+
+build buster packages (tags):
+  extends: .build-debs
+  <<: *tag_build
   variables:
     DEBIAN_RELEASE_NAME: buster
 
