@@ -54,7 +54,6 @@ export class EnrollmentService {
     enroll: 'enroll',
     webprovision: 'webprovision',
     assign: 'assign',
-    setDescription: 'setdescription',
   };
 
   private validateCheckS = '/validate/check_s'; // generate a challenge with a given serial
@@ -193,25 +192,6 @@ export class EnrollmentService {
       );
   }
 
-  setDescription(tokenSerial: string, description: string): Observable<{ success: boolean, message?: string }> {
-    const bodyAssign = {
-      serial: tokenSerial,
-      description: description,
-      session: this.sessionService.getSession()
-    };
-    const url = this.userserviceBase + this.userserviceEndpoints.setDescription;
-
-    return this.http.post<LinOTPResponse<{ 'assign token': boolean }>>(url, bodyAssign)
-      .pipe(
-        map(response => {
-          if (response && response.result && response.result.value) {
-            return { success: response.result.value['set description'] > 0 };
-          }
-        }),
-        catchError(this.handleError('assign', { success: false })
-        )
-      );
-  }
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

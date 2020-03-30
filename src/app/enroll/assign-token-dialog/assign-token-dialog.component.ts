@@ -4,9 +4,11 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 
-import { EnrollmentService } from '../../api/enrollment.service';
 import { concatMap, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
+
+import { EnrollmentService } from '../../api/enrollment.service';
+import { OperationsService } from '../../api/operations.service';
 
 @Component({
   selector: 'app-assign-token-dialog',
@@ -29,6 +31,7 @@ export class AssignTokenDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: { closeLabel: string },
     private formBuilder: FormBuilder,
     private enrollmentService: EnrollmentService,
+    private operationsService: OperationsService,
     private i18n: I18n,
   ) {
     this.closeLabel = data.closeLabel;
@@ -81,7 +84,7 @@ export class AssignTokenDialogComponent implements OnInit {
       }),
       concatMap(result => {
         if (result.success) {
-          return this.enrollmentService.setDescription(serial, description);
+          return this.operationsService.setDescription(serial, description);
         } else {
           return of(null);
         }
