@@ -1,19 +1,22 @@
-import { async, ComponentFixture, TestBed, tick } from '@angular/core/testing';
-
-import { LoginComponent, LoginStage } from './login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LoginService } from './login.service';
-import { MaterialModule } from '../material.module';
+import { Router } from '@angular/router';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NotificationService } from '../common/notification.service';
+
+import { of } from 'rxjs';
+
 import { I18nMock } from '../../testing/i18n-mock-provider';
 import { spyOnClass } from '../../testing/spyOnClass';
-import { of } from 'rxjs';
-import { Router } from '@angular/router';
-import { SystemService } from '../system.service';
 import { Fixtures } from '../../testing/fixtures';
 import { MockPipe } from '../../testing/mock-pipe';
 import { TestingPage } from '../../testing/page-helper';
+
+import { MaterialModule } from '../material.module';
+import { NotificationService } from '../common/notification.service';
+import { SystemService } from '../system.service';
+
+import { LoginComponent, LoginStage } from './login.component';
+import { LoginService } from './login.service';
 
 class Page extends TestingPage<LoginComponent> {
 

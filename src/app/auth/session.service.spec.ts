@@ -1,12 +1,14 @@
 import { TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { spyOnClass } from '../../testing/spyOnClass';
 
-import { SessionService } from './session.service';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { CookieService } from 'ngx-cookie';
 import { NgxPermissionsService } from 'ngx-permissions';
+
+import { spyOnClass } from '../../testing/spyOnClass';
+
 import { SystemService } from '../system.service';
+import { SessionService } from './session.service';
 
 describe('SessionService', () => {
   let sessionService: SessionService;

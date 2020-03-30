@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+import { I18n } from '@ngx-translate/i18n-polyfill';
+
 import { Observable, of, interval } from 'rxjs';
 import { map, catchError, filter, mergeMap, take } from 'rxjs/operators';
 
 import { SessionService } from '../auth/session.service';
-import { I18n } from '@ngx-translate/i18n-polyfill';
-
 import { LinOTPResponse } from './token.service';
 
 export enum ReplyMode {

@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormBuilder, FormGroup, RequiredValidator, Validators } from '@angular/forms';
 
 import { I18n } from '@ngx-translate/i18n-polyfill';
 

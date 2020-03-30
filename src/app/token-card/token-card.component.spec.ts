@@ -1,24 +1,25 @@
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { MatDialog } from '@angular/material/dialog';
+
+import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
+
+import { of } from 'rxjs/internal/observable/of';
 
 import { Fixtures } from '../../testing/fixtures';
 import { spyOnClass } from '../../testing/spyOnClass';
 import { TestingPage } from '../../testing/page-helper';
-
-import { of } from 'rxjs/internal/observable/of';
-
-import { MatDialog } from '@angular/material/dialog';
-import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
-
-import { TokenCardComponent } from './token-card.component';
-import { MaterialModule } from '../material.module';
-import { NotificationService } from '../common/notification.service';
-import { OperationsService } from '../api/operations.service';
-import { Permission, ModifyTokenPermissions } from '../common/permissions';
-import { EnrollmentStatus } from '../api/token';
-import { ActivateDialogComponent } from '../activate/activate-dialog.component';
-import { CapitalizePipe } from '../common/pipes/capitalize.pipe';
-import { TestDialogComponent } from '../test/test-dialog.component';
 import { I18nMock } from '../../testing/i18n-mock-provider';
+
+import { MaterialModule } from '../material.module';
+import { CapitalizePipe } from '../common/pipes/capitalize.pipe';
+import { NotificationService } from '../common/notification.service';
+import { Permission, ModifyTokenPermissions } from '../common/permissions';
+import { OperationsService } from '../api/operations.service';
+import { EnrollmentStatus } from '../api/token';
+
+import { ActivateDialogComponent } from '../activate/activate-dialog.component';
+import { TestDialogComponent } from '../test/test-dialog.component';
+import { TokenCardComponent } from './token-card.component';
 
 class Page extends TestingPage<TokenCardComponent> {
 

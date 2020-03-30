@@ -1,13 +1,13 @@
 import { TestBed, async, inject } from '@angular/core/testing';
-import { Fixtures } from '../../testing/fixtures';
-
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
+import { Fixtures } from '../../testing/fixtures';
+import { I18nMock } from '../../testing/i18n-mock-provider';
+
+import { SessionService } from '../auth/session.service';
 import { OperationsService } from './operations.service';
 import { Token, EnrollmentStatus, TokenType } from './token';
-import { SessionService } from '../auth/session.service';
-import { I18nMock } from '../../testing/i18n-mock-provider';
 
 const session = '';
 

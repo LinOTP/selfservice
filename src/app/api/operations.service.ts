@@ -5,7 +5,6 @@ import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
 import { SessionService } from '../auth/session.service';
-
 import { Token, TokenType } from './token';
 import { LinOTPResponse, TokenService } from './token.service';
 

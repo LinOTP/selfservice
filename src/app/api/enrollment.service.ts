@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+import { I18n } from '@ngx-translate/i18n-polyfill';
+
 import { Observable, of, interval } from 'rxjs';
 import { map, filter, mergeMap, take, catchError } from 'rxjs/operators';
 
-import { SessionService } from '../auth/session.service';
-import { Permission } from '../common/permissions';
-import { I18n } from '@ngx-translate/i18n-polyfill';
-
-import { EnrollToken, EnrollmentStatus, TokenType, TokenTypeDetails } from './token';
+import { EnrollToken, EnrollmentStatus } from './token';
 import { LinOTPResponse, TokenService } from './token.service';
+import { SessionService } from '../auth/session.service';
 
 export interface PushEnrollmentDetail {
   lse_qr_url: {

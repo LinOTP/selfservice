@@ -1,11 +1,14 @@
-import { Permission } from '../common/permissions';
-import { Token, TokenType, TokenTypeDetails } from './token';
-import { I18n } from '@ngx-translate/i18n-polyfill';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
+import { I18n } from '@ngx-translate/i18n-polyfill';
+
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
+
 import { SessionService } from '../auth/session.service';
+import { Permission } from '../common/permissions';
+import { Token, TokenType, TokenTypeDetails } from './token';
 
 
 export interface LinOTPResponse<T, U = undefined> {

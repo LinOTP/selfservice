@@ -2,11 +2,12 @@ import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators, ValidationErrors, AbstractControl } from '@angular/forms';
 
+import { I18n } from '@ngx-translate/i18n-polyfill';
+
 import { Token } from '../../api/token';
 import { OperationsService } from '../../api/operations.service';
 import { ErrorStateRootMatcher } from '../form-helpers/error-state-root-matcher';
 import { NotificationService } from '../notification.service';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 
 @Component({
   selector: 'app-set-motp-pin-dialog',

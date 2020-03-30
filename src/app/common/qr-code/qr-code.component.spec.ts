@@ -1,9 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { QRCodeComponent } from './qr-code.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from '../../material.module';
+
 import { MockComponent } from '../../../testing/mock-component';
+
+import { MaterialModule } from '../../material.module';
+import { QRCodeComponent } from './qr-code.component';
 
 describe('QRCodeComponent', () => {
   let component: QRCodeComponent;

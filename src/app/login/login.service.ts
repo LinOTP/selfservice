@@ -1,15 +1,18 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { SessionService } from '../auth/session.service';
-import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { map, tap, switchMap, catchError } from 'rxjs/operators';
-import { Token, EnrollmentStatus } from '../api/token';
-import { TokenService } from '../api/token.service';
-import { SystemService } from '../system.service';
-import { Permission } from '../common/permissions';
-import { NgxPermissionsService } from 'ngx-permissions';
 import { NavigationExtras, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+
+import { NgxPermissionsService } from 'ngx-permissions';
+
+import { Observable, of } from 'rxjs';
+import { map, tap, switchMap, catchError } from 'rxjs/operators';
+
+import { Permission } from '../common/permissions';
+import { SystemService } from '../system.service';
+import { Token, EnrollmentStatus } from '../api/token';
+import { TokenService } from '../api/token.service';
+import { SessionService } from '../auth/session.service';
 
 export interface LoginOptions {
   username: string;

@@ -1,12 +1,15 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
-import { ComponentType } from '@angular/cdk/portal';
 import { MatDialog } from '@angular/material/dialog';
+
+import { I18n } from '@ngx-translate/i18n-polyfill';
 
 import { Subject } from 'rxjs';
 import { filter, switchMap } from 'rxjs/operators';
 
 import { DialogComponent } from '../common/dialog/dialog.component';
 import { SetPinDialogComponent } from '../common/set-pin-dialog/set-pin-dialog.component';
+import { SetMOTPPinDialogComponent } from '../common/set-motp-pin-dialog/set-motp-pin-dialog.component';
+import { ResyncDialogComponent } from '../common/resync-dialog/resync-dialog.component';
 import { NotificationService } from '../common/notification.service';
 import { Permission, ModifyTokenPermissions } from '../common/permissions';
 
@@ -15,9 +18,6 @@ import { OperationsService } from '../api/operations.service';
 
 import { TestDialogComponent } from '../test/test-dialog.component';
 import { ActivateDialogComponent } from '../activate/activate-dialog.component';
-import { I18n } from '@ngx-translate/i18n-polyfill';
-import { ResyncDialogComponent } from '../common/resync-dialog/resync-dialog.component';
-import { SetMOTPPinDialogComponent } from '../common/set-motp-pin-dialog/set-motp-pin-dialog.component';
 
 @Component({
   selector: 'app-token-card',

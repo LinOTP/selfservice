@@ -1,11 +1,13 @@
 import { Component, OnInit, Inject } from '@angular/core';
+import { MatStepper } from '@angular/material/stepper';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+
+import { I18n } from '@ngx-translate/i18n-polyfill';
+import { Observable, of } from 'rxjs';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
+
 import { EnrollmentService } from '../api/enrollment.service';
 import { Token, EnrollmentStatus, TokenType } from '../api/token';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { MatStepper } from '@angular/material/stepper';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 
 @Component({
   selector: 'app-activate-dialog',

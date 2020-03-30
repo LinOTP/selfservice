@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpErrorResponse, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
 
+import { I18n } from '@ngx-translate/i18n-polyfill';
+
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { LoginService } from '../login/login.service';
 import { NotificationService, Duration } from '../common/notification.service';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {

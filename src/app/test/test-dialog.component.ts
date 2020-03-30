@@ -1,12 +1,13 @@
 import { Component, Inject, ViewChild, OnInit, OnDestroy } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, Validators, FormBuilder, NgForm } from '@angular/forms';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { I18n } from '@ngx-translate/i18n-polyfill';
 
+import { Subscription } from 'rxjs';
+
 import { Token } from '../api/token';
 import { TestService, TransactionDetail, TestOptions, ReplyMode, StatusDetail } from '../api/test.service';
-import { Subscription } from 'rxjs';
 
 enum TestState {
   UNTESTED = 'untested',

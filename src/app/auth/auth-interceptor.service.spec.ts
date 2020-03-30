@@ -1,13 +1,13 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { TestBed, inject } from '@angular/core/testing';
+
+import { I18nMock } from '../../testing/i18n-mock-provider';
 import { spyOnClass } from '../../testing/spyOnClass';
 
-import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
-
-import { AuthInterceptor } from './auth-interceptor.service';
 import { LoginService } from '../login/login.service';
+import { AuthInterceptor } from './auth-interceptor.service';
 import { NotificationService } from '../common/notification.service';
-import { I18nMock } from '../../testing/i18n-mock-provider';
 
 describe('AuthInterceptor', () => {
 

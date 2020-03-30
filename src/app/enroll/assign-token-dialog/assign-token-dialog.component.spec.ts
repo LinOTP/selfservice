@@ -5,12 +5,13 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { of } from 'rxjs';
 
 import { spyOnClass } from '../../../testing/spyOnClass';
+import { I18nMock } from '../../../testing/i18n-mock-provider';
+
 import { MaterialModule } from '../../material.module';
 import { EnrollmentService } from '../../api/enrollment.service';
+import { OperationsService } from '../../api/operations.service';
 
 import { AssignTokenDialogComponent } from './assign-token-dialog.component';
-import { I18nMock } from '../../../testing/i18n-mock-provider';
-import { OperationsService } from '../../api/operations.service';
 
 describe('AssignTokenDialogComponent', () => {
   let component: AssignTokenDialogComponent;
