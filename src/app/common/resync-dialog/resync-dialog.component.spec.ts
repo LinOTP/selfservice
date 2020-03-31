@@ -1,20 +1,18 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { of } from 'rxjs';
 
 import { Fixtures } from '../../../testing/fixtures';
 import { TestingPage } from '../../../testing/page-helper';
 import { spyOnClass } from '../../../testing/spyOnClass';
+import { I18nMock } from '../../../testing/i18n-mock-provider';
 
 import { MaterialModule } from '../../material.module';
 import { OperationsService } from '../../api/operations.service';
 import { NotificationService } from '../notification.service';
-
 import { ResyncDialogComponent } from './resync-dialog.component';
-import { I18nMock } from '../../../testing/i18n-mock-provider';
 
 class Page extends TestingPage<ResyncDialogComponent> {
 

@@ -1,9 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { TestBed, async, inject } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+
 import { ExampleAPIResponses, Fixtures } from '../testing/fixtures';
 import { spyOnClass } from '../testing/spyOnClass';
-
-import { HttpClient } from '@angular/common/http';
 
 import { SystemService } from './system.service';
 import { SessionService } from './auth/session.service';

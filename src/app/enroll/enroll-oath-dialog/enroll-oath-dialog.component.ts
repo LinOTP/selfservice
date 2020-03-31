@@ -1,15 +1,16 @@
-import { Component, OnInit, Inject, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { SetPinDialogComponent } from '../../common/set-pin-dialog/set-pin-dialog.component';
-import { NotificationService } from '../../common/notification.service';
-
-import { EnrollmentService } from '../../api/enrollment.service';
-import { TokenType, TokenTypeDetails, EnrollToken } from '../../api/token';
-import { Permission } from '../../common/permissions';
 import { I18n } from '@ngx-translate/i18n-polyfill';
+
+import { Permission } from '../../common/permissions';
+import { NotificationService } from '../../common/notification.service';
+import { SetPinDialogComponent } from '../../common/set-pin-dialog/set-pin-dialog.component';
+
+import { TokenType, TokenTypeDetails, EnrollToken } from '../../api/token';
+import { EnrollmentService } from '../../api/enrollment.service';
 import { OperationsService } from '../../api/operations.service';
 
 @Component({

@@ -5,17 +5,20 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { of } from 'rxjs';
 
 import { spyOnClass } from '../../../testing/spyOnClass';
+import { I18nMock } from '../../../testing/i18n-mock-provider';
+
 import { MaterialModule } from '../../material.module';
 import { EnrollmentService } from '../../api/enrollment.service';
+import { OperationsService } from '../../api/operations.service';
 
 import { AssignTokenDialogComponent } from './assign-token-dialog.component';
-import { I18nMock } from '../../../testing/i18n-mock-provider';
 
 describe('AssignTokenDialogComponent', () => {
   let component: AssignTokenDialogComponent;
   let fixture: ComponentFixture<AssignTokenDialogComponent>;
   let dialogRef: jasmine.SpyObj<MatDialogRef<AssignTokenDialogComponent>>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
+  let operationsService: jasmine.SpyObj<OperationsService>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -31,6 +34,10 @@ describe('AssignTokenDialogComponent', () => {
         {
           provide: EnrollmentService,
           useValue: spyOnClass(EnrollmentService)
+        },
+        {
+          provide: OperationsService,
+          useValue: spyOnClass(OperationsService)
         },
         {
           provide: MatDialogRef,
@@ -53,6 +60,7 @@ describe('AssignTokenDialogComponent', () => {
 
     dialogRef = TestBed.get(MatDialogRef);
     enrollmentService = TestBed.get(EnrollmentService);
+    operationsService = TestBed.get(OperationsService);
   });
 
   it('should be created', () => {
@@ -99,7 +107,7 @@ describe('AssignTokenDialogComponent', () => {
 
     it('should be successful when assignment and set-description requests are successful', () => {
       enrollmentService.assign.and.returnValue(of({ success: true }));
-      enrollmentService.setDescription.and.returnValue(of({ success: true }));
+      operationsService.setDescription.and.returnValue(of({ success: true }));
 
       component.stepper.selectedIndex = 0;
       component.assignmentForm.setValue({ serial: 'abc123', description: 'my new token' });
@@ -112,7 +120,7 @@ describe('AssignTokenDialogComponent', () => {
 
     it('should fail if assignment worked, but setting the description failed', () => {
       enrollmentService.assign.and.returnValue(of({ success: true }));
-      enrollmentService.setDescription.and.returnValue(of({ success: false }));
+      operationsService.setDescription.and.returnValue(of({ success: false }));
 
       component.stepper.selectedIndex = 0;
       component.assignmentForm.setValue({ serial: 'abc123', description: 'my new token' });

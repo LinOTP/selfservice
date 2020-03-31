@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
 import { NgSelfServiceCommonModule } from '../common/common.module';
 import { SessionService } from './session.service';
 import { AuthGuard } from './auth-guard.service';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth-interceptor.service';
 
 @NgModule({

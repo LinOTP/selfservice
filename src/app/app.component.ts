@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { SessionService } from './auth/session.service';
+
 import { I18n } from '@ngx-translate/i18n-polyfill';
-import { NotificationService } from './common/notification.service';
+
+import { SessionService } from './auth/session.service';
 import { LoginService } from './login/login.service';
+import { NotificationService } from './common/notification.service';
 
 @Component({
   selector: 'app-root',

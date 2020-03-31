@@ -5,7 +5,6 @@ import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
 import { SessionService } from '../auth/session.service';
-
 import { Token, TokenType } from './token';
 import { LinOTPResponse, TokenService } from './token.service';
 
@@ -22,6 +21,7 @@ export class OperationsService {
     disable: 'disable',
     reset: 'reset',
     resync: 'resync',
+    setDescription: 'setdescription',
   };
 
   constructor(
@@ -133,4 +133,25 @@ export class OperationsService {
         catchError(this.tokenService.handleError('resync', false))
       );
   }
+
+  setDescription(tokenSerial: string, description: string): Observable<{ success: boolean, message?: string }> {
+    const bodyAssign = {
+      serial: tokenSerial,
+      description: description,
+      session: this.sessionService.getSession()
+    };
+    const url = this.userserviceBase + this.userserviceEndpoints.setDescription;
+
+    return this.http.post<LinOTPResponse<{ 'assign token': boolean }>>(url, bodyAssign)
+      .pipe(
+        map(response => {
+          if (response && response.result && response.result.value) {
+            return { success: response.result.value['set description'] > 0 };
+          }
+        }),
+        catchError(this.tokenService.handleError('assign', { success: false })
+        )
+      );
+  }
+
 }

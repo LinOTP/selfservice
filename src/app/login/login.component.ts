@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { map } from 'rxjs/operators';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 
+import { map } from 'rxjs/operators';
+
 import { NotificationService } from '../common/notification.service';
-import { LoginService, LoginOptions } from './login.service';
-import { SystemService, SystemInfo } from '../system.service';
 import { Token } from '../api/token';
+import { SystemService, SystemInfo } from '../system.service';
+import { LoginService, LoginOptions } from './login.service';
 
 export enum LoginStage {
   USER_PW_INPUT = 1,

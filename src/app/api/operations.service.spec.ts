@@ -1,13 +1,13 @@
 import { TestBed, async, inject } from '@angular/core/testing';
-import { Fixtures } from '../../testing/fixtures';
-
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
+import { Fixtures } from '../../testing/fixtures';
+import { I18nMock } from '../../testing/i18n-mock-provider';
+
+import { SessionService } from '../auth/session.service';
 import { OperationsService } from './operations.service';
 import { Token, EnrollmentStatus, TokenType } from './token';
-import { SessionService } from '../auth/session.service';
-import { I18nMock } from '../../testing/i18n-mock-provider';
 
 const session = '';
 
@@ -326,4 +326,40 @@ describe('OperationsService', () => {
       })
     ));
   });
+
+  describe('setDescription', () => {
+    it('should request setting a token description from the server', async(
+      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+
+        operationsService.setDescription('serial', 'description').subscribe(response => {
+          expect(response).toEqual({ success: true });
+        });
+
+        const request = backend.expectOne((req) => req.url === '/userservice/setdescription' && req.method === 'POST');
+
+        request.flush({ result: { status: true, value: { 'set description': true } } });
+        backend.verify();
+      })
+    ));
+
+    it('should call the error handler on request failure', async(
+      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+
+        spyOn(console, 'error');
+
+        operationsService.setDescription('serial', 'description').subscribe(response => {
+          expect(response).toEqual({ success: false });
+        });
+
+        const request = backend.expectOne((req) => req.url === '/userservice/setdescription' && req.method === 'POST');
+
+        request.error(new ErrorEvent('Error setting token description'));
+        backend.verify();
+
+        expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
+      })
+    ));
+  });
+
+
 });

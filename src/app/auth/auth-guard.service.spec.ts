@@ -1,13 +1,11 @@
-import { TestBed, inject, fakeAsync, tick } from '@angular/core/testing';
+import { RouterStateSnapshot } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { TestBed, inject } from '@angular/core/testing';
 
 import { spyOnClass } from '../../testing/spyOnClass';
 
-import { Router, RouterStateSnapshot } from '@angular/router';
-
 import { LoginService } from '../login/login.service';
 import { SessionService } from './session.service';
-
 import { AuthGuard } from './auth-guard.service';
 
 describe('AuthGuard', () => {

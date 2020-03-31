@@ -1,13 +1,16 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+
+import { of } from 'rxjs';
+
+import { I18nMock } from '../testing/i18n-mock-provider';
+import { spyOnClass } from '../testing/spyOnClass';
+
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
 import { SessionService } from './auth/session.service';
-import { of } from 'rxjs';
 import { NotificationService } from './common/notification.service';
-import { I18nMock } from '../testing/i18n-mock-provider';
 import { LoginService } from './login/login.service';
-import { spyOnClass } from '../testing/spyOnClass';
 
 describe('AppComponent', () => {
   let loginService: jasmine.SpyObj<LoginService>;

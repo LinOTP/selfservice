@@ -1,18 +1,22 @@
-import { TestBed, async, inject } from '@angular/core/testing';
-
-import { LoginService } from './login.service';
-import { SessionService } from '../auth/session.service';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { spyOnClass } from '../../testing/spyOnClass';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { of } from 'rxjs';
-import { TokenService } from '../api/token.service';
-import { Fixtures } from '../../testing/fixtures';
-import { SystemService } from '../system.service';
-import { NgxPermissionsService } from 'ngx-permissions';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { TestBed, async, inject } from '@angular/core/testing';
+
+import { NgxPermissionsService } from 'ngx-permissions';
+
+import { of } from 'rxjs';
+
+import { spyOnClass } from '../../testing/spyOnClass';
+import { Fixtures } from '../../testing/fixtures';
+
 import { MaterialModule } from '../material.module';
+import { SessionService } from '../auth/session.service';
+import { SystemService } from '../system.service';
+import { TokenService } from '../api/token.service';
+
+import { LoginService } from './login.service';
 
 describe('LoginService', () => {
   let loginService: LoginService;

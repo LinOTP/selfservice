@@ -1,24 +1,27 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+
+import { NgxPermissionsAllowStubDirective, NgxPermissionsRestrictStubDirective } from 'ngx-permissions';
+
 import { of } from 'rxjs';
 
-import { Fixtures } from '../../testing/fixtures';
 import { MockPipe } from '../../testing/mock-pipe';
 import { MockComponent } from '../../testing/mock-component';
+import { spyOnClass } from '../../testing/spyOnClass';
+import { Fixtures } from '../../testing/fixtures';
+import { TestingPage } from '../../testing/page-helper';
 
-import { TokenListComponent } from './token-list.component';
 import { MaterialModule } from '../material.module';
 import { TokenService } from '../api/token.service';
-import { NgxPermissionsAllowStubDirective, NgxPermissionsService, NgxPermissionsRestrictStubDirective } from 'ngx-permissions';
 import { EnrollmentStatus } from '../api/token';
 import { EnrollmentPermissions } from '../common/permissions';
-import { TestingPage } from '../../testing/page-helper';
-import { spyOnClass } from '../../testing/spyOnClass';
 import { ArrayNotEmptyPipe } from '../common/pipes/array-not-empty.pipe';
 import { ActiveTokensPipe } from '../common/pipes/active-tokens.pipe';
 import { InactiveTokensPipe } from '../common/pipes/inactive-tokens.pipe';
 import { UnreadyTokensPipe } from '../common/pipes/unready-tokens.pipe';
 import { CapitalizePipe } from '../common/pipes/capitalize.pipe';
+
+import { TokenListComponent } from './token-list.component';
 
 class Page extends TestingPage<TokenListComponent> {
 

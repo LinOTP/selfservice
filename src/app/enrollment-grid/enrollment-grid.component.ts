@@ -3,22 +3,20 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 import { I18n } from '@ngx-translate/i18n-polyfill';
 
-import { Subject, Observable, EMPTY } from 'rxjs';
+import { NgxPermissionsService } from 'ngx-permissions';
+import { Subject, Observable } from 'rxjs';
 import { switchMap, filter, tap } from 'rxjs/operators';
 
+import { Permission } from '../common/permissions';
+import { NotificationService } from '../common/notification.service';
 import { TokenType, Token, TokenTypeDetails } from '../api/token';
 import { TokenService } from '../api/token.service';
 
-import { NotificationService } from '../common/notification.service';
-
+import { AssignTokenDialogComponent } from '../enroll/assign-token-dialog/assign-token-dialog.component';
 import { EnrollOATHDialogComponent } from '../enroll/enroll-oath-dialog/enroll-oath-dialog.component';
 import { EnrollPushDialogComponent } from '../enroll/enroll-push-dialog/enroll-push-dialog.component';
-import { AssignTokenDialogComponent } from '../enroll/assign-token-dialog/assign-token-dialog.component';
-import { TestDialogComponent } from '../test/test-dialog.component';
 import { ActivateDialogComponent } from '../activate/activate-dialog.component';
-
-import { NgxPermissionsService } from 'ngx-permissions';
-import { Permission } from '../common/permissions';
+import { TestDialogComponent } from '../test/test-dialog.component';
 
 @Component({
   selector: 'app-enrollment-grid',

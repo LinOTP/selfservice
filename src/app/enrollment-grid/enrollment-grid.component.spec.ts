@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 
 import { NgxPermissionsAllowStubDirective, NgxPermissionsService } from 'ngx-permissions';
+
 import { of } from 'rxjs/internal/observable/of';
 
 import { spyOnClass } from '../../testing/spyOnClass';
@@ -11,16 +12,16 @@ import { I18nMock } from '../../testing/i18n-mock-provider';
 
 import { MaterialModule } from '../material.module';
 import { NotificationService } from '../common/notification.service';
-import { TokenTypeDetails, TokenType } from '../api/token';
 import { CapitalizePipe } from '../common/pipes/capitalize.pipe';
+import { TokenTypeDetails, TokenType } from '../api/token';
 import { TokenService } from '../api/token.service';
 
 import { EnrollmentGridComponent } from './enrollment-grid.component';
+import { AssignTokenDialogComponent } from '../enroll/assign-token-dialog/assign-token-dialog.component';
 import { EnrollOATHDialogComponent } from '../enroll/enroll-oath-dialog/enroll-oath-dialog.component';
 import { EnrollPushDialogComponent } from '../enroll/enroll-push-dialog/enroll-push-dialog.component';
-import { TestDialogComponent } from '../test/test-dialog.component';
 import { ActivateDialogComponent } from '../activate/activate-dialog.component';
-import { AssignTokenDialogComponent } from '../enroll/assign-token-dialog/assign-token-dialog.component';
+import { TestDialogComponent } from '../test/test-dialog.component';
 
 
 describe('EnrollmentGridComponent', () => {
