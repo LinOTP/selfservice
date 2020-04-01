@@ -116,7 +116,7 @@ describe('EnrollPushDialogComponent', () => {
 
   }));
 
-  it('should output an message when the push enrollment failed', fakeAsync(() => {
+  it('should output a message when the push enrollment failed', fakeAsync(() => {
     const mockedEnrollResponse = Fixtures.enrollmentResponse;
     mockedEnrollResponse.result.value = false;
 
@@ -133,7 +133,7 @@ describe('EnrollPushDialogComponent', () => {
     expect(component.enrolledToken).toEqual(undefined);
     expect(component.currentStep).toEqual(1);
     expect(notificationService.message).toHaveBeenCalledTimes(1);
-    expect(notificationService.message).toHaveBeenCalledWith('There was a problem while enrolling the new token.' +
+    expect(notificationService.message).toHaveBeenCalledWith('There was a problem while creating the new token.' +
       ' Please try again.');
   }));
 
@@ -148,9 +148,9 @@ describe('EnrollPushDialogComponent', () => {
       autoFocus: false,
       disableClose: true,
       data: {
-        title: 'Stop enrollment?',
+        title: 'Stop setting up your new token?',
         text: 'The incomplete token will be deleted. ' +
-          'You will have to restart the enrollment process in order to use this type of token.',
+          'You will have to restart the setup process in order to use this type of token.',
         confirmationLabel: 'Confirm',
       }
     };

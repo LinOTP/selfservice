@@ -101,9 +101,9 @@ describe('TokenListComponent with permissions', () => {
     tokenService.getTokens.and.returnValue(of([]));
 
     fixture.detectChanges();
-    expect(page.getEnrollFirstTokenSectionElement('h2').textContent).toEqual('Enroll your first authentication method');
+    expect(page.getEnrollFirstTokenSectionElement('h2').textContent).toEqual('Set up your first authentication method');
     expect(page.getEnrollFirstTokenSectionElement('p').textContent).toEqual(' You currently do not have any authentication' +
-      ' method enrolled. Start by selecting your preferred type: ');
+      ' method set up. Start by selecting your preferred type: ');
 
     expect(page.getActiveAuthSectionElement('h2')).toBeNull();
     expect(page.getActiveAuthSectionElement('p')).toBeNull();
@@ -123,9 +123,9 @@ describe('TokenListComponent with permissions', () => {
     expect(page.getActiveAuthSectionElement('h2').textContent).toEqual('Active authentication methods');
     expect(page.getActiveAuthSectionElement('p').textContent).toEqual('The following tokens are ready to be used:');
 
-    expect(page.getEnrollAlternativeTokenSectionElement('h2').textContent).toEqual('Set up new authentication method');
-    expect(page.getEnrollAlternativeTokenSectionElement('p').textContent).toEqual('Following alternative authentication methods' +
-      ' are available and can be set up:');
+    expect(page.getEnrollAlternativeTokenSectionElement('h2').textContent).toEqual('Set up a new authentication method');
+    expect(page.getEnrollAlternativeTokenSectionElement('p').textContent).toEqual('The following authentication methods' +
+      ' are available:');
 
     expect(page.getEnrollFirstTokenSectionElement('h2')).toBeNull();
     expect(page.getEnrollFirstTokenSectionElement('p')).toBeNull();
@@ -144,9 +144,9 @@ describe('TokenListComponent with permissions', () => {
     expect(page.getPendingSectionElement('p').textContent).toEqual('The following tokens are not active' +
       ' and require further action:');
 
-    expect(page.getEnrollAlternativeTokenSectionElement('h2').textContent).toEqual('Set up new authentication method');
-    expect(page.getEnrollAlternativeTokenSectionElement('p').textContent).toEqual('Following alternative authentication methods' +
-      ' are available and can be set up:');
+    expect(page.getEnrollAlternativeTokenSectionElement('h2').textContent).toEqual('Set up a new authentication method');
+    expect(page.getEnrollAlternativeTokenSectionElement('p').textContent).toEqual('The following authentication methods' +
+      ' are available:');
 
     expect(page.getActiveAuthSectionElement('h2')).toBeNull();
     expect(page.getActiveAuthSectionElement('p')).toBeNull();
@@ -225,7 +225,7 @@ describe('TokenListComponent without permissions', () => {
     fixture.detectChanges();
     expect(page.getEmptyStateSectionElement('h2').textContent).toEqual('No actions available');
     expect(page.getEmptyStateSectionElement('p').textContent).toEqual(
-      'You currently do not own any tokens, nor can you enroll a token yourself. Please contact your administrator.'
+      'You currently do not own any tokens, nor can you set up a token yourself. Please contact your administrator.'
     );
 
     expect(page.getEnrollFirstTokenSectionElement('h2')).toBeNull();

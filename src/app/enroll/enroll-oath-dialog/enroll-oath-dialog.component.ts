@@ -74,7 +74,7 @@ export class EnrollOATHDialogComponent implements OnInit {
         this.enrollmentStep.controls.tokenEnrolled.setValue(true);
         this.stepper.next();
       } else {
-        this.notificationService.message(this.i18n('There was a problem while enrolling the new token. Please try again.'));
+        this.notificationService.message(this.i18n('There was a problem while creating the new token. Please try again.'));
       }
     });
   }

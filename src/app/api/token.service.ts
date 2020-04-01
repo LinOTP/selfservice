@@ -85,7 +85,7 @@ export class TokenService {
       icon: 'cached',
       enrollmentPermission: Permission.ENROLLHOTP,
       enrollmentType: 'googleauthenticator',
-      enrollmentActionLabel: this.i18n('Enroll'),
+      enrollmentActionLabel: this.i18n('Create'),
     },
     {
       type: TokenType.TOTP,
@@ -94,7 +94,7 @@ export class TokenService {
       icon: 'timelapse',
       enrollmentPermission: Permission.ENROLLTOTP,
       enrollmentType: 'googleauthenticator_time',
-      enrollmentActionLabel: this.i18n('Enroll'),
+      enrollmentActionLabel: this.i18n('Create'),
     },
     {
       type: TokenType.PUSH,
@@ -103,7 +103,7 @@ export class TokenService {
       icon: 'screen_lock_portrait',
       enrollmentPermission: Permission.ENROLLPUSH,
       activationPermission: Permission.ACTIVATEPUSH,
-      enrollmentActionLabel: this.i18n('Enroll'),
+      enrollmentActionLabel: this.i18n('Create'),
     },
     {
       type: TokenType.QR,
@@ -112,7 +112,7 @@ export class TokenService {
       icon: 'all_out',
       // enrollmentPermission: Permission.ENROLLQR,
       activationPermission: Permission.ACTIVATEQR,
-      enrollmentActionLabel: this.i18n('Enroll'),
+      enrollmentActionLabel: this.i18n('Create'),
     },
     {
       type: TokenType.MOTP,
@@ -134,7 +134,7 @@ export class TokenService {
     },
     {
       type: TokenType.ASSIGN,
-      name: this.i18n('Assign Token'),
+      name: this.i18n('Assign token'),
       description: this.i18n('Claim an existing token and link it to your user account'),
       icon: 'link',
       enrollmentPermission: Permission.ASSIGN,

@@ -44,7 +44,7 @@ export class EnrollmentGridComponent implements OnInit {
 
   public runEnrollmentWorkflow(tokenType: TokenTypeDetails) {
     if (![TokenType.HOTP, TokenType.TOTP, TokenType.PUSH, TokenType.ASSIGN].includes(tokenType.type)) {
-      this.notificationService.message(this.i18n('The selected token type cannot be enrolled at the moment.'));
+      this.notificationService.message(this.i18n('The selected token type cannot be added at the moment.'));
       return;
     }
 
