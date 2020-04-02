@@ -1690,6 +1690,14 @@
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="478eedbbaefa9408247a34198ac99b5cb07d09f6" datatype="html">
+        <source>Created via SelfService</source>
+        <target state="final">Created via SelfService</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/enroll-push-dialog/enroll-push-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="137b6a2737f23bfe76675f890136558a2c29360c" datatype="html">
         <source>Stop setting up your new token?</source>
         <target state="final">Stop setting up your new token?</target>

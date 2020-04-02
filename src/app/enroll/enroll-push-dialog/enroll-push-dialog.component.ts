@@ -47,7 +47,7 @@ export class EnrollPushDialogComponent implements OnInit {
   public ngOnInit() {
     this.currentStep = 1;
     this.enrollmentForm = this.formBuilder.group({
-      'description': ['', Validators.required],
+      'description': [this.i18n('Created via SelfService'), Validators.required],
       'type': TokenType.PUSH,
     });
     this.enrollmentStep = this.formBuilder.group({

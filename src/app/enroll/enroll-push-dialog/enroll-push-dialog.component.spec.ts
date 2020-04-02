@@ -113,7 +113,6 @@ describe('EnrollPushDialogComponent', () => {
     expect(component.enrollmentForm.controls.description.disabled).toEqual(true);
     expect(component.currentStep).toEqual(3);
     expect(notificationService.message).not.toHaveBeenCalled();
-
   }));
 
   it('should output a message when the push enrollment failed', fakeAsync(() => {
