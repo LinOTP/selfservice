@@ -12,6 +12,8 @@ import { SetPinDialogComponent } from '../../common/set-pin-dialog/set-pin-dialo
 import { TokenType, TokenTypeDetails, EnrollToken } from '../../api/token';
 import { EnrollmentService } from '../../api/enrollment.service';
 import { OperationsService } from '../../api/operations.service';
+import { tap, concatMap, filter } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-enroll-oath',
@@ -45,6 +47,7 @@ export class EnrollOATHDialogComponent implements OnInit {
   public ngOnInit() {
     this.enrollmentStep = this.formBuilder.group({
       'tokenEnrolled': ['', Validators.required],
+      'description': [this.i18n('Created via SelfService'), Validators.required],
     });
     this.testStep = this.formBuilder.group({
       'otp': ['', Validators.required],
@@ -61,22 +64,39 @@ export class EnrollOATHDialogComponent implements OnInit {
       body.type = TokenType.TOTP;
     }
 
-    this.enrollmentService.enrollOATH(body).subscribe(response => {
-      if (response.result
-        && response.result.status
-        && response.result.value
-        && response.result.value.oathtoken) {
-        this.enrolledToken = {
-          url: response.result.value.oathtoken.url,
-          serial: response.result.value.oathtoken.serial,
-          seed: response.result.value.oathtoken.key,
-        };
-        this.enrollmentStep.controls.tokenEnrolled.setValue(true);
-        this.stepper.next();
-      } else {
-        this.notificationService.message(this.i18n('There was a problem while creating the new token. Please try again.'));
-      }
-    });
+    const description = this.enrollmentStep.get('description').value;
+
+    this.enrollmentService.enrollOATH(body).pipe(
+      tap(response => {
+        const tokenEnrolled = response && !!response.result
+          && !!response.result.status
+          && !!response.result.value
+          && response.result.value.oathtoken;
+        if (tokenEnrolled) {
+          this.enrolledToken = {
+            url: response.result.value.oathtoken.url,
+            serial: response.result.value.oathtoken.serial,
+            seed: response.result.value.oathtoken.key,
+          };
+          this.enrollmentStep.controls.tokenEnrolled.setValue(true);
+        } else {
+          this.notificationService.message(this.i18n('There was a problem while creating the new token. Please try again.'));
+        }
+      }),
+      concatMap(() => {
+        if (this.enrolledToken) {
+          return this.operationsService.setDescription(this.enrolledToken.serial, description);
+        } else {
+          return of(null);
+        }
+      }),
+      tap(result => {
+        if (result && !result.success) {
+          const errorMessage = this.i18n('The token was successfully created, but an error ocurred while setting the description.');
+          this.notificationService.message(errorMessage);
+        }
+      })
+    ).subscribe(() => this.stepper.next());
   }
 
   public setPin() {

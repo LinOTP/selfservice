@@ -5,16 +5,29 @@
 
   <mat-step [stepControl]="enrollmentStep"
             id="stepDescription">
-    <p i18n>You need an OATH compatible soft-token app installed on your mobile
-      device to use this kind of token, such as:</p>
+    <p i18n>You need an OATH compatible soft-token app installed on your mobile device to use this kind of token, such
+      as:</p>
     <ul>
       <li>FreeOTP</li>
       <li>Google Authenticator</li>
     </ul>
     <p i18n>If you are not sure whether your app is compatible, you will later have
       the possibility to test the token. Should the test fail, you can install another app and try again.</p>
-    <p i18n>Once you have an app installed on your device, you can start the
-      setup process.</p>
+
+    <p i18n>Once you have an app installed on your device, you can start the setup process.</p>
+
+    <p i18n>Before you proceed you may set a token description, which should help you identify your token:</p>
+    <form [formGroup]="enrollmentStep">
+      <mat-form-field>
+        <input matInput
+               i18n-placeholder
+               placeholder="Token description"
+               formControlName="description"
+               autofocus>
+        <mat-hint i18n>Enter a description for your token.</mat-hint>
+      </mat-form-field>
+    </form>
+
     <mat-dialog-actions align="end">
       <div i18n>Step 1 of 3</div>
       <span class="spacer"></span>
