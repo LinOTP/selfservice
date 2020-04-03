@@ -16,6 +16,7 @@ export enum Permission {
     RESYNC = 'RESYNC',
     ASSIGN = 'ASSIGN',
     VERIFY = 'VERIFY',
+    SETDESCRIPTION = 'SETDESCRIPTION',
 }
 
 export const PoliciesToPermissionsMapping: { [policy: string]: Permission } = {
@@ -36,6 +37,7 @@ export const PoliciesToPermissionsMapping: { [policy: string]: Permission } = {
     'resync': Permission.RESYNC,
     'assign': Permission.ASSIGN,
     'verify': Permission.VERIFY,
+    'setDescription': Permission.SETDESCRIPTION,
 };
 
 export interface PermissionSet {
@@ -61,4 +63,5 @@ export const ModifyTokenPermissions = [
     Permission.RESYNC,
     Permission.VERIFY,
     Permission.SETMOTPPIN,
+    Permission.SETDESCRIPTION,
 ];
