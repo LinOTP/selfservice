@@ -1458,22 +1458,6 @@
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="23349c0abe2d5f7e13d84f4998f8b64cedb03fea" datatype="html">
-        <source>Setting the token description failed.</source>
-        <target state="final">Setting the token description failed.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/assign-token-dialog/assign-token-dialog.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="18c23f23e039c5525fa4988a1d16e8b8ad611209" datatype="html">
-        <source>The token was assigned to you, but an error ocurred while setting the description.</source>
-        <target state="final">The token was assigned to you, but an error ocurred while setting the description.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/assign-token-dialog/assign-token-dialog.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="662e444cbe135b9f3a421de14a1263897cc0b24c" datatype="html">
         <source>There was a problem while creating the new token. Please try again.</source>
         <target state="final">There was a problem while creating the new token. Please try again.</target>

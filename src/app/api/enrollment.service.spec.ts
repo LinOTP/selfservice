@@ -77,7 +77,7 @@ describe('EnrollmentService', () => {
     it('should request a token assignment from the server', async(
       inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
 
-        enrollmentService.assign('serial').subscribe(response => {
+        enrollmentService.assign('serial', 'description').subscribe(response => {
           expect(response).toEqual({ success: true });
         });
 
@@ -92,7 +92,7 @@ describe('EnrollmentService', () => {
       inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
         const returnedMessage = 'The token is already assigned to you or to another user. Please contact an administrator.';
 
-        enrollmentService.assign('serial').subscribe(response => {
+        enrollmentService.assign('serial', 'description').subscribe(response => {
           expect(response).toEqual({ success: false, message: returnedMessage });
         });
 
@@ -108,7 +108,7 @@ describe('EnrollmentService', () => {
       inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
         const returnedMessage = 'The token you want to assign is not valid (wrong realm). Please contact an administrator.';
 
-        enrollmentService.assign('serial').subscribe(response => {
+        enrollmentService.assign('serial', 'description').subscribe(response => {
           expect(response).toEqual({ success: false, message: returnedMessage });
         });
 
@@ -124,7 +124,7 @@ describe('EnrollmentService', () => {
       inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
         const returnedMessage = 'Please try again or contact an administrator.';
 
-        enrollmentService.assign('serial').subscribe(response => {
+        enrollmentService.assign('serial', 'description').subscribe(response => {
           expect(response).toEqual({ success: false, message: returnedMessage });
         });
 
@@ -140,7 +140,7 @@ describe('EnrollmentService', () => {
       inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
         const returnedMessage = 'Please try again or contact an administrator.';
 
-        enrollmentService.assign('serial').subscribe(response => {
+        enrollmentService.assign('serial', 'description').subscribe(response => {
           expect(response).toEqual({ success: false, message: returnedMessage });
         });
 
@@ -156,7 +156,7 @@ describe('EnrollmentService', () => {
 
         spyOn(console, 'error');
 
-        enrollmentService.assign('serial').subscribe(response => {
+        enrollmentService.assign('serial', 'description').subscribe(response => {
           expect(response).toEqual({ success: false });
         });
 

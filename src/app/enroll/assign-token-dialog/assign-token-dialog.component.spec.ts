@@ -9,7 +9,6 @@ import { I18nMock } from '../../../testing/i18n-mock-provider';
 
 import { MaterialModule } from '../../material.module';
 import { EnrollmentService } from '../../api/enrollment.service';
-import { OperationsService } from '../../api/operations.service';
 
 import { AssignTokenDialogComponent } from './assign-token-dialog.component';
 
@@ -18,7 +17,6 @@ describe('AssignTokenDialogComponent', () => {
   let fixture: ComponentFixture<AssignTokenDialogComponent>;
   let dialogRef: jasmine.SpyObj<MatDialogRef<AssignTokenDialogComponent>>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
-  let operationsService: jasmine.SpyObj<OperationsService>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -34,10 +32,6 @@ describe('AssignTokenDialogComponent', () => {
         {
           provide: EnrollmentService,
           useValue: spyOnClass(EnrollmentService)
-        },
-        {
-          provide: OperationsService,
-          useValue: spyOnClass(OperationsService)
         },
         {
           provide: MatDialogRef,
@@ -60,7 +54,6 @@ describe('AssignTokenDialogComponent', () => {
 
     dialogRef = TestBed.get(MatDialogRef);
     enrollmentService = TestBed.get(EnrollmentService);
-    operationsService = TestBed.get(OperationsService);
   });
 
   it('should be created', () => {
@@ -105,9 +98,8 @@ describe('AssignTokenDialogComponent', () => {
 
   describe('assignToken', () => {
 
-    it('should be successful when assignment and set-description requests are successful', () => {
+    it('should be successful when assignment is successful', () => {
       enrollmentService.assign.and.returnValue(of({ success: true }));
-      operationsService.setDescription.and.returnValue(of({ success: true }));
 
       component.stepper.selectedIndex = 0;
       component.assignmentForm.setValue({ serial: 'abc123', description: 'my new token' });
@@ -116,21 +108,6 @@ describe('AssignTokenDialogComponent', () => {
       component.assignToken();
       expect(component.stepper.selectedIndex).toEqual(2);
       expect(component.success).toEqual(true);
-    });
-
-    it('should fail if assignment worked, but setting the description failed', () => {
-      enrollmentService.assign.and.returnValue(of({ success: true }));
-      operationsService.setDescription.and.returnValue(of({ success: false }));
-
-      component.stepper.selectedIndex = 0;
-      component.assignmentForm.setValue({ serial: 'abc123', description: 'my new token' });
-      fixture.detectChanges();
-
-      component.assignToken();
-      expect(component.stepper.selectedIndex).toEqual(2);
-      expect(component.success).toEqual(false);
-      expect(component.errorTypeMessage).toEqual('Setting the token description failed.');
-      expect(component.errorMessage).toEqual('The token was assigned to you, but an error ocurred while setting the description.');
     });
 
     it('should fail when assignment request returns and display an error message on failure', () => {
