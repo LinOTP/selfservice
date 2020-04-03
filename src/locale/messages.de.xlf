@@ -294,16 +294,20 @@
           <context context-type="linenumber">25</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">90</context>
+          <context context-type="sourcefile">app/common/set-motp-pin-dialog/set-motp-pin-dialog.component.html</context>
+          <context context-type="linenumber">25</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/resync-dialog/resync-dialog.component.html</context>
           <context context-type="linenumber">25</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/common/set-motp-pin-dialog/set-motp-pin-dialog.component.html</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="sourcefile">app/test/test-dialog.component.html</context>
+          <context context-type="linenumber">90</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/set-description-dialog/set-description-dialog.component.html</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="f2b2d173a24e0919e72325bdee1e98019613fd1d" datatype="html">
@@ -384,6 +388,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-dialog.component.html</context>
           <context context-type="linenumber">103</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/set-description-dialog/set-description-dialog.component.html</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="bd5b97bd37c0d6c89b0f05384d3e5a0daea1b16a" datatype="html">
@@ -1097,6 +1105,22 @@
           <context context-type="linenumber">77</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="5651f68d73a93c5402f4ac043eecda20ee0f9d32" datatype="html">
+        <source>Change token description</source>
+        <target state="translated">Beschreibung ändern</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/set-description-dialog/set-description-dialog.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1128dfa050eacc600cc156ab2d44d78d3bd0071a" datatype="html">
+        <source>Label your token with a new description:</source>
+        <target state="translated">Vergeben Sie Ihrem Token eine neue Beschreibung:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/set-description-dialog/set-description-dialog.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="610cdb8fefc2b57d6f2ed06634e9d7bf1195d5c3" datatype="html">
         <source>Reset failcounter</source>
         <target state="translated">Fehlerzähler zurücksetzen</target>
@@ -1357,6 +1381,10 @@
           <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
           <context context-type="linenumber">22</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/set-description-dialog/set-description-dialog.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="5c069965db47012ba7e64b7540ae2362a8b27fb3" datatype="html">
         <source>Enter a description for your token.</source>
@@ -1612,6 +1640,14 @@
         <target state="translated">Token-Synchronisierung fehlgeschlagen. Bitte versuchen Sie es erneut.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/resync-dialog/resync-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="aa2173b0b14931d097037d8aea9175d5cbdc97d7" datatype="html">
+        <source>Token description could not be changed. Please try again.</source>
+        <target state="translated">Die Beschreibung konnte nicht geändert werden. Bitte versuchen Sie es erneut.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/set-description-dialog/set-description-dialog.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>

@@ -1,0 +1,26 @@
+<h3 mat-dialog-title
+    i18n>Change token description</h3>
+<p i18n>Label your token with a new description:</p>
+<form [formGroup]="form"
+      (ngSubmit)="submit()">
+  <div mat-dialog-content>
+    <mat-form-field>
+      <input matInput
+             type="text"
+             formControlName="description"
+             placeholder="Token description"
+             i18n-placeholder
+             autofocus>
+    </mat-form-field>
+    <div class="button-row">
+      <button mat-button
+              mat-dialog-close
+              i18n>cancel</button>
+      <button mat-button
+              color="primary"
+              type="submit"
+              [disabled]="preventSubmit()"
+              i18n>submit</button>
+    </div>
+  </div>
+</form>
