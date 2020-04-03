@@ -115,11 +115,10 @@ export class EnrollmentGridComponent implements OnInit {
     };
 
     switch (token.typeDetails.type) {
-      case TokenType.HOTP:
-      case TokenType.TOTP:
-        return this.dialog.open(TestDialogComponent, testConfig).afterClosed();
       case (TokenType.PUSH):
         return this.dialog.open(ActivateDialogComponent, testConfig).afterClosed();
+      default:
+        return this.dialog.open(TestDialogComponent, testConfig).afterClosed();
     }
   }
 
