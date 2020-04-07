@@ -6,18 +6,18 @@ import { I18n } from '@ngx-translate/i18n-polyfill';
 import { Subject } from 'rxjs';
 import { filter, switchMap } from 'rxjs/operators';
 
+import { Permission, ModifyTokenPermissions } from '../common/permissions';
+import { Token, EnrollmentStatus, TokenType } from '../api/token';
+import { NotificationService } from '../common/notification.service';
+import { OperationsService } from '../api/operations.service';
+
 import { DialogComponent } from '../common/dialog/dialog.component';
 import { SetPinDialogComponent } from '../common/set-pin-dialog/set-pin-dialog.component';
 import { SetMOTPPinDialogComponent } from '../common/set-motp-pin-dialog/set-motp-pin-dialog.component';
 import { ResyncDialogComponent } from '../common/resync-dialog/resync-dialog.component';
-import { NotificationService } from '../common/notification.service';
-import { Permission, ModifyTokenPermissions } from '../common/permissions';
-
-import { Token, EnrollmentStatus, TokenType } from '../api/token';
-import { OperationsService } from '../api/operations.service';
-
 import { TestDialogComponent } from '../test/test-dialog.component';
 import { ActivateDialogComponent } from '../activate/activate-dialog.component';
+import { SetDescriptionDialogComponent } from '../common/set-description-dialog/set-description-dialog.component';
 
 @Component({
   selector: 'app-token-card',
@@ -216,4 +216,23 @@ export class TokenCardComponent implements OnInit {
         this.notificationService.message(this.i18n('Token synchronized'));
       });
   }
+
+  public setDescription(): void {
+    const config = {
+      width: '25em',
+      data: this.token
+    };
+
+    this.dialog
+      .open(SetDescriptionDialogComponent, config)
+      .afterClosed()
+      .pipe(
+        filter(result => !!result)
+      )
+      .subscribe(() => {
+        this.notificationService.message(this.i18n('Description changed'));
+        this.tokenUpdate.next();
+      });
+  }
+
 }

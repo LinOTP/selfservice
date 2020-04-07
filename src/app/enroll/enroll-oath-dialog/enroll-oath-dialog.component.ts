@@ -9,11 +9,9 @@ import { Permission } from '../../common/permissions';
 import { NotificationService } from '../../common/notification.service';
 import { SetPinDialogComponent } from '../../common/set-pin-dialog/set-pin-dialog.component';
 
-import { TokenType, TokenTypeDetails, EnrollToken } from '../../api/token';
+import { TokenTypeDetails, EnrollToken } from '../../api/token';
 import { EnrollmentService } from '../../api/enrollment.service';
 import { OperationsService } from '../../api/operations.service';
-import { tap, concatMap, filter } from 'rxjs/operators';
-import { of } from 'rxjs';
 
 @Component({
   selector: 'app-enroll-oath',
@@ -57,46 +55,25 @@ export class EnrollOATHDialogComponent implements OnInit {
 
   public enrollToken() {
     const body: EnrollToken = {
-      type: TokenType.HOTP,
+      type: this.data.tokenTypeDetails.type,
+      description: this.enrollmentStep.get('description').value,
     };
 
-    if (this.data.tokenTypeDetails.type === TokenType.TOTP) {
-      body.type = TokenType.TOTP;
-    }
-
-    const description = this.enrollmentStep.get('description').value;
-
-    this.enrollmentService.enrollOATH(body).pipe(
-      tap(response => {
-        const tokenEnrolled = response && !!response.result
-          && !!response.result.status
-          && !!response.result.value
-          && response.result.value.oathtoken;
-        if (tokenEnrolled) {
-          this.enrolledToken = {
-            url: response.result.value.oathtoken.url,
-            serial: response.result.value.oathtoken.serial,
-            seed: response.result.value.oathtoken.key,
-          };
-          this.enrollmentStep.controls.tokenEnrolled.setValue(true);
-        } else {
-          this.notificationService.message(this.i18n('There was a problem while creating the new token. Please try again.'));
-        }
-      }),
-      concatMap(() => {
-        if (this.enrolledToken) {
-          return this.operationsService.setDescription(this.enrolledToken.serial, description);
-        } else {
-          return of(null);
-        }
-      }),
-      tap(result => {
-        if (result && !result.success) {
-          const errorMessage = this.i18n('The token was successfully created, but an error ocurred while setting the description.');
-          this.notificationService.message(errorMessage);
-        }
-      })
-    ).subscribe(() => this.stepper.next());
+    this.enrollmentService.enrollOATH(body).subscribe(response => {
+      const token = response && response.result && response.result.value && response.result.value.oathtoken;
+      if (token) {
+        this.enrolledToken = {
+          url: token.url,
+          serial: token.serial,
+          seed: token.key,
+        };
+        this.enrollmentStep.controls.tokenEnrolled.setValue(true);
+        this.stepper.next();
+      } else {
+        this.notificationService
+          .message(this.i18n('There was a problem while creating the new token. Please try again.'));
+      }
+    });
   }
 
   public setPin() {
@@ -104,14 +81,15 @@ export class EnrollOATHDialogComponent implements OnInit {
       width: '25em',
       data: this.enrolledToken
     };
-    const dialogRef = this.dialog.open(SetPinDialogComponent, config);
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.pinSet = true;
-        this.notificationService.message(this.i18n('PIN set'));
-      }
-    });
+    this.dialog
+      .open(SetPinDialogComponent, config)
+      .afterClosed()
+      .subscribe(result => {
+        if (result) {
+          this.pinSet = true;
+          this.notificationService.message(this.i18n('PIN set'));
+        }
+      });
   }
 
   /**

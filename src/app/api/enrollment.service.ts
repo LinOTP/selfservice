@@ -155,10 +155,11 @@ export class EnrollmentService {
     );
   }
 
-  assign(tokenSerial: string): Observable<{ success: boolean, message?: string }> {
+  assign(tokenSerial: string, description: string): Observable<{ success: boolean, message?: string }> {
     const tryAgainMessage = this.i18n('Please try again or contact an administrator.');
     const bodyAssign = {
       serial: tokenSerial,
+      description: description,
       session: this.sessionService.getSession()
     };
     const url = this.userserviceBase + this.userserviceEndpoints.assign;

@@ -72,6 +72,12 @@
     </button>
   </ng-container>
   <button mat-menu-item
+          (click)="setDescription()"
+          *ngxPermissionsOnly="Permission.SETDESCRIPTION">
+    <mat-icon>edit</mat-icon>
+    <span i18n>Change description</span>
+  </button>
+  <button mat-menu-item
           (click)="resetFailcounter()"
           *ngxPermissionsOnly="Permission.RESET">
     <mat-icon>replay</mat-icon>

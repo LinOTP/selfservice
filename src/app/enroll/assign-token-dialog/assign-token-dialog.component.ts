@@ -5,11 +5,7 @@ import { MatStepper } from '@angular/material/stepper';
 
 import { I18n } from '@ngx-translate/i18n-polyfill';
 
-import { concatMap, tap } from 'rxjs/operators';
-import { of } from 'rxjs';
-
 import { EnrollmentService } from '../../api/enrollment.service';
-import { OperationsService } from '../../api/operations.service';
 
 @Component({
   selector: 'app-assign-token-dialog',
@@ -32,7 +28,6 @@ export class AssignTokenDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: { closeLabel: string },
     private formBuilder: FormBuilder,
     private enrollmentService: EnrollmentService,
-    private operationsService: OperationsService,
     private i18n: I18n,
   ) {
     this.closeLabel = data.closeLabel;
@@ -60,7 +55,6 @@ export class AssignTokenDialogComponent implements OnInit {
    * Return the user to the first step of the assignment process and reset the form.
    */
   public retry() {
-    this.assignmentForm.reset();
     this.errorMessage = '';
     this.stepper.selectedIndex = 0;
   }
@@ -73,31 +67,17 @@ export class AssignTokenDialogComponent implements OnInit {
   public assignToken() {
     this.stepper.selectedIndex = 1;
     const serial = this.assignmentForm.get('serial').value;
+    const description = this.assignmentForm.get('description').value;
     this.errorMessage = '';
-    this.enrollmentService.assign(serial).pipe(
-      tap(result => {
-        this.success = result.success;
+    this.enrollmentService.assign(serial, description).subscribe(result => {
+      if (!result.success) {
+        this.errorTypeMessage = this.i18n('The token assignment failed.');
         if (result.message) {
-          this.errorTypeMessage = this.i18n('The token assignment failed.');
           this.errorMessage = result.message;
         }
-      }),
-      concatMap(result => {
-        if (result.success) {
-          const description = this.assignmentForm.get('description').value;
-          return this.operationsService.setDescription(serial, description);
-        } else {
-          return of(null);
-        }
-      }),
-      tap(result => {
-        if (result && !result.success) {
-          this.success = false;
-          this.errorTypeMessage = this.i18n('Setting the token description failed.');
-          this.errorMessage = this.i18n('The token was assigned to you, but an error ocurred while setting the description.');
-        }
-      })
-    ).subscribe(_ => this.stepper.selectedIndex = 2);
+      }
+      this.success = result.success;
+      this.stepper.selectedIndex = 2;
+    });
   }
-
 }

@@ -444,4 +444,31 @@ describe('TokenCardComponent', () => {
 
   });
 
+  describe('setDescription', () => {
+
+    it('should display a success message if token description is set and reload the token list', fakeAsync(() => {
+      matDialog.open.and.returnValue({ afterClosed: () => of(true) });
+
+      component.token = Fixtures.activeHotpToken;
+      component.setDescription();
+      tick();
+
+      expect(matDialog.open).toHaveBeenCalledTimes(1);
+      expect(notificationService.message).toHaveBeenCalledTimes(1);
+      expect(notificationService.message).toHaveBeenCalledWith('Description changed');
+      expect(component.tokenUpdate.next).toHaveBeenCalled();
+    }));
+
+    it('should not notify user if resync was cancelled', fakeAsync(() => {
+      matDialog.open.and.returnValue({ afterClosed: () => of(false) });
+
+      component.token = Fixtures.activeHotpToken;
+      component.setDescription();
+      tick();
+
+      expect(notificationService.message).not.toHaveBeenCalled();
+    }));
+
+  });
+
 });
