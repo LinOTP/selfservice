@@ -81,7 +81,7 @@ describe('AssignTokenDialogComponent', () => {
   });
 
   describe('retry', () => {
-    it('should reset the dialog to its original state', () => {
+    it('should keep the form data', () => {
       component.assignmentForm.setValue({ serial: 'abc123', description: 'my new token' });
       component.errorMessage = 'error';
       component.stepper.selectedIndex = 2;
@@ -89,8 +89,8 @@ describe('AssignTokenDialogComponent', () => {
 
       component.retry();
 
-      expect(component.assignmentForm.get('serial').value).toBeNull();
-      expect(component.assignmentForm.get('description').value).toBeNull();
+      expect(component.assignmentForm.get('serial').value).toBe('abc123');
+      expect(component.assignmentForm.get('description').value).toBe('my new token');
       expect(component.errorMessage).toBe('');
       expect(component.stepper.selectedIndex).toEqual(0);
     });

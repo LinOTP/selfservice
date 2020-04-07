@@ -55,7 +55,6 @@ export class AssignTokenDialogComponent implements OnInit {
    * Return the user to the first step of the assignment process and reset the form.
    */
   public retry() {
-    this.assignmentForm.reset();
     this.errorMessage = '';
     this.stepper.selectedIndex = 0;
   }
