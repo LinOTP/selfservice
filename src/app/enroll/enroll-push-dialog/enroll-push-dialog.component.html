@@ -1,4 +1,4 @@
-<h2 i18n>Enroll Push token</h2>
+<h2 i18n>Add Push token</h2>
 <mat-horizontal-stepper [linear]="true"
                         linear
                         #stepper>
@@ -29,7 +29,7 @@
       </mat-form-field>
     </form>
     <mat-dialog-actions align="end">
-      <div i18n>Enrollment step {{currentStep}} of {{maxSteps}}</div>
+      <div i18n>Step {{currentStep}} of {{maxSteps}}</div>
       <span class="spacer"></span>
       <button mat-raised-button
               (click)="close()"
@@ -46,7 +46,7 @@
   <mat-step>
     <div *ngIf="enrolledToken">
       <p i18n>A token with the serial number {{enrolledToken.serial}} (description:
-        {{ enrollmentForm.get('description').value }}) has been enrolled.</p>
+        {{ enrollmentForm.get('description').value }}) has been created.</p>
       <p i18n>Scan the QR code below with the Authenticator app or <a target="_blank"
            [href]="enrolledToken.url">follow this link</a> to start the
         activation process of the new token.</p>
@@ -55,7 +55,7 @@
               [errorCorrectionLevel]="'L'"></qrcode>
     </div>
     <mat-dialog-actions align="end">
-      <div i18n>Enrollment step {{currentStep}} of {{maxSteps}}</div>
+      <div i18n>Step {{currentStep}} of {{maxSteps}}</div>
       <span class="spacer"></span>
       <button mat-raised-button
               (click)="cancel()"
@@ -66,7 +66,7 @@
   <mat-step>
     <p i18n>Your token has been successfully paired. In order to use it, you must activate it first.</p>
     <mat-dialog-actions align="end">
-      <div i18n>Enrollment step {{currentStep}} of {{maxSteps}}</div>
+      <div i18n>Step {{currentStep}} of {{maxSteps}}</div>
       <span class="spacer"></span>
       <button mat-raised-button
               (click)="close()"

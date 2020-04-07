@@ -41,7 +41,7 @@ export class AssignTokenDialogComponent implements OnInit {
   ngOnInit() {
     this.assignmentForm = this.formBuilder.group({
       'serial': ['', Validators.required],
-      'description': [''],
+      'description': [this.i18n('Assigned via SelfService'), Validators.required],
     });
   }
 
@@ -73,7 +73,6 @@ export class AssignTokenDialogComponent implements OnInit {
   public assignToken() {
     this.stepper.selectedIndex = 1;
     const serial = this.assignmentForm.get('serial').value;
-    const description = this.assignmentForm.get('description').value;
     this.errorMessage = '';
     this.enrollmentService.assign(serial).pipe(
       tap(result => {
@@ -85,6 +84,7 @@ export class AssignTokenDialogComponent implements OnInit {
       }),
       concatMap(result => {
         if (result.success) {
+          const description = this.assignmentForm.get('description').value;
           return this.operationsService.setDescription(serial, description);
         } else {
           return of(null);

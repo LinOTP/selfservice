@@ -47,7 +47,7 @@ export class EnrollPushDialogComponent implements OnInit {
   public ngOnInit() {
     this.currentStep = 1;
     this.enrollmentForm = this.formBuilder.group({
-      'description': ['', Validators.required],
+      'description': [this.i18n('Created via SelfService'), Validators.required],
       'type': TokenType.PUSH,
     });
     this.enrollmentStep = this.formBuilder.group({
@@ -78,7 +78,7 @@ export class EnrollPushDialogComponent implements OnInit {
         this.incrementStep(stepper);
 
       } else {
-        this.notificationService.message(this.i18n('There was a problem while enrolling the new token. Please try again.'));
+        this.notificationService.message(this.i18n('There was a problem while creating the new token. Please try again.'));
       }
     });
   }
@@ -117,9 +117,9 @@ export class EnrollPushDialogComponent implements OnInit {
       autoFocus: false,
       disableClose: true,
       data: {
-        title: this.i18n('Stop enrollment?'),
+        title: this.i18n('Stop setting up your new token?'),
         text: this.i18n('The incomplete token will be deleted.') + ' ' +
-          this.i18n('You will have to restart the enrollment process in order to use this type of token.'),
+          this.i18n('You will have to restart the setup process in order to use this type of token.'),
         confirmationLabel: this.i18n('Confirm'),
       }
     };

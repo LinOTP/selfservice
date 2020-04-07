@@ -258,7 +258,7 @@ describe('EnrollmentGridComponent', () => {
     expect(matDialog.open).toHaveBeenCalledTimes(0);
     expect(tokenUpdateSpy).toHaveBeenCalledTimes(0);
     expect(notificationService.message).toHaveBeenCalledTimes(1);
-    expect(notificationService.message).toHaveBeenCalledWith('The selected token type cannot be enrolled at the moment.');
+    expect(notificationService.message).toHaveBeenCalledWith('The selected token type cannot be added at the moment.');
   }));
 
   it('should label the final enrollment button with Close and not open the testing dialog if user has no permissions to test',

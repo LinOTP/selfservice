@@ -4,7 +4,7 @@
                         #stepper>
 
   <mat-step [stepControl]="assignmentForm">
-    <p i18n>Claim an existing token and link it to your user account. You need to know the respective token serial in
+    <p i18n>Claim an existing token and link it to your user account. You need to know its serial number in
       advance.</p>
 
     <form [formGroup]="assignmentForm">
@@ -15,7 +15,7 @@
                formControlName="serial"
                autofocus>
         <mat-error i18n>The token serial is required.</mat-error>
-        <mat-hint i18n>Enter the serial of the token you want to link to your user account.</mat-hint>
+        <mat-hint i18n>Enter the serial number of the token you want to link to your user account.</mat-hint>
       </mat-form-field>
       <mat-form-field>
         <input matInput

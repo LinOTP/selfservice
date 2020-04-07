@@ -21,6 +21,8 @@ import { NotificationService } from '../../common/notification.service';
 
 import { EnrollOATHDialogComponent } from './enroll-oath-dialog.component';
 
+const defaultDescription = 'Created via SelfService';
+
 describe('The EnrollOATHDialogComponent', () => {
   let component: EnrollOATHDialogComponent;
   let fixture: ComponentFixture<EnrollOATHDialogComponent>;
@@ -118,10 +120,11 @@ describe('The EnrollOATHDialogComponent', () => {
     }));
   });
 
-  it('should enroll an HOTP token', fakeAsync(() => {
+  it('should enroll an HOTP token and then set a description', fakeAsync(() => {
     spyOn(component.stepper, 'next');
 
     enrollmentService.enrollOATH.and.returnValue(of(Fixtures.OATHEnrollmentResponse));
+    operationsService.setDescription.and.returnValue(of({ success: true }));
     const expectedToken = Fixtures.enrolledToken;
 
     fixture.detectChanges();
@@ -130,29 +133,33 @@ describe('The EnrollOATHDialogComponent', () => {
     tick();
 
     expect(enrollmentService.enrollOATH).toHaveBeenCalledWith({ type: TokenType.HOTP });
+    expect(operationsService.setDescription).toHaveBeenCalledWith(expectedToken.serial, defaultDescription);
     expect(component.enrolledToken).toEqual(expectedToken);
     expect(component.enrollmentStep.controls.tokenEnrolled.value).toEqual(true);
     expect(component.stepper.next).toHaveBeenCalledTimes(1);
   }));
 
-  it('should enroll a TOTP token', fakeAsync(() => {
+  it('should enroll a TOTP token and then set a description', fakeAsync(() => {
     spyOn(component.stepper, 'next');
 
     enrollmentService.enrollOATH.and.returnValue(of(Fixtures.OATHEnrollmentResponse));
+    operationsService.setDescription.and.returnValue(of({ success: true }));
     const expectedToken = Fixtures.enrolledToken;
 
     component.data.tokenTypeDetails = Fixtures.tokenTypeDetails[TokenType.TOTP];
+    component.enrollmentStep.controls.description.setValue('descr');
     fixture.detectChanges();
     component.enrollToken();
     tick();
 
     expect(enrollmentService.enrollOATH).toHaveBeenCalledWith({ type: TokenType.TOTP });
     expect(component.enrolledToken).toEqual(expectedToken);
+    expect(operationsService.setDescription).toHaveBeenCalledWith(expectedToken.serial, 'descr');
     expect(component.enrollmentStep.controls.tokenEnrolled.value).toEqual(true);
     expect(component.stepper.next).toHaveBeenCalledTimes(1);
   }));
 
-  it('should output message if enrollment failed', fakeAsync(() => {
+  it('should notify user if enrollment failed', fakeAsync(() => {
     const mockEnrollmentResponse = Fixtures.OATHEnrollmentResponse;
     mockEnrollmentResponse.result.status = false;
 
@@ -164,6 +171,28 @@ describe('The EnrollOATHDialogComponent', () => {
 
     expect(component.enrolledToken).toEqual(undefined);
     expect(notificationService.message).toHaveBeenCalledTimes(1);
+  }));
+
+  it('should notify user if setting description failed', fakeAsync(() => {
+    spyOn(component.stepper, 'next');
+
+    enrollmentService.enrollOATH.and.returnValue(of(Fixtures.OATHEnrollmentResponse));
+    operationsService.setDescription.and.returnValue(of({ success: false }));
+    const expectedToken = Fixtures.enrolledToken;
+
+    component.data.tokenTypeDetails = Fixtures.tokenTypeDetails[TokenType.TOTP];
+    fixture.detectChanges();
+    component.enrollToken();
+    tick();
+
+    expect(enrollmentService.enrollOATH).toHaveBeenCalledWith({ type: TokenType.TOTP });
+    expect(component.enrolledToken).toEqual(expectedToken);
+    expect(operationsService.setDescription).toHaveBeenCalledWith(expectedToken.serial, defaultDescription);
+    expect(component.enrollmentStep.controls.tokenEnrolled.value).toEqual(true);
+    expect(component.stepper.next).toHaveBeenCalledTimes(1);
+
+    const errorMessage = 'The token was successfully created, but an error ocurred while setting the description.';
+    expect(notificationService.message).toHaveBeenCalledWith(errorMessage);
   }));
 
   it('close should return token serial', fakeAsync(() => {
