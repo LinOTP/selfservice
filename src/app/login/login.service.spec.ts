@@ -286,13 +286,13 @@ describe('LoginService', () => {
     ));
   });
 
-  describe('refreshPermissions', () => {
+  describe('refreshUserSystemInfo', () => {
     it('should set the permissions in local storage', () => {
       spyOn(localStorage, 'setItem');
       const permissions = Fixtures.permissionList;
       systemService.getUserSystemInfo.and.returnValue(of({ permissions: permissions }));
 
-      loginService.refreshPermissions().subscribe(() => {
+      loginService.refreshUserSystemInfo().subscribe(() => {
         expect(permissionsService.loadPermissions).toHaveBeenCalledWith(permissions);
         expect(localStorage.setItem).toHaveBeenCalledWith('permissions', JSON.stringify(permissions));
       });
@@ -306,12 +306,12 @@ describe('LoginService', () => {
       router = TestBed.get(Router);
     });
 
-    it('should flush permissions and remove them from local storage', () => {
-      spyOn(localStorage, 'removeItem');
+    it('should flush permissions and clear all local storage items', () => {
+      spyOn(localStorage, 'clear');
 
       loginService.handleLogout(false);
 
-      expect(localStorage.removeItem).toHaveBeenCalledWith('permissions');
+      expect(localStorage.clear).toHaveBeenCalled();
       expect(permissionsService.flushPermissions).toHaveBeenCalled();
     });
 

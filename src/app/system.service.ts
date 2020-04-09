@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Observable } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Permission, PoliciesToPermissionsMapping } from './common/permissions';
 import { SessionService } from './auth/session.service';
+import { LinOTPResponse } from './api/token.service';
 
 /**
  * Interface that provides available information about the system.
@@ -37,6 +38,18 @@ export interface SystemInfo {
   autoenroll: boolean;
 }
 
+export interface UserInfo {
+  username: string;
+  userid: string;
+  description: string;
+  phone: string;
+  mobile: string;
+  email: string;
+  givenname: string;
+  surname: string;
+  gender: string;
+}
+
 /**
  * Interface that provides available information about the system and the user.
  *
@@ -50,7 +63,7 @@ export interface SystemInfo {
 export interface UserSystemInfo extends SystemInfo {
   permissions: Permission[];
   imprint: string;
-  user: string;
+  user: UserInfo;
   realm: string;
 }
 
@@ -118,7 +131,7 @@ export class SystemService {
      * some parts manually. The typing process is fully covered by replacing the
      * relevant object types in the apiResponse type.
      */
-    type apiResponse = Omit<UserSystemInfo, 'realms'> & { realms: string };
+    type apiResponse = Omit<SystemInfo, 'realms'> & { realms: string };
 
     return this.http.get<apiResponse>('/userservice/pre_context').pipe(
       // parse realms that are returned as stringified json
@@ -137,18 +150,26 @@ export class SystemService {
   getUserSystemInfo(): Observable<UserSystemInfo> {
     /*
      * the api does not provide the full UserSystemInfo interface. We need to parse
-     * some parts manually. The typing process is fully covered by replacing the
-     * relevant object types in the apiResponse type.
+     * some parts manually and get user info with a separate request.
+     * The typing process is fully covered by replacing the
+     * relevant object types in the type sets.
      */
-    type apiResponse = Omit<UserSystemInfo, 'realms' | 'permissions'> & { realms: string, actions: string[] };
+    type contextResponse = Omit<UserSystemInfo, 'realms' | 'permissions' | 'user'> & { realms: string, actions: string[] };
 
     const options = {
       params: { session: this.sessionService.getSession() }
     };
 
-    return this.http.get<apiResponse>('/userservice/context', options).pipe(
-      map(SystemService.parseRealmsList),
-      map(SystemService.mapPoliciesToPermissions),
+    return forkJoin([
+      this.http.get<contextResponse>('/userservice/context', options).pipe(
+        map(SystemService.parseRealmsList),
+        map(SystemService.mapPoliciesToPermissions),
+      ),
+      this.http.get<LinOTPResponse<UserInfo>>('/userservice/userinfo', options),
+    ]).pipe(
+      map(([context, userResponse]) => {
+        return { ...context, user: userResponse.result.value };
+      })
     );
   }
 }
