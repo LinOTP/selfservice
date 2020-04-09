@@ -17,10 +17,10 @@ import { OperationsService } from '../../api/operations.service';
 
 @Component({
   selector: 'app-enroll-push',
-  templateUrl: './enroll-push-dialog.component.html',
-  styleUrls: ['./enroll-push-dialog.component.scss']
+  templateUrl: './enroll-push-qr-dialog.component.html',
+  styleUrls: ['./enroll-push-qr-dialog.component.scss']
 })
-export class EnrollPushDialogComponent implements OnInit {
+export class EnrollPushQRDialogComponent implements OnInit {
 
   public TextResources = TextResources;
 
@@ -38,7 +38,7 @@ export class EnrollPushDialogComponent implements OnInit {
     private operationsService: OperationsService,
     private formBuilder: FormBuilder,
     private notificationService: NotificationService,
-    private dialogRef: MatDialogRef<EnrollPushDialogComponent>,
+    private dialogRef: MatDialogRef<EnrollPushQRDialogComponent>,
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: { tokenTypeDetails: TokenTypeDetails },
     private i18n: I18n,

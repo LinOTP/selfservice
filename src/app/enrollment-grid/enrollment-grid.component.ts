@@ -14,7 +14,7 @@ import { TokenService } from '../api/token.service';
 
 import { AssignTokenDialogComponent } from '../enroll/assign-token-dialog/assign-token-dialog.component';
 import { EnrollOATHDialogComponent } from '../enroll/enroll-oath-dialog/enroll-oath-dialog.component';
-import { EnrollPushDialogComponent } from '../enroll/enroll-push-dialog/enroll-push-dialog.component';
+import { EnrollPushQRDialogComponent } from '../enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component';
 import { ActivateDialogComponent } from '../activate/activate-dialog.component';
 import { TestDialogComponent } from '../test/test-dialog.component';
 
@@ -91,7 +91,7 @@ export class EnrollmentGridComponent implements OnInit {
         return this.dialog.open(EnrollOATHDialogComponent, enrollmentConfig).afterClosed();
       case TokenType.PUSH:
       case TokenType.QR:
-        return this.dialog.open(EnrollPushDialogComponent, enrollmentConfig).afterClosed();
+        return this.dialog.open(EnrollPushQRDialogComponent, enrollmentConfig).afterClosed();
       case TokenType.ASSIGN:
         enrollmentConfig.data = {
           closeLabel: this.testAfterEnrollment ? this.i18n('Test') : this.i18n('Close')
