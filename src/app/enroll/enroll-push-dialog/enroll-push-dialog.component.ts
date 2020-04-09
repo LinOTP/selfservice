@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 
 import { I18n } from '@ngx-translate/i18n-polyfill';
@@ -8,8 +8,8 @@ import { I18n } from '@ngx-translate/i18n-polyfill';
 import { switchMap } from 'rxjs/operators';
 import { EMPTY } from 'rxjs';
 
-import { EnrollmentService, PushEnrollmentDetail } from '../../api/enrollment.service';
-import { TokenType } from '../../api/token';
+import { EnrollmentService, QRCodeEnrollmentDetail } from '../../api/enrollment.service';
+import { TokenTypeDetails } from '../../api/token';
 import { NotificationService } from '../../common/notification.service';
 import { TextResources } from '../../common/static-resources';
 import { DialogComponent } from '../../common/dialog/dialog.component';
@@ -40,15 +40,15 @@ export class EnrollPushDialogComponent implements OnInit {
     private notificationService: NotificationService,
     private dialogRef: MatDialogRef<EnrollPushDialogComponent>,
     private dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: { tokenTypeDetails: TokenTypeDetails },
     private i18n: I18n,
-  ) {
-  }
+  ) { }
 
   public ngOnInit() {
     this.currentStep = 1;
     this.enrollmentForm = this.formBuilder.group({
       'description': [this.i18n('Created via SelfService'), Validators.required],
-      'type': TokenType.PUSH,
+      'type': this.data.tokenTypeDetails.type,
     });
     this.enrollmentStep = this.formBuilder.group({
       'tokenEnrolled': ['', Validators.required],
@@ -59,7 +59,7 @@ export class EnrollPushDialogComponent implements OnInit {
    * Enroll the push token and proceed to the next step
    */
   goToTokenInfo(stepper: MatStepper) {
-    this.enrollmentService.enroll<PushEnrollmentDetail>(this.enrollmentForm.value).subscribe(response => {
+    this.enrollmentService.enroll<QRCodeEnrollmentDetail>(this.enrollmentForm.value).subscribe(response => {
       if (response.result && response.result.value === true) {
         this.enrolledToken = {
           url: response.detail.lse_qr_url.value,

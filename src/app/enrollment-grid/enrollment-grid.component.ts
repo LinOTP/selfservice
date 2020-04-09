@@ -43,7 +43,7 @@ export class EnrollmentGridComponent implements OnInit {
   }
 
   public runEnrollmentWorkflow(tokenType: TokenTypeDetails) {
-    if (![TokenType.HOTP, TokenType.TOTP, TokenType.PUSH, TokenType.ASSIGN].includes(tokenType.type)) {
+    if (![TokenType.HOTP, TokenType.TOTP, TokenType.PUSH, TokenType.ASSIGN, TokenType.QR].includes(tokenType.type)) {
       this.notificationService.message(this.i18n('The selected token type cannot be added at the moment.'));
       return;
     }
@@ -79,17 +79,18 @@ export class EnrollmentGridComponent implements OnInit {
       width: '850px',
       autoFocus: false,
       disableClose: true,
+      data: {
+        tokenTypeDetails: typeDetails,
+      },
     };
 
     switch (typeDetails.type) {
       case TokenType.HOTP:
       case TokenType.TOTP:
-        enrollmentConfig.data = {
-          tokenTypeDetails: typeDetails,
-          closeLabel: this.testAfterEnrollment ? this.i18n('Test') : this.i18n('Close')
-        };
+        enrollmentConfig.data.closeLabel = this.testAfterEnrollment ? this.i18n('Test') : this.i18n('Close');
         return this.dialog.open(EnrollOATHDialogComponent, enrollmentConfig).afterClosed();
       case TokenType.PUSH:
+      case TokenType.QR:
         return this.dialog.open(EnrollPushDialogComponent, enrollmentConfig).afterClosed();
       case TokenType.ASSIGN:
         enrollmentConfig.data = {
@@ -116,6 +117,7 @@ export class EnrollmentGridComponent implements OnInit {
 
     switch (token.typeDetails.type) {
       case (TokenType.PUSH):
+      case (TokenType.QR):
         return this.dialog.open(ActivateDialogComponent, testConfig).afterClosed();
       default:
         return this.dialog.open(TestDialogComponent, testConfig).afterClosed();

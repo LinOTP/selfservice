@@ -202,6 +202,9 @@ describe('EnrollmentGridComponent', () => {
       width: '850px',
       autoFocus: false,
       disableClose: true,
+      data: {
+        tokenTypeDetails: token.typeDetails,
+      },
     };
 
     const expectedTestDialogConfig = {

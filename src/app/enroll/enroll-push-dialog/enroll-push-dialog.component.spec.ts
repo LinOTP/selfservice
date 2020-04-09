@@ -1,6 +1,6 @@
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
@@ -19,6 +19,7 @@ import { NotificationService } from '../../common/notification.service';
 import { DialogComponent } from '../../common/dialog/dialog.component';
 
 import { EnrollPushDialogComponent } from './enroll-push-dialog.component';
+import { TokenType } from '../../api/token';
 
 describe('EnrollPushDialogComponent', () => {
   let component: EnrollPushDialogComponent;
@@ -62,6 +63,10 @@ describe('EnrollPushDialogComponent', () => {
         {
           provide: MatDialogRef,
           useValue: spyOnClass(MatDialogRef)
+        },
+        {
+          provide: MAT_DIALOG_DATA,
+          useValue: { tokenTypeDetails: Fixtures.tokenTypeDetails[TokenType.PUSH], closeLabel: null },
         },
         I18nMock,
       ],
