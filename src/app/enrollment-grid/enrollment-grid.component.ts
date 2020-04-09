@@ -42,13 +42,47 @@ export class EnrollmentGridComponent implements OnInit {
       .then(hasPermission => this.testAfterEnrollment = hasPermission);
   }
 
-  public runEnrollmentWorkflow(tokenType: TokenTypeDetails) {
-    if (![TokenType.HOTP, TokenType.TOTP, TokenType.PUSH, TokenType.ASSIGN, TokenType.QR].includes(tokenType.type)) {
-      this.notificationService.message(this.i18n('The selected token type cannot be added at the moment.'));
-      return;
+  /**
+  * opens the correct enrollment dialog for the given token type
+  *
+  * @public
+  * @param {TokenTypeDetails} typeDetails
+  * @returns {Observable<string>}
+  * @memberof EnrollmentGridComponent
+  */
+  public runEnrollmentWorkflow(typeDetails: TokenTypeDetails) {
+    let dialog;
+    const enrollmentConfig: MatDialogConfig = {
+      width: '850px',
+      autoFocus: false,
+      disableClose: true,
+      data: {
+        tokenTypeDetails: typeDetails,
+        closeLabel: this.testAfterEnrollment ? this.i18n('Test') : this.i18n('Close'),
+      },
+    };
+
+    switch (typeDetails.type) {
+      case TokenType.HOTP:
+      case TokenType.TOTP:
+        dialog = EnrollOATHDialogComponent;
+        break;
+      case TokenType.PUSH:
+      case TokenType.QR:
+        dialog = EnrollPushQRDialogComponent;
+        delete enrollmentConfig.data.closeLabel;
+        break;
+      case TokenType.ASSIGN:
+        dialog = AssignTokenDialogComponent;
+        break;
+      default:
+        this.notificationService.message(this.i18n('The selected token type cannot be added at the moment.'));
+        return;
     }
 
-    this.openEnrollmentDialog(tokenType)
+    this.dialog
+      .open(dialog, enrollmentConfig)
+      .afterClosed()
       .pipe(
         tap(() => this.tokenUpdate.next()),
         filter(() => this.testAfterEnrollment),
@@ -63,41 +97,6 @@ export class EnrollmentGridComponent implements OnInit {
         switchMap(token => this.openTestDialog(token)),
         tap(() => this.tokenUpdate.next()),
       ).subscribe();
-  }
-
-  /**
-   * opens the correct enrollment dialog for the given token type and returns
-   * an observable to the dialog close event
-   *
-   * @private
-   * @param {TokenTypeDetails} typeDetails
-   * @returns {Observable<string>}
-   * @memberof EnrollmentGridComponent
-   */
-  private openEnrollmentDialog(typeDetails: TokenTypeDetails): Observable<string> {
-    const enrollmentConfig: MatDialogConfig = {
-      width: '850px',
-      autoFocus: false,
-      disableClose: true,
-      data: {
-        tokenTypeDetails: typeDetails,
-      },
-    };
-
-    switch (typeDetails.type) {
-      case TokenType.HOTP:
-      case TokenType.TOTP:
-        enrollmentConfig.data.closeLabel = this.testAfterEnrollment ? this.i18n('Test') : this.i18n('Close');
-        return this.dialog.open(EnrollOATHDialogComponent, enrollmentConfig).afterClosed();
-      case TokenType.PUSH:
-      case TokenType.QR:
-        return this.dialog.open(EnrollPushQRDialogComponent, enrollmentConfig).afterClosed();
-      case TokenType.ASSIGN:
-        enrollmentConfig.data = {
-          closeLabel: this.testAfterEnrollment ? this.i18n('Test') : this.i18n('Close')
-        };
-        return this.dialog.open(AssignTokenDialogComponent, enrollmentConfig).afterClosed();
-    }
   }
 
   /**

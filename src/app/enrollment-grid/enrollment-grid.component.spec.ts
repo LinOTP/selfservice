@@ -233,6 +233,7 @@ describe('EnrollmentGridComponent', () => {
       autoFocus: false,
       disableClose: true,
       data: {
+        tokenTypeDetails: tokenTypeDetails,
         closeLabel: 'Test',
       },
     };
