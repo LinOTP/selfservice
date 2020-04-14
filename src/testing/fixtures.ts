@@ -1,6 +1,7 @@
 import { Token, TokenType, EnrollmentStatus, TokenTypeDetails } from '../app/api/token';
 import { Permission } from '../app/common/permissions';
 import { UserSystemInfo, SystemInfo } from '../app/system.service';
+import { LinOTPResponse } from '../app/api/token.service';
 
 export class Fixtures {
 
@@ -206,6 +207,18 @@ export class Fixtures {
     };
   }
 
+  static get emailEnrollmentResponse(): LinOTPResponse<boolean, { serial: string }> {
+    return {
+      result: {
+        status: true,
+        value: true,
+      },
+      detail: {
+        serial: 'testSerial',
+      }
+    };
+  }
+
   static get activationResponse() {
     return {
       result: {
@@ -287,7 +300,17 @@ export class Fixtures {
       },
       permissions: this.permissionList,
       imprint: '',
-      user: '',
+      user: {
+        username: 'username',
+        userid: 'userid',
+        description: 'description',
+        phone: 'phone',
+        mobile: 'mobile',
+        email: 'email',
+        givenname: 'givenname',
+        surname: 'surname',
+        gender: 'gender',
+      },
       realm: '',
       autoassign: false,
       licenseinfo: '',

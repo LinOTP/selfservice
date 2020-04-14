@@ -84,7 +84,7 @@ export class EnrollmentService {
       );
   }
 
-  enroll<T>(token: EnrollToken): Observable<LinOTPResponse<boolean, T>> {
+  enroll<T extends { serial: string }>(token: EnrollToken): Observable<LinOTPResponse<boolean, T>> {
     const body: { session: string, type: string, description?: string } = {
       ...token,
       session: this.sessionService.getSession(),

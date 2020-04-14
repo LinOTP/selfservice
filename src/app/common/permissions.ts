@@ -7,6 +7,7 @@ export enum Permission {
     ENROLLTOTP = 'TOTP.ENROLL',
     ENROLLPASSWORD = 'PW.ENROLL',
     ENROLLMOTP = 'MOTP.ENROLL',
+    ENROLLEMAIL = 'EMAIL.ENROLL',
     DELETE = 'DELETE',
     SETPIN = 'SETPIN',
     SETMOTPPIN = 'SETMOTPPIN',
@@ -28,6 +29,7 @@ export const PoliciesToPermissionsMapping: { [policy: string]: Permission } = {
     'webprovisionGOOGLEtime': Permission.ENROLLTOTP,
     'enrollPW': Permission.ENROLLPASSWORD,
     'enrollMOTP': Permission.ENROLLMOTP,
+    'enrollEMAIL': Permission.ENROLLEMAIL,
     'delete': Permission.DELETE,
     'setOTPPIN': Permission.SETPIN,
     'setMOTPPIN': Permission.SETMOTPPIN,
@@ -50,6 +52,7 @@ export const EnrollmentPermissions = [
     Permission.ENROLLHOTP,
     Permission.ENROLLTOTP,
     Permission.ENROLLPASSWORD,
+    Permission.ENROLLEMAIL,
     Permission.ASSIGN,
     Permission.VERIFY,
 ];
