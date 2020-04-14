@@ -1,6 +1,6 @@
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
@@ -18,22 +18,23 @@ import { MaterialModule } from '../../material.module';
 import { NotificationService } from '../../common/notification.service';
 import { DialogComponent } from '../../common/dialog/dialog.component';
 
-import { EnrollPushDialogComponent } from './enroll-push-dialog.component';
+import { EnrollPushQRDialogComponent } from './enroll-push-qr-dialog.component';
+import { TokenType } from '../../api/token';
 
 describe('EnrollPushDialogComponent', () => {
-  let component: EnrollPushDialogComponent;
-  let fixture: ComponentFixture<EnrollPushDialogComponent>;
+  let component: EnrollPushQRDialogComponent;
+  let fixture: ComponentFixture<EnrollPushQRDialogComponent>;
   let operationsService: jasmine.SpyObj<OperationsService>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
   let notificationService: NotificationService;
-  let dialogRef: jasmine.SpyObj<MatDialogRef<EnrollPushDialogComponent>>;
+  let dialogRef: jasmine.SpyObj<MatDialogRef<EnrollPushQRDialogComponent>>;
   let matDialog: jasmine.SpyObj<MatDialog>;
 
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        EnrollPushDialogComponent,
+        EnrollPushQRDialogComponent,
         MockComponent({ selector: 'qrcode', inputs: ['qrdata', 'width', 'errorCorrectionLevel'] }),
       ],
       imports: [
@@ -63,6 +64,10 @@ describe('EnrollPushDialogComponent', () => {
           provide: MatDialogRef,
           useValue: spyOnClass(MatDialogRef)
         },
+        {
+          provide: MAT_DIALOG_DATA,
+          useValue: { tokenTypeDetails: Fixtures.tokenTypeDetails[TokenType.PUSH], closeLabel: null },
+        },
         I18nMock,
       ],
     })
@@ -70,7 +75,7 @@ describe('EnrollPushDialogComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EnrollPushDialogComponent);
+    fixture = TestBed.createComponent(EnrollPushQRDialogComponent);
     component = fixture.componentInstance;
     operationsService = TestBed.get(OperationsService);
     enrollmentService = TestBed.get(EnrollmentService);

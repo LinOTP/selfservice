@@ -14,14 +14,14 @@ import { I18nMock } from '../../testing/i18n-mock-provider';
 
 import { MaterialModule } from '../material.module';
 import { EnrollmentService } from '../api/enrollment.service';
-import { EnrollPushDialogComponent } from '../enroll/enroll-push-dialog/enroll-push-dialog.component';
+import { EnrollPushQRDialogComponent } from '../enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component';
 import { ActivateDialogComponent } from './activate-dialog.component';
 
 describe('ActivateDialogComponent', () => {
   let component: ActivateDialogComponent;
   let fixture: ComponentFixture<ActivateDialogComponent>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
-  let dialogRef: jasmine.SpyObj<MatDialogRef<EnrollPushDialogComponent>>;
+  let dialogRef: jasmine.SpyObj<MatDialogRef<EnrollPushQRDialogComponent>>;
   let stepper: MatStepper;
 
   beforeEach(async(() => {

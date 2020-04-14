@@ -110,7 +110,7 @@ export class TokenService {
       name: this.i18n('QR-Token'),
       description: this.i18n('Use the Authenticator app to scan QR code authentication requests'),
       icon: 'all_out',
-      // enrollmentPermission: Permission.ENROLLQR,
+      enrollmentPermission: Permission.ENROLLQR,
       activationPermission: Permission.ACTIVATEQR,
       enrollmentActionLabel: this.i18n('Create'),
     },

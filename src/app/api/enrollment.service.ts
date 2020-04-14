@@ -10,7 +10,7 @@ import { EnrollToken, EnrollmentStatus } from './token';
 import { LinOTPResponse, TokenService } from './token.service';
 import { SessionService } from '../auth/session.service';
 
-export interface PushEnrollmentDetail {
+export interface QRCodeEnrollmentDetail {
   lse_qr_url: {
     value: string;
   };
