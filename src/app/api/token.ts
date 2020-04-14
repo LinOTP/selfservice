@@ -52,6 +52,7 @@ export interface EnrollToken {
   type: TokenType;
   description?: string;
   email_address?: string;
+  phone?: string;
 }
 
 

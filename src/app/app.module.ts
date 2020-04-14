@@ -19,6 +19,7 @@ import { TokenListComponent } from './token-list/token-list.component';
 import { LoginComponent } from './login/login.component';
 import { EnrollOATHDialogComponent } from './enroll/enroll-oath-dialog/enroll-oath-dialog.component';
 import { EnrollEmailDialogComponent } from './enroll/enroll-email-dialog/enroll-email-dialog.component';
+import { EnrollSMSDialogComponent } from './enroll/enroll-sms-dialog/enroll-sms-dialog.component';
 import { EnrollPushQRDialogComponent } from './enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component';
 import { TokenCardComponent } from './token-card/token-card.component';
 import { EnrollmentGridComponent } from './enrollment-grid/enrollment-grid.component';
@@ -38,6 +39,7 @@ declare const require;
     EnrollmentGridComponent,
     EnrollOATHDialogComponent,
     EnrollEmailDialogComponent,
+    EnrollSMSDialogComponent,
     EnrollPushQRDialogComponent,
     AssignTokenDialogComponent,
     TestDialogComponent,
@@ -47,6 +49,7 @@ declare const require;
     ActivateDialogComponent,
     EnrollOATHDialogComponent,
     EnrollEmailDialogComponent,
+    EnrollSMSDialogComponent,
     EnrollPushQRDialogComponent,
     AssignTokenDialogComponent,
     TestDialogComponent,

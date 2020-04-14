@@ -219,6 +219,10 @@ export class Fixtures {
     };
   }
 
+  static get smsEnrollmentResponse() {
+    return this.emailEnrollmentResponse;
+  }
+
   static get activationResponse() {
     return {
       result: {
