@@ -125,12 +125,16 @@ export class TokenService {
       name: this.i18n('SMS token'),
       description: this.i18n('Receive an OTP via SMS'),
       icon: 'textsms',
+      enrollmentPermission: Permission.ENROLLSMS,
+      enrollmentActionLabel: this.i18n('Create'),
     },
     {
       type: TokenType.EMAIL,
       name: this.i18n('e-mail token'),
       description: this.i18n('Receive an OTP via e-mail'),
       icon: 'email',
+      enrollmentPermission: Permission.ENROLLEMAIL,
+      enrollmentActionLabel: this.i18n('Create'),
     },
     {
       type: TokenType.ASSIGN,

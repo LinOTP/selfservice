@@ -8,8 +8,7 @@ import { NgxPermissionsService } from 'ngx-permissions';
 import { Observable, of } from 'rxjs';
 import { map, tap, switchMap, catchError } from 'rxjs/operators';
 
-import { Permission } from '../common/permissions';
-import { SystemService } from '../system.service';
+import { SystemService, UserSystemInfo } from '../system.service';
 import { Token, EnrollmentStatus } from '../api/token';
 import { TokenService } from '../api/token.service';
 import { SessionService } from '../auth/session.service';
@@ -196,14 +195,18 @@ export class LoginService {
    * @returns {Observable<Permission[]>}
    * @memberof AuthService
    */
-  public refreshPermissions(): Observable<Permission[]> {
+  public refreshUserSystemInfo(): Observable<UserSystemInfo> {
     return this.systemService.getUserSystemInfo().pipe(
-      map(systemInfo => systemInfo.permissions),
-      tap(permissions => {
-        localStorage.setItem('permissions', JSON.stringify(permissions));
-        this.permissionsService.loadPermissions(permissions);
+      tap(userSystemInfo => {
+        localStorage.setItem('permissions', JSON.stringify(userSystemInfo.permissions));
+        localStorage.setItem('realm', JSON.stringify(userSystemInfo.realm));
+        localStorage.setItem('user', JSON.stringify(userSystemInfo.user));
+        localStorage.setItem('imprint', JSON.stringify(userSystemInfo.imprint));
+        localStorage.setItem('linotpVersion', JSON.stringify(userSystemInfo.version));
+
+        this.permissionsService.loadPermissions(userSystemInfo.permissions);
       }),
-      catchError(this.handleError('loadPermissions', [])),
+      catchError(this.handleError('loadPermissions', undefined)),
     );
   }
 
@@ -227,7 +230,7 @@ export class LoginService {
   public handleLogin(success: boolean) {
     this._loginChangeEmitter.emit(success);
     if (success) {
-      this.refreshPermissions().subscribe();
+      this.refreshUserSystemInfo().subscribe();
     }
   }
 
@@ -245,7 +248,7 @@ export class LoginService {
   * @memberof AuthService
   */
   public handleLogout(storeCurrentRoute: boolean) {
-    localStorage.removeItem('permissions');
+    localStorage.clear();
     this.permissionsService.flushPermissions();
 
     this.dialogRef.closeAll();

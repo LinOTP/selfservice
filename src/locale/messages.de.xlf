@@ -590,11 +590,19 @@
           <context context-type="linenumber">118</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
+          <context context-type="sourcefile">app/enroll/enroll-email-dialog/enroll-email-dialog.component.html</context>
           <context context-type="linenumber">36</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
+          <context context-type="sourcefile">app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
           <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit>
@@ -771,7 +779,15 @@
           <context context-type="linenumber">122</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
+          <context context-type="sourcefile">app/enroll/enroll-email-dialog/enroll-email-dialog.component.html</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
           <context context-type="linenumber">42</context>
         </context-group>
       </trans-unit>
@@ -858,6 +874,14 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
           <context context-type="linenumber">130</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-email-dialog/enroll-email-dialog.component.html</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
+          <context context-type="linenumber">51</context>
         </context-group>
       </trans-unit>
       <trans-unit id="e31efdfcc0b21b460ebc5f386962aa2b7a3a2c79" datatype="html">
@@ -973,6 +997,14 @@
           <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
           <context context-type="linenumber">134</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-email-dialog/enroll-email-dialog.component.html</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="06f038853e7c3e4afb905dcd1d0c816afcd7187d" datatype="html">
         <source>Set mOTP pin</source>
@@ -997,6 +1029,14 @@
           <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
           <context context-type="linenumber">136</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-email-dialog/enroll-email-dialog.component.html</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="ff3dab33cabca19113ce6b0c76e542d970392c24" datatype="html">
         <source>Step 3 of 3</source>
@@ -1005,12 +1045,118 @@
           <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
           <context context-type="linenumber">139</context>
         </context-group>
-      </trans-unit>
-      <trans-unit id="a1bddd427de31a426c1d0a9a3576ae26e98c378c" datatype="html">
-        <source>Add Push token</source>
-        <target state="translated">Push-Token ausrollen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
+          <context context-type="sourcefile">app/enroll/enroll-email-dialog/enroll-email-dialog.component.html</context>
+          <context context-type="linenumber">59</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="be890a00287ffabecaa70944801bf7c9245ef243" datatype="html">
+        <source>Create a new token that is paired with your e-mail address to receive OTP values for authentication.</source>
+        <target state="translated">Erstellen Sie einen neuen Token, der mit Ihrer E-Mail-Adresse verknüpft wird, um OTP-Werte zur Authentifizierung zu erhalten.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-email-dialog/enroll-email-dialog.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2c607fa033e798adbd2b13fc996a0560e3252eb9" datatype="html">
+        <source>You may set the following token details before creation:</source>
+        <target state="translated">Sie können die folgenden Token-Details vor der Erstellung festlegen:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-email-dialog/enroll-email-dialog.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="69b6ac577a19acc39fc0c22342092f327fff2529" datatype="html">
+        <source>Email address</source>
+        <target state="translated">E-Mail-Adresse</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-email-dialog/enroll-email-dialog.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d26240d37446863a949d116bc16e109263024752" datatype="html">
+        <source>Set the email address to use for your token</source>
+        <target state="translated">Legen Sie die E-Mail-Adresse fest, die Sie für Ihren Token verwenden möchten</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-email-dialog/enroll-email-dialog.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fe781c8ee64670ae8797da85e80c3de0a275d5dd" datatype="html">
+        <source>Step 1 of 2</source>
+        <target state="translated">Schritt 1 von 2</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-email-dialog/enroll-email-dialog.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4767b79f5d51c596453dfc39acc52fd283b9da53" datatype="html">
+        <source>A token with the serial number <x id="INTERPOLATION" equiv-text="{{enrolledToken?.serial}}"/> has been created.</source>
+        <target state="translated">Ein Token mit der Seriennummer <x id="INTERPOLATION" equiv-text="{{enrolledToken?.serial}}"/> wurde eingerichtet.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-email-dialog/enroll-email-dialog.component.html</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ac802f5058059853184358e29bb1ecbf3f9d664a" datatype="html">
+        <source>Create a new token that is paired with your mobile phone to receive OTP values via SMS for authentication.
+    </source>
+        <target state="translated">Erstellen Sie einen neuen Token, der mit Ihrem Mobiltelefon verknüpft wird, um OTP-Werte per SMS zur Authentifizierung zu erhalten.
+    </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5440356aea28929ecfa9febd07d5b762b9b8e08f" datatype="html">
+        <source>Mobile phone number</source>
+        <target state="translated">Handynummer</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bb1155c2793a665f2074b3bbd05150b486305cd7" datatype="html">
+        <source>Set the mobile phone number to use for your token</source>
+        <target state="translated">Legen Sie die Handynummer fest, die Sie für Ihren Token verwenden möchten</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fc1964aa3d667c80f58d10b9c3ec06f83ebfe42b" datatype="html">
+        <source>Add <x id="INTERPOLATION" equiv-text="{{data.tokenTypeDetails.name}}"/></source>
+        <target state="translated">{{ data.tokenTypeDetails.name }} einrichten</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-email-dialog/enroll-email-dialog.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
@@ -1018,12 +1164,12 @@
         <source>Close</source>
         <target state="translated">Beenden</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
-          <context context-type="linenumber">73</context>
-        </context-group>
-        <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
           <context context-type="linenumber">46</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
+          <context context-type="linenumber">73</context>
         </context-group>
       </trans-unit>
       <trans-unit id="bcb5d6944e6f7c5f074e8204848c9eeb81dbface" datatype="html">
@@ -1032,7 +1178,7 @@
       here:</source>
         <target state="translated">Sie benötigen die Authenticator-App auf Ihrem Smartphone, um diese Art von Token zu benutzen. Die App können Sie hier herunterladen:</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
+          <context context-type="sourcefile">app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
           <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
@@ -1041,7 +1187,7 @@
       and start the enrollment process: </source>
         <target state="translated">Sobald Sie die Authenticator-App auf Ihrem Smartphone installiert haben, können Sie eine Beschreibung für Ihren Token setzen und den Einrichtungsvorgang starten:</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
+          <context context-type="sourcefile">app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
           <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
@@ -1049,7 +1195,7 @@
         <source>The token description is required. </source>
         <target state="translated">Die Token-Beschreibung ist erforderlich. </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
+          <context context-type="sourcefile">app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
           <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
@@ -1058,7 +1204,7 @@
           refer to its usage scenario.</source>
         <target state="translated">Die Token-Beschreibung soll Ihnen helfen, den Token später zu erkennen. Sie könnte z.B. auf seinen Verwendungszweck hinweisen.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
+          <context context-type="sourcefile">app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
           <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
@@ -1066,15 +1212,15 @@
         <source>Step <x id="INTERPOLATION" equiv-text="{{currentStep}}"/> of <x id="INTERPOLATION_1" equiv-text="{{maxSteps}}"/></source>
         <target state="translated">Schritt <x id="INTERPOLATION" equiv-text="{{currentStep}}"/> von <x id="INTERPOLATION_1" equiv-text="{{maxSteps}}"/></target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
+          <context context-type="sourcefile">app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
           <context context-type="linenumber">32</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
+          <context context-type="sourcefile">app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
           <context context-type="linenumber">58</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
+          <context context-type="sourcefile">app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
           <context context-type="linenumber">69</context>
         </context-group>
       </trans-unit>
@@ -1084,7 +1230,7 @@
         <target state="translated">Ein Token mit der Seriennummer <x id="INTERPOLATION" equiv-text="{{enrolledToken.serial}}"/> (Beschreibung:
         <x id="INTERPOLATION_1" equiv-text="{{ enrollmentForm.get('description').value }}"/>) wurde eingerichtet.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
+          <context context-type="sourcefile">app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
           <context context-type="linenumber">48</context>
         </context-group>
       </trans-unit>
@@ -1093,7 +1239,7 @@
         activation process of the new token.</source>
         <target state="translated">Scannen Sie den nachfolgenden QR-Code mit der Authenticator-App, oder <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/> folgen Sie diesen Link <x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>, um die Aktivierung des neuen Tokens zu starten.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
+          <context context-type="sourcefile">app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
           <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
@@ -1101,7 +1247,7 @@
         <source>Your token has been successfully paired. In order to use it, you must activate it first.</source>
         <target state="translated">Ihr Token wurde erfolgreich initialisiert. Um ihn benutzen zu können, müssen Sie ihn jedoch zuerst aktivieren.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
+          <context context-type="sourcefile">app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
           <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
@@ -1109,7 +1255,7 @@
         <source>Activate Token</source>
         <target state="translated">Token Aktivieren</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
+          <context context-type="sourcefile">app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
           <context context-type="linenumber">77</context>
         </context-group>
       </trans-unit>
@@ -1378,6 +1524,10 @@
         <source>Token description</source>
         <target state="translated">Token-Beschreibung</target>
         <context-group purpose="location">
+          <context context-type="sourcefile">app/common/set-description-dialog/set-description-dialog.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
           <context context-type="linenumber">23</context>
         </context-group>
@@ -1386,12 +1536,16 @@
           <context context-type="linenumber">24</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/enroll/enroll-push-dialog/enroll-push-dialog.component.html</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="sourcefile">app/enroll/enroll-email-dialog/enroll-email-dialog.component.html</context>
+          <context context-type="linenumber">24</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/common/set-description-dialog/set-description-dialog.component.html</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="sourcefile">app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
+          <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5c069965db47012ba7e64b7540ae2362a8b27fb3" datatype="html">
@@ -1404,6 +1558,14 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
           <context context-type="linenumber">27</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-email-dialog/enroll-email-dialog.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1572365d5f052b4ab327739abe91c8cb09d2a5b4" datatype="html">
@@ -1434,19 +1596,19 @@
         <source>There was a problem while creating the new token. Please try again.</source>
         <target state="translated">Die Tokeneinrichtung ist fehlgeschlagen. Bitte versuchen Sie es erneut.</target>
         <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/enroll-email-dialog/enroll-email-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-push-dialog/enroll-push-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
-      </trans-unit>
-      <trans-unit id="4120bf3ef435a8e38c9ad7b01c53e6ff7f028198" datatype="html">
-        <source>The token was successfully created, but an error ocurred while setting the description.</source>
-        <target state="translated">Der Token wurde erfolgreich eingerichtet, allerdings konnte die Beschreibung nicht festgelegt werden.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
@@ -1456,14 +1618,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
           <context context-type="linenumber">66</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="a0f01a69275e69c2a66a4d2b71b74cc8ccfd6e10" datatype="html">
-        <source>Add <x id="INTERPOLATION" equiv-text="{{ data.tokenTypeDetails.name }}"/></source>
-        <target state="translated"><x id="INTERPOLATION" equiv-text="{{ data.tokenTypeDetails.name }}"/> einrichten</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8838532aaf80b3619e0c045f21d26196f6614599" datatype="html">
@@ -1695,7 +1849,15 @@
         <source>PIN set</source>
         <target state="translated">PIN gesetzt</target>
         <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/enroll-email-dialog/enroll-email-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
         <context-group purpose="location">
@@ -1715,11 +1877,19 @@
         <source>Created via SelfService</source>
         <target state="translated">Erstellt via SelfService</target>
         <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/enroll-email-dialog/enroll-email-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-push-dialog/enroll-push-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
@@ -1727,7 +1897,7 @@
         <source>Stop setting up your new token?</source>
         <target state="translated">Tokeneinrichtung abbrechen?</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-push-dialog/enroll-push-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
@@ -1735,7 +1905,7 @@
         <source>The incomplete token will be deleted.</source>
         <target state="translated">Der noch nicht aktivierten Token wird gelöscht.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-push-dialog/enroll-push-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
@@ -1743,7 +1913,7 @@
         <source>You will have to restart the setup process in order to use this type of token.</source>
         <target state="translated">Sie müssen den Einrichtungsvorgang neustarten, um diese Art von Token benutzen zu können.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-push-dialog/enroll-push-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
@@ -1751,7 +1921,7 @@
         <source>Confirm</source>
         <target state="translated">Bestätigen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-push-dialog/enroll-push-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
@@ -1759,7 +1929,7 @@
         <source>Incomplete Push token was deleted</source>
         <target state="translated">Der unvollständig eingerichtete Push-Token wurde gelöscht</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-push-dialog/enroll-push-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>

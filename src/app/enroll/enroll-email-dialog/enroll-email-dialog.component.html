@@ -1,0 +1,67 @@
+<h2 i18n>Add {{data.tokenTypeDetails.name}}</h2>
+
+<mat-horizontal-stepper [linear]="true"
+                        linear>
+
+  <mat-step [stepControl]="enrollmentStep"
+            id="stepDescription">
+    <p i18n>Create a new token that is paired with your e-mail address to receive OTP values for authentication.</p>
+
+
+    <p i18n>You may set the following token details before creation:</p>
+    <form [formGroup]="enrollmentStep">
+      <mat-form-field>
+        <input matInput
+               i18n-placeholder
+               placeholder="Email address"
+               formControlName="emailAddress"
+               autofocus>
+        <mat-hint i18n>Set the email address to use for your token</mat-hint>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput
+               i18n-placeholder
+               placeholder="Token description"
+               formControlName="description"
+               autofocus>
+        <mat-hint i18n>Enter a description for your token.</mat-hint>
+      </mat-form-field>
+    </form>
+
+    <mat-dialog-actions align="end">
+      <div i18n>Step 1 of 2</div>
+      <span class="spacer"></span>
+      <button mat-raised-button
+              (click)="cancelDialog()"
+              i18n>Cancel</button>
+      <button mat-raised-button
+              color="primary"
+              (click)="enrollToken()"
+              id="goTo2"
+              i18n>Next</button>
+    </mat-dialog-actions>
+  </mat-step>
+
+  <mat-step active="false"
+            id="stepPIN">
+    <p i18n>A token with the serial number {{enrolledToken?.serial}} has been created.</p>
+
+    <ng-container *ngxPermissionsOnly="Permission.SETPIN">
+      <p i18n>If you wish to set a security PIN, please do so now:</p>
+      <button mat-raised-button
+              color="primary"
+              (click)="setPin()"
+              i18n>Set pin</button>
+      <p class="mat-hint hint"
+         i18n>Setting a PIN helps you protect your token against misuse.</p>
+    </ng-container>
+    <mat-dialog-actions align="end">
+      <div i18n>Step 3 of 3</div>
+      <span class="spacer"></span>
+      <button mat-raised-button
+              color="primary"
+              (click)="closeDialog()"> {{ data.closeLabel }}</button>
+    </mat-dialog-actions>
+  </mat-step>
+
+</mat-horizontal-stepper>
