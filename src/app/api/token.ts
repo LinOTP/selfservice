@@ -53,6 +53,8 @@ export interface EnrollToken {
   description?: string;
   email_address?: string;
   phone?: string;
+  otpkey?: string;
+  otppin?: string;
 }
 
 

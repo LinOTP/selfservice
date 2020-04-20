@@ -223,6 +223,10 @@ export class Fixtures {
     return this.emailEnrollmentResponse;
   }
 
+  static get mOTPEnrollmentResponse() {
+    return this.emailEnrollmentResponse;
+  }
+
   static get activationResponse() {
     return {
       result: {

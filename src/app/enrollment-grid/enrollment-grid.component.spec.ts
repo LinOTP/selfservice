@@ -22,6 +22,7 @@ import { EnrollOATHDialogComponent } from '../enroll/enroll-oath-dialog/enroll-o
 import { EnrollPushQRDialogComponent } from '../enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component';
 import { ActivateDialogComponent } from '../activate/activate-dialog.component';
 import { TestDialogComponent } from '../test/test-dialog.component';
+import { EnrollMOTPDialogComponent } from '../enroll/enroll-motp-dialog/enroll-motp-dialog.component';
 
 
 describe('EnrollmentGridComponent', () => {
@@ -188,6 +189,36 @@ describe('EnrollmentGridComponent', () => {
     tick();
 
     expect(matDialog.open).toHaveBeenCalledWith(EnrollOATHDialogComponent, expectedEnrollDialogConfig);
+    expect(tokenService.getToken).toHaveBeenCalledWith(token.serial);
+
+    expect(matDialog.open).toHaveBeenCalledWith(TestDialogComponent, expectedTestDialogConfig);
+    expect(tokenUpdateSpy).toHaveBeenCalledTimes(2);
+  }));
+
+  it('should open the MOTP dialog and update the token list when completed', fakeAsync(() => {
+    const token = Fixtures.activeMotpToken;
+    const tokenTypeDetails: TokenTypeDetails = token.typeDetails;
+
+    const expectedEnrollDialogConfig = {
+      width: '850px',
+      autoFocus: false,
+      disableClose: true,
+      data: {
+        tokenTypeDetails: tokenTypeDetails,
+        closeLabel: 'Test',
+      },
+    };
+    const expectedTestDialogConfig = {
+      width: '650px',
+      data: { token: token },
+    };
+
+    matDialog.open.and.returnValues({ afterClosed: () => of(token.serial) }, { afterClosed: () => of(true) });
+    tokenService.getToken.and.returnValue(of(token));
+    component.runEnrollmentWorkflow(tokenTypeDetails);
+    tick();
+
+    expect(matDialog.open).toHaveBeenCalledWith(EnrollMOTPDialogComponent, expectedEnrollDialogConfig);
     expect(tokenService.getToken).toHaveBeenCalledWith(token.serial);
 
     expect(matDialog.open).toHaveBeenCalledWith(TestDialogComponent, expectedTestDialogConfig);

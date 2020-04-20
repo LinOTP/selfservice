@@ -242,13 +242,13 @@
       <trans-unit id="5c62052c5de6811ae77d69038645b41fed7495ec" datatype="html">
         <source>
         Second factor:
-        <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span>"/>
+        <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/>
           <x id="INTERPOLATION" equiv-text="{{ selectedToken.typeDetails.name }}"/> with serial <x id="INTERPOLATION_1" equiv-text="{{ selectedToken.serial }}"/>
-        <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span>"/>
+        <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/>
       </source>
         <target state="translated">
         Zweiten Faktor:
-        <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span>"/><x id="INTERPOLATION" equiv-text="{{ selectedToken.typeDetails.name }}"/> mit Seriennummer <x id="INTERPOLATION_1" equiv-text="{{ selectedToken.serial }}"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span>"/></target>
+        <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/><x id="INTERPOLATION" equiv-text="{{ selectedToken.typeDetails.name }}"/> mit Seriennummer <x id="INTERPOLATION_1" equiv-text="{{ selectedToken.serial }}"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/login/login.component.html</context>
           <context context-type="linenumber">99</context>
@@ -449,11 +449,11 @@
       <trans-unit id="026a85359a52370b1385c0c844479305250beb76" datatype="html">
         <source>
             Waiting for confirmation of transaction
-            <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/><x id="START_TAG_CODE" ctype="x-code" equiv-text="&lt;code>"/><x id="INTERPOLATION" equiv-text="{{ shortTransactionId }}"/><x id="CLOSE_TAG_CODE" ctype="x-code" equiv-text="&lt;/code>"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/> via your LinOTP Authenticator app.
+            <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/><x id="START_TAG_CODE" ctype="x-code" equiv-text="&lt;code&gt;"/><x id="INTERPOLATION" equiv-text="{{ shortTransactionId }}"/><x id="CLOSE_TAG_CODE" ctype="x-code" equiv-text="&lt;/code&gt;"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/> via your LinOTP Authenticator app.
           </source>
         <target state="translated">
             Warte auf Bestätigung der Transaktion
-            <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/><x id="START_TAG_CODE" ctype="x-code" equiv-text="&lt;code>"/><x id="INTERPOLATION" equiv-text="{{ shortTransactionId }}"/><x id="CLOSE_TAG_CODE" ctype="x-code" equiv-text="&lt;/code>"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/> durch Ihre LinOTP Authenticator App.
+            <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/><x id="START_TAG_CODE" ctype="x-code" equiv-text="&lt;code&gt;"/><x id="INTERPOLATION" equiv-text="{{ shortTransactionId }}"/><x id="CLOSE_TAG_CODE" ctype="x-code" equiv-text="&lt;/code&gt;"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/> durch Ihre LinOTP Authenticator App.
           </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-dialog.component.html</context>
@@ -596,6 +596,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
           <context context-type="linenumber">37</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-motp-dialog/enroll-motp-dialog.component.html</context>
+          <context context-type="linenumber">49</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
@@ -787,6 +791,10 @@
           <context context-type="linenumber">42</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-motp-dialog/enroll-motp-dialog.component.html</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
           <context context-type="linenumber">42</context>
         </context-group>
@@ -800,9 +808,9 @@
         </context-group>
       </trans-unit>
       <trans-unit id="c0929ac085d19df44887c34a87af1a10611fc691" datatype="html">
-        <source>Scan the QR code below with your soft token app or <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>follow this link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/> to
+        <source>Scan the QR code below with your soft token app or <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>follow this link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> to
         install it on your mobile device.</source>
-        <target state="translated">Scannen Sie den untenstehenden QR-Code mit Ihrer Soft-Token-App oder <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>folgen Sie diesem Link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>, um den Token auf Ihrem Smartphone hinzuzufügen.</target>
+        <target state="translated">Scannen Sie den untenstehenden QR-Code mit Ihrer Soft-Token-App oder <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>folgen Sie diesem Link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>, um den Token auf Ihrem Smartphone hinzuzufügen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
           <context context-type="linenumber">49</context>
@@ -882,6 +890,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
           <context context-type="linenumber">51</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-motp-dialog/enroll-motp-dialog.component.html</context>
+          <context context-type="linenumber">64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="e31efdfcc0b21b460ebc5f386962aa2b7a3a2c79" datatype="html">
@@ -1005,6 +1017,10 @@
           <context context-type="sourcefile">app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
           <context context-type="linenumber">55</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-motp-dialog/enroll-motp-dialog.component.html</context>
+          <context context-type="linenumber">68</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="06f038853e7c3e4afb905dcd1d0c816afcd7187d" datatype="html">
         <source>Set mOTP pin</source>
@@ -1037,6 +1053,10 @@
           <context context-type="sourcefile">app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
           <context context-type="linenumber">57</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-motp-dialog/enroll-motp-dialog.component.html</context>
+          <context context-type="linenumber">70</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="ff3dab33cabca19113ce6b0c76e542d970392c24" datatype="html">
         <source>Step 3 of 3</source>
@@ -1052,6 +1072,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
           <context context-type="linenumber">60</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-motp-dialog/enroll-motp-dialog.component.html</context>
+          <context context-type="linenumber">73</context>
         </context-group>
       </trans-unit>
       <trans-unit id="be890a00287ffabecaa70944801bf7c9245ef243" datatype="html">
@@ -1071,6 +1095,10 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-motp-dialog/enroll-motp-dialog.component.html</context>
           <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
@@ -1101,6 +1129,10 @@
           <context context-type="sourcefile">app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
           <context context-type="linenumber">33</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-motp-dialog/enroll-motp-dialog.component.html</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="4767b79f5d51c596453dfc39acc52fd283b9da53" datatype="html">
         <source>A token with the serial number <x id="INTERPOLATION" equiv-text="{{enrolledToken?.serial}}"/> has been created.</source>
@@ -1112,6 +1144,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
           <context context-type="linenumber">48</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-motp-dialog/enroll-motp-dialog.component.html</context>
+          <context context-type="linenumber">61</context>
         </context-group>
       </trans-unit>
       <trans-unit id="ac802f5058059853184358e29bb1ecbf3f9d664a" datatype="html">
@@ -1140,6 +1176,68 @@
           <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="842c04e1ba4722709f3adaf05511fb16a3d3c27e" datatype="html">
+        <source>Create a new token that generates OTP values from your mobile device, given a secret password and a custom
+      pin.</source>
+        <target state="translated">Erstellen Sie einen Token, der auf Ihrem Mobiltelfon OTPs anhand eines geheimen Passworts und eines von Ihnen definierten PINs generiert.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-motp-dialog/enroll-motp-dialog.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="689abc0493ac7b5a88334bf135e82139e72fbe2d" datatype="html">
+        <source>mOTP password</source>
+        <target state="translated">mOTP-Passwort</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-motp-dialog/enroll-motp-dialog.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ded31919e050785879c7a7cd1d219be094d9ddb8" datatype="html">
+        <source>Enter your token's secret</source>
+        <target state="translated">Geben Sie Ihr Token-Geheimniss ein</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-motp-dialog/enroll-motp-dialog.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5e88cf8f4027821baa532aaabe031a1709c56eab" datatype="html">
+        <source>Please enter exactly 16 characters. Allowed are digits (0-9) and the letters A to F (lowercase
+          or uppercase).</source>
+        <target state="translated">Bitte geben sie exakt 16 Zeichen ein. Erlaubt sind Zahlen (0-9) und die Groß- und Kleinbuchstaben A bis F.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-motp-dialog/enroll-motp-dialog.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dcc1b0cb3159aaf94a4f36e3245601fce1994e9c" datatype="html">
+        <source>mOTP PIN</source>
+        <target state="translated">mOTP-PIN</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-motp-dialog/enroll-motp-dialog.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4d1ebb391b7667b724aebc1efef132f4375ff76f" datatype="html">
+        <source>Enter your token's mOTP pin</source>
+        <target state="translated">Geben Sie Ihr mOTP-PIN ein</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-motp-dialog/enroll-motp-dialog.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="462b21d50f98df48c09552372c58da87f8e17157" datatype="html">
+        <source>The field cannot be empty.</source>
+        <target state="translated">Das Feld darf nicht leer sein</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-motp-dialog/enroll-motp-dialog.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-motp-dialog/enroll-motp-dialog.component.html</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="fc1964aa3d667c80f58d10b9c3ec06f83ebfe42b" datatype="html">
         <source>Add <x id="INTERPOLATION" equiv-text="{{data.tokenTypeDetails.name}}"/></source>
         <target state="translated">{{ data.tokenTypeDetails.name }} einrichten</target>
@@ -1153,6 +1251,10 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-motp-dialog/enroll-motp-dialog.component.html</context>
           <context context-type="linenumber">1</context>
         </context-group>
         <context-group purpose="location">
@@ -1235,9 +1337,9 @@
         </context-group>
       </trans-unit>
       <trans-unit id="9f07949527737a3222b7d101f194ccaea4259b9f" datatype="html">
-        <source>Scan the QR code below with the Authenticator app or <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>follow this link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/> to start the
+        <source>Scan the QR code below with the Authenticator app or <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>follow this link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> to start the
         activation process of the new token.</source>
-        <target state="translated">Scannen Sie den nachfolgenden QR-Code mit der Authenticator-App, oder <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/> folgen Sie diesen Link <x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>, um die Aktivierung des neuen Tokens zu starten.</target>
+        <target state="translated">Scannen Sie den nachfolgenden QR-Code mit der Authenticator-App, oder <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/> folgen Sie diesen Link <x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>, um die Aktivierung des neuen Tokens zu starten.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
           <context context-type="linenumber">50</context>
@@ -1544,6 +1646,10 @@
           <context context-type="linenumber">25</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-motp-dialog/enroll-motp-dialog.component.html</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
           <context context-type="linenumber">22</context>
         </context-group>
@@ -1566,6 +1672,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
           <context context-type="linenumber">28</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-motp-dialog/enroll-motp-dialog.component.html</context>
+          <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1572365d5f052b4ab327739abe91c8cb09d2a5b4" datatype="html">
@@ -1597,6 +1707,10 @@
         <target state="translated">Die Tokeneinrichtung ist fehlgeschlagen. Bitte versuchen Sie es erneut.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-email-dialog/enroll-email-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/enroll-motp-dialog/enroll-motp-dialog.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
         <context-group purpose="location">
@@ -1853,6 +1967,10 @@
           <context context-type="linenumber">1</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/enroll-motp-dialog/enroll-motp-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
@@ -1878,6 +1996,10 @@
         <target state="translated">Erstellt via SelfService</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-email-dialog/enroll-email-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/enroll-motp-dialog/enroll-motp-dialog.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
         <context-group purpose="location">

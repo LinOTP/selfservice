@@ -119,6 +119,8 @@ export class TokenService {
       name: this.i18n('mOTP token'),
       description: this.i18n('Generate OTPs from your mobile device given a secret password and a custom pin'),
       icon: 'stay_current_portrait',
+      enrollmentPermission: Permission.ENROLLMOTP,
+      enrollmentActionLabel: this.i18n('Create'),
     },
     {
       type: TokenType.SMS,
