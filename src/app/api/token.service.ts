@@ -132,8 +132,8 @@ export class TokenService {
     },
     {
       type: TokenType.EMAIL,
-      name: this.i18n('e-mail token'),
-      description: this.i18n('Receive an OTP via e-mail'),
+      name: this.i18n('email token'),
+      description: this.i18n('Receive an OTP via email'),
       icon: 'email',
       enrollmentPermission: Permission.ENROLLEMAIL,
       enrollmentActionLabel: this.i18n('Create'),
