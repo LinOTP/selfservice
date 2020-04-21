@@ -16,6 +16,7 @@ import { AssignTokenDialogComponent } from '../enroll/assign-token-dialog/assign
 import { EnrollOATHDialogComponent } from '../enroll/enroll-oath-dialog/enroll-oath-dialog.component';
 import { EnrollEmailDialogComponent } from '../enroll/enroll-email-dialog/enroll-email-dialog.component';
 import { EnrollSMSDialogComponent } from '../enroll/enroll-sms-dialog/enroll-sms-dialog.component';
+import { EnrollMOTPDialogComponent } from '../enroll/enroll-motp-dialog/enroll-motp-dialog.component';
 import { EnrollPushQRDialogComponent } from '../enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component';
 import { ActivateDialogComponent } from '../activate/activate-dialog.component';
 import { TestDialogComponent } from '../test/test-dialog.component';
@@ -74,6 +75,9 @@ export class EnrollmentGridComponent implements OnInit {
         break;
       case TokenType.SMS:
         dialog = EnrollSMSDialogComponent;
+        break;
+      case TokenType.MOTP:
+        dialog = EnrollMOTPDialogComponent;
         break;
       case TokenType.PUSH:
       case TokenType.QR:

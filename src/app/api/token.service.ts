@@ -119,6 +119,8 @@ export class TokenService {
       name: this.i18n('mOTP token'),
       description: this.i18n('Generate OTPs from your mobile device given a secret password and a custom pin'),
       icon: 'stay_current_portrait',
+      enrollmentPermission: Permission.ENROLLMOTP,
+      enrollmentActionLabel: this.i18n('Create'),
     },
     {
       type: TokenType.SMS,
@@ -130,8 +132,8 @@ export class TokenService {
     },
     {
       type: TokenType.EMAIL,
-      name: this.i18n('e-mail token'),
-      description: this.i18n('Receive an OTP via e-mail'),
+      name: this.i18n('email token'),
+      description: this.i18n('Receive an OTP via email'),
       icon: 'email',
       enrollmentPermission: Permission.ENROLLEMAIL,
       enrollmentActionLabel: this.i18n('Create'),

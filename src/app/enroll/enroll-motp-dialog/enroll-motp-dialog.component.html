@@ -5,7 +5,8 @@
 
   <mat-step [stepControl]="enrollmentStep"
             id="stepDescription">
-    <p i18n>Create a new token that is paired with your email address to receive OTP values for authentication.</p>
+    <p i18n>Create a new token that generates OTP values from your mobile device, given a secret password and a custom
+      pin.</p>
 
 
     <p i18n>You may set the following token details before creation:</p>
@@ -13,18 +14,30 @@
       <mat-form-field>
         <input matInput
                i18n-placeholder
-               placeholder="Email address"
-               formControlName="emailAddress"
+               placeholder="mOTP password"
+               formControlName="password"
+               type="password"
                autofocus>
-        <mat-hint i18n>Set the email address to use for your token</mat-hint>
+        <mat-hint i18n>Enter your token's secret</mat-hint>
+        <mat-error i18n>Please enter exactly 16 characters. Allowed are digits (0-9) and the letters A to F (lowercase
+          or uppercase).</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput
+               i18n-placeholder
+               placeholder="mOTP PIN"
+               type="password"
+               formControlName="mOTPPin">
+        <mat-hint i18n>Enter your token's mOTP pin</mat-hint>
+        <mat-error i18n>The field cannot be empty.</mat-error>
       </mat-form-field>
       <mat-form-field>
         <input matInput
                i18n-placeholder
                placeholder="Token description"
-               formControlName="description"
-               autofocus>
+               formControlName="description">
         <mat-hint i18n>Enter a description for your token.</mat-hint>
+        <mat-error i18n>The field cannot be empty.</mat-error>
       </mat-form-field>
     </form>
 
@@ -37,6 +50,7 @@
       <button mat-raised-button
               color="primary"
               (click)="enrollToken()"
+              [disabled]="!enrollmentStep.valid"
               id="goTo2"
               i18n>Next</button>
     </mat-dialog-actions>

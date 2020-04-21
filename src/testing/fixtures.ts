@@ -65,8 +65,8 @@ export class Fixtures {
       },
       email: {
         type: TokenType.EMAIL,
-        name: 'e-mail token',
-        description: 'Receive an OTP via e-mail',
+        name: 'email token',
+        description: 'Receive an OTP via email',
         icon: 'stay_current_portrait',
       },
       assign: {
@@ -220,6 +220,10 @@ export class Fixtures {
   }
 
   static get smsEnrollmentResponse() {
+    return this.emailEnrollmentResponse;
+  }
+
+  static get mOTPEnrollmentResponse() {
     return this.emailEnrollmentResponse;
   }
 
