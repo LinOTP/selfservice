@@ -5,7 +5,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { By } from '@angular/platform-browser';
 
-import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
+import { NgxPermissionsAllowStubDirective, NgxPermissionsService } from 'ngx-permissions';
 import { of } from 'rxjs';
 
 import { Fixtures } from '../../../testing/fixtures';
@@ -30,6 +30,7 @@ describe('The EnrollOATHDialogComponent', () => {
   let notificationService: NotificationService;
   let operationsService: jasmine.SpyObj<OperationsService>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
+  let permissionsService: jasmine.SpyObj<NgxPermissionsService>;
   let dialogRef: jasmine.SpyObj<MatDialogRef<EnrollOATHDialogComponent>>;
 
   beforeEach(async(() => {
@@ -60,6 +61,10 @@ describe('The EnrollOATHDialogComponent', () => {
           useValue: spyOnClass(NotificationService),
         },
         {
+          provide: NgxPermissionsService,
+          useValue: spyOnClass(NgxPermissionsService),
+        },
+        {
           provide: MatDialog,
           useValue: spyOnClass(MatDialog),
         },
@@ -85,6 +90,7 @@ describe('The EnrollOATHDialogComponent', () => {
     notificationService = TestBed.get(NotificationService);
     operationsService = TestBed.get(OperationsService);
     enrollmentService = TestBed.get(EnrollmentService);
+    permissionsService = TestBed.get(NgxPermissionsService);
     dialogRef = TestBed.get(MatDialogRef);
 
     fixture.detectChanges();
@@ -184,10 +190,11 @@ describe('The EnrollOATHDialogComponent', () => {
   }));
 
   describe('cancel', () => {
-    it('should delete enrolled token and close dialog with false', fakeAsync(() => {
+    it('should delete enrolled token if the user has permissions and close dialog with false', fakeAsync(() => {
       component.enrolledToken = Fixtures.enrolledToken;
       fixture.detectChanges();
 
+      permissionsService.hasPermission.and.returnValue(true);
       operationsService.deleteToken.and.returnValue(of());
       component.cancelDialog();
       tick();
@@ -196,8 +203,21 @@ describe('The EnrollOATHDialogComponent', () => {
       expect(dialogRef.close).toHaveBeenCalledWith(false);
     }));
 
+    it('should not delete enrolled token if the user has no permissions and close dialog with false', fakeAsync(() => {
+      component.enrolledToken = Fixtures.enrolledToken;
+      fixture.detectChanges();
+
+      permissionsService.hasPermission.and.returnValue(false);
+      component.cancelDialog();
+      tick();
+
+      expect(operationsService.deleteToken).not.toHaveBeenCalled();
+      expect(dialogRef.close).toHaveBeenCalledWith(false);
+    }));
+
     it('should not call delete token if no token was enrolled', fakeAsync(() => {
       component.cancelDialog();
+      permissionsService.hasPermission.and.returnValue(true);
       tick();
 
       expect(operationsService.deleteToken).not.toHaveBeenCalled();

@@ -5,8 +5,8 @@ import { MatStepper } from '@angular/material/stepper';
 
 import { I18n } from '@ngx-translate/i18n-polyfill';
 
-import { switchMap } from 'rxjs/operators';
-import { EMPTY } from 'rxjs';
+import { switchMap, tap, map, filter } from 'rxjs/operators';
+import { EMPTY, from, of, forkJoin } from 'rxjs';
 
 import { EnrollmentService, QRCodeEnrollmentDetail } from '../../api/enrollment.service';
 import { TokenTypeDetails } from '../../api/token';
@@ -14,6 +14,8 @@ import { NotificationService } from '../../common/notification.service';
 import { TextResources } from '../../common/static-resources';
 import { DialogComponent } from '../../common/dialog/dialog.component';
 import { OperationsService } from '../../api/operations.service';
+import { NgxPermissionsService } from 'ngx-permissions';
+import { Permission } from '../../common/permissions';
 
 @Component({
   selector: 'app-enroll-push',
@@ -38,6 +40,7 @@ export class EnrollPushQRDialogComponent implements OnInit {
     private operationsService: OperationsService,
     private formBuilder: FormBuilder,
     private notificationService: NotificationService,
+    public permissionsService: NgxPermissionsService,
     private dialogRef: MatDialogRef<EnrollPushQRDialogComponent>,
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: { tokenTypeDetails: TokenTypeDetails },
@@ -123,19 +126,28 @@ export class EnrollPushQRDialogComponent implements OnInit {
         confirmationLabel: this.i18n('Confirm'),
       }
     };
-    this.dialog.open(DialogComponent, dialogConfig)
-      .afterClosed()
-      .pipe(
-        switchMap(result => {
-          if (result) {
-            return this.operationsService.deleteToken(this.enrolledToken.serial);
-          } else {
-            return EMPTY;
-          }
-        })
-      ).subscribe(() => {
-        this.notificationService.message(this.i18n('Incomplete Push token was deleted'));
-        this.dialogRef.close();
-      });
+
+    forkJoin([
+      this.dialog.open(DialogComponent, dialogConfig).afterClosed(),
+      from(this.permissionsService.hasPermission(Permission.DELETE)),
+    ]).pipe(
+      switchMap(([confirmed, canDelete]) => {
+        if (confirmed && canDelete) {
+          return this.operationsService.deleteToken(this.enrolledToken.serial).pipe(
+            tap(response => {
+              if (response) {
+                this.notificationService.message(this.i18n('Incomplete Push token was deleted'));
+              }
+            }),
+            map(() => true), // we just want to pass along whether the user confirmed the cancelation
+          );
+        } else {
+          return of(!!confirmed);
+        }
+      }),
+      filter(confirmed => confirmed),
+    ).subscribe(() => {
+      this.dialogRef.close();
+    });
   }
 }

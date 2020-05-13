@@ -20,6 +20,7 @@ import { DialogComponent } from '../../common/dialog/dialog.component';
 
 import { EnrollPushQRDialogComponent } from './enroll-push-qr-dialog.component';
 import { TokenType } from '../../api/token';
+import { NgxPermissionsService } from 'ngx-permissions';
 
 describe('EnrollPushDialogComponent', () => {
   let component: EnrollPushQRDialogComponent;
@@ -27,6 +28,7 @@ describe('EnrollPushDialogComponent', () => {
   let operationsService: jasmine.SpyObj<OperationsService>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
   let notificationService: NotificationService;
+  let permissionsService: jasmine.SpyObj<NgxPermissionsService>;
   let dialogRef: jasmine.SpyObj<MatDialogRef<EnrollPushQRDialogComponent>>;
   let matDialog: jasmine.SpyObj<MatDialog>;
 
@@ -57,6 +59,10 @@ describe('EnrollPushDialogComponent', () => {
           useValue: spyOnClass(NotificationService)
         },
         {
+          provide: NgxPermissionsService,
+          useValue: spyOnClass(NgxPermissionsService),
+        },
+        {
           provide: MatDialog,
           useValue: spyOnClass(MatDialog)
         },
@@ -80,6 +86,7 @@ describe('EnrollPushDialogComponent', () => {
     operationsService = TestBed.get(OperationsService);
     enrollmentService = TestBed.get(EnrollmentService);
     notificationService = TestBed.get(NotificationService);
+    permissionsService = TestBed.get(NgxPermissionsService);
     dialogRef = TestBed.get(MatDialogRef);
     matDialog = TestBed.get(MatDialog);
     fixture.detectChanges();
@@ -160,6 +167,8 @@ describe('EnrollPushDialogComponent', () => {
     };
 
     matDialog.open.and.returnValue({ afterClosed: () => of(false) });
+    permissionsService.hasPermission.and.returnValue(new Promise(resolve => resolve(true)));
+
     component.enrolledToken = Fixtures.enrolledToken;
     component.cancel();
     tick();
@@ -168,17 +177,34 @@ describe('EnrollPushDialogComponent', () => {
 
   it('should notify the user on confirmed enrollment cancelation', fakeAsync(() => {
     matDialog.open.and.returnValue({ afterClosed: () => of(true) });
-    operationsService.deleteToken.and.returnValue(of({}));
+    operationsService.deleteToken.and.returnValue(of(true));
+    permissionsService.hasPermission.and.returnValue(new Promise(resolve => resolve(true)));
+
     component.enrolledToken = Fixtures.enrolledToken;
     component.cancel();
     tick();
 
+    expect(operationsService.deleteToken).toHaveBeenCalledWith(component.enrolledToken.serial);
     expect(notificationService.message).toHaveBeenCalledWith('Incomplete Push token was deleted');
     expect(dialogRef.close).toHaveBeenCalledTimes(1);
   }));
 
+  it('should not try to delete the token if the user has no permissions to delete', fakeAsync(() => {
+    matDialog.open.and.returnValue({ afterClosed: () => of(true) });
+    permissionsService.hasPermission.and.returnValue(new Promise(resolve => resolve(false)));
+
+    component.enrolledToken = Fixtures.enrolledToken;
+    component.cancel();
+    tick();
+    expect(operationsService.deleteToken).not.toHaveBeenCalled();
+    expect(notificationService.message).not.toHaveBeenCalled();
+    expect(dialogRef.close).toHaveBeenCalled();
+  }));
+
   it('should do nothing on rejected enrollment cancelation', fakeAsync(() => {
     matDialog.open.and.returnValue({ afterClosed: () => of(false) });
+    permissionsService.hasPermission.and.returnValue(new Promise(resolve => resolve(false)));
+
     component.cancel();
     tick();
 
@@ -189,12 +215,6 @@ describe('EnrollPushDialogComponent', () => {
   it('should open the activation dialog with the right token and configuration', fakeAsync(() => {
     matDialog.open.and.returnValue({ afterClosed: () => of({}) });
 
-    const expectedDialogConfig = {
-      width: '850px',
-      autoFocus: false,
-      disableClose: true,
-      data: Fixtures.enrolledToken.serial
-    };
     component.enrolledToken = Fixtures.enrolledToken;
     component.closeAndReturnSerial();
     tick();

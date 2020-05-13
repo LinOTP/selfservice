@@ -12,6 +12,7 @@ import { SetPinDialogComponent } from '../../common/set-pin-dialog/set-pin-dialo
 import { TokenTypeDetails, EnrollToken } from '../../api/token';
 import { EnrollmentService } from '../../api/enrollment.service';
 import { OperationsService } from '../../api/operations.service';
+import { NgxPermissionsService } from 'ngx-permissions';
 
 @Component({
   selector: 'app-enroll-oath',
@@ -39,6 +40,7 @@ export class EnrollOATHDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<EnrollOATHDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { tokenTypeDetails: TokenTypeDetails, closeLabel: String },
     public notificationService: NotificationService,
+    public permissionsService: NgxPermissionsService,
     public i18n: I18n,
   ) { }
 
@@ -96,7 +98,7 @@ export class EnrollOATHDialogComponent implements OnInit {
    * Cancel the dialog and return false as result
    */
   public cancelDialog() {
-    if (this.enrolledToken) {
+    if (this.enrolledToken && this.permissionsService.hasPermission(Permission.DELETE)) {
       this.operationsService.deleteToken(this.enrolledToken.serial).subscribe();
     }
     this.dialogRef.close(false);
