@@ -13,6 +13,7 @@ import { TokenTypeDetails, EnrollToken } from '../../api/token';
 import { EnrollmentService } from '../../api/enrollment.service';
 import { OperationsService } from '../../api/operations.service';
 import { UserInfo } from '../../system.service';
+import { NgxPermissionsService } from 'ngx-permissions';
 
 @Component({
   selector: 'app-enroll-sms',
@@ -40,6 +41,7 @@ export class EnrollSMSDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<EnrollSMSDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { tokenTypeDetails: TokenTypeDetails, closeLabel: String },
     public notificationService: NotificationService,
+    public permissionsService: NgxPermissionsService,
     public i18n: I18n,
   ) { }
 
@@ -104,7 +106,7 @@ export class EnrollSMSDialogComponent implements OnInit {
    * Cancel the dialog and return false as result
    */
   public cancelDialog() {
-    if (this.enrolledToken) {
+    if (this.enrolledToken && this.permissionsService.hasPermission(Permission.DELETE)) {
       this.operationsService.deleteToken(this.enrolledToken.serial).subscribe();
     }
     this.dialogRef.close(false);
