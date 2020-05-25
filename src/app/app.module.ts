@@ -28,6 +28,7 @@ import { AppInitService } from './app-init.service';
 import { TestDialogComponent } from './test/test-dialog.component';
 import { ActivateDialogComponent } from './activate/activate-dialog.component';
 import { AssignTokenDialogComponent } from './enroll/assign-token-dialog/assign-token-dialog.component';
+import { EnrollYubicoDialogComponent } from './enroll/enroll-yubico/enroll-yubico-dialog.component';
 
 declare const require;
 
@@ -43,6 +44,7 @@ declare const require;
     EnrollSMSDialogComponent,
     EnrollMOTPDialogComponent,
     EnrollPushQRDialogComponent,
+    EnrollYubicoDialogComponent,
     AssignTokenDialogComponent,
     TestDialogComponent,
     ActivateDialogComponent,
@@ -54,6 +56,7 @@ declare const require;
     EnrollSMSDialogComponent,
     EnrollMOTPDialogComponent,
     EnrollPushQRDialogComponent,
+    EnrollYubicoDialogComponent,
     AssignTokenDialogComponent,
     TestDialogComponent,
   ],

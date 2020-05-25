@@ -56,6 +56,8 @@ export interface EnrollToken {
   phone?: string;
   otpkey?: string;
   otppin?: string;
+  otplen?: number;
+  'yubico.tokenid'?: string;
 }
 
 

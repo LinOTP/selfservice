@@ -25,6 +25,7 @@ import { TestDialogComponent } from '../test/test-dialog.component';
 import { EnrollEmailDialogComponent } from '../enroll/enroll-email-dialog/enroll-email-dialog.component';
 import { EnrollSMSDialogComponent } from '../enroll/enroll-sms-dialog/enroll-sms-dialog.component';
 import { EnrollMOTPDialogComponent } from '../enroll/enroll-motp-dialog/enroll-motp-dialog.component';
+import { EnrollYubicoDialogComponent } from '../enroll/enroll-yubico/enroll-yubico-dialog.component';
 
 
 describe('EnrollmentGridComponent', () => {
@@ -315,6 +316,36 @@ describe('EnrollmentGridComponent', () => {
     expect(matDialog.open).toHaveBeenCalledWith(ActivateDialogComponent, expectedTestDialogConfig);
     expect(tokenUpdateSpy).toHaveBeenCalledTimes(2);
     expect(notificationService.message).not.toHaveBeenCalled();
+  }));
+
+  it('should open the Yubico registration dialog and update the token list when completed', fakeAsync(() => {
+    const token = Fixtures.activeYubicoToken;
+    const tokenTypeDetails: TokenTypeDetails = token.typeDetails;
+
+    const expectedEnrollDialogConfig = {
+      width: '850px',
+      autoFocus: false,
+      disableClose: true,
+      data: {
+        tokenTypeDetails: tokenTypeDetails,
+        closeLabel: 'Test',
+      },
+    };
+    const expectedTestDialogConfig = {
+      width: '650px',
+      data: { token: token },
+    };
+
+    matDialog.open.and.returnValues({ afterClosed: () => of(token.serial) }, { afterClosed: () => of(true) });
+    tokenService.getToken.and.returnValue(of(token));
+    component.runEnrollmentWorkflow(tokenTypeDetails);
+    tick();
+
+    expect(matDialog.open).toHaveBeenCalledWith(EnrollYubicoDialogComponent, expectedEnrollDialogConfig);
+    expect(tokenService.getToken).toHaveBeenCalledWith(token.serial);
+
+    expect(matDialog.open).toHaveBeenCalledWith(TestDialogComponent, expectedTestDialogConfig);
+    expect(tokenUpdateSpy).toHaveBeenCalledTimes(2);
   }));
 
   it('should open the assignment dialog and update the token list when completed', fakeAsync(() => {

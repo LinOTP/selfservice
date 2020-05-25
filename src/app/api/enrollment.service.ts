@@ -85,7 +85,7 @@ export class EnrollmentService {
   }
 
   enroll<T extends { serial: string }>(token: EnrollToken): Observable<LinOTPResponse<boolean, T>> {
-    const body: { session: string, type: string, description?: string } = {
+    const body: { session: string, type: string, description?: string, otplen?: number, 'yubico.tokenid'?: string } = {
       ...token,
       session: this.sessionService.getSession(),
     };
