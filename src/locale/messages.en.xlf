@@ -1878,6 +1878,30 @@
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="b7afd976cf79d7d7b3458ba7165b91e16126f306" datatype="html">
+        <source>YubiCloud token</source>
+        <target state="final">YubiCloud token</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ad6b462b428c2493691e3d2cfab5cf89c9dc5535" datatype="html">
+        <source>Register your Yubikey to authenticate against the YubiCloud.</source>
+        <target state="final">Register your Yubikey to authenticate against the YubiCloud.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cfc2f436ec2beffb042e7511a73c89c372e86a6c" datatype="html">
+        <source>Register</source>
+        <target state="final">Register</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="28e4509b09a198c23b7fd0bc865bd2b25e3885b2" datatype="html">
         <source>Your tokens</source>
         <target state="final">Your tokens</target>

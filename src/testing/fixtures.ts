@@ -42,6 +42,14 @@ export class Fixtures {
         activationPermission: Permission.ACTIVATEPUSH,
         enrollmentActionLabel: 'Enroll',
       },
+      yubico: {
+        type: TokenType.YUBICO,
+        name: 'YubiCloud token',
+        description: 'Register your Yubikey to authenticate against the YubiCloud.',
+        icon: 'vpn_key', // TODO: we might want to use an official logo here
+        enrollmentPermission: Permission.ENROLLYUBICO,
+        enrollmentActionLabel: 'Register',
+      },
       qr: {
         type: TokenType.QR,
         name: 'QR-Token',
