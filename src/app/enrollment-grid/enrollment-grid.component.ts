@@ -20,6 +20,7 @@ import { EnrollMOTPDialogComponent } from '../enroll/enroll-motp-dialog/enroll-m
 import { EnrollPushQRDialogComponent } from '../enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component';
 import { ActivateDialogComponent } from '../activate/activate-dialog.component';
 import { TestDialogComponent } from '../test/test-dialog.component';
+import { EnrollYubicoDialogComponent } from '../enroll/enroll-yubico/enroll-yubico-dialog.component';
 
 @Component({
   selector: 'app-enrollment-grid',
@@ -83,6 +84,9 @@ export class EnrollmentGridComponent implements OnInit {
       case TokenType.QR:
         dialog = EnrollPushQRDialogComponent;
         delete enrollmentConfig.data.closeLabel;
+        break;
+      case TokenType.YUBICO:
+        dialog = EnrollYubicoDialogComponent;
         break;
       case TokenType.ASSIGN:
         dialog = AssignTokenDialogComponent;

@@ -25,6 +25,7 @@ export enum TokenType {
   MOTP = 'motp',
   SMS = 'sms',
   EMAIL = 'email',
+  YUBICO = 'yubico',
   ASSIGN = 'assign', // virtual type for token assignment
   UNKNOWN = 'unknown', // fallback type
 }
@@ -55,6 +56,8 @@ export interface EnrollToken {
   phone?: string;
   otpkey?: string;
   otppin?: string;
+  otplen?: number;
+  'yubico.tokenid'?: string;
 }
 
 

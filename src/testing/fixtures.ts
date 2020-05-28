@@ -42,6 +42,14 @@ export class Fixtures {
         activationPermission: Permission.ACTIVATEPUSH,
         enrollmentActionLabel: 'Enroll',
       },
+      yubico: {
+        type: TokenType.YUBICO,
+        name: 'YubiCloud token',
+        description: 'Register your Yubikey to authenticate against the YubiCloud.',
+        icon: 'vpn_key', // TODO: we might want to use an official logo here
+        enrollmentPermission: Permission.ENROLLYUBICO,
+        enrollmentActionLabel: 'Register',
+      },
       qr: {
         type: TokenType.QR,
         name: 'QR-Token',
@@ -165,6 +173,11 @@ export class Fixtures {
   static get activePasswordToken(): Token {
     return new Token(1, 'Active-Password-Token-Serial', this.tokenTypeDetails[TokenType.PASSWORD], true, 'Description');
   }
+
+  static get activeYubicoToken(): Token {
+    return new Token(1, 'Active-Yubico-Token-Serial', this.tokenTypeDetails[TokenType.YUBICO], true, 'Description');
+  }
+
 
   static get tokens(): Token[] {
     return [

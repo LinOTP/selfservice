@@ -1,0 +1,75 @@
+<h2 i18n>Register YubiCloud token</h2>
+<mat-horizontal-stepper [linear]="true"
+                        linear
+                        #stepper>
+
+  <mat-step [stepControl]="registrationForm">
+    <p i18n>Register your Yubikey to authenticate against the YubiCloud.</p>
+    <p i18n>Please enter its Public ID below, and an optional description:</p>
+
+    <form [formGroup]="registrationForm">
+      <mat-form-field>
+        <input matInput
+               i18n-placeholder
+               placeholder="Public ID or OTP"
+               formControlName="publicId"
+               autofocus>
+        <mat-error i18n>The public ID is required.</mat-error>
+        <mat-hint i18n>To link your token, enter a generated OTP by connecting your YubiKey and pressing the button.
+          Alternatively, you may enter the public ID manually.</mat-hint>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput
+               i18n-placeholder
+               placeholder="Token description"
+               formControlName="description">
+        <mat-error i18n>The token description is required.</mat-error>
+        <mat-hint i18n>Enter a description for your token.</mat-hint>
+      </mat-form-field>
+    </form>
+    <mat-dialog-actions align="end">
+      <button mat-raised-button
+              (click)="close()"
+              i18n>Cancel</button>
+      <button mat-raised-button
+              color="primary"
+              (click)="registerToken()"
+              [disabled]="registrationForm.invalid"
+              i18n>Register token</button>
+    </mat-dialog-actions>
+  </mat-step>
+
+  <mat-step>
+    <mat-spinner class="loading"></mat-spinner>
+    <mat-dialog-actions align="end">
+      <button mat-raised-button
+              (click)="close()"
+              i18n>Close</button>
+    </mat-dialog-actions>
+  </mat-step>
+
+  <mat-step>
+    <ng-container *ngIf="success; else error">
+      <p i18n>The token was successfully linked to your user account.</p>
+      <mat-dialog-actions align="end">
+        <button mat-raised-button
+                (click)="close()"
+                color="primary">{{ closeLabel }}</button>
+      </mat-dialog-actions>
+    </ng-container>
+
+    <ng-template #error>
+      <p>{{ errorTypeMessage }}</p>
+      <p>{{ errorMessage }}</p>
+      <mat-dialog-actions align="end">
+        <button mat-raised-button
+                (click)="retry()"
+                i18n>Retry</button>
+        <button mat-raised-button
+                (click)="close()"
+                color="primary"
+                i18n>Cancel</button>
+      </mat-dialog-actions>
+    </ng-template>
+  </mat-step>
+</mat-horizontal-stepper>

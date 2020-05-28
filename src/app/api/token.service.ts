@@ -139,6 +139,14 @@ export class TokenService {
       enrollmentActionLabel: this.i18n('Create'),
     },
     {
+      type: TokenType.YUBICO,
+      name: this.i18n('YubiCloud token'),
+      description: this.i18n('Register your Yubikey to authenticate against the YubiCloud.'),
+      icon: 'vpn_key', // TODO: we might want to use an official logo here
+      enrollmentPermission: Permission.ENROLLYUBICO,
+      enrollmentActionLabel: this.i18n('Register'),
+    },
+    {
       type: TokenType.ASSIGN,
       name: this.i18n('Assign token'),
       description: this.i18n('Claim an existing token and link it to your user account'),
