@@ -171,6 +171,10 @@
           <context context-type="sourcefile">app/login/login.component.html</context>
           <context context-type="linenumber">32</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-password-dialog/enroll-password-dialog.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="eb500ae4611f660a817cb45089bca95af573596b" datatype="html">
         <source>Login</source>
@@ -617,6 +621,10 @@
           <context context-type="sourcefile">app/enroll/enroll-yubico/enroll-yubico-dialog.component.html</context>
           <context context-type="linenumber">71</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-password-dialog/enroll-password-dialog.component.html</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="a8f5a3b30397a5dc1051a9c90c1cfa22537d7c4d" datatype="html">
         <source>Activate</source>
@@ -805,6 +813,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
           <context context-type="linenumber">42</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-password-dialog/enroll-password-dialog.component.html</context>
+          <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
       <trans-unit id="411e14953590647ca878f462516fc632e8bf6ca5" datatype="html">
@@ -1043,7 +1055,7 @@
         <target state="translated">Beschreibung ändern</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">78</context>
+          <context context-type="linenumber">79</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1f2015488439a54808759dcd3521bf1a2f0b5510" datatype="html">
@@ -1269,6 +1281,10 @@
           <context context-type="sourcefile">app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
           <context context-type="linenumber">1</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-password-dialog/enroll-password-dialog.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="f4e529ae5ffd73001d1ff4bbdeeb0a72e342e5c8" datatype="html">
         <source>Close</source>
@@ -1402,7 +1418,7 @@
         <target state="translated">Fehlerzähler zurücksetzen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">84</context>
+          <context context-type="linenumber">85</context>
         </context-group>
       </trans-unit>
       <trans-unit id="0012706153bcbfdd0b8eafae8a34bc2b509b5749" datatype="html">
@@ -1410,7 +1426,7 @@
         <target state="translated">Synchronisieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">91</context>
+          <context context-type="linenumber">92</context>
         </context-group>
       </trans-unit>
       <trans-unit id="826b25211922a1b46436589233cb6f1a163d89b7" datatype="html">
@@ -1418,7 +1434,7 @@
         <target state="translated">Löschen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">109</context>
+          <context context-type="linenumber">110</context>
         </context-group>
       </trans-unit>
       <trans-unit id="ac6c9212896d39b23811ed2dadab7d07336ec559" datatype="html">
@@ -1426,11 +1442,11 @@
         <target state="translated">Aktivieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">117</context>
+          <context context-type="linenumber">118</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">127</context>
+          <context context-type="linenumber">128</context>
         </context-group>
       </trans-unit>
       <trans-unit id="95724277f3d8682a670cb4df13b822f6dd74119b" datatype="html">
@@ -1438,7 +1454,7 @@
         <target state="translated">Sie sind nicht berechtigt, den Token zu aktivieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">124</context>
+          <context context-type="linenumber">125</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6766a926d80bb7763785621098dae459d6226429" datatype="html">
@@ -1446,11 +1462,11 @@
         <target state="translated">Deaktivieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">135</context>
+          <context context-type="linenumber">136</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">145</context>
+          <context context-type="linenumber">146</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8b29018f336508426906d0fb7ac6f9665e62e530" datatype="html">
@@ -1458,31 +1474,7 @@
         <target state="translated">Sie sind nicht berechtigt, den Token zu deaktivieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">142</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="0d1f680afd203b05cca8fc3cf3664314da17ef7b" datatype="html">
-        <source>Enroll</source>
-        <target state="translated">Ausrollen</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/api/token.service.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/api/token.service.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/api/token.service.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/api/token.service.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/api/token.service.ts</context>
-          <context context-type="linenumber">1</context>
+          <context context-type="linenumber">143</context>
         </context-group>
       </trans-unit>
       <trans-unit id="b9390719e13766d54b26e77014b04e7fe9bd8f49" datatype="html">
@@ -1677,6 +1669,10 @@
           <context context-type="sourcefile">app/enroll/enroll-yubico/enroll-yubico-dialog.component.html</context>
           <context context-type="linenumber">24</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-password-dialog/enroll-password-dialog.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="5c069965db47012ba7e64b7540ae2362a8b27fb3" datatype="html">
         <source>Enter a description for your token.</source>
@@ -1704,6 +1700,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-yubico/enroll-yubico-dialog.component.html</context>
           <context context-type="linenumber">27</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-password-dialog/enroll-password-dialog.component.html</context>
+          <context context-type="linenumber">38</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1572365d5f052b4ab327739abe91c8cb09d2a5b4" datatype="html">
@@ -1751,6 +1751,10 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/enroll-password-dialog/enroll-password-dialog.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
         <context-group purpose="location">
@@ -1953,6 +1957,54 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
           <context context-type="linenumber">38</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="680fe76751de31118ec784f7f1e46d893e1bfcbc" datatype="html">
+        <source>Create a password token to be able to authenticate with a static secret.</source>
+        <target state="translated">Erstellen Sie einen Passworttoken um sich mit einem festen Passwort authentifizieren zu können.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-password-dialog/enroll-password-dialog.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="eb60fa5635795139a3d57e49c7ad871ecd71bcfb" datatype="html">
+        <source>Please enter a password:</source>
+        <target state="translated">Bitte geben Sie ein Passwort ein:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-password-dialog/enroll-password-dialog.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2880518d3a5544fa6cd834b1ac80e47978a9c7c4" datatype="html">
+        <source>Confirm your password</source>
+        <target state="translated">Bestätigen Sie Ihr Passwort</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-password-dialog/enroll-password-dialog.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="71d349b6e533696dfbd99450b0abfce53494e9b6" datatype="html">
+        <source>Entered passwords do not match</source>
+        <target state="translated">Die eingegebenen Passwörter sind nicht gleich</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-password-dialog/enroll-password-dialog.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b08cfd6bece83fee8dd80114f3ec0997493c7211" datatype="html">
+        <source>You may set a token description, which should help you identify your token:</source>
+        <target state="translated">Sie haben die Möglichkeit, eine Beschreibung für Ihren Token festzulegen, damit Sie ihn besser identifizieren können:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-password-dialog/enroll-password-dialog.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5a0c8a9c13101ed41bb2d756b3b571b8a96f38c4" datatype="html">
+        <source>A token with the serial number <x id="INTERPOLATION" equiv-text="{{ serial }}"/> has been created.</source>
+        <target state="translated">Ein Token mit der Seriennummer {{ serial}} wurde eingerichtet.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-password-dialog/enroll-password-dialog.component.html</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="cfc2f436ec2beffb042e7511a73c89c372e86a6c" datatype="html">
         <source>Register</source>
         <target state="translated">Registrieren</target>
@@ -2118,6 +2170,10 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/enroll-password-dialog/enroll-password-dialog.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
         <context-group purpose="location">

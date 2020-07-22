@@ -29,6 +29,7 @@ import { TestDialogComponent } from './test/test-dialog.component';
 import { ActivateDialogComponent } from './activate/activate-dialog.component';
 import { AssignTokenDialogComponent } from './enroll/assign-token-dialog/assign-token-dialog.component';
 import { EnrollYubicoDialogComponent } from './enroll/enroll-yubico/enroll-yubico-dialog.component';
+import { EnrollPasswordDialogComponent } from './enroll/enroll-password-dialog/enroll-password-dialog.component';
 
 declare const require;
 
@@ -40,6 +41,7 @@ declare const require;
     TokenCardComponent,
     EnrollmentGridComponent,
     EnrollOATHDialogComponent,
+    EnrollPasswordDialogComponent,
     EnrollEmailDialogComponent,
     EnrollSMSDialogComponent,
     EnrollMOTPDialogComponent,
@@ -52,6 +54,7 @@ declare const require;
   entryComponents: [
     ActivateDialogComponent,
     EnrollOATHDialogComponent,
+    EnrollPasswordDialogComponent,
     EnrollEmailDialogComponent,
     EnrollSMSDialogComponent,
     EnrollMOTPDialogComponent,

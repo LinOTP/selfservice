@@ -220,6 +220,18 @@ export class Fixtures {
     };
   }
 
+  static get PasswordEnrollmentResponse() {
+    return {
+      result: {
+        status: true,
+        value: true,
+      },
+      detail: {
+        serial: 'serial',
+      },
+    };
+  }
+
   static get emailEnrollmentResponse(): LinOTPResponse<boolean, { serial: string }> {
     return {
       result: {
