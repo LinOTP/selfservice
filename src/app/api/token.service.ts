@@ -75,8 +75,8 @@ export class TokenService {
       name: this.i18n('password token'),
       description: this.i18n('Personal text-based secret'),
       icon: 'keyboard',
-      // enrollmentPermission: Permission.ENROLLPASSWORD,
-      enrollmentActionLabel: this.i18n('Enroll'),
+      enrollmentPermission: Permission.ENROLLPASSWORD,
+      enrollmentActionLabel: this.i18n('Create'),
     },
     {
       type: TokenType.HOTP,

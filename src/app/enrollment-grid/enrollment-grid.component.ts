@@ -21,6 +21,7 @@ import { EnrollPushQRDialogComponent } from '../enroll/enroll-push-qr-dialog/enr
 import { ActivateDialogComponent } from '../activate/activate-dialog.component';
 import { TestDialogComponent } from '../test/test-dialog.component';
 import { EnrollYubicoDialogComponent } from '../enroll/enroll-yubico/enroll-yubico-dialog.component';
+import { EnrollPasswordDialogComponent } from '../enroll/enroll-password-dialog/enroll-password-dialog.component';
 
 @Component({
   selector: 'app-enrollment-grid',
@@ -70,6 +71,9 @@ export class EnrollmentGridComponent implements OnInit {
       case TokenType.HOTP:
       case TokenType.TOTP:
         dialog = EnrollOATHDialogComponent;
+        break;
+      case TokenType.PASSWORD:
+        dialog = EnrollPasswordDialogComponent;
         break;
       case TokenType.EMAIL:
         dialog = EnrollEmailDialogComponent;
