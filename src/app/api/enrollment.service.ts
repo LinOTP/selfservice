@@ -9,6 +9,7 @@ import { map, filter, mergeMap, take, catchError } from 'rxjs/operators';
 import { EnrollToken, EnrollmentStatus } from './token';
 import { LinOTPResponse, TokenService } from './token.service';
 import { SessionService } from '../auth/session.service';
+import { UserInfo } from '../system.service';
 
 export interface QRCodeEnrollmentDetail {
   lse_qr_url: {
@@ -55,7 +56,7 @@ export class EnrollmentService {
     assign: 'assign',
   };
 
-  private validateCheckS = '/validate/check_s'; // generate a challenge with a given serial
+  private validateCheck = '/validate/check'; // generate a challenge with a given serial
   private validateCheckStatus = '/validate/check_status'; // view challenge status
 
   constructor(
@@ -111,22 +112,25 @@ export class EnrollmentService {
   }
 
   activate(serial: string, pin: string): Observable<LinOTPResponse<boolean, ActivationDetail>> {
+    const userInfo: UserInfo = JSON.parse(localStorage.getItem('user'));
     const body = {
       serial: serial,
       data: serial,
       pass: pin,
+      user: userInfo.username,
     };
-    return this.http.post<LinOTPResponse<boolean, ActivationDetail>>(this.validateCheckS, body)
+    return this.http.post<LinOTPResponse<boolean, ActivationDetail>>(this.validateCheck, body)
       .pipe(
         catchError(this.handleError('activate token', null))
       );
   }
 
   getChallengeStatus(transactionId: string, pin: string, serial: string): Observable<LinOTPResponse<boolean, ChallengeStatusDetail>> {
+    const userInfo: UserInfo = JSON.parse(localStorage.getItem('user'));
     const body = {
       transactionid: transactionId,
       pass: pin,
-      serial: serial,
+      user: userInfo.username,
     };
     return this.http.post<LinOTPResponse<boolean, ChallengeStatusDetail>>(this.validateCheckStatus, body)
       .pipe(
