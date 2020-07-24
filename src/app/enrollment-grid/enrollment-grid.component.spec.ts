@@ -209,15 +209,11 @@ describe('EnrollmentGridComponent', () => {
       disableClose: true,
       data: {
         tokenTypeDetails: tokenTypeDetails,
-        closeLabel: 'Test',
+        closeLabel: 'Close',
       },
     };
-    const expectedTestDialogConfig = {
-      width: '650px',
-      data: { token: token },
-    };
 
-    matDialog.open.and.returnValues({ afterClosed: () => of(token.serial) }, { afterClosed: () => of(true) });
+    matDialog.open.and.returnValues({ afterClosed: () => of(token.serial) });
     tokenService.getToken.and.returnValue(of(token));
     component.runEnrollmentWorkflow(tokenTypeDetails);
     tick();
@@ -225,7 +221,7 @@ describe('EnrollmentGridComponent', () => {
     expect(matDialog.open).toHaveBeenCalledWith(EnrollPasswordDialogComponent, expectedEnrollDialogConfig);
     expect(tokenService.getToken).toHaveBeenCalledWith(token.serial);
 
-    expect(matDialog.open).toHaveBeenCalledWith(TestDialogComponent, expectedTestDialogConfig);
+    expect(matDialog.open).toHaveBeenCalledTimes(1);
     expect(tokenUpdateSpy).toHaveBeenCalledTimes(2);
   }));
 
