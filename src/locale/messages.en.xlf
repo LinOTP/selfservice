@@ -211,10 +211,6 @@
           <context context-type="sourcefile">app/login/login.component.html</context>
           <context context-type="linenumber">39</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/login/login.component.html</context>
-          <context context-type="linenumber">109</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="55ea7b3be28fd98468c556f91595fd1222e66f3d" datatype="html">
         <source>Cancel</source>
@@ -227,7 +223,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/login/login.component.html</context>
-          <context context-type="linenumber">121</context>
+          <context context-type="linenumber">122</context>
         </context-group>
       </trans-unit>
       <trans-unit id="525364a6908ae8e6c2df13a331dbb15b222b8a85" datatype="html">
@@ -241,7 +237,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/login/login.component.html</context>
-          <context context-type="linenumber">125</context>
+          <context context-type="linenumber">126</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5c62052c5de6811ae77d69038645b41fed7495ec" datatype="html">
@@ -262,12 +258,22 @@
           <context context-type="linenumber">99</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="93dd75ec50e3e6e3258eeddd76abc5aa29dd599d" datatype="html">
-        <source>Please enter the respective OTP:</source>
-        <target state="final">Please enter the respective OTP:</target>
+      <trans-unit id="f196f4bef7371566de61993f4802105e99af6a17" datatype="html">
+        <source>Please enter the respective <x id="INTERPOLATION" equiv-text="{{ selectedToken.typeDetails.type === TokenType.PASSWORD? 'password':'OTP' }}"/>:
+      </source>
+        <target state="final">Please enter the respective <x id="INTERPOLATION" equiv-text="{{ selectedToken.typeDetails.type === TokenType.PASSWORD? 'password':'OTP' }}"/>:
+      </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/login/login.component.html</context>
           <context context-type="linenumber">105</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b346c3d093bbdb8c62a4b5ab162cfcee44d9250e" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ selectedToken.typeDetails.type === TokenType.PASSWORD? 'Password':'OTP' }}"/></source>
+        <target state="final"><x id="INTERPOLATION" equiv-text="{{ selectedToken.typeDetails.type === TokenType.PASSWORD? 'Password':'OTP' }}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/login/login.component.html</context>
+          <context context-type="linenumber">110</context>
         </context-group>
       </trans-unit>
       <trans-unit id="ab83372b3d4d9be3ad01e4e94dd5b94dd34411f0" datatype="html">
