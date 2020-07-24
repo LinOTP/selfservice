@@ -4,7 +4,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 
 import { NgxPermissionsService } from 'ngx-permissions';
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, of } from 'rxjs';
 import { switchMap, filter, tap } from 'rxjs/operators';
 
 import { Permission } from '../common/permissions';
@@ -21,6 +21,7 @@ import { EnrollPushQRDialogComponent } from '../enroll/enroll-push-qr-dialog/enr
 import { ActivateDialogComponent } from '../activate/activate-dialog.component';
 import { TestDialogComponent } from '../test/test-dialog.component';
 import { EnrollYubicoDialogComponent } from '../enroll/enroll-yubico/enroll-yubico-dialog.component';
+import { EnrollPasswordDialogComponent } from '../enroll/enroll-password-dialog/enroll-password-dialog.component';
 
 @Component({
   selector: 'app-enrollment-grid',
@@ -70,6 +71,10 @@ export class EnrollmentGridComponent implements OnInit {
       case TokenType.HOTP:
       case TokenType.TOTP:
         dialog = EnrollOATHDialogComponent;
+        break;
+      case TokenType.PASSWORD:
+        dialog = EnrollPasswordDialogComponent;
+        enrollmentConfig.data.closeLabel = this.i18n('Close');
         break;
       case TokenType.EMAIL:
         dialog = EnrollEmailDialogComponent;
@@ -131,6 +136,8 @@ export class EnrollmentGridComponent implements OnInit {
     };
 
     switch (token.typeDetails.type) {
+      case (TokenType.PASSWORD):
+        return of(null);
       case (TokenType.PUSH):
       case (TokenType.QR):
         return this.dialog.open(ActivateDialogComponent, testConfig).afterClosed();

@@ -26,6 +26,7 @@ import { EnrollEmailDialogComponent } from '../enroll/enroll-email-dialog/enroll
 import { EnrollSMSDialogComponent } from '../enroll/enroll-sms-dialog/enroll-sms-dialog.component';
 import { EnrollMOTPDialogComponent } from '../enroll/enroll-motp-dialog/enroll-motp-dialog.component';
 import { EnrollYubicoDialogComponent } from '../enroll/enroll-yubico/enroll-yubico-dialog.component';
+import { EnrollPasswordDialogComponent } from '../enroll/enroll-password-dialog/enroll-password-dialog.component';
 
 
 describe('EnrollmentGridComponent', () => {
@@ -195,6 +196,32 @@ describe('EnrollmentGridComponent', () => {
     expect(tokenService.getToken).toHaveBeenCalledWith(token.serial);
 
     expect(matDialog.open).toHaveBeenCalledWith(TestDialogComponent, expectedTestDialogConfig);
+    expect(tokenUpdateSpy).toHaveBeenCalledTimes(2);
+  }));
+
+  it('should open the Password dialog and update the token list when completed', fakeAsync(() => {
+    const token = Fixtures.activePasswordToken;
+    const tokenTypeDetails: TokenTypeDetails = token.typeDetails;
+
+    const expectedEnrollDialogConfig = {
+      width: '850px',
+      autoFocus: false,
+      disableClose: true,
+      data: {
+        tokenTypeDetails: tokenTypeDetails,
+        closeLabel: 'Close',
+      },
+    };
+
+    matDialog.open.and.returnValues({ afterClosed: () => of(token.serial) });
+    tokenService.getToken.and.returnValue(of(token));
+    component.runEnrollmentWorkflow(tokenTypeDetails);
+    tick();
+
+    expect(matDialog.open).toHaveBeenCalledWith(EnrollPasswordDialogComponent, expectedEnrollDialogConfig);
+    expect(tokenService.getToken).toHaveBeenCalledWith(token.serial);
+
+    expect(matDialog.open).toHaveBeenCalledTimes(1);
     expect(tokenUpdateSpy).toHaveBeenCalledTimes(2);
   }));
 
