@@ -6,7 +6,7 @@ import { I18n } from '@ngx-translate/i18n-polyfill';
 
 import { Subscription } from 'rxjs';
 
-import { Token } from '../api/token';
+import { Token, TokenType } from '../api/token';
 import { TestService, TransactionDetail, TestOptions, ReplyMode, StatusDetail } from '../api/test.service';
 
 enum TestState {
@@ -22,6 +22,8 @@ enum TestState {
   styleUrls: ['./test-dialog.component.scss']
 })
 export class TestDialogComponent implements OnInit, OnDestroy {
+
+  public TokenType = TokenType;
 
   public TestState = TestState;
   public ReplyMode = ReplyMode;
@@ -134,7 +136,7 @@ export class TestDialogComponent implements OnInit, OnDestroy {
   }
 
   public goToFailure() {
-    this.errorMessage = this.i18n('The test failed. Check if the OTP is correct or try again.');
+    this.errorMessage = this.i18n('The test failed. Please try again or contact an administrator.');
     this.state = TestState.FAILURE;
   }
 
