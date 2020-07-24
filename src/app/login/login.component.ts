@@ -7,7 +7,7 @@ import { I18n } from '@ngx-translate/i18n-polyfill';
 import { map } from 'rxjs/operators';
 
 import { NotificationService } from '../common/notification.service';
-import { Token } from '../api/token';
+import { Token, TokenType } from '../api/token';
 import { SystemService, SystemInfo } from '../system.service';
 import { LoginService, LoginOptions } from './login.service';
 
@@ -23,6 +23,9 @@ export enum LoginStage {
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
+
+  TokenType = TokenType;
+
   message: string;
 
   loginFormGroup: FormGroup;

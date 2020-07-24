@@ -210,10 +210,6 @@
           <context context-type="sourcefile">app/login/login.component.html</context>
           <context context-type="linenumber">39</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/login/login.component.html</context>
-          <context context-type="linenumber">109</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="55ea7b3be28fd98468c556f91595fd1222e66f3d" datatype="html">
         <source>Cancel</source>
@@ -226,7 +222,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/login/login.component.html</context>
-          <context context-type="linenumber">121</context>
+          <context context-type="linenumber">122</context>
         </context-group>
       </trans-unit>
       <trans-unit id="525364a6908ae8e6c2df13a331dbb15b222b8a85" datatype="html">
@@ -240,7 +236,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/login/login.component.html</context>
-          <context context-type="linenumber">125</context>
+          <context context-type="linenumber">126</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5c62052c5de6811ae77d69038645b41fed7495ec" datatype="html">
@@ -258,12 +254,22 @@
           <context context-type="linenumber">99</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="93dd75ec50e3e6e3258eeddd76abc5aa29dd599d" datatype="html">
-        <source>Please enter the respective OTP:</source>
-        <target state="translated">Bitte geben Sie den entsprechenden OTP-Wert ein:</target>
+      <trans-unit id="f196f4bef7371566de61993f4802105e99af6a17" datatype="html">
+        <source>Please enter the respective <x id="INTERPOLATION" equiv-text="{{ selectedToken.typeDetails.type === TokenType.PASSWORD? 'password':'OTP' }}"/>:
+      </source>
+        <target state="translated">Bitte geben Sie {{ selectedToken.typeDetails.type === TokenType.PASSWORD? 'das entsprechende Passwort':'den entsprechenden OTP-Wert' }} ein:
+      </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/login/login.component.html</context>
           <context context-type="linenumber">105</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b346c3d093bbdb8c62a4b5ab162cfcee44d9250e" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ selectedToken.typeDetails.type === TokenType.PASSWORD? 'Password':'OTP' }}"/></source>
+        <target state="translated">{{ selectedToken.typeDetails.type === TokenType.PASSWORD? 'Passwort':'OTP' }}</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/login/login.component.html</context>
+          <context context-type="linenumber">110</context>
         </context-group>
       </trans-unit>
       <trans-unit id="ab83372b3d4d9be3ad01e4e94dd5b94dd34411f0" datatype="html">
@@ -307,7 +313,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">90</context>
+          <context context-type="linenumber">92</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/set-description-dialog/set-description-dialog.component.html</context>
@@ -330,22 +336,6 @@
           <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="1bf37e5629d9486c25bc79a1e48909eed31e71b3" datatype="html">
-        <source>OTP value</source>
-        <target state="translated">OTP-Wert</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">58</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="f99dfbc4e069350a6a42e28a40021d2f06453b86" datatype="html">
-        <source>The OTP field cannot be empty</source>
-        <target state="translated">Das OTP-Feld darf nicht leer sein</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">61</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="fa9aed977ffb78dbefd717d8fc12b0134bb8df8b" datatype="html">
         <source>
           You have accepted the transaction.
@@ -355,7 +345,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">69</context>
+          <context context-type="linenumber">71</context>
         </context-group>
       </trans-unit>
       <trans-unit id="dc9d7161089691a466fa3b4b0f7a290efbd8f365" datatype="html">
@@ -367,7 +357,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">73</context>
+          <context context-type="linenumber">75</context>
         </context-group>
       </trans-unit>
       <trans-unit id="d724952fdf8a1d17c89270728eeeb1afe7bab606" datatype="html">
@@ -375,7 +365,7 @@
         <target state="translated">Test erfolgreich. Sie dürfen sich mit Ihrem Token authentifizieren.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">76</context>
+          <context context-type="linenumber">78</context>
         </context-group>
       </trans-unit>
       <trans-unit id="73c0e63efed06b6de0786d1d4b68641347b02772" datatype="html">
@@ -383,7 +373,7 @@
         <target state="translated">Test neustarten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">97</context>
+          <context context-type="linenumber">99</context>
         </context-group>
       </trans-unit>
       <trans-unit id="c98077fe229df56d1df276acd22818bd2885eddc" datatype="html">
@@ -391,7 +381,7 @@
         <target state="translated">absenden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">103</context>
+          <context context-type="linenumber">105</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/set-description-dialog/set-description-dialog.component.html</context>
@@ -403,7 +393,7 @@
         <target state="translated">abschließen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">109</context>
+          <context context-type="linenumber">111</context>
         </context-group>
       </trans-unit>
       <trans-unit id="aa6096fc163996886c8bafd0770a20e1727db7f0" datatype="html">
@@ -426,13 +416,13 @@
           <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="a0cbd22fcb9777db2e7fa9692cd2b3b426765a01" datatype="html">
+      <trans-unit id="80a44b1e05bb9c0734cdf1d113f2927cd8f212dd" datatype="html">
         <source>
-          Enter the next OTP value for the selected token:
+          Enter the <x id="INTERPOLATION" equiv-text="{{ data.token.typeDetails.type === TokenType.PASSWORD? 'password':'next OTP value' }}"/> for the
+          selected token:
         </source>
         <target state="translated">
-          Geben sie für den ausgewählten Token den nächsten OTP-Wert ein:
-        </target>
+          Geben Sie für den ausgewählten Token {{ data.token.typeDetails.type === TokenType.PASSWORD? 'das Passwort':'den nächsten OTP-Wert ' }} ein:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-dialog.component.html</context>
           <context context-type="linenumber">21</context>
@@ -447,7 +437,7 @@
           </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="026a85359a52370b1385c0c844479305250beb76" datatype="html">
@@ -461,7 +451,7 @@
           </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">39</context>
+          <context context-type="linenumber">40</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3b72a82fcd5cf129324571886ec7e4ef0f194438" datatype="html">
@@ -469,7 +459,24 @@
         <target state="translated">OTP manuell eingeben</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">49</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e59839767394ef134a623a78066cbd1c7ce31a78" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ data.token.typeDetails.type === TokenType.PASSWORD? 'Password':'OTP value' }}"/></source>
+        <target state="translated">{{ data.token.typeDetails.type === TokenType.PASSWORD? 'Passwort':'OTP-Wert' }}</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-dialog.component.html</context>
+          <context context-type="linenumber">59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3dcd66ff5d2f825daa4f77c88d9322aebf695c40" datatype="html">
+        <source>The <x id="INTERPOLATION" equiv-text="{{ data.token.typeDetails.type === TokenType.PASSWORD? 'password':'OTP' }}"/> field cannot
+              be empty</source>
+        <target state="translated">Das {{ data.token.typeDetails.type === TokenType.PASSWORD? 'Passwort-Feld':'OTP-Feld' }} darf nicht leer sein</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-dialog.component.html</context>
+          <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit>
       <trans-unit id="c2b7ba12c335df8aac5bbf6940c4dccda6631c39" datatype="html">
@@ -1055,7 +1062,7 @@
         <target state="translated">Beschreibung ändern</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">79</context>
+          <context context-type="linenumber">78</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1f2015488439a54808759dcd3521bf1a2f0b5510" datatype="html">
@@ -1418,7 +1425,7 @@
         <target state="translated">Fehlerzähler zurücksetzen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">85</context>
+          <context context-type="linenumber">84</context>
         </context-group>
       </trans-unit>
       <trans-unit id="0012706153bcbfdd0b8eafae8a34bc2b509b5749" datatype="html">
@@ -1426,7 +1433,7 @@
         <target state="translated">Synchronisieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">92</context>
+          <context context-type="linenumber">91</context>
         </context-group>
       </trans-unit>
       <trans-unit id="826b25211922a1b46436589233cb6f1a163d89b7" datatype="html">
@@ -1434,7 +1441,7 @@
         <target state="translated">Löschen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">110</context>
+          <context context-type="linenumber">109</context>
         </context-group>
       </trans-unit>
       <trans-unit id="ac6c9212896d39b23811ed2dadab7d07336ec559" datatype="html">
@@ -1442,11 +1449,11 @@
         <target state="translated">Aktivieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">118</context>
+          <context context-type="linenumber">117</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">128</context>
+          <context context-type="linenumber">127</context>
         </context-group>
       </trans-unit>
       <trans-unit id="95724277f3d8682a670cb4df13b822f6dd74119b" datatype="html">
@@ -1454,7 +1461,7 @@
         <target state="translated">Sie sind nicht berechtigt, den Token zu aktivieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">125</context>
+          <context context-type="linenumber">124</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6766a926d80bb7763785621098dae459d6226429" datatype="html">
@@ -1462,11 +1469,11 @@
         <target state="translated">Deaktivieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">136</context>
+          <context context-type="linenumber">135</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">146</context>
+          <context context-type="linenumber">145</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8b29018f336508426906d0fb7ac6f9665e62e530" datatype="html">
@@ -1474,7 +1481,7 @@
         <target state="translated">Sie sind nicht berechtigt, den Token zu deaktivieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">143</context>
+          <context context-type="linenumber">142</context>
         </context-group>
       </trans-unit>
       <trans-unit id="b9390719e13766d54b26e77014b04e7fe9bd8f49" datatype="html">
@@ -2305,9 +2312,9 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="23e00afae4079b95a151f9ac00bd0990197597bb" datatype="html">
-        <source>The test failed. Check if the OTP is correct or try again.</source>
-        <target state="translated">Der Test ist fehlgeschlagen. Bitte prüfen Sie die Korrektheit des OTP-Wertes oder versuchen sie es erneut</target>
+      <trans-unit id="e5a426e9ce05dd4c13beb099e02f5ef552722de5" datatype="html">
+        <source>The test failed. Please try again or contact an administrator.</source>
+        <target state="translated">Test fehlgeschlagen. Bitte versuchen Sie erneut, oder kontaktieren Sie einen Administrator.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.ts</context>
           <context context-type="linenumber">1</context>

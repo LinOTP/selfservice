@@ -102,11 +102,13 @@
           {{ selectedToken.typeDetails.name }} with serial {{ selectedToken.serial }}
         </span>
       </p>
-      <p i18n>Please enter the respective OTP:</p>
+      <p i18n>Please enter the respective {{ selectedToken.typeDetails.type === TokenType.PASSWORD? 'password':'OTP' }}:
+      </p>
       <mat-form-field>
         <input matInput
+               type="{{ selectedToken.typeDetails.type === TokenType.PASSWORD? 'password':'text' }}"
                formControlName="otp"
-               placeholder="OTP"
+               placeholder="{{ selectedToken.typeDetails.type === TokenType.PASSWORD? 'Password':'OTP' }}"
                name="otp"
                i18n-placeholder
                autocomplete="one-time-code"

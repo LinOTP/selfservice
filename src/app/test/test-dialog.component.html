@@ -19,7 +19,8 @@
         <div class="instruction"
              i18n
              *ngIf="!hasOnlineMode">
-          Enter the next OTP value for the selected token:
+          Enter the {{ data.token.typeDetails.type === TokenType.PASSWORD? 'password':'next OTP value' }} for the
+          selected token:
         </div>
 
         <ng-container *ngIf="qrCodeData">
@@ -52,13 +53,14 @@
         <div [ngClass]="{'center-content': hasOnlineMode && hasOfflineMode}">
           <mat-form-field *ngIf="!hasOnlineMode || showInputField">
             <input matInput
-                   type="text"
+                   type="{{ data.token.typeDetails.type === TokenType.PASSWORD? 'password':'text' }}"
                    autocomplete="one-time-code"
                    formControlName="otp"
-                   placeholder="OTP value"
+                   placeholder="{{ data.token.typeDetails.type === TokenType.PASSWORD? 'Password':'OTP value' }}"
                    i18n-placeholder
                    appFocusOnInit>
-            <mat-error i18n>The OTP field cannot be empty</mat-error>
+            <mat-error i18n>The {{ data.token.typeDetails.type === TokenType.PASSWORD? 'password':'OTP' }} field cannot
+              be empty</mat-error>
           </mat-form-field>
         </div>
 
