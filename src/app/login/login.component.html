@@ -14,7 +14,7 @@
                autocomplete="username"
                appFocusOnInit>
       </mat-form-field>
-      <mat-form-field *ngIf="systemInfo?.realm_box">
+      <mat-form-field *ngIf="systemInfo?.settings.realm_box">
         <mat-label i18n>Realm</mat-label>
         <mat-select formControlName="realm"
                     name="realm">
@@ -33,7 +33,7 @@
                i18n-placeholder
                autocomplete="current-password">
       </mat-form-field>
-      <mat-form-field *ngIf="systemInfo?.mfa_3_fields">
+      <mat-form-field *ngIf="systemInfo?.settings.mfa_3_fields">
         <input matInput
                formControlName="otp"
                placeholder="OTP"

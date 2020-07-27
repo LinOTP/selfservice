@@ -105,14 +105,26 @@ describe('LoginComponent', () => {
     });
 
     it('should NOT include realm select in login stage if disabled in systemInfo', () => {
-      systemService.getSystemInfo.and.returnValue(of({ ...Fixtures.systemInfo, realm_box: false }));
+      systemService.getSystemInfo.and.returnValue(of({
+        ...Fixtures.systemInfo,
+        settings: {
+          ...Fixtures.systemInfo.settings,
+          realm_box: false,
+        },
+      }));
       fixture.detectChanges();
 
       expect(page.getLoginForm().querySelector('mat-select[name="realm"]')).toBeFalsy();
     });
 
     it('should include realm select if enabled in systemInfo', () => {
-      systemService.getSystemInfo.and.returnValue(of({ ...Fixtures.systemInfo, realm_box: true }));
+      systemService.getSystemInfo.and.returnValue(of({
+        ...Fixtures.systemInfo,
+        settings: {
+          ...Fixtures.systemInfo.settings,
+          realm_box: true,
+        },
+      }));
       fixture.detectChanges();
 
       expect(page.getLoginForm().querySelector('mat-select[name="realm"]')).toBeTruthy();
@@ -126,7 +138,9 @@ describe('LoginComponent', () => {
     });
 
     it('should include otp field in login stage if enabled in systemInfo', () => {
-      systemService.getSystemInfo.and.returnValue(of({ ...Fixtures.systemInfo, mfa_3_fields: true }));
+      const sysInfo = Fixtures.systemInfo;
+      sysInfo.settings.mfa_3_fields = true;
+      systemService.getSystemInfo.and.returnValue(of(sysInfo));
       fixture.detectChanges();
 
       expect(page.getLoginForm().querySelector('input[name="otp"]')).toBeTruthy();

@@ -103,9 +103,9 @@ describe('SystemService', () => {
         });
 
         const userserviceContextRequest = backend.expectOne((req) => req.url === '/userservice/context' && req.method === 'GET');
-        userserviceContextRequest.flush(
-          { ...ExampleAPIResponses.userservice_context, actions: ['fake policy'] }
-        );
+        const context = ExampleAPIResponses.userservice_context;
+        context.detail.actions = ['fake policy'];
+        userserviceContextRequest.flush(context);
       })
     ));
   });

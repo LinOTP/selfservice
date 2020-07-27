@@ -20,8 +20,8 @@ import { LinOTPResponse } from './api/api';
  * @interface SystemInfo
  */
 export interface SystemInfo {
-  autoassign: boolean;
-  licenseinfo: string;
+  copyright: string;
+  version: string;
   realms: {
     [realmName: string]: {
       default: boolean,
@@ -30,17 +30,20 @@ export interface SystemInfo {
       entry: string,
     }
   };
-  default_realm: string;
-  mfa_login: boolean;
-  version: string;
-  realm_box: boolean;
-  mfa_3_fields: boolean;
-  autoenroll: boolean;
+  settings: {
+    autoassign: boolean;
+    default_realm: string;
+    mfa_login: boolean;
+    realm_box: boolean;
+    mfa_3_fields: boolean;
+    autoenroll: boolean;
+  };
 }
 
 export interface UserInfo {
   username: string;
   userid: string;
+  realm: string;
   description: string;
   phone: string;
   mobile: string;
@@ -64,7 +67,10 @@ export interface UserSystemInfo extends SystemInfo {
   permissions: Permission[];
   imprint: string;
   user: UserInfo;
-  realm: string;
+  settings: SystemInfo['settings'] & {
+    edit_sms?: number,
+    edit_email?: number,
+  };
 }
 
 @Injectable({
@@ -98,26 +104,11 @@ export class SystemService {
   }
 
   /**
-   * parses the realms list from the backend response to conform to the
-   * SystemInfo/UserSystemInfo interface.
-   *
-   * @private
-   * @static
-   * @template T backend response type from linotp context or pre_context api calls
-   * @param {T} systemInfo backend response
-   * @returns
-   * @memberof SystemService
-   */
-  private static parseRealmsList<T extends { realms: string }>(systemInfo: T): T & Pick<SystemInfo, 'realms'> {
-    return { ...systemInfo, realms: JSON.parse(systemInfo.realms) };
-  }
-
-  /**
    * gets system information without a user context.
    *
    * The backend provides dynamic details about the system. This API works
    * without a valid session and does not provide user specific information.
-   * Use the getSystemInfo() method to recieve all available infos with a
+   * Use the getUserSystemInfo() method to recieve all available infos with a
    * session.
    *
    * This method is usefull to recieve information about the login process.
@@ -126,16 +117,8 @@ export class SystemService {
    * @memberof SystemService
    */
   getSystemInfo(): Observable<SystemInfo> {
-    /*
-     * the api does not provide the full SystemInfo interface. We need to parse
-     * some parts manually. The typing process is fully covered by replacing the
-     * relevant object types in the apiResponse type.
-     */
-    type apiResponse = Omit<SystemInfo, 'realms'> & { realms: string };
-
-    return this.http.get<apiResponse>('/userservice/pre_context').pipe(
-      // parse realms that are returned as stringified json
-      map(SystemService.parseRealmsList),
+    return this.http.get<LinOTPResponse<boolean, SystemInfo>>('/userservice/pre_context').pipe(
+      map(response => response.detail),
     );
   }
 
@@ -148,28 +131,15 @@ export class SystemService {
    * @memberof SystemService
    */
   getUserSystemInfo(): Observable<UserSystemInfo> {
-    /*
-     * the api does not provide the full UserSystemInfo interface. We need to parse
-     * some parts manually and get user info with a separate request.
-     * The typing process is fully covered by replacing the
-     * relevant object types in the type sets.
-     */
-    type contextResponse = Omit<UserSystemInfo, 'realms' | 'permissions' | 'user'> & { realms: string, actions: string[] };
+    type contextResponse = Omit<UserSystemInfo, 'permissions'> & { actions: string[] };
 
     const options = {
       params: { session: this.sessionService.getSession() }
     };
 
-    return forkJoin([
-      this.http.get<contextResponse>('/userservice/context', options).pipe(
-        map(SystemService.parseRealmsList),
-        map(SystemService.mapPoliciesToPermissions),
-      ),
-      this.http.get<LinOTPResponse<UserInfo>>('/userservice/userinfo', options),
-    ]).pipe(
-      map(([context, userResponse]) => {
-        return { ...context, user: userResponse.result.value };
-      })
+    return this.http.get<LinOTPResponse<boolean, contextResponse>>('/userservice/context', options).pipe(
+      map(response => response.detail),
+      map(SystemService.mapPoliciesToPermissions),
     );
   }
 }
