@@ -1,7 +1,7 @@
 import { Token, TokenType, EnrollmentStatus, TokenTypeDetails } from '../app/api/token';
 import { Permission } from '../app/common/permissions';
 import { UserSystemInfo, SystemInfo } from '../app/system.service';
-import { LinOTPResponse } from '../app/api/token.service';
+import { LinOTPResponse } from '../app/api/api';
 
 export class Fixtures {
 

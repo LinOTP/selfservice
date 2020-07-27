@@ -6,7 +6,8 @@ import { map, catchError } from 'rxjs/operators';
 
 import { SessionService } from '../auth/session.service';
 import { Token, TokenType } from './token';
-import { LinOTPResponse, TokenService } from './token.service';
+import { TokenService } from './token.service';
+import { LinOTPResponse } from './api';
 
 @Injectable({
   providedIn: 'root'

@@ -7,9 +7,10 @@ import { Observable, of, interval } from 'rxjs';
 import { map, filter, mergeMap, take, catchError } from 'rxjs/operators';
 
 import { EnrollToken, EnrollmentStatus } from './token';
-import { LinOTPResponse, TokenService } from './token.service';
+import { TokenService } from './token.service';
 import { SessionService } from '../auth/session.service';
 import { UserInfo } from '../system.service';
+import { LinOTPResponse } from './api';
 
 export interface QRCodeEnrollmentDetail {
   lse_qr_url: {

@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 
 import { Permission, PoliciesToPermissionsMapping } from './common/permissions';
 import { SessionService } from './auth/session.service';
-import { LinOTPResponse } from './api/token.service';
+import { LinOTPResponse } from './api/api';
 
 /**
  * Interface that provides available information about the system.

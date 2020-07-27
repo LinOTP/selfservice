@@ -7,7 +7,7 @@ import { Observable, of, interval } from 'rxjs';
 import { map, catchError, filter, mergeMap, take } from 'rxjs/operators';
 
 import { SessionService } from '../auth/session.service';
-import { LinOTPResponse } from './token.service';
+import { LinOTPResponse } from './api';
 
 export enum ReplyMode {
   ONLINE = 'online',

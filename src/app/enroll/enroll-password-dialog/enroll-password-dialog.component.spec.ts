@@ -18,7 +18,7 @@ import { EnrollmentService } from '../../api/enrollment.service';
 import { NotificationService } from '../../common/notification.service';
 
 import { EnrollPasswordDialogComponent } from './enroll-password-dialog.component';
-import { LinOTPResponse } from '../../api/token.service';
+import { LinOTPResponse } from '../../api/api';
 import { MatButton } from '@angular/material/button';
 
 
