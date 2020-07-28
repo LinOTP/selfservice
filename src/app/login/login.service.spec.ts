@@ -289,12 +289,13 @@ describe('LoginService', () => {
   describe('refreshUserSystemInfo', () => {
     it('should set the permissions in local storage', () => {
       spyOn(localStorage, 'setItem');
-      const permissions = Fixtures.permissionList;
-      systemService.getUserSystemInfo.and.returnValue(of({ permissions: permissions }));
+      const usersysInfo = Fixtures.userSystemInfo;
+      usersysInfo.permissions = Fixtures.permissionList;
+      systemService.getUserSystemInfo.and.returnValue(of(usersysInfo));
 
       loginService.refreshUserSystemInfo().subscribe(() => {
-        expect(permissionsService.loadPermissions).toHaveBeenCalledWith(permissions);
-        expect(localStorage.setItem).toHaveBeenCalledWith('permissions', JSON.stringify(permissions));
+        expect(permissionsService.loadPermissions).toHaveBeenCalledWith(Fixtures.permissionList);
+        expect(localStorage.setItem).toHaveBeenCalledWith('permissions', JSON.stringify(Fixtures.permissionList));
       });
     });
   });

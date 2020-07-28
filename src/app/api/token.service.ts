@@ -9,18 +9,8 @@ import { catchError, map } from 'rxjs/operators';
 import { SessionService } from '../auth/session.service';
 import { Permission } from '../common/permissions';
 import { Token, TokenType, TokenTypeDetails } from './token';
+import { LinOTPResponse } from './api';
 
-
-export interface LinOTPResponse<T, U = undefined> {
-  result?: {
-    status: boolean,
-    value: T,
-    error?: {
-      message: string,
-    };
-  };
-  detail?: U;
-}
 
 @Injectable({
   providedIn: 'root'

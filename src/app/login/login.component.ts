@@ -68,13 +68,13 @@ export class LoginComponent implements OnInit {
 
     this.systemService.getSystemInfo().subscribe(systemInfo => {
       this.systemInfo = systemInfo;
-      if (systemInfo.realm_box) {
+      if (systemInfo.settings.realm_box) {
         this.loginFormGroup.addControl(
           'realm',
-          this.formBuilder.control(systemInfo.default_realm, Validators.required)
+          this.formBuilder.control(systemInfo.settings.default_realm, Validators.required)
         );
       }
-      if (systemInfo.mfa_3_fields) {
+      if (systemInfo.settings.mfa_3_fields) {
         this.loginFormGroup.addControl(
           'otp',
           this.formBuilder.control('')

@@ -1,7 +1,7 @@
 import { Token, TokenType, EnrollmentStatus, TokenTypeDetails } from '../app/api/token';
 import { Permission } from '../app/common/permissions';
 import { UserSystemInfo, SystemInfo } from '../app/system.service';
-import { LinOTPResponse } from '../app/api/token.service';
+import { LinOTPResponse } from '../app/api/api';
 
 export class Fixtures {
 
@@ -302,6 +302,8 @@ export class Fixtures {
 
   static get systemInfo(): SystemInfo {
     return {
+      copyright: '',
+      version: '',
       realms: {
         ExampleRealm: {
           default: false,
@@ -310,19 +312,21 @@ export class Fixtures {
           useridresolver: ['example-resolver']
         }
       },
-      autoassign: false,
-      licenseinfo: '',
-      default_realm: '',
-      mfa_login: false,
-      realm_box: false,
-      mfa_3_fields: false,
-      version: '',
-      autoenroll: false,
+      settings: {
+        autoassign: false,
+        default_realm: '',
+        mfa_login: false,
+        realm_box: false,
+        mfa_3_fields: false,
+        autoenroll: false,
+      },
     };
   }
 
   static get userSystemInfo(): UserSystemInfo {
     return {
+      copyright: '',
+      version: '',
       realms: {
         ExampleRealm: {
           default: false,
@@ -343,16 +347,16 @@ export class Fixtures {
         givenname: 'givenname',
         surname: 'surname',
         gender: 'gender',
+        realm: '',
       },
-      realm: '',
-      autoassign: false,
-      licenseinfo: '',
-      default_realm: '',
-      mfa_login: false,
-      realm_box: false,
-      mfa_3_fields: false,
-      version: '',
-      autoenroll: false,
+      settings: {
+        autoassign: false,
+        default_realm: '',
+        mfa_login: false,
+        realm_box: false,
+        mfa_3_fields: false,
+        autoenroll: false,
+      },
     };
   }
 }
@@ -360,34 +364,59 @@ export class Fixtures {
 export class ExampleAPIResponses {
   static get userservice_pre_context() {
     return {
-      realms: '{\n  \"ExampleRealm\": {\n    \"default\": false,\n    \"realmname\": \"exampleRealm\",\n    \"entry\": \"\",\n  \
-  \"useridresolver\": [\"example-resolver\"]\n  }\n}',
-      autoassign: false,
-      licenseinfo: '',
-      default_realm: '',
-      mfa_login: false,
-      realm_box: false,
-      mfa_3_fields: false,
-      version: '',
-      autoenroll: false,
+      result: {
+        status: true,
+        value: true,
+      },
+      detail: {
+        copyright: '',
+        version: '',
+        realms: {
+          ExampleRealm: {
+            default: false,
+            realmname: 'exampleRealm',
+            entry: '',
+            useridresolver: ['example-resolver']
+          }
+        },
+        settings: {
+          autoassign: false,
+          default_realm: '',
+          mfa_login: false,
+          realm_box: false,
+          mfa_3_fields: false,
+          autoenroll: false,
+        },
+      }
     };
   }
   static get userservice_context() {
     return {
-      realms: '{\n  \"ExampleRealm\": {\n    \"default\": false,\n    \"realmname\": \"exampleRealm\",\n    \"entry\": \"\",\n  \
-    \"useridresolver\": [\"example-resolver\"]\n  }\n}',
-      actions: Fixtures.policyActionList,
-      imprint: '',
-      user: '',
-      realm: '',
-      autoassign: false,
-      licenseinfo: '',
-      default_realm: '',
-      mfa_login: false,
-      realm_box: false,
-      mfa_3_fields: false,
-      version: '',
-      autoenroll: false,
+      result: {
+        status: true,
+        value: true,
+      },
+      detail: {
+        copyright: '',
+        version: '',
+        realms: {
+          ExampleRealm: {
+            default: false,
+            realmname: 'exampleRealm',
+            entry: '',
+            useridresolver: ['example-resolver']
+          }
+        },
+        settings: {
+          autoassign: false,
+          default_realm: '',
+          mfa_login: false,
+          realm_box: false,
+          mfa_3_fields: false,
+          autoenroll: false,
+        },
+        actions: Fixtures.policyActionList,
+      },
     };
   }
 }

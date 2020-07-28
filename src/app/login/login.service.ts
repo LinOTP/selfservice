@@ -199,7 +199,7 @@ export class LoginService {
     return this.systemService.getUserSystemInfo().pipe(
       tap(userSystemInfo => {
         localStorage.setItem('permissions', JSON.stringify(userSystemInfo.permissions));
-        localStorage.setItem('realm', JSON.stringify(userSystemInfo.realm));
+        localStorage.setItem('realm', JSON.stringify(userSystemInfo.user.realm));
         localStorage.setItem('user', JSON.stringify(userSystemInfo.user));
         localStorage.setItem('imprint', JSON.stringify(userSystemInfo.imprint));
         localStorage.setItem('linotpVersion', JSON.stringify(userSystemInfo.version));
