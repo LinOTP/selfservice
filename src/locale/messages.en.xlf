@@ -223,7 +223,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/login/login.component.html</context>
-          <context context-type="linenumber">122</context>
+          <context context-type="linenumber">129</context>
         </context-group>
       </trans-unit>
       <trans-unit id="525364a6908ae8e6c2df13a331dbb15b222b8a85" datatype="html">
@@ -237,7 +237,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/login/login.component.html</context>
-          <context context-type="linenumber">126</context>
+          <context context-type="linenumber">133</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5c62052c5de6811ae77d69038645b41fed7495ec" datatype="html">
@@ -258,14 +258,28 @@
           <context context-type="linenumber">99</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="f196f4bef7371566de61993f4802105e99af6a17" datatype="html">
-        <source>Please enter the respective <x id="INTERPOLATION" equiv-text="{{ selectedToken.typeDetails.type === TokenType.PASSWORD? 'password':'OTP' }}"/>:
+      <trans-unit id="f9ad527883fe8eb2b420b7693b4d11f8a61e67c7" datatype="html">
+        <source>
+        Please enter the password of the selected token:
       </source>
-        <target state="final">Please enter the respective <x id="INTERPOLATION" equiv-text="{{ selectedToken.typeDetails.type === TokenType.PASSWORD? 'password':'OTP' }}"/>:
+        <target state="final">
+        Please enter the password of the selected token:
       </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/login/login.component.html</context>
-          <context context-type="linenumber">105</context>
+          <context context-type="linenumber">106</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="a27aa7003fc78f442de2e6cef5d4332dfffd47cc" datatype="html">
+        <source>
+        Please enter the next OTP for the selected token:
+      </source>
+        <target state="final">
+        Please enter the next OTP for the selected token:
+      </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/login/login.component.html</context>
+          <context context-type="linenumber">110</context>
         </context-group>
       </trans-unit>
       <trans-unit id="b346c3d093bbdb8c62a4b5ab162cfcee44d9250e" datatype="html">
@@ -273,7 +287,7 @@
         <target state="final"><x id="INTERPOLATION" equiv-text="{{ selectedToken.typeDetails.type === TokenType.PASSWORD? 'Password':'OTP' }}"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/login/login.component.html</context>
-          <context context-type="linenumber">110</context>
+          <context context-type="linenumber">117</context>
         </context-group>
       </trans-unit>
       <trans-unit id="ab83372b3d4d9be3ad01e4e94dd5b94dd34411f0" datatype="html">
@@ -317,7 +331,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">92</context>
+          <context context-type="linenumber">97</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/set-description-dialog/set-description-dialog.component.html</context>
@@ -349,7 +363,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">71</context>
+          <context context-type="linenumber">76</context>
         </context-group>
       </trans-unit>
       <trans-unit id="dc9d7161089691a466fa3b4b0f7a290efbd8f365" datatype="html">
@@ -361,7 +375,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">75</context>
+          <context context-type="linenumber">80</context>
         </context-group>
       </trans-unit>
       <trans-unit id="d724952fdf8a1d17c89270728eeeb1afe7bab606" datatype="html">
@@ -369,7 +383,7 @@
         <target state="final">Test successful. You may use your token for authentication.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">78</context>
+          <context context-type="linenumber">83</context>
         </context-group>
       </trans-unit>
       <trans-unit id="73c0e63efed06b6de0786d1d4b68641347b02772" datatype="html">
@@ -377,7 +391,7 @@
         <target state="final">restart test</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">99</context>
+          <context context-type="linenumber">104</context>
         </context-group>
       </trans-unit>
       <trans-unit id="c98077fe229df56d1df276acd22818bd2885eddc" datatype="html">
@@ -385,7 +399,7 @@
         <target state="final">submit</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">105</context>
+          <context context-type="linenumber">110</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/set-description-dialog/set-description-dialog.component.html</context>
@@ -397,7 +411,7 @@
         <target state="final">done</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">111</context>
+          <context context-type="linenumber">116</context>
         </context-group>
       </trans-unit>
       <trans-unit id="aa6096fc163996886c8bafd0770a20e1727db7f0" datatype="html">
@@ -420,18 +434,28 @@
           <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="80a44b1e05bb9c0734cdf1d113f2927cd8f212dd" datatype="html">
+      <trans-unit id="a5a98bcf45e986645a9e634e0f01388878a0e4a6" datatype="html">
         <source>
-          Enter the <x id="INTERPOLATION" equiv-text="{{ data.token.typeDetails.type === TokenType.PASSWORD? 'password':'next OTP value' }}"/> for the
-          selected token:
-        </source>
+            Please enter the password of the selected token:
+          </source>
         <target state="final">
-          Enter the <x id="INTERPOLATION" equiv-text="{{ data.token.typeDetails.type === TokenType.PASSWORD? 'password':'next OTP value' }}"/> for the
-          selected token:
-        </target>
+            Please enter the password of the selected token:
+          </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8e4408a9d69300433cc390a5371d90495c6041ca" datatype="html">
+        <source>
+            Please enter the next OTP for the selected token:
+          </source>
+        <target state="final">
+            Please enter the next OTP for the selected token:
+          </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/test/test-dialog.component.html</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="c1c1e3878e811351e8fa2d769645cea3eb3ec06e" datatype="html">
@@ -443,7 +467,7 @@
           </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
       <trans-unit id="026a85359a52370b1385c0c844479305250beb76" datatype="html">
@@ -457,7 +481,7 @@
           </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">45</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3b72a82fcd5cf129324571886ec7e4ef0f194438" datatype="html">
@@ -465,7 +489,7 @@
         <target state="final">Manually enter OTP</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">50</context>
+          <context context-type="linenumber">55</context>
         </context-group>
       </trans-unit>
       <trans-unit id="e59839767394ef134a623a78066cbd1c7ce31a78" datatype="html">
@@ -473,7 +497,7 @@
         <target state="final"><x id="INTERPOLATION" equiv-text="{{ data.token.typeDetails.type === TokenType.PASSWORD? 'Password':'OTP value' }}"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">59</context>
+          <context context-type="linenumber">64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3dcd66ff5d2f825daa4f77c88d9322aebf695c40" datatype="html">
@@ -483,7 +507,7 @@
               be empty</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">62</context>
+          <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
       <trans-unit id="c2b7ba12c335df8aac5bbf6940c4dccda6631c39" datatype="html">
