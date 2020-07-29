@@ -17,10 +17,15 @@
       <ng-container *ngSwitchCase="TestState.UNTESTED">
 
         <div class="instruction"
-             i18n
              *ngIf="!hasOnlineMode">
-          Enter the {{ data.token.typeDetails.type === TokenType.PASSWORD? 'password':'next OTP value' }} for the
-          selected token:
+          <ng-container *ngIf="data.token.typeDetails.type === TokenType.PASSWORD; else otpInputMessage"
+                        i18n>
+            Please enter the password of the selected token:
+          </ng-container>
+          <ng-template #otpInputMessage
+                       i18n>
+            Please enter the next OTP for the selected token:
+          </ng-template>
         </div>
 
         <ng-container *ngIf="qrCodeData">
