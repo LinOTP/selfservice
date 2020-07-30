@@ -7,10 +7,12 @@
             id="stepDescription">
     <p i18n>Create a new token that is paired with your email address to receive OTP values for authentication.</p>
 
+    <p *ngIf="!canEditEmail"
+       i18n>The token will use your user email address: <b>{{userEmail}}</b></p>
 
     <p i18n>You may set the following token details before creation:</p>
     <form [formGroup]="enrollmentStep">
-      <mat-form-field>
+      <mat-form-field *ngIf="canEditEmail">
         <input matInput
                i18n-placeholder
                placeholder="Email address"
@@ -44,7 +46,7 @@
 
   <mat-step active="false"
             id="stepPIN">
-    <p i18n>A token with the serial number {{enrolledToken?.serial}} has been created.</p>
+    <p i18n>A token with the serial number {{enrolledTokenSerial}} has been created.</p>
 
     <ng-container *ngxPermissionsOnly="Permission.SETPIN">
       <p i18n>If you wish to set a security PIN, please do so now:</p>

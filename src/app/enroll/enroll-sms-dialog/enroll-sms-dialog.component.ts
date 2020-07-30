@@ -12,7 +12,7 @@ import { SetPinDialogComponent } from '../../common/set-pin-dialog/set-pin-dialo
 import { TokenTypeDetails, EnrollToken } from '../../api/token';
 import { EnrollmentService } from '../../api/enrollment.service';
 import { OperationsService } from '../../api/operations.service';
-import { UserInfo } from '../../system.service';
+import { UserInfo, UserSystemInfo } from '../../system.service';
 import { NgxPermissionsService } from 'ngx-permissions';
 
 @Component({
@@ -31,7 +31,10 @@ export class EnrollSMSDialogComponent implements OnInit {
   public pinSet: boolean;
   public showDetails = false;
 
-  public enrolledToken: { serial: string, phoneNumber: string };
+  public enrolledTokenSerial: string;
+
+  public canEditPhone: boolean;
+  public userPhone: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -47,12 +50,17 @@ export class EnrollSMSDialogComponent implements OnInit {
 
   public ngOnInit() {
     const userData: UserInfo = JSON.parse(localStorage.getItem('user'));
+    const settings: UserSystemInfo['settings'] = JSON.parse(localStorage.getItem('settings'));
+    this.canEditPhone = settings.edit_sms === undefined || Boolean(settings.edit_sms);
+    this.userPhone = userData.mobile;
 
     this.enrollmentStep = this.formBuilder.group({
       'tokenEnrolled': ['', Validators.required],
       'description': [this.i18n('Created via SelfService'), Validators.required],
-      'phoneNumber': [userData.mobile, Validators.required],
     });
+    if (this.canEditPhone) {
+      this.enrollmentStep.addControl('phoneNumber', this.formBuilder.control(this.userPhone, Validators.required));
+    }
     this.testStep = this.formBuilder.group({
       'otp': ['', Validators.required],
       'pin': ''
@@ -61,11 +69,11 @@ export class EnrollSMSDialogComponent implements OnInit {
 
   public enrollToken() {
     const description = this.enrollmentStep.get('description').value;
-    const phoneNumber = this.enrollmentStep.get('phoneNumber').value;
+    const phoneNumber = this.canEditPhone ? this.enrollmentStep.get('phoneNumber').value : this.userPhone;
     const body: EnrollToken = {
       type: this.data.tokenTypeDetails.type,
       description: `${description} - ${phoneNumber}`,
-      phone: phoneNumber
+      phone: phoneNumber,
     };
 
     this.enrollmentService.enroll(body).subscribe(response => {
@@ -73,10 +81,7 @@ export class EnrollSMSDialogComponent implements OnInit {
         response.result && response.result.value &&
         response.detail && response.detail.serial;
       if (serial) {
-        this.enrolledToken = {
-          serial: serial,
-          phoneNumber: this.enrollmentStep.get('phoneNumber').value,
-        };
+        this.enrolledTokenSerial = serial;
         this.enrollmentStep.controls.tokenEnrolled.setValue(true);
         this.stepper.next();
       } else {
@@ -89,7 +94,7 @@ export class EnrollSMSDialogComponent implements OnInit {
   public setPin() {
     const config = {
       width: '25em',
-      data: this.enrolledToken
+      data: { serial: this.enrolledTokenSerial },
     };
     this.dialog
       .open(SetPinDialogComponent, config)
@@ -106,8 +111,8 @@ export class EnrollSMSDialogComponent implements OnInit {
    * Cancel the dialog and return false as result
    */
   public cancelDialog() {
-    if (this.enrolledToken && this.permissionsService.hasPermission(Permission.DELETE)) {
-      this.operationsService.deleteToken(this.enrolledToken.serial).subscribe();
+    if (this.enrolledTokenSerial && this.permissionsService.hasPermission(Permission.DELETE)) {
+      this.operationsService.deleteToken(this.enrolledTokenSerial).subscribe();
     }
     this.dialogRef.close(false);
   }
@@ -116,7 +121,7 @@ export class EnrollSMSDialogComponent implements OnInit {
    * Close the dialog and return serial of successfully created token
    */
   public closeDialog() {
-    this.dialogRef.close(this.enrolledToken.serial);
+    this.dialogRef.close(this.enrolledTokenSerial);
   }
 
 }
