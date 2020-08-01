@@ -628,11 +628,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-email-dialog/enroll-email-dialog.component.html</context>
-          <context context-type="linenumber">38</context>
+          <context context-type="linenumber">44</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">46</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-motp-dialog/enroll-motp-dialog.component.html</context>
@@ -833,11 +833,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-email-dialog/enroll-email-dialog.component.html</context>
-          <context context-type="linenumber">43</context>
+          <context context-type="linenumber">49</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
-          <context context-type="linenumber">45</context>
+          <context context-type="linenumber">51</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-motp-dialog/enroll-motp-dialog.component.html</context>
@@ -938,11 +938,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-email-dialog/enroll-email-dialog.component.html</context>
-          <context context-type="linenumber">52</context>
+          <context context-type="linenumber">58</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
-          <context context-type="linenumber">54</context>
+          <context context-type="linenumber">60</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-motp-dialog/enroll-motp-dialog.component.html</context>
@@ -1064,11 +1064,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-email-dialog/enroll-email-dialog.component.html</context>
-          <context context-type="linenumber">56</context>
+          <context context-type="linenumber">62</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
-          <context context-type="linenumber">58</context>
+          <context context-type="linenumber">64</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-motp-dialog/enroll-motp-dialog.component.html</context>
@@ -1100,11 +1100,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-email-dialog/enroll-email-dialog.component.html</context>
-          <context context-type="linenumber">58</context>
+          <context context-type="linenumber">64</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
-          <context context-type="linenumber">60</context>
+          <context context-type="linenumber">66</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-motp-dialog/enroll-motp-dialog.component.html</context>
@@ -1120,11 +1120,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-email-dialog/enroll-email-dialog.component.html</context>
-          <context context-type="linenumber">61</context>
+          <context context-type="linenumber">67</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
-          <context context-type="linenumber">63</context>
+          <context context-type="linenumber">69</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-motp-dialog/enroll-motp-dialog.component.html</context>
@@ -1147,16 +1147,30 @@
           <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="3e3cde0cb97acb006e56aeca355d4a372838a6c2" datatype="html">
+        <source>
+      You have no email address assigned to your user account and the token will therefore not work after creation. You
+      may need to contact your administrator for help.
+    </source>
+        <target state="translated">
+      Es ist keine E-Mail-Adresse in ihrem Nutzerkonto hinterlegt, weshalb der Token nach der Erstellung nicht funktionieren wird.
+      Sie müssen eventuell ihren Administrator um Unterstützung bitten.
+    </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-email-dialog/enroll-email-dialog.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="2c607fa033e798adbd2b13fc996a0560e3252eb9" datatype="html">
         <source>You may set the following token details before creation:</source>
         <target state="translated">Sie können die folgenden Token-Details vor der Erstellung festlegen:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-email-dialog/enroll-email-dialog.component.html</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">19</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">20</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-motp-dialog/enroll-motp-dialog.component.html</context>
@@ -1168,7 +1182,7 @@
         <target state="translated">E-Mail-Adresse</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-email-dialog/enroll-email-dialog.component.html</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="d26240d37446863a949d116bc16e109263024752" datatype="html">
@@ -1176,7 +1190,7 @@
         <target state="translated">Legen Sie die E-Mail-Adresse fest, die Sie für Ihren Token verwenden möchten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-email-dialog/enroll-email-dialog.component.html</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fe781c8ee64670ae8797da85e80c3de0a275d5dd" datatype="html">
@@ -1184,11 +1198,11 @@
         <target state="translated">Schritt 1 von 2</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-email-dialog/enroll-email-dialog.component.html</context>
-          <context context-type="linenumber">34</context>
+          <context context-type="linenumber">40</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="linenumber">42</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-motp-dialog/enroll-motp-dialog.component.html</context>
@@ -1200,11 +1214,11 @@
         <target state="translated">Ein Token mit der Seriennummer <x id="INTERPOLATION" equiv-text="{{enrolledTokenSerial}}"/> wurde erstellt.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-email-dialog/enroll-email-dialog.component.html</context>
-          <context context-type="linenumber">49</context>
+          <context context-type="linenumber">55</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
-          <context context-type="linenumber">51</context>
+          <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4767b79f5d51c596453dfc39acc52fd283b9da53" datatype="html">
@@ -1233,12 +1247,26 @@
           <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="9e48027084e524d7d469bc42bcdc022ab7bb7e42" datatype="html">
+        <source>
+      You have no mobile number assigned to your user account and the token will therefore not work after creation. You
+      may need to contact your administrator for help.
+    </source>
+        <target state="translated">
+      Es ist keine Mobilnummer in ihrem Nutzerkonto hinterlegt, weshalb der Token nach der Erstellung nicht funktionieren wird.
+      Sie müssen eventuell ihren Administrator um Unterstützung bitten.
+    </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="5440356aea28929ecfa9febd07d5b762b9b8e08f" datatype="html">
         <source>Mobile phone number</source>
         <target state="translated">Handynummer</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="bb1155c2793a665f2074b3bbd05150b486305cd7" datatype="html">
@@ -1246,7 +1274,7 @@
         <target state="translated">Legen Sie die Handynummer fest, die Sie für Ihren Token verwenden möchten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
       <trans-unit id="842c04e1ba4722709f3adaf05511fb16a3d3c27e" datatype="html">
@@ -1704,11 +1732,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-email-dialog/enroll-email-dialog.component.html</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">32</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">34</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-motp-dialog/enroll-motp-dialog.component.html</context>
@@ -1740,11 +1768,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-email-dialog/enroll-email-dialog.component.html</context>
-          <context context-type="linenumber">29</context>
+          <context context-type="linenumber">35</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">37</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-motp-dialog/enroll-motp-dialog.component.html</context>

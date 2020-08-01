@@ -8,8 +8,14 @@
     <p i18n>Create a new token that is paired with your mobile phone to receive OTP values via SMS for authentication.
     </p>
 
-    <p *ngIf="!canEditPhone"
+    <p *ngIf="!canEditPhone && userPhone"
        i18n>The token will use your user mobile number: <b>{{userPhone}}</b></p>
+    <p *ngIf="!canEditPhone && !userPhone"
+       class="warning"
+       i18n>
+      You have no mobile number assigned to your user account and the token will therefore not work after creation. You
+      may need to contact your administrator for help.
+    </p>
 
     <p i18n>You may set the following token details before creation:</p>
     <form [formGroup]="enrollmentStep">
