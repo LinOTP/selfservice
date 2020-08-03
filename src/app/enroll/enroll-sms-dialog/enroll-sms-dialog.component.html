@@ -8,16 +8,25 @@
     <p i18n>Create a new token that is paired with your mobile phone to receive OTP values via SMS for authentication.
     </p>
 
+    <p *ngIf="!canEditPhone && userPhone"
+       i18n>The token will use your user mobile number: <b>{{userPhone}}</b></p>
+    <p *ngIf="!canEditPhone && !userPhone"
+       class="warning"
+       i18n>
+      You have no mobile number assigned to your user account and the token will therefore not work after creation. You
+      may need to contact your administrator for help.
+    </p>
 
     <p i18n>You may set the following token details before creation:</p>
     <form [formGroup]="enrollmentStep">
-      <mat-form-field>
+      <mat-form-field *ngIf="canEditPhone">
         <input matInput
                i18n-placeholder
                placeholder="Mobile phone number"
                formControlName="phoneNumber"
                autofocus>
-        <mat-hint i18n>Set the mobile phone number to use for your token</mat-hint>
+        <mat-hint *ngIf="canEditPhone"
+                  i18n>Set the mobile phone number to use for your token</mat-hint>
       </mat-form-field>
       <mat-form-field>
         <input matInput
@@ -45,7 +54,7 @@
 
   <mat-step active="false"
             id="stepPIN">
-    <p i18n>A token with the serial number {{enrolledToken?.serial}} has been created.</p>
+    <p i18n>A token with the serial number {{enrolledTokenSerial}} has been created.</p>
 
     <ng-container *ngxPermissionsOnly="Permission.SETPIN">
       <p i18n>If you wish to set a security PIN, please do so now:</p>

@@ -203,6 +203,7 @@ export class LoginService {
         localStorage.setItem('user', JSON.stringify(userSystemInfo.user));
         localStorage.setItem('imprint', JSON.stringify(userSystemInfo.imprint));
         localStorage.setItem('linotpVersion', JSON.stringify(userSystemInfo.version));
+        localStorage.setItem('settings', JSON.stringify(userSystemInfo.settings));
 
         this.permissionsService.loadPermissions(userSystemInfo.permissions);
       }),
