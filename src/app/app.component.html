@@ -12,6 +12,7 @@
        mat-button
        [routerLink]="link.path">{{ link.label }}</a>
   </nav>
+  <app-language-picker></app-language-picker>
   <button *ngIf="isLoggedIn"
           mat-button
           (click)="logout()"

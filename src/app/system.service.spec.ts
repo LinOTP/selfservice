@@ -110,4 +110,11 @@ describe('SystemService', () => {
     ));
   });
 
+  it('should provide a list of available locales', () => {
+    expect(service.getLocales()).toEqual([
+      { id: 'en', name: 'English', shortName: 'EN' },
+      { id: 'de', name: 'Deutsch', shortName: 'DE' },
+    ]);
+  });
+
 });

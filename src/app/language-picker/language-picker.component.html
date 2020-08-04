@@ -1,0 +1,13 @@
+<button mat-button
+        [matMenuTriggerFor]="languageSelector">
+  <mat-icon class="language-icon">language</mat-icon>
+  {{selectedLocale?.shortName}}
+  <mat-icon>arrow_drop_down</mat-icon>
+</button>
+
+<mat-menu #languageSelector="matMenu"
+          yPosition="below">
+  <a mat-menu-item
+     *ngFor="let locale of locales"
+     [href]="'../'+locale.id">{{locale.name}} ({{locale.shortName}})</a>
+</mat-menu>
