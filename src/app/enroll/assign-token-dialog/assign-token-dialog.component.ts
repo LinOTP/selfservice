@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
@@ -18,6 +18,7 @@ export class AssignTokenDialogComponent implements OnInit {
 
   public assignmentForm: FormGroup;
   @ViewChild(MatStepper, { static: false }) public stepper: MatStepper;
+  @ViewChild('serialInput', { static: false }) public serialInput: ElementRef;
 
   public permissions = Permission;
 
@@ -91,6 +92,7 @@ export class AssignTokenDialogComponent implements OnInit {
     this.dialog.open(GetSerialDialogComponent).afterClosed().subscribe(serial => {
       if (serial) {
         this.assignmentForm.controls.serial.setValue(serial);
+        this.serialInput.nativeElement.click();
       }
     });
   }
