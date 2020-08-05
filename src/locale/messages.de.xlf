@@ -424,7 +424,7 @@
       </trans-unit>
       <trans-unit id="aa6096fc163996886c8bafd0770a20e1727db7f0" datatype="html">
         <source>Activate <x id="INTERPOLATION" equiv-text="{{ data.token.typeDetails.name }}"/> <x id="INTERPOLATION_1" equiv-text="{{ data.token.serial }}"/></source>
-        <target state="translated"><x id="INTERPOLATION" equiv-text="{{ data.token.typeDetails.name }}"/><x id="INTERPOLATION_1" equiv-text="{{ data.token.serial }}"/> aktivieren</target>
+        <target state="translated"><x id="INTERPOLATION" equiv-text="{{ data.token.typeDetails.name }}"/> <x id="INTERPOLATION_1" equiv-text="{{ data.token.serial }}"/> aktivieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">2</context>
@@ -432,7 +432,7 @@
       </trans-unit>
       <trans-unit id="c5d0b78b54c49e29cf28b30c4f09c5923bd4ef28" datatype="html">
         <source>Test <x id="INTERPOLATION" equiv-text="{{ data.token.typeDetails.name }}"/> <x id="INTERPOLATION_1" equiv-text="{{ data.token.serial }}"/></source>
-        <target state="translated"><x id="INTERPOLATION" equiv-text="{{ data.token.typeDetails.name }}"/>&amp;nbsp;<x id="INTERPOLATION_1" equiv-text="{{ data.token.serial }}"/> testen</target>
+        <target state="translated"><x id="INTERPOLATION" equiv-text="{{ data.token.typeDetails.name }}"/> <x id="INTERPOLATION_1" equiv-text="{{ data.token.serial }}"/> testen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-dialog.component.html</context>
           <context context-type="linenumber">7</context>
