@@ -1,11 +1,13 @@
 import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 
 import { I18n } from '@ngx-translate/i18n-polyfill';
 
 import { EnrollmentService } from '../../api/enrollment.service';
+import { GetSerialDialogComponent } from '../../common/get-serial-dialog/get-serial-dialog.component';
+import { Permission } from '../../common/permissions';
 
 @Component({
   selector: 'app-assign-token-dialog',
@@ -17,6 +19,8 @@ export class AssignTokenDialogComponent implements OnInit {
   public assignmentForm: FormGroup;
   @ViewChild(MatStepper, { static: false }) public stepper: MatStepper;
 
+  public permissions = Permission;
+
   public success: boolean;
   public errorTypeMessage = '';
   public errorMessage = '';
@@ -26,6 +30,7 @@ export class AssignTokenDialogComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<AssignTokenDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { closeLabel: string },
+    private dialog: MatDialog,
     private formBuilder: FormBuilder,
     private enrollmentService: EnrollmentService,
     private i18n: I18n,
@@ -80,4 +85,14 @@ export class AssignTokenDialogComponent implements OnInit {
       this.stepper.selectedIndex = 2;
     });
   }
+
+
+  public getSerial() {
+    this.dialog.open(GetSerialDialogComponent).afterClosed().subscribe(serial => {
+      if (serial) {
+        this.assignmentForm.controls.serial.setValue(serial);
+      }
+    });
+  }
+
 }

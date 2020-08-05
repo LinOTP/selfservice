@@ -432,7 +432,7 @@
       </trans-unit>
       <trans-unit id="c5d0b78b54c49e29cf28b30c4f09c5923bd4ef28" datatype="html">
         <source>Test <x id="INTERPOLATION" equiv-text="{{ data.token.typeDetails.name }}"/> <x id="INTERPOLATION_1" equiv-text="{{ data.token.serial }}"/></source>
-        <target state="translated"><x id="INTERPOLATION" equiv-text="{{ data.token.typeDetails.name }}"/><x id="INTERPOLATION_1" equiv-text="{{ data.token.serial }}"/> testen</target>
+        <target state="translated"><x id="INTERPOLATION" equiv-text="{{ data.token.typeDetails.name }}"/>&amp;nbsp;<x id="INTERPOLATION_1" equiv-text="{{ data.token.serial }}"/> testen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-dialog.component.html</context>
           <context context-type="linenumber">7</context>
@@ -624,11 +624,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
-          <context context-type="linenumber">32</context>
+          <context context-type="linenumber">46</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
-          <context context-type="linenumber">70</context>
+          <context context-type="linenumber">84</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
@@ -1384,7 +1384,7 @@
         <target state="translated">Beenden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">60</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
@@ -1694,13 +1694,37 @@
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="93cdad8ca5ba34bfbf51f7fc937f5bd7d8e52a4f" datatype="html">
-        <source>Claim an existing token and link it to your user account. You need to know its serial number in
-      advance.</source>
-        <target state="translated">Verknüpfen Sie einen existierenden Token mit Ihrem Benutzerkonto. Sie brauchen dafür seine Seriennummer.</target>
+      <trans-unit id="0ace308a1a8686620a343dddf14fcb94f4d4292a" datatype="html">
+        <source>Claim an existing token and link it to your user account.</source>
+        <target state="translated">Verknüpfen Sie einen existierenden Token mit Ihrem Benutzerkonto.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
-          <context context-type="linenumber">7</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="588b93fd446ef695b7412f4a7283ea015e6d0724" datatype="html">
+        <source>You need to know its serial number in advance.</source>
+        <target state="translated">Sie brauchen dafür seine Seriennummer.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="12282bfe6998220ec87271b3985d0f833f3db49f" datatype="html">
+        <source>If you do not have the token serial at hand, you can use a generated OTP value to determine the serial
+        of your token.</source>
+        <target state="translated">Wenn Sie die Seriennummer des Tokens nicht zur Hand haben, können sie einen OTP-Wert verwenden, um die Seriennummer Ihres Tokens zu ermitteln.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="018ff4f717b92d3a757d4f373439dfeece4394cf" datatype="html">
+        <source>Determine Serial</source>
+        <target state="translated">Seriennummer ermitteln</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5bee2bd1a7afd2d05d9f479ae8f49ce493eb76af" datatype="html">
@@ -1708,7 +1732,7 @@
         <target state="translated">Seriennummer des Tokens</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5de35df98b2d7dd370d208c2b4bd6c8a6775ddfa" datatype="html">
@@ -1716,7 +1740,7 @@
         <target state="translated">Die Seriennummer des Tokens ist erforderlich.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="05e1156b0ac67af88047464037984386eadc3c3e" datatype="html">
@@ -1724,7 +1748,7 @@
         <target state="translated">Geben Sie die Seriennummer des Tokens ein, den Sie mit Ihrem Benutzerkonto verknüpfen wollen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
       <trans-unit id="edf0eb379820c9c27f89ede50b4b4ce05732dc9e" datatype="html">
@@ -1736,7 +1760,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">37</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
@@ -1772,7 +1796,7 @@
         <target state="translated">Geben sie eine Beschreibung für den Token ein.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">40</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
@@ -1804,7 +1828,7 @@
         <target state="translated">Token zuweisen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
-          <context context-type="linenumber">37</context>
+          <context context-type="linenumber">51</context>
         </context-group>
       </trans-unit>
       <trans-unit id="c8dc3bbd3e851ab333ac19aa5f32c3d9552843ff" datatype="html">
@@ -1812,7 +1836,7 @@
         <target state="translated">Der Token wurde mit ihrem Benutzerkonto erfolgreich verknüpft.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
-          <context context-type="linenumber">52</context>
+          <context context-type="linenumber">66</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-yubico/enroll-yubico-dialog.component.html</context>
@@ -1864,7 +1888,7 @@
         <target state="translated">Wiederholen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
-          <context context-type="linenumber">66</context>
+          <context context-type="linenumber">80</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-yubico/enroll-yubico-dialog.component.html</context>
