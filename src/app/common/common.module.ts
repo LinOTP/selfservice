@@ -11,6 +11,7 @@ import { SetPinDialogComponent } from './set-pin-dialog/set-pin-dialog.component
 import { SetMOTPPinDialogComponent } from './set-motp-pin-dialog/set-motp-pin-dialog.component';
 import { ResyncDialogComponent } from './resync-dialog/resync-dialog.component';
 import { SetDescriptionDialogComponent } from './set-description-dialog/set-description-dialog.component';
+import { GetSerialDialogComponent } from './get-serial-dialog/get-serial-dialog.component';
 
 import { UnreadyTokensPipe } from './pipes/unready-tokens.pipe';
 import { ActiveTokensPipe } from './pipes/active-tokens.pipe';
@@ -40,6 +41,7 @@ import { FocusOnInitDirective } from './focus-on-init/focus-on-init.directive';
     SetMOTPPinDialogComponent,
     ResyncDialogComponent,
     SetDescriptionDialogComponent,
+    GetSerialDialogComponent,
     UnreadyTokensPipe,
     ActiveTokensPipe,
     InactiveTokensPipe,
@@ -54,6 +56,7 @@ import { FocusOnInitDirective } from './focus-on-init/focus-on-init.directive';
     SetMOTPPinDialogComponent,
     ResyncDialogComponent,
     SetDescriptionDialogComponent,
+    GetSerialDialogComponent,
   ],
   providers: [
     NotificationService,
