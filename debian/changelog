@@ -1,3 +1,20 @@
+linotp-selfservice (0.6.0-1) buster; urgency=medium
+
+  Features:
+  * Following additional token types can be created:
+    * QR Token
+    * SMS
+    * Email
+    * MOTP
+    * YubiCloud
+  * Password tokens are supported on MFA login and can be tested from the token card menu
+  * When assigning a token, and if the policy `getserial` is enabled, the user can now determine its serial by entering a valid OTP
+
+  Bug Fixes:
+  * Push token can now be activated when the policy pin=password is enabled
+
+ -- KeyIdentity GmbH <packaging@keyidentity.com>  Thu, 06 Aug 2020 16:43:00 +0100
+
 linotp-selfservice (0.5.0-1) buster; urgency=medium
 
   Features:
