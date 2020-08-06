@@ -1,6 +1,8 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, tick } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+
+import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
 
 import { of } from 'rxjs';
 
@@ -11,10 +13,12 @@ import { MaterialModule } from '../../material.module';
 import { EnrollmentService } from '../../api/enrollment.service';
 
 import { AssignTokenDialogComponent } from './assign-token-dialog.component';
+import { GetSerialDialogComponent } from '../../common/get-serial-dialog/get-serial-dialog.component';
 
 describe('AssignTokenDialogComponent', () => {
   let component: AssignTokenDialogComponent;
   let fixture: ComponentFixture<AssignTokenDialogComponent>;
+  let dialog: jasmine.SpyObj<MatDialog>;
   let dialogRef: jasmine.SpyObj<MatDialogRef<AssignTokenDialogComponent>>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
 
@@ -22,6 +26,7 @@ describe('AssignTokenDialogComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         AssignTokenDialogComponent,
+        NgxPermissionsAllowStubDirective,
       ],
       imports: [
         MaterialModule,
@@ -32,6 +37,10 @@ describe('AssignTokenDialogComponent', () => {
         {
           provide: EnrollmentService,
           useValue: spyOnClass(EnrollmentService)
+        },
+        {
+          provide: MatDialog,
+          useValue: spyOnClass(MatDialog),
         },
         {
           provide: MatDialogRef,
@@ -52,6 +61,7 @@ describe('AssignTokenDialogComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
 
+    dialog = TestBed.get(MatDialog);
     dialogRef = TestBed.get(MatDialogRef);
     enrollmentService = TestBed.get(EnrollmentService);
   });
@@ -123,4 +133,34 @@ describe('AssignTokenDialogComponent', () => {
       expect(component.success).toEqual(false);
     });
   });
+
+  describe('getSerial', () => {
+    it('should open the getSerial dialog and assign the return value to the serial control', () => {
+
+      dialog.open.and.returnValue({ afterClosed: () => of('serial') });
+
+      expect(component.assignmentForm.controls.serial.value).toEqual('');
+
+      component.getSerial();
+      fixture.detectChanges();
+
+      expect(dialog.open).toHaveBeenCalledWith(GetSerialDialogComponent);
+      expect(component.assignmentForm.controls.serial.value).toEqual('serial');
+    });
+
+    it('should open the getSerial dialog and keep the serial unchanged if the return value is not truthy', () => {
+
+      dialog.open.and.returnValue({ afterClosed: () => of(false) });
+
+      component.assignmentForm.controls.serial.setValue('some value');
+
+      component.getSerial();
+      fixture.detectChanges();
+
+      expect(dialog.open).toHaveBeenCalledWith(GetSerialDialogComponent);
+      expect(component.assignmentForm.controls.serial.value).toEqual('some value');
+    });
+
+  });
+
 });

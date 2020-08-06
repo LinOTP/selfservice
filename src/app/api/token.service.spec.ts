@@ -133,4 +133,46 @@ describe('TokenService', () => {
     ));
   });
 
+  describe('getSerialByOTP', () => {
+    it('should request the token serial given an otp', async(
+      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+
+        const mockSerialResponse = {
+          result: {
+            value: {
+              serial: 'serial'
+            }
+          }
+        };
+
+        tokenService.getSerialByOTP('1234').subscribe(response => {
+          expect(response).toEqual('serial');
+        });
+
+        const tokenSerialRequest = backend.expectOne((req) => req.url === '/userservice/getSerialByOtp' && req.method === 'GET');
+
+        tokenSerialRequest.flush(mockSerialResponse);
+        backend.verify();
+      })
+    ));
+
+    it('should call the error handler on request failure', async(
+      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+
+        spyOn(console, 'error');
+
+        tokenService.getSerialByOTP('1234').subscribe(response => {
+          expect(response).toBe(null);
+        });
+
+        const tokenListRequest = backend.expectOne((req) => req.url === '/userservice/getSerialByOtp' && req.method === 'GET');
+
+        tokenListRequest.error(new ErrorEvent('Error getting token serial by OTP'));
+        backend.verify();
+
+        expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
+      })
+    ));
+  });
+
 });

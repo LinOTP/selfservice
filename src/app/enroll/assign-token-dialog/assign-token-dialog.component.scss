@@ -5,3 +5,17 @@ mat-form-field {
 mat-spinner {
   margin: 100px auto;
 }
+
+.get-serial-layout {
+  display: flex;
+  place-items: center;
+  margin: 1em 0;
+
+  p {
+    flex: 1;
+  }
+
+  &>*:not(:last-child) {
+    margin-right: 1em;
+  }
+}

@@ -4,8 +4,21 @@
                         #stepper>
 
   <mat-step [stepControl]="assignmentForm">
-    <p i18n>Claim an existing token and link it to your user account. You need to know its serial number in
-      advance.</p>
+    <p>
+      <ng-container i18n>Claim an existing token and link it to your user account.</ng-container>
+      <ng-container *ngxPermissionsExcept="permissions.GETSERIAL"
+                    i18n>You need to know its serial number in advance.</ng-container>
+    </p>
+    <div class="get-serial-layout"
+         *ngxPermissionsOnly="permissions.GETSERIAL">
+      <div i18n>If you do not have the token serial at hand, you can use a generated OTP value to determine the serial
+        of your token.</div>
+      <div>
+        <button mat-raised-button
+                (click)="getSerial()"
+                i18n>Determine Serial</button>
+      </div>
+    </div>
 
     <form [formGroup]="assignmentForm">
       <mat-form-field>
@@ -13,7 +26,8 @@
                i18n-placeholder
                placeholder="Token serial"
                formControlName="serial"
-               autofocus>
+               appFocusOnInit
+               #serialInput>
         <mat-error i18n>The token serial is required.</mat-error>
         <mat-hint i18n>Enter the serial number of the token you want to link to your user account.</mat-hint>
       </mat-form-field>
