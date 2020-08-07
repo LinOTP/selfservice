@@ -73,6 +73,11 @@ export interface UserSystemInfo extends SystemInfo {
   };
 }
 
+const locales = [
+  { id: 'en', name: 'English', shortName: 'EN' },
+  { id: 'de', name: 'Deutsch', shortName: 'DE' },
+];
+
 @Injectable({
   providedIn: 'root'
 })
@@ -141,5 +146,17 @@ export class SystemService {
       map(response => response.detail),
       map(SystemService.mapPoliciesToPermissions),
     );
+  }
+
+  /**
+   * get supported system locales
+   *
+   * This is only the list of frontend translations available, backend support is not assessed here.
+   *
+   * @returns list of locales
+   * @memberof SystemService
+   */
+  getLocales(): { id: string, name: string, shortName: string }[] {
+    return locales;
   }
 }

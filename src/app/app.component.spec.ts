@@ -11,6 +11,7 @@ import { MaterialModule } from './material.module';
 import { SessionService } from './auth/session.service';
 import { NotificationService } from './common/notification.service';
 import { LoginService } from './login/login.service';
+import { MockComponent } from '../testing/mock-component';
 
 describe('AppComponent', () => {
   let loginService: jasmine.SpyObj<LoginService>;
@@ -24,6 +25,7 @@ describe('AppComponent', () => {
       ],
       declarations: [
         AppComponent,
+        MockComponent({ selector: 'app-language-picker' }),
       ],
       providers: [
         {
