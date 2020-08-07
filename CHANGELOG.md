@@ -1,3 +1,20 @@
+<a name="0.6.0"></a>
+## 0.6.0 (2020-08-06)
+
+### Features:
+* Following token types can now be created:
+  * QR Token
+  * SMS
+  * Email
+  * MOTP
+  * YubiCloud
+* Password tokens are supported on MFA login and can be tested from the token card menu
+* When assigning a token, and if the policy `getserial` is enabled, the user can now determine its serial by entering a valid OTP
+
+### Bug Fixes:
+* Push token can now be activated when the policy pin=password is enabled
+
+
 <a name="0.5.0"></a>
 ## 0.5.0 (2020-03-26)
 
