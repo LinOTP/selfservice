@@ -57,7 +57,7 @@
   <mat-card-content>
     <div *ngIf="factors && factors.length > 0; else noFactors">
       <p i18n><b>Please choose your preferred authentication method to verify your login:</b></p>
-      <mat-action-list class="tokenList">
+      <mat-action-list class="token-list">
         <button mat-list-item
                 *ngFor="let token of factors; index as i"
                 class="token token-list-item"
@@ -84,6 +84,19 @@
           Cancel
         </button>
       </mat-action-list>
+      <div *ngIf="showKeyboardTip"
+           class="keyboard-hint">
+        <div>
+          <div class="message"
+               i18n>Tip: You can use your keyboard to select a token</div>
+          <div class="keys"
+               i18n>
+            <app-keyboard-key icon="keyboard_arrow_up"></app-keyboard-key> +
+            <app-keyboard-key icon="keyboard_arrow_down"></app-keyboard-key> and
+            <app-keyboard-key icon="keyboard_return"></app-keyboard-key>
+          </div>
+        </div>
+      </div>
     </div>
     <ng-template #noFactors>
       <p i18n>You do not own any valid tokens or there was a problem retrieving them from the server.

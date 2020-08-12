@@ -56,3 +56,17 @@ span.selectedToken {
 .token.mat-list-item {
   height: 96px!important;
 }
+
+.keyboard-hint {
+  margin-top: 2em;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  color: rgba(0, 0, 0, 0.54);
+
+  &>* {
+    border: 1px solid currentColor;
+    padding: .5em 1em;
+    text-align: center;
+  }
+}

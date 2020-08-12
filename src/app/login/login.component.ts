@@ -10,6 +10,7 @@ import { NotificationService } from '../common/notification.service';
 import { Token, TokenType } from '../api/token';
 import { SystemService, SystemInfo } from '../system.service';
 import { LoginService, LoginOptions } from './login.service';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 export enum LoginStage {
   USER_PW_INPUT = 1,
@@ -41,6 +42,7 @@ export class LoginComponent implements OnInit {
   loginStage = LoginStage.USER_PW_INPUT;
 
   @ViewChildren('tokenListItem', { read: ElementRef }) tokenChoiceItems: QueryList<ElementRef>;
+  showKeyboardTip: boolean;
 
   constructor(
     private loginService: LoginService,
@@ -50,6 +52,7 @@ export class LoginComponent implements OnInit {
     private i18n: I18n,
     private systemService: SystemService,
     private formBuilder: FormBuilder,
+    private breakpointObserver: BreakpointObserver,
   ) { }
 
   ngOnInit() {
@@ -83,6 +86,13 @@ export class LoginComponent implements OnInit {
         );
       }
     });
+    this.breakpointObserver.observe([
+      Breakpoints.XSmall,
+      Breakpoints.Small,
+    ]).subscribe(result => {
+      this.showKeyboardTip = !result.matches;
+    });
+
   }
 
   login() {

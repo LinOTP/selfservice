@@ -145,7 +145,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/login/login.component.html</context>
-          <context context-type="linenumber">104</context>
+          <context context-type="linenumber">117</context>
         </context-group>
       </trans-unit>
       <trans-unit id="08c74dc9762957593b91f6eb5d65efdfc975bf48" datatype="html">
@@ -194,6 +194,30 @@
           <context context-type="linenumber">59</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="e6f0a8b4896fa822c7082777c40a987d6146147a" datatype="html">
+        <source>Tip: You can use your keyboard to select a token</source>
+        <target state="final">Tip: You can use your keyboard to select a token</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/login/login.component.html</context>
+          <context context-type="linenumber">91</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d812ae3875654de5f82ee3c60714387edc151b30" datatype="html">
+        <source>
+            <x id="START_TAG_APP-KEYBOARD-KEY" ctype="x-app-keyboard-key" equiv-text="&lt;app-keyboard-key>"/><x id="CLOSE_TAG_APP-KEYBOARD-KEY" ctype="x-app-keyboard-key" equiv-text="&lt;/app-keyboard-key>"/> +
+            <x id="START_TAG_APP-KEYBOARD-KEY_1" ctype="x-app-keyboard-key" equiv-text="&lt;app-keyboard-key>"/><x id="CLOSE_TAG_APP-KEYBOARD-KEY" ctype="x-app-keyboard-key" equiv-text="&lt;/app-keyboard-key>"/> and
+            <x id="START_TAG_APP-KEYBOARD-KEY_2" ctype="x-app-keyboard-key" equiv-text="&lt;app-keyboard-key>"/><x id="CLOSE_TAG_APP-KEYBOARD-KEY" ctype="x-app-keyboard-key" equiv-text="&lt;/app-keyboard-key>"/>
+          </source>
+        <target state="final">
+            <x id="START_TAG_APP-KEYBOARD-KEY" ctype="x-app-keyboard-key" equiv-text="&lt;app-keyboard-key>"/><x id="CLOSE_TAG_APP-KEYBOARD-KEY" ctype="x-app-keyboard-key" equiv-text="&lt;/app-keyboard-key>"/> +
+            <x id="START_TAG_APP-KEYBOARD-KEY_1" ctype="x-app-keyboard-key" equiv-text="&lt;app-keyboard-key>"/><x id="CLOSE_TAG_APP-KEYBOARD-KEY" ctype="x-app-keyboard-key" equiv-text="&lt;/app-keyboard-key>"/> and
+            <x id="START_TAG_APP-KEYBOARD-KEY_2" ctype="x-app-keyboard-key" equiv-text="&lt;app-keyboard-key>"/><x id="CLOSE_TAG_APP-KEYBOARD-KEY" ctype="x-app-keyboard-key" equiv-text="&lt;/app-keyboard-key>"/>
+          </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/login/login.component.html</context>
+          <context context-type="linenumber">93</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="72785e167b1bee636ba19d59244be178ef56f496" datatype="html">
         <source>You do not own any valid tokens or there was a problem retrieving them from the server.
         Please contact an administrator.</source>
@@ -201,7 +225,7 @@
         Please contact an administrator.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/login/login.component.html</context>
-          <context context-type="linenumber">89</context>
+          <context context-type="linenumber">102</context>
         </context-group>
       </trans-unit>
       <trans-unit id="41f9d2b008b1ac61c20fd6bc7a600b4ac84b3370" datatype="html">
@@ -223,7 +247,7 @@
         <note priority="1" from="meaning">2nd factor login action</note>
         <context-group purpose="location">
           <context context-type="sourcefile">app/login/login.component.html</context>
-          <context context-type="linenumber">136</context>
+          <context context-type="linenumber">149</context>
         </context-group>
       </trans-unit>
       <trans-unit id="525364a6908ae8e6c2df13a331dbb15b222b8a85" datatype="html">
@@ -233,7 +257,7 @@
         <note priority="1" from="meaning">2nd factor login action</note>
         <context-group purpose="location">
           <context context-type="sourcefile">app/login/login.component.html</context>
-          <context context-type="linenumber">140</context>
+          <context context-type="linenumber">153</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5c62052c5de6811ae77d69038645b41fed7495ec" datatype="html">
@@ -251,7 +275,7 @@
       </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/login/login.component.html</context>
-          <context context-type="linenumber">106</context>
+          <context context-type="linenumber">119</context>
         </context-group>
       </trans-unit>
       <trans-unit id="f9ad527883fe8eb2b420b7693b4d11f8a61e67c7" datatype="html">
@@ -263,7 +287,7 @@
       </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/login/login.component.html</context>
-          <context context-type="linenumber">113</context>
+          <context context-type="linenumber">126</context>
         </context-group>
       </trans-unit>
       <trans-unit id="a27aa7003fc78f442de2e6cef5d4332dfffd47cc" datatype="html">
@@ -275,7 +299,7 @@
       </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/login/login.component.html</context>
-          <context context-type="linenumber">117</context>
+          <context context-type="linenumber">130</context>
         </context-group>
       </trans-unit>
       <trans-unit id="b346c3d093bbdb8c62a4b5ab162cfcee44d9250e" datatype="html">
@@ -283,7 +307,7 @@
         <target state="final"><x id="INTERPOLATION" equiv-text="{{ selectedToken.typeDetails.type === TokenType.PASSWORD? 'Password':'OTP' }}"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/login/login.component.html</context>
-          <context context-type="linenumber">124</context>
+          <context context-type="linenumber">137</context>
         </context-group>
       </trans-unit>
       <trans-unit id="ab83372b3d4d9be3ad01e4e94dd5b94dd34411f0" datatype="html">

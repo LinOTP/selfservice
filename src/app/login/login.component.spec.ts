@@ -17,6 +17,7 @@ import { SystemService } from '../system.service';
 
 import { LoginComponent, LoginStage } from './login.component';
 import { LoginService } from './login.service';
+import { MockComponent } from '../../testing/mock-component';
 
 class Page extends TestingPage<LoginComponent> {
 
@@ -58,6 +59,7 @@ describe('LoginComponent', () => {
       declarations: [
         LoginComponent,
         MockPipe({ 'name': 'capitalize' }),
+        MockComponent({ selector: 'app-keyboard-key', inputs: ['icon', 'symbol'] }),
       ],
       providers: [
         {

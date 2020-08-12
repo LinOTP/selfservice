@@ -145,7 +145,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/login/login.component.html</context>
-          <context context-type="linenumber">104</context>
+          <context context-type="linenumber">117</context>
         </context-group>
       </trans-unit>
       <trans-unit id="08c74dc9762957593b91f6eb5d65efdfc975bf48" datatype="html">
@@ -194,13 +194,35 @@
           <context context-type="linenumber">59</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="e6f0a8b4896fa822c7082777c40a987d6146147a" datatype="html">
+        <source>Tip: You can use your keyboard to select a token</source>
+        <target state="translated">Tipp: Sie können zur Auswahl eines Tokens Ihre Tastatur verwenden</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/login/login.component.html</context>
+          <context context-type="linenumber">91</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d812ae3875654de5f82ee3c60714387edc151b30" datatype="html">
+        <source>
+            <x id="START_TAG_APP-KEYBOARD-KEY" ctype="x-app-keyboard-key" equiv-text="&lt;app-keyboard-key>"/><x id="CLOSE_TAG_APP-KEYBOARD-KEY" ctype="x-app-keyboard-key" equiv-text="&lt;/app-keyboard-key>"/> +
+            <x id="START_TAG_APP-KEYBOARD-KEY_1" ctype="x-app-keyboard-key" equiv-text="&lt;app-keyboard-key>"/><x id="CLOSE_TAG_APP-KEYBOARD-KEY" ctype="x-app-keyboard-key" equiv-text="&lt;/app-keyboard-key>"/> and
+            <x id="START_TAG_APP-KEYBOARD-KEY_2" ctype="x-app-keyboard-key" equiv-text="&lt;app-keyboard-key>"/><x id="CLOSE_TAG_APP-KEYBOARD-KEY" ctype="x-app-keyboard-key" equiv-text="&lt;/app-keyboard-key>"/>
+          </source>
+        <target state="translated"><x id="START_TAG_APP-KEYBOARD-KEY" ctype="x-app-keyboard-key" equiv-text="&lt;app-keyboard-key>"/><x id="CLOSE_TAG_APP-KEYBOARD-KEY" ctype="x-app-keyboard-key" equiv-text="&lt;/app-keyboard-key>"/> +
+            <x id="START_TAG_APP-KEYBOARD-KEY_1" ctype="x-app-keyboard-key" equiv-text="&lt;app-keyboard-key>"/><x id="CLOSE_TAG_APP-KEYBOARD-KEY" ctype="x-app-keyboard-key" equiv-text="&lt;/app-keyboard-key>"/> und
+            <x id="START_TAG_APP-KEYBOARD-KEY_2" ctype="x-app-keyboard-key" equiv-text="&lt;app-keyboard-key>"/><x id="CLOSE_TAG_APP-KEYBOARD-KEY" ctype="x-app-keyboard-key" equiv-text="&lt;/app-keyboard-key>"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/login/login.component.html</context>
+          <context context-type="linenumber">93</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="72785e167b1bee636ba19d59244be178ef56f496" datatype="html">
         <source>You do not own any valid tokens or there was a problem retrieving them from the server.
         Please contact an administrator.</source>
         <target state="translated">Sie besitzen keine gültige Token oder es ist ein Problem aufgetreten. Kontaktieren Sie bitte einen Administrator.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/login/login.component.html</context>
-          <context context-type="linenumber">89</context>
+          <context context-type="linenumber">102</context>
         </context-group>
       </trans-unit>
       <trans-unit id="41f9d2b008b1ac61c20fd6bc7a600b4ac84b3370" datatype="html">
@@ -222,7 +244,7 @@
         <note priority="1" from="meaning">2nd factor login action</note>
         <context-group purpose="location">
           <context context-type="sourcefile">app/login/login.component.html</context>
-          <context context-type="linenumber">136</context>
+          <context context-type="linenumber">149</context>
         </context-group>
       </trans-unit>
       <trans-unit id="525364a6908ae8e6c2df13a331dbb15b222b8a85" datatype="html">
@@ -232,7 +254,7 @@
         <note priority="1" from="meaning">2nd factor login action</note>
         <context-group purpose="location">
           <context context-type="sourcefile">app/login/login.component.html</context>
-          <context context-type="linenumber">140</context>
+          <context context-type="linenumber">153</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5c62052c5de6811ae77d69038645b41fed7495ec" datatype="html">
@@ -243,11 +265,11 @@
         <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span>"/>
       </source>
         <target state="translated">
-        Zweiten Faktor:
+        Zweiter Faktor:
         <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span>"/><x id="INTERPOLATION" equiv-text="{{ selectedToken.typeDetails.name }}"/> mit Seriennummer <x id="INTERPOLATION_1" equiv-text="{{ selectedToken.serial }}"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span>"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/login/login.component.html</context>
-          <context context-type="linenumber">106</context>
+          <context context-type="linenumber">119</context>
         </context-group>
       </trans-unit>
       <trans-unit id="f9ad527883fe8eb2b420b7693b4d11f8a61e67c7" datatype="html">
@@ -259,7 +281,7 @@
       </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/login/login.component.html</context>
-          <context context-type="linenumber">113</context>
+          <context context-type="linenumber">126</context>
         </context-group>
       </trans-unit>
       <trans-unit id="a27aa7003fc78f442de2e6cef5d4332dfffd47cc" datatype="html">
@@ -271,7 +293,7 @@
       </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/login/login.component.html</context>
-          <context context-type="linenumber">117</context>
+          <context context-type="linenumber">130</context>
         </context-group>
       </trans-unit>
       <trans-unit id="b346c3d093bbdb8c62a4b5ab162cfcee44d9250e" datatype="html">
@@ -279,7 +301,7 @@
         <target state="translated">{{ selectedToken.typeDetails.type === TokenType.PASSWORD? 'Passwort':'OTP' }}</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/login/login.component.html</context>
-          <context context-type="linenumber">124</context>
+          <context context-type="linenumber">137</context>
         </context-group>
       </trans-unit>
       <trans-unit id="ab83372b3d4d9be3ad01e4e94dd5b94dd34411f0" datatype="html">
@@ -514,7 +536,10 @@
         Enter your token PIN or password if you have set a PIN or you are
         required to enter your password for OTP authentication:
       </source>
-        <target state="translated">Geben Sie Ihren PIN oder Ihr Passwort ein, falls Sie eine PIN gesetzt haben, oder für die Authentifizierung ein Passwort erforderlich ist:</target>
+        <target state="translated">
+        Geben Sie Ihren PIN oder Ihr Passwort ein, falls Sie eine PIN gesetzt haben,
+        oder für die Authentifizierung ein Passwort erforderlich ist:
+      </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">11</context>
@@ -524,7 +549,9 @@
         <source>
         In the next step your Authenticator app will be verified by the authentication server.
       </source>
-        <target state="translated">Im nächsten Schritt wird der Authentifizierungsserver Ihre Authenticator App verifizieren.</target>
+        <target state="translated">
+        Im nächsten Schritt wird der Authentifizierungsserver Ihre Authenticator App verifizieren.
+      </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">28</context>
@@ -534,7 +561,9 @@
         <source>
         In the next step your Authenticator app will receive a test challenge.
       </source>
-        <target state="translated">Im nächsten Schritt wird Ihre Authenticator App eine Test-Challenge erhalten.</target>
+        <target state="translated">
+        Im nächsten Schritt wird Ihre Authenticator App eine Test-Challenge erhalten.
+      </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">32</context>
@@ -544,7 +573,7 @@
         <source>
         Please confirm the challenge on the app.
       </source>
-        <target state="translated">Bitte bestätigen Sie die Challenge auf der App.</target>
+        <target state="translated">Bitte bestätigen Sie die Challenge auf der App. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">36</context>
@@ -585,7 +614,7 @@
       </trans-unit>
       <trans-unit id="4178468f9628e21fa1644fe7d2edc21ff04b187e" datatype="html">
         <source>Before you proceed you may set a token description, which should help you identify your token:</source>
-        <target state="translated">Vorher haben Sie noch die Möglichkeit, eine Beschreibung für Ihren Token festzulegen, damit Sie ihn besser identifizieren können.</target>
+        <target state="translated">Vorher haben Sie noch die Möglichkeit, eine Beschreibung für Ihren Token festzulegen, damit Sie ihn besser identifizieren können:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
           <context context-type="linenumber">19</context>
@@ -730,7 +759,7 @@
       </trans-unit>
       <trans-unit id="9146aa5475e06ddd15c6357d18cdb879fc7e3dd7" datatype="html">
         <source>Activation failed. Please try again, or contact an administrator. </source>
-        <target state="translated">Aktivierung fehlgeschlagen. Bitte versuchen Sie erneut, oder kontaktieren Sie einen Administrator.</target>
+        <target state="translated">Aktivierung fehlgeschlagen. Bitte versuchen Sie erneut, oder kontaktieren Sie einen Administrator. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">107</context>
@@ -738,7 +767,7 @@
       </trans-unit>
       <trans-unit id="4a8cea38b1e551b84e8bd8829675ba9b76db53a7" datatype="html">
         <source>Test failed. Please try again, or contact an administrator. </source>
-        <target state="translated">Test fehlgeschlagen. Bitte versuchen Sie erneut, oder kontaktieren Sie einen Administrator.</target>
+        <target state="translated">Test fehlgeschlagen. Bitte versuchen Sie erneut, oder kontaktieren Sie einen Administrator. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">109</context>
@@ -770,7 +799,7 @@
       </trans-unit>
       <trans-unit id="465c9124367167d05be50609f0e6fe54003933a3" datatype="html">
         <source> The activation was successful. Your token is ready to be used. </source>
-        <target state="translated">Die Aktivierung war erfolgreich. Ihr Token ist betriebsbereit.</target>
+        <target state="translated">Die Aktivierung war erfolgreich. Ihr Token ist betriebsbereit. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">122</context>
@@ -778,7 +807,7 @@
       </trans-unit>
       <trans-unit id="b1819d619f3c742a688fad4aa657be36234f7391" datatype="html">
         <source> The test was successful. Your token is ready to be used. </source>
-        <target state="translated">Der Test war erfolgreich. Ihr Token ist betriebsbereit.</target>
+        <target state="translated">Der Test war erfolgreich. Ihr Token ist betriebsbereit. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">124</context>
@@ -802,7 +831,7 @@
       </trans-unit>
       <trans-unit id="951febbd09e10bb8a7aafc4cab659fd59d0c8274" datatype="html">
         <source> Restart activation </source>
-        <target state="translated">Aktivierung neustarten</target>
+        <target state="translated"> Aktivierung neustarten </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">142</context>
@@ -810,7 +839,7 @@
       </trans-unit>
       <trans-unit id="aba7b8c677251d42c2d5d65187240d9ad9f84a51" datatype="html">
         <source> Restart test </source>
-        <target state="translated">Test neustarten</target>
+        <target state="translated"> Test neustarten </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">147</context>
@@ -1005,7 +1034,7 @@
         <source> There was a problem with this token and it cannot be used. Make
           sure to delete it and reset your Authenticator app before enrolling
           a new push token. </source>
-        <target state="translated">Ein Problem ist aufgetreten und dieser Token kann nicht benutzt werden. Bitte löschen Sie ihn und setzen Sie Ihre Authenticator-App zurück, bevor Sie einen neuen Push-Token ausrollen.</target>
+        <target state="translated">Ein Problem ist aufgetreten und dieser Token kann nicht benutzt werden. Bitte löschen Sie ihn und setzen Sie Ihre Authenticator-App zurück, bevor Sie einen neuen Push-Token ausrollen. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
           <context context-type="linenumber">21</context>
@@ -1015,7 +1044,7 @@
         <source> This token needs to be paired with your mobile. You need the
           enrollment QR code to proceed in the authenticator mobile
           application. Afterwards you can start the activation here. </source>
-        <target state="translated">Dieser Token muss erst auf Ihrem Smartphone registriert werden. Dazu benötigen Sie die Authenticator-App, die mit einem QR-Code initialisiert wird. Danach können Sie den Token hier aktivieren.</target>
+        <target state="translated">Dieser Token muss erst auf Ihrem Smartphone registriert werden. Dazu benötigen Sie die Authenticator-App, die mit einem QR-Code initialisiert wird. Danach können Sie den Token hier aktivieren. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
           <context context-type="linenumber">25</context>
@@ -1024,7 +1053,7 @@
       <trans-unit id="d473d029d358e150abd113d09d002da620ff73a3" datatype="html">
         <source> This token is paired with your mobile. The next step is the
         activation: </source>
-        <target state="translated">Dieser Token ist mit Ihrem Smartphone verknüpft. Der nächste Schritt ist die Aktivierung:</target>
+        <target state="translated">Dieser Token ist mit Ihrem Smartphone verknüpft. Der nächste Schritt ist die Aktivierung: </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
           <context context-type="linenumber">30</context>
@@ -1033,7 +1062,8 @@
       <trans-unit id="afec43bc64ee5c8c75a71c560bccf04ffd37d68f" datatype="html">
         <source> An activation challenge has been generated. Please process it with
         your Authenticator app. </source>
-        <target state="translated">Eine Aktivierungsanfrage wurde erzeugt, die Sie mit Ihrer Authenticator-App bestätigen können.</target>
+        <target state="translated"> Eine Aktivierungsanfrage wurde erzeugt, die Sie mit Ihrer
+        Authenticator-App bestätigen können. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
           <context context-type="linenumber">33</context>
@@ -1333,7 +1363,7 @@
       </trans-unit>
       <trans-unit id="462b21d50f98df48c09552372c58da87f8e17157" datatype="html">
         <source>The field cannot be empty.</source>
-        <target state="translated">Das Feld darf nicht leer sein</target>
+        <target state="translated">Das Feld darf nicht leer sein.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-motp-dialog/enroll-motp-dialog.component.html</context>
           <context context-type="linenumber">32</context>
@@ -1400,7 +1430,8 @@
       <trans-unit id="4363e0b383a29643fd4e5cd36d997afc268c4189" datatype="html">
         <source>Once you have the Authenticator installed on your device, you can set a description for your new token
       and start the enrollment process: </source>
-        <target state="translated">Sobald Sie die Authenticator-App auf Ihrem Smartphone installiert haben, können Sie eine Beschreibung für Ihren Token setzen und den Einrichtungsvorgang starten:</target>
+        <target state="translated">Sobald Sie die Authenticator-App auf Ihrem Smartphone installiert haben, können Sie eine Beschreibung für
+      Ihren Token setzen und den Einrichtungsvorgang starten: </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
           <context context-type="linenumber">17</context>
@@ -1556,7 +1587,7 @@
       </trans-unit>
       <trans-unit id="8b29018f336508426906d0fb7ac6f9665e62e530" datatype="html">
         <source>You do not have permissions to disable this token.</source>
-        <target state="translated">Sie sind nicht berechtigt, den Token zu deaktivieren</target>
+        <target state="translated">Sie sind nicht berechtigt, den Token zu deaktivieren.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
           <context context-type="linenumber">142</context>
