@@ -14,6 +14,7 @@ export interface TokenTypeDetails {
   activationPermission?: Permission;
   enrollmentType?: string;
   enrollmentActionLabel?: string;
+  authenticationPrompt?: string;
 }
 
 export enum TokenType {

@@ -51,43 +51,63 @@
   </mat-card>
 </form>
 
-<form (ngSubmit)="chooseSecondFactor(selectedToken)"
-      id="loginFormStage2"
-      *ngIf="loginStage === 2">
-  <mat-card>
-    <mat-card-title i18n="card header|login page title">Login</mat-card-title>
-    <mat-card-content>
-      <div *ngIf="factors && factors.length > 0; else noFactors">
-        <p i18n>Please select which token to use as your second factor:</p>
-        <mat-form-field>
-          <mat-select [(ngModel)]="selectedToken"
-                      name="selectedToken"
-                      appFocusOnInit>
-            <mat-option *ngFor="let token of factors"
-                        [value]="token">
-              <strong>{{ token.typeDetails.type | capitalize}}</strong> {{token.serial}} ({{ token.description }})
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+<mat-card id="loginStage2"
+          *ngIf="loginStage === 2">
+  <mat-card-title i18n="card header|login page title">Login</mat-card-title>
+  <mat-card-content>
+    <div *ngIf="factors && factors.length > 0; else noFactors">
+      <p i18n><b>Please choose your preferred authentication method to verify your login:</b></p>
+      <mat-action-list class="token-list">
+        <button mat-list-item
+                *ngFor="let token of factors; index as i"
+                class="token token-list-item"
+                #tokenListItem
+                (click)="chooseSecondFactor(token)">
+          <h3 matLine
+              class="token-list-item-heading">
+            <mat-icon>{{token.typeDetails.icon}}</mat-icon>
+            {{token.typeDetails.name}}
+          </h3>
+          <p matLine
+             class="token-list-item-description">
+            {{token.description}} ({{token.serial}})
+          </p>
+          <p matLine
+             class="token-list-item-prompt">
+            {{token.typeDetails.authenticationPrompt}}
+          </p>
+        </button>
+        <button mat-list-item
+                class="cancel token-list-item"
+                #tokenListItem
+                (click)="resetAuthForm()">
+          Cancel
+        </button>
+      </mat-action-list>
+      <div *ngIf="showKeyboardTip"
+           class="keyboard-hint">
+        <div>
+          <div class="message"
+               i18n>Tip: You can use your keyboard to select a token</div>
+          <div class="keys"
+               i18n>
+            <app-keyboard-key icon="keyboard_arrow_up"></app-keyboard-key> +
+            <app-keyboard-key icon="keyboard_arrow_down"></app-keyboard-key> and
+            <app-keyboard-key icon="keyboard_return"></app-keyboard-key>
+          </div>
+        </div>
       </div>
-      <ng-template #noFactors>
-        <p i18n>You do not own any valid tokens or there was a problem retrieving them from the server.
-          Please contact an administrator.</p>
-      </ng-template>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-button
-              type="reset"
-              color="primary"
-              (click)="resetAuthForm()"
-              i18n="2nd factor login action|login page second factor cancel button">Cancel</button>
+    </div>
+    <ng-template #noFactors>
+      <p i18n>You do not own any valid tokens or there was a problem retrieving them from the server.
+        Please contact an administrator.</p>
       <button mat-raised-button
-              type="submit"
-              color="primary"
-              i18n="2nd factor login action|login page second factor submit button">Submit</button>
-    </mat-card-actions>
-  </mat-card>
-</form>
+              (click)="resetAuthForm()">
+        Retry
+      </button>
+    </ng-template>
+  </mat-card-content>
+</mat-card>
 
 <form [formGroup]="secondFactorFormGroup"
       (ngSubmit)="submitSecondFactor()"

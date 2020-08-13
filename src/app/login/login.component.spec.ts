@@ -1,6 +1,6 @@
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { of } from 'rxjs';
@@ -17,15 +17,21 @@ import { SystemService } from '../system.service';
 
 import { LoginComponent, LoginStage } from './login.component';
 import { LoginService } from './login.service';
+import { MockComponent } from '../../testing/mock-component';
 
 class Page extends TestingPage<LoginComponent> {
 
   public getLoginForm() {
     return this.query('#loginFormStage1');
   }
-  public getTokenSelectionForm() {
-    return this.query('#loginFormStage2');
+
+  public getTokenSelection() {
+    return this.query('#loginStage2');
   }
+  public getTokenListItems() {
+    return this.getTokenSelection().querySelectorAll('.token-list .token-list-item');
+  }
+
   public getOTPForm() {
     return this.query('#loginFormStage3');
   }
@@ -53,6 +59,7 @@ describe('LoginComponent', () => {
       declarations: [
         LoginComponent,
         MockPipe({ 'name': 'capitalize' }),
+        MockComponent({ selector: 'app-keyboard-key', inputs: ['icon', 'symbol'] }),
       ],
       providers: [
         {
@@ -94,13 +101,13 @@ describe('LoginComponent', () => {
   describe('login', () => {
     it('should render first stage login form on component init', () => {
       expect(page.getLoginForm()).toBeFalsy();
-      expect(page.getTokenSelectionForm()).toBeFalsy();
+      expect(page.getTokenSelection()).toBeFalsy();
       expect(page.getOTPForm()).toBeFalsy();
 
       fixture.detectChanges();
 
       expect(page.getLoginForm()).toBeTruthy();
-      expect(page.getTokenSelectionForm()).toBeFalsy();
+      expect(page.getTokenSelection()).toBeFalsy();
       expect(page.getOTPForm()).toBeFalsy();
     });
 
@@ -183,8 +190,9 @@ describe('LoginComponent', () => {
 
       const tokens = [Fixtures.completedPushToken];
       loginService.login.and.returnValue(of({ needsSecondFactor: true, success: false, tokens: tokens }));
+      loginService.requestSecondFactorTransaction.and.returnValue(of(true));
       spyOn(component, 'redirect');
-      spyOn(component, 'chooseSecondFactor');
+      spyOn(component, 'chooseSecondFactor').and.callThrough();
 
       component.loginFormGroup.value.username = 'user';
       component.loginFormGroup.value.password = 'pass';
@@ -202,38 +210,58 @@ describe('LoginComponent', () => {
       expect(component.selectedToken).toEqual(tokens[0]);
     });
 
-    it('should store tokens and preselect the first valid token if second factor is needed and user has more than one token', () => {
-      fixture.detectChanges();
+    it(
+      'should store tokens and select a token on mouse click if second factor is needed and user has more than one token',
+      fakeAsync(() => {
+        fixture.detectChanges();
 
-      expect(page.getLoginForm()).toBeTruthy();
-      expect(page.getTokenSelectionForm()).toBeFalsy();
+        expect(page.getLoginForm()).toBeTruthy();
+        expect(page.getTokenSelection()).toBeFalsy();
 
-      const tokens = [Fixtures.completedPushToken, Fixtures.completedQRToken];
-      loginService.login.and.returnValue(of({ needsSecondFactor: true, success: false, tokens: tokens }));
-      spyOn(component, 'redirect');
+        const tokens = [Fixtures.completedPushToken, Fixtures.completedQRToken];
+        loginService.login.and.returnValue(of({ needsSecondFactor: true, success: false, tokens: tokens }));
+        loginService.requestSecondFactorTransaction.and.returnValue(of(true));
+        spyOn(component, 'redirect');
 
-      component.loginFormGroup.value.username = 'user';
-      component.loginFormGroup.value.password = 'pass';
-      fixture.detectChanges();
+        component.loginFormGroup.value.username = 'user';
+        component.loginFormGroup.value.password = 'pass';
+        fixture.detectChanges();
 
-      expect(component.factors).toEqual([]);
-      expect(component.selectedToken).toBeFalsy();
+        expect(component.factors).toEqual([]);
+        expect(component.selectedToken).toBeFalsy();
 
-      component.login();
+        component.login();
 
-      fixture.detectChanges();
+        fixture.detectChanges();
+        tick();
 
-      expect(page.getLoginForm()).toBeFalsy();
-      expect(page.getTokenSelectionForm()).toBeTruthy();
+        expect(page.getLoginForm()).toBeFalsy();
+        expect(page.getTokenSelection()).toBeTruthy();
 
-      expect(loginService.login).toHaveBeenCalledWith({ username: 'user', password: 'pass' });
-      expect(notificationService.message).not.toHaveBeenCalledWith('Login failed');
-      expect(component.redirect).not.toHaveBeenCalled();
+        expect(loginService.login).toHaveBeenCalledWith({ username: 'user', password: 'pass' });
+        expect(notificationService.message).not.toHaveBeenCalledWith('Login failed');
+        expect(component.redirect).not.toHaveBeenCalled();
 
-      expect(component.factors).toEqual(tokens);
-      expect(component.selectedToken).toEqual(tokens[0]);
-      expect(component.loginStage).toEqual(LoginStage.TOKEN_CHOICE);
-    });
+        expect(component.factors).toEqual(tokens);
+        expect(component.selectedToken).toBeUndefined();
+        expect(component.loginStage).toEqual(LoginStage.TOKEN_CHOICE);
+
+        const tokenList = page.getTokenListItems();
+
+        expect(tokenList.length).toBe(tokens.length + 1); // lists all tokens and a cancel button
+        if ((tokenList[1] as HTMLElement).click) {
+          (tokenList[1] as HTMLElement).click();
+        } else {
+          throw new Error('Expected tokenList element to be of type HTMLElement with click() method');
+
+        }
+
+        fixture.detectChanges();
+
+        expect(component.selectedToken).toEqual(tokens[1]);
+        expect(component.loginStage).toEqual(LoginStage.OTP_INPUT);
+      })
+    );
 
     it('should display error notification if second factor is needed but user has no tokens', () => {
       fixture.detectChanges();
@@ -298,7 +326,7 @@ describe('LoginComponent', () => {
       expect(loginService.requestSecondFactorTransaction).toHaveBeenCalledWith('user', token.serial);
       expect(component.redirect).not.toHaveBeenCalled();
       expect(notificationService.message).toHaveBeenCalledWith(problemMessage, 20000);
-      expect(page.getTokenSelectionForm()).toBeTruthy();
+      expect(page.getTokenSelection()).toBeTruthy();
     });
   });
 

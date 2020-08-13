@@ -31,6 +31,7 @@ import { AssignTokenDialogComponent } from './enroll/assign-token-dialog/assign-
 import { EnrollYubicoDialogComponent } from './enroll/enroll-yubico/enroll-yubico-dialog.component';
 import { EnrollPasswordDialogComponent } from './enroll/enroll-password-dialog/enroll-password-dialog.component';
 import { LanguagePickerComponent } from './language-picker/language-picker.component';
+import { KeyboardKeyComponent } from './keyboard-key/keyboard-key.component';
 
 declare const require;
 
@@ -52,6 +53,7 @@ declare const require;
     TestDialogComponent,
     ActivateDialogComponent,
     LanguagePickerComponent,
+    KeyboardKeyComponent,
   ],
   entryComponents: [
     ActivateDialogComponent,

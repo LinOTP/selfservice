@@ -1,3 +1,6 @@
+@import './../../theme.scss';
+$primary: map-get($theme, primary);
+
 #loginCard {
   width: 25em;
   margin: 0 auto;
@@ -23,5 +26,47 @@ span.selectedToken {
 
   &::first-letter {
     text-transform: uppercase
+  }
+}
+
+#loginStage2 .token-list > * {
+  border-left: 5px solid transparent;
+  &:focus {
+    border-left-color: mat-color($primary, 400);
+  }
+}
+
+.token-list-item-heading {
+  text-transform: capitalize;
+  mat-icon {
+    vertical-align: middle;
+    margin-right: 3px;
+  }
+}
+
+.token-list-item-description {
+  color: rgba(0, 0, 0, 0.54);
+  font-style: italic;
+}
+
+.token-list-item-prompt {
+  padding-top: 4px!important;
+}
+
+.token.mat-list-item {
+  height: 96px!important;
+}
+
+.keyboard-hint {
+  margin-top: 2em;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  color: rgba(0, 0, 0, 0.54);
+
+  &>* {
+    border: 1px solid currentColor;
+    padding: .5em 1em;
+    text-align: center;
   }
 }

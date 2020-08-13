@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList, ElementRef, HostListener } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -10,6 +10,7 @@ import { NotificationService } from '../common/notification.service';
 import { Token, TokenType } from '../api/token';
 import { SystemService, SystemInfo } from '../system.service';
 import { LoginService, LoginOptions } from './login.service';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 export enum LoginStage {
   USER_PW_INPUT = 1,
@@ -20,7 +21,7 @@ export enum LoginStage {
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
 
@@ -40,6 +41,9 @@ export class LoginComponent implements OnInit {
 
   loginStage = LoginStage.USER_PW_INPUT;
 
+  @ViewChildren('tokenListItem', { read: ElementRef }) tokenChoiceItems: QueryList<ElementRef>;
+  showKeyboardTip: boolean;
+
   constructor(
     private loginService: LoginService,
     public notificationService: NotificationService,
@@ -48,6 +52,7 @@ export class LoginComponent implements OnInit {
     private i18n: I18n,
     private systemService: SystemService,
     private formBuilder: FormBuilder,
+    private breakpointObserver: BreakpointObserver,
   ) { }
 
   ngOnInit() {
@@ -81,6 +86,13 @@ export class LoginComponent implements OnInit {
         );
       }
     });
+    this.breakpointObserver.observe([
+      Breakpoints.XSmall,
+      Breakpoints.Small,
+    ]).subscribe(result => {
+      this.showKeyboardTip = !result.matches;
+    });
+
   }
 
   login() {
@@ -110,17 +122,46 @@ export class LoginComponent implements OnInit {
           20000
         );
       } else if (result.tokens.length === 1) {
-        this.selectedToken = result.tokens[0];
         this.chooseSecondFactor(result.tokens[0]);
       } else {
         this.factors = result.tokens;
-        this.selectedToken = this.factors[0];
         this.loginStage = LoginStage.TOKEN_CHOICE;
+        setTimeout(() => {
+          this.tokenChoiceItems.first.nativeElement.focus();
+        });
       }
     });
   }
 
+  @HostListener('body:keydown') moveSelection(event: KeyboardEvent) {
+    if (this.loginStage !== LoginStage.TOKEN_CHOICE) {
+      return;
+    }
+
+    const eventElement = event.target as HTMLElement;
+
+    let targetElement: HTMLElement;
+    switch (event.key) {
+      case 'ArrowRight':
+      case 'ArrowDown':
+        targetElement = eventElement.classList.contains('token-list-item') && eventElement.nextElementSibling as HTMLElement
+          || this.tokenChoiceItems.first.nativeElement as HTMLElement;
+        break;
+      case 'ArrowLeft':
+      case 'ArrowUp':
+        targetElement = eventElement.classList.contains('token-list-item') && eventElement.previousElementSibling as HTMLElement
+          || this.tokenChoiceItems.last.nativeElement as HTMLElement;
+        break;
+    }
+
+    if (targetElement) {
+      targetElement.focus();
+      return false;
+    }
+  }
+
   chooseSecondFactor(token: Token) {
+    this.selectedToken = token;
     const user = this.loginFormGroup.value.username;
     this.loginService.requestSecondFactorTransaction(user, token.serial)
       .subscribe(requestOK => {

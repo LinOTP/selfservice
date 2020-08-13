@@ -68,6 +68,7 @@ export class TokenService {
       icon: 'keyboard',
       enrollmentPermission: Permission.ENROLLPASSWORD,
       enrollmentActionLabel: this.i18n('Create'),
+      authenticationPrompt: this.i18n('Enter the token password'),
     },
     {
       type: TokenType.HOTP,
@@ -77,6 +78,7 @@ export class TokenService {
       enrollmentPermission: Permission.ENROLLHOTP,
       enrollmentType: 'googleauthenticator',
       enrollmentActionLabel: this.i18n('Create'),
+      authenticationPrompt: this.i18n('Enter OTP from event-based soft token'),
     },
     {
       type: TokenType.TOTP,
@@ -86,24 +88,27 @@ export class TokenService {
       enrollmentPermission: Permission.ENROLLTOTP,
       enrollmentType: 'googleauthenticator_time',
       enrollmentActionLabel: this.i18n('Create'),
+      authenticationPrompt: this.i18n('Enter OTP from time-based soft token'),
     },
     {
       type: TokenType.PUSH,
       name: this.i18n('Push-Token'),
-      description: this.i18n('Confirm authentication requests on your Smartphone with the Authenticator app'),
+      description: this.i18n('Confirm authentication requests on your smartphone with the Authenticator app'),
       icon: 'screen_lock_portrait',
       enrollmentPermission: Permission.ENROLLPUSH,
       activationPermission: Permission.ACTIVATEPUSH,
       enrollmentActionLabel: this.i18n('Create'),
+      authenticationPrompt: this.i18n('Confirm the authentication using your smartphone'),
     },
     {
       type: TokenType.QR,
       name: this.i18n('QR-Token'),
       description: this.i18n('Use the Authenticator app to scan QR code authentication requests'),
-      icon: 'all_out',
+      icon: 'qr_code',
       enrollmentPermission: Permission.ENROLLQR,
       activationPermission: Permission.ACTIVATEQR,
       enrollmentActionLabel: this.i18n('Create'),
+      authenticationPrompt: this.i18n('Confirm the authentication by scanning a QR code'),
     },
     {
       type: TokenType.MOTP,
@@ -112,6 +117,7 @@ export class TokenService {
       icon: 'stay_current_portrait',
       enrollmentPermission: Permission.ENROLLMOTP,
       enrollmentActionLabel: this.i18n('Create'),
+      authenticationPrompt: this.i18n('Enter OTP from mOTP token'),
     },
     {
       type: TokenType.SMS,
@@ -120,6 +126,7 @@ export class TokenService {
       icon: 'textsms',
       enrollmentPermission: Permission.ENROLLSMS,
       enrollmentActionLabel: this.i18n('Create'),
+      authenticationPrompt: this.i18n('Enter OTP delivered via SMS'),
     },
     {
       type: TokenType.EMAIL,
@@ -128,6 +135,7 @@ export class TokenService {
       icon: 'email',
       enrollmentPermission: Permission.ENROLLEMAIL,
       enrollmentActionLabel: this.i18n('Create'),
+      authenticationPrompt: this.i18n('Enter OTP delivered via email'),
     },
     {
       type: TokenType.YUBICO,
@@ -136,6 +144,7 @@ export class TokenService {
       icon: 'vpn_key', // TODO: we might want to use an official logo here
       enrollmentPermission: Permission.ENROLLYUBICO,
       enrollmentActionLabel: this.i18n('Register'),
+      authenticationPrompt: this.i18n('Authenticate using your Yubikey token (YubiCloud)'),
     },
     {
       type: TokenType.ASSIGN,
