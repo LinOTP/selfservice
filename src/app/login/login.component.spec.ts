@@ -18,6 +18,7 @@ import { SystemService } from '../system.service';
 import { LoginComponent, LoginStage } from './login.component';
 import { LoginService } from './login.service';
 import { MockComponent } from '../../testing/mock-component';
+import { Token } from '../api/token';
 
 class Page extends TestingPage<LoginComponent> {
 
@@ -42,6 +43,10 @@ class Page extends TestingPage<LoginComponent> {
 
   public clickTokenListItem(index: number) {
     this.getTokenListItems()[index].click();
+  }
+
+  public focusTokenListItem(index: number) {
+    this.getTokenListItems()[index].focus();
   }
 
   public getOTPForm() {
@@ -350,6 +355,75 @@ describe('LoginComponent', () => {
       expect(component.redirect).not.toHaveBeenCalled();
       expect(notificationService.message).toHaveBeenCalledWith(problemMessage, 20000);
       expect(page.getTokenSelection()).toBeTruthy();
+    });
+
+    describe('keyboard support', () => {
+      let tokens: Token[];
+      let tokenListItems: NodeListOf<HTMLElement>;
+
+      beforeEach(() => {
+        tokens = [Fixtures.completedPushToken, Fixtures.completedQRToken];
+        component.factors = tokens;
+        component.loginStage = LoginStage.TOKEN_CHOICE;
+        fixture.detectChanges();
+        tokenListItems = page.getTokenListItems();
+      });
+
+      it('should loop through token list items arrow down and arrow right key', () => {
+        page.focusTokenListItem(0);
+        for (let i = 0; i < tokenListItems.length; i++) {
+          expect(document.activeElement).toEqual(tokenListItems[i]);
+          page.sendKeyboardEvent('ArrowDown');
+        }
+        for (let i = 0; i < tokenListItems.length; i++) {
+          expect(document.activeElement).toEqual(tokenListItems[i]);
+          page.sendKeyboardEvent('ArrowRight');
+        }
+        expect(document.activeElement).toEqual(tokenListItems[0]);
+      });
+
+      it('should loop through token list items arrow up and arrow left key', () => {
+        page.focusTokenListItem(0);
+        for (let i = tokenListItems.length; i > 0; i--) {
+          expect(document.activeElement).toEqual(tokenListItems[i % tokenListItems.length]);
+          page.sendKeyboardEvent('ArrowUp');
+        }
+        for (let i = tokenListItems.length; i > 0; i--) {
+          expect(document.activeElement).toEqual(tokenListItems[i % tokenListItems.length]);
+          page.sendKeyboardEvent('ArrowLeft');
+        }
+        expect(document.activeElement).toEqual(tokenListItems[0]);
+      });
+
+      it('should focus first token if no token was focused and down arrow is pressed', () => {
+        if (document.activeElement instanceof HTMLElement) {
+          document.activeElement.blur();
+        } else {
+          throw new Error('Expected document.activeElement to be of type HTMLElement');
+        }
+        page.sendKeyboardEvent('ArrowDown');
+        expect(document.activeElement).toEqual(tokenListItems[0]);
+      });
+
+      it('should focus last token if no token was focused and up arrow is pressed', () => {
+        if (document.activeElement instanceof HTMLElement) {
+          document.activeElement.blur();
+        } else {
+          throw new Error('Expected document.activeElement to be of type HTMLElement');
+        }
+        page.sendKeyboardEvent('ArrowUp');
+        expect(document.activeElement).toEqual(tokenListItems[tokenListItems.length - 1]);
+      });
+
+      it('should ignore key presses other than the registered keys', () => {
+        expect(component.moveSelection(new KeyboardEvent('keydown', { key: 'a' }))).toBe(undefined);
+      });
+
+      it('should ignore key presses on login stages other than token selection', () => {
+        component.loginStage = LoginStage.USER_PW_INPUT;
+
+        expect(component.moveSelection(new KeyboardEvent('keydown', { key: 'ArrowDown' }))).toBe(undefined);
+      });
     });
   });
 
