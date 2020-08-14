@@ -125,16 +125,23 @@ describe('LoginComponent', () => {
     });
 
     it('should include realm select if enabled in systemInfo', () => {
-      systemService.getSystemInfo.and.returnValue(of({
-        ...Fixtures.systemInfo,
-        settings: {
-          ...Fixtures.systemInfo.settings,
-          realm_box: true,
-        },
-      }));
+      loginService.login.and.returnValue(of({ needsSecondFactor: false, success: true }));
+
+      const sysInfo = Fixtures.systemInfo;
+      sysInfo.settings.realm_box = true;
+      systemService.getSystemInfo.and.returnValue(of(sysInfo));
+
       fixture.detectChanges();
 
       expect(page.getLoginForm().querySelector('mat-select[name="realm"]')).toBeTruthy();
+
+      component.loginFormGroup.value.username = 'user';
+      component.loginFormGroup.value.password = 'pass';
+      component.loginFormGroup.value.realm = 'realm';
+      fixture.detectChanges();
+
+      component.login();
+      expect(loginService.login).toHaveBeenCalledWith({ username: 'user', password: 'pass', realm: 'realm' });
     });
 
     it('should NOT include otp field in login stage if disabled in systemInfo', () => {
@@ -145,12 +152,23 @@ describe('LoginComponent', () => {
     });
 
     it('should include otp field in login stage if enabled in systemInfo', () => {
+      loginService.login.and.returnValue(of({ needsSecondFactor: false, success: true }));
+
       const sysInfo = Fixtures.systemInfo;
       sysInfo.settings.mfa_3_fields = true;
       systemService.getSystemInfo.and.returnValue(of(sysInfo));
+
       fixture.detectChanges();
 
       expect(page.getLoginForm().querySelector('input[name="otp"]')).toBeTruthy();
+
+      component.loginFormGroup.value.username = 'user';
+      component.loginFormGroup.value.password = 'pass';
+      component.loginFormGroup.value.otp = 'otp';
+      fixture.detectChanges();
+
+      component.login();
+      expect(loginService.login).toHaveBeenCalledWith({ username: 'user', password: 'pass', otp: 'otp' });
     });
 
     it('should redirect the user on successful login', () => {
