@@ -28,8 +28,20 @@ class Page extends TestingPage<LoginComponent> {
   public getTokenSelection() {
     return this.query('#loginStage2');
   }
+
   public getTokenListItems() {
-    return this.getTokenSelection().querySelectorAll('.token-list .token-list-item');
+    const items = this.getTokenSelection().querySelectorAll('.token-list .token-list-item') as NodeListOf<HTMLElement>;
+    items.forEach(i => {
+      // make sure that the forced type cast is correct for each item
+      if (!(i instanceof HTMLElement)) {
+        throw new Error('Expected tokenList element to be of type HTMLElement with click() and focus() methods');
+      }
+    });
+    return items;
+  }
+
+  public clickTokenListItem(index: number) {
+    this.getTokenListItems()[index].click();
   }
 
   public getOTPForm() {
@@ -264,15 +276,8 @@ describe('LoginComponent', () => {
         expect(component.selectedToken).toBeUndefined();
         expect(component.loginStage).toEqual(LoginStage.TOKEN_CHOICE);
 
-        const tokenList = page.getTokenListItems();
-
-        expect(tokenList.length).toBe(tokens.length + 1); // lists all tokens and a cancel button
-        if ((tokenList[1] as HTMLElement).click) {
-          (tokenList[1] as HTMLElement).click();
-        } else {
-          throw new Error('Expected tokenList element to be of type HTMLElement with click() method');
-
-        }
+        expect(page.getTokenListItems().length).toBe(tokens.length + 1); // lists all tokens and a cancel button
+        page.clickTokenListItem(1);
 
         fixture.detectChanges();
 
