@@ -18,6 +18,7 @@ import { SystemService } from '../system.service';
 import { LoginComponent, LoginStage } from './login.component';
 import { LoginService } from './login.service';
 import { MockComponent } from '../../testing/mock-component';
+import { Token } from '../api/token';
 
 class Page extends TestingPage<LoginComponent> {
 
@@ -28,8 +29,24 @@ class Page extends TestingPage<LoginComponent> {
   public getTokenSelection() {
     return this.query('#loginStage2');
   }
+
   public getTokenListItems() {
-    return this.getTokenSelection().querySelectorAll('.token-list .token-list-item');
+    const items = this.getTokenSelection().querySelectorAll('.token-list .token-list-item') as NodeListOf<HTMLElement>;
+    items.forEach(i => {
+      // make sure that the forced type cast is correct for each item
+      if (!(i instanceof HTMLElement)) {
+        throw new Error('Expected tokenList element to be of type HTMLElement with click() and focus() methods');
+      }
+    });
+    return items;
+  }
+
+  public clickTokenListItem(index: number) {
+    this.getTokenListItems()[index].click();
+  }
+
+  public focusTokenListItem(index: number) {
+    this.getTokenListItems()[index].focus();
   }
 
   public getOTPForm() {
@@ -125,16 +142,23 @@ describe('LoginComponent', () => {
     });
 
     it('should include realm select if enabled in systemInfo', () => {
-      systemService.getSystemInfo.and.returnValue(of({
-        ...Fixtures.systemInfo,
-        settings: {
-          ...Fixtures.systemInfo.settings,
-          realm_box: true,
-        },
-      }));
+      loginService.login.and.returnValue(of({ needsSecondFactor: false, success: true }));
+
+      const sysInfo = Fixtures.systemInfo;
+      sysInfo.settings.realm_box = true;
+      systemService.getSystemInfo.and.returnValue(of(sysInfo));
+
       fixture.detectChanges();
 
       expect(page.getLoginForm().querySelector('mat-select[name="realm"]')).toBeTruthy();
+
+      component.loginFormGroup.value.username = 'user';
+      component.loginFormGroup.value.password = 'pass';
+      component.loginFormGroup.value.realm = 'realm';
+      fixture.detectChanges();
+
+      component.login();
+      expect(loginService.login).toHaveBeenCalledWith({ username: 'user', password: 'pass', realm: 'realm' });
     });
 
     it('should NOT include otp field in login stage if disabled in systemInfo', () => {
@@ -145,12 +169,23 @@ describe('LoginComponent', () => {
     });
 
     it('should include otp field in login stage if enabled in systemInfo', () => {
+      loginService.login.and.returnValue(of({ needsSecondFactor: false, success: true }));
+
       const sysInfo = Fixtures.systemInfo;
       sysInfo.settings.mfa_3_fields = true;
       systemService.getSystemInfo.and.returnValue(of(sysInfo));
+
       fixture.detectChanges();
 
       expect(page.getLoginForm().querySelector('input[name="otp"]')).toBeTruthy();
+
+      component.loginFormGroup.value.username = 'user';
+      component.loginFormGroup.value.password = 'pass';
+      component.loginFormGroup.value.otp = 'otp';
+      fixture.detectChanges();
+
+      component.login();
+      expect(loginService.login).toHaveBeenCalledWith({ username: 'user', password: 'pass', otp: 'otp' });
     });
 
     it('should redirect the user on successful login', () => {
@@ -246,15 +281,8 @@ describe('LoginComponent', () => {
         expect(component.selectedToken).toBeUndefined();
         expect(component.loginStage).toEqual(LoginStage.TOKEN_CHOICE);
 
-        const tokenList = page.getTokenListItems();
-
-        expect(tokenList.length).toBe(tokens.length + 1); // lists all tokens and a cancel button
-        if ((tokenList[1] as HTMLElement).click) {
-          (tokenList[1] as HTMLElement).click();
-        } else {
-          throw new Error('Expected tokenList element to be of type HTMLElement with click() method');
-
-        }
+        expect(page.getTokenListItems().length).toBe(tokens.length + 1); // lists all tokens and a cancel button
+        page.clickTokenListItem(1);
 
         fixture.detectChanges();
 
@@ -327,6 +355,75 @@ describe('LoginComponent', () => {
       expect(component.redirect).not.toHaveBeenCalled();
       expect(notificationService.message).toHaveBeenCalledWith(problemMessage, 20000);
       expect(page.getTokenSelection()).toBeTruthy();
+    });
+
+    describe('keyboard support', () => {
+      let tokens: Token[];
+      let tokenListItems: NodeListOf<HTMLElement>;
+
+      beforeEach(() => {
+        tokens = [Fixtures.completedPushToken, Fixtures.completedQRToken];
+        component.factors = tokens;
+        component.loginStage = LoginStage.TOKEN_CHOICE;
+        fixture.detectChanges();
+        tokenListItems = page.getTokenListItems();
+      });
+
+      it('should loop through token list items arrow down and arrow right key', () => {
+        page.focusTokenListItem(0);
+        for (let i = 0; i < tokenListItems.length; i++) {
+          expect(document.activeElement).toEqual(tokenListItems[i]);
+          page.sendKeyboardEvent('ArrowDown');
+        }
+        for (let i = 0; i < tokenListItems.length; i++) {
+          expect(document.activeElement).toEqual(tokenListItems[i]);
+          page.sendKeyboardEvent('ArrowRight');
+        }
+        expect(document.activeElement).toEqual(tokenListItems[0]);
+      });
+
+      it('should loop through token list items arrow up and arrow left key', () => {
+        page.focusTokenListItem(0);
+        for (let i = tokenListItems.length; i > 0; i--) {
+          expect(document.activeElement).toEqual(tokenListItems[i % tokenListItems.length]);
+          page.sendKeyboardEvent('ArrowUp');
+        }
+        for (let i = tokenListItems.length; i > 0; i--) {
+          expect(document.activeElement).toEqual(tokenListItems[i % tokenListItems.length]);
+          page.sendKeyboardEvent('ArrowLeft');
+        }
+        expect(document.activeElement).toEqual(tokenListItems[0]);
+      });
+
+      it('should focus first token if no token was focused and down arrow is pressed', () => {
+        if (document.activeElement instanceof HTMLElement) {
+          document.activeElement.blur();
+        } else {
+          throw new Error('Expected document.activeElement to be of type HTMLElement');
+        }
+        page.sendKeyboardEvent('ArrowDown');
+        expect(document.activeElement).toEqual(tokenListItems[0]);
+      });
+
+      it('should focus last token if no token was focused and up arrow is pressed', () => {
+        if (document.activeElement instanceof HTMLElement) {
+          document.activeElement.blur();
+        } else {
+          throw new Error('Expected document.activeElement to be of type HTMLElement');
+        }
+        page.sendKeyboardEvent('ArrowUp');
+        expect(document.activeElement).toEqual(tokenListItems[tokenListItems.length - 1]);
+      });
+
+      it('should ignore key presses other than the registered keys', () => {
+        expect(component.moveSelection(new KeyboardEvent('keydown', { key: 'a' }))).toBe(undefined);
+      });
+
+      it('should ignore key presses on login stages other than token selection', () => {
+        component.loginStage = LoginStage.USER_PW_INPUT;
+
+        expect(component.moveSelection(new KeyboardEvent('keydown', { key: 'ArrowDown' }))).toBe(undefined);
+      });
     });
   });
 

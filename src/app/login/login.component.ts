@@ -133,7 +133,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  @HostListener('body:keydown') moveSelection(event: KeyboardEvent) {
+  @HostListener('body:keydown', ['$event']) moveSelection(event: KeyboardEvent) {
     if (this.loginStage !== LoginStage.TOKEN_CHOICE) {
       return;
     }
