@@ -8,9 +8,11 @@
     <h1 id="app-name">{{ title }}</h1>
   </div>
   <nav>
-    <a *ngFor="let link of navLinks"
-       mat-button
-       [routerLink]="link.path">{{ link.label }}</a>
+    <ng-container *ngIf="isLoggedIn">
+      <a *ngFor="let link of navLinks"
+         mat-button
+         [routerLink]="link.path">{{ link.label }}</a>
+    </ng-container>
   </nav>
   <app-language-picker></app-language-picker>
   <button *ngIf="isLoggedIn"
