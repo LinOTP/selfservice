@@ -180,6 +180,67 @@ describe('OperationsService', () => {
     ));
   });
 
+  describe('unassign token', () => {
+    const unassignRequestBody = { serial: 'serial', session: session };
+
+    it('should send an unassign request and return observable of true on success', async(
+      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+        operationsService.unassignToken('serial').subscribe(res => {
+          expect(res).toEqual(true);
+        });
+
+        const req = backend.expectOne({
+          url: '/userservice/unassign',
+          method: 'POST'
+        });
+
+        req.flush({ result: { value: { 'unassign token': true } } });
+
+        expect(req.request.body).toEqual(unassignRequestBody);
+        backend.verify();
+      })
+    ));
+
+    it('should send an unassign request and return observable of false on failure', async(
+      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+        operationsService.unassignToken('serial').subscribe(res => {
+          expect(res).toEqual(false);
+        });
+
+        const req = backend.expectOne({
+          url: '/userservice/unassign',
+          method: 'POST'
+        });
+
+        req.flush({ result: { value: { 'unassign token': false } } });
+
+        expect(req.request.body).toEqual(unassignRequestBody);
+        backend.verify();
+      })
+    ));
+
+    it('should call the error handler on request failure', async(
+      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+
+        spyOn(console, 'error');
+
+        operationsService.unassignToken('serial').subscribe(res => {
+          expect(res).toEqual(false);
+        });
+
+        const deleteRequest = backend.expectOne({
+          url: '/userservice/unassign',
+          method: 'POST'
+        });
+
+        deleteRequest.error(new ErrorEvent('Error unassigning token'));
+        backend.verify();
+
+        expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
+      })
+    ));
+  });
+
   describe('enable token', () => {
     const enableRequestBody = { serial: mockReadyDisabledToken.serial, session: session };
     it('should send a enable token request', async(

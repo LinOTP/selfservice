@@ -23,6 +23,7 @@ export class OperationsService {
     reset: 'reset',
     resync: 'resync',
     setDescription: 'setdescription',
+    unassign: 'unassign',
   };
 
   constructor(
@@ -152,6 +153,25 @@ export class OperationsService {
         }),
         catchError(this.tokenService.handleError('assign', { success: false })
         )
+      );
+  }
+
+  unassignToken(serial: string): Observable<boolean> {
+    const body = {
+      serial: serial,
+      session: this.sessionService.getSession()
+    };
+
+    return this.http.post<LinOTPResponse<{ 'unassign token': boolean }>>(this.userserviceBase + this.userserviceEndpoints.unassign, body)
+      .pipe(
+        map(response => {
+          if (response && response.result && response.result.value && response.result.value['unassign token']) {
+            return response.result.value['unassign token'];
+          } else {
+            return false;
+          }
+        }),
+        catchError(this.tokenService.handleError('unassignToken', false))
       );
   }
 
