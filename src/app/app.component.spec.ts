@@ -13,6 +13,11 @@ import { NotificationService } from './common/notification.service';
 import { LoginService } from './login/login.service';
 import { MockComponent } from '../testing/mock-component';
 
+
+const navLinks = [
+  { 'label': 'label', 'path': 'path/' },
+];
+
 describe('AppComponent', () => {
   let loginService: jasmine.SpyObj<LoginService>;
   let sessionService: jasmine.SpyObj<SessionService>;
@@ -71,5 +76,27 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('mat-toolbar').textContent).toContain('Self Service');
+  }));
+
+  it('should render navigation list if user is logged in', async(() => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const component = fixture.componentInstance;
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    component.isLoggedIn = true;
+    component.navLinks = navLinks;
+    fixture.detectChanges();
+    expect(compiled.querySelector('nav').textContent).toContain(navLinks[0].label);
+  }));
+
+  it('should not render navigation list if user is logged out', async(() => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const component = fixture.componentInstance;
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    component.isLoggedIn = false;
+    component.navLinks = navLinks;
+    fixture.detectChanges();
+    expect(compiled.querySelector('nav').textContent).not.toContain(navLinks[0].label);
   }));
 });
