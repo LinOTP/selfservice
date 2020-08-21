@@ -164,6 +164,34 @@ export class TokenCardComponent implements OnInit {
       });
   }
 
+  public unassign(): void {
+    const config = {
+      width: '35em',
+      data:
+      {
+        title: this.i18n('Unassign token?'),
+        text: this.i18n('You won\'t be able to use this token to authenticate yourself anymore.'),
+        confirmationLabel: this.i18n('unassign')
+      }
+    };
+
+    this.dialog
+      .open(DialogComponent, config)
+      .afterClosed()
+      .pipe(
+        filter((confirmed: boolean) => !!confirmed),
+        switchMap(() => this.operationsService.unassignToken(this.token.serial)),
+      )
+      .subscribe(success => {
+        if (success) {
+          this.notificationService.message(this.i18n('Token unassigned'));
+        } else {
+          this.notificationService.message(this.i18n('Error: could not unassign token'));
+        }
+        this.tokenUpdate.next();
+      });
+  }
+
   public pendingActions(): boolean {
     return this.pendingDelete() || this.pendingActivate();
   }

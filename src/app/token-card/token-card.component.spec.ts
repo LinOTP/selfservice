@@ -20,6 +20,7 @@ import { EnrollmentStatus } from '../api/token';
 import { ActivateDialogComponent } from '../activate/activate-dialog.component';
 import { TestDialogComponent } from '../test/test-dialog.component';
 import { TokenCardComponent } from './token-card.component';
+import { DialogComponent } from '../common/dialog/dialog.component';
 
 class Page extends TestingPage<TokenCardComponent> {
 
@@ -271,6 +272,59 @@ describe('TokenCardComponent', () => {
       tick();
 
       expect(notificationService.message).toHaveBeenCalledWith('Error: Could not disable token');
+      expect(tokenUpdateSpy).not.toHaveBeenCalled();
+    }));
+  });
+
+  describe('unassign token', () => {
+    const config = {
+      width: '35em',
+      data:
+      {
+        title: 'Unassign token?',
+        text: 'You won\'t be able to use this token to authenticate yourself anymore.',
+        confirmationLabel: 'unassign'
+      }
+    };
+
+    it('should notify user of successful unassignment', fakeAsync(() => {
+      matDialog.open.and.returnValue({ afterClosed: () => of(true) });
+      operationsService.unassignToken.and.returnValue(of(true));
+
+      component.token = Fixtures.activeHotpToken;
+      component.unassign();
+      tick();
+
+      expect(matDialog.open).toHaveBeenCalledWith(DialogComponent, config);
+      expect(operationsService.unassignToken).toHaveBeenCalledWith(Fixtures.activeHotpToken.serial);
+      expect(notificationService.message).toHaveBeenCalledTimes(1);
+      expect(notificationService.message).toHaveBeenCalledWith('Token unassigned');
+      expect(tokenUpdateSpy).toHaveBeenCalledTimes(1);
+    }));
+
+    it('should notify user of failed unassignment', fakeAsync(() => {
+      matDialog.open.and.returnValue({ afterClosed: () => of(true) });
+      operationsService.unassignToken.and.returnValue(of(false));
+
+      component.token = Fixtures.activeHotpToken;
+      component.unassign();
+      tick();
+
+      expect(matDialog.open).toHaveBeenCalledWith(DialogComponent, config);
+      expect(operationsService.unassignToken).toHaveBeenCalledWith(Fixtures.activeHotpToken.serial);
+      expect(notificationService.message).toHaveBeenCalled();
+      expect(tokenUpdateSpy).toHaveBeenCalledTimes(1);
+    }));
+
+    it('should not notify user if unassignment is cancelled', fakeAsync(() => {
+      matDialog.open.and.returnValue({ afterClosed: () => of(false) });
+
+      component.token = Fixtures.activeHotpToken;
+      component.unassign();
+      tick();
+
+      expect(matDialog.open).toHaveBeenCalledWith(DialogComponent, config);
+      expect(notificationService.message).not.toHaveBeenCalled();
       expect(tokenUpdateSpy).not.toHaveBeenCalled();
     }));
   });
