@@ -15,7 +15,7 @@
         <target state="final">Logout</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/app.component.html</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="e77b7184c15023e4183ece6097d1b8405de9bec3" datatype="html">
@@ -1568,12 +1568,20 @@
           <context context-type="linenumber">91</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="06eaf93a4e6dc114741c8e642a4e57026da436bf" datatype="html">
+        <source>Unassign</source>
+        <target state="final">Unassign</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/token-card/token-card.component.html</context>
+          <context context-type="linenumber">109</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="826b25211922a1b46436589233cb6f1a163d89b7" datatype="html">
         <source>Delete</source>
         <target state="final">Delete</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">109</context>
+          <context context-type="linenumber">116</context>
         </context-group>
       </trans-unit>
       <trans-unit id="ac6c9212896d39b23811ed2dadab7d07336ec559" datatype="html">
@@ -1581,11 +1589,11 @@
         <target state="final">Enable</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">117</context>
+          <context context-type="linenumber">124</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">127</context>
+          <context context-type="linenumber">134</context>
         </context-group>
       </trans-unit>
       <trans-unit id="95724277f3d8682a670cb4df13b822f6dd74119b" datatype="html">
@@ -1593,7 +1601,7 @@
         <target state="final">You do not have permissions to enable the token</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">124</context>
+          <context context-type="linenumber">131</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6766a926d80bb7763785621098dae459d6226429" datatype="html">
@@ -1601,11 +1609,11 @@
         <target state="final">Disable</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">135</context>
+          <context context-type="linenumber">142</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">145</context>
+          <context context-type="linenumber">152</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8b29018f336508426906d0fb7ac6f9665e62e530" datatype="html">
@@ -1613,7 +1621,7 @@
         <target state="final">You do not have permissions to disable this token.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">142</context>
+          <context context-type="linenumber">149</context>
         </context-group>
       </trans-unit>
       <trans-unit id="b9390719e13766d54b26e77014b04e7fe9bd8f49" datatype="html">
@@ -2649,6 +2657,46 @@
       <trans-unit id="67825c5bec4425c39e5171800d781892fb33d66f" datatype="html">
         <source>Token activated</source>
         <target state="final">Token activated</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c4a19a0641c893c681a77abc5108d6c5f3929e4f" datatype="html">
+        <source>Unassign token?</source>
+        <target state="final">Unassign token?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="984f5ab3da06c4a5a59e062df4c72a03cf88b67f" datatype="html">
+        <source>You won't be able to use this token to authenticate yourself anymore.</source>
+        <target state="final">You won't be able to use this token to authenticate yourself anymore.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="a0517c66b298486b59f87034c939d004e2294893" datatype="html">
+        <source>unassign</source>
+        <target state="final">unassign</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4b6648c3157bc9a812cbe4414f4bf5cd81832300" datatype="html">
+        <source>Token unassigned</source>
+        <target state="final">Token unassigned</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9125806705775a8ada9854536001fb5a51959e2e" datatype="html">
+        <source>Error: could not unassign token</source>
+        <target state="final">Error: could not unassign token</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
           <context context-type="linenumber">1</context>

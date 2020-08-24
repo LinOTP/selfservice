@@ -103,7 +103,14 @@
     </ng-container>
   </ng-container>
   <button mat-menu-item
-          (click)="delete()"
+          (click)="unassign()"
+          *ngxPermissionsOnly="Permission.UNASSIGN">
+    <mat-icon>link_off</mat-icon>
+    <span i18n>Unassign</span>
+  </button>
+  <button mat-menu-item
+          (click)="
+          delete()"
           *ngxPermissionsOnly="Permission.DELETE">
     <mat-icon>delete</mat-icon>
     <span i18n>Delete</span>
