@@ -224,8 +224,7 @@ describe('LoginComponent', () => {
       fixture.detectChanges();
 
       const tokens = [Fixtures.completedPushToken];
-      loginService.login.and.returnValue(of({ needsSecondFactor: true, success: false, tokens: tokens }));
-      loginService.requestSecondFactorTransaction.and.returnValue(of(true));
+      loginService.login.and.returnValues(of({ success: false, tokens: tokens }), of({ success: false, challengedata: {} }));
       spyOn(component, 'redirect');
       spyOn(component, 'chooseSecondFactor').and.callThrough();
 
@@ -254,8 +253,7 @@ describe('LoginComponent', () => {
         expect(page.getTokenSelection()).toBeFalsy();
 
         const tokens = [Fixtures.completedPushToken, Fixtures.completedQRToken];
-        loginService.login.and.returnValue(of({ needsSecondFactor: true, success: false, tokens: tokens }));
-        loginService.requestSecondFactorTransaction.and.returnValue(of(true));
+        loginService.login.and.returnValues(of({ success: false, tokens: tokens }), of({ success: true }));
         spyOn(component, 'redirect');
 
         component.loginFormGroup.value.username = 'user';
@@ -323,10 +321,9 @@ describe('LoginComponent', () => {
 
     it('should go to the third login stage if factor was chosen successfully', () => {
       spyOn(component, 'redirect');
-      loginService.requestSecondFactorTransaction.and.returnValue(of(true));
+      loginService.login.and.returnValue(of({ success: true }));
       const token = Fixtures.activeHotpToken;
 
-      component.loginFormGroup.value.username = 'user';
       component.loginStage = LoginStage.TOKEN_CHOICE;
       component.selectedToken = token;
       fixture.detectChanges();
@@ -334,27 +331,9 @@ describe('LoginComponent', () => {
       component.chooseSecondFactor(token);
       fixture.detectChanges();
 
-      expect(loginService.requestSecondFactorTransaction).toHaveBeenCalledWith('user', token.serial);
+      expect(loginService.login).toHaveBeenCalledWith({ serial: token.serial });
       expect(component.redirect).not.toHaveBeenCalled();
       expect(page.getOTPForm()).toBeTruthy();
-    });
-
-    it('should notify the user if there was a problem starting the transaction', () => {
-      spyOn(component, 'redirect');
-      loginService.requestSecondFactorTransaction.and.returnValue(of(false));
-      const token = Fixtures.activeHotpToken;
-      const problemMessage = 'There was a problem selecting the token. Please try again or contact an admin.';
-
-      component.loginFormGroup.value.username = 'user';
-      component.loginStage = LoginStage.TOKEN_CHOICE;
-      fixture.detectChanges();
-
-      component.chooseSecondFactor(token);
-
-      expect(loginService.requestSecondFactorTransaction).toHaveBeenCalledWith('user', token.serial);
-      expect(component.redirect).not.toHaveBeenCalled();
-      expect(notificationService.message).toHaveBeenCalledWith(problemMessage, 20000);
-      expect(page.getTokenSelection()).toBeTruthy();
     });
 
     describe('keyboard support', () => {
@@ -434,25 +413,25 @@ describe('LoginComponent', () => {
 
     it('should submit the OTP to the LoginService for the 2nd login step and return true on success', () => {
       spyOn(component, 'finalAuthenticationHandling');
-      loginService.loginSecondStep.and.returnValue(of(true));
+      loginService.login.and.returnValue(of({ success: true }));
       component.secondFactorFormGroup.value.otp = 'otp';
       fixture.detectChanges();
 
       component.submitSecondFactor();
 
-      expect(loginService.loginSecondStep).toHaveBeenCalledWith('otp');
+      expect(loginService.login).toHaveBeenCalledWith({ otp: 'otp' });
       expect(component.finalAuthenticationHandling).toHaveBeenCalledWith(true);
     });
 
     it('should submit the OTP to the LoginService for the 2nd login step and return false on failure', () => {
       spyOn(component, 'finalAuthenticationHandling');
-      loginService.loginSecondStep.and.returnValue(of(false));
+      loginService.login.and.returnValue(of({ success: false }));
       component.secondFactorFormGroup.value.otp = 'otp';
       fixture.detectChanges();
 
       component.submitSecondFactor();
 
-      expect(loginService.loginSecondStep).toHaveBeenCalledWith('otp');
+      expect(loginService.login).toHaveBeenCalledWith({ otp: 'otp' });
       expect(component.finalAuthenticationHandling).toHaveBeenCalledWith(false);
     });
   });
