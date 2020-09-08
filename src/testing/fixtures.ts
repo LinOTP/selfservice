@@ -420,3 +420,65 @@ export class ExampleAPIResponses {
     };
   }
 }
+
+export class TokenListFixtures {
+
+  static get mockReadyEnabledToken() {
+    const token = new Token(1, 'serial', Fixtures.tokenTypeDetails[TokenType.UNKNOWN], true, 'desc');
+    token.enrollmentStatus = EnrollmentStatus.COMPLETED;
+    return token;
+  }
+
+  static get mockReadyDisabledToken() {
+    const token = new Token(2, 'serial2', Fixtures.tokenTypeDetails[TokenType.UNKNOWN], false, 'desc');
+    token.enrollmentStatus = EnrollmentStatus.COMPLETED;
+    return token;
+  }
+
+  static get mockUnreadyDisabledToken() {
+    const token = new Token(3, 'serial3', Fixtures.tokenTypeDetails[TokenType.UNKNOWN], false, 'desc');
+    token.enrollmentStatus = EnrollmentStatus.UNPAIRED;
+    return token;
+  }
+
+  static get mockTokenList(): Token[] {
+    return [this.mockReadyEnabledToken, this.mockReadyDisabledToken, this.mockUnreadyDisabledToken];
+  }
+
+  static get mockTokenListFromBackend() {
+    return [
+      {
+        'LinOtp.TokenId': this.mockReadyEnabledToken.id,
+        'LinOtp.TokenSerialnumber': this.mockReadyEnabledToken.serial,
+        'LinOtp.TokenType': this.mockReadyEnabledToken.typeDetails.type,
+        'LinOtp.TokenDesc': this.mockReadyEnabledToken.description,
+        'LinOtp.Isactive': this.mockReadyEnabledToken.enabled,
+        'Enrollment': { 'status': this.mockReadyEnabledToken.enrollmentStatus }
+      },
+      {
+        'LinOtp.TokenId': this.mockReadyDisabledToken.id,
+        'LinOtp.TokenSerialnumber': this.mockReadyDisabledToken.serial,
+        'LinOtp.TokenType': this.mockReadyDisabledToken.typeDetails.type,
+        'LinOtp.TokenDesc': this.mockReadyDisabledToken.description,
+        'LinOtp.Isactive': this.mockReadyDisabledToken.enabled,
+        'Enrollment': { 'status': this.mockReadyDisabledToken.enrollmentStatus }
+      },
+      {
+        'LinOtp.TokenId': this.mockUnreadyDisabledToken.id,
+        'LinOtp.TokenSerialnumber': this.mockUnreadyDisabledToken.serial,
+        'LinOtp.TokenType': this.mockUnreadyDisabledToken.typeDetails.type,
+        'LinOtp.TokenDesc': this.mockUnreadyDisabledToken.description,
+        'LinOtp.Isactive': this.mockUnreadyDisabledToken.enabled,
+        'Enrollment': { 'status': 'not completed', 'detail': this.mockUnreadyDisabledToken.enrollmentStatus }
+      }
+    ];
+  }
+
+  static get mockGetTokensResponse() {
+    return {
+      result: {
+        value: this.mockTokenListFromBackend
+      }
+    };
+  }
+}
