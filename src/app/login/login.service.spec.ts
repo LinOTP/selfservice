@@ -9,7 +9,7 @@ import { NgxPermissionsService } from 'ngx-permissions';
 import { of } from 'rxjs';
 
 import { spyOnClass } from '../../testing/spyOnClass';
-import { Fixtures } from '../../testing/fixtures';
+import { Fixtures, TokenListFixtures } from '../../testing/fixtures';
 
 import { MaterialModule } from '../material.module';
 import { SessionService } from '../auth/session.service';
@@ -72,7 +72,7 @@ describe('LoginService', () => {
       inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
 
         loginService.login({ username: 'user', password: 'pass' }).subscribe(response => {
-          expect(response).toEqual({ needsSecondFactor: false, success: true });
+          expect(response).toEqual({ success: true });
         });
 
         const loginRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');
@@ -87,14 +87,14 @@ describe('LoginService', () => {
 
         loginService.login({ username: 'user', password: 'pass', realm: 'myrealm', otp: 'myotp' })
           .subscribe(response => {
-            expect(response).toEqual({ needsSecondFactor: false, success: true });
+            expect(response).toEqual({ success: true });
           });
 
         const loginRequest = backend.expectOne('/userservice/login');
         expect(loginRequest.request.url).toBe('/userservice/login');
         expect(loginRequest.request.method).toBe('POST');
         expect(Object.keys(loginRequest.request.body).sort()).toEqual(
-          ['login', 'password', 'realm', 'otp'].sort()
+          ['username', 'password', 'realm', 'otp'].sort()
         );
         expect(loginRequest.request.body.realm).toBe('myrealm');
         expect(loginRequest.request.body.otp).toBe('myotp');
@@ -110,7 +110,7 @@ describe('LoginService', () => {
         spyOn(loginService, 'handleLogin');
 
         loginService.login({ username: 'user', password: 'pass' }).subscribe(response => {
-          expect(response).toEqual({ needsSecondFactor: false, success: true });
+          expect(response).toEqual({ success: true });
         });
 
         const loginRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');
@@ -124,7 +124,7 @@ describe('LoginService', () => {
       inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
 
         loginService.login({ username: 'user', password: 'pass' }).subscribe(response => {
-          expect(response).toEqual({ needsSecondFactor: false, success: false });
+          expect(response).toEqual({ success: false });
         });
 
         const loginRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');
@@ -139,7 +139,7 @@ describe('LoginService', () => {
         spyOn(loginService, 'handleLogin');
 
         loginService.login({ username: 'user', password: 'pass' }).subscribe(response => {
-          expect(response).toEqual({ needsSecondFactor: false, success: false });
+          expect(response).toEqual({ success: false });
         });
 
         const loginRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');
@@ -155,7 +155,7 @@ describe('LoginService', () => {
         spyOn(console, 'error');
 
         loginService.login({ username: 'user', password: 'pass' }).subscribe(response => {
-          expect(response).toEqual({ needsSecondFactor: null, success: false });
+          expect(response).toEqual({ success: false });
         });
 
         const loginRequest = backend.expectOne({
@@ -173,14 +173,14 @@ describe('LoginService', () => {
 
   describe('requestSecondFactorTransaction', () => {
 
-    it('should request a challenge transaction for the first token and return its status', async(
+    it('should request a challenge transaction', async(
       inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
-        loginService.requestSecondFactorTransaction('user', Fixtures.completedPushToken.serial).subscribe(response => {
-          expect(response).toEqual(true);
+        loginService.login({ serial: Fixtures.completedPushToken.serial }).subscribe(response => {
+          expect(response).toEqual({ success: false });
         });
 
         const tokenValidationRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');
-        tokenValidationRequest.flush({ result: { status: true } });
+        tokenValidationRequest.flush({ result: { status: true, value: false } });
 
         backend.verify();
       })
@@ -191,17 +191,14 @@ describe('LoginService', () => {
 
     it('should request a list of completed tokens for the user and return them', async(
       inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
-        const secondFactorMessage = 'credential verified - additional authentication parameter required';
-        const tokens = [Fixtures.completedPushToken, Fixtures.completedQRToken];
-        tokenService.getTokens.and.returnValue(of(tokens));
+        tokenService.mapBackendToken.and.returnValues(...TokenListFixtures.mockTokenList);
 
         loginService.login({ username: 'user', password: 'pass' }).subscribe(response => {
-          expect(response).toEqual({ needsSecondFactor: true, success: false, tokens: tokens });
-          expect(tokenService.getTokens).toHaveBeenCalled();
+          expect(response).toEqual({ success: false, tokens: TokenListFixtures.mockTokenList });
         });
 
         const loginRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');
-        loginRequest.flush({ detail: { message: secondFactorMessage }, result: { value: false } });
+        loginRequest.flush({ detail: { tokenList: TokenListFixtures.mockTokenListFromBackend }, result: { status: true, value: false } });
 
         backend.verify();
       })
@@ -210,8 +207,8 @@ describe('LoginService', () => {
     it('loginSecondStep should authenticate the user on correct OTP', async(
       inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
 
-        loginService.loginSecondStep('otp').subscribe(response => {
-          expect(response).toEqual(true);
+        loginService.login({ otp: 'otp' }).subscribe(response => {
+          expect(response).toEqual({ success: true });
         });
 
         const loginRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');
@@ -224,8 +221,8 @@ describe('LoginService', () => {
     it('loginSecondStep should fail to authenticate the user on wwrong OTP', async(
       inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
 
-        loginService.loginSecondStep('otp').subscribe(response => {
-          expect(response).toEqual(false);
+        loginService.login({ otp: 'otp' }).subscribe(response => {
+          expect(response).toEqual({ success: false });
         });
 
         const loginRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');

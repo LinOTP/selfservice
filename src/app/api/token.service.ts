@@ -32,10 +32,9 @@ export class TokenService {
   getTokens(): Observable<Token[]> {
     const url = this.userserviceBase + this.userserviceEndpoints.tokens;
     return this.http.get<LinOTPResponse<any[]>>(url, { params: { session: this.sessionService.getSession() } }).pipe(
-      map(t => this.mapTokenResponse(t)))
-      .pipe(
-        catchError(this.handleError('getTokens', []))
-      );
+      map(res => res.result.value.map(t => this.mapBackendToken(t))),
+      catchError(this.handleError('getTokens', []))
+    );
   }
 
   getToken(serial: string): Observable<Token> {
@@ -44,19 +43,16 @@ export class TokenService {
     );
   }
 
-  mapTokenResponse(res: LinOTPResponse<any[]>) {
-    // TODO: Catch API Errors
-    return res.result.value.map(token => {
-      const t = new Token(
-        token['LinOtp.TokenId'],
-        token['LinOtp.TokenSerialnumber'],
-        this.getTypeDetails(token['LinOtp.TokenType']),
-        token['LinOtp.Isactive'],
-        token['LinOtp.TokenDesc']
-      );
-      t.enrollmentStatus = token['Enrollment']['status'] === 'completed' ? 'completed' : token['Enrollment']['detail'];
-      return t;
-    });
+  mapBackendToken(token: any): Token {
+    const t = new Token(
+      token['LinOtp.TokenId'],
+      token['LinOtp.TokenSerialnumber'],
+      this.getTypeDetails(token['LinOtp.TokenType']),
+      token['LinOtp.Isactive'],
+      token['LinOtp.TokenDesc']
+    );
+    t.enrollmentStatus = token['Enrollment']['status'] === 'completed' ? 'completed' : token['Enrollment']['detail'];
+    return t;
   }
 
 

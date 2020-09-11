@@ -7,7 +7,7 @@ import { I18n } from '@ngx-translate/i18n-polyfill';
 import { map } from 'rxjs/operators';
 
 import { NotificationService } from '../common/notification.service';
-import { Token, TokenType } from '../api/token';
+import { Token, TokenType, TokenTypeDetails } from '../api/token';
 import { SystemService, SystemInfo } from '../system.service';
 import { LoginService, LoginOptions } from './login.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
   systemInfo: SystemInfo;
 
   factors: Token[] = [];
-  selectedToken: Token;
+  selectedToken: { serial: string; typeDetails: TokenTypeDetails };
 
   loginStage = LoginStage.USER_PW_INPUT;
 
@@ -113,8 +113,13 @@ export class LoginComponent implements OnInit {
     }
 
     this.loginService.login(loginOptions).subscribe(result => {
+      if (result.challengedata) {
+        this.selectedToken = result.challengedata.token;
+        this.loginStage = LoginStage.OTP_INPUT;
+        return;
+      }
 
-      if (!result.needsSecondFactor) {
+      if (!result.tokens) {
         this.finalAuthenticationHandling(result.success);
       } else if (result.tokens.length === 0) {
         this.notificationService.message(
@@ -162,23 +167,15 @@ export class LoginComponent implements OnInit {
 
   chooseSecondFactor(token: Token) {
     this.selectedToken = token;
-    const user = this.loginFormGroup.value.username;
-    this.loginService.requestSecondFactorTransaction(user, token.serial)
-      .subscribe(requestOK => {
-        if (requestOK) {
-          this.loginStage = LoginStage.OTP_INPUT;
-        } else {
-          this.notificationService.message(
-            this.i18n('There was a problem selecting the token. Please try again or contact an admin.'),
-            20000
-          );
-        }
+    this.loginService.login({ serial: token.serial })
+      .subscribe(() => {
+        this.loginStage = LoginStage.OTP_INPUT;
       });
   }
 
   submitSecondFactor() {
-    this.loginService.loginSecondStep(this.secondFactorFormGroup.value.otp)
-      .subscribe(result => this.finalAuthenticationHandling(result));
+    this.loginService.login({ otp: this.secondFactorFormGroup.value.otp })
+      .subscribe(result => this.finalAuthenticationHandling(result.success));
   }
 
   finalAuthenticationHandling(success: boolean) {

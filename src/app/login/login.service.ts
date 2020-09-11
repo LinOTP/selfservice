@@ -6,24 +6,43 @@ import { MatDialog } from '@angular/material/dialog';
 import { NgxPermissionsService } from 'ngx-permissions';
 
 import { Observable, of } from 'rxjs';
-import { map, tap, switchMap, catchError } from 'rxjs/operators';
+import { map, tap, catchError, filter } from 'rxjs/operators';
 
 import { SystemService, UserSystemInfo } from '../system.service';
-import { Token, EnrollmentStatus } from '../api/token';
-import { TokenService } from '../api/token.service';
+import { Token, TokenType, TokenTypeDetails } from '../api/token';
 import { SessionService } from '../auth/session.service';
+import { LinOTPResponse } from '../api/api';
+import { TokenService } from '../api/token.service';
 
 export interface LoginOptions {
-  username: string;
-  password: string;
+  username?: string;
+  password?: string;
   realm?: string;
   otp?: string;
+  serial?: string;
+  transactionid?: string;
 }
 
 interface LoginResponse {
-  needsSecondFactor: boolean;
+  tokenList?: Token[];
+  transactionid?: string;
+  transactiondata?: string;
+  message?: string;
+  reply_mode?: ('online' | 'offline')[];
+  linotp_tokenserial: string;
+  linotp_tokentype: TokenType;
+}
+
+interface LoginResult {
   success: boolean;
   tokens?: Token[];
+  challengedata?: {
+    transactionid?: string;
+    transactiondata?: string;
+    message?: string;
+    reply_mode?: ('online' | 'offline')[],
+    token: { serial: string; typeDetails: TokenTypeDetails };
+  };
 }
 
 @Injectable({
@@ -35,7 +54,6 @@ export class LoginService {
   private endpoints = {
     login: 'login',
     logout: 'logout',
-    tokens: 'usertokenlist',
   };
 
   public _loginChangeEmitter: EventEmitter<boolean> = new EventEmitter();
@@ -43,124 +61,81 @@ export class LoginService {
   constructor(
     private http: HttpClient,
     private sessionService: SessionService,
-    private tokenService: TokenService,
     private systemService: SystemService,
+    private tokenService: TokenService,
     private permissionsService: NgxPermissionsService,
     private router: Router,
     private dialogRef: MatDialog,
   ) { }
 
   /**
- * Sends a login request to the backend and acts based on the response.
+ * Sends a login request to the backend and returns the state of the login process.
  *
- * If the username and password are correct, but a 2nd factor is required for a successful login
- * (i.e. mfa_login policy is set), we request a list of tokens for the user, then trigger a second
- * factor transaction for the first available token on the list.
+ * Authentication is triggered by submitting at least a username and a password. Optionally a realm
+ * can also be sent. Should the policies mfa_login and mfa_3_fields be set, an OTP can also be sent
+ * on the first request. The response will have value set to true if login was successful.
+ *
+ * When the policy mfa_login is set, and a second factor is required to login, a detail field is
+ * returned with the next step. Either the user has only one token, or many, or none at all.
+ *
+ * In case there is only token, the next step is to provide the OTP for that token, and the detail
+ * field contains the challenge data required to generate/provide the OTP.
+ *
+ * If there is more than one token available, we resend a login request with the serial of the
+ * desired 2nd factor. The response will be the same as the case with one token.
  *
  * Should the user have no tokens for a second factor authentication, the backend does not send an
  * empty list. Instead, depending on whether the policy mfa_passOnNoToken was set, it either sends
  * a successful authentication message or a failed one.
  *
- * If the login was successful, the user's permissions are loaded before finishing the login.
+ * If the sent OTP was correct, the login is successful. Otherwise it fails and the login process
+ * must be restarted from the first step.
+ *
+ * When the login is successful, the user's permissions are loaded before finishing the login.
  *
  * @param {LoginOptions} loginOptions An object containing username, password and realm, if applicable.
  * @returns {Observable<LoginResponse>} An object with the state of login success, and whether a second step is required.
  * @memberof AuthService
  */
-  login(loginOptions: LoginOptions): Observable<LoginResponse> {
+  login(loginOptions: LoginOptions): Observable<LoginResult> {
     const url = this.baseUrl + this.endpoints.login;
-    const secondFactorMessage = 'credential verified - additional authentication parameter required';
 
-    const params = {
-      login: loginOptions.username,
-      password: loginOptions.password,
-      realm: loginOptions.realm,
-      otp: loginOptions.otp,
-    };
+    const session = this.sessionService.getSession();
+    const params = session ? { ...loginOptions, session } : loginOptions;
 
-    if (params.realm === undefined) {
-      delete params.realm;
-    }
-    if (params.otp === undefined) {
-      delete params.otp;
-    }
-
-    interface FirstStepResponseType {
-      detail: {
-        message: string;
-      };
-      result: {
-        status: boolean;
-        value: boolean;
-      };
-    }
-
-    return this.http.post<FirstStepResponseType>(url, params)
+    return this.http.post<LinOTPResponse<boolean, LoginResponse>>(url, params)
       .pipe(
-        map(rsp => {
-          return {
-            needsSecondFactor: !!rsp && !!rsp.detail && !!rsp.detail.message && rsp.detail.message === secondFactorMessage,
-            success: !!rsp && !!rsp.result && !!rsp.result.value && rsp.result.value === true
+        filter(response => !!response && !!response.result),
+        map(response => {
+          const details = response.detail;
+          if (!details) {
+            return { success: response.result.value };
+          }
+
+          if (details.tokenList) {
+            return {
+              success: false,
+              tokens: details.tokenList.map(t => this.tokenService.mapBackendToken(t)),
+            };
+          }
+
+          const challengedata = {
+            transactionid: details.transactionid,
+            transactiondata: details.transactiondata,
+            message: details.message,
+            reply_mode: details.reply_mode,
+            token: {
+              serial: details.linotp_tokenserial,
+              typeDetails: this.tokenService.getTypeDetails(
+                details.linotp_tokentype
+              )
+            },
           };
+
+          return { success: false, challengedata };
         }),
         tap(loginState => this.handleLogin(loginState.success)),
-        switchMap(loginState => loginState.needsSecondFactor ?
-          this.getAvailableSecondFactors().pipe(
-            map(tokens => {
-              return { needsSecondFactor: true, success: false, tokens: tokens };
-            })) :
-          of(loginState)
-        ),
-        catchError(this.handleError('login', { needsSecondFactor: null, success: false })),
-      );
-  }
-
-  /**
-   * Returns the tokens available for second factor authentication
-   *
-   * @returns {Observable<Token[]>} list of tokens, or null if an error occurred.
-   * @memberof AuthService
-   */
-  getAvailableSecondFactors(): Observable<Token[]> {
-    return this.tokenService.getTokens().pipe(
-      map(tokens => tokens.filter(t => t.enabled && t.enrollmentStatus === EnrollmentStatus.COMPLETED))
-    );
-  }
-
-  /**
-   * Inform the backend of the token that the user intends to use in the 2nd login step.
-   *
-   * @param {string} username identifies the user attempting 2nd factor authentication
-   * @param {string} serial identifies the token to be used during authentication
-   * @returns {boolean} true when the http request was successful, false otherwise
-   */
-  requestSecondFactorTransaction(username: string, serial: string): Observable<boolean> {
-    const url = this.baseUrl + this.endpoints.login;
-    const body = {
-      serial: serial,
-      data: `Selfservice+Login+Request User:+${username}`,
-      content_type: 0,
-      session: this.sessionService.getSession()
-    };
-    return this.http.post<{ result: { status: boolean } }>(url, body).pipe(
-      map(res => res.result.status),
-      catchError(this.handleError('requestSecondFactorTransaction', false))
-    );
-  }
-
-  /**
-   * Sent the OTP generated by the second factor token specified at the end of the first step.
-   *
-   * @param {string} otp OTP generated by the second factor and entered by the user.
-   */
-  loginSecondStep(otp: string): Observable<boolean> {
-    const url = this.baseUrl + this.endpoints.login;
-    const params = { otp: otp, session: this.sessionService.getSession() };
-
-    return this.http.post<{ result: { status: boolean, value: boolean } }>(url, params)
-      .pipe(
-        map(response => response && response.result && response.result.value === true),
-        tap(success => this.handleLogin(success))
+        catchError(this.handleError('login', { success: false })),
       );
   }
 
