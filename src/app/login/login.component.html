@@ -33,7 +33,7 @@
                i18n-placeholder
                autocomplete="current-password">
       </mat-form-field>
-      <mat-form-field *ngIf="systemInfo?.settings.mfa_3_fields">
+      <mat-form-field *ngIf="systemInfo?.settings.mfa_login && systemInfo?.settings.mfa_3_fields">
         <input matInput
                formControlName="otp"
                placeholder="OTP"
