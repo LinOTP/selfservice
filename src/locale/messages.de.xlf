@@ -187,8 +187,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="a454ccaca1c1a81e44a05961761c36a73a5f2d0a" datatype="html">
-        <source><x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/>Please choose your preferred authentication method to verify your login:<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/></source>
-        <target state="translated"><x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/>Bitte wählen Sie Ihre gewünschte Authentisierungsmethode zur Bestätigung ihrer Anmeldung:<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/></target>
+        <source><x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Please choose your preferred authentication method to verify your login:<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/></source>
+        <target state="translated"><x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Bitte wählen Sie Ihre gewünschte Authentisierungsmethode zur Bestätigung ihrer Anmeldung:<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/login/login.component.html</context>
           <context context-type="linenumber">59</context>
@@ -204,13 +204,13 @@
       </trans-unit>
       <trans-unit id="d812ae3875654de5f82ee3c60714387edc151b30" datatype="html">
         <source>
-            <x id="START_TAG_APP-KEYBOARD-KEY" ctype="x-app-keyboard-key" equiv-text="&lt;app-keyboard-key>"/><x id="CLOSE_TAG_APP-KEYBOARD-KEY" ctype="x-app-keyboard-key" equiv-text="&lt;/app-keyboard-key>"/> +
-            <x id="START_TAG_APP-KEYBOARD-KEY_1" ctype="x-app-keyboard-key" equiv-text="&lt;app-keyboard-key>"/><x id="CLOSE_TAG_APP-KEYBOARD-KEY" ctype="x-app-keyboard-key" equiv-text="&lt;/app-keyboard-key>"/> and
-            <x id="START_TAG_APP-KEYBOARD-KEY_2" ctype="x-app-keyboard-key" equiv-text="&lt;app-keyboard-key>"/><x id="CLOSE_TAG_APP-KEYBOARD-KEY" ctype="x-app-keyboard-key" equiv-text="&lt;/app-keyboard-key>"/>
+            <x id="START_TAG_APP-KEYBOARD-KEY" ctype="x-app-keyboard-key" equiv-text="&lt;app-keyboard-key&gt;"/><x id="CLOSE_TAG_APP-KEYBOARD-KEY" ctype="x-app-keyboard-key" equiv-text="&lt;/app-keyboard-key&gt;"/> +
+            <x id="START_TAG_APP-KEYBOARD-KEY_1" ctype="x-app-keyboard-key" equiv-text="&lt;app-keyboard-key&gt;"/><x id="CLOSE_TAG_APP-KEYBOARD-KEY" ctype="x-app-keyboard-key" equiv-text="&lt;/app-keyboard-key&gt;"/> and
+            <x id="START_TAG_APP-KEYBOARD-KEY_2" ctype="x-app-keyboard-key" equiv-text="&lt;app-keyboard-key&gt;"/><x id="CLOSE_TAG_APP-KEYBOARD-KEY" ctype="x-app-keyboard-key" equiv-text="&lt;/app-keyboard-key&gt;"/>
           </source>
-        <target state="translated"><x id="START_TAG_APP-KEYBOARD-KEY" ctype="x-app-keyboard-key" equiv-text="&lt;app-keyboard-key>"/><x id="CLOSE_TAG_APP-KEYBOARD-KEY" ctype="x-app-keyboard-key" equiv-text="&lt;/app-keyboard-key>"/> +
-            <x id="START_TAG_APP-KEYBOARD-KEY_1" ctype="x-app-keyboard-key" equiv-text="&lt;app-keyboard-key>"/><x id="CLOSE_TAG_APP-KEYBOARD-KEY" ctype="x-app-keyboard-key" equiv-text="&lt;/app-keyboard-key>"/> und
-            <x id="START_TAG_APP-KEYBOARD-KEY_2" ctype="x-app-keyboard-key" equiv-text="&lt;app-keyboard-key>"/><x id="CLOSE_TAG_APP-KEYBOARD-KEY" ctype="x-app-keyboard-key" equiv-text="&lt;/app-keyboard-key>"/></target>
+        <target state="translated"><x id="START_TAG_APP-KEYBOARD-KEY" ctype="x-app-keyboard-key" equiv-text="&lt;app-keyboard-key&gt;"/><x id="CLOSE_TAG_APP-KEYBOARD-KEY" ctype="x-app-keyboard-key" equiv-text="&lt;/app-keyboard-key&gt;"/> +
+            <x id="START_TAG_APP-KEYBOARD-KEY_1" ctype="x-app-keyboard-key" equiv-text="&lt;app-keyboard-key&gt;"/><x id="CLOSE_TAG_APP-KEYBOARD-KEY" ctype="x-app-keyboard-key" equiv-text="&lt;/app-keyboard-key&gt;"/> und
+            <x id="START_TAG_APP-KEYBOARD-KEY_2" ctype="x-app-keyboard-key" equiv-text="&lt;app-keyboard-key&gt;"/><x id="CLOSE_TAG_APP-KEYBOARD-KEY" ctype="x-app-keyboard-key" equiv-text="&lt;/app-keyboard-key&gt;"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/login/login.component.html</context>
           <context context-type="linenumber">93</context>
@@ -260,13 +260,13 @@
       <trans-unit id="5c62052c5de6811ae77d69038645b41fed7495ec" datatype="html">
         <source>
         Second factor:
-        <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span>"/>
+        <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/>
           <x id="INTERPOLATION" equiv-text="{{ selectedToken.typeDetails.name }}"/> with serial <x id="INTERPOLATION_1" equiv-text="{{ selectedToken.serial }}"/>
-        <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span>"/>
+        <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/>
       </source>
         <target state="translated">
         Zweiter Faktor:
-        <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span>"/><x id="INTERPOLATION" equiv-text="{{ selectedToken.typeDetails.name }}"/> mit Seriennummer <x id="INTERPOLATION_1" equiv-text="{{ selectedToken.serial }}"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span>"/></target>
+        <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/><x id="INTERPOLATION" equiv-text="{{ selectedToken.typeDetails.name }}"/> mit Seriennummer <x id="INTERPOLATION_1" equiv-text="{{ selectedToken.serial }}"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/login/login.component.html</context>
           <context context-type="linenumber">119</context>
@@ -495,11 +495,11 @@
       <trans-unit id="026a85359a52370b1385c0c844479305250beb76" datatype="html">
         <source>
             Waiting for confirmation of transaction
-            <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/><x id="START_TAG_CODE" ctype="x-code" equiv-text="&lt;code>"/><x id="INTERPOLATION" equiv-text="{{ shortTransactionId }}"/><x id="CLOSE_TAG_CODE" ctype="x-code" equiv-text="&lt;/code>"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/> via your LinOTP Authenticator app.
+            <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/><x id="START_TAG_CODE" ctype="x-code" equiv-text="&lt;code&gt;"/><x id="INTERPOLATION" equiv-text="{{ shortTransactionId }}"/><x id="CLOSE_TAG_CODE" ctype="x-code" equiv-text="&lt;/code&gt;"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/> via your LinOTP Authenticator app.
           </source>
         <target state="translated">
             Warte auf Bestätigung der Transaktion
-            <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/><x id="START_TAG_CODE" ctype="x-code" equiv-text="&lt;code>"/><x id="INTERPOLATION" equiv-text="{{ shortTransactionId }}"/><x id="CLOSE_TAG_CODE" ctype="x-code" equiv-text="&lt;/code>"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/> durch Ihre LinOTP Authenticator App.
+            <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/><x id="START_TAG_CODE" ctype="x-code" equiv-text="&lt;code&gt;"/><x id="INTERPOLATION" equiv-text="{{ shortTransactionId }}"/><x id="CLOSE_TAG_CODE" ctype="x-code" equiv-text="&lt;/code&gt;"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/> durch Ihre LinOTP Authenticator App.
           </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/test/test-dialog.component.html</context>
@@ -894,9 +894,9 @@
         </context-group>
       </trans-unit>
       <trans-unit id="c0929ac085d19df44887c34a87af1a10611fc691" datatype="html">
-        <source>Scan the QR code below with your soft token app or <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>follow this link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/> to
+        <source>Scan the QR code below with your soft token app or <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>follow this link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> to
         install it on your mobile device.</source>
-        <target state="translated">Scannen Sie den untenstehenden QR-Code mit Ihrer Soft-Token-App oder <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>folgen Sie diesem Link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>, um den Token auf Ihrem Smartphone hinzuzufügen.</target>
+        <target state="translated">Scannen Sie den untenstehenden QR-Code mit Ihrer Soft-Token-App oder <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>folgen Sie diesem Link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>, um den Token auf Ihrem Smartphone hinzuzufügen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
           <context context-type="linenumber">49</context>
@@ -1174,8 +1174,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="d72ecc95696358e671e2a8b769de8786f24da15c" datatype="html">
-        <source>The token will use your user email address: <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/><x id="INTERPOLATION" equiv-text="{{userEmail}}"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/></source>
-        <target state="translated">Der Token wird ihre Nutzer E-Mail-Adresse verwenden: <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/><x id="INTERPOLATION" equiv-text="{{userEmail}}"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/></target>
+        <source>The token will use your user email address: <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/><x id="INTERPOLATION" equiv-text="{{userEmail}}"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/></source>
+        <target state="translated">Der Token wird ihre Nutzer E-Mail-Adresse verwenden: <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/><x id="INTERPOLATION" equiv-text="{{userEmail}}"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-email-dialog/enroll-email-dialog.component.html</context>
           <context context-type="linenumber">11</context>
@@ -1274,8 +1274,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="88e0ec5f49c9c4785c41ef608067379ad956148e" datatype="html">
-        <source>The token will use your user mobile number: <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/><x id="INTERPOLATION" equiv-text="{{userPhone}}"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/></source>
-        <target state="translated">Der Token wird ihre Nutzer Mobilnummer verwenden: <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/>{{userPhonel}}<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/></target>
+        <source>The token will use your user mobile number: <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/><x id="INTERPOLATION" equiv-text="{{userPhone}}"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/></source>
+        <target state="translated">Der Token wird ihre Nutzer Mobilnummer verwenden: <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>{{userPhonel}}<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
           <context context-type="linenumber">12</context>
@@ -1481,9 +1481,9 @@
         </context-group>
       </trans-unit>
       <trans-unit id="9f07949527737a3222b7d101f194ccaea4259b9f" datatype="html">
-        <source>Scan the QR code below with the Authenticator app or <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>follow this link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/> to start the
+        <source>Scan the QR code below with the Authenticator app or <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>follow this link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> to start the
         activation process of the new token.</source>
-        <target state="translated">Scannen Sie den nachfolgenden QR-Code mit der Authenticator-App, oder <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/> folgen Sie diesen Link <x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>, um die Aktivierung des neuen Tokens zu starten.</target>
+        <target state="translated">Scannen Sie den nachfolgenden QR-Code mit der Authenticator-App, oder <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/> folgen Sie diesen Link <x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>, um die Aktivierung des neuen Tokens zu starten.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
           <context context-type="linenumber">50</context>
@@ -2453,6 +2453,14 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="dcf3279aac0020a1bb1520a06e40698dcab6b64f" datatype="html">
+        <source>The incomplete token will not be ready for use.</source>
+        <target state="translated">Der unvollständig eingerichtete Token wird nicht benutzbar sein.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="68e710782ccb5398b3acb8844caf0b199da2c3da" datatype="html">
         <source>Confirm</source>
         <target state="translated">Bestätigen</target>
@@ -2504,14 +2512,6 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
       <trans-unit id="2ef7894fe46f59351cf90ef8199983bffe9543a4" datatype="html">
         <source>Login failed: you do not have a second factor set up. Please contact an admin.</source>
         <target state="translated">Login fehlgeschlagen: keinen zweiten Faktor wurde für Sie gefunden. Kontaktieren Sie bitte Ihren Administrator.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/login/login.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="4295eee2fa5ef41af5b9de99f38de1b0f48e0b7b" datatype="html">
-        <source>There was a problem selecting the token. Please try again or contact an admin.</source>
-        <target state="translated">Bei der Tokenauswahl ist ein Problem aufgetreten. Versuchen Sie es bitte erneut oder kontaktieren Sie Ihren Administrator.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.ts</context>
           <context context-type="linenumber">1</context>

@@ -20,24 +20,25 @@ import { DialogComponent } from '../../common/dialog/dialog.component';
 
 import { EnrollPushQRDialogComponent } from './enroll-push-qr-dialog.component';
 import { TokenType } from '../../api/token';
-import { NgxPermissionsService } from 'ngx-permissions';
+import { NgxPermissionsService, NgxPermissionsAllowStubDirective, NgxPermissionsRestrictStubDirective } from 'ngx-permissions';
+
+let component: EnrollPushQRDialogComponent;
+let fixture: ComponentFixture<EnrollPushQRDialogComponent>;
+let operationsService: jasmine.SpyObj<OperationsService>;
+let enrollmentService: jasmine.SpyObj<EnrollmentService>;
+let notificationService: NotificationService;
+let permissionsService: jasmine.SpyObj<NgxPermissionsService>;
+let dialogRef: jasmine.SpyObj<MatDialogRef<EnrollPushQRDialogComponent>>;
+let matDialog: jasmine.SpyObj<MatDialog>;
 
 describe('EnrollPushDialogComponent', () => {
-  let component: EnrollPushQRDialogComponent;
-  let fixture: ComponentFixture<EnrollPushQRDialogComponent>;
-  let operationsService: jasmine.SpyObj<OperationsService>;
-  let enrollmentService: jasmine.SpyObj<EnrollmentService>;
-  let notificationService: NotificationService;
-  let permissionsService: jasmine.SpyObj<NgxPermissionsService>;
-  let dialogRef: jasmine.SpyObj<MatDialogRef<EnrollPushQRDialogComponent>>;
-  let matDialog: jasmine.SpyObj<MatDialog>;
-
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
         EnrollPushQRDialogComponent,
         MockComponent({ selector: 'qrcode', inputs: ['qrdata', 'width', 'errorCorrectionLevel'] }),
+        NgxPermissionsAllowStubDirective,
       ],
       imports: [
         RouterTestingModule,
@@ -153,72 +154,99 @@ describe('EnrollPushDialogComponent', () => {
     expect(dialogRef.close).toHaveBeenCalledTimes(1);
   });
 
-  it('should let the user cancel the enrollment', fakeAsync(() => {
-    const expectedDialogConfig = {
-      width: '25em',
-      autoFocus: false,
-      disableClose: true,
-      data: {
-        title: 'Stop setting up your new token?',
-        text: 'The incomplete token will be deleted. ' +
-          'You will have to restart the setup process in order to use this type of token.',
-        confirmationLabel: 'Confirm',
-      }
-    };
+  describe('cancel', () => {
 
-    matDialog.open.and.returnValue({ afterClosed: () => of(false) });
-    permissionsService.hasPermission.and.returnValue(new Promise(resolve => resolve(true)));
+    it('should inform the users that the token will be deleted when they have the right permissions', fakeAsync(() => {
+      const expectedDialogConfig = {
+        width: '25em',
+        autoFocus: false,
+        disableClose: true,
+        data: {
+          title: 'Stop setting up your new token?',
+          text: 'The incomplete token will be deleted. ' +
+            'You will have to restart the setup process in order to use this type of token.',
+          confirmationLabel: 'Confirm',
+        }
+      };
 
-    component.enrolledToken = Fixtures.enrolledToken;
-    component.cancel();
-    tick();
-    expect(matDialog.open).toHaveBeenCalledWith(DialogComponent, expectedDialogConfig);
-  }));
+      matDialog.open.and.returnValue({ afterClosed: () => of(false) });
+      permissionsService.hasPermission.and.returnValue(new Promise(resolve => resolve(true)));
 
-  it('should notify the user on confirmed enrollment cancelation', fakeAsync(() => {
-    matDialog.open.and.returnValue({ afterClosed: () => of(true) });
-    operationsService.deleteToken.and.returnValue(of(true));
-    permissionsService.hasPermission.and.returnValue(new Promise(resolve => resolve(true)));
+      component.enrolledToken = Fixtures.enrolledToken;
+      component.cancel();
+      tick();
+      expect(matDialog.open).toHaveBeenCalledWith(DialogComponent, expectedDialogConfig);
+    }));
 
-    component.enrolledToken = Fixtures.enrolledToken;
-    component.cancel();
-    tick();
+    it('should inform the users that the token will be unusable when they do not have the right permissions', fakeAsync(() => {
+      const expectedDialogConfig = {
+        width: '25em',
+        autoFocus: false,
+        disableClose: true,
+        data: {
+          title: 'Stop setting up your new token?',
+          text: 'The incomplete token will not be ready for use. ' +
+            'You will have to restart the setup process in order to use this type of token.',
+          confirmationLabel: 'Confirm',
+        }
+      };
 
-    expect(operationsService.deleteToken).toHaveBeenCalledWith(component.enrolledToken.serial);
-    expect(notificationService.message).toHaveBeenCalledWith('Incomplete Push token was deleted');
-    expect(dialogRef.close).toHaveBeenCalledTimes(1);
-  }));
+      matDialog.open.and.returnValue({ afterClosed: () => of(false) });
+      permissionsService.hasPermission.and.returnValue(new Promise(resolve => resolve(false)));
 
-  it('should not try to delete the token if the user has no permissions to delete', fakeAsync(() => {
-    matDialog.open.and.returnValue({ afterClosed: () => of(true) });
-    permissionsService.hasPermission.and.returnValue(new Promise(resolve => resolve(false)));
+      fixture.detectChanges();
 
-    component.enrolledToken = Fixtures.enrolledToken;
-    component.cancel();
-    tick();
-    expect(operationsService.deleteToken).not.toHaveBeenCalled();
-    expect(notificationService.message).not.toHaveBeenCalled();
-    expect(dialogRef.close).toHaveBeenCalled();
-  }));
+      component.enrolledToken = Fixtures.enrolledToken;
+      component.cancel();
+      tick();
+      expect(matDialog.open).toHaveBeenCalledWith(DialogComponent, expectedDialogConfig);
+    }));
 
-  it('should do nothing on rejected enrollment cancelation', fakeAsync(() => {
-    matDialog.open.and.returnValue({ afterClosed: () => of(false) });
-    permissionsService.hasPermission.and.returnValue(new Promise(resolve => resolve(false)));
+    it('should notify the user on confirmed enrollment cancelation', fakeAsync(() => {
+      matDialog.open.and.returnValue({ afterClosed: () => of(true) });
+      operationsService.deleteToken.and.returnValue(of(true));
+      permissionsService.hasPermission.and.returnValue(new Promise(resolve => resolve(true)));
 
-    component.cancel();
-    tick();
+      component.enrolledToken = Fixtures.enrolledToken;
+      component.cancel();
+      tick();
 
-    expect(notificationService.message).not.toHaveBeenCalled();
-    expect(dialogRef.close).not.toHaveBeenCalled();
-  }));
+      expect(operationsService.deleteToken).toHaveBeenCalledWith(component.enrolledToken.serial);
+      expect(notificationService.message).toHaveBeenCalledWith('Incomplete Push token was deleted');
+      expect(dialogRef.close).toHaveBeenCalledTimes(1);
+    }));
 
-  it('should open the activation dialog with the right token and configuration', fakeAsync(() => {
-    matDialog.open.and.returnValue({ afterClosed: () => of({}) });
+    it('should not try to delete the token if the user has no permissions to delete', fakeAsync(() => {
+      matDialog.open.and.returnValue({ afterClosed: () => of(true) });
+      permissionsService.hasPermission.and.returnValue(new Promise(resolve => resolve(false)));
 
-    component.enrolledToken = Fixtures.enrolledToken;
-    component.closeAndReturnSerial();
-    tick();
-    expect(matDialog.open).not.toHaveBeenCalled();
-    expect(dialogRef.close).toHaveBeenCalledTimes(1);
-  }));
+      component.enrolledToken = Fixtures.enrolledToken;
+      component.cancel();
+      tick();
+      expect(operationsService.deleteToken).not.toHaveBeenCalled();
+      expect(notificationService.message).not.toHaveBeenCalled();
+      expect(dialogRef.close).toHaveBeenCalled();
+    }));
+
+    it('should do nothing on rejected enrollment cancelation', fakeAsync(() => {
+      matDialog.open.and.returnValue({ afterClosed: () => of(false) });
+      permissionsService.hasPermission.and.returnValue(new Promise(resolve => resolve(false)));
+
+      component.cancel();
+      tick();
+
+      expect(notificationService.message).not.toHaveBeenCalled();
+      expect(dialogRef.close).not.toHaveBeenCalled();
+    }));
+
+    it('should open the activation dialog with the right token and configuration', fakeAsync(() => {
+      matDialog.open.and.returnValue({ afterClosed: () => of({}) });
+
+      component.enrolledToken = Fixtures.enrolledToken;
+      component.closeAndReturnSerial();
+      tick();
+      expect(matDialog.open).not.toHaveBeenCalled();
+      expect(dialogRef.close).toHaveBeenCalledTimes(1);
+    }));
+  });
 });

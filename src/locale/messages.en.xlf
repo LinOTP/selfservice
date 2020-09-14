@@ -2478,6 +2478,14 @@
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="dcf3279aac0020a1bb1520a06e40698dcab6b64f" datatype="html">
+        <source>The incomplete token will not be ready for use.</source>
+        <target state="final">The incomplete token will not be ready for use.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="68e710782ccb5398b3acb8844caf0b199da2c3da" datatype="html">
         <source>Confirm</source>
         <target state="final">Confirm</target>
@@ -2529,14 +2537,6 @@
       <trans-unit id="2ef7894fe46f59351cf90ef8199983bffe9543a4" datatype="html">
         <source>Login failed: you do not have a second factor set up. Please contact an admin.</source>
         <target state="final">Login failed: you do not have a second factor set up. Please contact an admin.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/login/login.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="4295eee2fa5ef41af5b9de99f38de1b0f48e0b7b" datatype="html">
-        <source>There was a problem selecting the token. Please try again or contact an admin.</source>
-        <target state="final">There was a problem selecting the token. Please try again or contact an admin.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.ts</context>
           <context context-type="linenumber">1</context>
