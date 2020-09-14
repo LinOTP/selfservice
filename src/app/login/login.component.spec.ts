@@ -161,7 +161,14 @@ describe('LoginComponent', () => {
       expect(loginService.login).toHaveBeenCalledWith({ username: 'user', password: 'pass', realm: 'realm' });
     });
 
-    it('should NOT include otp field in login stage if disabled in systemInfo', () => {
+    it('should NOT include otp field in login stage if mfa_login disabled in systemInfo', () => {
+      systemService.getSystemInfo.and.returnValue(of({ ...Fixtures.systemInfo, mfa_3_fields: true, mfa_login: false }));
+      fixture.detectChanges();
+
+      expect(page.getLoginForm().querySelector('input[name="otp"]')).toBeFalsy();
+    });
+
+    it('should NOT include otp field in login stage if 3 fields disabled in systemInfo', () => {
       systemService.getSystemInfo.and.returnValue(of({ ...Fixtures.systemInfo, mfa_3_fields: false }));
       fixture.detectChanges();
 
@@ -173,6 +180,7 @@ describe('LoginComponent', () => {
 
       const sysInfo = Fixtures.systemInfo;
       sysInfo.settings.mfa_3_fields = true;
+      sysInfo.settings.mfa_login = true;
       systemService.getSystemInfo.and.returnValue(of(sysInfo));
 
       fixture.detectChanges();
