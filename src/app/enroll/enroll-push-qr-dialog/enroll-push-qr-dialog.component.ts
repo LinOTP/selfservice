@@ -1,12 +1,12 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MatDialog, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 
 import { I18n } from '@ngx-translate/i18n-polyfill';
 
 import { switchMap, tap, map, filter } from 'rxjs/operators';
-import { EMPTY, from, of, forkJoin } from 'rxjs';
+import { from, of } from 'rxjs';
 
 import { EnrollmentService, QRCodeEnrollmentDetail } from '../../api/enrollment.service';
 import { TokenTypeDetails } from '../../api/token';
@@ -115,28 +115,35 @@ export class EnrollPushQRDialogComponent implements OnInit {
    *  enrollment dialog is closed.
    */
   public cancel() {
-    const dialogConfig = {
-      width: '25em',
-      autoFocus: false,
-      disableClose: true,
-      data: {
-        title: this.i18n('Stop setting up your new token?'),
-        text: this.i18n('The incomplete token will be deleted.') + ' ' +
-          this.i18n('You will have to restart the setup process in order to use this type of token.'),
-        confirmationLabel: this.i18n('Confirm'),
-      }
-    };
+    const deletionText = this.i18n('The incomplete token will be deleted.');
 
-    forkJoin([
-      this.dialog.open(DialogComponent, dialogConfig).afterClosed(),
-      from(this.permissionsService.hasPermission(Permission.DELETE)),
-    ]).pipe(
-      switchMap(([confirmed, canDelete]) => {
+    const unusableTokenText = this.i18n('The incomplete token will not be ready for use.');
+
+    const restartText = this.i18n('You will have to restart the setup process in order to use this type of token.');
+
+    let canDelete: boolean;
+
+    from(this.permissionsService.hasPermission(Permission.DELETE)).pipe(
+      tap(res => canDelete = res),
+      switchMap(() => {
+        const dialogConfig = {
+          width: '25em',
+          autoFocus: false,
+          disableClose: true,
+          data: {
+            title: this.i18n('Stop setting up your new token?'),
+            text: `${canDelete ? deletionText : unusableTokenText} ${restartText}`,
+            confirmationLabel: this.i18n('Confirm'),
+          }
+        };
+        return this.dialog.open(DialogComponent, dialogConfig).afterClosed();
+      }),
+      switchMap((confirmed) => {
         if (confirmed && canDelete) {
           return this.operationsService.deleteToken(this.enrolledToken.serial).pipe(
             tap(response => {
               if (response) {
-                this.notificationService.message(this.i18n('Incomplete Push token was deleted'));
+                this.notificationService.message(this.i18n('Incomplete token was deleted'));
               }
             }),
             map(() => true), // we just want to pass along whether the user confirmed the cancelation
