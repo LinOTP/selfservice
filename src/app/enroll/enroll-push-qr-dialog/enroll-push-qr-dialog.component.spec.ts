@@ -212,7 +212,7 @@ describe('EnrollPushDialogComponent', () => {
       tick();
 
       expect(operationsService.deleteToken).toHaveBeenCalledWith(component.enrolledToken.serial);
-      expect(notificationService.message).toHaveBeenCalledWith('Incomplete Push token was deleted');
+      expect(notificationService.message).toHaveBeenCalledWith('Incomplete token was deleted');
       expect(dialogRef.close).toHaveBeenCalledTimes(1);
     }));
 

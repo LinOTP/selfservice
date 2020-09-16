@@ -143,7 +143,7 @@ export class EnrollPushQRDialogComponent implements OnInit {
           return this.operationsService.deleteToken(this.enrolledToken.serial).pipe(
             tap(response => {
               if (response) {
-                this.notificationService.message(this.i18n('Incomplete Push token was deleted'));
+                this.notificationService.message(this.i18n('Incomplete token was deleted'));
               }
             }),
             map(() => true), // we just want to pass along whether the user confirmed the cancelation

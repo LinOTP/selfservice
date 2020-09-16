@@ -2494,9 +2494,9 @@
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="cc8e8dc2b3dc484bbe7e734eaacd73203c89f771" datatype="html">
-        <source>Incomplete Push token was deleted</source>
-        <target state="final">Incomplete Push token was deleted</target>
+      <trans-unit id="f0e527eb5f887bcb60327a052aeb0cdbab8d4aa6" datatype="html">
+        <source>Incomplete token was deleted</source>
+        <target state="final">Incomplete token was deleted</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.ts</context>
           <context context-type="linenumber">1</context>
