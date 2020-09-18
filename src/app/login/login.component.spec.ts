@@ -77,6 +77,7 @@ describe('LoginComponent', () => {
         LoginComponent,
         MockPipe({ 'name': 'capitalize' }),
         MockComponent({ selector: 'app-keyboard-key', inputs: ['icon', 'symbol'] }),
+        MockComponent({ selector: 'app-qr-code', inputs: ['qrUrl'] }),
       ],
       providers: [
         {

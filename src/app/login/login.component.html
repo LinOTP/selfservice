@@ -122,15 +122,45 @@
           {{ selectedToken.typeDetails.name }} with serial {{ selectedToken.serial }}
         </span>
       </p>
-      <p *ngIf="selectedToken.typeDetails.type === TokenType.PASSWORD; else otpInputMessage"
-         i18n>
-        Please enter the password of the selected token:
-      </p>
-      <ng-template #otpInputMessage
-                   i18n>
-        Please enter the next OTP for the selected token:
-      </ng-template>
-      <mat-form-field>
+      <ng-container *ngIf="!hasOnlineMode">
+        <p *ngIf="selectedToken.typeDetails.type === TokenType.PASSWORD; else otpInputMessage"
+           i18n>
+          Please enter the password of the selected token:
+        </p>
+        <ng-template #otpInputMessage
+                     i18n>
+          Please enter the next OTP for the selected token:
+        </ng-template>
+      </ng-container>
+
+      <ng-container *ngIf="transactionDetail && qrCodeData">
+        <div class="instruction center-text"
+             i18n>
+          Scan the QR code with your LinOTP Authenticator app:
+        </div>
+
+        <div class="dialog-input">
+          <app-qr-code [qrUrl]="qrCodeData"></app-qr-code>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="transactionDetail && !hasOfflineMode && hasOnlineMode">
+        <mat-spinner class="polling"></mat-spinner>
+        <div class="instruction center-text"
+             i18n>
+          Waiting for confirmation of transaction
+          <b><code>{{ shortTransactionId }}</code></b> via your LinOTP Authenticator app.
+        </div>
+      </ng-container>
+
+      <div class="otpInput">
+        <button mat-raised-button
+                (click)="showInput()"
+                *ngIf="transactionDetail && hasOnlineMode && hasOfflineMode && !showInputField"
+                i18n>Manually enter OTP</button>
+      </div>
+
+      <mat-form-field *ngIf="!transactionDetail || !hasOnlineMode || showInputField">
         <input matInput
                type="{{ selectedToken.typeDetails.type === TokenType.PASSWORD? 'password':'text' }}"
                formControlName="otp"
@@ -141,6 +171,7 @@
                appFocusOnInit>
       </mat-form-field>
     </mat-card-content>
+
     <mat-card-actions>
       <button mat-button
               type="reset"
