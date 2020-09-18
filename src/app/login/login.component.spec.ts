@@ -228,32 +228,7 @@ describe('LoginComponent', () => {
       expect(component.redirect).not.toHaveBeenCalled();
     });
 
-    it('should request OTP of the user\'s token if second factor is needed and user has exactly one token', () => {
-      fixture.detectChanges();
-
-      const tokens = [Fixtures.completedPushToken];
-      loginService.login.and.returnValues(of({ success: false, tokens: tokens }), of({ success: false, challengedata: {} }));
-      spyOn(component, 'redirect');
-      spyOn(component, 'chooseSecondFactor').and.callThrough();
-
-      component.loginFormGroup.value.username = 'user';
-      component.loginFormGroup.value.password = 'pass';
-      fixture.detectChanges();
-
-      component.login();
-
-      fixture.detectChanges();
-
-      expect(loginService.login).toHaveBeenCalledWith({ username: 'user', password: 'pass' });
-      expect(component.chooseSecondFactor).toHaveBeenCalledWith(tokens[0]);
-      expect(notificationService.message).not.toHaveBeenCalledWith('Login failed');
-      expect(component.redirect).not.toHaveBeenCalled();
-
-      expect(component.selectedToken).toEqual(tokens[0]);
-    });
-
-    it(
-      'should store tokens and select a token on mouse click if second factor is needed and user has more than one token',
+    it('should store tokens and select a token on mouse click if second factor is needed and user has more than one token',
       fakeAsync(() => {
         fixture.detectChanges();
 

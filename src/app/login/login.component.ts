@@ -113,12 +113,6 @@ export class LoginComponent implements OnInit {
     }
 
     this.loginService.login(loginOptions).subscribe(result => {
-      if (result.challengedata) {
-        this.selectedToken = result.challengedata.token;
-        this.loginStage = LoginStage.OTP_INPUT;
-        return;
-      }
-
       if (!result.tokens) {
         this.finalAuthenticationHandling(result.success);
       } else if (result.tokens.length === 0) {
