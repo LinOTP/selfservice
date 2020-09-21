@@ -93,8 +93,13 @@ export class LoginService {
   login(loginOptions: LoginOptions): Observable<LoginResult> {
     const url = this.baseUrl + this.endpoints.login;
 
-    const session = this.sessionService.getSession();
-    const params = session ? { ...loginOptions, session } : loginOptions;
+    const params: LoginOptions & { session?: string } = { ...loginOptions };
+
+    if (!('username' in loginOptions)) {
+      // Do send session only for follow-up login requests after the initial credentials are verified.
+      // This ensures that no old and unrelated session is evaluated for a brand-new login attempt.
+      params.session = this.sessionService.getSession();
+    }
 
     return this.http.post<LinOTPResponse<boolean, LoginResponse>>(url, params)
       .pipe(
