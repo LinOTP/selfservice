@@ -13,7 +13,7 @@ import { Token } from '../api/token';
 import { SessionService } from '../auth/session.service';
 import { LinOTPResponse } from '../api/api';
 import { TokenService } from '../api/token.service';
-import { ReplyMode, TransactionDetail } from '../api/test.service';
+import { ReplyMode, TransactionDetail, StatusDetail } from '../api/test.service';
 
 export interface LoginOptions {
   username?: string;
@@ -139,12 +139,13 @@ export class LoginService {
     };
     return interval(2000).pipe(
       mergeMap(() =>
-        this.http.get<LinOTPResponse<boolean, { valid_tan: boolean, accept: boolean }>>(url, { params })
+        this.http.get<LinOTPResponse<boolean, StatusDetail>>(url, { params })
       ),
-      map(res => res.result.value && res.detail && (res.detail.valid_tan || res.detail.accept)),
-      filter(res => res),
-      catchError(this.handleError<any>('MFA login status poll', {})),
+      filter(res => !res.detail || res.detail.status !== 'open'),
       take(1),
+      map(res => res.detail && (res.detail.valid_tan || res.detail.accept)),
+      tap(success => this.handleLogin(success)),
+      catchError(this.handleError<any>('MFA login status poll', {})),
     );
   }
 
