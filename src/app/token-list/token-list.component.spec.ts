@@ -22,8 +22,13 @@ import { UnreadyTokensPipe } from '../common/pipes/unready-tokens.pipe';
 import { CapitalizePipe } from '../common/pipes/capitalize.pipe';
 
 import { TokenListComponent } from './token-list.component';
+import { AppInitService } from '../app-init.service';
 
 class Page extends TestingPage<TokenListComponent> {
+
+  public getLoadingTokensElement(elementTag: string) {
+    return this.query('#loadingTokensSection ' + elementTag);
+  }
 
   public getEnrollAlternativeTokenSectionElement(elementTag: string) {
     return this.query('#enrollAlternativeTokenSection ' + elementTag);
@@ -51,6 +56,7 @@ describe('TokenListComponent with permissions', () => {
   let component: TokenListComponent;
   let fixture: ComponentFixture<TokenListComponent>;
   let tokenService: jasmine.SpyObj<TokenService>;
+  let appInitService: jasmine.SpyObj<AppInitService>;
   let page: Page;
 
   beforeEach(async(() => {
@@ -76,6 +82,10 @@ describe('TokenListComponent with permissions', () => {
           provide: TokenService,
           useValue: spyOnClass(TokenService)
         },
+        {
+          provide: AppInitService,
+          useValue: spyOnClass(AppInitService)
+        },
       ],
       imports: [
         MaterialModule,
@@ -91,6 +101,8 @@ describe('TokenListComponent with permissions', () => {
     page = new Page(fixture);
 
     tokenService = TestBed.get(TokenService);
+    appInitService = TestBed.get(AppInitService);
+    appInitService.getPermissionLoad$.and.returnValue(of(true));
   });
 
   it('should create', () => {
@@ -170,10 +182,11 @@ describe('TokenListComponent with permissions', () => {
 
 });
 
-describe('TokenListComponent without permissions', () => {
+describe('TokenListComponent without tokens and permissions', () => {
   let component: TokenListComponent;
   let fixture: ComponentFixture<TokenListComponent>;
   let tokenService: jasmine.SpyObj<TokenService>;
+  let appInitService: jasmine.SpyObj<AppInitService>;
   let page: Page;
 
   beforeEach(async(() => {
@@ -198,6 +211,10 @@ describe('TokenListComponent without permissions', () => {
           provide: TokenService,
           useValue: spyOnClass(TokenService)
         },
+        {
+          provide: AppInitService,
+          useValue: spyOnClass(AppInitService)
+        },
       ],
       imports: [
         MaterialModule,
@@ -213,20 +230,21 @@ describe('TokenListComponent without permissions', () => {
     page = new Page(fixture);
 
     tokenService = TestBed.get(TokenService);
+    appInitService = TestBed.get(AppInitService);
+    appInitService.getPermissionLoad$.and.returnValue(of(false));
+    tokenService.getTokens.and.returnValue(of([]));
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render expected title and text for user without tokens and enrollment permissions', () => {
+  it('should render no title nor text, save for the loading spinning indicator', () => {
     tokenService.getTokens.and.returnValue(of([]));
 
     fixture.detectChanges();
-    expect(page.getEmptyStateSectionElement('h2').textContent).toEqual('No actions available');
-    expect(page.getEmptyStateSectionElement('p').textContent).toEqual(
-      'You currently do not own any tokens, nor can you set up a token yourself. Please contact your administrator.'
-    );
+    expect(page.getLoadingTokensElement('mat-spinner')).toBeTruthy();
+    expect(page.getLoadingTokensElement('p').textContent).toEqual('Loading tokens…');
 
     expect(page.getEnrollFirstTokenSectionElement('h2')).toBeNull();
     expect(page.getEnrollFirstTokenSectionElement('p')).toBeNull();
@@ -236,6 +254,8 @@ describe('TokenListComponent without permissions', () => {
     expect(page.getEnrollAlternativeTokenSectionElement('p')).toBeNull();
     expect(page.getPendingSectionElement('h2')).toBeNull();
     expect(page.getPendingSectionElement('p')).toBeNull();
+    expect(page.getEmptyStateSectionElement('h2')).toBeNull();
+    expect(page.getEmptyStateSectionElement('p')).toBeNull();
   });
 
 });

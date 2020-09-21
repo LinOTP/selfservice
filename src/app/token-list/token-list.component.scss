@@ -5,3 +5,11 @@ section {
 app-token-card {
   margin: 1em 0;
 }
+
+
+.loading, mat-spinner {
+  text-align: center;
+  mat-spinner {
+    margin: 2em auto;
+  }
+}

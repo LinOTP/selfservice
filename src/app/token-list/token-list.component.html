@@ -1,7 +1,11 @@
-<div *ngIf="!tokens; else tokenLists">
-  <p i18n>Loading tokens...</p>
-</div>
-<ng-template #tokenLists>
+<section *ngIf="!(permissionsLoaded && tokens); else content"
+         class="loading"
+         id="loadingTokensSection">
+  <mat-spinner></mat-spinner>
+  <p i18n>Loading tokens…</p>
+</section>
+
+<ng-template #content>
   <section id="pendingSection"
            *ngIf="tokens && tokens | unreadyTokens | arrayNotEmpty">
     <h2 i18n>Pending actions</h2>
@@ -27,10 +31,10 @@
                     [token]="token"
                     (tokenUpdate)="loadTokens()"></app-token-card>
   </section>
-</ng-template>
 
-<ng-container *ngIf="tokens | arrayNotEmpty; then enrollAlternative; else enrollFirst">
-</ng-container>
+  <ng-container *ngIf="tokens | arrayNotEmpty; then enrollAlternative; else enrollFirst">
+  </ng-container>
+</ng-template>
 
 <ng-template #enrollAlternative>
   <section id="enrollAlternativeTokenSection"

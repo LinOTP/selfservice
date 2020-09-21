@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import { NgxPermissionsService } from 'ngx-permissions';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppInitService {
+
+  private permissionLoad$ = new BehaviorSubject(false);
 
   constructor(
     private permissionsService: NgxPermissionsService
@@ -26,8 +29,19 @@ export class AppInitService {
    */
   public loadStoredPermissions() {
     const permissions = JSON.parse(localStorage.getItem('permissions'));
-    this.permissionsService.loadPermissions(
-      permissions || [] // fall back to an empty permission set if no permissions are set.
-    );
+    if (permissions) {
+      this.permissionLoad$.next(true);
+      this.permissionsService.loadPermissions(permissions);
+    }
   }
+
+  public clearPermissions() {
+    this.permissionsService.flushPermissions();
+    this.permissionLoad$.next(false);
+  }
+
+  public getPermissionLoad$(): Observable<boolean> {
+    return this.permissionLoad$.asObservable();
+  }
+
 }

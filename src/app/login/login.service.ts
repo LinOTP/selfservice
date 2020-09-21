@@ -3,8 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { NavigationExtras, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 
-import { NgxPermissionsService } from 'ngx-permissions';
-
 import { Observable, of, interval } from 'rxjs';
 import { map, tap, filter, mergeMap, take, catchError } from 'rxjs/operators';
 
@@ -14,6 +12,7 @@ import { SessionService } from '../auth/session.service';
 import { LinOTPResponse } from '../api/api';
 import { TokenService } from '../api/token.service';
 import { ReplyMode, TransactionDetail, StatusDetail } from '../api/test.service';
+import { AppInitService } from '../app-init.service';
 
 export interface LoginOptions {
   username?: string;
@@ -56,7 +55,7 @@ export class LoginService {
     private sessionService: SessionService,
     private systemService: SystemService,
     private tokenService: TokenService,
-    private permissionsService: NgxPermissionsService,
+    private appInitService: AppInitService,
     private router: Router,
     private dialogRef: MatDialog,
   ) { }
@@ -190,7 +189,7 @@ export class LoginService {
         localStorage.setItem('linotpVersion', JSON.stringify(userSystemInfo.version));
         localStorage.setItem('settings', JSON.stringify(userSystemInfo.settings));
 
-        this.permissionsService.loadPermissions(userSystemInfo.permissions);
+        this.appInitService.loadStoredPermissions();
       }),
       catchError(this.handleError('loadPermissions', undefined)),
     );
@@ -235,7 +234,7 @@ export class LoginService {
    */
   public handleLogout(storeCurrentRoute: boolean) {
     localStorage.clear();
-    this.permissionsService.flushPermissions();
+    this.appInitService.clearPermissions();
 
     this.dialogRef.closeAll();
 
