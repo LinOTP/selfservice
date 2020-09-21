@@ -26,7 +26,7 @@ export interface StatusDetail {
   'received_tan': boolean;
   'valid_tan': boolean;
   'message': string;
-  'status': string;
+  'status': 'open' | 'closed';
   'accept': boolean;
   'reject': boolean;
 }
