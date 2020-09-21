@@ -62,34 +62,34 @@ export class LoginService {
   ) { }
 
   /**
- * Sends a login request to the backend and returns the state of the login process.
- *
- * Authentication is triggered by submitting at least a username and a password. Optionally a realm
- * can also be sent. Should the policies mfa_login and mfa_3_fields be set, an OTP can also be sent
- * on the first request. The response will have value set to true if login was successful.
- *
- * When the policy mfa_login is set, and a second factor is required to login, a detail field is
- * returned with the next step. Either the user has only one token, or many, or none at all.
- *
- * In case there is only token, the next step is to provide the OTP for that token, and the detail
- * field contains the challenge data required to generate/provide the OTP.
- *
- * If there is more than one token available, we resend a login request with the serial of the
- * desired 2nd factor. The response will be the same as the case with one token.
- *
- * Should the user have no tokens for a second factor authentication, the backend does not send an
- * empty list. Instead, depending on whether the policy mfa_passOnNoToken was set, it either sends
- * a successful authentication message or a failed one.
- *
- * If the sent OTP was correct, the login is successful. Otherwise it fails and the login process
- * must be restarted from the first step.
- *
- * When the login is successful, the user's permissions are loaded before finishing the login.
- *
- * @param {LoginOptions} loginOptions An object containing username, password and realm, if applicable.
- * @returns {Observable<LoginResponse>} An object with the state of login success, and whether a second step is required.
- * @memberof AuthService
- */
+   * Sends a login request to the backend and returns the state of the login process.
+   *
+   * Authentication is triggered by submitting at least a username and a password. Optionally a realm
+   * can also be sent. Should the policies mfa_login and mfa_3_fields be set, an OTP can also be sent
+   * on the first request. The response will have value set to true if login was successful.
+   *
+   * When the policy mfa_login is set, and a second factor is required to login, a detail field is
+   * returned with the next step. Either the user has only one token, or many, or none at all.
+   *
+   * In case there is only token, the next step is to provide the OTP for that token, and the detail
+   * field contains the challenge data required to generate/provide the OTP.
+   *
+   * If there is more than one token available, we resend a login request with the serial of the
+   * desired 2nd factor. The response will be the same as the case with one token.
+   *
+   * Should the user have no tokens for a second factor authentication, the backend does not send an
+   * empty list. Instead, depending on whether the policy mfa_passOnNoToken was set, it either sends
+   * a successful authentication message or a failed one.
+   *
+   * If the sent OTP was correct, the login is successful. Otherwise it fails and the login process
+   * must be restarted from the first step.
+   *
+   * When the login is successful, the user's permissions are loaded before finishing the login.
+   *
+   * @param {LoginOptions} loginOptions An object containing username, password and realm, if applicable.
+   * @returns {Observable<LoginResponse>} An object with the state of login success, and whether a second step is required.
+   * @memberof AuthService
+   */
   login(loginOptions: LoginOptions): Observable<LoginResult> {
     const url = this.baseUrl + this.endpoints.login;
 
@@ -150,13 +150,13 @@ export class LoginService {
   }
 
   /**
- * sends a logout request to the backend and processes all frontend related tasks
- *
- * The user is redirected to the login page without storing the current route.
- *
- * @returns {Observable<any>}
- * @memberof AuthService
- */
+   * sends a logout request to the backend and processes all frontend related tasks
+   *
+   * The user is redirected to the login page without storing the current route.
+   *
+   * @returns {Observable<any>}
+   * @memberof AuthService
+   */
   public logout(): Observable<any> {
     return this.http.get<any>(this.baseUrl + this.endpoints.logout)
       .pipe(
@@ -221,18 +221,18 @@ export class LoginService {
   }
 
   /**
-  * handles a closed login session to clear up the frontend state
-  *
-  * - loginChangeEmitter is updated
-  * - all persistent data is cleared
-  * - the user is redirected to the login screen.
-  *   If the parameter `storeCurrentRoute` is set to true, the current router url
-  *   will be stored so that the application returns to the current view once the
-  *   user logs back in.
-  *
-  * @param {boolean} storeCurrentRoute
-  * @memberof AuthService
-  */
+   * handles a closed login session to clear up the frontend state
+   *
+   * - loginChangeEmitter is updated
+   * - all persistent data is cleared
+   * - the user is redirected to the login screen.
+   *   If the parameter `storeCurrentRoute` is set to true, the current router url
+   *   will be stored so that the application returns to the current view once the
+   *   user logs back in.
+   *
+   * @param {boolean} storeCurrentRoute
+   * @memberof AuthService
+   */
   public handleLogout(storeCurrentRoute: boolean) {
     localStorage.clear();
     this.permissionsService.flushPermissions();
