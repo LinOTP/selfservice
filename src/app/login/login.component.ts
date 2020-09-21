@@ -220,6 +220,8 @@ export class LoginComponent implements OnInit {
       this.redirect();
     } else {
       this.loginStage = LoginStage.USER_PW_INPUT;
+      this.factors = [];
+      this.secondFactorFormGroup.reset();
       this.selectedToken = null;
     }
   }
