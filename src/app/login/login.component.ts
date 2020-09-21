@@ -186,11 +186,11 @@ export class LoginComponent implements OnInit {
 
   public checkTransactionState() {
     const txId = this.transactionDetail.transactionId;
-    this.pollingSubscription = this.loginService.statusPoll(txId).subscribe(response => {
-      if (response) {
-        this.finalAuthenticationHandling(true);
-      }
-    });
+    if (this.hasOnlineMode) {
+      this.pollingSubscription = this.loginService.statusPoll(txId).subscribe(response => {
+        this.finalAuthenticationHandling(response);
+      });
+    }
   }
 
   public get hasOnlineMode(): boolean {
