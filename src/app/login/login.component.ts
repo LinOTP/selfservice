@@ -237,5 +237,6 @@ export class LoginComponent implements OnInit {
     this.loginStage = LoginStage.USER_PW_INPUT;
     this.factors = [];
     this.selectedToken = null;
+    this.showInputField = false;
   }
 }
