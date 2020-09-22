@@ -15,10 +15,10 @@ export enum ReplyMode {
 }
 
 export interface TransactionDetail {
-  reply_mode: ReplyMode[];
-  transactionid?: string;
-  transactiondata?: string; // content of QR code
-  message?: string;        // user facing message
+  replyMode: ReplyMode[];
+  transactionId?: string;
+  transactionData?: string; // content of QR code
+  message?: string; // user facing message
 }
 
 export interface StatusDetail {
@@ -26,7 +26,7 @@ export interface StatusDetail {
   'received_tan': boolean;
   'valid_tan': boolean;
   'message': string;
-  'status': string;
+  'status': 'open' | 'closed';
   'accept': boolean;
   'reject': boolean;
 }
@@ -103,8 +103,8 @@ export class TestService {
     return interval(2000).pipe(
       mergeMap(() =>
         this.http.get<LinOTPResponse<boolean, StatusDetail>>(url, { params })),
-      filter(res => res.detail.status !== 'open'),
-      map(res => res.detail),
+      filter(res => !res.detail || res.detail.status !== 'open'),
+      map(res => res.detail || {}),
       catchError(this.handleError<any>('test token status poll', {})),
       take(1),
     );
@@ -117,4 +117,5 @@ export class TestService {
       return of(result as T);
     };
   }
+
 }

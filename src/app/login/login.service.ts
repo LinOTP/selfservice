@@ -5,14 +5,15 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { NgxPermissionsService } from 'ngx-permissions';
 
-import { Observable, of } from 'rxjs';
-import { map, tap, catchError, filter } from 'rxjs/operators';
+import { Observable, of, interval } from 'rxjs';
+import { map, tap, filter, mergeMap, take, catchError } from 'rxjs/operators';
 
 import { SystemService, UserSystemInfo } from '../system.service';
-import { Token, TokenType, TokenTypeDetails } from '../api/token';
+import { Token } from '../api/token';
 import { SessionService } from '../auth/session.service';
 import { LinOTPResponse } from '../api/api';
 import { TokenService } from '../api/token.service';
+import { ReplyMode, TransactionDetail, StatusDetail } from '../api/test.service';
 
 export interface LoginOptions {
   username?: string;
@@ -20,29 +21,21 @@ export interface LoginOptions {
   realm?: string;
   otp?: string;
   serial?: string;
-  transactionid?: string;
+  transactionId?: string;
 }
 
 interface LoginResponse {
   tokenList?: Token[];
-  transactionid?: string;
-  transactiondata?: string;
+  transactionId?: string;
+  transactionData?: string;
   message?: string;
-  reply_mode?: ('online' | 'offline')[];
-  linotp_tokenserial: string;
-  linotp_tokentype: TokenType;
+  replyMode?: ReplyMode[];
 }
 
 interface LoginResult {
   success: boolean;
   tokens?: Token[];
-  challengedata?: {
-    transactionid?: string;
-    transactiondata?: string;
-    message?: string;
-    reply_mode?: ('online' | 'offline')[],
-    token: { serial: string; typeDetails: TokenTypeDetails };
-  };
+  challengedata?: TransactionDetail;
 }
 
 @Injectable({
@@ -100,8 +93,13 @@ export class LoginService {
   login(loginOptions: LoginOptions): Observable<LoginResult> {
     const url = this.baseUrl + this.endpoints.login;
 
-    const session = this.sessionService.getSession();
-    const params = session ? { ...loginOptions, session } : loginOptions;
+    const params: LoginOptions & { session?: string } = { ...loginOptions };
+
+    if (!('username' in loginOptions)) {
+      // Do send session only for follow-up login requests after the initial credentials are verified.
+      // This ensures that no old and unrelated session is evaluated for a brand-new login attempt.
+      params.session = this.sessionService.getSession();
+    }
 
     return this.http.post<LinOTPResponse<boolean, LoginResponse>>(url, params)
       .pipe(
@@ -120,16 +118,10 @@ export class LoginService {
           }
 
           const challengedata = {
-            transactionid: details.transactionid,
-            transactiondata: details.transactiondata,
+            transactionId: details.transactionId,
+            transactionData: details.transactionData,
             message: details.message,
-            reply_mode: details.reply_mode,
-            token: {
-              serial: details.linotp_tokenserial,
-              typeDetails: this.tokenService.getTypeDetails(
-                details.linotp_tokentype
-              )
-            },
+            replyMode: details.replyMode
           };
 
           return { success: false, challengedata };
@@ -137,6 +129,24 @@ export class LoginService {
         tap(loginState => this.handleLogin(loginState.success)),
         catchError(this.handleError('login', { success: false })),
       );
+  }
+
+  statusPoll(transactionId: string): Observable<boolean> {
+    const url = this.baseUrl + this.endpoints.login;
+    const params = {
+      transactionid: transactionId,
+      session: this.sessionService.getSession()
+    };
+    return interval(2000).pipe(
+      mergeMap(() =>
+        this.http.get<LinOTPResponse<boolean, StatusDetail>>(url, { params })
+      ),
+      filter(res => !res.detail || res.detail.status !== 'open'),
+      take(1),
+      map(res => res.detail && (res.detail.valid_tan || res.detail.accept)),
+      tap(success => this.handleLogin(success)),
+      catchError(this.handleError<any>('MFA login status poll', {})),
+    );
   }
 
   /**

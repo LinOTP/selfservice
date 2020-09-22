@@ -77,6 +77,7 @@ describe('LoginComponent', () => {
         LoginComponent,
         MockPipe({ 'name': 'capitalize' }),
         MockComponent({ selector: 'app-keyboard-key', inputs: ['icon', 'symbol'] }),
+        MockComponent({ selector: 'app-qr-code', inputs: ['qrUrl'] }),
       ],
       providers: [
         {
@@ -228,32 +229,7 @@ describe('LoginComponent', () => {
       expect(component.redirect).not.toHaveBeenCalled();
     });
 
-    it('should request OTP of the user\'s token if second factor is needed and user has exactly one token', () => {
-      fixture.detectChanges();
-
-      const tokens = [Fixtures.completedPushToken];
-      loginService.login.and.returnValues(of({ success: false, tokens: tokens }), of({ success: false, challengedata: {} }));
-      spyOn(component, 'redirect');
-      spyOn(component, 'chooseSecondFactor').and.callThrough();
-
-      component.loginFormGroup.value.username = 'user';
-      component.loginFormGroup.value.password = 'pass';
-      fixture.detectChanges();
-
-      component.login();
-
-      fixture.detectChanges();
-
-      expect(loginService.login).toHaveBeenCalledWith({ username: 'user', password: 'pass' });
-      expect(component.chooseSecondFactor).toHaveBeenCalledWith(tokens[0]);
-      expect(notificationService.message).not.toHaveBeenCalledWith('Login failed');
-      expect(component.redirect).not.toHaveBeenCalled();
-
-      expect(component.selectedToken).toEqual(tokens[0]);
-    });
-
-    it(
-      'should store tokens and select a token on mouse click if second factor is needed and user has more than one token',
+    it('should store tokens and select a token on mouse click if second factor is needed and user has more than one token',
       fakeAsync(() => {
         fixture.detectChanges();
 
@@ -261,8 +237,12 @@ describe('LoginComponent', () => {
         expect(page.getTokenSelection()).toBeFalsy();
 
         const tokens = [Fixtures.completedPushToken, Fixtures.completedQRToken];
-        loginService.login.and.returnValues(of({ success: false, tokens: tokens }), of({ success: true }));
+        loginService.login.and.returnValues(
+          of({ success: false, tokens: tokens }),
+          of({ success: false, challengedata: Fixtures.transactionDetail })
+        );
         spyOn(component, 'redirect');
+        spyOn(component, 'chooseSecondFactor').and.callThrough();
 
         component.loginFormGroup.value.username = 'user';
         component.loginFormGroup.value.password = 'pass';
@@ -291,8 +271,11 @@ describe('LoginComponent', () => {
         page.clickTokenListItem(1);
 
         fixture.detectChanges();
+        tick();
 
         expect(component.selectedToken).toEqual(tokens[1]);
+        expect(component.chooseSecondFactor).toHaveBeenCalledWith(tokens[1]);
+        expect(loginService.login).toHaveBeenCalledWith({ serial: tokens[1].serial });
         expect(component.loginStage).toEqual(LoginStage.OTP_INPUT);
       })
     );
@@ -333,6 +316,7 @@ describe('LoginComponent', () => {
       const token = Fixtures.activeHotpToken;
 
       component.loginStage = LoginStage.TOKEN_CHOICE;
+      component.transactionDetail = Fixtures.transactionDetail;
       component.selectedToken = token;
       fixture.detectChanges();
 
@@ -477,11 +461,14 @@ describe('LoginComponent', () => {
     });
 
     it('should empty both forms and return to the first step form', () => {
+      spyOn(component, 'stopSubscription');
       component.selectedToken = Fixtures.activeHotpToken;
       component.loginFormGroup.value.username = 'user';
       component.loginFormGroup.value.password = 'pass';
       component.secondFactorFormGroup.value.otp = 'otp';
       component.loginStage = LoginStage.OTP_INPUT;
+      component.transactionDetail = Fixtures.transactionDetail;
+
       fixture.detectChanges();
 
       expect(page.getOTPForm()).toBeTruthy();
@@ -492,7 +479,9 @@ describe('LoginComponent', () => {
       expect(component.loginFormGroup.value.username).toBeNull();
       expect(component.loginFormGroup.value.password).toBeNull();
       expect(component.secondFactorFormGroup.value.otp).toBeNull();
+      expect(component.transactionDetail).toBeNull();
       expect(page.getLoginForm()).toBeTruthy();
+      expect(component.stopSubscription).toHaveBeenCalled();
     });
   });
 });

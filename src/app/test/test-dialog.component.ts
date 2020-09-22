@@ -79,8 +79,8 @@ export class TestDialogComponent implements OnInit, OnDestroy {
         this.state = TestState.FAILURE;
       } else {
         this.transactionDetail = response;
-        if (response.transactionid) {
-          this.shortTransactionId = response.transactionid.toString().slice(0, 6);
+        if (response.transactionId) {
+          this.shortTransactionId = response.transactionId.toString().slice(0, 6);
         }
         this.state = TestState.UNTESTED;
         if (this.hasOnlineMode) {
@@ -91,7 +91,7 @@ export class TestDialogComponent implements OnInit, OnDestroy {
   }
 
   public checkTransactionState() {
-    const txId = this.transactionDetail.transactionid;
+    const txId = this.transactionDetail.transactionId;
     this.pollingSubscription = this.testService.statusPoll(txId).subscribe(data => {
       this.challResult = data;
       if (data.accept || data.reject || data.valid_tan) {
@@ -114,7 +114,7 @@ export class TestDialogComponent implements OnInit, OnDestroy {
       const options: TestOptions = {
         serial: this.data.token.serial,
         otp: controls.otp.value,
-        transactionid: this.transactionDetail.transactionid,
+        transactionid: this.transactionDetail.transactionId,
       };
       this.testService.testToken(options)
         .subscribe(result => {
@@ -145,15 +145,15 @@ export class TestDialogComponent implements OnInit, OnDestroy {
   }
 
   public get hasOnlineMode(): boolean {
-    return this.transactionDetail.reply_mode.includes(ReplyMode.ONLINE);
+    return this.transactionDetail.replyMode.includes(ReplyMode.ONLINE);
   }
 
   public get hasOfflineMode(): boolean {
-    return this.transactionDetail.reply_mode.includes(ReplyMode.OFFLINE);
+    return this.transactionDetail.replyMode.includes(ReplyMode.OFFLINE);
   }
 
   public get qrCodeData(): string {
-    return this.transactionDetail.transactiondata;
+    return this.transactionDetail.transactionData;
   }
 
   public showInput() {

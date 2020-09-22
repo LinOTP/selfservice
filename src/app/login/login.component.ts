@@ -11,6 +11,8 @@ import { Token, TokenType, TokenTypeDetails } from '../api/token';
 import { SystemService, SystemInfo } from '../system.service';
 import { LoginService, LoginOptions } from './login.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { TransactionDetail, ReplyMode, StatusDetail } from '../api/test.service';
+import { Subscription } from 'rxjs';
 
 export enum LoginStage {
   USER_PW_INPUT = 1,
@@ -40,6 +42,12 @@ export class LoginComponent implements OnInit {
   selectedToken: { serial: string; typeDetails: TokenTypeDetails };
 
   loginStage = LoginStage.USER_PW_INPUT;
+
+  public transactionDetail: TransactionDetail;
+  public shortTransactionId: string;
+  public challengeResult: StatusDetail;
+  public showInputField = false;
+  private pollingSubscription: Subscription;
 
   @ViewChildren('tokenListItem', { read: ElementRef }) tokenChoiceItems: QueryList<ElementRef>;
   showKeyboardTip: boolean;
@@ -113,12 +121,6 @@ export class LoginComponent implements OnInit {
     }
 
     this.loginService.login(loginOptions).subscribe(result => {
-      if (result.challengedata) {
-        this.selectedToken = result.challengedata.token;
-        this.loginStage = LoginStage.OTP_INPUT;
-        return;
-      }
-
       if (!result.tokens) {
         this.finalAuthenticationHandling(result.success);
       } else if (result.tokens.length === 0) {
@@ -168,7 +170,11 @@ export class LoginComponent implements OnInit {
   chooseSecondFactor(token: Token) {
     this.selectedToken = token;
     this.loginService.login({ serial: token.serial })
-      .subscribe(() => {
+      .subscribe(result => {
+        if (result.challengedata) {
+          this.transactionDetail = result.challengedata;
+          this.checkTransactionState();
+        }
         this.loginStage = LoginStage.OTP_INPUT;
       });
   }
@@ -178,13 +184,41 @@ export class LoginComponent implements OnInit {
       .subscribe(result => this.finalAuthenticationHandling(result.success));
   }
 
+  public checkTransactionState() {
+    const txId = this.transactionDetail.transactionId;
+    if (this.hasOnlineMode) {
+      this.pollingSubscription = this.loginService.statusPoll(txId).subscribe(response => {
+        this.finalAuthenticationHandling(response);
+      });
+    }
+  }
+
+  public get hasOnlineMode(): boolean {
+    return this.transactionDetail.replyMode.includes(ReplyMode.ONLINE);
+  }
+
+  public get hasOfflineMode(): boolean {
+    return this.transactionDetail.replyMode.includes(ReplyMode.OFFLINE);
+  }
+
+  public get qrCodeData(): string {
+    return this.transactionDetail.transactionData;
+  }
+
+  public showInput() {
+    this.showInputField = true;
+  }
+
   finalAuthenticationHandling(success: boolean) {
+    this.stopSubscription();
     const message = success ? this.i18n('Login successful') : this.i18n('Login failed');
     this.notificationService.message(message);
     if (success) {
       this.redirect();
     } else {
       this.loginStage = LoginStage.USER_PW_INPUT;
+      this.factors = [];
+      this.secondFactorFormGroup.reset();
       this.selectedToken = null;
     }
   }
@@ -200,5 +234,15 @@ export class LoginComponent implements OnInit {
     this.loginStage = LoginStage.USER_PW_INPUT;
     this.factors = [];
     this.selectedToken = null;
+    this.showInputField = false;
+    this.transactionDetail = null;
+    this.stopSubscription();
+  }
+
+  stopSubscription() {
+    if (this.pollingSubscription) {
+      this.pollingSubscription.unsubscribe();
+      this.pollingSubscription = null;
+    }
   }
 }

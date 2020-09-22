@@ -2,6 +2,7 @@ import { Token, TokenType, EnrollmentStatus, TokenTypeDetails } from '../app/api
 import { Permission } from '../app/common/permissions';
 import { UserSystemInfo, SystemInfo } from '../app/system.service';
 import { LinOTPResponse } from '../app/api/api';
+import { ReplyMode } from '../app/api/test.service';
 
 export class Fixtures {
 
@@ -357,6 +358,15 @@ export class Fixtures {
         mfa_3_fields: false,
         autoenroll: false,
       },
+    };
+  }
+
+  static get transactionDetail() {
+    return {
+      replyMode: [ReplyMode.OFFLINE],
+      transactionId: 'txid',
+      transactionData: 'txdata',
+      message: 'message'
     };
   }
 }

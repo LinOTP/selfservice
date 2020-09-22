@@ -22,9 +22,9 @@ class Page extends TestingPage<TestDialogComponent> {
   }
 }
 
-const challengeOnlyDetail = { reply_mode: ['offline'] };
-const successfulOfflineDetail = { transactionid: 'id', reply_mode: ['offline'] };
-const successfulOnlineDetail = { transactionid: 'id', reply_mode: ['online'] };
+const challengeOnlyDetail = { replyMode: ['offline'] };
+const successfulOfflineDetail = { transactionId: 'id', replyMode: ['offline'] };
+const successfulOnlineDetail = { transactionId: 'id', replyMode: ['online'] };
 
 describe('TestDialogComponent', () => {
   let component: TestDialogComponent;
@@ -120,8 +120,8 @@ describe('TestDialogComponent', () => {
       component = fixture.componentInstance;
       component.state = component.TestState.UNTESTED;
       component.transactionDetail = {
-        transactionid: 'foo',
-        reply_mode: [ReplyMode.ONLINE],
+        transactionId: 'foo',
+        replyMode: [ReplyMode.ONLINE],
       };
 
       component.checkTransactionState();
@@ -145,8 +145,8 @@ describe('TestDialogComponent', () => {
       component = fixture.componentInstance;
       component.state = component.TestState.UNTESTED;
       component.transactionDetail = {
-        transactionid: 'foo',
-        reply_mode: [ReplyMode.ONLINE],
+        transactionId: 'foo',
+        replyMode: [ReplyMode.ONLINE],
       };
 
       component.checkTransactionState();
@@ -170,8 +170,8 @@ describe('TestDialogComponent', () => {
       component = fixture.componentInstance;
       component.state = component.TestState.UNTESTED;
       component.transactionDetail = {
-        transactionid: 'foo',
-        reply_mode: [ReplyMode.ONLINE],
+        transactionId: 'foo',
+        replyMode: [ReplyMode.ONLINE],
       };
 
       component.checkTransactionState();
@@ -195,8 +195,8 @@ describe('TestDialogComponent', () => {
       component = fixture.componentInstance;
       component.state = component.TestState.UNTESTED;
       component.transactionDetail = {
-        transactionid: 'foo',
-        reply_mode: [ReplyMode.ONLINE],
+        transactionId: 'foo',
+        replyMode: [ReplyMode.ONLINE],
       };
 
       component.checkTransactionState();

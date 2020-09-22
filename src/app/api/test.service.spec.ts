@@ -120,7 +120,7 @@ describe('TestService', () => {
         const otp_options = { serial: 'serial' };
 
         testService.testToken(otp_options).subscribe(result => {
-          expect(result).toEqual({ reply_mode: [ReplyMode.ONLINE], transactionid: 'txid' });
+          expect(result).toEqual({ replyMode: [ReplyMode.ONLINE], transactionId: 'txid' });
         });
 
         const req = backend.expectOne({
@@ -134,8 +134,8 @@ describe('TestService', () => {
             value: false,
           },
           detail: {
-            reply_mode: ['online'],
-            transactionid: 'txid',
+            replyMode: ['online'],
+            transactionId: 'txid',
           }
         });
 
