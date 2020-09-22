@@ -237,8 +237,12 @@ describe('LoginComponent', () => {
         expect(page.getTokenSelection()).toBeFalsy();
 
         const tokens = [Fixtures.completedPushToken, Fixtures.completedQRToken];
-        loginService.login.and.returnValues(of({ success: false, tokens: tokens }), of({ success: true }));
+        loginService.login.and.returnValues(
+          of({ success: false, tokens: tokens }),
+          of({ success: false, challengedata: Fixtures.transactionDetail })
+        );
         spyOn(component, 'redirect');
+        spyOn(component, 'chooseSecondFactor').and.callThrough();
 
         component.loginFormGroup.value.username = 'user';
         component.loginFormGroup.value.password = 'pass';
@@ -267,8 +271,11 @@ describe('LoginComponent', () => {
         page.clickTokenListItem(1);
 
         fixture.detectChanges();
+        tick();
 
         expect(component.selectedToken).toEqual(tokens[1]);
+        expect(component.chooseSecondFactor).toHaveBeenCalledWith(tokens[1]);
+        expect(loginService.login).toHaveBeenCalledWith({ serial: tokens[1].serial });
         expect(component.loginStage).toEqual(LoginStage.OTP_INPUT);
       })
     );
@@ -309,6 +316,7 @@ describe('LoginComponent', () => {
       const token = Fixtures.activeHotpToken;
 
       component.loginStage = LoginStage.TOKEN_CHOICE;
+      component.transactionDetail = Fixtures.transactionDetail;
       component.selectedToken = token;
       fixture.detectChanges();
 
