@@ -41,7 +41,7 @@ describe('AppInitService', () => {
   });
 
   it('should load an empty permission set without previously stored permissions', () => {
-    spyOn(localStorage, 'getItem').and.returnValue(null);
+    spyOn(localStorage, 'getItem').and.returnValue('[]');
 
     appInitService.init();
 
