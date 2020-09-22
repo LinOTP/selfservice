@@ -459,6 +459,8 @@ describe('LoginComponent', () => {
       component.loginFormGroup.value.password = 'pass';
       component.secondFactorFormGroup.value.otp = 'otp';
       component.loginStage = LoginStage.OTP_INPUT;
+      component.transactionDetail = Fixtures.transactionDetail;
+
       fixture.detectChanges();
 
       expect(page.getOTPForm()).toBeTruthy();
@@ -469,6 +471,7 @@ describe('LoginComponent', () => {
       expect(component.loginFormGroup.value.username).toBeNull();
       expect(component.loginFormGroup.value.password).toBeNull();
       expect(component.secondFactorFormGroup.value.otp).toBeNull();
+      expect(component.transactionDetail).toBeNull();
       expect(page.getLoginForm()).toBeTruthy();
       expect(component.stopSubscription).toHaveBeenCalled();
     });

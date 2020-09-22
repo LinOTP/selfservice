@@ -235,6 +235,7 @@ export class LoginComponent implements OnInit {
     this.factors = [];
     this.selectedToken = null;
     this.showInputField = false;
+    this.transactionDetail = null;
     this.stopSubscription();
   }
 
