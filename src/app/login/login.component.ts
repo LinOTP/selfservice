@@ -210,10 +210,7 @@ export class LoginComponent implements OnInit {
   }
 
   finalAuthenticationHandling(success: boolean) {
-    if (this.pollingSubscription) {
-      this.pollingSubscription.unsubscribe();
-      this.pollingSubscription = null;
-    }
+    this.stopSubscription();
     const message = success ? this.i18n('Login successful') : this.i18n('Login failed');
     this.notificationService.message(message);
     if (success) {
@@ -238,5 +235,13 @@ export class LoginComponent implements OnInit {
     this.factors = [];
     this.selectedToken = null;
     this.showInputField = false;
+    this.stopSubscription();
+  }
+
+  stopSubscription() {
+    if (this.pollingSubscription) {
+      this.pollingSubscription.unsubscribe();
+      this.pollingSubscription = null;
+    }
   }
 }

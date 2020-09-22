@@ -453,6 +453,7 @@ describe('LoginComponent', () => {
     });
 
     it('should empty both forms and return to the first step form', () => {
+      spyOn(component, 'stopSubscription');
       component.selectedToken = Fixtures.activeHotpToken;
       component.loginFormGroup.value.username = 'user';
       component.loginFormGroup.value.password = 'pass';
@@ -469,6 +470,7 @@ describe('LoginComponent', () => {
       expect(component.loginFormGroup.value.password).toBeNull();
       expect(component.secondFactorFormGroup.value.otp).toBeNull();
       expect(page.getLoginForm()).toBeTruthy();
+      expect(component.stopSubscription).toHaveBeenCalled();
     });
   });
 });
