@@ -181,7 +181,8 @@
       <button mat-raised-button
               type="submit"
               color="primary"
-              i18n="2nd factor login action|login page second factor submit button">Submit</button>
+              i18n="2nd factor login action|login page second factor submit button"
+              *ngIf="!transactionDetail || !hasOnlineMode || showInputField">Submit</button>
     </mat-card-actions>
   </mat-card>
 </form>
