@@ -6,7 +6,7 @@ import { of, Observable, Observer } from 'rxjs';
 
 import { Fixtures } from '../../testing/fixtures';
 import { TestingPage } from '../../testing/page-helper';
-import { spyOnClass } from '../../testing/spyOnClass';
+import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
 import { I18nMock } from '../../testing/i18n-mock-provider';
 import { MockComponent } from '../../testing/mock-component';
 
@@ -58,7 +58,7 @@ describe('TestDialogComponent', () => {
   }));
 
   beforeEach(() => {
-    testService = TestBed.get(TestService);
+    testService = getInjectedStub(TestService);
   });
 
   it('should start in untested state if a transaction detail was received', () => {

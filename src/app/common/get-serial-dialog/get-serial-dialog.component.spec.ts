@@ -46,9 +46,9 @@ describe('GetSerialDialogComponent', () => {
   }));
 
   beforeEach(() => {
-    tokenService = TestBed.get(TokenService);
-    notificationService = TestBed.get(NotificationService);
-    matDialogRef = TestBed.get(MatDialogRef);
+    tokenService = TestBed.inject(TokenService);
+    notificationService = TestBed.inject(NotificationService);
+    matDialogRef = TestBed.inject(MatDialogRef);
 
     fixture = TestBed.createComponent(GetSerialDialogComponent);
     component = fixture.componentInstance;

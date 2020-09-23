@@ -6,7 +6,7 @@ import { NgxPermissionsAllowStubDirective, NgxPermissionsService } from 'ngx-per
 
 import { of } from 'rxjs/internal/observable/of';
 
-import { spyOnClass } from '../../testing/spyOnClass';
+import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
 import { Fixtures } from '../../testing/fixtures';
 import { I18nMock } from '../../testing/i18n-mock-provider';
 
@@ -32,7 +32,7 @@ import { EnrollPasswordDialogComponent } from '../enroll/enroll-password-dialog/
 describe('EnrollmentGridComponent', () => {
   let component: EnrollmentGridComponent;
   let fixture: ComponentFixture<EnrollmentGridComponent>;
-  let notificationService: NotificationService;
+  let notificationService: jasmine.SpyObj<NotificationService>;
   let tokenService: jasmine.SpyObj<TokenService>;
   let matDialog: jasmine.SpyObj<MatDialog>;
   let tokenUpdateSpy;
@@ -75,11 +75,11 @@ describe('EnrollmentGridComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(EnrollmentGridComponent);
     component = fixture.componentInstance;
-    notificationService = TestBed.get(NotificationService);
-    tokenService = TestBed.get(TokenService);
-    matDialog = TestBed.get(MatDialog);
     tokenUpdateSpy = spyOn(component.tokenUpdate, 'next');
-    permissionsService = TestBed.get(NgxPermissionsService);
+    notificationService = getInjectedStub(NotificationService);
+    tokenService = getInjectedStub(TokenService);
+    matDialog = getInjectedStub(MatDialog);
+    permissionsService = getInjectedStub(NgxPermissionsService);
     permissionsService.hasPermission.and.returnValue(Promise.resolve(true));
 
     (<any>tokenService).tokenTypeDetails = [Fixtures.tokenTypeDetails.hmac, Fixtures.tokenTypeDetails.push];

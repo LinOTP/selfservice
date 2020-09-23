@@ -2,13 +2,14 @@ import { TestBed } from '@angular/core/testing';
 
 import { NgxPermissionsService } from 'ngx-permissions';
 
-import { spyOnClass } from '../testing/spyOnClass';
+import { spyOnClass, getInjectedStub } from '../testing/spyOnClass';
 
 import { Permission } from './common/permissions';
 import { AppInitService } from './app-init.service';
 
 describe('AppInitService', () => {
   let appInitService: AppInitService;
+  let ngxPermissionsService: jasmine.SpyObj<NgxPermissionsService>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -22,7 +23,8 @@ describe('AppInitService', () => {
   });
 
   beforeEach(() => {
-    appInitService = TestBed.get(AppInitService);
+    appInitService = TestBed.inject(AppInitService);
+    ngxPermissionsService = getInjectedStub(NgxPermissionsService);
   });
 
   it('should be created', () => {
@@ -36,8 +38,7 @@ describe('AppInitService', () => {
 
     appInitService.init();
 
-    expect(TestBed.get(NgxPermissionsService).loadPermissions)
-      .toHaveBeenCalledWith([Permission.ENROLLHOTP, Permission.SETPIN]);
+    expect(ngxPermissionsService.loadPermissions).toHaveBeenCalledWith([Permission.ENROLLHOTP, Permission.SETPIN]);
   });
 
   it('should load an empty permission set without previously stored permissions', () => {
@@ -45,7 +46,6 @@ describe('AppInitService', () => {
 
     appInitService.init();
 
-    expect(TestBed.get(NgxPermissionsService).loadPermissions)
-      .toHaveBeenCalledWith([]);
+    expect(ngxPermissionsService.loadPermissions).toHaveBeenCalledWith([]);
   });
 });

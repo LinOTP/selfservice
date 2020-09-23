@@ -8,7 +8,7 @@ import { NgxPermissionsService } from 'ngx-permissions';
 
 import { of } from 'rxjs';
 
-import { spyOnClass } from '../../testing/spyOnClass';
+import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
 import { Fixtures, TokenListFixtures } from '../../testing/fixtures';
 
 import { MaterialModule } from '../material.module';
@@ -22,7 +22,7 @@ describe('LoginService', () => {
   let loginService: LoginService;
   let tokenService: jasmine.SpyObj<TokenService>;
   let systemService: jasmine.SpyObj<SystemService>;
-  let permissionsService: NgxPermissionsService;
+  let permissionsService: jasmine.SpyObj<NgxPermissionsService>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -54,13 +54,12 @@ describe('LoginService', () => {
   });
 
   beforeEach(() => {
-    loginService = TestBed.get(LoginService);
-    tokenService = TestBed.get(TokenService);
+    loginService = TestBed.inject(LoginService);
+    tokenService = getInjectedStub(TokenService);
+    systemService = getInjectedStub(SystemService);
+    permissionsService = getInjectedStub(NgxPermissionsService);
 
-    systemService = TestBed.get(SystemService);
     systemService.getUserSystemInfo.and.returnValue(of(Fixtures.userSystemInfo));
-
-    permissionsService = TestBed.get(NgxPermissionsService);
   });
 
   it('should be created', () => {
@@ -301,7 +300,7 @@ describe('LoginService', () => {
     let router: Router;
 
     beforeEach(() => {
-      router = TestBed.get(Router);
+      router = TestBed.inject(Router);
     });
 
     it('should flush permissions and clear all local storage items', () => {

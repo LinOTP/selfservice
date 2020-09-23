@@ -3,7 +3,7 @@ import { TestBed, async, inject } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { ExampleAPIResponses, Fixtures } from '../testing/fixtures';
-import { spyOnClass } from '../testing/spyOnClass';
+import { spyOnClass, getInjectedStub } from '../testing/spyOnClass';
 
 import { SystemService } from './system.service';
 import { SessionService } from './auth/session.service';
@@ -22,8 +22,8 @@ describe('SystemService', () => {
   }));
 
   beforeEach(() => {
-    service = TestBed.get(SystemService);
-    TestBed.get(SessionService).getSession.and.returnValue('');
+    service = TestBed.inject(SystemService);
+    getInjectedStub(SessionService).getSession.and.returnValue('');
   });
 
   it('should be created', () => {

@@ -32,7 +32,7 @@ describe('TokenService', () => {
       ],
     });
 
-    tokenService = TestBed.get(TokenService);
+    tokenService = TestBed.inject(TokenService);
   });
 
   it('should be created', inject([TokenService], (service: TokenService) => {

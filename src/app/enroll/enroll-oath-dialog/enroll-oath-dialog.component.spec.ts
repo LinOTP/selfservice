@@ -10,7 +10,7 @@ import { of } from 'rxjs';
 
 import { Fixtures } from '../../../testing/fixtures';
 import { MockComponent } from '../../../testing/mock-component';
-import { spyOnClass } from '../../../testing/spyOnClass';
+import { spyOnClass, getInjectedStub } from '../../../testing/spyOnClass';
 import { I18nMock } from '../../../testing/i18n-mock-provider';
 
 import { MaterialModule } from '../../material.module';
@@ -27,7 +27,7 @@ describe('The EnrollOATHDialogComponent', () => {
   let component: EnrollOATHDialogComponent;
   let fixture: ComponentFixture<EnrollOATHDialogComponent>;
   let matDialog: jasmine.SpyObj<MatDialog>;
-  let notificationService: NotificationService;
+  let notificationService: jasmine.SpyObj<NotificationService>;
   let operationsService: jasmine.SpyObj<OperationsService>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
   let permissionsService: jasmine.SpyObj<NgxPermissionsService>;
@@ -86,12 +86,12 @@ describe('The EnrollOATHDialogComponent', () => {
     fixture = TestBed.createComponent(EnrollOATHDialogComponent);
     component = fixture.componentInstance;
 
-    matDialog = TestBed.get(MatDialog);
-    notificationService = TestBed.get(NotificationService);
-    operationsService = TestBed.get(OperationsService);
-    enrollmentService = TestBed.get(EnrollmentService);
-    permissionsService = TestBed.get(NgxPermissionsService);
-    dialogRef = TestBed.get(MatDialogRef);
+    matDialog = getInjectedStub(MatDialog);
+    notificationService = getInjectedStub(NotificationService);
+    operationsService = getInjectedStub(OperationsService);
+    enrollmentService = getInjectedStub(EnrollmentService);
+    permissionsService = getInjectedStub(NgxPermissionsService);
+    dialogRef = getInjectedStub<MatDialogRef<EnrollOATHDialogComponent>>(MatDialogRef);
 
     fixture.detectChanges();
   });

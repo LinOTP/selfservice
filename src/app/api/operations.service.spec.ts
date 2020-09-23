@@ -45,7 +45,7 @@ describe('OperationsService', () => {
       ],
     });
 
-    operationsService = TestBed.get(OperationsService);
+    operationsService = TestBed.inject(OperationsService);
   });
 
   it('should be created', inject([OperationsService], (service: OperationsService) => {

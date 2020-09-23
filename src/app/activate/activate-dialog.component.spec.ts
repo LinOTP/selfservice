@@ -9,7 +9,7 @@ import { of } from 'rxjs/internal/observable/of';
 
 import { Fixtures } from '../../testing/fixtures';
 import { MockComponent } from '../../testing/mock-component';
-import { spyOnClass } from '../../testing/spyOnClass';
+import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
 import { I18nMock } from '../../testing/i18n-mock-provider';
 
 import { MaterialModule } from '../material.module';
@@ -22,7 +22,7 @@ describe('ActivateDialogComponent', () => {
   let fixture: ComponentFixture<ActivateDialogComponent>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
   let dialogRef: jasmine.SpyObj<MatDialogRef<EnrollPushQRDialogComponent>>;
-  let stepper: MatStepper;
+  let stepper: jasmine.SpyObj<MatStepper>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -50,9 +50,9 @@ describe('ActivateDialogComponent', () => {
   }));
 
   beforeEach(() => {
-    enrollmentService = TestBed.get(EnrollmentService);
-    dialogRef = TestBed.get(MatDialogRef);
-    stepper = TestBed.get(MatStepper);
+    enrollmentService = getInjectedStub(EnrollmentService);
+    dialogRef = getInjectedStub<MatDialogRef<EnrollPushQRDialogComponent>>(MatDialogRef);
+    stepper = getInjectedStub(MatStepper);
 
     fixture = TestBed.createComponent(ActivateDialogComponent);
     component = fixture.componentInstance;

@@ -4,7 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { of } from 'rxjs';
 
-import { spyOnClass } from '../../../testing/spyOnClass';
+import { spyOnClass, getInjectedStub } from '../../../testing/spyOnClass';
 import { I18nMock } from '../../../testing/i18n-mock-provider';
 
 import { MaterialModule } from '../../material.module';
@@ -52,8 +52,8 @@ describe('EnrollYubicoDialogComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
 
-    dialogRef = TestBed.get(MatDialogRef);
-    enrollmentService = TestBed.get(EnrollmentService);
+    dialogRef = getInjectedStub<MatDialogRef<EnrollYubicoDialogComponent>>(MatDialogRef);
+    enrollmentService = getInjectedStub(EnrollmentService);
   });
 
   it('should be created', () => {

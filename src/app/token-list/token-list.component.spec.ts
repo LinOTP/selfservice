@@ -7,7 +7,7 @@ import { of } from 'rxjs';
 
 import { MockPipe } from '../../testing/mock-pipe';
 import { MockComponent } from '../../testing/mock-component';
-import { spyOnClass } from '../../testing/spyOnClass';
+import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
 import { Fixtures } from '../../testing/fixtures';
 import { TestingPage } from '../../testing/page-helper';
 
@@ -100,8 +100,8 @@ describe('TokenListComponent with permissions', () => {
     component = fixture.componentInstance;
     page = new Page(fixture);
 
-    tokenService = TestBed.get(TokenService);
-    appInitService = TestBed.get(AppInitService);
+    tokenService = getInjectedStub(TokenService);
+    appInitService = getInjectedStub(AppInitService);
     appInitService.getPermissionLoad$.and.returnValue(of(true));
   });
 
@@ -229,8 +229,8 @@ describe('TokenListComponent without tokens and permissions', () => {
     component = fixture.componentInstance;
     page = new Page(fixture);
 
-    tokenService = TestBed.get(TokenService);
-    appInitService = TestBed.get(AppInitService);
+    tokenService = getInjectedStub(TokenService);
+    appInitService = getInjectedStub(AppInitService);
     appInitService.getPermissionLoad$.and.returnValue(of(false));
     tokenService.getTokens.and.returnValue(of([]));
   });

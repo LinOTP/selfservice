@@ -6,7 +6,7 @@ import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
 
 import { of } from 'rxjs';
 
-import { spyOnClass } from '../../../testing/spyOnClass';
+import { spyOnClass, getInjectedStub } from '../../../testing/spyOnClass';
 import { I18nMock } from '../../../testing/i18n-mock-provider';
 
 import { MaterialModule } from '../../material.module';
@@ -61,9 +61,9 @@ describe('AssignTokenDialogComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
 
-    dialog = TestBed.get(MatDialog);
-    dialogRef = TestBed.get(MatDialogRef);
-    enrollmentService = TestBed.get(EnrollmentService);
+    dialog = getInjectedStub(MatDialog);
+    dialogRef = getInjectedStub<MatDialogRef<AssignTokenDialogComponent>>(MatDialogRef);
+    enrollmentService = getInjectedStub(EnrollmentService);
   });
 
   it('should be created', () => {

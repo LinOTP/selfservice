@@ -2,7 +2,7 @@ import { RouterStateSnapshot } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TestBed, inject } from '@angular/core/testing';
 
-import { spyOnClass } from '../../testing/spyOnClass';
+import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
 
 import { LoginService } from '../login/login.service';
 import { SessionService } from './session.service';
@@ -35,8 +35,8 @@ describe('AuthGuard', () => {
   });
 
   beforeEach(() => {
-    loginService = TestBed.get(LoginService);
-    sessionService = TestBed.get(SessionService);
+    loginService = getInjectedStub(LoginService);
+    sessionService = getInjectedStub(SessionService);
   });
 
   it('should be created', inject([AuthGuard], (service: AuthGuard) => {

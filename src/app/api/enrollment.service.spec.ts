@@ -42,7 +42,7 @@ describe('EnrollmentService', () => {
       ],
     });
 
-    enrollmentService = TestBed.get(EnrollmentService);
+    enrollmentService = TestBed.inject(EnrollmentService);
   });
 
   it('should be created', inject([EnrollmentService], (service: EnrollmentService) => {

@@ -6,7 +6,7 @@ import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
 import { of } from 'rxjs/internal/observable/of';
 
 import { Fixtures } from '../../testing/fixtures';
-import { spyOnClass } from '../../testing/spyOnClass';
+import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
 import { TestingPage } from '../../testing/page-helper';
 import { I18nMock } from '../../testing/i18n-mock-provider';
 
@@ -79,10 +79,10 @@ describe('TokenCardComponent', () => {
     component = fixture.componentInstance;
     component.token = Fixtures.activeHotpToken;
 
-    notificationService = TestBed.get(NotificationService);
-    operationsService = TestBed.get(OperationsService);
+    notificationService = getInjectedStub(NotificationService);
+    operationsService = getInjectedStub(OperationsService);
     operationsService.deleteToken.and.returnValue(of({}));
-    matDialog = TestBed.get(MatDialog);
+    matDialog = getInjectedStub(MatDialog);
     tokenUpdateSpy = spyOn(component.tokenUpdate, 'next');
 
     fixture.detectChanges();

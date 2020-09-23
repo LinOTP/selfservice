@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 
 import { I18nMock } from '../testing/i18n-mock-provider';
-import { spyOnClass } from '../testing/spyOnClass';
+import { spyOnClass, getInjectedStub } from '../testing/spyOnClass';
 
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
@@ -51,8 +51,8 @@ describe('AppComponent', () => {
   }));
 
   beforeEach(() => {
-    loginService = TestBed.get(LoginService);
-    sessionService = TestBed.get(SessionService);
+    loginService = getInjectedStub(LoginService);
+    sessionService = getInjectedStub(SessionService);
 
     loginService.logout.and.returnValue(of(null));
     sessionService.isLoggedIn.and.returnValue(of(null));

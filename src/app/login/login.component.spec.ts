@@ -6,7 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 
 import { I18nMock } from '../../testing/i18n-mock-provider';
-import { spyOnClass } from '../../testing/spyOnClass';
+import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
 import { Fixtures } from '../../testing/fixtures';
 import { MockPipe } from '../../testing/mock-pipe';
 import { TestingPage } from '../../testing/page-helper';
@@ -99,10 +99,11 @@ describe('LoginComponent', () => {
   }));
 
   beforeEach(() => {
-    loginService = TestBed.get(LoginService);
-    notificationService = TestBed.get(NotificationService);
-    systemService = TestBed.get(SystemService);
-    router = TestBed.get(Router);
+    loginService = getInjectedStub(LoginService);
+    notificationService = getInjectedStub(NotificationService);
+    systemService = getInjectedStub(SystemService);
+    router = getInjectedStub(Router);
+
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
 
