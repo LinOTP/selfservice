@@ -16,7 +16,7 @@ import { TokenType } from '../../api/token';
 export class EnrollYubicoDialogComponent implements OnInit {
 
   public registrationForm: FormGroup;
-  @ViewChild(MatStepper, { static: false }) public stepper: MatStepper;
+  @ViewChild(MatStepper) public stepper: MatStepper;
 
   public success: boolean;
   public errorTypeMessage = '';

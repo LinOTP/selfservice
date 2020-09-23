@@ -17,8 +17,8 @@ import { Permission } from '../../common/permissions';
 export class AssignTokenDialogComponent implements OnInit {
 
   public assignmentForm: FormGroup;
-  @ViewChild(MatStepper, { static: false }) public stepper: MatStepper;
-  @ViewChild('serialInput', { static: false }) public serialInput: ElementRef;
+  @ViewChild(MatStepper) public stepper: MatStepper;
+  @ViewChild('serialInput') public serialInput: ElementRef;
 
   public permissions = Permission;
 
