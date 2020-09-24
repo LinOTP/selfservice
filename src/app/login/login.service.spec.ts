@@ -4,8 +4,6 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed, async, inject } from '@angular/core/testing';
 
-import { NgxPermissionsService } from 'ngx-permissions';
-
 import { of } from 'rxjs';
 
 import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
@@ -15,6 +13,7 @@ import { MaterialModule } from '../material.module';
 import { SessionService } from '../auth/session.service';
 import { SystemService } from '../system.service';
 import { TokenService } from '../api/token.service';
+import { AppInitService } from '../app-init.service';
 
 import { LoginService } from './login.service';
 
@@ -22,7 +21,7 @@ describe('LoginService', () => {
   let loginService: LoginService;
   let tokenService: jasmine.SpyObj<TokenService>;
   let systemService: jasmine.SpyObj<SystemService>;
-  let permissionsService: jasmine.SpyObj<NgxPermissionsService>;
+  let appInitService: jasmine.SpyObj<AppInitService>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -46,8 +45,8 @@ describe('LoginService', () => {
           useValue: spyOnClass(SystemService),
         },
         {
-          provide: NgxPermissionsService,
-          useValue: spyOnClass(NgxPermissionsService)
+          provide: AppInitService,
+          useValue: spyOnClass(AppInitService)
         },
       ],
     });
@@ -57,7 +56,7 @@ describe('LoginService', () => {
     loginService = TestBed.inject(LoginService);
     tokenService = getInjectedStub(TokenService);
     systemService = getInjectedStub(SystemService);
-    permissionsService = getInjectedStub(NgxPermissionsService);
+    appInitService = getInjectedStub(AppInitService);
 
     systemService.getUserSystemInfo.and.returnValue(of(Fixtures.userSystemInfo));
   });
@@ -290,7 +289,7 @@ describe('LoginService', () => {
       systemService.getUserSystemInfo.and.returnValue(of(usersysInfo));
 
       loginService.refreshUserSystemInfo().subscribe(() => {
-        expect(permissionsService.loadPermissions).toHaveBeenCalledWith(Fixtures.permissionList);
+        expect(appInitService.loadStoredPermissions).toHaveBeenCalled();
         expect(localStorage.setItem).toHaveBeenCalledWith('permissions', JSON.stringify(Fixtures.permissionList));
       });
     });
@@ -309,7 +308,7 @@ describe('LoginService', () => {
       loginService.handleLogout(false);
 
       expect(localStorage.clear).toHaveBeenCalled();
-      expect(permissionsService.flushPermissions).toHaveBeenCalled();
+      expect(appInitService.clearPermissions).toHaveBeenCalled();
     });
 
     it('should emit a loginChange event', () => {
