@@ -21,6 +21,7 @@
     "baseUrl": "./"
   },
   "angularCompilerOptions": {
-    "preserveWhitespaces": "off"
+    "preserveWhitespaces": "off",
+    "enableI18nLegacyMessageIdFormat": false
   }
 }

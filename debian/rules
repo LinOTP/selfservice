@@ -16,4 +16,4 @@ override_dh_auto_configure:
 	yarn install --frozen-lockfile
 
 override_dh_auto_build:
-	urlprefix=/selfservice-v2 yarn build-with-prefix
+	yarn build --base-href=/selfservice-v2

@@ -9,8 +9,7 @@
     "start-en": "yarn start-base --configuration=en",
     "start-base": "ng serve --proxy-config .dev-proxy/proxy.conf.js",
     "start:ki-cloud": "ng serve --ssl --proxy-config .dev-proxy/ki-cloud.conf.js",
-    "build": "urlprefix=\"\" yarn build-with-prefix",
-    "build-with-prefix": "for lang in de en; do ng build --configuration=production-$lang --base-href=${urlprefix}/$lang/; done",
+    "build": "ng build --localize --prod",
     "test": "yarn test:chrome",
     "test:chrome": "ng test --browsers Chrome",
     "test:chromium": "ng test --browsers Chromium",
@@ -20,7 +19,8 @@
     "test:ci-no-sandbox": "ng test --browsers ChromeHeadlessNoSandbox --code-coverage --watch=false",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "extract-i18n": "ng xi18n self-service --i18n-format xlf --output-path locale --i18n-locale en"
+    "extract-i18n": "ng xi18n self-service --ivy --format xlf --output-path src/locale/",
+    "postextract-i18n": "xliffmerge --profile .xliffmerge.json"
   },
   "private": true,
   "dependencies": {
@@ -63,6 +63,7 @@
     "karma-firefox-launcher": "^1.1.0",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
+    "ngx-i18nsupport": "^0.17.1",
     "protractor": "~7.0.0",
     "ts-node": "~3.2.0",
     "tslint": "~6.1.0",

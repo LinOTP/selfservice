@@ -6,15 +6,11 @@
     "self-service": {
       "i18n": {
         "locales": {
-          "en": {
-            "translation": "src/locale/messages.en.xlf",
-            "baseHref": ""
-          },
           "de": {
-            "translation": "src/locale/messages.de.xlf",
-            "baseHref": ""
+            "translation": "src/locale/messages.de.xlf"
           }
-        }
+        },
+        "sourceLocale": "en"
       },
       "root": "",
       "sourceRoot": "src",
@@ -39,15 +35,12 @@
             "scripts": []
           },
           "configurations": {
-            "production-en": {
+            "production": {
               "budgets": [
                 {
                   "type": "anyComponentStyle",
                   "maximumWarning": "6kb"
                 }
-              ],
-              "localize": [
-                "en"
               ],
               "optimization": true,
               "outputHashing": "all",
@@ -67,52 +60,11 @@
               "outputPath": "dist"
             },
             "en": {
-              "aot": true,
-              "budgets": [
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb"
-                }
-              ],
               "localize": [
                 "en"
               ]
             },
-            "production-de": {
-              "budgets": [
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb"
-                }
-              ],
-              "localize": [
-                "de"
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "aot": true,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
-              "outputPath": "dist"
-            },
             "de": {
-              "aot": true,
-              "budgets": [
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb"
-                }
-              ],
               "localize": [
                 "de"
               ]
@@ -125,14 +77,11 @@
             "browserTarget": "self-service:build"
           },
           "configurations": {
-            "production-en": {
-              "browserTarget": "self-service:build:production-en"
+            "production": {
+              "browserTarget": "self-service:build:production"
             },
             "en": {
               "browserTarget": "self-service:build:en"
-            },
-            "production-de": {
-              "browserTarget": "self-service:build:production-de"
             },
             "de": {
               "browserTarget": "self-service:build:de"
