@@ -2,8 +2,6 @@ import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators, ValidationErrors, AbstractControl } from '@angular/forms';
 
-import { I18n } from '@ngx-translate/i18n-polyfill';
-
 import { Token } from '../../api/token';
 import { OperationsService } from '../../api/operations.service';
 import { ErrorStateRootMatcher } from '../form-helpers/error-state-root-matcher';
@@ -20,8 +18,8 @@ export class SetMOTPPinDialogComponent {
   public matcher = new ErrorStateRootMatcher();
   public form: FormGroup;
 
-  public newPinPlaceholder = this.i18n('New PIN');
-  public confirmPinPlaceholder = this.i18n('Confirm your new PIN');
+  public newPinPlaceholder = $localize`New PIN`;
+  public confirmPinPlaceholder = $localize`Confirm your new PIN`;
 
   constructor(
     private dialogRef: MatDialogRef<SetMOTPPinDialogComponent>,
@@ -29,7 +27,6 @@ export class SetMOTPPinDialogComponent {
     private operationsService: OperationsService,
     private formBuilder: FormBuilder,
     private notificationService: NotificationService,
-    private i18n: I18n,
   ) {
     this.form = this.formBuilder.group(
       {
@@ -69,7 +66,7 @@ export class SetMOTPPinDialogComponent {
           this.dialogRef.close(true);
         } else {
           this.awaitingResponse = false;
-          this.notificationService.message(this.i18n('mOTP pin could not be set. Please try again.'));
+          this.notificationService.message($localize`mOTP pin could not be set. Please try again.`);
         }
       });
     }

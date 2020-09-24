@@ -2,8 +2,6 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 
-import { I18n } from '@ngx-translate/i18n-polyfill';
-
 import { TokenService } from '../../api/token.service';
 import { NotificationService } from '../notification.service';
 
@@ -23,7 +21,6 @@ export class GetSerialDialogComponent {
     private tokenService: TokenService,
     private formBuilder: FormBuilder,
     private notificationService: NotificationService,
-    private i18n: I18n,
   ) {
     this.form = this.formBuilder.group(
       {
@@ -46,7 +43,7 @@ export class GetSerialDialogComponent {
           this.dialogRef.close(result);
         } else {
           this.awaitingResponse = false;
-          this.notificationService.message(this.i18n('Token serial could not be retrieved. Please try again.'));
+          this.notificationService.message($localize`Token serial could not be retrieved. Please try again.`);
         }
       });
     }

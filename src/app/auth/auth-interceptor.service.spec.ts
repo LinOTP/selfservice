@@ -2,7 +2,6 @@ import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed, inject } from '@angular/core/testing';
 
-import { I18nMock } from '../../testing/i18n-mock-provider';
 import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
 
 import { LoginService } from '../login/login.service';
@@ -35,7 +34,6 @@ describe('AuthInterceptor', () => {
           provide: NotificationService,
           useValue: spyOnClass(NotificationService)
         },
-        I18nMock,
       ],
     });
   });

@@ -8,7 +8,6 @@ import { of } from 'rxjs/internal/observable/of';
 import { Fixtures } from '../../testing/fixtures';
 import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
 import { TestingPage } from '../../testing/page-helper';
-import { I18nMock } from '../../testing/i18n-mock-provider';
 
 import { MaterialModule } from '../material.module';
 import { CapitalizePipe } from '../common/pipes/capitalize.pipe';
@@ -68,7 +67,6 @@ describe('TokenCardComponent', () => {
           provide: MatDialog,
           useValue: spyOnClass(MatDialog)
         },
-        I18nMock,
       ]
     })
       .compileComponents();

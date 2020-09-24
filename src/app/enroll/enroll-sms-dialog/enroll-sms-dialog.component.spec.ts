@@ -10,7 +10,6 @@ import { of } from 'rxjs';
 
 import { Fixtures } from '../../../testing/fixtures';
 import { spyOnClass, getInjectedStub } from '../../../testing/spyOnClass';
-import { I18nMock } from '../../../testing/i18n-mock-provider';
 
 import { MaterialModule } from '../../material.module';
 import { TokenType } from '../../api/token';
@@ -75,7 +74,6 @@ describe('The EnrollSMSDialogComponent', () => {
           provide: MAT_DIALOG_DATA,
           useValue: { tokenTypeDetails: Fixtures.tokenTypeDetails[TokenType.SMS], closeLabel: null },
         },
-        I18nMock,
       ],
     })
       .compileComponents();

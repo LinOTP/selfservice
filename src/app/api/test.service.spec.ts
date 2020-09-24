@@ -3,8 +3,6 @@ import { TestBed, async, inject } from '@angular/core/testing';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
-import { I18nMock } from '../../testing/i18n-mock-provider';
-
 import { SessionService } from '../auth/session.service';
 import { TestService, ReplyMode } from './test.service';
 
@@ -27,7 +25,6 @@ describe('TestService', () => {
             getSession: jasmine.createSpy('getSession').and.returnValue(session),
           }
         },
-        I18nMock,
       ],
     });
 

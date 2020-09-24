@@ -7,7 +7,6 @@ import { of, Observable, Observer } from 'rxjs';
 import { Fixtures } from '../../testing/fixtures';
 import { TestingPage } from '../../testing/page-helper';
 import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
-import { I18nMock } from '../../testing/i18n-mock-provider';
 import { MockComponent } from '../../testing/mock-component';
 
 import { MaterialModule } from '../material.module';
@@ -52,7 +51,6 @@ describe('TestDialogComponent', () => {
           provide: TestService,
           useValue: spyOnClass(TestService),
         },
-        I18nMock,
       ]
     }).compileComponents();
   }));

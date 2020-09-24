@@ -10,7 +10,6 @@ import { of } from 'rxjs/internal/observable/of';
 import { Fixtures } from '../../testing/fixtures';
 import { MockComponent } from '../../testing/mock-component';
 import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
-import { I18nMock } from '../../testing/i18n-mock-provider';
 
 import { MaterialModule } from '../material.module';
 import { EnrollmentService } from '../api/enrollment.service';
@@ -43,7 +42,6 @@ describe('ActivateDialogComponent', () => {
         { provide: MAT_DIALOG_DATA, useValue: { token: Fixtures.inactivePushToken } },
         { provide: MatDialogRef, useValue: spyOnClass(MatDialogRef) },
         { provide: MatStepper, useValue: spyOnClass(MatStepper) },
-        I18nMock,
       ],
     })
       .compileComponents();

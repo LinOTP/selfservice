@@ -9,7 +9,6 @@ import { of } from 'rxjs/internal/observable/of';
 
 import { MockComponent } from '../../../testing/mock-component';
 import { spyOnClass, getInjectedStub } from '../../../testing/spyOnClass';
-import { I18nMock } from '../../../testing/i18n-mock-provider';
 import { Fixtures } from '../../../testing/fixtures';
 
 import { OperationsService } from '../../api/operations.service';
@@ -75,7 +74,6 @@ describe('EnrollPushDialogComponent', () => {
           provide: MAT_DIALOG_DATA,
           useValue: { tokenTypeDetails: Fixtures.tokenTypeDetails[TokenType.PUSH], closeLabel: null },
         },
-        I18nMock,
       ],
     })
       .compileComponents();

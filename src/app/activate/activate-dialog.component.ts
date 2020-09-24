@@ -2,7 +2,6 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatStepper } from '@angular/material/stepper';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { Observable, of } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
@@ -30,7 +29,6 @@ export class ActivateDialogComponent implements OnInit {
 
   constructor(
     private enrollmentService: EnrollmentService,
-    private i18n: I18n,
     private dialogRef: MatDialogRef<ActivateDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { token: Token },
   ) {

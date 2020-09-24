@@ -1,8 +1,6 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
-import { I18n } from '@ngx-translate/i18n-polyfill';
-
 import { NgxPermissionsService } from 'ngx-permissions';
 import { Subject, Observable, of } from 'rxjs';
 import { switchMap, filter, tap } from 'rxjs/operators';
@@ -39,7 +37,6 @@ export class EnrollmentGridComponent implements OnInit {
     private tokenService: TokenService,
     private notificationService: NotificationService,
     private permissionService: NgxPermissionsService,
-    private i18n: I18n,
   ) { }
 
   public ngOnInit() {
@@ -63,7 +60,7 @@ export class EnrollmentGridComponent implements OnInit {
       disableClose: true,
       data: {
         tokenTypeDetails: typeDetails,
-        closeLabel: this.testAfterEnrollment ? this.i18n('Test') : this.i18n('Close'),
+        closeLabel: this.testAfterEnrollment ? $localize`Test` : $localize`Close`,
       },
     };
 
@@ -74,7 +71,7 @@ export class EnrollmentGridComponent implements OnInit {
         break;
       case TokenType.PASSWORD:
         dialog = EnrollPasswordDialogComponent;
-        enrollmentConfig.data.closeLabel = this.i18n('Close');
+        enrollmentConfig.data.closeLabel = $localize`Close`;
         break;
       case TokenType.EMAIL:
         dialog = EnrollEmailDialogComponent;
@@ -97,7 +94,7 @@ export class EnrollmentGridComponent implements OnInit {
         dialog = AssignTokenDialogComponent;
         break;
       default:
-        this.notificationService.message(this.i18n('The selected token type cannot be added at the moment.'));
+        this.notificationService.message($localize`The selected token type cannot be added at the moment.`);
         return;
     }
 
@@ -111,7 +108,7 @@ export class EnrollmentGridComponent implements OnInit {
         switchMap(serial => this.tokenService.getToken(serial)),
         tap(token => {
           if (!token) {
-            this.notificationService.message(this.i18n('There was a problem starting the token test, please try again later.'));
+            this.notificationService.message($localize`There was a problem starting the token test, please try again later.`);
           }
         }),
         filter(token => !!token),

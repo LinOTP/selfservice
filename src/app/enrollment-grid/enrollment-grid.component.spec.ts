@@ -8,7 +8,6 @@ import { of } from 'rxjs/internal/observable/of';
 
 import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
 import { Fixtures } from '../../testing/fixtures';
-import { I18nMock } from '../../testing/i18n-mock-provider';
 
 import { MaterialModule } from '../material.module';
 import { NotificationService } from '../common/notification.service';
@@ -62,7 +61,6 @@ describe('EnrollmentGridComponent', () => {
           provide: MatDialog,
           useValue: spyOnClass(MatDialog)
         },
-        I18nMock,
         {
           provide: NgxPermissionsService,
           useValue: spyOnClass(NgxPermissionsService)

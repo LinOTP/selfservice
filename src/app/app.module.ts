@@ -6,7 +6,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { CookieModule } from 'ngx-cookie';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { CustomFormsModule } from 'ng2-validation';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { QRCodeModule } from 'angularx-qrcode';
 
 import { NgSelfServiceCommonModule } from './common/common.module';
@@ -97,7 +96,6 @@ declare const require;
       deps: [LOCALE_ID]
     },
     { provide: TRANSLATIONS_FORMAT, useValue: 'xlf' },
-    I18n,
   ],
   bootstrap: [AppComponent]
 })

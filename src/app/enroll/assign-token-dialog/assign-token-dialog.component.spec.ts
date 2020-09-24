@@ -7,7 +7,6 @@ import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
 import { of } from 'rxjs';
 
 import { spyOnClass, getInjectedStub } from '../../../testing/spyOnClass';
-import { I18nMock } from '../../../testing/i18n-mock-provider';
 
 import { MaterialModule } from '../../material.module';
 import { EnrollmentService } from '../../api/enrollment.service';
@@ -50,7 +49,6 @@ describe('AssignTokenDialogComponent', () => {
           provide: MAT_DIALOG_DATA,
           useValue: { closeLabel: null },
         },
-        I18nMock,
       ],
     })
       .compileComponents();

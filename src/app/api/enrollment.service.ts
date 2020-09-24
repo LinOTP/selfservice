@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { I18n } from '@ngx-translate/i18n-polyfill';
-
 import { Observable, of, interval } from 'rxjs';
 import { map, filter, mergeMap, take, catchError } from 'rxjs/operators';
 
@@ -63,7 +61,6 @@ export class EnrollmentService {
   constructor(
     private http: HttpClient,
     private sessionService: SessionService,
-    private i18n: I18n,
     private tokenService: TokenService,
   ) { }
 
@@ -161,7 +158,7 @@ export class EnrollmentService {
   }
 
   assign(tokenSerial: string, description: string): Observable<{ success: boolean, message?: string }> {
-    const tryAgainMessage = this.i18n('Please try again or contact an administrator.');
+    const tryAgainMessage = $localize`Please try again or contact an administrator.`;
     const bodyAssign = {
       serial: tokenSerial,
       description: description,
@@ -179,10 +176,10 @@ export class EnrollmentService {
             switch (response.result.error.message) {
               case 'The token is already assigned to another user.':
               case 'Der Token ist bereits einem anderen Benutzer zugewiesen.':
-                message = this.i18n('The token is already assigned to you or to another user. Please contact an administrator.');
+                message = $localize`The token is already assigned to you or to another user. Please contact an administrator.`;
                 break;
               case 'The token you want to assign is  not contained in your realm!':
-                message = this.i18n('The token you want to assign is not valid (wrong realm). Please contact an administrator.');
+                message = $localize`The token you want to assign is not valid (wrong realm). Please contact an administrator.`;
                 break;
               default:
                 message = tryAgainMessage;

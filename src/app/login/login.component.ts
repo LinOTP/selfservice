@@ -2,8 +2,6 @@ import { Component, OnInit, ViewChildren, QueryList, ElementRef, HostListener } 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { I18n } from '@ngx-translate/i18n-polyfill';
-
 import { map } from 'rxjs/operators';
 
 import { NotificationService } from '../common/notification.service';
@@ -57,7 +55,6 @@ export class LoginComponent implements OnInit {
     public notificationService: NotificationService,
     private route: ActivatedRoute,
     private router: Router,
-    private i18n: I18n,
     private systemService: SystemService,
     private formBuilder: FormBuilder,
     private breakpointObserver: BreakpointObserver,
@@ -104,7 +101,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.message = this.i18n('Waiting for response');
+    this.message = $localize`Waiting for response`;
 
     const loginOptions: LoginOptions = {
       username: this.loginFormGroup.value.username,
@@ -125,7 +122,7 @@ export class LoginComponent implements OnInit {
         this.finalAuthenticationHandling(result.success);
       } else if (result.tokens.length === 0) {
         this.notificationService.message(
-          this.i18n('Login failed: you do not have a second factor set up. Please contact an admin.'),
+          $localize`Login failed: you do not have a second factor set up. Please contact an admin.`,
           20000
         );
       } else if (result.tokens.length === 1) {
@@ -211,7 +208,7 @@ export class LoginComponent implements OnInit {
 
   finalAuthenticationHandling(success: boolean) {
     this.stopSubscription();
-    const message = success ? this.i18n('Login successful') : this.i18n('Login failed');
+    const message = success ? $localize`Login successful` : $localize`Login failed`;
     this.notificationService.message(message);
     if (success) {
       this.redirect();

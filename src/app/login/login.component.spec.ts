@@ -5,7 +5,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { of } from 'rxjs';
 
-import { I18nMock } from '../../testing/i18n-mock-provider';
 import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
 import { Fixtures } from '../../testing/fixtures';
 import { MockPipe } from '../../testing/mock-pipe';
@@ -92,7 +91,6 @@ describe('LoginComponent', () => {
           provide: SystemService,
           useValue: spyOnClass(SystemService),
         },
-        I18nMock,
       ],
     })
       .compileComponents();

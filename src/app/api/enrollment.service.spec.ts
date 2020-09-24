@@ -3,7 +3,6 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { Fixtures } from '../../testing/fixtures';
-import { I18nMock } from '../../testing/i18n-mock-provider';
 
 import { Token, EnrollmentStatus, TokenType } from './token';
 import { SessionService } from '../auth/session.service';
@@ -38,7 +37,6 @@ describe('EnrollmentService', () => {
             getSession: jasmine.createSpy('getSession').and.returnValue(session),
           }
         },
-        I18nMock,
       ],
     });
 

@@ -3,7 +3,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { of } from 'rxjs';
 
-import { I18nMock } from '../testing/i18n-mock-provider';
 import { spyOnClass, getInjectedStub } from '../testing/spyOnClass';
 
 import { AppComponent } from './app.component';
@@ -45,7 +44,6 @@ describe('AppComponent', () => {
           provide: NotificationService,
           useValue: spyOnClass(NotificationService),
         },
-        I18nMock,
       ]
     }).compileComponents();
   }));
