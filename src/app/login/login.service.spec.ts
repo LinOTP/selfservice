@@ -3,6 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed, inject } from '@angular/core/testing';
+import { Type } from '@angular/core';
 
 import { of } from 'rxjs';
 
@@ -27,7 +28,9 @@ describe('LoginService', () => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
-        RouterTestingModule,
+        RouterTestingModule.withRoutes([
+          { path: 'login', component: {} as Type<any> },
+        ]),
         MaterialModule,
       ],
       providers: [
