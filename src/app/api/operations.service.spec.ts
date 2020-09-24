@@ -1,4 +1,4 @@
-import { TestBed, async, inject } from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
@@ -52,8 +52,9 @@ describe('OperationsService', () => {
 
   describe('set token pin', () => {
     const setPinRequestBody = { userpin: '01234', serial: 'serial', session: session };
-    it('should send a pin request', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should send a pin request', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
         operationsService.setPin(mockReadyEnabledToken, '01234').subscribe(res => {
           expect(res).toEqual(true);
         });
@@ -67,11 +68,12 @@ describe('OperationsService', () => {
         req.flush({ result: { value: { 'set userpin': 1 } } });
 
         backend.verify();
-      })
+      }
     ));
 
-    it('should call the error handler on request failure', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should call the error handler on request failure', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
 
         spyOn(console, 'error');
 
@@ -87,14 +89,15 @@ describe('OperationsService', () => {
         backend.verify();
 
         expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
-      })
+      }
     ));
   });
 
   describe('set mOTP pin', () => {
     const setPinRequestBody = { pin: '01234', serial: 'serial', session: session };
-    it('should send a mOTP pin request', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should send a mOTP pin request', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
         operationsService.setMOTPPin(mockReadyEnabledMOTPToken, '01234').subscribe(res => {
           expect(res).toEqual(true);
         });
@@ -108,22 +111,24 @@ describe('OperationsService', () => {
         req.flush({ result: { value: { 'set userpin': 1 } } });
 
         backend.verify();
-      })
+      }
     ));
 
-    it('should not call the backend if the token is not an mOTP token', async(
-      inject([HttpClient], (http: HttpClient) => {
+    it('should not call the backend if the token is not an mOTP token', inject(
+      [HttpClient], (http:
+        HttpClient) => {
         spyOn(http, 'post');
 
         operationsService.setMOTPPin(mockReadyEnabledToken, '01234').subscribe(response => {
           expect(response).toEqual(false);
           expect(http.post).not.toHaveBeenCalled();
         });
-      })
+      }
     ));
 
-    it('should call the error handler on request failure', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should call the error handler on request failure', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
 
         spyOn(console, 'error');
 
@@ -139,14 +144,15 @@ describe('OperationsService', () => {
         backend.verify();
 
         expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
-      })
+      }
     ));
   });
 
   describe('delete token', () => {
     const deleteRequestBody = { serial: 'serial', session: session };
-    it('should send a delete request', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should send a delete request', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
         operationsService.deleteToken('serial').subscribe();
 
         const req = backend.expectOne({
@@ -156,11 +162,12 @@ describe('OperationsService', () => {
 
         expect(req.request.body).toEqual(deleteRequestBody);
         backend.verify();
-      })
+      }
     ));
 
-    it('should call the error handler on request failure', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should call the error handler on request failure', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
 
         spyOn(console, 'error');
 
@@ -174,15 +181,16 @@ describe('OperationsService', () => {
         backend.verify();
 
         expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
-      })
+      }
     ));
   });
 
   describe('unassign token', () => {
     const unassignRequestBody = { serial: 'serial', session: session };
 
-    it('should send an unassign request and return observable of true on success', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should send an unassign request and return observable of true on success', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
         operationsService.unassignToken('serial').subscribe(res => {
           expect(res).toEqual(true);
         });
@@ -196,11 +204,12 @@ describe('OperationsService', () => {
 
         expect(req.request.body).toEqual(unassignRequestBody);
         backend.verify();
-      })
+      }
     ));
 
-    it('should send an unassign request and return observable of false on failure', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should send an unassign request and return observable of false on failure', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
         operationsService.unassignToken('serial').subscribe(res => {
           expect(res).toEqual(false);
         });
@@ -214,11 +223,12 @@ describe('OperationsService', () => {
 
         expect(req.request.body).toEqual(unassignRequestBody);
         backend.verify();
-      })
+      }
     ));
 
-    it('should call the error handler on request failure', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should call the error handler on request failure', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
 
         spyOn(console, 'error');
 
@@ -235,14 +245,15 @@ describe('OperationsService', () => {
         backend.verify();
 
         expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
-      })
+      }
     ));
   });
 
   describe('enable token', () => {
     const enableRequestBody = { serial: mockReadyDisabledToken.serial, session: session };
-    it('should send a enable token request', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should send a enable token request', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
         operationsService.enable(mockReadyDisabledToken).subscribe(res => {
           expect(res).toEqual(true);
         });
@@ -256,11 +267,12 @@ describe('OperationsService', () => {
         req.flush({ result: { value: { 'enable token': 1 } } });
 
         backend.verify();
-      })
+      }
     ));
 
-    it('should call the error handler on request failure', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should call the error handler on request failure', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
 
         spyOn(console, 'error');
 
@@ -274,14 +286,15 @@ describe('OperationsService', () => {
         backend.verify();
 
         expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
-      })
+      }
     ));
   });
 
   describe('disable token', () => {
     const disableRequestBody = { serial: mockReadyEnabledToken.serial, session: session };
-    it('should send a disable token request', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should send a disable token request', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
         operationsService.disable(mockReadyEnabledToken).subscribe(res => {
           expect(res).toEqual(true);
         });
@@ -295,11 +308,12 @@ describe('OperationsService', () => {
         req.flush({ result: { value: { 'disable token': 1 } } });
 
         backend.verify();
-      })
+      }
     ));
 
-    it('should call the error handler on request failure', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should call the error handler on request failure', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
 
         spyOn(console, 'error');
 
@@ -313,13 +327,14 @@ describe('OperationsService', () => {
         backend.verify();
 
         expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
-      })
+      }
     ));
   });
 
   describe('resetFailcounter', () => {
-    it('should request a failcounter reset from the server', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should request a failcounter reset from the server', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
 
         operationsService.resetFailcounter('serial').subscribe(response => {
           expect(response).toEqual(true);
@@ -329,11 +344,12 @@ describe('OperationsService', () => {
 
         request.flush({ result: { status: true, value: { 'reset Failcounter': 1 } } });
         backend.verify();
-      })
+      }
     ));
 
-    it('should call the error handler on request failure', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should call the error handler on request failure', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
 
         spyOn(console, 'error');
 
@@ -347,14 +363,15 @@ describe('OperationsService', () => {
         backend.verify();
 
         expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
-      })
+      }
     ));
 
   });
 
   describe('resync', () => {
-    it('should request a token resync from the server', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should request a token resync from the server', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
 
         operationsService.resync('serial', 'otp1', 'otp2').subscribe(response => {
           expect(response).toEqual(true);
@@ -364,11 +381,12 @@ describe('OperationsService', () => {
 
         request.flush({ result: { status: true, value: { 'resync Token': true } } });
         backend.verify();
-      })
+      }
     ));
 
-    it('should call the error handler on request failure', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should call the error handler on request failure', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
 
         spyOn(console, 'error');
 
@@ -382,13 +400,14 @@ describe('OperationsService', () => {
         backend.verify();
 
         expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
-      })
+      }
     ));
   });
 
   describe('setDescription', () => {
-    it('should request setting a token description from the server', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should request setting a token description from the server', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
 
         operationsService.setDescription('serial', 'description').subscribe(response => {
           expect(response).toEqual({ success: true });
@@ -398,11 +417,12 @@ describe('OperationsService', () => {
 
         request.flush({ result: { status: true, value: { 'set description': true } } });
         backend.verify();
-      })
+      }
     ));
 
-    it('should call the error handler on request failure', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should call the error handler on request failure', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
 
         spyOn(console, 'error');
 
@@ -416,7 +436,7 @@ describe('OperationsService', () => {
         backend.verify();
 
         expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
-      })
+      }
     ));
   });
 

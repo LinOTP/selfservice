@@ -1,4 +1,4 @@
-import { TestBed, async, inject } from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
@@ -53,8 +53,9 @@ describe('EnrollmentService', () => {
       { type: TokenType.HOTP, enrollmentType: 'googleauthenticator' },
       { type: TokenType.PUSH, enrollmentType: null },
     ].forEach(({ type, enrollmentType }) => {
-      it(`should use the enrollmentType for ${type}`, async(
-        inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+      it(`should use the enrollmentType for ${type}`, inject(
+        [HttpClient, HttpTestingController],
+        (http: HttpClient, backend: HttpTestingController) => {
           enrollmentService.enroll({
             type: type,
           }).subscribe(response => {
@@ -66,14 +67,15 @@ describe('EnrollmentService', () => {
 
           enrollRequest.flush(null);
           backend.verify();
-        })
+        }
       ));
     });
   });
 
   describe('assign', () => {
-    it('should request a token assignment from the server', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should request a token assignment from the server', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
 
         enrollmentService.assign('serial', 'description').subscribe(response => {
           expect(response).toEqual({ success: true });
@@ -83,11 +85,12 @@ describe('EnrollmentService', () => {
 
         request.flush({ result: { status: true, value: { 'assign token': true } } });
         backend.verify();
-      })
+      }
     ));
 
-    it('should return an error message if the token is already assigned', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should return an error message if the token is already assigned', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
         const returnedMessage = 'The token is already assigned to you or to another user. Please contact an administrator.';
 
         enrollmentService.assign('serial', 'description').subscribe(response => {
@@ -99,11 +102,12 @@ describe('EnrollmentService', () => {
 
         request.flush({ result: { status: true, error: { message: receivedMessage } } });
         backend.verify();
-      })
+      }
     ));
 
-    it('should return an error message if the token is in another realm', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should return an error message if the token is in another realm', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
         const returnedMessage = 'The token you want to assign is not valid (wrong realm). Please contact an administrator.';
 
         enrollmentService.assign('serial', 'description').subscribe(response => {
@@ -115,11 +119,12 @@ describe('EnrollmentService', () => {
 
         request.flush({ result: { status: true, error: { message: receivedMessage } } });
         backend.verify();
-      })
+      }
     ));
 
-    it('should return a generic error message if an unknown error is received', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should return a generic error message if an unknown error is received', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
         const returnedMessage = 'Please try again or contact an administrator.';
 
         enrollmentService.assign('serial', 'description').subscribe(response => {
@@ -131,11 +136,12 @@ describe('EnrollmentService', () => {
 
         request.flush({ result: { status: true, error: { message: receivedMessage } } });
         backend.verify();
-      })
+      }
     ));
 
-    it('should return a generic error message if neither error nor success is received', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should return a generic error message if neither error nor success is received', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
         const returnedMessage = 'Please try again or contact an administrator.';
 
         enrollmentService.assign('serial', 'description').subscribe(response => {
@@ -146,11 +152,12 @@ describe('EnrollmentService', () => {
 
         request.flush({ result: { status: false } });
         backend.verify();
-      })
+      }
     ));
 
-    it('should call the error handler on request failure', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should call the error handler on request failure', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
 
         spyOn(console, 'error');
 
@@ -164,7 +171,7 @@ describe('EnrollmentService', () => {
         backend.verify();
 
         expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
-      })
+      }
     ));
   });
 

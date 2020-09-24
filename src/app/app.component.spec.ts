@@ -1,4 +1,4 @@
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { of } from 'rxjs';
@@ -21,7 +21,7 @@ describe('AppComponent', () => {
   let loginService: jasmine.SpyObj<LoginService>;
   let sessionService: jasmine.SpyObj<SessionService>;
 
-  beforeEach(async(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
@@ -46,7 +46,7 @@ describe('AppComponent', () => {
         },
       ]
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     loginService = getInjectedStub(LoginService);
@@ -57,26 +57,26 @@ describe('AppComponent', () => {
     (loginService as any).loginChangeEmitter = of();
   });
 
-  it('should create the app', async(() => {
+  it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
-  }));
+  });
 
-  it(`should have as title 'Self Service'`, async(() => {
+  it(`should have as title 'Self Service'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app.title).toEqual('Self Service');
-  }));
+  });
 
-  it('should render title in a mat-toolbar tag', async(() => {
+  it('should render title in a mat-toolbar tag', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('mat-toolbar').textContent).toContain('Self Service');
-  }));
+  });
 
-  it('should render navigation list if user is logged in', async(() => {
+  it('should render navigation list if user is logged in', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const component = fixture.componentInstance;
     fixture.detectChanges();
@@ -85,9 +85,9 @@ describe('AppComponent', () => {
     component.navLinks = navLinks;
     fixture.detectChanges();
     expect(compiled.querySelector('nav').textContent).toContain(navLinks[0].label);
-  }));
+  });
 
-  it('should not render navigation list if user is logged out', async(() => {
+  it('should not render navigation list if user is logged out', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const component = fixture.componentInstance;
     fixture.detectChanges();
@@ -96,5 +96,5 @@ describe('AppComponent', () => {
     component.navLinks = navLinks;
     fixture.detectChanges();
     expect(compiled.querySelector('nav').textContent).not.toContain(navLinks[0].label);
-  }));
+  });
 });

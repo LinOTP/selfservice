@@ -1,4 +1,4 @@
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
 
 import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
@@ -44,7 +44,7 @@ describe('TokenCardComponent', () => {
   let page: Page;
   let expectedDialogConfig;
 
-  beforeEach(async(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
         MaterialModule,
@@ -70,7 +70,7 @@ describe('TokenCardComponent', () => {
       ]
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TokenCardComponent);

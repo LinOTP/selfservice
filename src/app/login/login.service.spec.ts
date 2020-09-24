@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { TestBed, async, inject } from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing';
 
 import { of } from 'rxjs';
 
@@ -66,8 +66,9 @@ describe('LoginService', () => {
   });
 
   describe('password login', () => {
-    it('should be successful on successful request', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should be successful on successful request', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
 
         loginService.login({ username: 'user', password: 'pass' }).subscribe(response => {
           expect(response).toEqual({ success: true });
@@ -77,11 +78,12 @@ describe('LoginService', () => {
         loginRequest.flush({ result: { value: true } });
 
         backend.verify();
-      })
+      }
     ));
 
-    it('allows to select a realm and submit an OTP value directly with the first request', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('allows to select a realm and submit an OTP value directly with the first request', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
 
         loginService.login({ username: 'user', password: 'pass', realm: 'myrealm', otp: 'myotp' })
           .subscribe(response => {
@@ -100,11 +102,12 @@ describe('LoginService', () => {
         loginRequest.flush({ result: { value: true } });
 
         backend.verify();
-      })
+      }
     ));
 
-    it('should refresh the permissions on successful login', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should refresh the permissions on successful login', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
         spyOn(loginService, 'handleLogin');
 
         loginService.login({ username: 'user', password: 'pass' }).subscribe(response => {
@@ -115,11 +118,12 @@ describe('LoginService', () => {
         loginRequest.flush({ result: { value: true } });
 
         expect(loginService.handleLogin).toHaveBeenCalledWith(true);
-      })
+      }
     ));
 
-    it('should not log in on failed request', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should not log in on failed request', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
 
         loginService.login({ username: 'user', password: 'pass' }).subscribe(response => {
           expect(response).toEqual({ success: false });
@@ -129,11 +133,12 @@ describe('LoginService', () => {
 
         loginRequest.flush({ result: { value: false } });
         backend.verify();
-      })
+      }
     ));
 
-    it('should not fetch the permissions on failed login', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should not fetch the permissions on failed login', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
         spyOn(loginService, 'handleLogin');
 
         loginService.login({ username: 'user', password: 'pass' }).subscribe(response => {
@@ -144,11 +149,12 @@ describe('LoginService', () => {
         loginRequest.flush({ result: { value: false } });
 
         expect(loginService.handleLogin).toHaveBeenCalledWith(false);
-      })
+      }
     ));
 
-    it('should call the error handler on request failure', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should call the error handler on request failure', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
 
         spyOn(console, 'error');
 
@@ -165,14 +171,15 @@ describe('LoginService', () => {
         backend.verify();
 
         expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
-      })
+      }
     ));
   });
 
   describe('requestSecondFactorTransaction', () => {
 
-    it('should request a challenge transaction', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should request a challenge transaction', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
         loginService.login({ serial: Fixtures.completedPushToken.serial }).subscribe(response => {
           expect(response).toEqual({ success: false });
         });
@@ -181,14 +188,15 @@ describe('LoginService', () => {
         tokenValidationRequest.flush({ result: { status: true, value: false } });
 
         backend.verify();
-      })
+      }
     ));
   });
 
   describe('MFA login when the user has tokens', () => {
 
-    it('should request a list of completed tokens for the user and return them', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should request a list of completed tokens for the user and return them', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
         tokenService.mapBackendToken.and.returnValues(...TokenListFixtures.mockTokenList);
 
         loginService.login({ username: 'user', password: 'pass' }).subscribe(response => {
@@ -199,11 +207,12 @@ describe('LoginService', () => {
         loginRequest.flush({ detail: { tokenList: TokenListFixtures.mockTokenListFromBackend }, result: { status: true, value: false } });
 
         backend.verify();
-      })
+      }
     ));
 
-    it('loginSecondStep should authenticate the user on correct OTP', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('loginSecondStep should authenticate the user on correct OTP', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
 
         loginService.login({ otp: 'otp' }).subscribe(response => {
           expect(response).toEqual({ success: true });
@@ -213,11 +222,12 @@ describe('LoginService', () => {
         loginRequest.flush({ result: { value: true } });
 
         backend.verify();
-      })
+      }
     ));
 
-    it('loginSecondStep should fail to authenticate the user on wwrong OTP', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('loginSecondStep should fail to authenticate the user on wwrong OTP', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
 
         loginService.login({ otp: 'otp' }).subscribe(response => {
           expect(response).toEqual({ success: false });
@@ -227,15 +237,16 @@ describe('LoginService', () => {
         loginRequest.flush({ result: { value: false } });
 
         backend.verify();
-      })
+      }
     ));
 
   });
 
   describe('logout', () => {
 
-    it('should call LoginService.handleLogout if the response is successful', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should call LoginService.handleLogout if the response is successful', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
         spyOn(loginService, 'handleLogout');
 
         loginService.logout().subscribe();
@@ -246,11 +257,12 @@ describe('LoginService', () => {
         backend.verify();
 
         expect(loginService.handleLogout).toHaveBeenCalled();
-      })
+      }
     ));
 
-    it('should not call LoginService.handleLogout if the response fails', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should not call LoginService.handleLogout if the response fails', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
         spyOn(loginService, 'handleLogout');
 
         loginService.logout().subscribe();
@@ -261,11 +273,12 @@ describe('LoginService', () => {
         backend.verify();
 
         expect(loginService.handleLogout).not.toHaveBeenCalled();
-      })
+      }
     ));
 
-    it('should handle logout errors', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should handle logout errors', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
 
         spyOn(console, 'error');
 
@@ -277,7 +290,7 @@ describe('LoginService', () => {
         backend.verify();
 
         expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
-      })
+      }
     ));
   });
 
@@ -318,25 +331,27 @@ describe('LoginService', () => {
       expect(emitterSpy).toHaveBeenCalledWith(false);
     });
 
-    it('should not set redirect param for the login route', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should not set redirect param for the login route', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
         const routerSpy = spyOn(router, 'navigate');
 
         loginService.handleLogout(false);
 
         expect(routerSpy).toHaveBeenCalledWith(['/login'], {});
-      })
+      }
     ));
 
-    it('should set redirect param for the login route', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should set redirect param for the login route', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
         const routerSpy = spyOn(router, 'navigate');
 
         loginService.handleLogout(true);
 
         const navExtras = { queryParams: { redirect: router.url } };
         expect(routerSpy).toHaveBeenCalledWith(['/login'], navExtras);
-      })
+      }
     ));
   });
 

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -33,7 +33,7 @@ describe('EnrollMOTPDialogComponent', () => {
   let permissionsService: jasmine.SpyObj<NgxPermissionsService>;
   let dialogRef: jasmine.SpyObj<MatDialogRef<EnrollMOTPDialogComponent>>;
 
-  beforeEach(async(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [
         EnrollMOTPDialogComponent,
@@ -78,7 +78,7 @@ describe('EnrollMOTPDialogComponent', () => {
       ],
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(EnrollMOTPDialogComponent);

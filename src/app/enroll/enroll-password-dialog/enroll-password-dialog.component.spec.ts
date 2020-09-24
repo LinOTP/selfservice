@@ -1,4 +1,4 @@
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -28,7 +28,7 @@ describe('The EnrollOATHDialogComponent', () => {
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
   let dialogRef: jasmine.SpyObj<MatDialogRef<EnrollPasswordDialogComponent>>;
 
-  beforeEach(async(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [
         EnrollPasswordDialogComponent,
@@ -68,7 +68,7 @@ describe('The EnrollOATHDialogComponent', () => {
       ],
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(EnrollPasswordDialogComponent);

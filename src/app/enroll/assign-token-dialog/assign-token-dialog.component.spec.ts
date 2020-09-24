@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, tick } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 
@@ -21,7 +21,7 @@ describe('AssignTokenDialogComponent', () => {
   let dialogRef: jasmine.SpyObj<MatDialogRef<AssignTokenDialogComponent>>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
 
-  beforeEach(async(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [
         AssignTokenDialogComponent,
@@ -52,7 +52,7 @@ describe('AssignTokenDialogComponent', () => {
       ],
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AssignTokenDialogComponent);

@@ -1,6 +1,6 @@
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { of } from 'rxjs';
 
@@ -18,7 +18,7 @@ describe('GetSerialDialogComponent', () => {
   let notificationService: NotificationService;
   let matDialogRef: MatDialogRef<GetSerialDialogComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
         MaterialModule,
@@ -41,7 +41,7 @@ describe('GetSerialDialogComponent', () => {
         },
       ]
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     tokenService = TestBed.inject(TokenService);

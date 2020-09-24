@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { NgxPermissionsAllowStubDirective, NgxPermissionsRestrictStubDirective } from 'ngx-permissions';
@@ -59,7 +59,7 @@ describe('TokenListComponent with permissions', () => {
   let appInitService: jasmine.SpyObj<AppInitService>;
   let page: Page;
 
-  beforeEach(async(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [
         TokenListComponent,
@@ -93,7 +93,7 @@ describe('TokenListComponent with permissions', () => {
       ]
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TokenListComponent);
@@ -189,7 +189,7 @@ describe('TokenListComponent without tokens and permissions', () => {
   let appInitService: jasmine.SpyObj<AppInitService>;
   let page: Page;
 
-  beforeEach(async(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [
         TokenListComponent,
@@ -222,7 +222,7 @@ describe('TokenListComponent without tokens and permissions', () => {
       ]
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TokenListComponent);

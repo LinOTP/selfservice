@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
@@ -31,7 +31,7 @@ describe('TestDialogComponent', () => {
   let testService: jasmine.SpyObj<TestService>;
   const token = Fixtures.activeHotpToken;
 
-  beforeEach(async(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
         MaterialModule,
@@ -53,7 +53,7 @@ describe('TestDialogComponent', () => {
         },
       ]
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     testService = getInjectedStub(TestService);
@@ -207,7 +207,7 @@ describe('TestDialogComponent', () => {
   });
 
   describe('submit', () => {
-    it('should call token service to test token if form is valid', async(() => {
+    it('should call token service to test token if form is valid', () => {
       testService.testToken.and.returnValue(of(challengeOnlyDetail));
 
       fixture = TestBed.createComponent(TestDialogComponent);
@@ -224,9 +224,9 @@ describe('TestDialogComponent', () => {
       component.submit();
       const options: TestOptions = { serial: token.serial, otp: otp, transactionid: undefined };
       expect(testService.testToken).toHaveBeenCalledWith(options);
-    }));
+    });
 
-    it('should not call token service to test token if form is invalid', async(() => {
+    it('should not call token service to test token if form is invalid', () => {
       testService.testToken.and.returnValue(of(successfulOfflineDetail));
 
       fixture = TestBed.createComponent(TestDialogComponent);
@@ -242,7 +242,7 @@ describe('TestDialogComponent', () => {
       component.submit();
       expect(testService.testToken).not.toHaveBeenCalled();
       expect(component.state).toBe(component.TestState.UNTESTED);
-    }));
+    });
 
     it('should set component to success state if test succeeds', () => {
       testService.testToken.and.returnValue(of(successfulOfflineDetail));

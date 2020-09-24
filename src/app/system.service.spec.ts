@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { TestBed, async, inject } from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { ExampleAPIResponses, Fixtures } from '../testing/fixtures';
@@ -31,16 +31,18 @@ describe('SystemService', () => {
   });
 
   describe('getSystemInfo', () => {
-    it('should fetch the /userservice/pre_context from backend', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should fetch the /userservice/pre_context from backend', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
         service.getSystemInfo().subscribe((response) => { });
         const permissionsRequest = backend.expectOne((req) => req.url === '/userservice/pre_context' && req.method === 'GET');
         permissionsRequest.flush(ExampleAPIResponses.userservice_pre_context);
-      })
+      }
     ));
 
-    it('should parse the realms list', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should parse the realms list', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
         service.getSystemInfo().subscribe((systemInfo) => {
           expect(typeof systemInfo.realms).toEqual('object');
           expect(systemInfo.realms.ExampleRealm).toEqual(
@@ -54,21 +56,23 @@ describe('SystemService', () => {
         });
         const permissionsRequest = backend.expectOne((req) => req.url === '/userservice/pre_context' && req.method === 'GET');
         permissionsRequest.flush(ExampleAPIResponses.userservice_pre_context);
-      })
+      }
     ));
   });
 
   describe('getUserSystemInfo', () => {
-    it('should fetch the /userservice/context from backend', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should fetch the /userservice/context from backend', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
         service.getUserSystemInfo().subscribe((response) => { });
         const permissionsRequest = backend.expectOne((req) => req.url === '/userservice/context' && req.method === 'GET');
         permissionsRequest.flush(ExampleAPIResponses.userservice_context);
-      })
+      }
     ));
 
-    it('should parse the realms list', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should parse the realms list', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
         service.getUserSystemInfo().subscribe((systemInfo) => {
           expect(typeof systemInfo.realms).toEqual('object');
           expect(systemInfo.realms.ExampleRealm).toEqual(
@@ -82,21 +86,23 @@ describe('SystemService', () => {
         });
         const permissionsRequest = backend.expectOne((req) => req.url === '/userservice/context' && req.method === 'GET');
         permissionsRequest.flush(ExampleAPIResponses.userservice_context);
-      })
+      }
     ));
 
-    it('should map policy actions to permissions', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should map policy actions to permissions', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
         service.getUserSystemInfo().subscribe((systemInfo) => {
           expect(systemInfo.permissions).toEqual(Fixtures.permissionList);
         });
         const permissionsRequest = backend.expectOne((req) => req.url === '/userservice/context' && req.method === 'GET');
         permissionsRequest.flush(ExampleAPIResponses.userservice_context);
-      })
+      }
     ));
 
-    it('should not map unrecognized policies to permissions', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should not map unrecognized policies to permissions', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
 
         service.getUserSystemInfo().subscribe(systemInfo => {
           expect(systemInfo.permissions).toEqual([]);
@@ -106,7 +112,7 @@ describe('SystemService', () => {
         const context = ExampleAPIResponses.userservice_context;
         context.detail.actions = ['fake policy'];
         userserviceContextRequest.flush(context);
-      })
+      }
     ));
   });
 

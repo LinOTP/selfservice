@@ -1,6 +1,6 @@
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { of } from 'rxjs';
 
@@ -29,7 +29,7 @@ describe('ResyncDialogComponent', () => {
   let page: Page;
   let matDialogRef: MatDialogRef<ResyncDialogComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
         MaterialModule,
@@ -56,7 +56,7 @@ describe('ResyncDialogComponent', () => {
         },
       ]
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     operationsService = TestBed.inject(OperationsService);

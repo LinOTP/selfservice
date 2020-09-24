@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LanguagePickerComponent } from './language-picker.component';
 import { MaterialModule } from '../material.module';
@@ -30,7 +30,7 @@ describe('LanguagePickerComponent', () => {
   let systemService: jasmine.SpyObj<SystemService>;
   let page: Page;
 
-  beforeEach(async(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
         MaterialModule,
@@ -50,7 +50,7 @@ describe('LanguagePickerComponent', () => {
       ],
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(LanguagePickerComponent);

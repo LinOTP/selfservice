@@ -1,6 +1,6 @@
 import { RouterTestingModule } from '@angular/router/testing';
 import { MatDialog } from '@angular/material/dialog';
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 
 import { NgxPermissionsAllowStubDirective, NgxPermissionsService } from 'ngx-permissions';
 
@@ -37,7 +37,7 @@ describe('EnrollmentGridComponent', () => {
   let tokenUpdateSpy;
   let permissionsService: jasmine.SpyObj<NgxPermissionsService>;
 
-  beforeEach(async(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
         MaterialModule,
@@ -68,7 +68,7 @@ describe('EnrollmentGridComponent', () => {
       ]
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(EnrollmentGridComponent);

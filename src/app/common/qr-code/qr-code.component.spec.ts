@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MockComponent } from '../../../testing/mock-component';
@@ -10,7 +10,7 @@ describe('QRCodeComponent', () => {
   let component: QRCodeComponent;
   let fixture: ComponentFixture<QRCodeComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
         MaterialModule,
@@ -22,7 +22,7 @@ describe('QRCodeComponent', () => {
       ]
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(QRCodeComponent);

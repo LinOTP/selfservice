@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -30,7 +30,7 @@ describe('SetMOTPPinDialogComponent', () => {
   let page: Page;
   let matDialogRef: MatDialogRef<SetMOTPPinDialogComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
         MaterialModule,
@@ -57,7 +57,7 @@ describe('SetMOTPPinDialogComponent', () => {
         },
       ]
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     operationsService = TestBed.inject(OperationsService);

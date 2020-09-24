@@ -1,4 +1,4 @@
-import { TestBed, async, inject } from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing';
 
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
@@ -36,8 +36,9 @@ describe('TestService', () => {
   }));
 
   describe('testToken', () => {
-    it('should catch an API error', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should catch an API error', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
         const otp_options = { serial: 'serial', otp: 'otp' };
 
         testService.testToken(otp_options).subscribe(result => {
@@ -57,15 +58,16 @@ describe('TestService', () => {
         });
 
         backend.verify();
-      })
+      }
     ));
   });
 
   describe('testToken verifying OTP', () => {
     const testRequestBody = { serial: 'serial', otp: 'otp', session: session };
 
-    it('should send a verify request', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should send a verify request', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
         const otp_options = { serial: 'serial', otp: 'otp' };
 
         testService.testToken(otp_options).subscribe(result => {
@@ -86,11 +88,12 @@ describe('TestService', () => {
 
         expect(req.request.body).toEqual(testRequestBody);
         backend.verify();
-      })
+      }
     ));
 
-    it('should call the error handler on request failure', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should call the error handler on request failure', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
         spyOn(console, 'error');
 
         const otp_options = { serial: 'serial', otp: 'otp' };
@@ -105,15 +108,16 @@ describe('TestService', () => {
         backend.verify();
 
         expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
-      })
+      }
     ));
   });
 
   describe('testToken triggering a transaction', () => {
     const testRequestBody = { serial: 'serial', session: session };
 
-    it('should send a verify request', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should send a verify request', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
         const otp_options = { serial: 'serial' };
 
         testService.testToken(otp_options).subscribe(result => {
@@ -138,15 +142,16 @@ describe('TestService', () => {
 
         expect(req.request.body).toEqual(testRequestBody);
         backend.verify();
-      })
+      }
     ));
   });
 
   describe('testToken verifying OTP in transaction mode', () => {
     const testRequestBody = { serial: 'serial', otp: 'otp', transactionid: 'txid', session: session };
 
-    it('should send a verify request', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should send a verify request', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
         const otp_options = { serial: 'serial', otp: 'otp', transactionid: 'txid' };
 
         testService.testToken(otp_options).subscribe(result => {
@@ -167,7 +172,7 @@ describe('TestService', () => {
 
         expect(req.request.body).toEqual(testRequestBody);
         backend.verify();
-      })
+      }
     ));
   });
 
