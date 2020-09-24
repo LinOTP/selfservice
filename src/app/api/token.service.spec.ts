@@ -2,11 +2,10 @@ import { TestBed, inject } from '@angular/core/testing';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
-import { Fixtures, TokenListFixtures } from '../../testing/fixtures';
+import { TokenListFixtures } from '../../testing/fixtures';
 
 import { SessionService } from '../auth/session.service';
 import { TokenService } from './token.service';
-import { Token, EnrollmentStatus, TokenType } from './token';
 
 const session = '';
 

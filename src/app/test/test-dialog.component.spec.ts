@@ -5,7 +5,6 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { of, Observable, Observer } from 'rxjs';
 
 import { Fixtures } from '../../testing/fixtures';
-import { TestingPage } from '../../testing/page-helper';
 import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
 import { MockComponent } from '../../testing/mock-component';
 
@@ -13,13 +12,6 @@ import { MaterialModule } from '../material.module';
 import { TestService, TestOptions, ReplyMode } from '../api/test.service';
 
 import { TestDialogComponent } from './test-dialog.component';
-
-class Page extends TestingPage<TestDialogComponent> {
-
-  public getSubmitButton() {
-    return this.query('[type="submit"]');
-  }
-}
 
 const challengeOnlyDetail = { replyMode: ['offline'] };
 const successfulOfflineDetail = { transactionId: 'id', replyMode: ['offline'] };

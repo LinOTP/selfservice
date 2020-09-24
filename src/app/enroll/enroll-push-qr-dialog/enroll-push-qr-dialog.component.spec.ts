@@ -19,7 +19,7 @@ import { DialogComponent } from '../../common/dialog/dialog.component';
 
 import { EnrollPushQRDialogComponent } from './enroll-push-qr-dialog.component';
 import { TokenType } from '../../api/token';
-import { NgxPermissionsService, NgxPermissionsAllowStubDirective, NgxPermissionsRestrictStubDirective } from 'ngx-permissions';
+import { NgxPermissionsService, NgxPermissionsAllowStubDirective } from 'ngx-permissions';
 
 let component: EnrollPushQRDialogComponent;
 let fixture: ComponentFixture<EnrollPushQRDialogComponent>;

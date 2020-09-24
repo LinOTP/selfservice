@@ -5,7 +5,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 
 import { Fixtures } from '../../../testing/fixtures';
-import { TestingPage } from '../../../testing/page-helper';
 import { spyOnClass } from '../../../testing/spyOnClass';
 
 import { MaterialModule } from '../../material.module';
@@ -13,20 +12,12 @@ import { OperationsService } from '../../api/operations.service';
 import { NotificationService } from '../notification.service';
 import { SetDescriptionDialogComponent } from './set-description-dialog.component';
 
-class Page extends TestingPage<SetDescriptionDialogComponent> {
-
-  public getDisabledSubmitButton() {
-    return this.query('[type="submit"] [disabled]');
-  }
-}
-
 describe('SetDecriptionDialogComponent', () => {
   let component: SetDescriptionDialogComponent;
   let fixture: ComponentFixture<SetDescriptionDialogComponent>;
   let operationsService: OperationsService;
   let notificationService: NotificationService;
   const token = Fixtures.activeHotpToken;
-  let page: Page;
   let matDialogRef: MatDialogRef<SetDescriptionDialogComponent>;
 
   beforeEach(async () => {
@@ -66,7 +57,6 @@ describe('SetDecriptionDialogComponent', () => {
     fixture = TestBed.createComponent(SetDescriptionDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    page = new Page(fixture);
   });
 
   it('should create', () => {
