@@ -52,18 +52,6 @@ import { KeyboardKeyComponent } from './keyboard-key/keyboard-key.component';
     LanguagePickerComponent,
     KeyboardKeyComponent,
   ],
-  entryComponents: [
-    ActivateDialogComponent,
-    EnrollOATHDialogComponent,
-    EnrollPasswordDialogComponent,
-    EnrollEmailDialogComponent,
-    EnrollSMSDialogComponent,
-    EnrollMOTPDialogComponent,
-    EnrollPushQRDialogComponent,
-    EnrollYubicoDialogComponent,
-    AssignTokenDialogComponent,
-    TestDialogComponent,
-  ],
   imports: [
     BrowserModule,
     FormsModule,

@@ -50,14 +50,6 @@ import { FocusOnInitDirective } from './focus-on-init/focus-on-init.directive';
     CapitalizePipe,
     FocusOnInitDirective,
   ],
-  entryComponents: [
-    DialogComponent,
-    SetPinDialogComponent,
-    SetMOTPPinDialogComponent,
-    ResyncDialogComponent,
-    SetDescriptionDialogComponent,
-    GetSerialDialogComponent,
-  ],
   providers: [
     NotificationService,
   ],
