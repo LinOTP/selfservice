@@ -1,4 +1,4 @@
-import { NgModule, APP_INITIALIZER, TRANSLATIONS, LOCALE_ID, TRANSLATIONS_FORMAT } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -31,8 +31,6 @@ import { EnrollYubicoDialogComponent } from './enroll/enroll-yubico/enroll-yubic
 import { EnrollPasswordDialogComponent } from './enroll/enroll-password-dialog/enroll-password-dialog.component';
 import { LanguagePickerComponent } from './language-picker/language-picker.component';
 import { KeyboardKeyComponent } from './keyboard-key/keyboard-key.component';
-
-declare const require;
 
 @NgModule({
   declarations: [
@@ -88,14 +86,6 @@ declare const require;
       deps: [AppInitService],
       multi: true
     },
-    {
-      provide: TRANSLATIONS,
-      useFactory: (locale) => {
-        return require(`raw-loader!locale/messages.${locale}.xlf`).default;
-      },
-      deps: [LOCALE_ID]
-    },
-    { provide: TRANSLATIONS_FORMAT, useValue: 'xlf' },
   ],
   bootstrap: [AppComponent]
 })
