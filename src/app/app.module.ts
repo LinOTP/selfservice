@@ -5,7 +5,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { CookieModule } from 'ngx-cookie';
 import { NgxPermissionsModule } from 'ngx-permissions';
-import { CustomFormsModule } from 'ng2-validation';
 import { QRCodeModule } from 'angularx-qrcode';
 
 import { NgSelfServiceCommonModule } from './common/common.module';
@@ -58,7 +57,6 @@ import { KeyboardKeyComponent } from './keyboard-key/keyboard-key.component';
     ReactiveFormsModule,
     HttpClientModule,
     CookieModule.forRoot(),
-    CustomFormsModule,
     QRCodeModule,
     AppRoutingModule,
     MaterialModule,
