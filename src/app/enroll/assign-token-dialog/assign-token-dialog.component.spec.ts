@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 
@@ -6,8 +6,7 @@ import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
 
 import { of } from 'rxjs';
 
-import { spyOnClass } from '../../../testing/spyOnClass';
-import { I18nMock } from '../../../testing/i18n-mock-provider';
+import { spyOnClass, getInjectedStub } from '../../../testing/spyOnClass';
 
 import { MaterialModule } from '../../material.module';
 import { EnrollmentService } from '../../api/enrollment.service';
@@ -22,7 +21,7 @@ describe('AssignTokenDialogComponent', () => {
   let dialogRef: jasmine.SpyObj<MatDialogRef<AssignTokenDialogComponent>>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
 
-  beforeEach(async(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [
         AssignTokenDialogComponent,
@@ -50,20 +49,19 @@ describe('AssignTokenDialogComponent', () => {
           provide: MAT_DIALOG_DATA,
           useValue: { closeLabel: null },
         },
-        I18nMock,
       ],
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AssignTokenDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
 
-    dialog = TestBed.get(MatDialog);
-    dialogRef = TestBed.get(MatDialogRef);
-    enrollmentService = TestBed.get(EnrollmentService);
+    dialog = getInjectedStub(MatDialog);
+    dialogRef = getInjectedStub<MatDialogRef<AssignTokenDialogComponent>>(MatDialogRef);
+    enrollmentService = getInjectedStub(EnrollmentService);
   });
 
   it('should be created', () => {

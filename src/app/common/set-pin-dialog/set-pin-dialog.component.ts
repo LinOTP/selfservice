@@ -2,8 +2,6 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, ValidationErrors, AbstractControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { I18n } from '@ngx-translate/i18n-polyfill';
-
 import { Token } from '../../api/token';
 import { OperationsService } from '../../api/operations.service';
 import { ErrorStateRootMatcher } from '../form-helpers/error-state-root-matcher';
@@ -20,8 +18,8 @@ export class SetPinDialogComponent {
   public matcher = new ErrorStateRootMatcher();
   public form: FormGroup;
 
-  public newPinPlaceholder = this.i18n('New PIN');
-  public confirmPinPlaceholder = this.i18n('Confirm your new PIN');
+  public newPinPlaceholder = $localize`New PIN`;
+  public confirmPinPlaceholder = $localize`Confirm your new PIN`;
 
   constructor(
     private dialogRef: MatDialogRef<SetPinDialogComponent>,
@@ -29,7 +27,6 @@ export class SetPinDialogComponent {
     private operationsService: OperationsService,
     private formBuilder: FormBuilder,
     private notificationService: NotificationService,
-    private i18n: I18n,
   ) {
     this.form = this.formBuilder.group(
       {
@@ -69,7 +66,7 @@ export class SetPinDialogComponent {
           this.dialogRef.close(true);
         } else {
           this.awaitingResponse = false;
-          this.notificationService.message(this.i18n('Pin could not be set. Please try again.'));
+          this.notificationService.message($localize`Pin could not be set. Please try again.`);
         }
       });
     }

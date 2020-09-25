@@ -1,11 +1,10 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { of } from 'rxjs';
 
-import { spyOnClass } from '../../../testing/spyOnClass';
-import { I18nMock } from '../../../testing/i18n-mock-provider';
+import { spyOnClass, getInjectedStub } from '../../../testing/spyOnClass';
 
 import { MaterialModule } from '../../material.module';
 import { EnrollmentService } from '../../api/enrollment.service';
@@ -18,7 +17,7 @@ describe('EnrollYubicoDialogComponent', () => {
   let dialogRef: jasmine.SpyObj<MatDialogRef<EnrollYubicoDialogComponent>>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
 
-  beforeEach(async(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [
         EnrollYubicoDialogComponent,
@@ -41,19 +40,18 @@ describe('EnrollYubicoDialogComponent', () => {
           provide: MAT_DIALOG_DATA,
           useValue: { closeLabel: null },
         },
-        I18nMock,
       ],
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(EnrollYubicoDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
 
-    dialogRef = TestBed.get(MatDialogRef);
-    enrollmentService = TestBed.get(EnrollmentService);
+    dialogRef = getInjectedStub<MatDialogRef<EnrollYubicoDialogComponent>>(MatDialogRef);
+    enrollmentService = getInjectedStub(EnrollmentService);
   });
 
   it('should be created', () => {

@@ -38,7 +38,7 @@ describe('SessionService', () => {
   });
 
   beforeEach(() => {
-    sessionService = TestBed.get(SessionService);
+    sessionService = TestBed.inject(SessionService);
   });
 
   it('should be created', () => {

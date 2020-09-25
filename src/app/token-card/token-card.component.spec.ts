@@ -1,4 +1,4 @@
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
 
 import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
@@ -6,9 +6,8 @@ import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
 import { of } from 'rxjs/internal/observable/of';
 
 import { Fixtures } from '../../testing/fixtures';
-import { spyOnClass } from '../../testing/spyOnClass';
+import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
 import { TestingPage } from '../../testing/page-helper';
-import { I18nMock } from '../../testing/i18n-mock-provider';
 
 import { MaterialModule } from '../material.module';
 import { CapitalizePipe } from '../common/pipes/capitalize.pipe';
@@ -45,7 +44,7 @@ describe('TokenCardComponent', () => {
   let page: Page;
   let expectedDialogConfig;
 
-  beforeEach(async(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
         MaterialModule,
@@ -68,21 +67,20 @@ describe('TokenCardComponent', () => {
           provide: MatDialog,
           useValue: spyOnClass(MatDialog)
         },
-        I18nMock,
       ]
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TokenCardComponent);
     component = fixture.componentInstance;
     component.token = Fixtures.activeHotpToken;
 
-    notificationService = TestBed.get(NotificationService);
-    operationsService = TestBed.get(OperationsService);
+    notificationService = getInjectedStub(NotificationService);
+    operationsService = getInjectedStub(OperationsService);
     operationsService.deleteToken.and.returnValue(of({}));
-    matDialog = TestBed.get(MatDialog);
+    matDialog = getInjectedStub(MatDialog);
     tokenUpdateSpy = spyOn(component.tokenUpdate, 'next');
 
     fixture.detectChanges();

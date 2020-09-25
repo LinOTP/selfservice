@@ -7,9 +7,10 @@
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
+    "noUnusedLocals": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es5",
+    "target": "es2018",
     "typeRoots": [
       "node_modules/@types"
     ],
@@ -17,10 +18,11 @@
       "es2017",
       "dom"
     ],
-    "module": "esnext",
+    "module": "es2020",
     "baseUrl": "./"
   },
   "angularCompilerOptions": {
-    "preserveWhitespaces": "off"
+    "preserveWhitespaces": "off",
+    "enableI18nLegacyMessageIdFormat": false
   }
 }

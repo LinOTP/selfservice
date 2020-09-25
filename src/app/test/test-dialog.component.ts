@@ -2,8 +2,6 @@ import { Component, Inject, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, NgForm } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { I18n } from '@ngx-translate/i18n-polyfill';
-
 import { Subscription } from 'rxjs';
 
 import { Token, TokenType } from '../api/token';
@@ -50,7 +48,6 @@ export class TestDialogComponent implements OnInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) public data: { token: Token },
     private testService: TestService,
     private formBuilder: FormBuilder,
-    private i18n: I18n,
   ) {
     this.formGroup = this.formBuilder.group({
       otp: ['', Validators.required],
@@ -73,8 +70,8 @@ export class TestDialogComponent implements OnInit, OnDestroy {
 
     this.testService.testToken({ serial: this.serial }).subscribe(response => {
       if (response === null || typeof response !== 'object') {
-        const message1 = this.i18n('There was a problem starting your token test.');
-        const message2 = this.i18n('Please wait some time and try again later, or contact an administrator.');
+        const message1 = $localize`There was a problem starting your token test.`;
+        const message2 = $localize`Please wait some time and try again later, or contact an administrator.`;
         this.errorMessage = message1 + ' ' + message2;
         this.state = TestState.FAILURE;
       } else {
@@ -136,7 +133,7 @@ export class TestDialogComponent implements OnInit, OnDestroy {
   }
 
   public goToFailure() {
-    this.errorMessage = this.i18n('The test failed. Please try again or contact an administrator.');
+    this.errorMessage = $localize`The test failed. Please try again or contact an administrator.`;
     this.state = TestState.FAILURE;
   }
 

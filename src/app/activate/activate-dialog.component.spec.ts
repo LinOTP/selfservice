@@ -1,7 +1,7 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import { By } from '@angular/platform-browser';
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 
@@ -9,8 +9,7 @@ import { of } from 'rxjs/internal/observable/of';
 
 import { Fixtures } from '../../testing/fixtures';
 import { MockComponent } from '../../testing/mock-component';
-import { spyOnClass } from '../../testing/spyOnClass';
-import { I18nMock } from '../../testing/i18n-mock-provider';
+import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
 
 import { MaterialModule } from '../material.module';
 import { EnrollmentService } from '../api/enrollment.service';
@@ -22,9 +21,9 @@ describe('ActivateDialogComponent', () => {
   let fixture: ComponentFixture<ActivateDialogComponent>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
   let dialogRef: jasmine.SpyObj<MatDialogRef<EnrollPushQRDialogComponent>>;
-  let stepper: MatStepper;
+  let stepper: jasmine.SpyObj<MatStepper>;
 
-  beforeEach(async(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
         MaterialModule,
@@ -43,16 +42,15 @@ describe('ActivateDialogComponent', () => {
         { provide: MAT_DIALOG_DATA, useValue: { token: Fixtures.inactivePushToken } },
         { provide: MatDialogRef, useValue: spyOnClass(MatDialogRef) },
         { provide: MatStepper, useValue: spyOnClass(MatStepper) },
-        I18nMock,
       ],
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
-    enrollmentService = TestBed.get(EnrollmentService);
-    dialogRef = TestBed.get(MatDialogRef);
-    stepper = TestBed.get(MatStepper);
+    enrollmentService = getInjectedStub(EnrollmentService);
+    dialogRef = getInjectedStub<MatDialogRef<EnrollPushQRDialogComponent>>(MatDialogRef);
+    stepper = getInjectedStub(MatStepper);
 
     fixture = TestBed.createComponent(ActivateDialogComponent);
     component = fixture.componentInstance;

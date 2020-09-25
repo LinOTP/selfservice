@@ -2,8 +2,6 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { I18n } from '@ngx-translate/i18n-polyfill';
-
 import { Token } from '../../api/token';
 import { OperationsService } from '../../api/operations.service';
 import { NotificationService } from '../notification.service';
@@ -24,7 +22,6 @@ export class ResyncDialogComponent {
     private operationsService: OperationsService,
     private formBuilder: FormBuilder,
     private notificationService: NotificationService,
-    private i18n: I18n,
   ) {
     this.form = this.formBuilder.group(
       {
@@ -48,7 +45,7 @@ export class ResyncDialogComponent {
           this.dialogRef.close(true);
         } else {
           this.awaitingResponse = false;
-          this.notificationService.message(this.i18n('Token could not be synchronized. Please try again.'));
+          this.notificationService.message($localize`Token could not be synchronized. Please try again.`);
         }
       });
     }

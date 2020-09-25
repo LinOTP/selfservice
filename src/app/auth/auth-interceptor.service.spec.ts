@@ -2,8 +2,7 @@ import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed, inject } from '@angular/core/testing';
 
-import { I18nMock } from '../../testing/i18n-mock-provider';
-import { spyOnClass } from '../../testing/spyOnClass';
+import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
 
 import { LoginService } from '../login/login.service';
 import { AuthInterceptor } from './auth-interceptor.service';
@@ -35,15 +34,14 @@ describe('AuthInterceptor', () => {
           provide: NotificationService,
           useValue: spyOnClass(NotificationService)
         },
-        I18nMock,
       ],
     });
   });
 
   beforeEach(() => {
-    http = TestBed.get(HttpTestingController);
-    httpClient = TestBed.get(HttpClient);
-    loginService = TestBed.get(LoginService);
+    http = TestBed.inject(HttpTestingController);
+    httpClient = TestBed.inject(HttpClient);
+    loginService = getInjectedStub(LoginService);
   });
 
   it('should be created', inject([AuthInterceptor], (service: AuthInterceptor) => {
@@ -65,7 +63,7 @@ describe('AuthInterceptor', () => {
     expect(successCallback).not.toHaveBeenCalled();
     expect(errorCallback).toHaveBeenCalled();
 
-    expect(TestBed.get(NotificationService).message).toHaveBeenCalled();
+    expect(TestBed.inject(NotificationService).message).toHaveBeenCalled();
 
     expect(loginService.handleLogout).toHaveBeenCalledTimes(1);
   });
@@ -83,7 +81,7 @@ describe('AuthInterceptor', () => {
     expect(errorCallback).not.toHaveBeenCalled();
 
     expect(loginService.handleLogout).not.toHaveBeenCalled();
-    expect(TestBed.get(NotificationService).message).not.toHaveBeenCalled();
+    expect(TestBed.inject(NotificationService).message).not.toHaveBeenCalled();
 
     http.verify();
   });
@@ -99,7 +97,7 @@ describe('AuthInterceptor', () => {
     expect(errorCallback).toHaveBeenCalled();
 
     expect(loginService.handleLogout).not.toHaveBeenCalled();
-    expect(TestBed.get(NotificationService).message).toHaveBeenCalled();
+    expect(TestBed.inject(NotificationService).message).toHaveBeenCalled();
 
     http.verify();
   });
@@ -116,7 +114,7 @@ describe('AuthInterceptor', () => {
     expect(errorCallback).toHaveBeenCalled();
 
     expect(loginService.handleLogout).not.toHaveBeenCalled();
-    expect(TestBed.get(NotificationService).message).not.toHaveBeenCalled();
+    expect(TestBed.inject(NotificationService).message).not.toHaveBeenCalled();
 
     http.verify();
   });

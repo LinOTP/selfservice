@@ -1,26 +1,17 @@
-import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { of, Observable, Observer } from 'rxjs';
 
 import { Fixtures } from '../../testing/fixtures';
-import { TestingPage } from '../../testing/page-helper';
-import { spyOnClass } from '../../testing/spyOnClass';
-import { I18nMock } from '../../testing/i18n-mock-provider';
+import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
 import { MockComponent } from '../../testing/mock-component';
 
 import { MaterialModule } from '../material.module';
 import { TestService, TestOptions, ReplyMode } from '../api/test.service';
 
 import { TestDialogComponent } from './test-dialog.component';
-
-class Page extends TestingPage<TestDialogComponent> {
-
-  public getSubmitButton() {
-    return this.query('[type="submit"]');
-  }
-}
 
 const challengeOnlyDetail = { replyMode: ['offline'] };
 const successfulOfflineDetail = { transactionId: 'id', replyMode: ['offline'] };
@@ -32,7 +23,7 @@ describe('TestDialogComponent', () => {
   let testService: jasmine.SpyObj<TestService>;
   const token = Fixtures.activeHotpToken;
 
-  beforeEach(async(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
         MaterialModule,
@@ -52,13 +43,12 @@ describe('TestDialogComponent', () => {
           provide: TestService,
           useValue: spyOnClass(TestService),
         },
-        I18nMock,
       ]
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
-    testService = TestBed.get(TestService);
+    testService = getInjectedStub(TestService);
   });
 
   it('should start in untested state if a transaction detail was received', () => {
@@ -209,7 +199,7 @@ describe('TestDialogComponent', () => {
   });
 
   describe('submit', () => {
-    it('should call token service to test token if form is valid', async(() => {
+    it('should call token service to test token if form is valid', () => {
       testService.testToken.and.returnValue(of(challengeOnlyDetail));
 
       fixture = TestBed.createComponent(TestDialogComponent);
@@ -226,9 +216,9 @@ describe('TestDialogComponent', () => {
       component.submit();
       const options: TestOptions = { serial: token.serial, otp: otp, transactionid: undefined };
       expect(testService.testToken).toHaveBeenCalledWith(options);
-    }));
+    });
 
-    it('should not call token service to test token if form is invalid', async(() => {
+    it('should not call token service to test token if form is invalid', () => {
       testService.testToken.and.returnValue(of(successfulOfflineDetail));
 
       fixture = TestBed.createComponent(TestDialogComponent);
@@ -244,7 +234,7 @@ describe('TestDialogComponent', () => {
       component.submit();
       expect(testService.testToken).not.toHaveBeenCalled();
       expect(component.state).toBe(component.TestState.UNTESTED);
-    }));
+    });
 
     it('should set component to success state if test succeeds', () => {
       testService.testToken.and.returnValue(of(successfulOfflineDetail));

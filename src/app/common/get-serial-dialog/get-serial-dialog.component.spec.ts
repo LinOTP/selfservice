@@ -1,11 +1,10 @@
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialogRef } from '@angular/material/dialog';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { of } from 'rxjs';
 
 import { spyOnClass } from '../../../testing/spyOnClass';
-import { I18nMock } from '../../../testing/i18n-mock-provider';
 
 import { MaterialModule } from '../../material.module';
 import { TokenService } from '../../api/token.service';
@@ -19,7 +18,7 @@ describe('GetSerialDialogComponent', () => {
   let notificationService: NotificationService;
   let matDialogRef: MatDialogRef<GetSerialDialogComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
         MaterialModule,
@@ -40,15 +39,14 @@ describe('GetSerialDialogComponent', () => {
           provide: NotificationService,
           useValue: spyOnClass(NotificationService),
         },
-        I18nMock,
       ]
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
-    tokenService = TestBed.get(TokenService);
-    notificationService = TestBed.get(NotificationService);
-    matDialogRef = TestBed.get(MatDialogRef);
+    tokenService = TestBed.inject(TokenService);
+    notificationService = TestBed.inject(NotificationService);
+    matDialogRef = TestBed.inject(MatDialogRef);
 
     fixture = TestBed.createComponent(GetSerialDialogComponent);
     component = fixture.componentInstance;

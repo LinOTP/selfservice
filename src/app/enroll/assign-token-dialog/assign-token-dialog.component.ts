@@ -3,8 +3,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 
-import { I18n } from '@ngx-translate/i18n-polyfill';
-
 import { EnrollmentService } from '../../api/enrollment.service';
 import { GetSerialDialogComponent } from '../../common/get-serial-dialog/get-serial-dialog.component';
 import { Permission } from '../../common/permissions';
@@ -17,8 +15,8 @@ import { Permission } from '../../common/permissions';
 export class AssignTokenDialogComponent implements OnInit {
 
   public assignmentForm: FormGroup;
-  @ViewChild(MatStepper, { static: false }) public stepper: MatStepper;
-  @ViewChild('serialInput', { static: false }) public serialInput: ElementRef;
+  @ViewChild(MatStepper) public stepper: MatStepper;
+  @ViewChild('serialInput') public serialInput: ElementRef;
 
   public permissions = Permission;
 
@@ -26,7 +24,7 @@ export class AssignTokenDialogComponent implements OnInit {
   public errorTypeMessage = '';
   public errorMessage = '';
 
-  public closeLabel = this.i18n('Close');
+  public closeLabel = $localize`Close`;
 
   constructor(
     private dialogRef: MatDialogRef<AssignTokenDialogComponent>,
@@ -34,7 +32,6 @@ export class AssignTokenDialogComponent implements OnInit {
     private dialog: MatDialog,
     private formBuilder: FormBuilder,
     private enrollmentService: EnrollmentService,
-    private i18n: I18n,
   ) {
     this.closeLabel = data.closeLabel;
   }
@@ -42,7 +39,7 @@ export class AssignTokenDialogComponent implements OnInit {
   ngOnInit() {
     this.assignmentForm = this.formBuilder.group({
       'serial': ['', Validators.required],
-      'description': [this.i18n('Assigned via SelfService'), Validators.required],
+      'description': [$localize`Assigned via SelfService`, Validators.required],
     });
   }
 
@@ -77,7 +74,7 @@ export class AssignTokenDialogComponent implements OnInit {
     this.errorMessage = '';
     this.enrollmentService.assign(serial, description).subscribe(result => {
       if (!result.success) {
-        this.errorTypeMessage = this.i18n('The token assignment failed.');
+        this.errorTypeMessage = $localize`The token assignment failed.`;
         if (result.message) {
           this.errorMessage = result.message;
         }

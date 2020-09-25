@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { I18n } from '@ngx-translate/i18n-polyfill';
-
 import { Observable, of, interval } from 'rxjs';
 import { map, catchError, filter, mergeMap, take } from 'rxjs/operators';
 
@@ -49,7 +47,6 @@ export class TestService {
   constructor(
     private http: HttpClient,
     private sessionService: SessionService,
-    private i18n: I18n,
   ) { }
 
   /**

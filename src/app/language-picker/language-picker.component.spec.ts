@@ -1,9 +1,9 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LanguagePickerComponent } from './language-picker.component';
 import { MaterialModule } from '../material.module';
 import { SystemService } from '../system.service';
-import { spyOnClass } from '../../testing/spyOnClass';
+import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
 import { TestingPage } from '../../testing/page-helper';
 import { LOCALE_ID } from '@angular/core';
 import { By } from '@angular/platform-browser';
@@ -30,7 +30,7 @@ describe('LanguagePickerComponent', () => {
   let systemService: jasmine.SpyObj<SystemService>;
   let page: Page;
 
-  beforeEach(async(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
         MaterialModule,
@@ -50,13 +50,13 @@ describe('LanguagePickerComponent', () => {
       ],
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(LanguagePickerComponent);
     component = fixture.componentInstance;
 
-    systemService = TestBed.get(SystemService);
+    systemService = getInjectedStub(SystemService);
     systemService.getLocales.and.returnValue(testLocalesList);
 
     page = new Page(fixture);

@@ -1,13 +1,11 @@
-import { TestBed, async, inject } from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
-import { Fixtures, TokenListFixtures } from '../../testing/fixtures';
-import { I18nMock } from '../../testing/i18n-mock-provider';
+import { TokenListFixtures } from '../../testing/fixtures';
 
 import { SessionService } from '../auth/session.service';
 import { TokenService } from './token.service';
-import { Token, EnrollmentStatus, TokenType } from './token';
 
 const session = '';
 
@@ -28,11 +26,10 @@ describe('TokenService', () => {
             getSession: jasmine.createSpy('getSession').and.returnValue(session),
           }
         },
-        I18nMock,
       ],
     });
 
-    tokenService = TestBed.get(TokenService);
+    tokenService = TestBed.inject(TokenService);
   });
 
   it('should be created', inject([TokenService], (service: TokenService) => {
@@ -40,8 +37,9 @@ describe('TokenService', () => {
   }));
 
   describe('getTokens', () => {
-    it('should request tokens from the server', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should request tokens from the server', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
 
         tokenService.getTokens().subscribe(response => {
           expect(response).toEqual(TokenListFixtures.mockTokenList);
@@ -51,11 +49,12 @@ describe('TokenService', () => {
 
         tokenListRequest.flush(TokenListFixtures.mockGetTokensResponse);
         backend.verify();
-      })
+      }
     ));
 
-    it('should call the error handler on request failure', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should call the error handler on request failure', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
 
         spyOn(console, 'error');
 
@@ -69,15 +68,16 @@ describe('TokenService', () => {
         backend.verify();
 
         expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
-      })
+      }
     ));
 
   });
 
   describe('getToken', () => {
     const token = TokenListFixtures.mockReadyEnabledToken;
-    it('should request a token from the server', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should request a token from the server', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
 
         tokenService.getToken(token.serial).subscribe(response => {
           expect(response).toEqual(token);
@@ -87,13 +87,14 @@ describe('TokenService', () => {
 
         tokenListRequest.flush({ result: { value: [TokenListFixtures.mockTokenListFromBackend[0]] } });
         backend.verify();
-      })
+      }
     ));
   });
 
   describe('getSerialByOTP', () => {
-    it('should request the token serial given an otp', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should request the token serial given an otp', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
 
         const mockSerialResponse = {
           result: {
@@ -111,11 +112,12 @@ describe('TokenService', () => {
 
         tokenSerialRequest.flush(mockSerialResponse);
         backend.verify();
-      })
+      }
     ));
 
-    it('should call the error handler on request failure', async(
-      inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
+    it('should call the error handler on request failure', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
 
         spyOn(console, 'error');
 
@@ -129,7 +131,7 @@ describe('TokenService', () => {
         backend.verify();
 
         expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
-      })
+      }
     ));
   });
 

@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-import { I18n } from '@ngx-translate/i18n-polyfill';
-
 import { SessionService } from './auth/session.service';
 import { LoginService } from './login/login.service';
 import { NotificationService } from './common/notification.service';
@@ -14,7 +12,7 @@ import { NotificationService } from './common/notification.service';
 export class AppComponent implements OnInit {
   public title = 'Self Service';
   public navLinks = [
-    { 'label': this.i18n('Your tokens'), 'path': 'tokens/' },
+    { 'label': $localize`Your tokens`, 'path': 'tokens/' },
   ];
 
   public isLoggedIn: boolean;
@@ -24,7 +22,6 @@ export class AppComponent implements OnInit {
     private sessionService: SessionService,
     private loginService: LoginService,
     private notificationService: NotificationService,
-    private i18n: I18n,
   ) {
   }
 
@@ -36,7 +33,7 @@ export class AppComponent implements OnInit {
 
   logout() {
     this.loginService.logout().subscribe(logoutSuccess => {
-      const message = (logoutSuccess ? this.i18n('Logout successful') : this.i18n('Logout failed'));
+      const message = (logoutSuccess ? $localize`Logout successful` : $localize`Logout failed`);
       this.notificationService.message(message);
     });
   }

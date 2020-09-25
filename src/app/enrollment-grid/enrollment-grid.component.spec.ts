@@ -1,14 +1,13 @@
 import { RouterTestingModule } from '@angular/router/testing';
 import { MatDialog } from '@angular/material/dialog';
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 
 import { NgxPermissionsAllowStubDirective, NgxPermissionsService } from 'ngx-permissions';
 
 import { of } from 'rxjs/internal/observable/of';
 
-import { spyOnClass } from '../../testing/spyOnClass';
+import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
 import { Fixtures } from '../../testing/fixtures';
-import { I18nMock } from '../../testing/i18n-mock-provider';
 
 import { MaterialModule } from '../material.module';
 import { NotificationService } from '../common/notification.service';
@@ -32,13 +31,13 @@ import { EnrollPasswordDialogComponent } from '../enroll/enroll-password-dialog/
 describe('EnrollmentGridComponent', () => {
   let component: EnrollmentGridComponent;
   let fixture: ComponentFixture<EnrollmentGridComponent>;
-  let notificationService: NotificationService;
+  let notificationService: jasmine.SpyObj<NotificationService>;
   let tokenService: jasmine.SpyObj<TokenService>;
   let matDialog: jasmine.SpyObj<MatDialog>;
   let tokenUpdateSpy;
   let permissionsService: jasmine.SpyObj<NgxPermissionsService>;
 
-  beforeEach(async(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
         MaterialModule,
@@ -62,7 +61,6 @@ describe('EnrollmentGridComponent', () => {
           provide: MatDialog,
           useValue: spyOnClass(MatDialog)
         },
-        I18nMock,
         {
           provide: NgxPermissionsService,
           useValue: spyOnClass(NgxPermissionsService)
@@ -70,16 +68,16 @@ describe('EnrollmentGridComponent', () => {
       ]
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(EnrollmentGridComponent);
     component = fixture.componentInstance;
-    notificationService = TestBed.get(NotificationService);
-    tokenService = TestBed.get(TokenService);
-    matDialog = TestBed.get(MatDialog);
     tokenUpdateSpy = spyOn(component.tokenUpdate, 'next');
-    permissionsService = TestBed.get(NgxPermissionsService);
+    notificationService = getInjectedStub(NotificationService);
+    tokenService = getInjectedStub(TokenService);
+    matDialog = getInjectedStub(MatDialog);
+    permissionsService = getInjectedStub(NgxPermissionsService);
     permissionsService.hasPermission.and.returnValue(Promise.resolve(true));
 
     (<any>tokenService).tokenTypeDetails = [Fixtures.tokenTypeDetails.hmac, Fixtures.tokenTypeDetails.push];

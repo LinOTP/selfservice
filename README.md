@@ -75,12 +75,12 @@ Production mode will bundle the [[production environment file](src/environments/
 
 The application needs to know the URL prefix where the project will be served from, so that it can correctly generate URLs that the browser can use to get associated resources and other pages. This is known as the [base tag](https://angular.io/guide/deployment#the-base-tag).
 
-`yarn build` assumes that the application will run as the only application on the root path `/`. You can use `yarn build-with-prefix` with the environment variable `urlprefix` to generate a different base href. Some examples:
+`yarn build` assumes that the application will run as the only application on the root path `/<lang>/`. You can use `--base-href` to build the app for a different base href. Some examples:
 
 ```bash
-   yarn build                                                # http://<hostname>
-   urlprefix=/selfservice-v2 yarn build-with-prefix          # http://<hostname>/selfservice-v2
-   urlprefix=https://my.server/users yarn build-with-prefix  # https://my.server/users
+   yarn build                                     # http://<hostname>/<de|en>/
+   yarn build --base-href=/selfservice-v2         # http://<hostname>/selfservice-v2/<de|en>/
+   yarn build --base-href=https://my.server/users # https://my.server/users/<de|en>/
 ```
 
 ### Docker

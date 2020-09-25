@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -7,7 +7,6 @@ import { of } from 'rxjs';
 import { Fixtures } from '../../../testing/fixtures';
 import { TestingPage } from '../../../testing/page-helper';
 import { spyOnClass } from '../../../testing/spyOnClass';
-import { I18nMock } from '../../../testing/i18n-mock-provider';
 
 import { MaterialModule } from '../../material.module';
 import { OperationsService } from '../../api/operations.service';
@@ -31,7 +30,7 @@ describe('SetMOTPPinDialogComponent', () => {
   let page: Page;
   let matDialogRef: MatDialogRef<SetMOTPPinDialogComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
         MaterialModule,
@@ -56,15 +55,14 @@ describe('SetMOTPPinDialogComponent', () => {
           provide: NotificationService,
           useValue: spyOnClass(NotificationService),
         },
-        I18nMock,
       ]
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
-    operationsService = TestBed.get(OperationsService);
-    notificationService = TestBed.get(NotificationService);
-    matDialogRef = TestBed.get(MatDialogRef);
+    operationsService = TestBed.inject(OperationsService);
+    notificationService = TestBed.inject(NotificationService);
+    matDialogRef = TestBed.inject(MatDialogRef);
 
     fixture = TestBed.createComponent(SetMOTPPinDialogComponent);
     component = fixture.componentInstance;

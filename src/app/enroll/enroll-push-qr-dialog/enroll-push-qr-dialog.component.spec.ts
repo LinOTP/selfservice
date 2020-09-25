@@ -1,4 +1,4 @@
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -8,8 +8,7 @@ import { By } from '@angular/platform-browser';
 import { of } from 'rxjs/internal/observable/of';
 
 import { MockComponent } from '../../../testing/mock-component';
-import { spyOnClass } from '../../../testing/spyOnClass';
-import { I18nMock } from '../../../testing/i18n-mock-provider';
+import { spyOnClass, getInjectedStub } from '../../../testing/spyOnClass';
 import { Fixtures } from '../../../testing/fixtures';
 
 import { OperationsService } from '../../api/operations.service';
@@ -20,20 +19,20 @@ import { DialogComponent } from '../../common/dialog/dialog.component';
 
 import { EnrollPushQRDialogComponent } from './enroll-push-qr-dialog.component';
 import { TokenType } from '../../api/token';
-import { NgxPermissionsService, NgxPermissionsAllowStubDirective, NgxPermissionsRestrictStubDirective } from 'ngx-permissions';
+import { NgxPermissionsService, NgxPermissionsAllowStubDirective } from 'ngx-permissions';
 
 let component: EnrollPushQRDialogComponent;
 let fixture: ComponentFixture<EnrollPushQRDialogComponent>;
 let operationsService: jasmine.SpyObj<OperationsService>;
 let enrollmentService: jasmine.SpyObj<EnrollmentService>;
-let notificationService: NotificationService;
+let notificationService: jasmine.SpyObj<NotificationService>;
 let permissionsService: jasmine.SpyObj<NgxPermissionsService>;
 let dialogRef: jasmine.SpyObj<MatDialogRef<EnrollPushQRDialogComponent>>;
 let matDialog: jasmine.SpyObj<MatDialog>;
 
 describe('EnrollPushDialogComponent', () => {
 
-  beforeEach(async(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [
         EnrollPushQRDialogComponent,
@@ -75,21 +74,20 @@ describe('EnrollPushDialogComponent', () => {
           provide: MAT_DIALOG_DATA,
           useValue: { tokenTypeDetails: Fixtures.tokenTypeDetails[TokenType.PUSH], closeLabel: null },
         },
-        I18nMock,
       ],
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(EnrollPushQRDialogComponent);
     component = fixture.componentInstance;
-    operationsService = TestBed.get(OperationsService);
-    enrollmentService = TestBed.get(EnrollmentService);
-    notificationService = TestBed.get(NotificationService);
-    permissionsService = TestBed.get(NgxPermissionsService);
-    dialogRef = TestBed.get(MatDialogRef);
-    matDialog = TestBed.get(MatDialog);
+    operationsService = getInjectedStub(OperationsService);
+    enrollmentService = getInjectedStub(EnrollmentService);
+    notificationService = getInjectedStub(NotificationService);
+    permissionsService = getInjectedStub(NgxPermissionsService);
+    dialogRef = getInjectedStub<MatDialogRef<EnrollPushQRDialogComponent>>(MatDialogRef);
+    matDialog = getInjectedStub(MatDialog);
     fixture.detectChanges();
   });
 

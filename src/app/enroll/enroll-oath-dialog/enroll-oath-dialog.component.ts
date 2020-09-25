@@ -3,8 +3,6 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { MatStepper } from '@angular/material/stepper';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { I18n } from '@ngx-translate/i18n-polyfill';
-
 import { Permission } from '../../common/permissions';
 import { NotificationService } from '../../common/notification.service';
 import { SetPinDialogComponent } from '../../common/set-pin-dialog/set-pin-dialog.component';
@@ -41,13 +39,12 @@ export class EnrollOATHDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: { tokenTypeDetails: TokenTypeDetails, closeLabel: String },
     public notificationService: NotificationService,
     public permissionsService: NgxPermissionsService,
-    public i18n: I18n,
   ) { }
 
   public ngOnInit() {
     this.enrollmentStep = this.formBuilder.group({
       'tokenEnrolled': ['', Validators.required],
-      'description': [this.i18n('Created via SelfService'), Validators.required],
+      'description': [$localize`Created via SelfService`, Validators.required],
     });
     this.testStep = this.formBuilder.group({
       'otp': ['', Validators.required],
@@ -73,7 +70,7 @@ export class EnrollOATHDialogComponent implements OnInit {
         this.stepper.next();
       } else {
         this.notificationService
-          .message(this.i18n('There was a problem while creating the new token. Please try again.'));
+          .message($localize`There was a problem while creating the new token. Please try again.`);
       }
     });
   }
@@ -89,7 +86,7 @@ export class EnrollOATHDialogComponent implements OnInit {
       .subscribe(result => {
         if (result) {
           this.pinSet = true;
-          this.notificationService.message(this.i18n('PIN set'));
+          this.notificationService.message($localize`PIN set`);
         }
       });
   }
@@ -114,7 +111,7 @@ export class EnrollOATHDialogComponent implements OnInit {
   copyInputMessage(inputElement: HTMLInputElement) {
     inputElement.select();
     document.execCommand('copy');
-    this.notificationService.message(this.i18n('Copied'));
+    this.notificationService.message($localize`Copied`);
   }
 
 }

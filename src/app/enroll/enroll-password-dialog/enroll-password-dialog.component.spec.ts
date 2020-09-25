@@ -1,4 +1,4 @@
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -9,8 +9,7 @@ import { NgxPermissionsService } from 'ngx-permissions';
 import { of } from 'rxjs';
 
 import { Fixtures } from '../../../testing/fixtures';
-import { spyOnClass } from '../../../testing/spyOnClass';
-import { I18nMock } from '../../../testing/i18n-mock-provider';
+import { spyOnClass, getInjectedStub } from '../../../testing/spyOnClass';
 
 import { MaterialModule } from '../../material.module';
 import { TokenType } from '../../api/token';
@@ -25,12 +24,11 @@ import { MatButton } from '@angular/material/button';
 describe('The EnrollOATHDialogComponent', () => {
   let component: EnrollPasswordDialogComponent;
   let fixture: ComponentFixture<EnrollPasswordDialogComponent>;
-  let notificationService: NotificationService;
+  let notificationService: jasmine.SpyObj<NotificationService>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
-  let permissionsService: jasmine.SpyObj<NgxPermissionsService>;
   let dialogRef: jasmine.SpyObj<MatDialogRef<EnrollPasswordDialogComponent>>;
 
-  beforeEach(async(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [
         EnrollPasswordDialogComponent,
@@ -67,20 +65,18 @@ describe('The EnrollOATHDialogComponent', () => {
           provide: MAT_DIALOG_DATA,
           useValue: { tokenTypeDetails: Fixtures.tokenTypeDetails[TokenType.HOTP], closeLabel: null },
         },
-        I18nMock,
       ],
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(EnrollPasswordDialogComponent);
     component = fixture.componentInstance;
 
-    notificationService = TestBed.get(NotificationService);
-    enrollmentService = TestBed.get(EnrollmentService);
-    permissionsService = TestBed.get(NgxPermissionsService);
-    dialogRef = TestBed.get(MatDialogRef);
+    notificationService = getInjectedStub(NotificationService);
+    enrollmentService = getInjectedStub(EnrollmentService);
+    dialogRef = getInjectedStub<MatDialogRef<EnrollPasswordDialogComponent>>(MatDialogRef);
 
     fixture.detectChanges();
   });

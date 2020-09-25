@@ -3,8 +3,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 
-import { I18n } from '@ngx-translate/i18n-polyfill';
-
 import { EnrollmentService } from '../../api/enrollment.service';
 import { TokenType } from '../../api/token';
 
@@ -16,13 +14,13 @@ import { TokenType } from '../../api/token';
 export class EnrollYubicoDialogComponent implements OnInit {
 
   public registrationForm: FormGroup;
-  @ViewChild(MatStepper, { static: false }) public stepper: MatStepper;
+  @ViewChild(MatStepper) public stepper: MatStepper;
 
   public success: boolean;
   public errorTypeMessage = '';
   public errorMessage = '';
 
-  public closeLabel = this.i18n('Close');
+  public closeLabel = $localize`Close`;
 
   public serial: string;
 
@@ -31,7 +29,6 @@ export class EnrollYubicoDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: { closeLabel: string },
     private formBuilder: FormBuilder,
     private enrollmentService: EnrollmentService,
-    private i18n: I18n,
   ) {
     this.closeLabel = data.closeLabel;
   }
@@ -39,7 +36,7 @@ export class EnrollYubicoDialogComponent implements OnInit {
   ngOnInit() {
     this.registrationForm = this.formBuilder.group({
       'publicId': ['', Validators.required],
-      'description': [this.i18n('Registered via SelfService'), Validators.required],
+      'description': [$localize`Registered via SelfService`, Validators.required],
     });
   }
 
@@ -78,7 +75,7 @@ export class EnrollYubicoDialogComponent implements OnInit {
     this.errorMessage = '';
     this.enrollmentService.enroll<{ serial: string }>(body).subscribe(response => {
       if (!response || !response.result || !response.result.value) {
-        this.errorTypeMessage = this.i18n('The token assignment failed.');
+        this.errorTypeMessage = $localize`The token assignment failed.`;
       }
       if (response && response.result && response.result.error && response.result.error.message) {
         this.errorMessage = response.result.error.message;

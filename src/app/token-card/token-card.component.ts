@@ -1,8 +1,6 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
-import { I18n } from '@ngx-translate/i18n-polyfill';
-
 import { Subject } from 'rxjs';
 import { filter, switchMap } from 'rxjs/operators';
 
@@ -40,7 +38,6 @@ export class TokenCardComponent implements OnInit {
     private dialog: MatDialog,
     private notificationService: NotificationService,
     private operationsService: OperationsService,
-    private i18n: I18n,
   ) { }
 
   public ngOnInit() {
@@ -66,7 +63,7 @@ export class TokenCardComponent implements OnInit {
         filter(result => !!result)
       )
       .subscribe(() => {
-        this.notificationService.message(this.i18n('PIN set'));
+        this.notificationService.message($localize`PIN set`);
       });
   }
 
@@ -83,7 +80,7 @@ export class TokenCardComponent implements OnInit {
         filter(result => !!result)
       )
       .subscribe(() => {
-        this.notificationService.message(this.i18n('mOTP PIN set'));
+        this.notificationService.message($localize`mOTP PIN set`);
       });
   }
 
@@ -92,9 +89,9 @@ export class TokenCardComponent implements OnInit {
       width: '25em',
       data:
       {
-        title: this.i18n('Delete token?'),
-        text: this.i18n('You won\'t be able to use it to authenticate yourself anymore.'),
-        confirmationLabel: this.i18n('delete')
+        title: $localize`Delete token?`,
+        text: $localize`You won\'t be able to use it to authenticate yourself anymore.`,
+        confirmationLabel: $localize`delete`
       }
     };
 
@@ -106,7 +103,7 @@ export class TokenCardComponent implements OnInit {
         switchMap(() => this.operationsService.deleteToken(this.token.serial)),
       )
       .subscribe(() => {
-        this.notificationService.message(this.i18n('Token deleted'));
+        this.notificationService.message($localize`Token deleted`);
         this.tokenUpdate.next();
       });
   }
@@ -114,10 +111,10 @@ export class TokenCardComponent implements OnInit {
   public enable(): void {
     this.operationsService.enable(this.token).subscribe(isSuccessful => {
       if (isSuccessful) {
-        this.notificationService.message(this.i18n('Token enabled'));
+        this.notificationService.message($localize`Token enabled`);
         this.tokenUpdate.next();
       } else {
-        this.notificationService.message(this.i18n('Error: Could not enable token'));
+        this.notificationService.message($localize`Error: Could not enable token`);
       }
     });
   }
@@ -125,10 +122,10 @@ export class TokenCardComponent implements OnInit {
   public disable(): void {
     this.operationsService.disable(this.token).subscribe(isSuccessful => {
       if (isSuccessful) {
-        this.notificationService.message(this.i18n('Token disabled'));
+        this.notificationService.message($localize`Token disabled`);
         this.tokenUpdate.next();
       } else {
-        this.notificationService.message(this.i18n('Error: Could not disable token'));
+        this.notificationService.message($localize`Error: Could not disable token`);
       }
     });
   }
@@ -159,7 +156,7 @@ export class TokenCardComponent implements OnInit {
     this.dialog.open(ActivateDialogComponent, dialogConfig)
       .afterClosed()
       .subscribe(() => {
-        this.notificationService.message(this.i18n('Token activated'));
+        this.notificationService.message($localize`Token activated`);
         this.tokenUpdate.next();
       });
   }
@@ -169,9 +166,9 @@ export class TokenCardComponent implements OnInit {
       width: '35em',
       data:
       {
-        title: this.i18n('Unassign token?'),
-        text: this.i18n('You won\'t be able to use this token to authenticate yourself anymore.'),
-        confirmationLabel: this.i18n('unassign')
+        title: $localize`Unassign token?`,
+        text: $localize`You won\'t be able to use this token to authenticate yourself anymore.`,
+        confirmationLabel: $localize`unassign`
       }
     };
 
@@ -184,9 +181,9 @@ export class TokenCardComponent implements OnInit {
       )
       .subscribe(success => {
         if (success) {
-          this.notificationService.message(this.i18n('Token unassigned'));
+          this.notificationService.message($localize`Token unassigned`);
         } else {
-          this.notificationService.message(this.i18n('Error: could not unassign token'));
+          this.notificationService.message($localize`Error: could not unassign token`);
         }
         this.tokenUpdate.next();
       });
@@ -220,9 +217,9 @@ export class TokenCardComponent implements OnInit {
     this.operationsService.resetFailcounter(this.token.serial).subscribe(success => {
       let message: String;
       if (success) {
-        message = this.i18n('Failcounter successfully reset');
+        message = $localize`Failcounter successfully reset`;
       } else {
-        message = this.i18n('Error: could not reset failcounter. Please try again or contact your administrator.');
+        message = $localize`Error: could not reset failcounter. Please try again or contact your administrator.`;
       }
       this.notificationService.message(message);
     });
@@ -241,7 +238,7 @@ export class TokenCardComponent implements OnInit {
         filter(result => !!result)
       )
       .subscribe(() => {
-        this.notificationService.message(this.i18n('Token synchronized'));
+        this.notificationService.message($localize`Token synchronized`);
       });
   }
 
@@ -258,7 +255,7 @@ export class TokenCardComponent implements OnInit {
         filter(result => !!result)
       )
       .subscribe(() => {
-        this.notificationService.message(this.i18n('Description changed'));
+        this.notificationService.message($localize`Description changed`);
         this.tokenUpdate.next();
       });
   }

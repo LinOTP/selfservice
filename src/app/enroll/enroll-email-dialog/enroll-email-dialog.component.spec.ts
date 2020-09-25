@@ -1,4 +1,4 @@
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -9,8 +9,7 @@ import { NgxPermissionsAllowStubDirective, NgxPermissionsService } from 'ngx-per
 import { of } from 'rxjs';
 
 import { Fixtures } from '../../../testing/fixtures';
-import { spyOnClass } from '../../../testing/spyOnClass';
-import { I18nMock } from '../../../testing/i18n-mock-provider';
+import { spyOnClass, getInjectedStub } from '../../../testing/spyOnClass';
 
 import { MaterialModule } from '../../material.module';
 import { TokenType } from '../../api/token';
@@ -25,14 +24,14 @@ describe('The EnrollEmailDialogComponent', () => {
   let component: EnrollEmailDialogComponent;
   let fixture: ComponentFixture<EnrollEmailDialogComponent>;
   let matDialog: jasmine.SpyObj<MatDialog>;
-  let notificationService: NotificationService;
+  let notificationService: jasmine.SpyObj<NotificationService>;
   let operationsService: jasmine.SpyObj<OperationsService>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
   let permissionsService: jasmine.SpyObj<NgxPermissionsService>;
   let dialogRef: jasmine.SpyObj<MatDialogRef<EnrollEmailDialogComponent>>;
   let localStorageSpy: jasmine.Spy;
 
-  beforeEach(async(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [
         EnrollEmailDialogComponent,
@@ -74,22 +73,21 @@ describe('The EnrollEmailDialogComponent', () => {
           provide: MAT_DIALOG_DATA,
           useValue: { tokenTypeDetails: Fixtures.tokenTypeDetails[TokenType.EMAIL], closeLabel: null },
         },
-        I18nMock,
       ],
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(EnrollEmailDialogComponent);
     component = fixture.componentInstance;
 
-    matDialog = TestBed.get(MatDialog);
-    notificationService = TestBed.get(NotificationService);
-    operationsService = TestBed.get(OperationsService);
-    enrollmentService = TestBed.get(EnrollmentService);
-    permissionsService = TestBed.get(NgxPermissionsService);
-    dialogRef = TestBed.get(MatDialogRef);
+    matDialog = getInjectedStub(MatDialog);
+    notificationService = getInjectedStub(NotificationService);
+    operationsService = getInjectedStub(OperationsService);
+    enrollmentService = getInjectedStub(EnrollmentService);
+    permissionsService = getInjectedStub(NgxPermissionsService);
+    dialogRef = getInjectedStub<MatDialogRef<EnrollEmailDialogComponent>>(MatDialogRef);
 
     localStorageSpy = spyOn(localStorage, 'getItem').and.returnValue(
       JSON.stringify({ email: Fixtures.userSystemInfo.user.email })

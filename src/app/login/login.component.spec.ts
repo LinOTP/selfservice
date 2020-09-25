@@ -1,12 +1,11 @@
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { of } from 'rxjs';
 
-import { I18nMock } from '../../testing/i18n-mock-provider';
-import { spyOnClass } from '../../testing/spyOnClass';
+import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
 import { Fixtures } from '../../testing/fixtures';
 import { MockPipe } from '../../testing/mock-pipe';
 import { TestingPage } from '../../testing/page-helper';
@@ -65,7 +64,7 @@ describe('LoginComponent', () => {
 
   let router: jasmine.SpyObj<Router>;
 
-  beforeEach(async(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
         FormsModule,
@@ -92,17 +91,17 @@ describe('LoginComponent', () => {
           provide: SystemService,
           useValue: spyOnClass(SystemService),
         },
-        I18nMock,
       ],
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
-    loginService = TestBed.get(LoginService);
-    notificationService = TestBed.get(NotificationService);
-    systemService = TestBed.get(SystemService);
-    router = TestBed.get(Router);
+    loginService = getInjectedStub(LoginService);
+    notificationService = getInjectedStub(NotificationService);
+    systemService = getInjectedStub(SystemService);
+    router = getInjectedStub(Router);
+
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
 

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { NgxPermissionsAllowStubDirective, NgxPermissionsRestrictStubDirective } from 'ngx-permissions';
@@ -7,7 +7,7 @@ import { of } from 'rxjs';
 
 import { MockPipe } from '../../testing/mock-pipe';
 import { MockComponent } from '../../testing/mock-component';
-import { spyOnClass } from '../../testing/spyOnClass';
+import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
 import { Fixtures } from '../../testing/fixtures';
 import { TestingPage } from '../../testing/page-helper';
 
@@ -59,7 +59,7 @@ describe('TokenListComponent with permissions', () => {
   let appInitService: jasmine.SpyObj<AppInitService>;
   let page: Page;
 
-  beforeEach(async(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [
         TokenListComponent,
@@ -93,15 +93,15 @@ describe('TokenListComponent with permissions', () => {
       ]
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TokenListComponent);
     component = fixture.componentInstance;
     page = new Page(fixture);
 
-    tokenService = TestBed.get(TokenService);
-    appInitService = TestBed.get(AppInitService);
+    tokenService = getInjectedStub(TokenService);
+    appInitService = getInjectedStub(AppInitService);
     appInitService.getPermissionLoad$.and.returnValue(of(true));
   });
 
@@ -189,7 +189,7 @@ describe('TokenListComponent without tokens and permissions', () => {
   let appInitService: jasmine.SpyObj<AppInitService>;
   let page: Page;
 
-  beforeEach(async(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [
         TokenListComponent,
@@ -222,15 +222,15 @@ describe('TokenListComponent without tokens and permissions', () => {
       ]
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TokenListComponent);
     component = fixture.componentInstance;
     page = new Page(fixture);
 
-    tokenService = TestBed.get(TokenService);
-    appInitService = TestBed.get(AppInitService);
+    tokenService = getInjectedStub(TokenService);
+    appInitService = getInjectedStub(AppInitService);
     appInitService.getPermissionLoad$.and.returnValue(of(false));
     tokenService.getTokens.and.returnValue(of([]));
   });

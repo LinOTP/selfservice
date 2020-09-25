@@ -1,25 +1,16 @@
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { of } from 'rxjs';
 
 import { Fixtures } from '../../../testing/fixtures';
-import { TestingPage } from '../../../testing/page-helper';
 import { spyOnClass } from '../../../testing/spyOnClass';
-import { I18nMock } from '../../../testing/i18n-mock-provider';
 
 import { MaterialModule } from '../../material.module';
 import { OperationsService } from '../../api/operations.service';
 import { NotificationService } from '../notification.service';
 import { SetDescriptionDialogComponent } from './set-description-dialog.component';
-
-class Page extends TestingPage<SetDescriptionDialogComponent> {
-
-  public getDisabledSubmitButton() {
-    return this.query('[type="submit"] [disabled]');
-  }
-}
 
 describe('SetDecriptionDialogComponent', () => {
   let component: SetDescriptionDialogComponent;
@@ -27,10 +18,9 @@ describe('SetDecriptionDialogComponent', () => {
   let operationsService: OperationsService;
   let notificationService: NotificationService;
   const token = Fixtures.activeHotpToken;
-  let page: Page;
   let matDialogRef: MatDialogRef<SetDescriptionDialogComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
         MaterialModule,
@@ -55,20 +45,18 @@ describe('SetDecriptionDialogComponent', () => {
           provide: NotificationService,
           useValue: spyOnClass(NotificationService),
         },
-        I18nMock,
       ]
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
-    operationsService = TestBed.get(OperationsService);
-    notificationService = TestBed.get(NotificationService);
-    matDialogRef = TestBed.get(MatDialogRef);
+    operationsService = TestBed.inject(OperationsService);
+    notificationService = TestBed.inject(NotificationService);
+    matDialogRef = TestBed.inject(MatDialogRef);
 
     fixture = TestBed.createComponent(SetDescriptionDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    page = new Page(fixture);
   });
 
   it('should create', () => {
