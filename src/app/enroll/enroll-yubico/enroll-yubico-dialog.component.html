@@ -7,7 +7,8 @@
     <p i18n>Register your Yubikey to authenticate against the YubiCloud.</p>
     <p i18n>Please enter its Public ID below, and an optional description:</p>
 
-    <form [formGroup]="registrationForm">
+    <form [formGroup]="registrationForm"
+          (submit)="registerToken()">
       <mat-form-field>
         <input matInput
                i18n-placeholder
@@ -18,6 +19,7 @@
         <mat-hint i18n>To link your token, enter a generated OTP by connecting your YubiKey and pressing the button.
           Alternatively, you may enter the public ID manually.</mat-hint>
       </mat-form-field>
+
       <mat-form-field>
         <input matInput
                i18n-placeholder
@@ -26,17 +28,19 @@
         <mat-error i18n>The token description is required.</mat-error>
         <mat-hint i18n>Enter a description for your token.</mat-hint>
       </mat-form-field>
+
+      <mat-dialog-actions align="end">
+        <button mat-raised-button
+                type="button"
+                (click)="close()"
+                i18n>Cancel</button>
+        <button mat-raised-button
+                color="primary"
+                type="submit"
+                [disabled]="registrationForm.invalid"
+                i18n>Register token</button>
+      </mat-dialog-actions>
     </form>
-    <mat-dialog-actions align="end">
-      <button mat-raised-button
-              (click)="close()"
-              i18n>Cancel</button>
-      <button mat-raised-button
-              color="primary"
-              (click)="registerToken()"
-              [disabled]="registrationForm.invalid"
-              i18n>Register token</button>
-    </mat-dialog-actions>
   </mat-step>
 
   <mat-step>
