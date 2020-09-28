@@ -52,7 +52,6 @@ export class EnrollSMSDialogComponent implements OnInit {
     this.userPhone = userData.mobile;
 
     this.enrollmentStep = this.formBuilder.group({
-      'tokenEnrolled': ['', Validators.required],
       'description': [$localize`Created via SelfService`, Validators.required],
     });
     if (this.canEditPhone) {
@@ -65,6 +64,7 @@ export class EnrollSMSDialogComponent implements OnInit {
   }
 
   public enrollToken() {
+    this.enrollmentStep.disable();
     const description = this.enrollmentStep.get('description').value;
     const phoneNumber = this.canEditPhone ? this.enrollmentStep.get('phoneNumber').value : this.userPhone;
     const body: EnrollToken = {
@@ -79,12 +79,12 @@ export class EnrollSMSDialogComponent implements OnInit {
         response.detail && response.detail.serial;
       if (serial) {
         this.enrolledTokenSerial = serial;
-        this.enrollmentStep.controls.tokenEnrolled.setValue(true);
         this.stepper.next();
       } else {
         this.notificationService
           .message($localize`There was a problem while creating the new token. Please try again.`);
       }
+      this.enrollmentStep.enable();
     });
   }
 

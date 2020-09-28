@@ -47,7 +47,10 @@
                 color="primary"
                 type="submit"
                 id="goTo2"
-                i18n>Next</button>
+                [disabled]="enrollmentStep.invalid || enrollmentStep.disabled">
+          <app-button-wait-indicator [show]="enrollmentStep.disabled"></app-button-wait-indicator>
+          <ng-container i18n>Next</ng-container>
+        </button>
       </mat-dialog-actions>
     </form>
 
@@ -67,7 +70,7 @@
          i18n>Setting a PIN helps you protect your token against misuse.</p>
     </ng-container>
     <mat-dialog-actions align="end">
-      <div i18n>Step 3 of 3</div>
+      <div i18n>Step 2 of 2</div>
       <span class="spacer"></span>
       <button mat-raised-button
               color="primary"

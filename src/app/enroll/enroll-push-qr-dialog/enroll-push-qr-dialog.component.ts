@@ -51,6 +51,7 @@ export class EnrollPushQRDialogComponent implements OnInit {
    * Enroll the push token and proceed to the next step
    */
   enrollToken() {
+    this.enrollmentStep.disable();
     this.enrollmentService.enroll<QRCodeEnrollmentDetail>(this.enrollmentStep.value).subscribe(response => {
       if (response.result && response.result.value === true) {
         this.enrolledToken = {
@@ -67,6 +68,7 @@ export class EnrollPushQRDialogComponent implements OnInit {
       } else {
         this.notificationService.message($localize`There was a problem while creating the new token. Please try again.`);
       }
+      this.enrollmentStep.enable();
     });
   }
 

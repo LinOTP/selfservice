@@ -19,6 +19,7 @@ import { NotificationService } from '../../common/notification.service';
 
 import { EnrollEmailDialogComponent } from './enroll-email-dialog.component';
 import { UserSystemInfo } from '../../system.service';
+import { MockComponent } from '../../../testing/mock-component';
 
 describe('The EnrollEmailDialogComponent', () => {
   let component: EnrollEmailDialogComponent;
@@ -36,6 +37,7 @@ describe('The EnrollEmailDialogComponent', () => {
       declarations: [
         EnrollEmailDialogComponent,
         NgxPermissionsAllowStubDirective,
+        MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] }),
       ],
       imports: [
         RouterTestingModule,
@@ -145,7 +147,6 @@ describe('The EnrollEmailDialogComponent', () => {
       email_address: Fixtures.userSystemInfo.user.email,
     });
     expect(component.enrolledTokenSerial).toEqual(Fixtures.emailEnrollmentResponse.detail.serial);
-    expect(component.enrollmentStep.controls.tokenEnrolled.value).toEqual(true);
     expect(component.stepper.next).toHaveBeenCalledTimes(1);
   }));
 
@@ -167,7 +168,6 @@ describe('The EnrollEmailDialogComponent', () => {
       email_address: Fixtures.userSystemInfo.user.email,
     });
     expect(component.enrolledTokenSerial).toEqual(Fixtures.emailEnrollmentResponse.detail.serial);
-    expect(component.enrollmentStep.controls.tokenEnrolled.value).toEqual(true);
     expect(component.stepper.next).toHaveBeenCalledTimes(1);
   }));
 
@@ -177,19 +177,19 @@ describe('The EnrollEmailDialogComponent', () => {
         description: 'should have an email address input if edit_email is enabled',
         setting: 1,
         canEditEmail: true,
-        formItems: ['tokenEnrolled', 'description', 'emailAddress']
+        formItems: ['description', 'emailAddress']
       },
       {
         description: 'should have an email address input if edit_email is not set',
         setting: undefined,
         canEditEmail: true,
-        formItems: ['tokenEnrolled', 'description', 'emailAddress']
+        formItems: ['description', 'emailAddress']
       },
       {
         description: 'should not allow to change the token email address if edit_email is disabled',
         setting: 0,
         canEditEmail: false,
-        formItems: ['tokenEnrolled', 'description']
+        formItems: ['description']
       }
     ].forEach(params => {
       it(params.description, fakeAsync(() => {

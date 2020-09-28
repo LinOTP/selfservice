@@ -36,8 +36,9 @@ describe('EnrollPushDialogComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         EnrollPushQRDialogComponent,
-        MockComponent({ selector: 'qrcode', inputs: ['qrdata', 'width', 'errorCorrectionLevel'] }),
         NgxPermissionsAllowStubDirective,
+        MockComponent({ selector: 'qrcode', inputs: ['qrdata', 'width', 'errorCorrectionLevel'] }),
+        MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] }),
       ],
       imports: [
         RouterTestingModule,

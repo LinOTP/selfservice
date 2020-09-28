@@ -13,6 +13,7 @@ import { EnrollmentService } from '../../api/enrollment.service';
 
 import { AssignTokenDialogComponent } from './assign-token-dialog.component';
 import { GetSerialDialogComponent } from '../../common/get-serial-dialog/get-serial-dialog.component';
+import { MockComponent } from '../../../testing/mock-component';
 
 describe('AssignTokenDialogComponent', () => {
   let component: AssignTokenDialogComponent;
@@ -26,6 +27,7 @@ describe('AssignTokenDialogComponent', () => {
       declarations: [
         AssignTokenDialogComponent,
         NgxPermissionsAllowStubDirective,
+        MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] }),
       ],
       imports: [
         MaterialModule,
@@ -92,7 +94,7 @@ describe('AssignTokenDialogComponent', () => {
     it('should keep the form data', () => {
       component.assignmentForm.setValue({ serial: 'abc123', description: 'my new token' });
       component.errorMessage = 'error';
-      component.stepper.selectedIndex = 2;
+      component.stepper.selectedIndex = 1;
       fixture.detectChanges();
 
       component.retry();
@@ -114,7 +116,7 @@ describe('AssignTokenDialogComponent', () => {
       fixture.detectChanges();
 
       component.assignToken();
-      expect(component.stepper.selectedIndex).toEqual(2);
+      expect(component.stepper.selectedIndex).toEqual(1);
       expect(component.success).toEqual(true);
     });
 
@@ -126,7 +128,7 @@ describe('AssignTokenDialogComponent', () => {
       fixture.detectChanges();
 
       component.assignToken();
-      expect(component.stepper.selectedIndex).toEqual(2);
+      expect(component.stepper.selectedIndex).toEqual(1);
       expect(component.errorMessage).toBe('an error occurred');
       expect(component.success).toEqual(false);
     });

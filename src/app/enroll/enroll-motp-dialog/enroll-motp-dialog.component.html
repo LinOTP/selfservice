@@ -51,9 +51,11 @@
         <button mat-raised-button
                 color="primary"
                 type="submit"
-                [disabled]="!enrollmentStep.valid"
                 id="goTo2"
-                i18n>Next</button>
+                [disabled]="!enrollmentStep.valid || enrollmentStep.disabled">
+          <app-button-wait-indicator [show]="enrollmentStep.disabled"></app-button-wait-indicator>
+          <ng-container i18n>Next</ng-container>
+        </button>
       </mat-dialog-actions>
     </form>
 

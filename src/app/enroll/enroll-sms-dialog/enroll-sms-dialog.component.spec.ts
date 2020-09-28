@@ -19,6 +19,7 @@ import { NotificationService } from '../../common/notification.service';
 
 import { EnrollSMSDialogComponent } from './enroll-sms-dialog.component';
 import { UserSystemInfo } from '../../system.service';
+import { MockComponent } from '../../../testing/mock-component';
 
 describe('The EnrollSMSDialogComponent', () => {
   let component: EnrollSMSDialogComponent;
@@ -36,6 +37,7 @@ describe('The EnrollSMSDialogComponent', () => {
       declarations: [
         EnrollSMSDialogComponent,
         NgxPermissionsAllowStubDirective,
+        MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] }),
       ],
       imports: [
         RouterTestingModule,
@@ -146,7 +148,6 @@ describe('The EnrollSMSDialogComponent', () => {
       phone: Fixtures.userSystemInfo.user.mobile,
     });
     expect(component.enrolledTokenSerial).toEqual(Fixtures.smsEnrollmentResponse.detail.serial);
-    expect(component.enrollmentStep.controls.tokenEnrolled.value).toEqual(true);
     expect(component.stepper.next).toHaveBeenCalledTimes(1);
   }));
 
@@ -168,7 +169,6 @@ describe('The EnrollSMSDialogComponent', () => {
       phone: Fixtures.userSystemInfo.user.mobile,
     });
     expect(component.enrolledTokenSerial).toEqual(Fixtures.smsEnrollmentResponse.detail.serial);
-    expect(component.enrollmentStep.controls.tokenEnrolled.value).toEqual(true);
     expect(component.stepper.next).toHaveBeenCalledTimes(1);
   }));
 
@@ -178,19 +178,19 @@ describe('The EnrollSMSDialogComponent', () => {
         description: 'should have an phone number input if edit_sms is enabled',
         setting: 1,
         canEditPhone: true,
-        formItems: ['tokenEnrolled', 'description', 'phoneNumber']
+        formItems: ['description', 'phoneNumber']
       },
       {
         description: 'should have an phone number input if edit_sms is not set',
         setting: undefined,
         canEditPhone: true,
-        formItems: ['tokenEnrolled', 'description', 'phoneNumber']
+        formItems: ['description', 'phoneNumber']
       },
       {
         description: 'should not allow to change the token phone number if edit_sms is disabled',
         setting: 0,
         canEditPhone: false,
-        formItems: ['tokenEnrolled', 'description']
+        formItems: ['description']
       }
     ].forEach(params => {
       it(params.description, fakeAsync(() => {

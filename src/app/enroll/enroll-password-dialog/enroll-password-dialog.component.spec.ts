@@ -33,7 +33,7 @@ describe('The EnrollOATHDialogComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         EnrollPasswordDialogComponent,
-        MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] })
+        MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] }),
       ],
       imports: [
         RouterTestingModule,

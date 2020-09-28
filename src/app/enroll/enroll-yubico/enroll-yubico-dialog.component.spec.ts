@@ -10,6 +10,7 @@ import { MaterialModule } from '../../material.module';
 import { EnrollmentService } from '../../api/enrollment.service';
 
 import { EnrollYubicoDialogComponent } from './enroll-yubico-dialog.component';
+import { MockComponent } from '../../../testing/mock-component';
 
 describe('EnrollYubicoDialogComponent', () => {
   let component: EnrollYubicoDialogComponent;
@@ -21,6 +22,7 @@ describe('EnrollYubicoDialogComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         EnrollYubicoDialogComponent,
+        MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] }),
       ],
       imports: [
         MaterialModule,
@@ -82,7 +84,7 @@ describe('EnrollYubicoDialogComponent', () => {
     it('should keep the form data', () => {
       component.registrationForm.setValue({ publicId: 'abc123', description: 'my new token' });
       component.errorMessage = 'error';
-      component.stepper.selectedIndex = 2;
+      component.stepper.selectedIndex = 1;
       fixture.detectChanges();
 
       component.retry();
@@ -104,7 +106,7 @@ describe('EnrollYubicoDialogComponent', () => {
       fixture.detectChanges();
 
       component.registerToken();
-      expect(component.stepper.selectedIndex).toEqual(2);
+      expect(component.stepper.selectedIndex).toEqual(1);
       expect(component.success).toEqual(true);
     });
 
@@ -116,7 +118,7 @@ describe('EnrollYubicoDialogComponent', () => {
       fixture.detectChanges();
 
       component.registerToken();
-      expect(component.stepper.selectedIndex).toEqual(2);
+      expect(component.stepper.selectedIndex).toEqual(1);
       expect(component.errorMessage).toBe('an error occurred');
       expect(component.success).toEqual(false);
     });

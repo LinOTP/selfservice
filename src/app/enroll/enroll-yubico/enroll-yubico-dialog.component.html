@@ -37,19 +37,12 @@
         <button mat-raised-button
                 color="primary"
                 type="submit"
-                [disabled]="registrationForm.invalid"
-                i18n>Register token</button>
+                [disabled]="registrationForm.invalid || registrationForm.disabled">
+          <app-button-wait-indicator [show]="registrationForm.disabled"></app-button-wait-indicator>
+          <ng-container i18n>Register token</ng-container>
+        </button>
       </mat-dialog-actions>
     </form>
-  </mat-step>
-
-  <mat-step>
-    <mat-spinner class="loading"></mat-spinner>
-    <mat-dialog-actions align="end">
-      <button mat-raised-button
-              (click)="close()"
-              i18n>Close</button>
-    </mat-dialog-actions>
   </mat-step>
 
   <mat-step>
