@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
@@ -24,12 +24,8 @@ export class EnrollPushQRDialogComponent implements OnInit {
 
   public TextResources = TextResources;
 
-  public enrollmentForm: FormGroup;
+  @ViewChild(MatStepper, { static: true }) public stepper: MatStepper;
   public enrollmentStep: FormGroup;
-
-  public isPaired: boolean;
-  public readonly maxSteps: number = 3;
-  public currentStep: number;
 
   public enrolledToken: { serial: string, url: string };
 
@@ -45,50 +41,33 @@ export class EnrollPushQRDialogComponent implements OnInit {
   ) { }
 
   public ngOnInit() {
-    this.currentStep = 1;
-    this.enrollmentForm = this.formBuilder.group({
+    this.enrollmentStep = this.formBuilder.group({
       'description': [$localize`Created via SelfService`, Validators.required],
       'type': this.data.tokenTypeDetails.type,
-    });
-    this.enrollmentStep = this.formBuilder.group({
-      'tokenEnrolled': ['', Validators.required],
     });
   }
 
   /**
    * Enroll the push token and proceed to the next step
    */
-  goToTokenInfo(stepper: MatStepper) {
-    this.enrollmentService.enroll<QRCodeEnrollmentDetail>(this.enrollmentForm.value).subscribe(response => {
+  enrollToken() {
+    this.enrollmentService.enroll<QRCodeEnrollmentDetail>(this.enrollmentStep.value).subscribe(response => {
       if (response.result && response.result.value === true) {
         this.enrolledToken = {
           url: response.detail.lse_qr_url.value,
           serial: response.detail.serial
         };
 
-        this.enrollmentForm.controls.description.disable();
-        this.enrollmentStep.controls.tokenEnrolled.setValue(true);
-
         this.enrollmentService.pairingPoll(this.enrolledToken.serial).subscribe(data => {
-          this.isPaired = true;
-          this.currentStep++;
-          stepper.selectedIndex = 2;
+          this.stepper.next();
         });
 
-        this.incrementStep(stepper);
+        this.stepper.next();
 
       } else {
         this.notificationService.message($localize`There was a problem while creating the new token. Please try again.`);
       }
     });
-  }
-
-  /**
-   * Increment the current step of the dialog for the view
-   */
-  public incrementStep(stepper: MatStepper) {
-    stepper.next();
-    this.currentStep++;
   }
 
   /**

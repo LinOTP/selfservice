@@ -95,9 +95,8 @@ describe('EnrollPushDialogComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have an initial step of 1 and max. push steps of 3', () => {
-    expect(component.maxSteps).toEqual(3);
-    expect(component.currentStep).toEqual(1);
+  it('should start at initial step of 1', () => {
+    expect(component.stepper.selectedIndex).toEqual(0);
   });
 
   it('should enroll the push token without failure', fakeAsync(() => {
@@ -111,18 +110,16 @@ describe('EnrollPushDialogComponent', () => {
     enrollmentService.enroll.and.returnValue(of(mockedEnrollResponse));
     enrollmentService.pairingPoll.and.returnValue(of(Fixtures.activePushToken));
 
-    component.enrollmentForm.controls.description.setValue('descr');
+    component.enrollmentStep.controls.description.setValue('descr');
     fixture.detectChanges();
 
     const result = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
-    expect(component.currentStep).toEqual(1);
+    expect(component.stepper.selectedIndex).toEqual(0);
     result.click();
     tick();
 
     expect(component.enrolledToken).toEqual(expectedToken);
-    expect(component.isPaired).toEqual(true);
-    expect(component.enrollmentForm.controls.description.disabled).toEqual(true);
-    expect(component.currentStep).toEqual(3);
+    expect(component.stepper.selectedIndex).toEqual(2);
     expect(notificationService.message).not.toHaveBeenCalled();
   }));
 
@@ -132,16 +129,16 @@ describe('EnrollPushDialogComponent', () => {
 
     enrollmentService.enroll.and.returnValue(of(mockedEnrollResponse));
 
-    component.enrollmentForm.controls.description.setValue('descr');
+    component.enrollmentStep.controls.description.setValue('descr');
     fixture.detectChanges();
 
     const result = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
-    expect(component.currentStep).toEqual(1);
+    expect(component.stepper.selectedIndex).toEqual(0);
     result.click();
     tick();
 
     expect(component.enrolledToken).toEqual(undefined);
-    expect(component.currentStep).toEqual(1);
+    expect(component.stepper.selectedIndex).toEqual(0);
     expect(notificationService.message).toHaveBeenCalledTimes(1);
     expect(notificationService.message).toHaveBeenCalledWith('There was a problem while creating the new token.' +
       ' Please try again.');
