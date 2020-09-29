@@ -24,6 +24,7 @@ import { QRCodeComponent } from './qr-code/qr-code.component';
 import { QRCodeModule } from 'angularx-qrcode';
 
 import { FocusOnInitDirective } from './focus-on-init/focus-on-init.directive';
+import { ButtonWaitIndicatorComponent } from '../button-wait-indicator/button-wait-indicator.component';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import { FocusOnInitDirective } from './focus-on-init/focus-on-init.directive';
     SortTokensByStatePipe,
     CapitalizePipe,
     FocusOnInitDirective,
+    ButtonWaitIndicatorComponent,
   ],
   providers: [
     NotificationService,
@@ -62,6 +64,7 @@ import { FocusOnInitDirective } from './focus-on-init/focus-on-init.directive';
     SortTokensByStatePipe,
     CapitalizePipe,
     FocusOnInitDirective,
+    ButtonWaitIndicatorComponent,
   ]
 })
 export class NgSelfServiceCommonModule { }

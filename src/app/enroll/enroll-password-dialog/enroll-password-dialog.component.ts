@@ -57,6 +57,7 @@ export class EnrollPasswordDialogComponent implements OnInit {
   }
 
   public enrollToken() {
+    this.enrollmentStep.disable();
     const body: EnrollToken = {
       type: this.data.tokenTypeDetails.type,
       description: this.enrollmentStep.get('description').value,
@@ -72,6 +73,7 @@ export class EnrollPasswordDialogComponent implements OnInit {
         this.notificationService
           .message($localize`There was a problem while creating the new token. Please try again.`);
       }
+      this.enrollmentStep.enable();
     });
   }
 
