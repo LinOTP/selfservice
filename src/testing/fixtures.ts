@@ -304,7 +304,30 @@ export class Fixtures {
   static get systemInfo(): SystemInfo {
     return {
       copyright: '',
-      version: '',
+      version: 'LinOTP 3.0.1b',
+      realms: {
+        ExampleRealm: {
+          default: false,
+          realmname: 'exampleRealm',
+          entry: '',
+          useridresolver: ['example-resolver']
+        }
+      },
+      settings: {
+        autoassign: false,
+        default_realm: '',
+        mfa_login: false,
+        realm_box: false,
+        mfa_3_fields: false,
+        autoenroll: false,
+      },
+    };
+  }
+
+  static get outdatedSystemInfo(): SystemInfo {
+    return {
+      copyright: '',
+      version: 'LinOTP 2.12.2',
       realms: {
         ExampleRealm: {
           default: false,

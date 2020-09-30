@@ -11,12 +11,16 @@ import { LoginService, LoginOptions } from './login.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { TransactionDetail, ReplyMode, StatusDetail } from '../api/test.service';
 import { Subscription } from 'rxjs';
+import { DialogComponent } from '../common/dialog/dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 export enum LoginStage {
   USER_PW_INPUT = 1,
   TOKEN_CHOICE = 2,
   OTP_INPUT = 3
 }
+
+const MIN_BACKEND_MAJOR_VERSION = 3;
 
 @Component({
   selector: 'app-login',
@@ -58,6 +62,7 @@ export class LoginComponent implements OnInit {
     private systemService: SystemService,
     private formBuilder: FormBuilder,
     private breakpointObserver: BreakpointObserver,
+    private dialog: MatDialog,
   ) { }
 
   ngOnInit() {
@@ -78,19 +83,36 @@ export class LoginComponent implements OnInit {
 
     this.systemService.getSystemInfo().subscribe(systemInfo => {
       this.systemInfo = systemInfo;
-      if (systemInfo.settings.realm_box) {
+
+      const majorVersion = Number(systemInfo?.version?.match(/LinOTP (\d*?)\./)[1]) || 0;
+      if (majorVersion < MIN_BACKEND_MAJOR_VERSION) {
+        const config = {
+          width: '25em',
+          disableClose: true,
+          autoFocus: true,
+          data: {
+            title: $localize`Incompatible server version`,
+            text: $localize`The LinOTP server version is too old for the Self Service version you are using. Please contact an administrator.`,
+            nonDismissible: true,
+          }
+        };
+        this.dialog.open(DialogComponent, config);
+      }
+
+      if (systemInfo?.settings.realm_box) {
         this.loginFormGroup.addControl(
           'realm',
           this.formBuilder.control(systemInfo.settings.default_realm, Validators.required)
         );
       }
-      if (systemInfo.settings.mfa_3_fields) {
+      if (systemInfo?.settings.mfa_3_fields) {
         this.loginFormGroup.addControl(
           'otp',
           this.formBuilder.control('')
         );
       }
     });
+
     this.breakpointObserver.observe([
       Breakpoints.XSmall,
       Breakpoints.Small,
