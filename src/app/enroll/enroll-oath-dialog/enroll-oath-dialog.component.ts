@@ -43,7 +43,6 @@ export class EnrollOATHDialogComponent implements OnInit {
 
   public ngOnInit() {
     this.enrollmentStep = this.formBuilder.group({
-      'tokenEnrolled': ['', Validators.required],
       'description': [$localize`Created via SelfService`, Validators.required],
     });
     this.testStep = this.formBuilder.group({
@@ -53,6 +52,7 @@ export class EnrollOATHDialogComponent implements OnInit {
   }
 
   public enrollToken() {
+    this.enrollmentStep.disable();
     const body: EnrollToken = {
       type: this.data.tokenTypeDetails.type,
       description: this.enrollmentStep.get('description').value,
@@ -66,12 +66,12 @@ export class EnrollOATHDialogComponent implements OnInit {
           serial: token.serial,
           seed: token.key,
         };
-        this.enrollmentStep.controls.tokenEnrolled.setValue(true);
         this.stepper.next();
       } else {
         this.notificationService
           .message($localize`There was a problem while creating the new token. Please try again.`);
       }
+      this.enrollmentStep.enable();
     });
   }
 

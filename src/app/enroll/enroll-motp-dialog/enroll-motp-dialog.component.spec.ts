@@ -18,6 +18,7 @@ import { EnrollmentService } from '../../api/enrollment.service';
 import { NotificationService } from '../../common/notification.service';
 
 import { EnrollMOTPDialogComponent } from './enroll-motp-dialog.component';
+import { MockComponent } from '../../../testing/mock-component';
 
 const enrolledToken = {
   serial: Fixtures.mOTPEnrollmentResponse.detail.serial,
@@ -38,6 +39,7 @@ describe('EnrollMOTPDialogComponent', () => {
       declarations: [
         EnrollMOTPDialogComponent,
         NgxPermissionsAllowStubDirective,
+        MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] }),
       ],
       imports: [
         RouterTestingModule,

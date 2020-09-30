@@ -20,7 +20,8 @@
       </div>
     </div>
 
-    <form [formGroup]="assignmentForm">
+    <form [formGroup]="assignmentForm"
+          (submit)="assignToken()">
       <mat-form-field>
         <input matInput
                i18n-placeholder
@@ -35,30 +36,23 @@
         <input matInput
                i18n-placeholder
                placeholder="Token description"
-               formControlName="description"
-               autofocus>
+               formControlName="description">
         <mat-hint i18n>Enter a description for your token.</mat-hint>
       </mat-form-field>
+      <mat-dialog-actions align="end">
+        <button mat-raised-button
+                type="button"
+                (click)="close()"
+                i18n>Cancel</button>
+        <button mat-raised-button
+                color="primary"
+                type="submit"
+                [disabled]="assignmentForm.invalid || assignmentForm.disabled">
+          <app-button-wait-indicator [show]="assignmentForm.disabled"></app-button-wait-indicator>
+          <ng-container i18n>Assign token</ng-container>
+        </button>
+      </mat-dialog-actions>
     </form>
-    <mat-dialog-actions align="end">
-      <button mat-raised-button
-              (click)="close()"
-              i18n>Cancel</button>
-      <button mat-raised-button
-              color="primary"
-              (click)="assignToken()"
-              [disabled]="assignmentForm.invalid"
-              i18n>Assign token</button>
-    </mat-dialog-actions>
-  </mat-step>
-
-  <mat-step>
-    <mat-spinner class="loading"></mat-spinner>
-    <mat-dialog-actions align="end">
-      <button mat-raised-button
-              (click)="close()"
-              i18n>Close</button>
-    </mat-dialog-actions>
   </mat-step>
 
   <mat-step>

@@ -140,7 +140,6 @@ describe('The EnrollOATHDialogComponent', () => {
       description: 'Created via SelfService'
     });
     expect(component.enrolledToken).toEqual(expectedToken);
-    expect(component.enrollmentStep.controls.tokenEnrolled.value).toEqual(true);
     expect(component.stepper.next).toHaveBeenCalledTimes(1);
   }));
 
@@ -161,7 +160,6 @@ describe('The EnrollOATHDialogComponent', () => {
       description: 'custom description'
     });
     expect(component.enrolledToken).toEqual(expectedToken);
-    expect(component.enrollmentStep.controls.tokenEnrolled.value).toEqual(true);
     expect(component.stepper.next).toHaveBeenCalledTimes(1);
   }));
 

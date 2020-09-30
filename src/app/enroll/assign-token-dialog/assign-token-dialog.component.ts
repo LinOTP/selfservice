@@ -60,6 +60,7 @@ export class AssignTokenDialogComponent implements OnInit {
   public retry() {
     this.errorMessage = '';
     this.stepper.selectedIndex = 0;
+    this.assignmentForm.enable();
   }
 
   /**
@@ -68,7 +69,7 @@ export class AssignTokenDialogComponent implements OnInit {
    * to retry the assignment process without leaving the dialog.
    */
   public assignToken() {
-    this.stepper.selectedIndex = 1;
+    this.assignmentForm.disable();
     const serial = this.assignmentForm.get('serial').value;
     const description = this.assignmentForm.get('description').value;
     this.errorMessage = '';
@@ -80,7 +81,7 @@ export class AssignTokenDialogComponent implements OnInit {
         }
       }
       this.success = result.success;
-      this.stepper.selectedIndex = 2;
+      this.stepper.next();
     });
   }
 

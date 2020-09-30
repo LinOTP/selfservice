@@ -44,7 +44,7 @@ export class EnrollMOTPDialogComponent implements OnInit {
   public ngOnInit() {
 
     this.enrollmentStep = this.formBuilder.group({
-      'password': ['', [Validators.required, Validators.pattern(/^[0-9A-Fa-f]{16}$/g)]],
+      'password': ['', [Validators.required, Validators.pattern(/^[0-9A-Fa-f]{16}$/)]],
       'mOTPPin': ['', Validators.required],
       'description': [$localize`Created via SelfService`, Validators.required],
     });
@@ -55,6 +55,7 @@ export class EnrollMOTPDialogComponent implements OnInit {
   }
 
   public enrollToken() {
+    this.enrollmentStep.disable();
     const description = this.enrollmentStep.get('description').value;
     const password = this.enrollmentStep.get('password').value;
     const mOTPPin = this.enrollmentStep.get('mOTPPin').value;
@@ -79,6 +80,7 @@ export class EnrollMOTPDialogComponent implements OnInit {
         this.notificationService
           .message($localize`There was a problem while creating the new token. Please try again.`);
       }
+      this.enrollmentStep.enable();
     });
   }
 

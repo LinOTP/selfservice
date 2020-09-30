@@ -17,29 +17,35 @@
     <p i18n>Once you have an app installed on your device, you can start the setup process.</p>
 
     <p i18n>Before you proceed you may set a token description, which should help you identify your token:</p>
-    <form [formGroup]="enrollmentStep">
+    <form [formGroup]="enrollmentStep"
+          (submit)="enrollToken()">
       <mat-form-field>
         <input matInput
                i18n-placeholder
                placeholder="Token description"
                formControlName="description"
-               autofocus>
+               appFocusOnInit>
         <mat-hint i18n>Enter a description for your token.</mat-hint>
       </mat-form-field>
+
+      <mat-dialog-actions align="end">
+        <div i18n>Step 1 of 3</div>
+        <span class="spacer"></span>
+        <button mat-raised-button
+                type="button"
+                (click)="cancelDialog()"
+                i18n>Cancel</button>
+        <button mat-raised-button
+                color="primary"
+                type="submit"
+                id="goTo2"
+                [disabled]="enrollmentStep.invalid || enrollmentStep.disabled">
+          <app-button-wait-indicator [show]="enrollmentStep.disabled"></app-button-wait-indicator>
+          <ng-container i18n>Next</ng-container>
+        </button>
+      </mat-dialog-actions>
     </form>
 
-    <mat-dialog-actions align="end">
-      <div i18n>Step 1 of 3</div>
-      <span class="spacer"></span>
-      <button mat-raised-button
-              (click)="cancelDialog()"
-              i18n>Cancel</button>
-      <button mat-raised-button
-              color="primary"
-              (click)="enrollToken()"
-              id="goTo2"
-              i18n>Next</button>
-    </mat-dialog-actions>
   </mat-step>
 
   <mat-step active="false"

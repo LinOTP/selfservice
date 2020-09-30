@@ -52,7 +52,6 @@ export class EnrollEmailDialogComponent implements OnInit {
     this.userEmail = userData.email;
 
     this.enrollmentStep = this.formBuilder.group({
-      'tokenEnrolled': ['', Validators.required],
       'description': [$localize`Created via SelfService`, Validators.required],
     });
     if (this.canEditEmail) {
@@ -65,6 +64,7 @@ export class EnrollEmailDialogComponent implements OnInit {
   }
 
   public enrollToken() {
+    this.enrollmentStep.disable();
     const description = this.enrollmentStep.get('description').value;
     const emailAddress = this.canEditEmail ? this.enrollmentStep.get('emailAddress').value : this.userEmail;
     const body: EnrollToken = {
@@ -79,12 +79,12 @@ export class EnrollEmailDialogComponent implements OnInit {
         response.detail && response.detail.serial;
       if (serial) {
         this.enrolledTokenSerial = serial;
-        this.enrollmentStep.controls.tokenEnrolled.setValue(true);
         this.stepper.next();
       } else {
         this.notificationService
           .message($localize`There was a problem while creating the new token. Please try again.`);
       }
+      this.enrollmentStep.enable();
     });
   }
 

@@ -65,7 +65,7 @@ export class EnrollYubicoDialogComponent implements OnInit {
    * to retry the assignment process without leaving the dialog.
    */
   public registerToken() {
-    this.stepper.selectedIndex = 1;
+    this.registrationForm.disable();
     const body = {
       type: TokenType.YUBICO,
       'yubico.tokenid': this.registrationForm.get('publicId').value,
@@ -85,7 +85,8 @@ export class EnrollYubicoDialogComponent implements OnInit {
         this.success = response.result.value;
         this.serial = response.detail.serial;
       }
-      this.stepper.selectedIndex = 2;
+      this.stepper.next();
+      this.registrationForm.enable();
     });
   }
 }
