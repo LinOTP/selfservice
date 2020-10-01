@@ -18,6 +18,8 @@ import { LoginComponent, LoginStage } from './login.component';
 import { LoginService } from './login.service';
 import { MockComponent } from '../../testing/mock-component';
 import { Token } from '../api/token';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../common/dialog/dialog.component';
 
 class Page extends TestingPage<LoginComponent> {
 
@@ -61,6 +63,7 @@ describe('LoginComponent', () => {
   let loginService: jasmine.SpyObj<LoginService>;
   let notificationService: jasmine.SpyObj<NotificationService>;
   let systemService: jasmine.SpyObj<SystemService>;
+  let matDialog: jasmine.SpyObj<MatDialog>;
 
   let router: jasmine.SpyObj<Router>;
 
@@ -91,6 +94,10 @@ describe('LoginComponent', () => {
           provide: SystemService,
           useValue: spyOnClass(SystemService),
         },
+        {
+          provide: MatDialog,
+          useValue: spyOnClass(MatDialog)
+        },
       ],
     })
       .compileComponents();
@@ -101,6 +108,7 @@ describe('LoginComponent', () => {
     notificationService = getInjectedStub(NotificationService);
     systemService = getInjectedStub(SystemService);
     router = getInjectedStub(Router);
+    matDialog = getInjectedStub(MatDialog);
 
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
@@ -126,6 +134,42 @@ describe('LoginComponent', () => {
       expect(page.getLoginForm()).toBeTruthy();
       expect(page.getTokenSelection()).toBeFalsy();
       expect(page.getOTPForm()).toBeFalsy();
+    });
+
+    it('should display warning dialog if backend version is too old', () => {
+      systemService.getSystemInfo.and.returnValue(of(Fixtures.outdatedSystemInfo));
+      fixture.detectChanges();
+
+      const config = {
+        width: '25em',
+        disableClose: true,
+        autoFocus: true,
+        data: {
+          title: `Incompatible server version`,
+          text: `The LinOTP server version is too old for the Self Service version you are using. Please contact an administrator.`,
+          nonDismissible: true,
+        }
+      };
+
+      expect(matDialog.open).toHaveBeenCalledWith(DialogComponent, config);
+    });
+
+    it('should display warning dialog if backend version is so old that the SystemInfo could not even be created', () => {
+      systemService.getSystemInfo.and.returnValue(of(undefined));
+      fixture.detectChanges();
+
+      const config = {
+        width: '25em',
+        disableClose: true,
+        autoFocus: true,
+        data: {
+          title: `Incompatible server version`,
+          text: `The LinOTP server version is too old for the Self Service version you are using. Please contact an administrator.`,
+          nonDismissible: true,
+        }
+      };
+
+      expect(matDialog.open).toHaveBeenCalledWith(DialogComponent, config);
     });
 
     it('should NOT include realm select in login stage if disabled in systemInfo', () => {
