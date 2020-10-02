@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
-import { FormGroup, FormBuilder, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ValidationErrors } from '@angular/forms';
 
 import { Permission } from '../../common/permissions';
 import { NotificationService } from '../../common/notification.service';
@@ -49,11 +49,10 @@ export class EnrollPasswordDialogComponent implements OnInit {
   }
 
   private checkPasswords(group: FormGroup): (ValidationErrors | null) {
-    const passwordControl: AbstractControl = group.get('password');
-    const confirmationControl: AbstractControl = group.get('confirmation');
+    const password: string = group.get('password')?.value;
+    const passwordConfirmation: string = group.get('confirmation')?.value;
 
-    return passwordControl && confirmationControl && passwordControl.value === confirmationControl.value ?
-      null : { passwordsDoNotMatch: true };
+    return password === passwordConfirmation ? null : { passwordsDoNotMatch: true };
   }
 
   public enrollToken() {
@@ -65,8 +64,7 @@ export class EnrollPasswordDialogComponent implements OnInit {
     };
 
     this.enrollmentService.enroll(body).subscribe(response => {
-      const success = response && response.result && response.result.value;
-      if (success) {
+      if (response?.result?.value) {
         this.serial = response.detail.serial;
         this.stepper.next();
       } else {

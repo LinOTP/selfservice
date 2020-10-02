@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormBuilder, FormGroup, Validators, ValidationErrors, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ValidationErrors } from '@angular/forms';
 
 import { Token } from '../../api/token';
 import { OperationsService } from '../../api/operations.service';
@@ -45,11 +45,10 @@ export class SetMOTPPinDialogComponent {
    * @param group form group containing a `newPin` and a `confirmPin` control.
    */
   private checkPins(group: FormGroup): (ValidationErrors | null) {
-    const newPinControl: AbstractControl = group.get('newPin');
-    const confirmPinControl: AbstractControl = group.get('confirmPin');
+    const newPin: string = group.get('newPin')?.value;
+    const confirmPin: string = group.get('confirmPin')?.value;
 
-    return newPinControl && confirmPinControl && newPinControl.value === confirmPinControl.value ?
-      null : { pinsDoNotMatch: true };
+    return newPin === confirmPin ? null : { pinsDoNotMatch: true };
   }
 
   /**

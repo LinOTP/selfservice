@@ -59,7 +59,7 @@ export class EnrollOATHDialogComponent implements OnInit {
     };
 
     this.enrollmentService.enrollOATH(body).subscribe(response => {
-      const token = response && response.result && response.result.value && response.result.value.oathtoken;
+      const token = response?.result?.value?.oathtoken;
       if (token) {
         this.enrolledToken = {
           url: token.url,

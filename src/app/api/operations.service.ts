@@ -54,7 +54,7 @@ export class OperationsService {
 
     return this.http.post<LinOTPResponse<{ 'set userpin': number }>>(url, body)
       .pipe(
-        map((response) => response && response.result && response.result.value['set userpin'] === 1),
+        map((response) => response?.result?.value?.['set userpin'] === 1),
         catchError(this.tokenService.handleError('setTokenPin', false))
       );
   }
@@ -73,7 +73,7 @@ export class OperationsService {
 
     return this.http.post<LinOTPResponse<{ 'set userpin': number }>>(url, body)
       .pipe(
-        map((response) => response && response.result && response.result.value['set userpin'] === 1),
+        map((response) => response?.result?.value?.['set userpin'] === 1),
         catchError(this.tokenService.handleError('setMOTPPin', false))
       );
   }
@@ -87,7 +87,7 @@ export class OperationsService {
 
     return this.http.post<LinOTPResponse<{ 'enable token': number }>>(url, body)
       .pipe(
-        map((response) => response && response.result && response.result.value['enable token'] === 1),
+        map((response) => response?.result?.value?.['enable token'] === 1),
         catchError(this.tokenService.handleError('enable', false))
       );
   }
@@ -101,7 +101,7 @@ export class OperationsService {
 
     return this.http.post<LinOTPResponse<{ 'disable token': number }>>(url, body)
       .pipe(
-        map((response) => response && response.result && response.result.value['disable token'] === 1),
+        map((response) => response?.result?.value?.['disable token'] === 1),
         catchError(this.tokenService.handleError('enable', false))
       );
   }
@@ -115,7 +115,7 @@ export class OperationsService {
 
     return this.http.post<LinOTPResponse<{ 'reset Failcounter': number }>>(url, body)
       .pipe(
-        map(response => response && response.result && response.result.value && response.result.value['reset Failcounter'] === 1),
+        map(response => response?.result?.value?.['reset Failcounter'] === 1),
         catchError(this.tokenService.handleError('reset failcounter', false))
       );
   }
@@ -131,7 +131,7 @@ export class OperationsService {
 
     return this.http.post<LinOTPResponse<{ 'resync Token': boolean }>>(url, body)
       .pipe(
-        map(response => response && response.result && response.result.value && response.result.value['resync Token'] === true),
+        map(response => response?.result?.value?.['resync Token'] === true),
         catchError(this.tokenService.handleError('resync', false))
       );
   }
@@ -147,7 +147,7 @@ export class OperationsService {
     return this.http.post<LinOTPResponse<{ 'assign token': boolean }>>(url, bodyAssign)
       .pipe(
         map(response => {
-          if (response && response.result && response.result.value) {
+          if (response?.result?.value) {
             return { success: response.result.value['set description'] > 0 };
           }
         }),
@@ -164,13 +164,7 @@ export class OperationsService {
 
     return this.http.post<LinOTPResponse<{ 'unassign token': boolean }>>(this.userserviceBase + this.userserviceEndpoints.unassign, body)
       .pipe(
-        map(response => {
-          if (response && response.result && response.result.value && response.result.value['unassign token']) {
-            return response.result.value['unassign token'];
-          } else {
-            return false;
-          }
-        }),
+        map(response => response?.result?.value?.['unassign token'] || false),
         catchError(this.tokenService.handleError('unassignToken', false))
       );
   }

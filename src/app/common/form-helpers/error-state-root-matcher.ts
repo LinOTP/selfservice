@@ -14,6 +14,6 @@ export class ErrorStateRootMatcher implements ErrorStateMatcher {
      * @param form form reference not used in this method, but required by the interface.
      */
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-        return control && control.touched && (control.invalid || control.root.invalid);
+        return control?.touched && (control.invalid || control.root.invalid);
     }
 }

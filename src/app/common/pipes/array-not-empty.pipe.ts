@@ -14,7 +14,7 @@ export class ArrayNotEmptyPipe implements PipeTransform {
    * @memberof ArrayNotEmptyPipe
    */
   transform(value: any[]): boolean {
-    return !!value && value.length > 0;
+    return value?.length > 0;
   }
 
 }
