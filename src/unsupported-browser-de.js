@@ -15,7 +15,7 @@ if (isLegacy) {
     </style>\
     <div class="unsupported">\
     <h1>Nicht unterstützter Webbrowser</h1>\
-    <p>Ihre Browser-Version wird nicht unterstützt und die Anwendung funktioniert nicht richtig.</p>\
+    <p>Ihre Browser-Version wird nicht unterstützt und der LinOTP Selfservice v2 funktioniert nicht richtig.</p>\
     <p>Die folgenden Browser werden in ihrer aktuellsten Version offiziell unterstützt:</p>\
         <ul>\
           <li>Microsoft Edge</li>\
