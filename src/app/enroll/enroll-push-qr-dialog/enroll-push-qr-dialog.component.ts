@@ -53,7 +53,7 @@ export class EnrollPushQRDialogComponent implements OnInit {
   enrollToken() {
     this.enrollmentStep.disable();
     this.enrollmentService.enroll<QRCodeEnrollmentDetail>(this.enrollmentStep.value).subscribe(response => {
-      if (response.result && response.result.value === true) {
+      if (response?.result?.value) {
         this.enrolledToken = {
           url: response.detail.lse_qr_url.value,
           serial: response.detail.serial

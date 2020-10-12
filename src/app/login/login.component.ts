@@ -165,18 +165,17 @@ export class LoginComponent implements OnInit {
     }
 
     const eventElement = event.target as HTMLElement;
+    const isTokenListItem = eventElement?.classList?.contains('token-list-item');
 
     let targetElement: HTMLElement;
     switch (event.key) {
       case 'ArrowRight':
       case 'ArrowDown':
-        targetElement = eventElement.classList.contains('token-list-item') && eventElement.nextElementSibling as HTMLElement
-          || this.tokenChoiceItems.first.nativeElement as HTMLElement;
+        targetElement = isTokenListItem && eventElement.nextElementSibling || this.tokenChoiceItems?.first.nativeElement;
         break;
       case 'ArrowLeft':
       case 'ArrowUp':
-        targetElement = eventElement.classList.contains('token-list-item') && eventElement.previousElementSibling as HTMLElement
-          || this.tokenChoiceItems.last.nativeElement as HTMLElement;
+        targetElement = isTokenListItem && eventElement.previousElementSibling || this.tokenChoiceItems?.last.nativeElement;
         break;
     }
 

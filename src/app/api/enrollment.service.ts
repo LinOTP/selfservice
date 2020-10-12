@@ -169,9 +169,9 @@ export class EnrollmentService {
     return this.http.post<LinOTPResponse<{ 'assign token': boolean }>>(url, bodyAssign)
       .pipe(
         map(response => {
-          if (response && response.result && response.result.value) {
+          if (response?.result?.value) {
             return { success: response.result.value['assign token'] === true };
-          } else if (response && response.result.error && response.result.error.message) {
+          } else if (response?.result?.error?.message) {
             let message = '';
             switch (response.result.error.message) {
               case 'The token is already assigned to another user.':

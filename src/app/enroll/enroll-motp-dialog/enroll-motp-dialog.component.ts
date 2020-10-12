@@ -68,9 +68,7 @@ export class EnrollMOTPDialogComponent implements OnInit {
     };
 
     this.enrollmentService.enroll(body).subscribe(response => {
-      const serial = response &&
-        response.result && response.result.value &&
-        response.detail && response.detail.serial;
+      const serial = response?.result?.value && response?.detail?.serial;
       if (serial) {
         this.enrolledToken = {
           serial: serial,

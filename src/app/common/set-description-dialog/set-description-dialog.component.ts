@@ -40,7 +40,7 @@ export class SetDescriptionDialogComponent {
     if (!this.awaitingResponse && this.form.valid) {
       this.awaitingResponse = true;
       this.operationsService.setDescription(this.token.serial, this.form.controls.description.value).subscribe((result) => {
-        if (result && result.success) {
+        if (result?.success) {
           this.dialogRef.close(true);
         } else {
           this.awaitingResponse = false;

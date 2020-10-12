@@ -102,7 +102,7 @@ export class LoginService {
 
     return this.http.post<LinOTPResponse<boolean, LoginResponse>>(url, params)
       .pipe(
-        filter(response => !!response && !!response.result),
+        filter(response => !!response?.result),
         map(response => {
           const details = response.detail;
           if (!details) {
@@ -140,9 +140,9 @@ export class LoginService {
       mergeMap(() =>
         this.http.get<LinOTPResponse<boolean, StatusDetail>>(url, { params })
       ),
-      filter(res => !res.detail || res.detail.status !== 'open'),
+      filter(res => res?.detail?.status !== 'open'),
       take(1),
-      map(res => res.detail && (res.detail.valid_tan || res.detail.accept)),
+      map(res => res?.detail?.valid_tan || res?.detail?.accept),
       tap(success => this.handleLogin(success)),
       catchError(this.handleError<any>('MFA login status poll', {})),
     );
@@ -159,7 +159,7 @@ export class LoginService {
   public logout(): Observable<any> {
     return this.http.get<any>(this.baseUrl + this.endpoints.logout)
       .pipe(
-        map(response => response && response.result && response.result.value === true),
+        map(response => response?.result?.value === true),
         tap(logoutSuccess => {
           if (logoutSuccess) {
             this.handleLogout(false);
