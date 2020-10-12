@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 export enum Duration {
-  SHORT = 500,
-  NORMAL = 2000,
-  LONG = 6000,
+  SHORT = 2000,
+  NORMAL = 5000,
+  LONG = 30000,
 }
 
 @Injectable()
