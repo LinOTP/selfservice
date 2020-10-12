@@ -67,9 +67,6 @@ export class EnrollPasswordDialogComponent implements OnInit {
       if (response?.result?.value) {
         this.serial = response.detail.serial;
         this.stepper.next();
-      } else {
-        this.notificationService
-          .message($localize`There was a problem while creating the new token. Please try again.`);
       }
       this.enrollmentStep.enable();
     });

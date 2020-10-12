@@ -8,3 +8,10 @@ export interface LinOTPResponse<T, U = undefined> {
   };
   detail?: U;
 }
+
+export class APIError extends Error {
+
+  constructor(public response: LinOTPResponse<any, any>) {
+    super();
+  }
+}

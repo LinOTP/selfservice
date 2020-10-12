@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Observable, of, interval } from 'rxjs';
-import { map, filter, mergeMap, take, catchError } from 'rxjs/operators';
+import { map, filter, mergeMap, take, catchError, tap } from 'rxjs/operators';
 
 import { EnrollToken, EnrollmentStatus } from './token';
 import { TokenService } from './token.service';
 import { SessionService } from '../auth/session.service';
 import { UserInfo } from '../system.service';
-import { LinOTPResponse } from './api';
+import { LinOTPResponse, APIError } from './api';
+import { NotificationService } from '../common/notification.service';
 
 export interface QRCodeEnrollmentDetail {
   lse_qr_url: {
@@ -62,6 +63,7 @@ export class EnrollmentService {
     private http: HttpClient,
     private sessionService: SessionService,
     private tokenService: TokenService,
+    private notificationService: NotificationService,
   ) { }
 
   enrollOATH(token: EnrollToken): Observable<LinOTPResponse<OATHEnrollmentData>> {
@@ -79,7 +81,12 @@ export class EnrollmentService {
 
     return this.http.post<LinOTPResponse<OATHEnrollmentData>>(enrollEndpoint, body)
       .pipe(
-        catchError(this.handleError('enroll token', null))
+        tap(response => {
+          if (!response.result.status) {
+            throw new APIError(response);
+          }
+        }),
+        catchError(this.handleError($localize`Token registration`, null))
       );
   }
 
@@ -98,7 +105,12 @@ export class EnrollmentService {
 
     return this.http.post<LinOTPResponse<boolean, T>>(enrollEndpoint, body)
       .pipe(
-        catchError(this.handleError('enroll token', null))
+        tap(response => {
+          if (!response.result.status) {
+            throw new APIError(response);
+          }
+        }),
+        catchError(this.handleError($localize`Token registration`, null))
       );
   }
 
@@ -119,7 +131,12 @@ export class EnrollmentService {
     };
     return this.http.post<LinOTPResponse<boolean, ActivationDetail>>(this.validateCheck, body)
       .pipe(
-        catchError(this.handleError('activate token', null))
+        tap(response => {
+          if (!response.result.status) {
+            throw new APIError(response);
+          }
+        }),
+        catchError(this.handleError($localize`Token activation`, null))
       );
   }
 
@@ -132,7 +149,7 @@ export class EnrollmentService {
     };
     return this.http.post<LinOTPResponse<boolean, ChallengeStatusDetail>>(this.validateCheckStatus, body)
       .pipe(
-        catchError(this.handleError('get challenge status', null))
+        catchError(this.handleError($localize`Challenge status request`, null))
       );
   }
 
@@ -194,11 +211,17 @@ export class EnrollmentService {
       );
   }
 
-
-  private handleError<T>(operation = 'operation', result?: T) {
+  private handleError<T>(operation = $localize`An API request`, result?: T) {
     return (error: any): Observable<T> => {
-      console.error(`${operation} failed: ${error.message}`);
-      console.error(error);
+      const defaultMessage = $localize`${operation} failed: Please try again.`;
+      const errorMessages = {
+        411: $localize`${operation} failed: You have reached the maximum number of tokens for your account.`,
+        412: $localize`${operation} failed: You have reached the maximum number of tokens of this type.`,
+        413: $localize`${operation} failed: You can not register a new token because your realm has reached the maximum token capacity.`,
+      };
+
+      this.notificationService.message(errorMessages[error?.response?.result?.error?.code] || defaultMessage);
+
       return of(result as T);
     };
   }
