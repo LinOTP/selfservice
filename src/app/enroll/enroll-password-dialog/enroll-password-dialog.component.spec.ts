@@ -22,7 +22,7 @@ import { MatButton } from '@angular/material/button';
 import { MockComponent } from '../../../testing/mock-component';
 
 
-describe('The EnrollOATHDialogComponent', () => {
+describe('The EnrollPasswordDialogComponent', () => {
   let component: EnrollPasswordDialogComponent;
   let fixture: ComponentFixture<EnrollPasswordDialogComponent>;
   let notificationService: jasmine.SpyObj<NotificationService>;
@@ -150,7 +150,9 @@ describe('The EnrollOATHDialogComponent', () => {
       expect(component.stepper.next).toHaveBeenCalledTimes(1);
     }));
 
-    it('should notify user if enrollment failed', fakeAsync(() => {
+    it('should not notify user if enrollment failed', fakeAsync(() => {
+      // the enrollment service does the notification now, instead of the enrollment dialog
+
       component.data.tokenTypeDetails = Fixtures.tokenTypeDetails[TokenType.PASSWORD];
       component.enrollmentStep.controls.password.setValue('111111');
 
@@ -163,7 +165,7 @@ describe('The EnrollOATHDialogComponent', () => {
       tick();
 
       expect(component.serial).toEqual(undefined);
-      expect(notificationService.message).toHaveBeenCalledTimes(1);
+      expect(notificationService.message).not.toHaveBeenCalled();
     }));
   });
 

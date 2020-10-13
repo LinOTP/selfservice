@@ -124,7 +124,9 @@ describe('EnrollPushDialogComponent', () => {
     expect(notificationService.message).not.toHaveBeenCalled();
   }));
 
-  it('should output a message when the push enrollment failed', fakeAsync(() => {
+  it('should not output a message when the push enrollment failed', fakeAsync(() => {
+    // notification is done by the enrollment service
+
     const mockedEnrollResponse = Fixtures.enrollmentResponse;
     mockedEnrollResponse.result.value = false;
 
@@ -140,9 +142,7 @@ describe('EnrollPushDialogComponent', () => {
 
     expect(component.enrolledToken).toEqual(undefined);
     expect(component.stepper.selectedIndex).toEqual(0);
-    expect(notificationService.message).toHaveBeenCalledTimes(1);
-    expect(notificationService.message).toHaveBeenCalledWith('There was a problem while creating the new token.' +
-      ' Please try again.');
+    expect(notificationService.message).not.toHaveBeenCalled();
   }));
 
   it('should let the user close the dialog', () => {

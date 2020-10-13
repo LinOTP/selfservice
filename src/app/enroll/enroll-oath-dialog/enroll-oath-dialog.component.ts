@@ -67,9 +67,6 @@ export class EnrollOATHDialogComponent implements OnInit {
           seed: token.key,
         };
         this.stepper.next();
-      } else {
-        this.notificationService
-          .message($localize`There was a problem while creating the new token. Please try again.`);
       }
       this.enrollmentStep.enable();
     });

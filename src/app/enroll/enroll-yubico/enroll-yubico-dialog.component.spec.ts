@@ -110,17 +110,16 @@ describe('EnrollYubicoDialogComponent', () => {
       expect(component.success).toEqual(true);
     });
 
-    it('should fail when registration request returns and display an error message on failure', () => {
-      enrollmentService.enroll.and.returnValue(of({ result: { value: false, error: { message: 'an error occurred' } } }));
+    it('should fail when registration request returns and stay on the same step', () => {
+      enrollmentService.enroll.and.returnValue(of({ result: { value: false } }));
 
       component.stepper.selectedIndex = 0;
       component.registrationForm.setValue({ publicId: 'abc123', description: 'my new token' });
       fixture.detectChanges();
 
       component.registerToken();
-      expect(component.stepper.selectedIndex).toEqual(1);
-      expect(component.errorMessage).toBe('an error occurred');
-      expect(component.success).toEqual(false);
+      expect(component.stepper.selectedIndex).toEqual(0);
+      expect(component.success).not.toEqual(true);
     });
   });
 });

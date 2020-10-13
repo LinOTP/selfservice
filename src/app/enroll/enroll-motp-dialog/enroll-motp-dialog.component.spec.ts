@@ -173,7 +173,9 @@ describe('EnrollMOTPDialogComponent', () => {
       expect(component.stepper.next).toHaveBeenCalledTimes(1);
     }));
 
-    it('should notify user if enrollment failed', fakeAsync(() => {
+    it('should not notify user if enrollment failed', fakeAsync(() => {
+      // the enrollment service does the notification now
+
       const mockEnrollmentResponse = Fixtures.mOTPEnrollmentResponse;
       mockEnrollmentResponse.result.value = false;
 
@@ -184,7 +186,7 @@ describe('EnrollMOTPDialogComponent', () => {
       tick();
 
       expect(component.enrolledToken).toEqual(undefined);
-      expect(notificationService.message).toHaveBeenCalledTimes(1);
+      expect(notificationService.message).not.toHaveBeenCalled();
     }));
 
     it('should not be called on button click if form is invalid', fakeAsync(() => {

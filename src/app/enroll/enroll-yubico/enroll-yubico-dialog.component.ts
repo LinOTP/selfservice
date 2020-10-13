@@ -72,16 +72,13 @@ export class EnrollYubicoDialogComponent implements OnInit {
       description: this.registrationForm.get('description').value,
       otplen: 44,
     };
-    this.errorMessage = '';
     this.enrollmentService.enroll<{ serial: string }>(body).subscribe(response => {
-      if (!response?.result?.value) {
-        this.errorTypeMessage = $localize`The token assignment failed.`;
+      const serial = response?.result?.value && response?.detail?.serial;
+      if (serial) {
+        this.serial = serial;
+        this.success = true;
+        this.stepper.next();
       }
-      this.errorMessage = response?.result?.error?.message || '';
-      this.success = response?.result?.value || false;
-      this.serial = response?.detail?.serial;
-
-      this.stepper.next();
       this.registrationForm.enable();
     });
   }
