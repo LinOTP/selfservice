@@ -31,6 +31,8 @@ export const PoliciesToPermissionsMapping: { [policy: string]: Permission } = {
     'activate_QRToken': Permission.ACTIVATEQR,
     'webprovisionGOOGLE': Permission.ENROLLHOTP,
     'webprovisionGOOGLEtime': Permission.ENROLLTOTP,
+    'enrollHMAC': Permission.ENROLLHOTP,
+    'enrollTOTP': Permission.ENROLLTOTP,
     'enrollPW': Permission.ENROLLPASSWORD,
     'enrollMOTP': Permission.ENROLLMOTP,
     'enrollSMS': Permission.ENROLLSMS,

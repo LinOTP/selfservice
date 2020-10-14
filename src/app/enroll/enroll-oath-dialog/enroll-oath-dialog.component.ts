@@ -58,13 +58,13 @@ export class EnrollOATHDialogComponent implements OnInit {
       description: this.enrollmentStep.get('description').value,
     };
 
-    this.enrollmentService.enrollOATH(body).subscribe(response => {
-      const token = response?.result?.value?.oathtoken;
+    this.enrollmentService.enroll<{ serial: string, otpkey: { value: string }, googleurl: { value: string } }>(body).subscribe(response => {
+      const token = response?.detail;
       if (token) {
         this.enrolledToken = {
-          url: token.url,
+          url: token.googleurl.value,
           serial: token.serial,
-          seed: token.key,
+          seed: token.otpkey.value,
         };
         this.stepper.next();
       }

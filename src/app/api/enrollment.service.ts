@@ -31,19 +31,6 @@ interface ChallengeStatusDetail {
   };
 }
 
-interface OATHEnrollmentData {
-  init: boolean;
-  setpin: boolean;
-  oathtoken: {
-    digits: number,
-    img: string,
-    url: string,
-    counter: number,
-    label: string,
-    key: string,
-    serial: string,
-  };
-}
 
 @Injectable({
   providedIn: 'root'
@@ -52,7 +39,6 @@ export class EnrollmentService {
   private userserviceBase = `/userservice/`;
   private userserviceEndpoints = {
     enroll: 'enroll',
-    webprovision: 'webprovision',
     assign: 'assign',
   };
 
@@ -65,30 +51,6 @@ export class EnrollmentService {
     private tokenService: TokenService,
     private notificationService: NotificationService,
   ) { }
-
-  enrollOATH(token: EnrollToken): Observable<LinOTPResponse<OATHEnrollmentData>> {
-    const body: { session: string, type: string, description?: string } = {
-      ...token,
-      session: this.sessionService.getSession(),
-    };
-
-    const details = this.tokenService.getTypeDetails(token.type);
-    const enrollEndpoint = this.userserviceBase + this.userserviceEndpoints.webprovision;
-
-    if (details.enrollmentType) {
-      body.type = details.enrollmentType;
-    }
-
-    return this.http.post<LinOTPResponse<OATHEnrollmentData>>(enrollEndpoint, body)
-      .pipe(
-        tap(response => {
-          if (!response.result.status) {
-            throw new APIError(response);
-          }
-        }),
-        catchError(this.handleError($localize`Token registration`, null))
-      );
-  }
 
   enroll<T extends { serial: string }>(token: EnrollToken): Observable<LinOTPResponse<boolean, T>> {
     const body: { session: string, type: string, description?: string, otplen?: number, 'yubico.tokenid'?: string } = {

@@ -209,13 +209,15 @@ export class Fixtures {
     return {
       result: {
         status: true,
-        value: {
-          init: true,
-          oathtoken: {
-            url: 'testUrl',
-            serial: 'testSerial',
-            key: 'random value',
-          }
+        value: true,
+      },
+      detail: {
+        serial: 'testSerial',
+        googleurl: {
+          value: 'testUrl',
+        },
+        otpkey: {
+          value: 'random value',
         }
       }
     };
