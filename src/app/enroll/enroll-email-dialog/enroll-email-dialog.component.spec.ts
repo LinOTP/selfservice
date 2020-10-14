@@ -220,7 +220,9 @@ describe('The EnrollEmailDialogComponent', () => {
     });
   });
 
-  it('should notify user if enrollment failed', fakeAsync(() => {
+  it('should not notify user if enrollment failed', fakeAsync(() => {
+    // the enrollment service now handles the notification
+
     const mockEnrollmentResponse = Fixtures.emailEnrollmentResponse;
     mockEnrollmentResponse.result.value = false;
 
@@ -231,7 +233,7 @@ describe('The EnrollEmailDialogComponent', () => {
     tick();
 
     expect(component.enrolledTokenSerial).toEqual(undefined);
-    expect(notificationService.message).toHaveBeenCalledTimes(1);
+    expect(notificationService.message).not.toHaveBeenCalled();
   }));
 
   it('close should return token serial', fakeAsync(() => {

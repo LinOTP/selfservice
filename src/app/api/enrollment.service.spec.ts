@@ -1,12 +1,14 @@
 import { TestBed, inject } from '@angular/core/testing';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { Fixtures } from '../../testing/fixtures';
 
 import { Token, EnrollmentStatus, TokenType } from './token';
 import { SessionService } from '../auth/session.service';
+import { NotificationService } from '../common/notification.service';
 import { EnrollmentService } from './enrollment.service';
+import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
 
 const session = '';
 
@@ -22,6 +24,7 @@ mockUnreadyDisabledToken.enrollmentStatus = EnrollmentStatus.UNPAIRED;
 
 describe('EnrollmentService', () => {
   let enrollmentService: EnrollmentService;
+  let notificationService: jasmine.SpyObj<NotificationService>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -37,10 +40,16 @@ describe('EnrollmentService', () => {
             getSession: jasmine.createSpy('getSession').and.returnValue(session),
           }
         },
+        {
+          provide: NotificationService,
+          useValue: spyOnClass(NotificationService),
+        },
       ],
     });
 
     enrollmentService = TestBed.inject(EnrollmentService);
+    notificationService = getInjectedStub(NotificationService);
+
   });
 
   it('should be created', inject([EnrollmentService], (service: EnrollmentService) => {
@@ -102,6 +111,7 @@ describe('EnrollmentService', () => {
 
         request.flush({ result: { status: true, error: { message: receivedMessage } } });
         backend.verify();
+
       }
     ));
 
@@ -162,6 +172,7 @@ describe('EnrollmentService', () => {
         spyOn(console, 'error');
 
         enrollmentService.assign('serial', 'description').subscribe(response => {
+          expect(notificationService.message).toHaveBeenCalledWith('assign failed: Please try again.');
           expect(response).toEqual({ success: false });
         });
 
@@ -169,8 +180,6 @@ describe('EnrollmentService', () => {
 
         request.error(new ErrorEvent('Error assigning token'));
         backend.verify();
-
-        expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
       }
     ));
   });

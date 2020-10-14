@@ -163,7 +163,9 @@ describe('The EnrollOATHDialogComponent', () => {
     expect(component.stepper.next).toHaveBeenCalledTimes(1);
   }));
 
-  it('should notify user if enrollment failed', fakeAsync(() => {
+  it('should not notify user if enrollment failed', fakeAsync(() => {
+    // the enrollment service does the notification now, instead of the enrollment dialog
+
     const mockEnrollmentResponse: LinOTPResponse<any> = Fixtures.OATHEnrollmentResponse;
     mockEnrollmentResponse.result.value = false;
 
@@ -174,7 +176,7 @@ describe('The EnrollOATHDialogComponent', () => {
     tick();
 
     expect(component.enrolledToken).toEqual(undefined);
-    expect(notificationService.message).toHaveBeenCalledTimes(1);
+    expect(notificationService.message).not.toHaveBeenCalled();
   }));
 
   it('close should return token serial', fakeAsync(() => {
