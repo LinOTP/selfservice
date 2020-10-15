@@ -113,7 +113,7 @@ describe('LoginComponent', () => {
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
 
-    systemService.getSystemInfo.and.returnValue(of(Fixtures.systemInfo));
+    systemService.getSystemInfo$.and.returnValue(of(Fixtures.systemInfo));
 
     page = new Page(fixture);
   });
@@ -137,7 +137,7 @@ describe('LoginComponent', () => {
     });
 
     it('should display warning dialog if backend version is too old', () => {
-      systemService.getSystemInfo.and.returnValue(of(Fixtures.outdatedSystemInfo));
+      systemService.getSystemInfo$.and.returnValue(of(Fixtures.outdatedSystemInfo));
       fixture.detectChanges();
 
       const config = {
@@ -155,7 +155,7 @@ describe('LoginComponent', () => {
     });
 
     it('should display warning dialog if backend version is so old that the SystemInfo could not even be created', () => {
-      systemService.getSystemInfo.and.returnValue(of(undefined));
+      systemService.getSystemInfo$.and.returnValue(of(undefined));
       fixture.detectChanges();
 
       const config = {
@@ -173,7 +173,7 @@ describe('LoginComponent', () => {
     });
 
     it('should NOT include realm select in login stage if disabled in systemInfo', () => {
-      systemService.getSystemInfo.and.returnValue(of({
+      systemService.getSystemInfo$.and.returnValue(of({
         ...Fixtures.systemInfo,
         settings: {
           ...Fixtures.systemInfo.settings,
@@ -190,7 +190,7 @@ describe('LoginComponent', () => {
 
       const sysInfo = Fixtures.systemInfo;
       sysInfo.settings.realm_box = true;
-      systemService.getSystemInfo.and.returnValue(of(sysInfo));
+      systemService.getSystemInfo$.and.returnValue(of(sysInfo));
 
       fixture.detectChanges();
 
@@ -206,14 +206,14 @@ describe('LoginComponent', () => {
     });
 
     it('should NOT include otp field in login stage if mfa_login disabled in systemInfo', () => {
-      systemService.getSystemInfo.and.returnValue(of({ ...Fixtures.systemInfo, mfa_3_fields: true, mfa_login: false }));
+      systemService.getSystemInfo$.and.returnValue(of({ ...Fixtures.systemInfo, mfa_3_fields: true, mfa_login: false }));
       fixture.detectChanges();
 
       expect(page.getLoginForm().querySelector('input[name="otp"]')).toBeFalsy();
     });
 
     it('should NOT include otp field in login stage if 3 fields disabled in systemInfo', () => {
-      systemService.getSystemInfo.and.returnValue(of({ ...Fixtures.systemInfo, mfa_3_fields: false }));
+      systemService.getSystemInfo$.and.returnValue(of({ ...Fixtures.systemInfo, mfa_3_fields: false }));
       fixture.detectChanges();
 
       expect(page.getLoginForm().querySelector('input[name="otp"]')).toBeFalsy();
@@ -225,7 +225,7 @@ describe('LoginComponent', () => {
       const sysInfo = Fixtures.systemInfo;
       sysInfo.settings.mfa_3_fields = true;
       sysInfo.settings.mfa_login = true;
-      systemService.getSystemInfo.and.returnValue(of(sysInfo));
+      systemService.getSystemInfo$.and.returnValue(of(sysInfo));
 
       fixture.detectChanges();
 

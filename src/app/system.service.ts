@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { filter, map, shareReplay, startWith, tap } from 'rxjs/operators';
 
 import { Permission, PoliciesToPermissionsMapping } from './common/permissions';
 import { SessionService } from './auth/session.service';
@@ -83,10 +83,14 @@ const locales = [
 })
 export class SystemService {
 
+  private _systemInfo$: Observable<SystemInfo>;
+
   constructor(
     private http: HttpClient,
     private sessionService: SessionService,
-  ) { }
+  ) {
+    this.initService();
+  }
 
   /**
    * maps the policy action list from the backend response to the corresponding
@@ -108,8 +112,23 @@ export class SystemService {
     };
   }
 
+  initService() {
+    // initialize systemInfo$ observable and load the latest
+    // system info from the backend on the first consumer subscription
+    this._systemInfo$ = this.loadSystemInfo().pipe(
+      tap(systemInfo => {
+        if (systemInfo) {
+          localStorage.setItem('systemInfo', JSON.stringify(systemInfo));
+        }
+      }),
+      startWith(JSON.parse(localStorage.getItem('systemInfo'))),
+      filter(systemInfo => !!systemInfo),
+      shareReplay(1),
+    );
+  }
+
   /**
-   * gets system information without a user context.
+   * loads system information without a user context.
    *
    * The backend provides dynamic details about the system. This API works
    * without a valid session and does not provide user specific information.
@@ -121,10 +140,22 @@ export class SystemService {
    * @returns {Observable<SystemInfo>}
    * @memberof SystemService
    */
-  getSystemInfo(): Observable<SystemInfo> {
+  private loadSystemInfo(): Observable<SystemInfo> {
+
     return this.http.get<LinOTPResponse<boolean, SystemInfo>>('/userservice/pre_context').pipe(
       map(response => response.detail),
     );
+  }
+
+  /**
+   * an observable to the SystemInfo. It is returning a stored backup if available
+   * and loads the latest version from the backend once for all consumers
+   *
+   * @returns {Observable<SystemInfo>}
+   * @memberof SystemService
+   */
+  public getSystemInfo$(): Observable<SystemInfo> {
+    return this._systemInfo$;
   }
 
   /**
