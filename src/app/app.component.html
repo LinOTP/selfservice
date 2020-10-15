@@ -20,6 +20,33 @@
           (click)="logout()"
           i18n>Logout</button>
 </mat-toolbar>
+
 <main>
   <router-outlet></router-outlet>
 </main>
+
+<mat-divider></mat-divider>
+
+<footer>
+  <span class="footerText">{{footerText || copyright}}</span>
+  <ng-container *ngIf="imprintUrl">
+    ·
+    <a [href]="imprintUrl"
+       target="_blank"
+       rel="noopener noreferrer"
+       mat-button
+       i18n>
+      Imprint
+    </a>
+  </ng-container>
+  <ng-container *ngIf="privacyNoticeUrl">
+    ·
+    <a [href]="privacyNoticeUrl"
+       target="_blank"
+       rel="noopener noreferrer"
+       mat-button
+       i18n>
+      Privacy
+      notice</a>
+  </ng-container>
+</footer>

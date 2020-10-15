@@ -1,15 +1,25 @@
 @import '~@angular/material/theming';
 
 :host {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   overflow: auto;
   height: 100vh;
   background: whitesmoke;
+
+  & > :not(mat-toolbar) {
+    width: 100%;
+    max-width: 800px;
+    margin-left: 1em;
+    margin-right: 1em;
+  }
 }
 
 mat-toolbar {
   position: relative;
   padding: 8px 12px;
+  margin-bottom: 1em;
   @include mat-elevation(1);
 
   #title {
@@ -38,7 +48,14 @@ mat-toolbar {
 }
 
 main {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 2em 1em;
+  flex: 1;
+}
+
+mat-divider {
+  margin-top: 1em;
+  margin-bottom: .5em;
+}
+
+.footerText {
+  margin-right: 16px;
 }

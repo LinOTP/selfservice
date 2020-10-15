@@ -37,6 +37,9 @@ export interface SystemInfo {
     realm_box: boolean;
     mfa_3_fields: boolean;
     autoenroll: boolean;
+    footer_text?: string;
+    imprint_url?: string;
+    privacy_notice_url?: string;
   };
 }
 
