@@ -333,35 +333,39 @@ Datenschutz</target>
       <trans-unit id="3868000447879071786" datatype="html">
         <source>Cancel</source>
         <target state="translated">Abbrechen</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">180</context>
-        </context-group>
         <note priority="1" from="description">login page second factor cancel button</note>
         <note priority="1" from="meaning">2nd factor login action</note>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/login.component.html</context>
+          <context context-type="linenumber">181</context>
+        </context-group>
       </trans-unit>
-      <trans-unit id="5460314885723621351" datatype="html">
-        <source>
-          Please enter the password of the selected token:
-        </source>
+      <trans-unit id="234725495988365425" datatype="html">
+        <source>Please enter the password of the selected token:</source>
         <target state="translated">
             Bitte geben Sie das Passwort des ausgewählten Token ein:
           </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">128,129</context>
+          <context context-type="linenumber">129</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="7126261789096849440" datatype="html">
-        <source>
-          Please enter the next OTP for the selected token:
-        </source>
+      <trans-unit id="4656965482758163984" datatype="html">
+        <source>Please connect your Yubikey and press its button.</source>
+        <target state="translated">Verbinden Sie Ihren Yubikey und drücken Sie den Knopf.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/login.component.html</context>
+          <context context-type="linenumber">131</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2024620579979743202" datatype="html">
+        <source>Please enter the next OTP for the selected token:</source>
         <target state="translated">
             Bitte geben Sie den nächsten OTP für den ausgewählten Token ein:
           </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">132,133</context>
+          <context context-type="linenumber">133</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2977612657174343243" datatype="html">
@@ -373,7 +377,7 @@ Datenschutz</target>
           </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">139,140</context>
+          <context context-type="linenumber">140</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4593276974210440916" datatype="html">
@@ -387,7 +391,7 @@ Datenschutz</target>
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">151,153</context>
+          <context context-type="linenumber">152</context>
         </context-group>
       </trans-unit>
       <trans-unit id="158182840842304476" datatype="html">
@@ -395,7 +399,7 @@ Datenschutz</target>
         <target state="translated">OTP manuell eingeben</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">160</context>
+          <context context-type="linenumber">161</context>
         </context-group>
       </trans-unit>
       <trans-unit id="187187500641108332" datatype="html">
@@ -403,18 +407,18 @@ Datenschutz</target>
         <target state="translated">{{ data.token.typeDetails.type === TokenType.PASSWORD? 'Passwort':'OTP-Wert' }}</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">167</context>
+          <context context-type="linenumber">168</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1420113530219253027" datatype="html">
         <source>Submit</source>
         <target state="translated">Absenden</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">185</context>
-        </context-group>
         <note priority="1" from="description">login page second factor submit button</note>
         <note priority="1" from="meaning">2nd factor login action</note>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/login.component.html</context>
+          <context context-type="linenumber">186</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="3012199703865433135" datatype="html">
         <source>Created via SelfService</source>

@@ -123,14 +123,15 @@
         </span>
       </p>
       <ng-container *ngIf="!hasOnlineMode">
-        <p *ngIf="selectedToken.typeDetails.type === TokenType.PASSWORD; else otpInputMessage"
-           i18n>
-          Please enter the password of the selected token:
-        </p>
-        <ng-template #otpInputMessage
-                     i18n>
-          Please enter the next OTP for the selected token:
-        </ng-template>
+
+        <ng-container [ngSwitch]="selectedToken.typeDetails.type">
+          <p *ngSwitchCase="TokenType.PASSWORD"
+             i18n>Please enter the password of the selected token:</p>
+          <p *ngSwitchCase="TokenType.YUBICO"
+             i18n>Please connect your Yubikey and press its button.</p>
+          <p *ngSwitchDefault
+             i18n>Please enter the next OTP for the selected token:</p>
+        </ng-container>
       </ng-container>
 
       <ng-container *ngIf="transactionDetail && qrCodeData">
