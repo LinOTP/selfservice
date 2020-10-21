@@ -51,6 +51,15 @@ export class Fixtures {
         enrollmentPermission: Permission.ENROLLYUBICO,
         enrollmentActionLabel: 'Register',
       },
+      yubikey: {
+        type: TokenType.YUBIKEY,
+        name: `Yubikey token`,
+        description: `Authenticate with a Yubikey hardware token.`,
+        icon: 'vpn_key', // TODO: we might want to use an official logo here
+        enrollmentPermission: Permission.ENROLLYUBIKEY,
+        enrollmentActionLabel: `Register`,
+        authenticationPrompt: `Authenticate using your Yubikey token`,
+      },
       qr: {
         type: TokenType.QR,
         name: 'QR-Token',

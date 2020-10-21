@@ -127,7 +127,7 @@
         <ng-container [ngSwitch]="selectedToken.typeDetails.type">
           <p *ngSwitchCase="TokenType.PASSWORD"
              i18n>Please enter the password of the selected token:</p>
-          <p *ngSwitchCase="TokenType.YUBICO"
+          <p *ngSwitchCase="TokenType.YUBICO || TokenType.YUBIKEY"
              i18n>Please connect your Yubikey and press its button.</p>
           <p *ngSwitchDefault
              i18n>Please enter the next OTP for the selected token:</p>
