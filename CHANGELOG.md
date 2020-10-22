@@ -1,3 +1,28 @@
+<a name="0.7.0"></a>
+## 0.7.0 (2020-10-22)
+
+  ### Features:
+  * Language picker to switch between available locales
+  * Keyboard support for token selection on MFA login
+  * Hide navigation when user is logged out
+  * Support unassigning tokens if the user has the right permission
+  * Login uses new userservice API (requires LinOTP v3.0)
+  * MFA login supports challenge-response tokens (Push-Token and QR-Token)
+  * Display spinner while token list and permissions are loading after login
+  * Disable submission buttons while a request is being processed to prevent double submissions and display the pending status with a spinner
+  * Inform users of Internet Explorer and legacy Edge browsers that their browser is unsupported
+  * Warn users and disable all functionality if the backend version is incompatible
+  * Improve error messages on enrollment failure due to max token policies
+  * Display a footer with policy-defined copyright info, link to imprint and link to legal notice
+
+  ### Bug Fixes:
+  * Display 3rd MFA field only if MFA login is enabled
+  * When canceling enrollment and the user does not have permission to delete a token, the warning pop-up says the token will not be a usable state, instead of informing that it will be deleted
+  * Cancelling enrollment of QR-Tokens correctly mentions the token type (it said Push Token before)
+  * Correctly use form submit handlers to submit forms, which also adds keyboard support
+  * Correctly define auto-focus in enrollment dialogs
+
+
 <a name="0.6.0"></a>
 ## 0.6.0 (2020-08-06)
 
