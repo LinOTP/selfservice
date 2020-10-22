@@ -12,7 +12,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { TransactionDetail, ReplyMode, StatusDetail } from '../api/test.service';
 import { Subscription } from 'rxjs';
 import { DialogComponent } from '../common/dialog/dialog.component';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 export enum LoginStage {
   USER_PW_INPUT = 1,
@@ -54,6 +54,8 @@ export class LoginComponent implements OnInit {
   @ViewChildren('tokenListItem', { read: ElementRef }) tokenChoiceItems: QueryList<ElementRef>;
   showKeyboardTip: boolean;
 
+  private incompatibleServerDialog: MatDialogRef<DialogComponent>;
+
   constructor(
     private loginService: LoginService,
     public notificationService: NotificationService,
@@ -81,11 +83,11 @@ export class LoginComponent implements OnInit {
       )
       .subscribe(url => this.redirectUrl = url);
 
-    this.systemService.getSystemInfo().subscribe(systemInfo => {
+    this.systemService.getSystemInfo$().subscribe(systemInfo => {
       this.systemInfo = systemInfo;
 
       const majorVersion = Number(systemInfo?.version?.match(/LinOTP (\d*?)\./)[1]) || 0;
-      if (majorVersion < MIN_BACKEND_MAJOR_VERSION) {
+      if (majorVersion < MIN_BACKEND_MAJOR_VERSION && !this.incompatibleServerDialog) {
         const config = {
           width: '25em',
           disableClose: true,
@@ -96,20 +98,28 @@ export class LoginComponent implements OnInit {
             nonDismissible: true,
           }
         };
-        this.dialog.open(DialogComponent, config);
+        this.incompatibleServerDialog = this.dialog.open(DialogComponent, config);
+      } else if (this.incompatibleServerDialog) {
+        this.incompatibleServerDialog.close();
+        this.incompatibleServerDialog = null;
       }
 
-      if (systemInfo?.settings.realm_box) {
+      if (systemInfo?.settings.realm_box && !this.loginFormGroup.contains('realm')) {
         this.loginFormGroup.addControl(
           'realm',
           this.formBuilder.control(systemInfo.settings.default_realm, Validators.required)
         );
+      } else if (!systemInfo?.settings.realm_box && this.loginFormGroup.contains('realm')) {
+        this.loginFormGroup.removeControl('realm');
       }
-      if (systemInfo?.settings.mfa_3_fields) {
+
+      if (systemInfo?.settings.mfa_3_fields && !this.loginFormGroup.contains('otp')) {
         this.loginFormGroup.addControl(
           'otp',
           this.formBuilder.control('')
         );
+      } else if (!systemInfo?.settings.mfa_3_fields && this.loginFormGroup.contains('otp')) {
+        this.loginFormGroup.removeControl('otp');
       }
     });
 

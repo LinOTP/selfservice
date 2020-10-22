@@ -34,7 +34,7 @@ describe('SystemService', () => {
     it('should fetch the /userservice/pre_context from backend', inject(
       [HttpClient, HttpTestingController],
       (http: HttpClient, backend: HttpTestingController) => {
-        service.getSystemInfo().subscribe((response) => { });
+        service.getSystemInfo$().subscribe((response) => { });
         const permissionsRequest = backend.expectOne((req) => req.url === '/userservice/pre_context' && req.method === 'GET');
         permissionsRequest.flush(ExampleAPIResponses.userservice_pre_context);
       }
@@ -43,7 +43,7 @@ describe('SystemService', () => {
     it('should parse the realms list', inject(
       [HttpClient, HttpTestingController],
       (http: HttpClient, backend: HttpTestingController) => {
-        service.getSystemInfo().subscribe((systemInfo) => {
+        service.getSystemInfo$().subscribe((systemInfo) => {
           expect(typeof systemInfo.realms).toEqual('object');
           expect(systemInfo.realms.ExampleRealm).toEqual(
             jasmine.objectContaining({

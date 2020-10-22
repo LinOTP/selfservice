@@ -303,7 +303,7 @@ export class Fixtures {
 
   static get systemInfo(): SystemInfo {
     return {
-      copyright: '',
+      copyright: 'copyright',
       version: 'LinOTP 3.0.1b',
       realms: {
         ExampleRealm: {
@@ -320,6 +320,9 @@ export class Fixtures {
         realm_box: false,
         mfa_3_fields: false,
         autoenroll: false,
+        footer_text: 'footer text',
+        imprint_url: 'http://imprint',
+        privacy_notice_url: 'http://privacy'
       },
     };
   }

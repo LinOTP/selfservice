@@ -11,6 +11,8 @@ import { SessionService } from './auth/session.service';
 import { NotificationService } from './common/notification.service';
 import { LoginService } from './login/login.service';
 import { MockComponent } from '../testing/mock-component';
+import { SystemService } from './system.service';
+import { Fixtures } from '../testing/fixtures';
 
 
 const navLinks = [
@@ -20,6 +22,7 @@ const navLinks = [
 describe('AppComponent', () => {
   let loginService: jasmine.SpyObj<LoginService>;
   let sessionService: jasmine.SpyObj<SessionService>;
+  let systemService: jasmine.SpyObj<SystemService>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
@@ -44,6 +47,10 @@ describe('AppComponent', () => {
           provide: NotificationService,
           useValue: spyOnClass(NotificationService),
         },
+        {
+          provide: SystemService,
+          useValue: spyOnClass(SystemService),
+        },
       ]
     }).compileComponents();
   });
@@ -51,8 +58,10 @@ describe('AppComponent', () => {
   beforeEach(() => {
     loginService = getInjectedStub(LoginService);
     sessionService = getInjectedStub(SessionService);
+    systemService = getInjectedStub(SystemService);
 
     loginService.logout.and.returnValue(of(null));
+    systemService.getSystemInfo$.and.returnValue(of(Fixtures.systemInfo));
     sessionService.isLoggedIn.and.returnValue(of(null));
     (loginService as any).loginChangeEmitter = of();
   });
