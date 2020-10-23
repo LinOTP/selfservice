@@ -333,35 +333,39 @@ Datenschutz</target>
       <trans-unit id="3868000447879071786" datatype="html">
         <source>Cancel</source>
         <target state="translated">Abbrechen</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">180</context>
-        </context-group>
         <note priority="1" from="description">login page second factor cancel button</note>
         <note priority="1" from="meaning">2nd factor login action</note>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/login.component.html</context>
+          <context context-type="linenumber">181</context>
+        </context-group>
       </trans-unit>
-      <trans-unit id="5460314885723621351" datatype="html">
-        <source>
-          Please enter the password of the selected token:
-        </source>
+      <trans-unit id="234725495988365425" datatype="html">
+        <source>Please enter the password of the selected token:</source>
         <target state="translated">
             Bitte geben Sie das Passwort des ausgewählten Token ein:
           </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">128,129</context>
+          <context context-type="linenumber">129</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="7126261789096849440" datatype="html">
-        <source>
-          Please enter the next OTP for the selected token:
-        </source>
+      <trans-unit id="4656965482758163984" datatype="html">
+        <source>Please connect your Yubikey and press its button.</source>
+        <target state="translated">Verbinden Sie Ihren Yubikey und drücken Sie den Knopf.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/login.component.html</context>
+          <context context-type="linenumber">131</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2024620579979743202" datatype="html">
+        <source>Please enter the next OTP for the selected token:</source>
         <target state="translated">
             Bitte geben Sie den nächsten OTP für den ausgewählten Token ein:
           </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">132,133</context>
+          <context context-type="linenumber">133</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2977612657174343243" datatype="html">
@@ -373,7 +377,7 @@ Datenschutz</target>
           </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">139,140</context>
+          <context context-type="linenumber">140</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4593276974210440916" datatype="html">
@@ -387,7 +391,7 @@ Datenschutz</target>
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">151,153</context>
+          <context context-type="linenumber">152</context>
         </context-group>
       </trans-unit>
       <trans-unit id="158182840842304476" datatype="html">
@@ -395,7 +399,7 @@ Datenschutz</target>
         <target state="translated">OTP manuell eingeben</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">160</context>
+          <context context-type="linenumber">161</context>
         </context-group>
       </trans-unit>
       <trans-unit id="187187500641108332" datatype="html">
@@ -403,18 +407,18 @@ Datenschutz</target>
         <target state="translated">{{ data.token.typeDetails.type === TokenType.PASSWORD? 'Passwort':'OTP-Wert' }}</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">167</context>
+          <context context-type="linenumber">168</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1420113530219253027" datatype="html">
         <source>Submit</source>
         <target state="translated">Absenden</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">185</context>
-        </context-group>
         <note priority="1" from="description">login page second factor submit button</note>
         <note priority="1" from="meaning">2nd factor login action</note>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/login.component.html</context>
+          <context context-type="linenumber">186</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="3012199703865433135" datatype="html">
         <source>Created via SelfService</source>
@@ -2038,7 +2042,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Passworttoken</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">67</context>
+          <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6868348878997238385" datatype="html">
@@ -2046,7 +2050,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Persönliches textbasiertes Geheimnis</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="linenumber">69</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5674286808255988565" datatype="html">
@@ -2054,7 +2058,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Einrichten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">71</context>
+          <context context-type="linenumber">72</context>
         </context-group>
       </trans-unit>
       <trans-unit id="187520957524133433" datatype="html">
@@ -2062,7 +2066,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Tokenpasswort eingeben</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">72</context>
+          <context context-type="linenumber">73</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3770667125316848015" datatype="html">
@@ -2070,7 +2074,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Soft-Token (ereignisbasiert)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">76</context>
+          <context context-type="linenumber">77</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6612127950296778531" datatype="html">
@@ -2078,7 +2082,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Ereignisbasierter Software-Token (HOTP)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">77</context>
+          <context context-type="linenumber">78</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4614006888930017432" datatype="html">
@@ -2086,7 +2090,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">OTP von einem ereignisbasierten Software-Token eingeben</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">82</context>
+          <context context-type="linenumber">83</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5718401288735531392" datatype="html">
@@ -2094,7 +2098,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Soft-Token (zeitbasiert)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">86</context>
+          <context context-type="linenumber">87</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5551212187133045385" datatype="html">
@@ -2102,7 +2106,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Zeitbasierter Software-Token (TOTP)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">87</context>
+          <context context-type="linenumber">88</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2722037049314401626" datatype="html">
@@ -2110,7 +2114,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">OTP von einem zeitbasierten Software-Token eingeben</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">92</context>
+          <context context-type="linenumber">93</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5673889270689325716" datatype="html">
@@ -2118,7 +2122,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Push-Token</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">96</context>
+          <context context-type="linenumber">97</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1937048843276580757" datatype="html">
@@ -2126,7 +2130,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Bestätigen Sie Authentifizierungsanfragen auf Ihrem Smartphone mit der Authenticator-App</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">97</context>
+          <context context-type="linenumber">98</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5132417702429568716" datatype="html">
@@ -2134,7 +2138,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Authentisierung mit dem Smartphone bestätigen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">102</context>
+          <context context-type="linenumber">103</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3696814862429030666" datatype="html">
@@ -2142,7 +2146,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">QR-Token</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">106</context>
+          <context context-type="linenumber">107</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8794351235100597974" datatype="html">
@@ -2150,7 +2154,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Nutzen Sie die Authenticator-App, um QR-Code Authentifizierungsanfragen zu scannen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">107</context>
+          <context context-type="linenumber">108</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1377535238277753362" datatype="html">
@@ -2158,7 +2162,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Authentisierung durch Ab­scan­nen eines QR-Code bestätigen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">112</context>
+          <context context-type="linenumber">113</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5301634181956738987" datatype="html">
@@ -2166,7 +2170,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">mOTP-Token</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">116</context>
+          <context context-type="linenumber">117</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3193991821076496668" datatype="html">
@@ -2174,7 +2178,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Generieren Sie OTPs auf Ihrem Mobiltelfon anhand eines Passworts und eines PINs</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">117</context>
+          <context context-type="linenumber">118</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3508592921221373152" datatype="html">
@@ -2182,7 +2186,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">OTP von einem mOTP-Token eingeben</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">121</context>
+          <context context-type="linenumber">122</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7205164663077436442" datatype="html">
@@ -2190,7 +2194,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">SMS-Token</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">125</context>
+          <context context-type="linenumber">126</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1360550760499940622" datatype="html">
@@ -2198,7 +2202,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">OTP per SMS empfangen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">126</context>
+          <context context-type="linenumber">127</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5554998378536968777" datatype="html">
@@ -2206,7 +2210,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Per SMS zugestellten OTP eingeben</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">130</context>
+          <context context-type="linenumber">131</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9120647914878677656" datatype="html">
@@ -2214,7 +2218,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">E-Mail-Token</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">134</context>
+          <context context-type="linenumber">135</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1619120513973036947" datatype="html">
@@ -2222,7 +2226,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">OTP per E-Mail empfangen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">135</context>
+          <context context-type="linenumber">136</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2120699722333647297" datatype="html">
@@ -2230,7 +2234,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Per E-Mail zugestellten OTP eingeben</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">139</context>
+          <context context-type="linenumber">140</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5772850172027024872" datatype="html">
@@ -2238,7 +2242,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">YubiCloud-Token</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">143</context>
+          <context context-type="linenumber">144</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3301086086650990787" datatype="html">
@@ -2246,7 +2250,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Registrieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">147</context>
+          <context context-type="linenumber">148</context>
         </context-group>
       </trans-unit>
       <trans-unit id="511576430981107553" datatype="html">
@@ -2254,7 +2258,31 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Authentisierung mit dem Yubikey-Token (YubiCloud) bestätigen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">148</context>
+          <context context-type="linenumber">149</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1000375591073738766" datatype="html">
+        <source>Yubikey token</source>
+        <target state="translated">Yubikey-Token</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.ts</context>
+          <context context-type="linenumber">153</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2586013677560248582" datatype="html">
+        <source>Authenticate with a Yubikey hardware token.</source>
+        <target state="translated">Authentizierung mit Ihrem Yubikey Hardware-Token bestätigen.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.ts</context>
+          <context context-type="linenumber">154</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9085479108122366173" datatype="html">
+        <source>Authenticate using your Yubikey token</source>
+        <target state="translated">Authentisierung durch Ihren Yubikey-Token</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.ts</context>
+          <context context-type="linenumber">158</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3883219131132893834" datatype="html">
@@ -2262,7 +2290,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Verknüpfen Sie einen existierenden Token mit Ihrem Benutzerkonto</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">153</context>
+          <context context-type="linenumber">163</context>
         </context-group>
       </trans-unit>
       <trans-unit id="584754872792429089" datatype="html">
@@ -2270,7 +2298,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Zuweisen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">156</context>
+          <context context-type="linenumber">166</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9105518985862571303" datatype="html">
@@ -2278,7 +2306,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Unbekannter Token</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">162</context>
+          <context context-type="linenumber">172</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7817886603841108919" datatype="html">
@@ -2286,7 +2314,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Nicht-unterstützter Tokentyp</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">163</context>
+          <context context-type="linenumber">173</context>
         </context-group>
       </trans-unit>
       <trans-unit id="292673577349231607" datatype="html">

@@ -51,6 +51,15 @@ export class Fixtures {
         enrollmentPermission: Permission.ENROLLYUBICO,
         enrollmentActionLabel: 'Register',
       },
+      yubikey: {
+        type: TokenType.YUBIKEY,
+        name: `Yubikey token`,
+        description: `Authenticate with a Yubikey hardware token.`,
+        icon: 'vpn_key', // TODO: we might want to use an official logo here
+        enrollmentPermission: Permission.ENROLLYUBIKEY,
+        enrollmentActionLabel: `Register`,
+        authenticationPrompt: `Authenticate using your Yubikey token`,
+      },
       qr: {
         type: TokenType.QR,
         name: 'QR-Token',
@@ -176,6 +185,10 @@ export class Fixtures {
   }
 
   static get activeYubicoToken(): Token {
+    return new Token(1, 'Active-Yubico-Token-Serial', this.tokenTypeDetails[TokenType.YUBICO], true, 'Description');
+  }
+
+  static get activeYubikeyToken(): Token {
     return new Token(1, 'Active-Yubico-Token-Serial', this.tokenTypeDetails[TokenType.YUBICO], true, 'Description');
   }
 
@@ -392,6 +405,15 @@ export class Fixtures {
   static get transactionDetail() {
     return {
       replyMode: [ReplyMode.OFFLINE],
+      transactionId: 'txid',
+      transactionData: 'txdata',
+      message: 'message'
+    };
+  }
+
+  static get transactionDetailOnline() {
+    return {
+      replyMode: [ReplyMode.ONLINE],
       transactionId: 'txid',
       transactionData: 'txdata',
       message: 'message'

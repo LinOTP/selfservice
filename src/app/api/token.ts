@@ -27,6 +27,7 @@ export enum TokenType {
   SMS = 'sms',
   EMAIL = 'email',
   YUBICO = 'yubico',
+  YUBIKEY = 'yubikey',
   ASSIGN = 'assign', // virtual type for token assignment
   UNKNOWN = 'unknown', // fallback type
 }
@@ -146,6 +147,15 @@ export const tokenTypeDetails: TokenTypeDetails[] = [
     enrollmentPermission: Permission.ENROLLYUBICO,
     enrollmentActionLabel: $localize`Register`,
     authenticationPrompt: $localize`Authenticate using your Yubikey token (YubiCloud)`,
+  },
+  {
+    type: TokenType.YUBIKEY,
+    name: $localize`Yubikey token`,
+    description: $localize`Authenticate with a Yubikey hardware token.`,
+    icon: 'vpn_key', // TODO: we might want to use an official logo here
+    enrollmentPermission: Permission.ENROLLYUBIKEY,
+    enrollmentActionLabel: $localize`Register`,
+    authenticationPrompt: $localize`Authenticate using your Yubikey token`,
   },
   {
     type: TokenType.ASSIGN,
