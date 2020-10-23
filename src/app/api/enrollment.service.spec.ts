@@ -58,8 +58,8 @@ describe('EnrollmentService', () => {
 
   describe('enrollChallenge', () => {
     [
-      { type: TokenType.TOTP, enrollmentType: 'googleauthenticator_time' },
-      { type: TokenType.HOTP, enrollmentType: 'googleauthenticator' },
+      { type: TokenType.TOTP, enrollmentType: 'totp' },
+      { type: TokenType.HOTP, enrollmentType: 'hmac' },
       { type: TokenType.PUSH, enrollmentType: null },
     ].forEach(({ type, enrollmentType }) => {
       it(`should use the enrollmentType for ${type}`, inject(

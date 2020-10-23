@@ -2310,7 +2310,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Token-Registrierung</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/enrollment.service.ts</context>
-          <context context-type="linenumber">89</context>
+          <context context-type="linenumber">75</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5990826891101915633" datatype="html">
@@ -2318,7 +2318,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Token-Aktivierung</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/enrollment.service.ts</context>
-          <context context-type="linenumber">139</context>
+          <context context-type="linenumber">101</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5779804871819153372" datatype="html">
@@ -2326,7 +2326,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Abruf des Challenge-Status</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/enrollment.service.ts</context>
-          <context context-type="linenumber">152</context>
+          <context context-type="linenumber">114</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3468623393069422824" datatype="html">
@@ -2334,7 +2334,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Bitte versuchen Sie es erneut oder kontaktieren Sie einen Administrator.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/enrollment.service.ts</context>
-          <context context-type="linenumber">178</context>
+          <context context-type="linenumber">140</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2642975071204583875" datatype="html">
@@ -2342,7 +2342,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Der Token ist Ihnen oder einem anderen Benutzer bereits zugewiesen. Kontaktieren Sie bitte einen Administrator.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/enrollment.service.ts</context>
-          <context context-type="linenumber">196</context>
+          <context context-type="linenumber">158</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7484742645971454280" datatype="html">
@@ -2350,7 +2350,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Der Token, den Sie zuweisen wollen, ist ungültig (falscher Realm). Kontaktieren Sie bitte einen Administrator.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/enrollment.service.ts</context>
-          <context context-type="linenumber">199</context>
+          <context context-type="linenumber">161</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9140733115483222131" datatype="html">
@@ -2358,7 +2358,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Ein API-Abruf</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/enrollment.service.ts</context>
-          <context context-type="linenumber">214</context>
+          <context context-type="linenumber">176</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3537482308577662516" datatype="html">
@@ -2366,7 +2366,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated"><x id="PH" equiv-text="operation"/> fehlgeschlagen: Bitte versuchen Sie es erneut.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/enrollment.service.ts</context>
-          <context context-type="linenumber">216</context>
+          <context context-type="linenumber">178</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4972370163984978038" datatype="html">
@@ -2374,7 +2374,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated"><x id="PH" equiv-text="operation"/> fehlgeschlagen: Sie haben die maximale Anzahl an Token für Ihr Konto erreicht.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/enrollment.service.ts</context>
-          <context context-type="linenumber">218</context>
+          <context context-type="linenumber">180</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4001846779762798502" datatype="html">
@@ -2382,7 +2382,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated"><x id="PH" equiv-text="operation"/> fehlgeschlagen: Sie haben die maximale Anzahl an Token dieses Tokentyps.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/enrollment.service.ts</context>
-          <context context-type="linenumber">219</context>
+          <context context-type="linenumber">181</context>
         </context-group>
       </trans-unit>
       <trans-unit id="471673605810896911" datatype="html">
@@ -2390,7 +2390,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated"><x id="PH" equiv-text="operation"/> fehlgeschlagen: Sie dürfen keinen neuen Token mehr registrieren, da Ihr Realm die maximale Tokenanzahl erreicht hat.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/enrollment.service.ts</context>
-          <context context-type="linenumber">220</context>
+          <context context-type="linenumber">182</context>
         </context-group>
       </trans-unit>
     </body>

@@ -19,7 +19,6 @@ import { EnrollmentService } from '../../api/enrollment.service';
 import { NotificationService } from '../../common/notification.service';
 
 import { EnrollOATHDialogComponent } from './enroll-oath-dialog.component';
-import { LinOTPResponse } from '../../api/api';
 
 
 describe('The EnrollOATHDialogComponent', () => {
@@ -127,7 +126,7 @@ describe('The EnrollOATHDialogComponent', () => {
   it('should enroll an HOTP token with a default description', fakeAsync(() => {
     spyOn(component.stepper, 'next');
 
-    enrollmentService.enrollOATH.and.returnValue(of(Fixtures.OATHEnrollmentResponse));
+    enrollmentService.enroll.and.returnValue(of(Fixtures.OATHEnrollmentResponse));
     const expectedToken = Fixtures.enrolledToken;
 
     fixture.detectChanges();
@@ -135,7 +134,7 @@ describe('The EnrollOATHDialogComponent', () => {
     component.enrollToken();
     tick();
 
-    expect(enrollmentService.enrollOATH).toHaveBeenCalledWith({
+    expect(enrollmentService.enroll).toHaveBeenCalledWith({
       type: TokenType.HOTP,
       description: 'Created via SelfService'
     });
@@ -146,7 +145,7 @@ describe('The EnrollOATHDialogComponent', () => {
   it('should enroll a TOTP token with a custom description', fakeAsync(() => {
     spyOn(component.stepper, 'next');
 
-    enrollmentService.enrollOATH.and.returnValue(of(Fixtures.OATHEnrollmentResponse));
+    enrollmentService.enroll.and.returnValue(of(Fixtures.OATHEnrollmentResponse));
     const expectedToken = Fixtures.enrolledToken;
 
     component.data.tokenTypeDetails = Fixtures.tokenTypeDetails[TokenType.TOTP];
@@ -155,7 +154,7 @@ describe('The EnrollOATHDialogComponent', () => {
     component.enrollToken();
     tick();
 
-    expect(enrollmentService.enrollOATH).toHaveBeenCalledWith({
+    expect(enrollmentService.enroll).toHaveBeenCalledWith({
       type: TokenType.TOTP,
       description: 'custom description'
     });
@@ -166,10 +165,7 @@ describe('The EnrollOATHDialogComponent', () => {
   it('should not notify user if enrollment failed', fakeAsync(() => {
     // the enrollment service does the notification now, instead of the enrollment dialog
 
-    const mockEnrollmentResponse: LinOTPResponse<any> = Fixtures.OATHEnrollmentResponse;
-    mockEnrollmentResponse.result.value = false;
-
-    enrollmentService.enrollOATH.and.returnValue(of(mockEnrollmentResponse));
+    enrollmentService.enroll.and.returnValue(of({ result: { value: false } }));
     fixture.detectChanges();
     const result = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
     result.click();
