@@ -188,6 +188,10 @@ export class Fixtures {
     return new Token(1, 'Active-Yubico-Token-Serial', this.tokenTypeDetails[TokenType.YUBICO], true, 'Description');
   }
 
+  static get activeYubikeyToken(): Token {
+    return new Token(1, 'Active-Yubico-Token-Serial', this.tokenTypeDetails[TokenType.YUBICO], true, 'Description');
+  }
+
 
   static get tokens(): Token[] {
     return [
@@ -401,6 +405,15 @@ export class Fixtures {
   static get transactionDetail() {
     return {
       replyMode: [ReplyMode.OFFLINE],
+      transactionId: 'txid',
+      transactionData: 'txdata',
+      message: 'message'
+    };
+  }
+
+  static get transactionDetailOnline() {
+    return {
+      replyMode: [ReplyMode.ONLINE],
       transactionId: 'txid',
       transactionData: 'txdata',
       message: 'message'

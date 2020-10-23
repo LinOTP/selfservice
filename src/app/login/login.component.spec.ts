@@ -469,6 +469,54 @@ describe('LoginComponent', () => {
       expect(loginService.login).toHaveBeenCalledWith({ otp: 'otp' });
       expect(component.finalAuthenticationHandling).toHaveBeenCalledWith(false);
     });
+
+    it('should have token-appropriate message for Yubico tokens', () => {
+      component.loginStage = LoginStage.OTP_INPUT;
+      component.selectedToken = Fixtures.activeYubicoToken;
+      component.transactionDetail = Fixtures.transactionDetail;
+
+      fixture.detectChanges();
+
+      expect(page.getOTPForm().textContent).toContain('Please connect your Yubikey and press its button.');
+    });
+
+    it('should have token-appropriate message for Yubikey tokens', () => {
+      component.loginStage = LoginStage.OTP_INPUT;
+      component.selectedToken = Fixtures.activeYubikeyToken;
+      component.transactionDetail = Fixtures.transactionDetail;
+
+      fixture.detectChanges();
+
+      expect(page.getOTPForm().textContent).toContain('Please connect your Yubikey and press its button.');
+    });
+
+    it('should have token-appropriate message for Password tokens', () => {
+      component.loginStage = LoginStage.OTP_INPUT;
+      component.selectedToken = Fixtures.activePasswordToken;
+      component.transactionDetail = Fixtures.transactionDetail;
+
+      fixture.detectChanges();
+
+      expect(page.getOTPForm().textContent).toContain('Please enter the password of the selected token:');
+    });
+
+    it('should have token-appropriate message for remaining offline-only OTP tokens', () => {
+      component.loginStage = LoginStage.OTP_INPUT;
+      component.transactionDetail = Fixtures.transactionDetail;
+
+      [
+        Fixtures.activeTotpToken,
+        Fixtures.activeHotpToken,
+        Fixtures.activeMotpToken,
+        Fixtures.activeSMSToken,
+        Fixtures.activeEmailToken
+      ].forEach(token => {
+        component.selectedToken = token;
+        fixture.detectChanges();
+        expect(page.getOTPForm().textContent).toContain('Please enter the next OTP for the selected token:');
+      });
+    });
+
   });
 
 
