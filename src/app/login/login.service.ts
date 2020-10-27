@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { NavigationExtras, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 
-import { Observable, of, interval } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map, tap, filter, mergeMap, take, catchError } from 'rxjs/operators';
 
 import { SystemService, UserSystemInfo } from '../system.service';
@@ -13,6 +13,7 @@ import { LinOTPResponse } from '../api/api';
 import { TokenService } from '../api/token.service';
 import { ReplyMode, TransactionDetail, StatusDetail } from '../api/test.service';
 import { AppInitService } from '../app-init.service';
+import { exponentialBackoffInterval } from '../common/exponential-backoff-interval/exponential-backoff-interval';
 
 export interface LoginOptions {
   username?: string;
@@ -136,7 +137,7 @@ export class LoginService {
       transactionid: transactionId,
       session: this.sessionService.getSession()
     };
-    return interval(2000).pipe(
+    return exponentialBackoffInterval(2000, 90000, 2).pipe(
       mergeMap(() =>
         this.http.get<LinOTPResponse<boolean, StatusDetail>>(url, { params })
       ),
