@@ -1,9 +1,9 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NavigationExtras, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 
-import { Observable, of } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 import { map, tap, filter, mergeMap, take, catchError } from 'rxjs/operators';
 
 import { SystemService, UserSystemInfo } from '../system.service';
@@ -49,7 +49,9 @@ export class LoginService {
     logout: 'logout',
   };
 
-  public _loginChangeEmitter: EventEmitter<boolean> = new EventEmitter();
+  public _loginChange$: BehaviorSubject<boolean> = new BehaviorSubject(
+    this.sessionService.isLoggedIn()
+  );
 
   constructor(
     private http: HttpClient,
@@ -88,7 +90,7 @@ export class LoginService {
    *
    * @param {LoginOptions} loginOptions An object containing username, password and realm, if applicable.
    * @returns {Observable<LoginResponse>} An object with the state of login success, and whether a second step is required.
-   * @memberof AuthService
+   * @memberof LoginService
    */
   login(loginOptions: LoginOptions): Observable<LoginResult> {
     const url = this.baseUrl + this.endpoints.login;
@@ -155,7 +157,7 @@ export class LoginService {
    * The user is redirected to the login page without storing the current route.
    *
    * @returns {Observable<any>}
-   * @memberof AuthService
+   * @memberof LoginService
    */
   public logout(): Observable<any> {
     return this.http.get<any>(this.baseUrl + this.endpoints.logout)
@@ -178,7 +180,7 @@ export class LoginService {
    * into the NgxPermissionsService.
    *
    * @returns {Observable<Permission[]>}
-   * @memberof AuthService
+   * @memberof LoginService
    */
   public refreshUserSystemInfo(): Observable<UserSystemInfo> {
     return this.systemService.getUserSystemInfo().pipe(
@@ -197,24 +199,24 @@ export class LoginService {
   }
 
   /**
-   * Getter for the login change emitter, which issues events when the login
+   * Getter for the login change observable, which issues events when the login
    * state changes.
    *
    * @readonly
    * @type {Observable<boolean>} observable of the login state
-   * @memberof AuthService
+   * @memberof LoginService
    */
-  get loginChangeEmitter(): Observable<boolean> {
-    return this._loginChangeEmitter.asObservable();
+  get loginChange$(): Observable<boolean> {
+    return this._loginChange$.asObservable();
   }
 
   /**
    * Emits the login state and, if the user was successfully logged in, reloads their permissions.
    * @param success true when the user was successfully logged in, false otherwise
-   * @memberof AuthService
+   * @memberof LoginService
    */
   public handleLogin(success: boolean) {
-    this._loginChangeEmitter.emit(success);
+    this._loginChange$.next(success);
     if (success) {
       this.refreshUserSystemInfo().subscribe();
     }
@@ -231,7 +233,7 @@ export class LoginService {
    *   user logs back in.
    *
    * @param {boolean} storeCurrentRoute
-   * @memberof AuthService
+   * @memberof LoginService
    */
   public handleLogout(storeCurrentRoute: boolean) {
     localStorage.clear();
@@ -245,7 +247,7 @@ export class LoginService {
     }
     this.router.navigate(['/login'], navigationExtras);
 
-    this._loginChangeEmitter.emit(false);
+    this._loginChange$.next(false);
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

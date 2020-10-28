@@ -7,7 +7,6 @@ import { spyOnClass, getInjectedStub } from '../testing/spyOnClass';
 
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
-import { SessionService } from './auth/session.service';
 import { NotificationService } from './common/notification.service';
 import { LoginService } from './login/login.service';
 import { MockComponent } from '../testing/mock-component';
@@ -21,7 +20,6 @@ const navLinks = [
 
 describe('AppComponent', () => {
   let loginService: jasmine.SpyObj<LoginService>;
-  let sessionService: jasmine.SpyObj<SessionService>;
   let systemService: jasmine.SpyObj<SystemService>;
 
   beforeEach(async () => {
@@ -35,10 +33,6 @@ describe('AppComponent', () => {
         MockComponent({ selector: 'app-language-picker' }),
       ],
       providers: [
-        {
-          provide: SessionService,
-          useValue: spyOnClass(SessionService)
-        },
         {
           provide: LoginService,
           useValue: spyOnClass(LoginService),
@@ -57,13 +51,11 @@ describe('AppComponent', () => {
 
   beforeEach(() => {
     loginService = getInjectedStub(LoginService);
-    sessionService = getInjectedStub(SessionService);
     systemService = getInjectedStub(SystemService);
 
     loginService.logout.and.returnValue(of(null));
     systemService.getSystemInfo$.and.returnValue(of(Fixtures.systemInfo));
-    sessionService.isLoggedIn.and.returnValue(of(null));
-    (loginService as any).loginChangeEmitter = of();
+    (loginService as any).loginChange$ = of();
   });
 
   it('should create the app', () => {
