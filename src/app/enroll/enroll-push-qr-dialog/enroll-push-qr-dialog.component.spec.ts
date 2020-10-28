@@ -20,6 +20,7 @@ import { DialogComponent } from '../../common/dialog/dialog.component';
 import { EnrollPushQRDialogComponent } from './enroll-push-qr-dialog.component';
 import { TokenType } from '../../api/token';
 import { NgxPermissionsService, NgxPermissionsAllowStubDirective } from 'ngx-permissions';
+import { Subscription } from 'rxjs';
 
 let component: EnrollPushQRDialogComponent;
 let fixture: ComponentFixture<EnrollPushQRDialogComponent>;
@@ -94,6 +95,20 @@ describe('EnrollPushDialogComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should unsubscribe from polling on destroy if there is a subscription', () => {
+    component['pairingSubscription'] = new Subscription();
+    const componentSpy = spyOn(component['pairingSubscription'], 'unsubscribe');
+
+    component.ngOnDestroy();
+    expect(componentSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it('should not attempt to unsubscribe from polling on destroy if there was no subscription', () => {
+    spyOn(Subscription.prototype, 'unsubscribe');
+    component.ngOnDestroy();
+    expect(Subscription.prototype.unsubscribe).not.toHaveBeenCalled();
   });
 
   it('should start at initial step of 1', () => {
