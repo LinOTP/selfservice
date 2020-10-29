@@ -49,8 +49,8 @@ export class LoginService {
     logout: 'logout',
   };
 
-  public _loginChange$: BehaviorSubject<boolean> = new BehaviorSubject(
-    this.sessionService.isLoggedIn()
+  public _loginChange$: BehaviorSubject<UserSystemInfo['user']> = new BehaviorSubject(
+    this.userInfo()
   );
 
   constructor(
@@ -192,10 +192,16 @@ export class LoginService {
         localStorage.setItem('linotpVersion', JSON.stringify(userSystemInfo.version));
         localStorage.setItem('settings', JSON.stringify(userSystemInfo.settings));
 
+        this._loginChange$.next(userSystemInfo.user);
+
         this.appInitService.loadStoredPermissions();
       }),
       catchError(this.handleError('loadPermissions', undefined)),
     );
+  }
+
+  public userInfo(): UserSystemInfo['user'] | undefined {
+    return JSON.parse(localStorage.getItem('user')) || undefined;
   }
 
   /**
@@ -203,10 +209,10 @@ export class LoginService {
    * state changes.
    *
    * @readonly
-   * @type {Observable<boolean>} observable of the login state
+   * @type {Observable<UserSystemInfo['user']>} observable of the login state
    * @memberof LoginService
    */
-  get loginChange$(): Observable<boolean> {
+  get loginChange$(): Observable<UserSystemInfo['user']> {
     return this._loginChange$.asObservable();
   }
 
@@ -216,9 +222,10 @@ export class LoginService {
    * @memberof LoginService
    */
   public handleLogin(success: boolean) {
-    this._loginChange$.next(success);
     if (success) {
       this.refreshUserSystemInfo().subscribe();
+    } else {
+      this._loginChange$.next(undefined);
     }
   }
 
@@ -247,7 +254,7 @@ export class LoginService {
     }
     this.router.navigate(['/login'], navigationExtras);
 
-    this._loginChange$.next(false);
+    this._loginChange$.next(undefined);
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

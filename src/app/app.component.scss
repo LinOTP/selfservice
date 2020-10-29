@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@import '/src/theme.scss';
 
 :host {
   display: flex;
@@ -44,6 +44,34 @@ mat-toolbar {
   nav {
     flex: 1;
     align-content: flex-start;
+  }
+
+  .user-info {
+    line-height: 1.4;
+    display: flex;
+
+    &>* {
+      margin: 5px 16px;
+    }
+    &>*:not(:last-child) {
+      margin-right: 0;
+    }
+
+    mat-icon {
+      padding: 8px;
+      background: mat-color($theme-app-primary, '500-contrast');
+      border-radius: 50%;
+      color: mat-color($theme-app-primary, 500);
+    }
+
+    .name {
+      font-size: 15px;
+    }
+
+    .realm {
+      font-size: 14px;
+      opacity: .667;
+    }
   }
 }
 

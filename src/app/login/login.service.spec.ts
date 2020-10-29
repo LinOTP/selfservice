@@ -331,7 +331,7 @@ describe('LoginService', () => {
       const subjectSpy = spyOn(loginService._loginChange$, 'next');
       loginService.handleLogout(false);
 
-      expect(subjectSpy).toHaveBeenCalledWith(false);
+      expect(subjectSpy).toHaveBeenCalledWith(undefined);
     });
 
     it('should not set redirect param for the login route', inject(
