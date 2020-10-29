@@ -1,5 +1,4 @@
 @import './../../theme.scss';
-$primary: map-get($theme, primary);
 
 #loginCard {
   width: 25em;
@@ -32,7 +31,7 @@ span.selectedToken {
 #loginStage2 .token-list > * {
   border-left: 5px solid transparent;
   &:focus {
-    border-left-color: mat-color($primary, 400);
+    border-left-color: mat-color($theme-app-primary, 500);
   }
 }
 
