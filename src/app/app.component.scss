@@ -84,6 +84,12 @@ mat-divider {
   margin-bottom: .5em;
 }
 
-.footerText {
-  margin-right: 16px;
+footer{
+  display: flex;
+  align-items: center;
+  padding-bottom: .5em;
+
+  .footerText {
+    margin-right: 16px;
+  }
 }
