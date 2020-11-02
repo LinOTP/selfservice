@@ -8,17 +8,28 @@
     <h1 id="app-name">{{ title }}</h1>
   </div>
   <nav>
-    <ng-container *ngIf="isLoggedIn">
+    <ng-container *ngIf="userData">
       <a *ngFor="let link of navLinks"
          mat-button
          [routerLink]="link.path">{{ link.label }}</a>
     </ng-container>
   </nav>
-  <app-language-picker></app-language-picker>
-  <button *ngIf="isLoggedIn"
-          mat-button
-          (click)="logout()"
-          i18n>Logout</button>
+  <div class="user-info"
+       *ngIf="userData">
+    <mat-icon [matTooltip]="userData.username">person</mat-icon>
+    <div>
+      <div class="name">
+        {{ userData.givenname || userData.surname
+          ? ((userData.givenname || '') + ' ' + (userData.surname || ''))
+          : userData.username
+        }}
+      </div>
+      <div class="realm">{{userData.realm}}</div>
+    </div>
+    <button mat-button
+            (click)="logout()"
+            i18n>Logout</button>
+  </div>
 </mat-toolbar>
 
 <main>
@@ -49,4 +60,6 @@
       Privacy
       notice</a>
   </ng-container>
+  <span class="spacer"></span>
+  <app-language-picker></app-language-picker>
 </footer>

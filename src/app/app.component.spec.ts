@@ -7,7 +7,6 @@ import { spyOnClass, getInjectedStub } from '../testing/spyOnClass';
 
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
-import { SessionService } from './auth/session.service';
 import { NotificationService } from './common/notification.service';
 import { LoginService } from './login/login.service';
 import { MockComponent } from '../testing/mock-component';
@@ -21,7 +20,6 @@ const navLinks = [
 
 describe('AppComponent', () => {
   let loginService: jasmine.SpyObj<LoginService>;
-  let sessionService: jasmine.SpyObj<SessionService>;
   let systemService: jasmine.SpyObj<SystemService>;
 
   beforeEach(async () => {
@@ -35,10 +33,6 @@ describe('AppComponent', () => {
         MockComponent({ selector: 'app-language-picker' }),
       ],
       providers: [
-        {
-          provide: SessionService,
-          useValue: spyOnClass(SessionService)
-        },
         {
           provide: LoginService,
           useValue: spyOnClass(LoginService),
@@ -57,13 +51,11 @@ describe('AppComponent', () => {
 
   beforeEach(() => {
     loginService = getInjectedStub(LoginService);
-    sessionService = getInjectedStub(SessionService);
     systemService = getInjectedStub(SystemService);
 
     loginService.logout.and.returnValue(of(null));
     systemService.getSystemInfo$.and.returnValue(of(Fixtures.systemInfo));
-    sessionService.isLoggedIn.and.returnValue(of(null));
-    (loginService as any).loginChangeEmitter = of();
+    (loginService as any).loginChange$ = of();
   });
 
   it('should create the app', () => {
@@ -85,25 +77,71 @@ describe('AppComponent', () => {
     expect(compiled.querySelector('mat-toolbar').textContent).toContain('Self Service');
   });
 
-  it('should render navigation list if user is logged in', () => {
+  it('should render navigation list and user info if user is logged in', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const component = fixture.componentInstance;
-    fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    component.isLoggedIn = true;
-    component.navLinks = navLinks;
+
     fixture.detectChanges();
+
+    component.userData = Fixtures.userSystemInfo.user;
+    component.navLinks = navLinks;
+
+    fixture.detectChanges();
+
     expect(compiled.querySelector('nav').textContent).toContain(navLinks[0].label);
+    expect(compiled.querySelector('.user-info .name').textContent.trim()).toEqual(
+      `${Fixtures.userSystemInfo.user.givenname} ${Fixtures.userSystemInfo.user.surname}`
+    );
+    expect(compiled.querySelector('.user-info .realm').textContent.trim()).toEqual(
+      Fixtures.userSystemInfo.user.realm
+    );
   });
 
-  it('should not render navigation list if user is logged out', () => {
+  it('should not render navigation list nor user info if user is logged out', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const component = fixture.componentInstance;
-    fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    component.isLoggedIn = false;
-    component.navLinks = navLinks;
+
     fixture.detectChanges();
+
+    component.userData = undefined;
+    component.navLinks = navLinks;
+
+    fixture.detectChanges();
+
     expect(compiled.querySelector('nav').textContent).not.toContain(navLinks[0].label);
+    expect(compiled.querySelector('.user-info .name')).toBeFalsy();
+    expect(compiled.querySelector('.user-info .realm')).toBeFalsy();
+  });
+
+  it('should show the username in user info if user has no given or surname', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const component = fixture.componentInstance;
+    const compiled = fixture.debugElement.nativeElement;
+    component.userData = Fixtures.userSystemInfo.user;
+    component.navLinks = navLinks;
+
+    fixture.detectChanges();
+
+    expect(compiled.querySelector('.user-info .name').textContent.trim()).toEqual(
+      `${Fixtures.userSystemInfo.user.givenname} ${Fixtures.userSystemInfo.user.surname}`
+    );
+
+    delete component.userData.surname;
+
+    fixture.detectChanges();
+
+    expect(compiled.querySelector('.user-info .name').textContent.trim()).toEqual(
+      Fixtures.userSystemInfo.user.givenname
+    );
+
+    delete component.userData.givenname;
+
+    fixture.detectChanges();
+
+    expect(compiled.querySelector('.user-info .name').textContent.trim()).toEqual(
+      Fixtures.userSystemInfo.user.username
+    );
   });
 });

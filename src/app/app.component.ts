@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { SessionService } from './auth/session.service';
 import { LoginService } from './login/login.service';
 import { NotificationService } from './common/notification.service';
-import { SystemService } from './system.service';
+import { SystemService, UserSystemInfo } from './system.service';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +15,7 @@ export class AppComponent implements OnInit {
     { 'label': $localize`Your tokens`, 'path': 'tokens/' },
   ];
 
-  public isLoggedIn: boolean;
+  public userData: UserSystemInfo['user'];
 
   public copyright: string;
   public footerText: string;
@@ -25,17 +24,14 @@ export class AppComponent implements OnInit {
 
 
   constructor(
-    private sessionService: SessionService,
     private loginService: LoginService,
     private notificationService: NotificationService,
     private systemService: SystemService,
-  ) {
-  }
+  ) { }
 
   ngOnInit() {
-    this.isLoggedIn = this.sessionService.isLoggedIn();
-    this.loginService.loginChangeEmitter
-      .subscribe((isLoggedIn) => this.isLoggedIn = isLoggedIn);
+    this.loginService.loginChange$
+      .subscribe(userData => this.userData = userData);
 
     this.systemService.getSystemInfo$().subscribe(systemInfo => {
       this.copyright = systemInfo.copyright;

@@ -389,7 +389,7 @@ export class Fixtures {
         givenname: 'givenname',
         surname: 'surname',
         gender: 'gender',
-        realm: '',
+        realm: 'realm',
       },
       settings: {
         autoassign: false,
