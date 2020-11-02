@@ -334,28 +334,22 @@ describe('LoginService', () => {
       expect(subjectSpy).toHaveBeenCalledWith(undefined);
     });
 
-    it('should not set redirect param for the login route', inject(
-      [HttpClient, HttpTestingController],
-      (http: HttpClient, backend: HttpTestingController) => {
-        const routerSpy = spyOn(router, 'navigate');
+    it('should not set redirect param if disabled', () => {
+      const routerSpy = spyOn(router, 'navigate');
 
-        loginService.handleLogout(false);
+      loginService.handleLogout(false);
 
-        expect(routerSpy).toHaveBeenCalledWith(['/login'], {});
-      }
-    ));
+      expect(routerSpy).toHaveBeenCalledWith(['/login'], {});
+    });
 
-    it('should set redirect param for the login route', inject(
-      [HttpClient, HttpTestingController],
-      (http: HttpClient, backend: HttpTestingController) => {
-        const routerSpy = spyOn(router, 'navigate');
+    it('should set redirect param if enabled', () => {
+      const routerSpy = spyOn(router, 'navigate');
 
-        loginService.handleLogout(true);
+      loginService.handleLogout(true);
 
-        const navExtras = { queryParams: { redirect: router.url } };
-        expect(routerSpy).toHaveBeenCalledWith(['/login'], navExtras);
-      }
-    ));
+      const navExtras = { queryParams: { redirect: router.url } };
+      expect(routerSpy).toHaveBeenCalledWith(['/login'], navExtras);
+    });
   });
 
 });
