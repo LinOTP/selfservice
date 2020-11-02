@@ -242,15 +242,19 @@ export class LoginService {
    * @param {boolean} storeCurrentRoute
    * @memberof LoginService
    */
-  public handleLogout(storeCurrentRoute: boolean) {
+  public handleLogout(storeRoute: boolean) {
     localStorage.clear();
     this.appInitService.clearPermissions();
 
     this.dialogRef.closeAll();
 
     const navigationExtras: NavigationExtras = {};
-    if (storeCurrentRoute) {
-      navigationExtras.queryParams = { 'redirect': this.router.url };
+    if (storeRoute) {
+      const navigationRoute = this.router.getCurrentNavigation()?.finalUrl?.toString();
+      const currentRoute = this.router.url;
+
+      // redirect to navigation target if app is trying to go somewhere or else to current route
+      navigationExtras.queryParams = { 'redirect': navigationRoute || currentRoute };
     }
     this.router.navigate(['/login'], navigationExtras);
 
