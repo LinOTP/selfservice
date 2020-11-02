@@ -1,10 +1,10 @@
-import { Component, OnInit, Inject, ViewChild } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 
 import { switchMap, tap, map, filter } from 'rxjs/operators';
-import { from, of } from 'rxjs';
+import { from, of, Subscription } from 'rxjs';
 
 import { EnrollmentService, QRCodeEnrollmentDetail } from '../../api/enrollment.service';
 import { TokenTypeDetails } from '../../api/token';
@@ -20,7 +20,7 @@ import { Permission } from '../../common/permissions';
   templateUrl: './enroll-push-qr-dialog.component.html',
   styleUrls: ['./enroll-push-qr-dialog.component.scss']
 })
-export class EnrollPushQRDialogComponent implements OnInit {
+export class EnrollPushQRDialogComponent implements OnInit, OnDestroy {
 
   public TextResources = TextResources;
 
@@ -28,6 +28,8 @@ export class EnrollPushQRDialogComponent implements OnInit {
   public enrollmentStep: FormGroup;
 
   public enrolledToken: { serial: string, url: string };
+
+  private pairingSubscription: Subscription;
 
   constructor(
     private enrollmentService: EnrollmentService,
@@ -47,8 +49,14 @@ export class EnrollPushQRDialogComponent implements OnInit {
     });
   }
 
+  public ngOnDestroy() {
+    if (this.pairingSubscription) {
+      this.pairingSubscription.unsubscribe();
+    }
+  }
+
   /**
-   * Enroll the push token and proceed to the next step
+   * Enroll the token and proceed to the next step
    */
   enrollToken() {
     this.enrollmentStep.disable();
@@ -58,13 +66,10 @@ export class EnrollPushQRDialogComponent implements OnInit {
           url: response.detail.lse_qr_url.value,
           serial: response.detail.serial
         };
-
-        this.enrollmentService.pairingPoll(this.enrolledToken.serial).subscribe(data => {
+        this.pairingSubscription = this.enrollmentService.pairingPoll(this.enrolledToken.serial).subscribe(data => {
           this.stepper.next();
         });
-
         this.stepper.next();
-
       }
       this.enrollmentStep.enable();
     });

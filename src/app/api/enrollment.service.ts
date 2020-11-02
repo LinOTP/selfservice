@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Observable, of, interval } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map, filter, mergeMap, take, catchError, tap } from 'rxjs/operators';
 
 import { EnrollToken, EnrollmentStatus } from './token';
@@ -10,6 +10,7 @@ import { SessionService } from '../auth/session.service';
 import { UserInfo } from '../system.service';
 import { LinOTPResponse, APIError } from './api';
 import { NotificationService } from '../common/notification.service';
+import { exponentialBackoffInterval } from '../common/exponential-backoff-interval/exponential-backoff-interval';
 
 export interface QRCodeEnrollmentDetail {
   lse_qr_url: {
@@ -77,7 +78,7 @@ export class EnrollmentService {
   }
 
   pairingPoll(serial: string): Observable<any> {
-    return interval(2000).pipe(
+    return exponentialBackoffInterval(2000, 90000, 2).pipe(
       mergeMap(() => this.tokenService.getToken(serial)),
       filter(token => token.enrollmentStatus === EnrollmentStatus.PAIRING_RESPONSE_RECEIVED),
       take(1));
@@ -127,7 +128,7 @@ export class EnrollmentService {
    */
   challengePoll(transactionId: string, pin: string, serial: string):
     Observable<{ accept?: boolean, reject?: boolean, valid_tan?: boolean }> {
-    return interval(2000).pipe(
+    return exponentialBackoffInterval(2000, 90000, 2).pipe(
       mergeMap(() => this.getChallengeStatus(transactionId, pin, serial)),
       filter(res => res.detail.transactions[transactionId].status !== 'open'),
       map(res => res.detail.transactions[transactionId]),

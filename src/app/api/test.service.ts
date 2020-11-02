@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Observable, of, interval } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map, catchError, filter, mergeMap, take } from 'rxjs/operators';
 
 import { SessionService } from '../auth/session.service';
 import { LinOTPResponse } from './api';
+import { exponentialBackoffInterval } from '../common/exponential-backoff-interval/exponential-backoff-interval';
 
 export enum ReplyMode {
   ONLINE = 'online',
@@ -97,7 +98,8 @@ export class TestService {
       transactionid: transactionId,
       session: this.sessionService.getSession()
     };
-    return interval(2000).pipe(
+
+    return exponentialBackoffInterval(2000, 90000, 2).pipe(
       mergeMap(() =>
         this.http.get<LinOTPResponse<boolean, StatusDetail>>(url, { params })),
       filter(res => !res.detail || res.detail.status !== 'open'),

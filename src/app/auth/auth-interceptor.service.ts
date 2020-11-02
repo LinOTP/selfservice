@@ -28,7 +28,7 @@ export class AuthInterceptor implements HttpInterceptor {
           );
         } else if (String(error.status).startsWith('5')) {
           this.notificationService.message(
-            $localize`Server error encounterd, request failed.`,
+            $localize`Server error encountered, request failed.`,
             Duration.LONG
           );
         }
