@@ -446,7 +446,7 @@ Datenschutz</target>
       </trans-unit>
       <trans-unit id="1260099573097287890" datatype="html">
         <source>Add <x id="INTERPOLATION" equiv-text="{{data.tokenTypeDetails.name}}"/></source>
-        <target state="translated">{{ data.tokenTypeDetails.name }} einrichten</target>
+        <target state="translated"><x id="INTERPOLATION" equiv-text="{{data.tokenTypeDetails.name}}"/> einrichten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
           <context context-type="linenumber">1</context>
@@ -552,7 +552,7 @@ Datenschutz</target>
       </trans-unit>
       <trans-unit id="7302693902035391340" datatype="html">
         <source>A token with the serial number <x id="INTERPOLATION" equiv-text="{{enrolledToken.serial}}"/> has been created.</source>
-        <target state="translated">Ein Token mit der Seriennummer {{ serial}} wurde eingerichtet.</target>
+        <target state="translated">Ein Token mit der Seriennummer <x id="INTERPOLATION" equiv-text="{{enrolledToken.serial}}"/> wurde eingerichtet.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
           <context context-type="linenumber">54</context>
