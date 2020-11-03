@@ -18,3 +18,7 @@ mat-card.disabled {
     color: rgba(0, 0, 0, 0.6);
   }
 }
+
+.mat-divider:first-child, .mat-divider:last-child {
+  display: none; // do not show divider between elements if no elements above or below
+}
