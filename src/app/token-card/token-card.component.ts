@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 import { filter, switchMap } from 'rxjs/operators';
 
-import { Permission, ModifyTokenPermissions } from '../common/permissions';
+import { Permission, ModifyTokenPermissions, ModifyUnreadyTokenPermissions } from '../common/permissions';
 import { Token, EnrollmentStatus, TokenType } from '../api/token';
 import { NotificationService } from '../common/notification.service';
 import { OperationsService } from '../api/operations.service';
@@ -31,6 +31,7 @@ export class TokenCardComponent implements OnInit {
   public TokenType = TokenType;
   public Permission = Permission;
   public ModifyTokenPermissions = ModifyTokenPermissions;
+  public ModifyUnreadyTokenPermissions = ModifyUnreadyTokenPermissions;
   public isSynchronizeable: boolean;
   public isMOTP: boolean;
 

@@ -9,7 +9,7 @@
     <div class="spacer"></div>
     <button mat-icon-button
             [matMenuTriggerFor]="menu"
-            *ngxPermissionsOnly="ModifyTokenPermissions">
+            *ngxPermissionsOnly="token.enrollmentStatus === EnrollmentStatus.COMPLETED ? ModifyTokenPermissions : ModifyUnreadyTokenPermissions">
       <mat-icon>more_vert</mat-icon>
     </button>
   </mat-card-header>
