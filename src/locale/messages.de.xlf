@@ -859,7 +859,7 @@ Datenschutz</target>
         <source>You need the Authenticator app installed on your mobile device to
       use this kind of token. You can get the app
       here:</source>
-        <target state="translated">Sie benötigen die Authenticator-App auf Ihrem Smartphone, um diese Art von Token zu benutzen. Die App können Sie hier herunterladen:</target>
+        <target state="translated">Sie benötigen die Authenticator App auf Ihrem Smartphone, um diese Art von Token zu benutzen. Die App können Sie hier herunterladen:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
           <context context-type="linenumber">8,10</context>
@@ -868,7 +868,7 @@ Datenschutz</target>
       <trans-unit id="2737551086574520347" datatype="html">
         <source>Once you have the Authenticator installed on your device, you can set a description for your new token
       and start the enrollment process: </source>
-        <target state="translated">Sobald Sie die Authenticator-App auf Ihrem Smartphone installiert haben, können Sie eine Beschreibung für
+        <target state="translated">Sobald Sie die Authenticator App auf Ihrem Smartphone installiert haben, können Sie eine Beschreibung für
       Ihren Token setzen und den Einrichtungsvorgang starten: </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
@@ -929,7 +929,7 @@ Datenschutz</target>
       <trans-unit id="69779375306319824" datatype="html">
         <source>Scan the QR code below with the Authenticator app or <x id="START_LINK" equiv-text="&lt;a target=&quot;_blank&quot;            [href]=&quot;enrolledToken.url&quot;&gt;"/>follow this link<x id="CLOSE_LINK" equiv-text="&lt;/a&gt; "/> to start the
         activation process of the new token.</source>
-        <target state="translated">Scannen Sie den nachfolgenden QR-Code mit der Authenticator-App, oder <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/> folgen Sie diesen Link <x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>, um die Aktivierung des neuen Tokens zu starten.</target>
+        <target state="translated">Scannen Sie den nachfolgenden QR-Code mit der Authenticator App, oder <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/> folgen Sie diesen Link <x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>, um die Aktivierung des neuen Tokens zu starten.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
           <context context-type="linenumber">56</context>
@@ -1164,7 +1164,7 @@ Datenschutz</target>
         <source> An activation challenge has been generated. Please process it with
         your Authenticator app. </source>
         <target state="translated"> Eine Aktivierungsanfrage wurde erzeugt, die Sie mit Ihrer
-        Authenticator-App bestätigen können. </target>
+        Authenticator App bestätigen können. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.html</context>
           <context context-type="linenumber">53</context>
@@ -2163,7 +2163,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
       </trans-unit>
       <trans-unit id="1937048843276580757" datatype="html">
         <source>Confirm authentication requests on your smartphone with the Authenticator app</source>
-        <target state="translated">Bestätigen Sie Authentifizierungsanfragen auf Ihrem Smartphone mit der Authenticator-App</target>
+        <target state="translated">Bestätigen Sie Authentifizierungsanfragen auf Ihrem Smartphone mit der Authenticator App</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
           <context context-type="linenumber">99</context>
@@ -2187,7 +2187,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
       </trans-unit>
       <trans-unit id="8794351235100597974" datatype="html">
         <source>Use the Authenticator app to scan QR code authentication requests</source>
-        <target state="translated">Nutzen Sie die Authenticator-App, um QR-Code Authentifizierungsanfragen zu scannen</target>
+        <target state="translated">Nutzen Sie die Authenticator App, um QR-Code Authentifizierungsanfragen zu scannen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
           <context context-type="linenumber">109</context>
