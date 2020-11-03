@@ -163,9 +163,19 @@
 
       <mat-form-field *ngIf="!transactionDetail || !hasOnlineMode || showInputField">
         <input matInput
-               type="{{ selectedToken.typeDetails.type === TokenType.PASSWORD? 'password':'text' }}"
+               *ngIf="selectedToken.typeDetails.type === TokenType.PASSWORD"
+               type="password"
                formControlName="otp"
-               placeholder="{{ selectedToken.typeDetails.type === TokenType.PASSWORD? 'Password':'OTP' }}"
+               placeholder="Password"
+               name="otp"
+               i18n-placeholder
+               autocomplete="current-password"
+               appFocusOnInit>
+        <input matInput
+               *ngIf="selectedToken.typeDetails.type !== TokenType.PASSWORD"
+               type="text"
+               formControlName="otp"
+               placeholder="OTP value"
                name="otp"
                i18n-placeholder
                autocomplete="one-time-code"

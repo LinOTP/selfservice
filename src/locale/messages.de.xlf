@@ -337,7 +337,7 @@ Datenschutz</target>
         <note priority="1" from="meaning">2nd factor login action</note>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">181</context>
+          <context context-type="linenumber">191</context>
         </context-group>
       </trans-unit>
       <trans-unit id="234725495988365425" datatype="html">
@@ -402,12 +402,12 @@ Datenschutz</target>
           <context context-type="linenumber">161</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="187187500641108332" datatype="html">
-        <source><x id="INTERPOLATION" equiv-text="placeholder=&quot;{{ selectedToken.typeDetails.type === TokenType.PASSWORD? 'Passw"/></source>
-        <target state="translated">{{ data.token.typeDetails.type === TokenType.PASSWORD? 'Passwort':'OTP-Wert' }}</target>
+      <trans-unit id="5009157571879213849" datatype="html">
+        <source>OTP value</source>
+        <target state="translated">OTP-Wert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">168</context>
+          <context context-type="linenumber">178</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1420113530219253027" datatype="html">
@@ -417,7 +417,7 @@ Datenschutz</target>
         <note priority="1" from="meaning">2nd factor login action</note>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">186</context>
+          <context context-type="linenumber">196</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3012199703865433135" datatype="html">
@@ -1372,13 +1372,20 @@ Datenschutz</target>
           <context context-type="linenumber">46,48</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="5330816181716483197" datatype="html">
-        <source>The <x id="INTERPOLATION" equiv-text="{{ data.token.typeDetails.type === TokenType.PASSWORD? 'password':'OTP' }}"/> field cannot
-              be empty</source>
-        <target state="translated">Das {{ data.token.typeDetails.type === TokenType.PASSWORD? 'Passwort-Feld':'OTP-Feld' }} darf nicht leer sein</target>
+      <trans-unit id="4401713843513862355" datatype="html">
+        <source>The password field cannot be empty</source>
+        <target state="translated">Das Passwortfeld darf nicht leer sein</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">67,68</context>
+          <context context-type="linenumber">79</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2796561682066076383" datatype="html">
+        <source>The OTP field cannot be empty</source>
+        <target state="translated">Das OTP-Feld darf nicht leer sein</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
+          <context context-type="linenumber">81</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2830158497769011008" datatype="html">
@@ -1386,7 +1393,7 @@ Datenschutz</target>
         <target state="translated">Test erfolgreich. Sie dürfen sich mit Ihrem Token authentifizieren.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">83</context>
+          <context context-type="linenumber">96</context>
         </context-group>
       </trans-unit>
       <trans-unit id="518519257823560430" datatype="html">
@@ -1398,7 +1405,7 @@ Datenschutz</target>
           </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">77,78</context>
+          <context context-type="linenumber">90</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3518350047321747341" datatype="html">
@@ -1410,7 +1417,7 @@ Datenschutz</target>
           </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">81,82</context>
+          <context context-type="linenumber">94</context>
         </context-group>
       </trans-unit>
       <trans-unit id="503445309622982213" datatype="html">
@@ -1418,7 +1425,7 @@ Datenschutz</target>
         <target state="translated">abbrechen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">97</context>
+          <context context-type="linenumber">110</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8633952349281134557" datatype="html">
@@ -1426,7 +1433,7 @@ Datenschutz</target>
         <target state="translated">Test neustarten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">104</context>
+          <context context-type="linenumber">117</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9150895953971730874" datatype="html">
@@ -1434,7 +1441,7 @@ Datenschutz</target>
         <target state="translated">absenden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">110</context>
+          <context context-type="linenumber">123</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6608890834230007808" datatype="html">
@@ -1442,7 +1449,7 @@ Datenschutz</target>
         <target state="translated">abschließen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">116</context>
+          <context context-type="linenumber">129</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4651123397383097469" datatype="html">
