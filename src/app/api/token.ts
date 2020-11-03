@@ -46,8 +46,9 @@ export class Token {
 
 export enum EnrollmentStatus {
   UNPAIRED = 'unpaired',
-  PAIRING_RESPONSE_RECEIVED = 'pairing_response_received',
+  PAIRING_URL_SENT = 'pairing_url_sent',
   PAIRING_CHALLENGE_SENT = 'pairing_challenge_sent',
+  PAIRING_RESPONSE_RECEIVED = 'pairing_response_received',
   COMPLETED = 'completed',
 }
 

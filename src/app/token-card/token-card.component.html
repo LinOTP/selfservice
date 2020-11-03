@@ -15,17 +15,37 @@
   </mat-card-header>
   <mat-card-content>
     <p i18n>Serial: {{ token.serial }}</p>
-    <ng-container [ngSwitch]="token.enrollmentStatus">
-      <p *ngSwitchCase="EnrollmentStatus.UNPAIRED">
-        <ng-container *ngIf="isPush(); else otherTokenTypes"
-                      i18n> There was a problem with this token and it cannot be used. Make
-          sure to delete it and reset your Authenticator app before enrolling
-          a new push token. </ng-container>
-        <ng-template #otherTokenTypes
-                     i18n> This token needs to be paired with your mobile. You need the
-          enrollment QR code to proceed in the authenticator mobile
-          application. Afterwards you can start the activation here. </ng-template>
+    <ng-template #unpairedTokenMessage>
+      <p i18n>
+        You need a QR code to proceed with the token activation in the LinOTP Authenticator app.
       </p>
+      <p>
+        <ng-container *ngxPermissionsExcept="token.typeDetails.enrollmentPermission"
+                      i18n>
+          You should have received detailed instructions for the activation,
+          e.g. to wait for a letter with the QR code.
+        </ng-container>
+        <ng-container *ngxPermissionsOnly="token.typeDetails.enrollmentPermission">
+          <ng-container *ngxPermissionsExcept="Permission.DELETE"
+                        i18n>
+            If you have created the token yourself and are not able to reuse the QR code,
+            you have to restart with a new token.
+          </ng-container>
+          <ng-container *ngxPermissionsOnly="Permission.DELETE"
+                        i18n>
+            If you have created the token yourself and are not able to reuse the QR code,
+            you have to delete this token and restart with a new token.
+          </ng-container>
+        </ng-container>
+      </p>
+    </ng-template>
+    <ng-container [ngSwitch]="token.enrollmentStatus">
+      <ng-container *ngSwitchCase="EnrollmentStatus.UNPAIRED">
+        <ng-container *ngTemplateOutlet="unpairedTokenMessage"></ng-container>
+      </ng-container>
+      <ng-container *ngSwitchCase="EnrollmentStatus.PAIRING_URL_SENT">
+        <ng-container *ngTemplateOutlet="unpairedTokenMessage"></ng-container>
+      </ng-container>
       <p *ngSwitchCase="EnrollmentStatus.PAIRING_RESPONSE_RECEIVED"
          i18n> This token is paired with your mobile. The next step is the
         activation: </p>
