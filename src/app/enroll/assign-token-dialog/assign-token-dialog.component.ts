@@ -6,6 +6,7 @@ import { MatStepper } from '@angular/material/stepper';
 import { EnrollmentService } from '../../api/enrollment.service';
 import { GetSerialDialogComponent } from '../../common/get-serial-dialog/get-serial-dialog.component';
 import { Permission } from '../../common/permissions';
+import { NotificationService } from '../../common/notification.service';
 
 @Component({
   selector: 'app-assign-token-dialog',
@@ -20,9 +21,7 @@ export class AssignTokenDialogComponent implements OnInit {
 
   public permissions = Permission;
 
-  public success: boolean;
-  public errorTypeMessage = '';
-  public errorMessage = '';
+  public success = false;
 
   public closeLabel = $localize`Close`;
 
@@ -32,6 +31,7 @@ export class AssignTokenDialogComponent implements OnInit {
     private dialog: MatDialog,
     private formBuilder: FormBuilder,
     private enrollmentService: EnrollmentService,
+    private notificationService: NotificationService,
   ) {
     this.closeLabel = data.closeLabel;
   }
@@ -55,15 +55,6 @@ export class AssignTokenDialogComponent implements OnInit {
   }
 
   /**
-   * Return the user to the first step of the assignment process and reset the form.
-   */
-  public retry() {
-    this.errorMessage = '';
-    this.stepper.selectedIndex = 0;
-    this.assignmentForm.enable();
-  }
-
-  /**
    * Submit token serial to token service for self-assignment. If successful,
    * display a success message, otherwise display an error message and the possibility
    * to retry the assignment process without leaving the dialog.
@@ -72,19 +63,16 @@ export class AssignTokenDialogComponent implements OnInit {
     this.assignmentForm.disable();
     const serial = this.assignmentForm.get('serial').value;
     const description = this.assignmentForm.get('description').value;
-    this.errorMessage = '';
     this.enrollmentService.assign(serial, description).subscribe(result => {
-      if (!result.success) {
-        this.errorTypeMessage = $localize`The token assignment failed.`;
-        if (result.message) {
-          this.errorMessage = result.message;
-        }
+      if (result.success) {
+        this.success = true;
+        this.stepper.next();
+      } else {
+        this.assignmentForm.enable();
+        this.notificationService.message($localize`Token assignment failed.`);
       }
-      this.success = result.success;
-      this.stepper.next();
     });
   }
-
 
   public getSerial() {
     this.dialog.open(GetSerialDialogComponent).afterClosed().subscribe(serial => {
