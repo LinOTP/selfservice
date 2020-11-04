@@ -2,12 +2,12 @@ import { Component, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 import { NgxPermissionsService } from 'ngx-permissions';
-import { Subject, Observable, of } from 'rxjs';
+import { Subject } from 'rxjs';
 import { switchMap, filter, tap } from 'rxjs/operators';
 
 import { Permission } from '../common/permissions';
 import { NotificationService } from '../common/notification.service';
-import { TokenType, Token, TokenTypeDetails } from '../api/token';
+import { TokenType, TokenTypeDetails } from '../api/token';
 import { TokenService } from '../api/token.service';
 
 import { AssignTokenDialogComponent } from '../enroll/assign-token-dialog/assign-token-dialog.component';
@@ -53,7 +53,7 @@ export class EnrollmentGridComponent implements OnInit {
   * @memberof EnrollmentGridComponent
   */
   public runEnrollmentWorkflow(typeDetails: TokenTypeDetails) {
-    let dialog;
+
     const enrollmentConfig: MatDialogConfig = {
       width: '850px',
       autoFocus: false,
@@ -64,34 +64,39 @@ export class EnrollmentGridComponent implements OnInit {
       },
     };
 
+    let enrollmentDialog;
+    let testDialog: any = TestDialogComponent;
+
     switch (typeDetails.type) {
       case TokenType.HOTP:
       case TokenType.TOTP:
-        dialog = EnrollOATHDialogComponent;
+        enrollmentDialog = EnrollOATHDialogComponent;
         break;
       case TokenType.PASSWORD:
-        dialog = EnrollPasswordDialogComponent;
+        enrollmentDialog = EnrollPasswordDialogComponent;
         enrollmentConfig.data.closeLabel = $localize`Close`;
+        testDialog = null;
         break;
       case TokenType.EMAIL:
-        dialog = EnrollEmailDialogComponent;
+        enrollmentDialog = EnrollEmailDialogComponent;
         break;
       case TokenType.SMS:
-        dialog = EnrollSMSDialogComponent;
+        enrollmentDialog = EnrollSMSDialogComponent;
         break;
       case TokenType.MOTP:
-        dialog = EnrollMOTPDialogComponent;
+        enrollmentDialog = EnrollMOTPDialogComponent;
         break;
       case TokenType.PUSH:
       case TokenType.QR:
-        dialog = EnrollPushQRDialogComponent;
+        enrollmentDialog = EnrollPushQRDialogComponent;
         delete enrollmentConfig.data.closeLabel;
+        testDialog = ActivateDialogComponent;
         break;
       case TokenType.YUBICO:
-        dialog = EnrollYubicoDialogComponent;
+        enrollmentDialog = EnrollYubicoDialogComponent;
         break;
       case TokenType.ASSIGN:
-        dialog = AssignTokenDialogComponent;
+        enrollmentDialog = AssignTokenDialogComponent;
         break;
       default:
         this.notificationService.message($localize`The selected token type cannot be added at the moment.`);
@@ -99,7 +104,7 @@ export class EnrollmentGridComponent implements OnInit {
     }
 
     this.dialog
-      .open(dialog, enrollmentConfig)
+      .open(enrollmentDialog, enrollmentConfig)
       .afterClosed()
       .pipe(
         tap(() => this.tokenUpdate.next()),
@@ -111,36 +116,15 @@ export class EnrollmentGridComponent implements OnInit {
             this.notificationService.message($localize`There was a problem starting the token test, please try again later.`);
           }
         }),
-        filter(token => !!token),
-        switchMap(token => this.openTestDialog(token)),
+        filter(token => !!token && testDialog),
+        switchMap(token => {
+          const testConfig: MatDialogConfig = {
+            width: '650px',
+            data: { token: token }
+          };
+          return this.dialog.open(testDialog, testConfig).afterClosed();
+        }),
         tap(() => this.tokenUpdate.next()),
       ).subscribe();
   }
-
-  /**
-   * opens the correct testing / activation dialog for the given token type
-   * and returns an observable to the dialog close event
-   *
-   * @private
-   * @param {Token} token
-   * @returns {Observable<any>}
-   * @memberof EnrollmentGridComponent
-   */
-  private openTestDialog(token: Token): Observable<boolean> {
-    const testConfig: MatDialogConfig = {
-      width: '650px',
-      data: { token: token }
-    };
-
-    switch (token.typeDetails.type) {
-      case (TokenType.PASSWORD):
-        return of(null);
-      case (TokenType.PUSH):
-      case (TokenType.QR):
-        return this.dialog.open(ActivateDialogComponent, testConfig).afterClosed();
-      default:
-        return this.dialog.open(TestDialogComponent, testConfig).afterClosed();
-    }
-  }
-
 }

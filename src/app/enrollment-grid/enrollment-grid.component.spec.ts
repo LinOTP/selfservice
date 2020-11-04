@@ -220,7 +220,7 @@ describe('EnrollmentGridComponent', () => {
     expect(tokenService.getToken).toHaveBeenCalledWith(token.serial);
 
     expect(matDialog.open).toHaveBeenCalledTimes(1);
-    expect(tokenUpdateSpy).toHaveBeenCalledTimes(2);
+    expect(tokenUpdateSpy).toHaveBeenCalledTimes(1);
   }));
 
   it('should open the Email Token dialog and update the token list when completed', fakeAsync(() => {
@@ -375,6 +375,36 @@ describe('EnrollmentGridComponent', () => {
 
   it('should open the assignment dialog and update the token list when completed', fakeAsync(() => {
     const token = Fixtures.activeTotpToken;
+    const tokenTypeDetails = Fixtures.tokenTypeDetails[TokenType.ASSIGN];
+
+    const expectedEnrollDialogConfig = {
+      width: '850px',
+      autoFocus: false,
+      disableClose: true,
+      data: {
+        tokenTypeDetails: tokenTypeDetails,
+        closeLabel: 'Test',
+      },
+    };
+    const expectedTestDialogConfig = {
+      width: '650px',
+      data: { token: token },
+    };
+
+    matDialog.open.and.returnValues({ afterClosed: () => of(token.serial) }, { afterClosed: () => of(true) });
+    tokenService.getToken.and.returnValue(of(token));
+    component.runEnrollmentWorkflow(tokenTypeDetails);
+    tick();
+
+    expect(matDialog.open).toHaveBeenCalledWith(AssignTokenDialogComponent, expectedEnrollDialogConfig);
+    expect(tokenService.getToken).toHaveBeenCalledWith(token.serial);
+
+    expect(matDialog.open).toHaveBeenCalledWith(TestDialogComponent, expectedTestDialogConfig);
+    expect(tokenUpdateSpy).toHaveBeenCalledTimes(2);
+  }));
+
+  it('should test a password token after assignment like any other assigned token', fakeAsync(() => {
+    const token = Fixtures.activePasswordToken;
     const tokenTypeDetails = Fixtures.tokenTypeDetails[TokenType.ASSIGN];
 
     const expectedEnrollDialogConfig = {
