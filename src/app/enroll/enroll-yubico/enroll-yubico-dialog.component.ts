@@ -5,6 +5,7 @@ import { MatStepper } from '@angular/material/stepper';
 
 import { EnrollmentService } from '../../api/enrollment.service';
 import { TokenType } from '../../api/token';
+import { NotificationService } from '../../common/notification.service';
 
 @Component({
   selector: 'app-enroll-yubico',
@@ -16,12 +17,8 @@ export class EnrollYubicoDialogComponent implements OnInit {
   public registrationForm: FormGroup;
   @ViewChild(MatStepper) public stepper: MatStepper;
 
-  public success: boolean;
-  public errorTypeMessage = '';
-  public errorMessage = '';
-
+  public success = false;
   public closeLabel = $localize`Close`;
-
   public serial: string;
 
   constructor(
@@ -29,6 +26,7 @@ export class EnrollYubicoDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: { closeLabel: string },
     private formBuilder: FormBuilder,
     private enrollmentService: EnrollmentService,
+    private notificationService: NotificationService,
   ) {
     this.closeLabel = data.closeLabel;
   }
@@ -52,17 +50,9 @@ export class EnrollYubicoDialogComponent implements OnInit {
   }
 
   /**
-   * Return the user to the first step of the assignment process and reset the form.
-   */
-  public retry() {
-    this.errorMessage = '';
-    this.stepper.selectedIndex = 0;
-  }
-
-  /**
-   * Submit token serial to token service for self-assignment. If successful,
-   * display a success message, otherwise display an error message and the possibility
-   * to retry the assignment process without leaving the dialog.
+   * Submit token serial to token service for registration. If successful,
+   * go to next step, otherwise display an error notification toast and remain
+   * on the same step.
    */
   public registerToken() {
     this.registrationForm.disable();
@@ -73,13 +63,14 @@ export class EnrollYubicoDialogComponent implements OnInit {
       otplen: 44,
     };
     this.enrollmentService.enroll<{ serial: string }>(body).subscribe(response => {
-      const serial = response?.result?.value && response?.detail?.serial;
-      if (serial) {
-        this.serial = serial;
+      this.serial = response?.result?.value && response?.detail?.serial;
+      if (this.serial) {
         this.success = true;
         this.stepper.next();
+      } else {
+        this.registrationForm.enable();
+        this.notificationService.message($localize`Token registration failed.`);
       }
-      this.registrationForm.enable();
     });
   }
 }

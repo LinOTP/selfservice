@@ -11,12 +11,14 @@ import { EnrollmentService } from '../../api/enrollment.service';
 
 import { EnrollYubicoDialogComponent } from './enroll-yubico-dialog.component';
 import { MockComponent } from '../../../testing/mock-component';
+import { NotificationService } from '../../common/notification.service';
 
 describe('EnrollYubicoDialogComponent', () => {
   let component: EnrollYubicoDialogComponent;
   let fixture: ComponentFixture<EnrollYubicoDialogComponent>;
   let dialogRef: jasmine.SpyObj<MatDialogRef<EnrollYubicoDialogComponent>>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
+  let notificationService: jasmine.SpyObj<NotificationService>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
@@ -33,6 +35,10 @@ describe('EnrollYubicoDialogComponent', () => {
         {
           provide: EnrollmentService,
           useValue: spyOnClass(EnrollmentService)
+        },
+        {
+          provide: NotificationService,
+          useValue: spyOnClass(NotificationService)
         },
         {
           provide: MatDialogRef,
@@ -54,6 +60,7 @@ describe('EnrollYubicoDialogComponent', () => {
 
     dialogRef = getInjectedStub<MatDialogRef<EnrollYubicoDialogComponent>>(MatDialogRef);
     enrollmentService = getInjectedStub(EnrollmentService);
+    notificationService = getInjectedStub(NotificationService);
   });
 
   it('should be created', () => {
@@ -77,22 +84,6 @@ describe('EnrollYubicoDialogComponent', () => {
 
       component.close();
       expect(dialogRef.close).toHaveBeenCalledWith();
-    });
-  });
-
-  describe('retry', () => {
-    it('should keep the form data', () => {
-      component.registrationForm.setValue({ publicId: 'abc123', description: 'my new token' });
-      component.errorMessage = 'error';
-      component.stepper.selectedIndex = 1;
-      fixture.detectChanges();
-
-      component.retry();
-
-      expect(component.registrationForm.get('publicId').value).toBe('abc123');
-      expect(component.registrationForm.get('description').value).toBe('my new token');
-      expect(component.errorMessage).toBe('');
-      expect(component.stepper.selectedIndex).toEqual(0);
     });
   });
 
@@ -120,6 +111,17 @@ describe('EnrollYubicoDialogComponent', () => {
       component.registerToken();
       expect(component.stepper.selectedIndex).toEqual(0);
       expect(component.success).not.toEqual(true);
+    });
+
+    it('should notify user of failed registration', () => {
+      enrollmentService.enroll.and.returnValue(of({ result: { value: false } }));
+
+      component.stepper.selectedIndex = 0;
+      component.registrationForm.setValue({ publicId: 'abc123', description: 'my new token' });
+      fixture.detectChanges();
+
+      component.registerToken();
+      expect(notificationService.message).toHaveBeenCalledWith('Token registration failed.');
     });
   });
 });
