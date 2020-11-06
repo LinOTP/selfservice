@@ -70,15 +70,19 @@ export const EnrollmentPermissions = [
     Permission.VERIFY,
 ];
 
-export const ModifyTokenPermissions = [
+export const ModifyUnreadyTokenPermissions = [
     Permission.SETPIN,
     Permission.DELETE,
+    Permission.SETDESCRIPTION,
+    Permission.UNASSIGN,
+];
+
+export const ModifyTokenPermissions = [
+    ...ModifyUnreadyTokenPermissions,
     Permission.ENABLE,
     Permission.DISABLE,
     Permission.RESET,
     Permission.RESYNC,
     Permission.VERIFY,
     Permission.SETMOTPPIN,
-    Permission.SETDESCRIPTION,
-    Permission.UNASSIGN,
 ];
