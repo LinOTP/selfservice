@@ -3,7 +3,6 @@ import { FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { EnrollToken } from '../../api/token';
 import { Permission } from '../../common/permissions';
-import { SetPinDialogComponent } from '../../common/set-pin-dialog/set-pin-dialog.component';
 import { UserInfo, UserSystemInfo } from '../../system.service';
 import { EnrollDialogBaseComponent } from '../enroll-dialog-base.component';
 
@@ -20,7 +19,6 @@ export class EnrollEmailDialogComponent extends EnrollDialogBaseComponent implem
   @ViewChild(MatStepper, { static: true }) public stepper: MatStepper;
   public enrollmentStep: FormGroup;
 
-  public pinSet: boolean;
   public showDetails = false;
 
   public canEditEmail: boolean;
@@ -58,21 +56,5 @@ export class EnrollEmailDialogComponent extends EnrollDialogBaseComponent implem
       }
       this.enrollmentStep.enable();
     });
-  }
-
-  public setPin() {
-    const config = {
-      width: '25em',
-      data: { serial: this.enrolledToken.serial },
-    };
-    this.dialog
-      .open(SetPinDialogComponent, config)
-      .afterClosed()
-      .subscribe(result => {
-        if (result) {
-          this.pinSet = true;
-          this.notificationService.message($localize`PIN set`);
-        }
-      });
   }
 }

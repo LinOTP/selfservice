@@ -166,4 +166,32 @@ describe('EnrollDialogBaseComponent', () => {
         }));
     });
 
+    describe('setPin', () => {
+        beforeEach(() => {
+            fixture.detectChanges();
+        });
+
+        it('should set pin of token and output message', fakeAsync(() => {
+            dialog.open.and.returnValue({ afterClosed: () => of(true) });
+
+            component.enrolledToken = { serial: 'serial' };
+            component.setPin();
+            tick();
+
+            expect(dialog.open).toHaveBeenCalledTimes(1);
+            expect(notificationService.message).toHaveBeenCalledWith('PIN set');
+        }));
+
+        it('should not do anything if the user closes the dialog', fakeAsync(() => {
+            dialog.open.and.returnValue({ afterClosed: () => of(false) });
+
+            component.enrolledToken = { serial: 'serial' };
+            component.setPin();
+            tick();
+
+            expect(dialog.open).toHaveBeenCalledTimes(1);
+            expect(notificationService.message).not.toHaveBeenCalled();
+        }));
+    });
+
 });

@@ -13,6 +13,7 @@ import { NotificationService } from '../common/notification.service';
 import { TokenTypeDetails } from '../api/token';
 import { DialogComponent } from '../common/dialog/dialog.component';
 import { OperationsService } from '../api/operations.service';
+import { SetPinDialogComponent } from '../common/set-pin-dialog/set-pin-dialog.component';
 
 
 export interface EnrolledToken {
@@ -103,4 +104,20 @@ export abstract class EnrollDialogBaseComponent implements OnDestroy {
       this.dialogRef.close();
     });
   }
+
+  public setPin() {
+    const config = {
+      width: '25em',
+      data: this.enrolledToken
+    };
+    this.dialog
+      .open(SetPinDialogComponent, config)
+      .afterClosed()
+      .subscribe(result => {
+        if (result) {
+          this.notificationService.message($localize`PIN set`);
+        }
+      });
+  }
+
 }

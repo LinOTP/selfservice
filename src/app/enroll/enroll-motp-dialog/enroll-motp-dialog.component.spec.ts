@@ -27,7 +27,6 @@ const enrolledToken = {
 describe('EnrollMOTPDialogComponent', () => {
   let component: EnrollMOTPDialogComponent;
   let fixture: ComponentFixture<EnrollMOTPDialogComponent>;
-  let matDialog: jasmine.SpyObj<MatDialog>;
   let notificationService: jasmine.SpyObj<NotificationService>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
 
@@ -83,7 +82,6 @@ describe('EnrollMOTPDialogComponent', () => {
     fixture = TestBed.createComponent(EnrollMOTPDialogComponent);
     component = fixture.componentInstance;
 
-    matDialog = getInjectedStub(MatDialog);
     notificationService = getInjectedStub(NotificationService);
     enrollmentService = getInjectedStub(EnrollmentService);
 
@@ -93,31 +91,6 @@ describe('EnrollMOTPDialogComponent', () => {
   it('should be created', () => {
     expect(component).toBeTruthy();
     expect(component.data.tokenTypeDetails.type).toEqual(TokenType.MOTP);
-  });
-
-  describe('setPin', () => {
-    it('should set pin of token and output message', fakeAsync(() => {
-      matDialog.open.and.returnValue({ afterClosed: () => of(true) });
-
-      component.enrolledToken = enrolledToken;
-      component.setPin();
-      tick();
-
-      expect(matDialog.open).toHaveBeenCalledTimes(1);
-      expect(component.pinSet).toEqual(true);
-      expect(notificationService.message).toHaveBeenCalledWith('PIN set');
-    }));
-
-    it('should not do anything if the user closes the dialog', fakeAsync(() => {
-      matDialog.open.and.returnValue({ afterClosed: () => of(false) });
-
-      component.enrolledToken = enrolledToken;
-      component.setPin();
-      tick();
-
-      expect(matDialog.open).toHaveBeenCalledTimes(1);
-      expect(notificationService.message).not.toHaveBeenCalled();
-    }));
   });
 
   describe('enrollToken', () => {

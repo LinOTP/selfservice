@@ -24,7 +24,6 @@ import { MockComponent } from '../../../testing/mock-component';
 describe('The EnrollEmailDialogComponent', () => {
   let component: EnrollEmailDialogComponent;
   let fixture: ComponentFixture<EnrollEmailDialogComponent>;
-  let matDialog: jasmine.SpyObj<MatDialog>;
   let notificationService: jasmine.SpyObj<NotificationService>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
   let localStorageSpy: jasmine.Spy;
@@ -81,7 +80,6 @@ describe('The EnrollEmailDialogComponent', () => {
     fixture = TestBed.createComponent(EnrollEmailDialogComponent);
     component = fixture.componentInstance;
 
-    matDialog = getInjectedStub(MatDialog);
     notificationService = getInjectedStub(NotificationService);
     enrollmentService = getInjectedStub(EnrollmentService);
 
@@ -94,35 +92,6 @@ describe('The EnrollEmailDialogComponent', () => {
     fixture.detectChanges();
     expect(component).toBeTruthy();
     expect(component.data.tokenTypeDetails.type).toEqual(TokenType.EMAIL);
-  });
-
-  describe('setPin', () => {
-    beforeEach(() => {
-      fixture.detectChanges();
-    });
-
-    it('should set pin of token and output message', fakeAsync(() => {
-      matDialog.open.and.returnValue({ afterClosed: () => of(true) });
-
-      component.enrolledToken = { serial: Fixtures.emailEnrollmentResponse.detail.serial };
-      component.setPin();
-      tick();
-
-      expect(matDialog.open).toHaveBeenCalledTimes(1);
-      expect(component.pinSet).toEqual(true);
-      expect(notificationService.message).toHaveBeenCalledWith('PIN set');
-    }));
-
-    it('should not do anything if the user closes the dialog', fakeAsync(() => {
-      matDialog.open.and.returnValue({ afterClosed: () => of(false) });
-
-      component.enrolledToken = { serial: Fixtures.emailEnrollmentResponse.detail.serial };
-      component.setPin();
-      tick();
-
-      expect(matDialog.open).toHaveBeenCalledTimes(1);
-      expect(notificationService.message).not.toHaveBeenCalled();
-    }));
   });
 
   it('should enroll an email token with a default description', fakeAsync(() => {
