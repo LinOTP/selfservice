@@ -26,6 +26,8 @@ export abstract class EnrollDialogBaseComponent implements OnDestroy {
   protected pairingSubscription: Subscription;
   public enrolledToken: EnrolledToken;
 
+  public Permission = Permission;
+
   constructor(
     protected dialogRef: MatDialogRef<ThisType<EnrollDialogBaseComponent>>,
     protected permissionsService: NgxPermissionsService,

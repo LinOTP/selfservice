@@ -3,7 +3,6 @@ import { FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { EnrollToken } from '../../api/token';
 import { ErrorStateRootMatcher } from '../../common/form-helpers/error-state-root-matcher';
-import { Permission } from '../../common/permissions';
 import { EnrollDialogBaseComponent } from '../enroll-dialog-base.component';
 
 @Component({
@@ -13,7 +12,6 @@ import { EnrollDialogBaseComponent } from '../enroll-dialog-base.component';
 })
 export class EnrollPasswordDialogComponent extends EnrollDialogBaseComponent implements OnInit {
 
-  public Permission = Permission;
   public matcher = new ErrorStateRootMatcher();
 
   @ViewChild(MatStepper, { static: true }) public stepper: MatStepper;

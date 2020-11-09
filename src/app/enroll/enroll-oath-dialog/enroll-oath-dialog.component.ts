@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { EnrollToken } from '../../api/token';
-import { Permission } from '../../common/permissions';
 import { EnrollDialogBaseComponent, EnrolledToken } from '../enroll-dialog-base.component';
 
 interface OATHEnrolledToken extends EnrolledToken {
@@ -17,7 +16,6 @@ interface OATHEnrolledToken extends EnrolledToken {
 })
 export class EnrollOATHDialogComponent extends EnrollDialogBaseComponent implements OnInit {
 
-  public Permission = Permission;
   public enrolledToken: OATHEnrolledToken;
 
   @ViewChild(MatStepper, { static: true }) public stepper: MatStepper;

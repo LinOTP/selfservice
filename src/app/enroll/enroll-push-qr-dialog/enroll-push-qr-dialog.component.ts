@@ -15,6 +15,7 @@ interface PushQrEnrolledToken extends EnrolledToken {
   styleUrls: ['./enroll-push-qr-dialog.component.scss']
 })
 export class EnrollPushQRDialogComponent extends EnrollDialogBaseComponent implements OnInit {
+
   public TextResources = TextResources;
   public enrolledToken: PushQrEnrolledToken;
 

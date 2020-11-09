@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { EnrollToken } from '../../api/token';
-import { Permission } from '../../common/permissions';
 import { EnrollDialogBaseComponent } from '../enroll-dialog-base.component';
 
 @Component({
@@ -11,8 +10,6 @@ import { EnrollDialogBaseComponent } from '../enroll-dialog-base.component';
   styleUrls: ['./enroll-motp-dialog.component.scss']
 })
 export class EnrollMOTPDialogComponent extends EnrollDialogBaseComponent implements OnInit {
-
-  public Permission = Permission;
 
   @ViewChild(MatStepper, { static: true }) public stepper: MatStepper;
   public enrollmentStep: FormGroup;
