@@ -95,7 +95,6 @@ describe('AssignTokenDialogComponent', () => {
 
       component.assignToken();
       expect(component.stepper.selectedIndex).toEqual(1);
-      expect(component.success).toEqual(true);
     });
 
     it('should fail when assignment request returns and display an error message on failure', fakeAsync(() => {
@@ -110,7 +109,6 @@ describe('AssignTokenDialogComponent', () => {
 
       expect(component.stepper.selectedIndex).toEqual(0);
       expect(notificationService.message).toHaveBeenCalledWith('Token assignment failed.');
-      expect(component.success).toEqual(false);
     }));
   });
 

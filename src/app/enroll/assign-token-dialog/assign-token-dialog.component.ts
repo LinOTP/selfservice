@@ -16,8 +16,6 @@ export class AssignTokenDialogComponent extends EnrollDialogBaseComponent implem
   @ViewChild(MatStepper) public stepper: MatStepper;
   @ViewChild('serialInput') public serialInput: ElementRef;
 
-  public success = false;
-
   ngOnInit() {
     this.assignmentForm = this.formBuilder.group({
       'serial': ['', Validators.required],
@@ -37,7 +35,6 @@ export class AssignTokenDialogComponent extends EnrollDialogBaseComponent implem
     this.enrollmentService.assign(serial, description).subscribe(result => {
       if (result.success) {
         this.enrolledToken = { serial: serial };
-        this.success = true;
         this.stepper.next();
       } else {
         this.assignmentForm.enable();

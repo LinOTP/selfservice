@@ -14,8 +14,6 @@ export class EnrollYubicoDialogComponent extends EnrollDialogBaseComponent imple
   public registrationForm: FormGroup;
   @ViewChild(MatStepper) public stepper: MatStepper;
 
-  public success = false;
-
   ngOnInit() {
     this.registrationForm = this.formBuilder.group({
       'publicId': ['', Validators.required],
@@ -40,7 +38,6 @@ export class EnrollYubicoDialogComponent extends EnrollDialogBaseComponent imple
       const serial = response?.result?.value && response?.detail?.serial;
       if (serial) {
         this.enrolledToken = { serial: serial };
-        this.success = true;
         this.stepper.next();
       } else {
         this.registrationForm.enable();

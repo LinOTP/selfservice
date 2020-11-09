@@ -86,7 +86,6 @@ describe('EnrollYubicoDialogComponent', () => {
 
       component.registerToken();
       expect(component.stepper.selectedIndex).toEqual(1);
-      expect(component.success).toEqual(true);
     });
 
     it('should fail when registration request returns and stay on the same step', () => {
@@ -98,7 +97,6 @@ describe('EnrollYubicoDialogComponent', () => {
 
       component.registerToken();
       expect(component.stepper.selectedIndex).toEqual(0);
-      expect(component.success).not.toEqual(true);
     });
 
     it('should notify user of failed registration', () => {
