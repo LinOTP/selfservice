@@ -17,7 +17,6 @@ export class EnrollMOTPDialogComponent extends EnrollDialogBaseComponent impleme
 
   @ViewChild(MatStepper, { static: true }) public stepper: MatStepper;
   public enrollmentStep: FormGroup;
-  public testStep: FormGroup;
 
   public pinSet: boolean;
   public showDetails = false;
@@ -28,10 +27,6 @@ export class EnrollMOTPDialogComponent extends EnrollDialogBaseComponent impleme
       'password': ['', [Validators.required, Validators.pattern(/^[0-9A-Fa-f]{16}$/)]],
       'mOTPPin': ['', Validators.required],
       'description': [$localize`Created via SelfService`, Validators.required],
-    });
-    this.testStep = this.formBuilder.group({
-      'otp': ['', Validators.required],
-      'pin': ''
     });
   }
 

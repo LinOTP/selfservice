@@ -18,7 +18,6 @@ export class EnrollSMSDialogComponent extends EnrollDialogBaseComponent implemen
 
   @ViewChild(MatStepper, { static: true }) public stepper: MatStepper;
   public enrollmentStep: FormGroup;
-  public testStep: FormGroup;
 
   public pinSet: boolean;
   public showDetails = false;
@@ -38,10 +37,6 @@ export class EnrollSMSDialogComponent extends EnrollDialogBaseComponent implemen
     if (this.canEditPhone) {
       this.enrollmentStep.addControl('phoneNumber', this.formBuilder.control(this.userPhone, Validators.required));
     }
-    this.testStep = this.formBuilder.group({
-      'otp': ['', Validators.required],
-      'pin': ''
-    });
   }
 
   public enrollToken() {

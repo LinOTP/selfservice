@@ -23,7 +23,6 @@ export class EnrollOATHDialogComponent extends EnrollDialogBaseComponent impleme
 
   @ViewChild(MatStepper, { static: true }) public stepper: MatStepper;
   public enrollmentStep: FormGroup;
-  public testStep: FormGroup;
 
   public pinSet: boolean;
   public showDetails = false;
@@ -31,10 +30,6 @@ export class EnrollOATHDialogComponent extends EnrollDialogBaseComponent impleme
   public ngOnInit() {
     this.enrollmentStep = this.formBuilder.group({
       'description': [$localize`Created via SelfService`, Validators.required],
-    });
-    this.testStep = this.formBuilder.group({
-      'otp': ['', Validators.required],
-      'pin': ''
     });
   }
 
