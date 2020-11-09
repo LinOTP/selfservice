@@ -137,7 +137,7 @@ export class OperationsService {
       );
   }
 
-  setDescription(tokenSerial: string, description: string): Observable<{ success: boolean, message?: string }> {
+  setDescription(tokenSerial: string, description: string): Observable<boolean> {
     const bodyAssign = {
       serial: tokenSerial,
       description: description,
@@ -148,11 +148,11 @@ export class OperationsService {
     return this.http.post<LinOTPResponse<{ 'assign token': boolean }>>(url, bodyAssign)
       .pipe(
         map(response => {
-          if (response?.result?.value) {
-            return { success: response.result.value['set description'] > 0 };
+          if (response?.result?.value['set description'] > 0) {
+            return true;
           }
         }),
-        catchError(this.tokenService.handleError('assign', { success: false })
+        catchError(this.tokenService.handleError('assign', false)
         )
       );
   }

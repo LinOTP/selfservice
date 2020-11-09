@@ -66,7 +66,7 @@ describe('SetDecriptionDialogComponent', () => {
   it('should call setDescription and close dialog if successful', () => {
     component.form.setValue({ description: 'descr' });
     fixture.detectChanges();
-    operationsService.setDescription = jasmine.createSpy('setDescription').and.returnValue(of({ success: true }));
+    operationsService.setDescription = jasmine.createSpy('setDescription').and.returnValue(of(true));
 
     component.submit();
     expect(operationsService.setDescription).toHaveBeenCalledWith(token.serial, 'descr');
@@ -77,7 +77,7 @@ describe('SetDecriptionDialogComponent', () => {
   it('should display a notification message if submission fails', () => {
     component.form.setValue({ description: 'descr' });
     fixture.detectChanges();
-    operationsService.setDescription = jasmine.createSpy('setDescription').and.returnValue(of({ success: false }));
+    operationsService.setDescription = jasmine.createSpy('setDescription').and.returnValue(of(false));
 
     component.submit();
     expect(notificationService.message).toHaveBeenCalledWith('Token description could not be changed. Please try again.');

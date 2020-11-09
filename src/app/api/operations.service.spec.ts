@@ -148,7 +148,7 @@ describe('OperationsService', () => {
     ));
   });
 
-  fdescribe('delete token', () => {
+  describe('delete token', () => {
     const deleteRequestBody = { serial: 'serial', session: session };
     it('should send a delete request', inject(
       [HttpClient, HttpTestingController],
@@ -414,7 +414,7 @@ describe('OperationsService', () => {
       (http: HttpClient, backend: HttpTestingController) => {
 
         operationsService.setDescription('serial', 'description').subscribe(response => {
-          expect(response).toEqual({ success: true });
+          expect(response).toEqual(true);
         });
 
         const request = backend.expectOne((req) => req.url === '/userservice/setdescription' && req.method === 'POST');
@@ -431,7 +431,7 @@ describe('OperationsService', () => {
         spyOn(console, 'error');
 
         operationsService.setDescription('serial', 'description').subscribe(response => {
-          expect(response).toEqual({ success: false });
+          expect(response).toEqual(false);
         });
 
         const request = backend.expectOne((req) => req.url === '/userservice/setdescription' && req.method === 'POST');
