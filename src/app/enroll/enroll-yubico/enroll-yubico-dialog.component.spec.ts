@@ -12,11 +12,12 @@ import { EnrollmentService } from '../../api/enrollment.service';
 import { EnrollYubicoDialogComponent } from './enroll-yubico-dialog.component';
 import { MockComponent } from '../../../testing/mock-component';
 import { NotificationService } from '../../common/notification.service';
+import { OperationsService } from '../../api/operations.service';
+import { NgxPermissionsService } from 'ngx-permissions';
 
 describe('EnrollYubicoDialogComponent', () => {
   let component: EnrollYubicoDialogComponent;
   let fixture: ComponentFixture<EnrollYubicoDialogComponent>;
-  let dialogRef: jasmine.SpyObj<MatDialogRef<EnrollYubicoDialogComponent>>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
   let notificationService: jasmine.SpyObj<NotificationService>;
 
@@ -33,6 +34,10 @@ describe('EnrollYubicoDialogComponent', () => {
       ],
       providers: [
         {
+          provide: OperationsService,
+          useValue: spyOnClass(OperationsService)
+        },
+        {
           provide: EnrollmentService,
           useValue: spyOnClass(EnrollmentService)
         },
@@ -43,6 +48,10 @@ describe('EnrollYubicoDialogComponent', () => {
         {
           provide: MatDialogRef,
           useValue: spyOnClass(MatDialogRef),
+        },
+        {
+          provide: NgxPermissionsService,
+          useValue: spyOnClass(NgxPermissionsService)
         },
         {
           provide: MAT_DIALOG_DATA,
@@ -58,33 +67,12 @@ describe('EnrollYubicoDialogComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
 
-    dialogRef = getInjectedStub<MatDialogRef<EnrollYubicoDialogComponent>>(MatDialogRef);
     enrollmentService = getInjectedStub(EnrollmentService);
     notificationService = getInjectedStub(NotificationService);
   });
 
   it('should be created', () => {
     expect(component).toBeTruthy();
-  });
-
-  describe('close', () => {
-    it('should return the token serial if assignment was successful', () => {
-      component.success = true;
-      component.serial = 'serial';
-      fixture.detectChanges();
-
-      component.close();
-      expect(dialogRef.close).toHaveBeenCalledWith('serial');
-    });
-
-    it('should not return the token serial if assignment was unsuccessful', () => {
-      component.success = false;
-      component.registrationForm.reset();
-      fixture.detectChanges();
-
-      component.close();
-      expect(dialogRef.close).toHaveBeenCalledWith();
-    });
   });
 
   describe('registerToken', () => {

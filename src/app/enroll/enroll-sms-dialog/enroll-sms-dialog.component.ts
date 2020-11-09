@@ -1,24 +1,18 @@
-import { Component, OnInit, Inject, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-
+import { EnrollToken } from '../../api/token';
 import { Permission } from '../../common/permissions';
-import { NotificationService } from '../../common/notification.service';
 import { SetPinDialogComponent } from '../../common/set-pin-dialog/set-pin-dialog.component';
-
-import { TokenTypeDetails, EnrollToken } from '../../api/token';
-import { EnrollmentService } from '../../api/enrollment.service';
-import { OperationsService } from '../../api/operations.service';
 import { UserInfo, UserSystemInfo } from '../../system.service';
-import { NgxPermissionsService } from 'ngx-permissions';
+import { EnrollDialogBaseComponent } from '../enroll-dialog-base.component';
 
 @Component({
   selector: 'app-enroll-sms',
   templateUrl: './enroll-sms-dialog.component.html',
   styleUrls: ['./enroll-sms-dialog.component.scss']
 })
-export class EnrollSMSDialogComponent implements OnInit {
+export class EnrollSMSDialogComponent extends EnrollDialogBaseComponent implements OnInit {
 
   public Permission = Permission;
 
@@ -29,21 +23,8 @@ export class EnrollSMSDialogComponent implements OnInit {
   public pinSet: boolean;
   public showDetails = false;
 
-  public enrolledTokenSerial: string;
-
   public canEditPhone: boolean;
   public userPhone: string;
-
-  constructor(
-    private formBuilder: FormBuilder,
-    private operationsService: OperationsService,
-    private enrollmentService: EnrollmentService,
-    public dialog: MatDialog,
-    public dialogRef: MatDialogRef<EnrollSMSDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { tokenTypeDetails: TokenTypeDetails, closeLabel: String },
-    public notificationService: NotificationService,
-    public permissionsService: NgxPermissionsService,
-  ) { }
 
   public ngOnInit() {
     const userData: UserInfo = JSON.parse(localStorage.getItem('user'));
@@ -76,7 +57,7 @@ export class EnrollSMSDialogComponent implements OnInit {
     this.enrollmentService.enroll(body).subscribe(response => {
       const serial = response?.result?.value && response?.detail?.serial;
       if (serial) {
-        this.enrolledTokenSerial = serial;
+        this.enrolledToken = { serial: serial };
         this.stepper.next();
       }
       this.enrollmentStep.enable();
@@ -86,7 +67,7 @@ export class EnrollSMSDialogComponent implements OnInit {
   public setPin() {
     const config = {
       width: '25em',
-      data: { serial: this.enrolledTokenSerial },
+      data: { serial: this.enrolledToken.serial },
     };
     this.dialog
       .open(SetPinDialogComponent, config)
@@ -98,22 +79,4 @@ export class EnrollSMSDialogComponent implements OnInit {
         }
       });
   }
-
-  /**
-   * Cancel the dialog and return false as result
-   */
-  public cancelDialog() {
-    if (this.enrolledTokenSerial && this.permissionsService.hasPermission(Permission.DELETE)) {
-      this.operationsService.deleteToken(this.enrolledTokenSerial).subscribe();
-    }
-    this.dialogRef.close(false);
-  }
-
-  /**
-   * Close the dialog and return serial of successfully created token
-   */
-  public closeDialog() {
-    this.dialogRef.close(this.enrolledTokenSerial);
-  }
-
 }

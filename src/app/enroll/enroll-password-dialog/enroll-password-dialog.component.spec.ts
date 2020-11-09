@@ -20,6 +20,7 @@ import { EnrollPasswordDialogComponent } from './enroll-password-dialog.componen
 import { LinOTPResponse } from '../../api/api';
 import { MatButton } from '@angular/material/button';
 import { MockComponent } from '../../../testing/mock-component';
+import { OperationsService } from '../../api/operations.service';
 
 
 describe('The EnrollPasswordDialogComponent', () => {
@@ -27,7 +28,6 @@ describe('The EnrollPasswordDialogComponent', () => {
   let fixture: ComponentFixture<EnrollPasswordDialogComponent>;
   let notificationService: jasmine.SpyObj<NotificationService>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
-  let dialogRef: jasmine.SpyObj<MatDialogRef<EnrollPasswordDialogComponent>>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
@@ -43,6 +43,10 @@ describe('The EnrollPasswordDialogComponent', () => {
         NoopAnimationsModule,
       ],
       providers: [
+        {
+          provide: OperationsService,
+          useValue: spyOnClass(OperationsService)
+        },
         {
           provide: EnrollmentService,
           useValue: spyOnClass(EnrollmentService)
@@ -78,7 +82,6 @@ describe('The EnrollPasswordDialogComponent', () => {
 
     notificationService = getInjectedStub(NotificationService);
     enrollmentService = getInjectedStub(EnrollmentService);
-    dialogRef = getInjectedStub<MatDialogRef<EnrollPasswordDialogComponent>>(MatDialogRef);
 
     fixture.detectChanges();
   });
@@ -121,7 +124,7 @@ describe('The EnrollPasswordDialogComponent', () => {
         otpkey: '111111'
       });
 
-      expect(component.serial).toEqual(serial);
+      expect(component.enrolledToken.serial).toEqual(serial);
       expect(component.stepper.next).toHaveBeenCalledTimes(1);
     }));
 
@@ -146,7 +149,7 @@ describe('The EnrollPasswordDialogComponent', () => {
         otpkey: '111111'
       });
 
-      expect(component.serial).toEqual(serial);
+      expect(component.enrolledToken.serial).toEqual(serial);
       expect(component.stepper.next).toHaveBeenCalledTimes(1);
     }));
 
@@ -164,29 +167,8 @@ describe('The EnrollPasswordDialogComponent', () => {
       component.enrollToken();
       tick();
 
-      expect(component.serial).toEqual(undefined);
+      expect(component.enrolledToken).toEqual(undefined);
       expect(notificationService.message).not.toHaveBeenCalled();
-    }));
-  });
-
-  describe('close', () => {
-    it('should return token serial', fakeAsync(() => {
-      component.serial = 'serial';
-      fixture.detectChanges();
-
-      component.closeDialog();
-      expect(dialogRef.close).toHaveBeenCalledWith(component.serial);
-    }));
-  });
-
-  describe('cancel', () => {
-    it('should close dialog with false', fakeAsync(() => {
-      fixture.detectChanges();
-
-      component.cancelDialog();
-      tick();
-
-      expect(dialogRef.close).toHaveBeenCalledWith(false);
     }));
   });
 });

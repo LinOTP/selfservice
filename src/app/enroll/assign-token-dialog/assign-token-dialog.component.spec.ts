@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testin
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 
-import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
+import { NgxPermissionsAllowStubDirective, NgxPermissionsService } from 'ngx-permissions';
 
 import { of } from 'rxjs';
 
@@ -15,12 +15,12 @@ import { AssignTokenDialogComponent } from './assign-token-dialog.component';
 import { GetSerialDialogComponent } from '../../common/get-serial-dialog/get-serial-dialog.component';
 import { MockComponent } from '../../../testing/mock-component';
 import { NotificationService } from '../../common/notification.service';
+import { OperationsService } from '../../api/operations.service';
 
 describe('AssignTokenDialogComponent', () => {
   let component: AssignTokenDialogComponent;
   let fixture: ComponentFixture<AssignTokenDialogComponent>;
   let dialog: jasmine.SpyObj<MatDialog>;
-  let dialogRef: jasmine.SpyObj<MatDialogRef<AssignTokenDialogComponent>>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
   let notificationService: jasmine.SpyObj<NotificationService>;
 
@@ -38,6 +38,10 @@ describe('AssignTokenDialogComponent', () => {
       ],
       providers: [
         {
+          provide: OperationsService,
+          useValue: spyOnClass(OperationsService)
+        },
+        {
           provide: EnrollmentService,
           useValue: spyOnClass(EnrollmentService)
         },
@@ -54,6 +58,10 @@ describe('AssignTokenDialogComponent', () => {
           useValue: spyOnClass(MatDialogRef),
         },
         {
+          provide: NgxPermissionsService,
+          useValue: spyOnClass(NgxPermissionsService)
+        },
+        {
           provide: MAT_DIALOG_DATA,
           useValue: { closeLabel: null },
         },
@@ -68,33 +76,12 @@ describe('AssignTokenDialogComponent', () => {
     fixture.detectChanges();
 
     dialog = getInjectedStub(MatDialog);
-    dialogRef = getInjectedStub<MatDialogRef<AssignTokenDialogComponent>>(MatDialogRef);
     enrollmentService = getInjectedStub(EnrollmentService);
     notificationService = getInjectedStub(NotificationService);
   });
 
   it('should be created', () => {
     expect(component).toBeTruthy();
-  });
-
-  describe('close', () => {
-    it('should return the token serial if assignment was successful', () => {
-      component.success = true;
-      component.assignmentForm.setValue({ serial: 'abc123', description: '' });
-      fixture.detectChanges();
-
-      component.close();
-      expect(dialogRef.close).toHaveBeenCalledWith('abc123');
-    });
-
-    it('should not return the token serial if assignment was unsuccessful', () => {
-      component.success = false;
-      component.assignmentForm.reset();
-      fixture.detectChanges();
-
-      component.close();
-      expect(dialogRef.close).toHaveBeenCalledWith();
-    });
   });
 
   describe('assignToken', () => {

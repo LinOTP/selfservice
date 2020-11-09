@@ -1,22 +1,17 @@
-import { Component, OnInit, Inject, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
-import { FormGroup, FormBuilder, Validators, ValidationErrors } from '@angular/forms';
-
-import { Permission } from '../../common/permissions';
-import { NotificationService } from '../../common/notification.service';
-
-import { TokenTypeDetails, EnrollToken } from '../../api/token';
-import { EnrollmentService } from '../../api/enrollment.service';
-import { NgxPermissionsService } from 'ngx-permissions';
+import { EnrollToken } from '../../api/token';
 import { ErrorStateRootMatcher } from '../../common/form-helpers/error-state-root-matcher';
+import { Permission } from '../../common/permissions';
+import { EnrollDialogBaseComponent } from '../enroll-dialog-base.component';
 
 @Component({
   selector: 'app-enroll-password',
   templateUrl: './enroll-password-dialog.component.html',
   styleUrls: ['./enroll-password-dialog.component.scss']
 })
-export class EnrollPasswordDialogComponent implements OnInit {
+export class EnrollPasswordDialogComponent extends EnrollDialogBaseComponent implements OnInit {
 
   public Permission = Permission;
   public matcher = new ErrorStateRootMatcher();
@@ -24,24 +19,13 @@ export class EnrollPasswordDialogComponent implements OnInit {
   @ViewChild(MatStepper, { static: true }) public stepper: MatStepper;
   public enrollmentStep: FormGroup;
 
-  public serial: string;
-
-  constructor(
-    private formBuilder: FormBuilder,
-    private enrollmentService: EnrollmentService,
-    public dialog: MatDialog,
-    public dialogRef: MatDialogRef<EnrollPasswordDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { tokenTypeDetails: TokenTypeDetails, closeLabel: String },
-    public notificationService: NotificationService,
-    public permissionsService: NgxPermissionsService,
-  ) { }
-
   public ngOnInit() {
-    this.enrollmentStep = this.formBuilder.group({
-      'password': ['', Validators.required],
-      'confirmation': ['', Validators.required],
-      'description': [$localize`Created via SelfService`, Validators.required],
-    },
+    this.enrollmentStep = this.formBuilder.group(
+      {
+        'password': ['', Validators.required],
+        'confirmation': ['', Validators.required],
+        'description': [$localize`Created via SelfService`, Validators.required],
+      },
       {
         validator: this.checkPasswords
       }
@@ -65,25 +49,11 @@ export class EnrollPasswordDialogComponent implements OnInit {
 
     this.enrollmentService.enroll(body).subscribe(response => {
       if (response?.result?.value) {
-        this.serial = response.detail.serial;
+        this.enrolledToken = { serial: response.detail.serial };
         this.stepper.next();
       }
       this.enrollmentStep.enable();
     });
-  }
-
-  /**
- * Cancel the dialog and return false as result
- */
-  public cancelDialog() {
-    this.dialogRef.close(false);
-  }
-
-  /**
-   * Close the dialog and return serial of successfully created token
-   */
-  public closeDialog() {
-    this.dialogRef.close(this.serial);
   }
 
 }

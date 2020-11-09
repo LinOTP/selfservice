@@ -1,25 +1,25 @@
-import { Component, OnInit, Inject, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-
+import { EnrollToken } from '../../api/token';
 import { Permission } from '../../common/permissions';
-import { NotificationService } from '../../common/notification.service';
 import { SetPinDialogComponent } from '../../common/set-pin-dialog/set-pin-dialog.component';
+import { EnrollDialogBaseComponent, EnrolledToken } from '../enroll-dialog-base.component';
 
-import { TokenTypeDetails, EnrollToken } from '../../api/token';
-import { EnrollmentService } from '../../api/enrollment.service';
-import { OperationsService } from '../../api/operations.service';
-import { NgxPermissionsService } from 'ngx-permissions';
+interface OATHEnrolledToken extends EnrolledToken {
+  url: string;
+  seed: string;
+}
 
 @Component({
   selector: 'app-enroll-oath',
   templateUrl: './enroll-oath-dialog.component.html',
   styleUrls: ['./enroll-oath-dialog.component.scss']
 })
-export class EnrollOATHDialogComponent implements OnInit {
+export class EnrollOATHDialogComponent extends EnrollDialogBaseComponent implements OnInit {
 
   public Permission = Permission;
+  public enrolledToken: OATHEnrolledToken;
 
   @ViewChild(MatStepper, { static: true }) public stepper: MatStepper;
   public enrollmentStep: FormGroup;
@@ -27,19 +27,6 @@ export class EnrollOATHDialogComponent implements OnInit {
 
   public pinSet: boolean;
   public showDetails = false;
-
-  public enrolledToken: { serial: string, url: string, seed: string };
-
-  constructor(
-    private formBuilder: FormBuilder,
-    private operationsService: OperationsService,
-    private enrollmentService: EnrollmentService,
-    public dialog: MatDialog,
-    public dialogRef: MatDialogRef<EnrollOATHDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { tokenTypeDetails: TokenTypeDetails, closeLabel: String },
-    public notificationService: NotificationService,
-    public permissionsService: NgxPermissionsService,
-  ) { }
 
   public ngOnInit() {
     this.enrollmentStep = this.formBuilder.group({
@@ -86,23 +73,6 @@ export class EnrollOATHDialogComponent implements OnInit {
           this.notificationService.message($localize`PIN set`);
         }
       });
-  }
-
-  /**
-   * Cancel the dialog and return false as result
-   */
-  public cancelDialog() {
-    if (this.enrolledToken && this.permissionsService.hasPermission(Permission.DELETE)) {
-      this.operationsService.deleteToken(this.enrolledToken.serial).subscribe();
-    }
-    this.dialogRef.close(false);
-  }
-
-  /**
-   * Close the dialog and return serial of successfully created token
-   */
-  public closeDialog() {
-    this.dialogRef.close(this.enrolledToken.serial);
   }
 
   copyInputMessage(inputElement: HTMLInputElement) {

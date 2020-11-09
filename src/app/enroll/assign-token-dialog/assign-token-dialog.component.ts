@@ -1,19 +1,17 @@
-import { Component, OnInit, ViewChild, Inject, ElementRef } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
-
-import { EnrollmentService } from '../../api/enrollment.service';
 import { GetSerialDialogComponent } from '../../common/get-serial-dialog/get-serial-dialog.component';
 import { Permission } from '../../common/permissions';
-import { NotificationService } from '../../common/notification.service';
+import { EnrollDialogBaseComponent } from '../enroll-dialog-base.component';
+
 
 @Component({
   selector: 'app-assign-token-dialog',
   templateUrl: './assign-token-dialog.component.html',
   styleUrls: ['./assign-token-dialog.component.scss']
 })
-export class AssignTokenDialogComponent implements OnInit {
+export class AssignTokenDialogComponent extends EnrollDialogBaseComponent implements OnInit {
 
   public assignmentForm: FormGroup;
   @ViewChild(MatStepper) public stepper: MatStepper;
@@ -23,35 +21,11 @@ export class AssignTokenDialogComponent implements OnInit {
 
   public success = false;
 
-  public closeLabel = $localize`Close`;
-
-  constructor(
-    private dialogRef: MatDialogRef<AssignTokenDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { closeLabel: string },
-    private dialog: MatDialog,
-    private formBuilder: FormBuilder,
-    private enrollmentService: EnrollmentService,
-    private notificationService: NotificationService,
-  ) {
-    this.closeLabel = data.closeLabel;
-  }
-
   ngOnInit() {
     this.assignmentForm = this.formBuilder.group({
       'serial': ['', Validators.required],
       'description': [$localize`Assigned via SelfService`, Validators.required],
     });
-  }
-
-  /**
-  * Close the enrollment dialog without further action.
-  */
-  public close() {
-    if (this.success) {
-      this.dialogRef.close(this.assignmentForm.get('serial').value);
-    } else {
-      this.dialogRef.close();
-    }
   }
 
   /**
@@ -65,6 +39,7 @@ export class AssignTokenDialogComponent implements OnInit {
     const description = this.assignmentForm.get('description').value;
     this.enrollmentService.assign(serial, description).subscribe(result => {
       if (result.success) {
+        this.enrolledToken = { serial: serial };
         this.success = true;
         this.stepper.next();
       } else {

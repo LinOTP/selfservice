@@ -33,7 +33,7 @@
         <span class="spacer"></span>
         <button mat-raised-button
                 type="button"
-                (click)="cancelDialog()"
+                (click)="close()"
                 i18n>Cancel</button>
         <button mat-raised-button
                 color="primary"
@@ -120,7 +120,7 @@
       <div i18n>Step 2 of 3</div>
       <span class="spacer"></span>
       <button mat-raised-button
-              (click)="cancelDialog()"
+              (click)="cancel()"
               i18n>Cancel</button>
       <button mat-raised-button
               color="primary"
@@ -146,7 +146,7 @@
       <span class="spacer"></span>
       <button mat-raised-button
               color="primary"
-              (click)="closeDialog()"> {{ data.closeLabel }}</button>
+              (click)="closeAndReturnSerial()"> {{ data.closeLabel }}</button>
     </mat-dialog-actions>
   </mat-step>
 

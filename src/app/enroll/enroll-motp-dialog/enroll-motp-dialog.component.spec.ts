@@ -29,10 +29,7 @@ describe('EnrollMOTPDialogComponent', () => {
   let fixture: ComponentFixture<EnrollMOTPDialogComponent>;
   let matDialog: jasmine.SpyObj<MatDialog>;
   let notificationService: jasmine.SpyObj<NotificationService>;
-  let operationsService: jasmine.SpyObj<OperationsService>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
-  let permissionsService: jasmine.SpyObj<NgxPermissionsService>;
-  let dialogRef: jasmine.SpyObj<MatDialogRef<EnrollMOTPDialogComponent>>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
@@ -88,10 +85,7 @@ describe('EnrollMOTPDialogComponent', () => {
 
     matDialog = getInjectedStub(MatDialog);
     notificationService = getInjectedStub(NotificationService);
-    operationsService = getInjectedStub(OperationsService);
     enrollmentService = getInjectedStub(EnrollmentService);
-    permissionsService = getInjectedStub(NgxPermissionsService);
-    dialogRef = getInjectedStub<MatDialogRef<EnrollMOTPDialogComponent>>(MatDialogRef);
 
     fixture.detectChanges();
   });
@@ -230,49 +224,5 @@ describe('EnrollMOTPDialogComponent', () => {
 
     }));
 
-  });
-
-  it('close should return token serial', fakeAsync(() => {
-    component.enrolledToken = enrolledToken;
-    fixture.detectChanges();
-
-    component.closeDialog();
-    expect(dialogRef.close).toHaveBeenCalledWith(component.enrolledToken.serial);
-  }));
-
-  describe('cancel', () => {
-    it('should delete enrolled token if the user has permissions and close dialog with false', fakeAsync(() => {
-      component.enrolledToken = Fixtures.enrolledToken;
-      fixture.detectChanges();
-
-      permissionsService.hasPermission.and.returnValue(true);
-      operationsService.deleteToken.and.returnValue(of());
-      component.cancelDialog();
-      tick();
-
-      expect(operationsService.deleteToken).toHaveBeenCalledWith('testSerial');
-      expect(dialogRef.close).toHaveBeenCalledWith(false);
-    }));
-
-    it('should not delete enrolled token if the user has no permissions and close dialog with false', fakeAsync(() => {
-      component.enrolledToken = Fixtures.enrolledToken;
-      fixture.detectChanges();
-
-      permissionsService.hasPermission.and.returnValue(false);
-      component.cancelDialog();
-      tick();
-
-      expect(operationsService.deleteToken).not.toHaveBeenCalled();
-      expect(dialogRef.close).toHaveBeenCalledWith(false);
-    }));
-
-    it('should not call delete token if no token was enrolled', fakeAsync(() => {
-      component.cancelDialog();
-      permissionsService.hasPermission.and.returnValue(true);
-      tick();
-
-      expect(operationsService.deleteToken).not.toHaveBeenCalled();
-      expect(dialogRef.close).toHaveBeenCalledWith(false);
-    }));
   });
 });
