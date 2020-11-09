@@ -117,13 +117,13 @@ describe('OperationsService', () => {
     it('should not call the backend if the token is not an mOTP token', inject(
       [HttpClient], (http:
         HttpClient) => {
-        spyOn(http, 'post');
+      spyOn(http, 'post');
 
-        operationsService.setMOTPPin(mockReadyEnabledToken, '01234').subscribe(response => {
-          expect(response).toEqual(false);
-          expect(http.post).not.toHaveBeenCalled();
-        });
-      }
+      operationsService.setMOTPPin(mockReadyEnabledToken, '01234').subscribe(response => {
+        expect(response).toEqual(false);
+        expect(http.post).not.toHaveBeenCalled();
+      });
+    }
     ));
 
     it('should call the error handler on request failure', inject(
@@ -148,12 +148,14 @@ describe('OperationsService', () => {
     ));
   });
 
-  describe('delete token', () => {
+  fdescribe('delete token', () => {
     const deleteRequestBody = { serial: 'serial', session: session };
     it('should send a delete request', inject(
       [HttpClient, HttpTestingController],
       (http: HttpClient, backend: HttpTestingController) => {
-        operationsService.deleteToken('serial').subscribe();
+        operationsService.deleteToken('serial').subscribe(response => {
+          expect(response).toBe(true);
+        });
 
         const req = backend.expectOne({
           url: '/userservice/delete',
@@ -171,7 +173,9 @@ describe('OperationsService', () => {
 
         spyOn(console, 'error');
 
-        operationsService.deleteToken('serial').subscribe();
+        operationsService.deleteToken('serial').subscribe(response => {
+          expect(response).toBe(false);
+        });
         const deleteRequest = backend.expectOne({
           url: '/userservice/delete',
           method: 'POST'
