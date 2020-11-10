@@ -118,7 +118,12 @@
       </ng-container>
     </ng-container>
     <ng-container *ngIf="token.enabled">
-      <ng-container *ngxPermissionsOnly="Permission.DISABLE; then disableBlock; else noDisableBlock">
+      <ng-container *ngxPermissionsOnly="Permission.DISABLE">
+        <button mat-menu-item
+                (click)="disable()">
+          <mat-icon>indeterminate_check_box</mat-icon>
+          <span i18n>Disable</span>
+        </button>
       </ng-container>
     </ng-container>
   </ng-container>
@@ -152,23 +157,5 @@
           i18n-matTooltip>
     <mat-icon>check_box</mat-icon>
     <span i18n>Enable</span>
-  </button>
-</ng-template>
-
-<ng-template #disableBlock>
-  <button mat-menu-item
-          (click)="disable()">
-    <mat-icon>indeterminate_check_box</mat-icon>
-    <span i18n>Disable</span>
-  </button>
-</ng-template>
-
-<ng-template #noDisableBlock>
-  <button mat-menu-item
-          disabled
-          matTooltip="You do not have permissions to disable this token."
-          i18n-matTooltip>
-    <mat-icon>indeterminate_check_box</mat-icon>
-    <span i18n>Disable</span>
   </button>
 </ng-template>
