@@ -14,10 +14,7 @@ export class EnrollMOTPDialogComponent extends EnrollDialogBaseComponent impleme
   @ViewChild(MatStepper, { static: true }) public stepper: MatStepper;
   public enrollmentStep: FormGroup;
 
-  public showDetails = false;
-
   public ngOnInit() {
-
     this.enrollmentStep = this.formBuilder.group({
       'password': ['', [Validators.required, Validators.pattern(/^[0-9A-Fa-f]{16}$/)]],
       'mOTPPin': ['', Validators.required],

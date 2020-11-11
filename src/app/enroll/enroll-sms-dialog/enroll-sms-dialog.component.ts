@@ -15,8 +15,6 @@ export class EnrollSMSDialogComponent extends EnrollDialogBaseComponent implemen
   @ViewChild(MatStepper, { static: true }) public stepper: MatStepper;
   public enrollmentStep: FormGroup;
 
-  public showDetails = false;
-
   public canEditPhone: boolean;
   public userPhone: string;
 

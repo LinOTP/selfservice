@@ -16,8 +16,6 @@ export class EnrollEmailDialogComponent extends EnrollDialogBaseComponent implem
   @ViewChild(MatStepper, { static: true }) public stepper: MatStepper;
   public enrollmentStep: FormGroup;
 
-  public showDetails = false;
-
   public canEditEmail: boolean;
   public userEmail: string;
 
