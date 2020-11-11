@@ -32,7 +32,7 @@ export class OperationsService {
     private tokenService: TokenService,
   ) { }
 
-  deleteToken(serial: string): Observable<any> {
+  deleteToken(serial: string): Observable<boolean> {
     const body = {
       serial: serial,
       session: this.sessionService.getSession()
@@ -40,7 +40,8 @@ export class OperationsService {
 
     return this.http.post<LinOTPResponse<{ 'delete token': number }>>(this.userserviceBase + this.userserviceEndpoints.delete, body)
       .pipe(
-        catchError(this.tokenService.handleError('deleteToken', null))
+        map((response) => response?.result?.value?.['delete token'] === 1),
+        catchError(this.tokenService.handleError('deleteToken', false))
       );
   }
 
@@ -136,7 +137,7 @@ export class OperationsService {
       );
   }
 
-  setDescription(tokenSerial: string, description: string): Observable<{ success: boolean, message?: string }> {
+  setDescription(tokenSerial: string, description: string): Observable<boolean> {
     const bodyAssign = {
       serial: tokenSerial,
       description: description,
@@ -147,11 +148,11 @@ export class OperationsService {
     return this.http.post<LinOTPResponse<{ 'assign token': boolean }>>(url, bodyAssign)
       .pipe(
         map(response => {
-          if (response?.result?.value) {
-            return { success: response.result.value['set description'] > 0 };
+          if (response?.result?.value['set description'] > 0) {
+            return true;
           }
         }),
-        catchError(this.tokenService.handleError('assign', { success: false })
+        catchError(this.tokenService.handleError('assign', false)
         )
       );
   }

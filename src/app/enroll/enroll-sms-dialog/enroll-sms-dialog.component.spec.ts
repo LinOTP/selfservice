@@ -24,12 +24,8 @@ import { MockComponent } from '../../../testing/mock-component';
 describe('The EnrollSMSDialogComponent', () => {
   let component: EnrollSMSDialogComponent;
   let fixture: ComponentFixture<EnrollSMSDialogComponent>;
-  let matDialog: jasmine.SpyObj<MatDialog>;
   let notificationService: jasmine.SpyObj<NotificationService>;
-  let operationsService: jasmine.SpyObj<OperationsService>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
-  let permissionsService: jasmine.SpyObj<NgxPermissionsService>;
-  let dialogRef: jasmine.SpyObj<MatDialogRef<EnrollSMSDialogComponent>>;
   let localStorageSpy: jasmine.Spy;
 
   beforeEach(async () => {
@@ -85,12 +81,8 @@ describe('The EnrollSMSDialogComponent', () => {
     fixture = TestBed.createComponent(EnrollSMSDialogComponent);
     component = fixture.componentInstance;
 
-    matDialog = getInjectedStub(MatDialog);
     notificationService = getInjectedStub(NotificationService);
-    operationsService = getInjectedStub(OperationsService);
     enrollmentService = getInjectedStub(EnrollmentService);
-    permissionsService = getInjectedStub(NgxPermissionsService);
-    dialogRef = getInjectedStub<MatDialogRef<EnrollSMSDialogComponent>>(MatDialogRef);
 
     localStorageSpy = spyOn(localStorage, 'getItem').and.returnValue(
       JSON.stringify({ mobile: Fixtures.userSystemInfo.user.mobile })
@@ -101,35 +93,6 @@ describe('The EnrollSMSDialogComponent', () => {
     fixture.detectChanges();
     expect(component).toBeTruthy();
     expect(component.data.tokenTypeDetails.type).toEqual(TokenType.SMS);
-  });
-
-  describe('setPin', () => {
-    beforeEach(() => {
-      fixture.detectChanges();
-    });
-
-    it('should set pin of token and output message', fakeAsync(() => {
-      matDialog.open.and.returnValue({ afterClosed: () => of(true) });
-
-      component.enrolledTokenSerial = Fixtures.smsEnrollmentResponse.detail.serial;
-      component.setPin();
-      tick();
-
-      expect(matDialog.open).toHaveBeenCalledTimes(1);
-      expect(component.pinSet).toEqual(true);
-      expect(notificationService.message).toHaveBeenCalledWith('PIN set');
-    }));
-
-    it('should not do anything if the user closes the dialog', fakeAsync(() => {
-      matDialog.open.and.returnValue({ afterClosed: () => of(false) });
-
-      component.enrolledTokenSerial = Fixtures.smsEnrollmentResponse.detail.serial;
-      component.setPin();
-      tick();
-
-      expect(matDialog.open).toHaveBeenCalledTimes(1);
-      expect(notificationService.message).not.toHaveBeenCalled();
-    }));
   });
 
   it('should enroll an sms token with a default description', fakeAsync(() => {
@@ -147,7 +110,7 @@ describe('The EnrollSMSDialogComponent', () => {
       description: `Created via SelfService - ${Fixtures.userSystemInfo.user.mobile}`,
       phone: Fixtures.userSystemInfo.user.mobile,
     });
-    expect(component.enrolledTokenSerial).toEqual(Fixtures.smsEnrollmentResponse.detail.serial);
+    expect(component.enrolledToken.serial).toEqual(Fixtures.smsEnrollmentResponse.detail.serial);
     expect(component.stepper.next).toHaveBeenCalledTimes(1);
   }));
 
@@ -168,7 +131,7 @@ describe('The EnrollSMSDialogComponent', () => {
       description: `custom description - ${Fixtures.userSystemInfo.user.mobile}`,
       phone: Fixtures.userSystemInfo.user.mobile,
     });
-    expect(component.enrolledTokenSerial).toEqual(Fixtures.smsEnrollmentResponse.detail.serial);
+    expect(component.enrolledToken.serial).toEqual(Fixtures.smsEnrollmentResponse.detail.serial);
     expect(component.stepper.next).toHaveBeenCalledTimes(1);
   }));
 
@@ -232,57 +195,7 @@ describe('The EnrollSMSDialogComponent', () => {
     result.click();
     tick();
 
-    expect(component.enrolledTokenSerial).toEqual(undefined);
+    expect(component.enrolledToken).toEqual(undefined);
     expect(notificationService.message).not.toHaveBeenCalled();
   }));
-
-  it('close should return token serial', fakeAsync(() => {
-    fixture.detectChanges();
-
-    component.enrolledTokenSerial = Fixtures.smsEnrollmentResponse.detail.serial;
-    fixture.detectChanges();
-
-    component.closeDialog();
-    expect(dialogRef.close).toHaveBeenCalledWith(component.enrolledTokenSerial);
-  }));
-
-  describe('cancel', () => {
-    beforeEach(() => {
-      fixture.detectChanges();
-    });
-
-    it('should delete enrolled token if the user has permissions and close dialog with false', fakeAsync(() => {
-      component.enrolledTokenSerial = Fixtures.smsEnrollmentResponse.detail.serial;
-      fixture.detectChanges();
-
-      permissionsService.hasPermission.and.returnValue(true);
-      operationsService.deleteToken.and.returnValue(of());
-      component.cancelDialog();
-      tick();
-
-      expect(operationsService.deleteToken).toHaveBeenCalledWith(Fixtures.smsEnrollmentResponse.detail.serial);
-      expect(dialogRef.close).toHaveBeenCalledWith(false);
-    }));
-
-    it('should not delete enrolled token if the user has no permissions and close dialog with false', fakeAsync(() => {
-      component.enrolledTokenSerial = Fixtures.smsEnrollmentResponse.detail.serial;
-      fixture.detectChanges();
-
-      permissionsService.hasPermission.and.returnValue(false);
-      component.cancelDialog();
-      tick();
-
-      expect(operationsService.deleteToken).not.toHaveBeenCalled();
-      expect(dialogRef.close).toHaveBeenCalledWith(false);
-    }));
-
-    it('should not call delete token if no token was enrolled', fakeAsync(() => {
-      component.cancelDialog();
-      permissionsService.hasPermission.and.returnValue(true);
-      tick();
-
-      expect(operationsService.deleteToken).not.toHaveBeenCalled();
-      expect(dialogRef.close).toHaveBeenCalledWith(false);
-    }));
-  });
 });

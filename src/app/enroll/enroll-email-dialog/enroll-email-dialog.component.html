@@ -40,7 +40,7 @@
         <span class="spacer"></span>
         <button mat-raised-button
                 type="button"
-                (click)="cancelDialog()"
+                (click)="close()"
                 i18n>Cancel</button>
         <button mat-raised-button
                 color="primary"
@@ -57,7 +57,8 @@
 
   <mat-step active="false"
             id="stepPIN">
-    <p i18n>A token with the serial number {{enrolledTokenSerial}} has been created.</p>
+    <p *ngIf="enrolledToken"
+       i18n>A token with the serial number {{ enrolledToken.serial }} has been created.</p>
 
     <ng-container *ngxPermissionsOnly="Permission.SETPIN">
       <p i18n>If you wish to set a security PIN, please do so now:</p>
@@ -68,12 +69,13 @@
       <p class="mat-hint hint"
          i18n>Setting a PIN helps you protect your token against misuse.</p>
     </ng-container>
+
     <mat-dialog-actions align="end">
       <div i18n>Step 2 of 2</div>
       <span class="spacer"></span>
       <button mat-raised-button
               color="primary"
-              (click)="closeDialog()"> {{ data.closeLabel }}</button>
+              (click)="closeAndReturnSerial()"> {{ data.closeLabel }}</button>
     </mat-dialog-actions>
   </mat-step>
 

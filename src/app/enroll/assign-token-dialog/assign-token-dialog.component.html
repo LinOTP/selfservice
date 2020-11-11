@@ -6,11 +6,11 @@
   <mat-step [stepControl]="assignmentForm">
     <p>
       <ng-container i18n>Claim an existing token and link it to your user account.</ng-container>
-      <ng-container *ngxPermissionsExcept="permissions.GETSERIAL"
+      <ng-container *ngxPermissionsExcept="Permission.GETSERIAL"
                     i18n>You need to know its serial number in advance.</ng-container>
     </p>
     <div class="get-serial-layout"
-         *ngxPermissionsOnly="permissions.GETSERIAL">
+         *ngxPermissionsOnly="Permission.GETSERIAL">
       <div i18n>If you do not have the token serial at hand, you can use a generated OTP value to determine the serial
         of your token.</div>
       <div>
@@ -40,6 +40,8 @@
         <mat-hint i18n>Enter a description for your token.</mat-hint>
       </mat-form-field>
       <mat-dialog-actions align="end">
+        <div i18n>Step 1 of 2</div>
+        <span class="spacer"></span>
         <button mat-raised-button
                 type="button"
                 (click)="close()"
@@ -56,27 +58,24 @@
   </mat-step>
 
   <mat-step>
-    <ng-container *ngIf="success; else error">
-      <p i18n>The token was successfully linked to your user account.</p>
-      <mat-dialog-actions align="end">
-        <button mat-raised-button
-                (click)="close()"
-                color="primary">{{ closeLabel }}</button>
-      </mat-dialog-actions>
+    <p i18n>The token was successfully linked to your user account.</p>
+
+    <ng-container *ngxPermissionsOnly="Permission.SETPIN">
+      <p i18n>If you wish to set a security PIN, please do so now:</p>
+      <button mat-raised-button
+              color="primary"
+              (click)="setPin()"
+              i18n>Set pin</button>
+      <p class="mat-hint hint"
+         i18n>Setting a PIN helps you protect your token against misuse.</p>
     </ng-container>
 
-    <ng-template #error>
-      <p>{{ errorTypeMessage }}</p>
-      <p>{{ errorMessage }}</p>
-      <mat-dialog-actions align="end">
-        <button mat-raised-button
-                (click)="retry()"
-                i18n>Retry</button>
-        <button mat-raised-button
-                (click)="close()"
-                color="primary"
-                i18n>Cancel</button>
-      </mat-dialog-actions>
-    </ng-template>
+    <mat-dialog-actions align="end">
+      <div i18n>Step 2 of 2</div>
+      <span class="spacer"></span>
+      <button mat-raised-button
+              (click)="closeAndReturnSerial()"
+              color="primary">{{ data.closeLabel }}</button>
+    </mat-dialog-actions>
   </mat-step>
 </mat-horizontal-stepper>

@@ -103,9 +103,11 @@ export class TokenCardComponent implements OnInit {
         filter((confirmed: boolean) => !!confirmed),
         switchMap(() => this.operationsService.deleteToken(this.token.serial)),
       )
-      .subscribe(() => {
-        this.notificationService.message($localize`Token deleted`);
-        this.tokenUpdate.next();
+      .subscribe(response => {
+        if (response) {
+          this.notificationService.message($localize`Token deleted`);
+          this.tokenUpdate.next();
+        }
       });
   }
 

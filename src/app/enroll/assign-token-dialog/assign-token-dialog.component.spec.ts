@@ -1,8 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 
-import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
+import { NgxPermissionsAllowStubDirective, NgxPermissionsService } from 'ngx-permissions';
 
 import { of } from 'rxjs';
 
@@ -14,13 +14,15 @@ import { EnrollmentService } from '../../api/enrollment.service';
 import { AssignTokenDialogComponent } from './assign-token-dialog.component';
 import { GetSerialDialogComponent } from '../../common/get-serial-dialog/get-serial-dialog.component';
 import { MockComponent } from '../../../testing/mock-component';
+import { NotificationService } from '../../common/notification.service';
+import { OperationsService } from '../../api/operations.service';
 
 describe('AssignTokenDialogComponent', () => {
   let component: AssignTokenDialogComponent;
   let fixture: ComponentFixture<AssignTokenDialogComponent>;
   let dialog: jasmine.SpyObj<MatDialog>;
-  let dialogRef: jasmine.SpyObj<MatDialogRef<AssignTokenDialogComponent>>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
+  let notificationService: jasmine.SpyObj<NotificationService>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
@@ -36,8 +38,16 @@ describe('AssignTokenDialogComponent', () => {
       ],
       providers: [
         {
+          provide: OperationsService,
+          useValue: spyOnClass(OperationsService)
+        },
+        {
           provide: EnrollmentService,
           useValue: spyOnClass(EnrollmentService)
+        },
+        {
+          provide: NotificationService,
+          useValue: spyOnClass(NotificationService)
         },
         {
           provide: MatDialog,
@@ -46,6 +56,10 @@ describe('AssignTokenDialogComponent', () => {
         {
           provide: MatDialogRef,
           useValue: spyOnClass(MatDialogRef),
+        },
+        {
+          provide: NgxPermissionsService,
+          useValue: spyOnClass(NgxPermissionsService)
         },
         {
           provide: MAT_DIALOG_DATA,
@@ -62,48 +76,12 @@ describe('AssignTokenDialogComponent', () => {
     fixture.detectChanges();
 
     dialog = getInjectedStub(MatDialog);
-    dialogRef = getInjectedStub<MatDialogRef<AssignTokenDialogComponent>>(MatDialogRef);
     enrollmentService = getInjectedStub(EnrollmentService);
+    notificationService = getInjectedStub(NotificationService);
   });
 
   it('should be created', () => {
     expect(component).toBeTruthy();
-  });
-
-  describe('close', () => {
-    it('should return the token serial if assignment was successful', () => {
-      component.success = true;
-      component.assignmentForm.setValue({ serial: 'abc123', description: '' });
-      fixture.detectChanges();
-
-      component.close();
-      expect(dialogRef.close).toHaveBeenCalledWith('abc123');
-    });
-
-    it('should not return the token serial if assignment was unsuccessful', () => {
-      component.success = false;
-      component.assignmentForm.reset();
-      fixture.detectChanges();
-
-      component.close();
-      expect(dialogRef.close).toHaveBeenCalledWith();
-    });
-  });
-
-  describe('retry', () => {
-    it('should keep the form data', () => {
-      component.assignmentForm.setValue({ serial: 'abc123', description: 'my new token' });
-      component.errorMessage = 'error';
-      component.stepper.selectedIndex = 1;
-      fixture.detectChanges();
-
-      component.retry();
-
-      expect(component.assignmentForm.get('serial').value).toBe('abc123');
-      expect(component.assignmentForm.get('description').value).toBe('my new token');
-      expect(component.errorMessage).toBe('');
-      expect(component.stepper.selectedIndex).toEqual(0);
-    });
   });
 
   describe('assignToken', () => {
@@ -117,10 +95,9 @@ describe('AssignTokenDialogComponent', () => {
 
       component.assignToken();
       expect(component.stepper.selectedIndex).toEqual(1);
-      expect(component.success).toEqual(true);
     });
 
-    it('should fail when assignment request returns and display an error message on failure', () => {
+    it('should fail when assignment request returns and display an error message on failure', fakeAsync(() => {
       enrollmentService.assign.and.returnValue(of({ success: false, message: 'an error occurred' }));
 
       component.stepper.selectedIndex = 0;
@@ -128,10 +105,11 @@ describe('AssignTokenDialogComponent', () => {
       fixture.detectChanges();
 
       component.assignToken();
-      expect(component.stepper.selectedIndex).toEqual(1);
-      expect(component.errorMessage).toBe('an error occurred');
-      expect(component.success).toEqual(false);
-    });
+      tick();
+
+      expect(component.stepper.selectedIndex).toEqual(0);
+      expect(notificationService.message).toHaveBeenCalledWith('Token assignment failed.');
+    }));
   });
 
   describe('getSerial', () => {

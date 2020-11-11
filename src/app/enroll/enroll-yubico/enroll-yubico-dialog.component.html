@@ -30,6 +30,8 @@
       </mat-form-field>
 
       <mat-dialog-actions align="end">
+        <div i18n>Step 1 of 2</div>
+        <span class="spacer"></span>
         <button mat-raised-button
                 type="button"
                 (click)="close()"
@@ -46,27 +48,24 @@
   </mat-step>
 
   <mat-step>
-    <ng-container *ngIf="success; else error">
-      <p i18n>The token was successfully linked to your user account.</p>
-      <mat-dialog-actions align="end">
-        <button mat-raised-button
-                (click)="close()"
-                color="primary">{{ closeLabel }}</button>
-      </mat-dialog-actions>
+    <p i18n>The token was successfully linked to your user account.</p>
+
+    <ng-container *ngxPermissionsOnly="Permission.SETPIN">
+      <p i18n>If you wish to set a security PIN, please do so now:</p>
+      <button mat-raised-button
+              color="primary"
+              (click)="setPin()"
+              i18n>Set pin</button>
+      <p class="mat-hint hint"
+         i18n>Setting a PIN helps you protect your token against misuse.</p>
     </ng-container>
 
-    <ng-template #error>
-      <p>{{ errorTypeMessage }}</p>
-      <p>{{ errorMessage }}</p>
-      <mat-dialog-actions align="end">
-        <button mat-raised-button
-                (click)="retry()"
-                i18n>Retry</button>
-        <button mat-raised-button
-                (click)="close()"
-                color="primary"
-                i18n>Cancel</button>
-      </mat-dialog-actions>
-    </ng-template>
+    <mat-dialog-actions align="end">
+      <div i18n>Step 2 of 2</div>
+      <span class="spacer"></span>
+      <button mat-raised-button
+              (click)="closeAndReturnSerial()"
+              color="primary">{{ data.closeLabel }}</button>
+    </mat-dialog-actions>
   </mat-step>
 </mat-horizontal-stepper>
