@@ -47,7 +47,7 @@ export class AssignTokenDialogComponent extends EnrollDialogBaseComponent implem
     this.dialog.open(GetSerialDialogComponent).afterClosed().subscribe(serial => {
       if (serial) {
         this.assignmentForm.controls.serial.setValue(serial);
-        this.serialInput.nativeElement.click();
+        this.serialInput.nativeElement.focus();
       }
     });
   }
