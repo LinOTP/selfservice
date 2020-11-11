@@ -56,9 +56,7 @@
       <p i18n>Scan the QR code below with the Authenticator app or <a target="_blank"
            [href]="enrolledToken.url">follow this link</a> to start the
         activation process of the new token.</p>
-      <qrcode [qrdata]="enrolledToken.url"
-              [width]="256"
-              [errorCorrectionLevel]="'L'"></qrcode>
+      <app-qr-code [qrUrl]="enrolledToken.url"></app-qr-code>
     </div>
     <mat-dialog-actions align="end">
       <div i18n>Step 2 of 3</div>
