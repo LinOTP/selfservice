@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
-import { Subject } from 'rxjs';
+import { Subject, from, of } from 'rxjs';
 import { filter, switchMap } from 'rxjs/operators';
 
 import { Permission, ModifyTokenPermissions, ModifyUnreadyTokenPermissions } from '../common/permissions';
@@ -16,6 +16,7 @@ import { ResyncDialogComponent } from '../common/resync-dialog/resync-dialog.com
 import { TestDialogComponent } from '../test/test-dialog.component';
 import { ActivateDialogComponent } from '../activate/activate-dialog.component';
 import { SetDescriptionDialogComponent } from '../common/set-description-dialog/set-description-dialog.component';
+import { NgxPermissionsService } from 'ngx-permissions';
 
 @Component({
   selector: 'app-token-card',
@@ -39,6 +40,7 @@ export class TokenCardComponent implements OnInit {
     private dialog: MatDialog,
     private notificationService: NotificationService,
     private operationsService: OperationsService,
+    private permissionsService: NgxPermissionsService,
   ) { }
 
   public ngOnInit() {
@@ -123,7 +125,25 @@ export class TokenCardComponent implements OnInit {
   }
 
   public disable(): void {
-    this.operationsService.disable(this.token).subscribe(isSuccessful => {
+    from(this.permissionsService.hasPermission(Permission.ENABLE)).pipe(
+      switchMap(canEnable => {
+        if (canEnable) {
+          return of(true);
+        } else {
+          const config = {
+            width: '25em',
+            data:
+            {
+              title: $localize`Disable token?`,
+              text: $localize`You will not be able to use it to authenticate yourself anymore, as you cannot enable it on your own.`,
+              confirmationLabel: $localize`disable`
+            }
+          }; return this.dialog.open(DialogComponent, config).afterClosed();
+        }
+      }),
+      filter(canDisable => !!canDisable),
+      switchMap(() => this.operationsService.disable(this.token))
+    ).subscribe(isSuccessful => {
       if (isSuccessful) {
         this.notificationService.message($localize`Token disabled`);
         this.tokenUpdate.next();

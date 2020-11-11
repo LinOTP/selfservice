@@ -439,7 +439,7 @@ Datenschutz</target>
         <target state="translated">PIN gesetzt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">67</context>
+          <context context-type="linenumber">69</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2115592966120408375" datatype="html">
@@ -947,7 +947,7 @@ Datenschutz</target>
         <target state="translated">mOTP-PIN gesetzt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">84</context>
+          <context context-type="linenumber">86</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8722855815848907513" datatype="html">
@@ -955,7 +955,7 @@ Datenschutz</target>
         <target state="translated">Token löschen?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">93</context>
+          <context context-type="linenumber">95</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4708953392121513581" datatype="html">
@@ -963,7 +963,7 @@ Datenschutz</target>
         <target state="translated">Sie können den Token dann nicht mehr zum Authentisieren benutzen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">94</context>
+          <context context-type="linenumber">96</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2456043080471762298" datatype="html">
@@ -971,7 +971,7 @@ Datenschutz</target>
         <target state="translated">Löschen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">95</context>
+          <context context-type="linenumber">97</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1866069951520401039" datatype="html">
@@ -979,7 +979,7 @@ Datenschutz</target>
         <target state="translated">Token gelöscht</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">108</context>
+          <context context-type="linenumber">110</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4008739768562434154" datatype="html">
@@ -987,7 +987,7 @@ Datenschutz</target>
         <target state="translated">Token aktiviert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">117</context>
+          <context context-type="linenumber">119</context>
         </context-group>
       </trans-unit>
       <trans-unit id="849617724890146364" datatype="html">
@@ -995,7 +995,31 @@ Datenschutz</target>
         <target state="translated">Tokenaktivierung fehlgeschlagen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">120</context>
+          <context context-type="linenumber">122</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6308551073215344882" datatype="html">
+        <source>Disable token?</source>
+        <target state="translated">Token deaktivieren?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
+          <context context-type="linenumber">137</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4369510444544321374" datatype="html">
+        <source>You will not be able to use it to authenticate yourself anymore, as you cannot enable it on your own.</source>
+        <target state="translated">Sie können den Token dann nicht mehr zum Authentisieren benutzen, da Sie ihn selbst nicht mehr aktivieren können.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
+          <context context-type="linenumber">138</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8056364825023681713" datatype="html">
+        <source>disable</source>
+        <target state="translated">deaktivieren</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
+          <context context-type="linenumber">139</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8880521633761794673" datatype="html">
@@ -1003,7 +1027,7 @@ Datenschutz</target>
         <target state="translated">Token deaktiviert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">128</context>
+          <context context-type="linenumber">148</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7521432430906077968" datatype="html">
@@ -1011,7 +1035,7 @@ Datenschutz</target>
         <target state="translated">Tokendeaktivierung fehlgeschlagen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">131</context>
+          <context context-type="linenumber">151</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1627369125785144436" datatype="html">
@@ -1019,7 +1043,7 @@ Datenschutz</target>
         <target state="translated">Token aktiviert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">162</context>
+          <context context-type="linenumber">182</context>
         </context-group>
       </trans-unit>
       <trans-unit id="446006585605027355" datatype="html">
@@ -1027,7 +1051,7 @@ Datenschutz</target>
         <target state="translated">Tokenzuweisung aufheben?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">172</context>
+          <context context-type="linenumber">192</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8186005700224234900" datatype="html">
@@ -1035,7 +1059,7 @@ Datenschutz</target>
         <target state="translated">Sie können diesen Token dann nicht mehr zum Authentisieren benutzen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">173</context>
+          <context context-type="linenumber">193</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2187232391313376887" datatype="html">
@@ -1043,7 +1067,7 @@ Datenschutz</target>
         <target state="translated">Tokenzuweisung aufheben</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">174</context>
+          <context context-type="linenumber">194</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4177408952342860105" datatype="html">
@@ -1051,7 +1075,7 @@ Datenschutz</target>
         <target state="translated">Tokenzuweisung aufgehoben</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">187</context>
+          <context context-type="linenumber">207</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5786441840384705945" datatype="html">
@@ -1059,7 +1083,7 @@ Datenschutz</target>
         <target state="translated">Aufhebung der Tokenzuweisung fehlgeschlagen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">189</context>
+          <context context-type="linenumber">209</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7681059897446970979" datatype="html">
@@ -1067,7 +1091,7 @@ Datenschutz</target>
         <target state="translated">Fehlerzähler erfolgreich zurückgesetz</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">223</context>
+          <context context-type="linenumber">243</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8714684049496697934" datatype="html">
@@ -1075,7 +1099,7 @@ Datenschutz</target>
         <target state="translated">Fehler beim Zurücksetzen des Fehlzählers. Versuchen Sie es bitte erneut oder kontaktieren Sie Ihren Administrator.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">225</context>
+          <context context-type="linenumber">245</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8590151770059972300" datatype="html">
@@ -1083,7 +1107,7 @@ Datenschutz</target>
         <target state="translated">Token wurde synchronisiert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">244</context>
+          <context context-type="linenumber">264</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3303402949376740921" datatype="html">
@@ -1091,7 +1115,7 @@ Datenschutz</target>
         <target state="translated">Beschreibung wurde geändert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">261</context>
+          <context context-type="linenumber">281</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3024891378452195539" datatype="html">
