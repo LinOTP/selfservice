@@ -1,4 +1,5 @@
-<section class="qr-section">
+<section *ngIf="qrUrl"
+         class="qr-section">
   <qrcode [qrdata]="qrUrl"
           [width]="256"
           [errorCorrectionLevel]="'L'"></qrcode>
