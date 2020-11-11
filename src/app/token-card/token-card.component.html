@@ -114,8 +114,16 @@
   <mat-divider></mat-divider>
   <ng-container *ngIf="token.enrollmentStatus === EnrollmentStatus.COMPLETED">
     <ng-container *ngIf="!token.enabled">
-      <ng-container *ngxPermissionsOnly="Permission.ENABLE; then enableBlock; else noEnableBlock">
-      </ng-container>
+      <div matTooltip="You do not have permissions to enable the token"
+           [matTooltipDisabled]="canEnable"
+           i18n-matTooltip>
+        <button mat-menu-item
+                [disabled]="!canEnable"
+                (click)="canEnable && enable()">
+          <mat-icon>check_box</mat-icon>
+          <span i18n>Enable</span>
+        </button>
+      </div>
     </ng-container>
     <ng-container *ngIf="token.enabled">
       <ng-container *ngxPermissionsOnly="Permission.DISABLE">
@@ -141,21 +149,3 @@
     <span i18n>Delete</span>
   </button>
 </mat-menu>
-
-<ng-template #enableBlock>
-  <button mat-menu-item
-          (click)="enable()">
-    <mat-icon>check_box</mat-icon>
-    <span i18n>Enable</span>
-  </button>
-</ng-template>
-
-<ng-template #noEnableBlock>
-  <button mat-menu-item
-          disabled
-          matTooltip="You do not have permissions to enable the token"
-          i18n-matTooltip>
-    <mat-icon>check_box</mat-icon>
-    <span i18n>Enable</span>
-  </button>
-</ng-template>

@@ -86,6 +86,7 @@ describe('TokenCardComponent', () => {
     operationsService = getInjectedStub(OperationsService);
     operationsService.deleteToken.and.returnValue(of({}));
     permissionsService = getInjectedStub(NgxPermissionsService);
+    permissionsService.hasPermission.and.returnValue(new Promise(resolve => resolve(true)));
     matDialog = getInjectedStub(MatDialog);
     tokenUpdateSpy = spyOn(component.tokenUpdate, 'next');
 

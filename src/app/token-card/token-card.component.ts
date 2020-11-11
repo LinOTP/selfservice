@@ -35,6 +35,7 @@ export class TokenCardComponent implements OnInit {
   public ModifyUnreadyTokenPermissions = ModifyUnreadyTokenPermissions;
   public isSynchronizeable: boolean;
   public isMOTP: boolean;
+  public canEnable: boolean;
 
   constructor(
     private dialog: MatDialog,
@@ -51,6 +52,9 @@ export class TokenCardComponent implements OnInit {
     if (this.token.typeDetails.type === TokenType.MOTP) {
       this.isMOTP = true;
     }
+    this.permissionsService.hasPermission(Permission.ENABLE).then(
+      canEnable => this.canEnable = canEnable
+    );
   }
 
   public setPin(): void {
