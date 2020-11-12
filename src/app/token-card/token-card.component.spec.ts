@@ -1,7 +1,7 @@
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
 
-import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
+import { NgxPermissionsAllowStubDirective, NgxPermissionsService } from 'ngx-permissions';
 
 import { of } from 'rxjs/internal/observable/of';
 
@@ -39,6 +39,7 @@ describe('TokenCardComponent', () => {
   let notificationService: jasmine.SpyObj<NotificationService>;
   let matDialog: jasmine.SpyObj<MatDialog>;
   let operationsService: jasmine.SpyObj<OperationsService>;
+  let permissionsService: jasmine.SpyObj<NgxPermissionsService>;
   let tokenUpdateSpy: jasmine.Spy;
 
   let page: Page;
@@ -67,6 +68,10 @@ describe('TokenCardComponent', () => {
           provide: MatDialog,
           useValue: spyOnClass(MatDialog)
         },
+        {
+          provide: NgxPermissionsService,
+          useValue: spyOnClass(NgxPermissionsService),
+        },
       ]
     })
       .compileComponents();
@@ -80,6 +85,8 @@ describe('TokenCardComponent', () => {
     notificationService = getInjectedStub(NotificationService);
     operationsService = getInjectedStub(OperationsService);
     operationsService.deleteToken.and.returnValue(of({}));
+    permissionsService = getInjectedStub(NgxPermissionsService);
+    permissionsService.hasPermission.and.returnValue(new Promise(resolve => resolve(true)));
     matDialog = getInjectedStub(MatDialog);
     tokenUpdateSpy = spyOn(component.tokenUpdate, 'next');
 
@@ -252,6 +259,7 @@ describe('TokenCardComponent', () => {
   describe('disable', () => {
 
     it('should notify user after success and emit token list update', fakeAsync(() => {
+      permissionsService.hasPermission.and.returnValue(new Promise(resolve => resolve(true)));
       operationsService.disable.and.returnValue(of(true));
 
       component.token = Fixtures.activeHotpToken;
@@ -259,10 +267,12 @@ describe('TokenCardComponent', () => {
       tick();
 
       expect(notificationService.message).toHaveBeenCalledWith('Token disabled');
+
       expect(tokenUpdateSpy).toHaveBeenCalledTimes(1);
     }));
 
     it('should notify user after failure and not emit token list update', fakeAsync(() => {
+      permissionsService.hasPermission.and.returnValue(new Promise(resolve => resolve(true)));
       operationsService.disable.and.returnValue(of(false));
 
       component.token = Fixtures.activeHotpToken;
@@ -272,6 +282,34 @@ describe('TokenCardComponent', () => {
       expect(notificationService.message).toHaveBeenCalledWith('Error: Could not disable token');
       expect(tokenUpdateSpy).not.toHaveBeenCalled();
     }));
+
+    it('without enable permissions should disable if the user confirmed the action', fakeAsync(() => {
+      permissionsService.hasPermission.and.returnValue(new Promise(resolve => resolve(false)));
+      matDialog.open.and.returnValue({ afterClosed: () => of(true) });
+      operationsService.disable.and.returnValue(of(true));
+
+      component.token = Fixtures.activeHotpToken;
+      component.disable();
+      tick();
+
+      expect(notificationService.message).toHaveBeenCalledWith('Token disabled');
+
+      expect(tokenUpdateSpy).toHaveBeenCalledTimes(1);
+    }));
+
+    it('without enable permissions should not disable if the user did not confirmed the action', fakeAsync(() => {
+      permissionsService.hasPermission.and.returnValue(new Promise(resolve => resolve(false)));
+      matDialog.open.and.returnValue({ afterClosed: () => of(false) });
+
+      component.token = Fixtures.activeHotpToken;
+      component.disable();
+      tick();
+
+      expect(notificationService.message).not.toHaveBeenCalled();
+
+      expect(tokenUpdateSpy).not.toHaveBeenCalled();
+    }));
+
   });
 
   describe('unassign token', () => {
