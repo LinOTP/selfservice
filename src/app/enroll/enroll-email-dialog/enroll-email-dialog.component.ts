@@ -48,8 +48,9 @@ export class EnrollEmailDialogComponent extends EnrollDialogBaseComponent implem
       if (serial) {
         this.enrolledToken = { serial: serial };
         this.stepper.next();
+      } else {
+        this.enrollmentStep.enable();
       }
-      this.enrollmentStep.enable();
     });
   }
 }

@@ -86,6 +86,7 @@ describe('EnrollYubicoDialogComponent', () => {
 
       component.registerToken();
       expect(component.stepper.selectedIndex).toEqual(1);
+      expect(component.registrationForm.disabled).toEqual(true);
     });
 
     it('should fail when registration request returns and stay on the same step', () => {
@@ -97,6 +98,7 @@ describe('EnrollYubicoDialogComponent', () => {
 
       component.registerToken();
       expect(component.stepper.selectedIndex).toEqual(0);
+      expect(component.registrationForm.disabled).toEqual(false);
     });
 
     it('should notify user of failed registration', () => {
@@ -108,6 +110,7 @@ describe('EnrollYubicoDialogComponent', () => {
 
       component.registerToken();
       expect(notificationService.message).toHaveBeenCalledWith('Token registration failed.');
+      expect(component.registrationForm.disabled).toEqual(false);
     });
   });
 });

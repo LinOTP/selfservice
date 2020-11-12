@@ -137,6 +137,7 @@ describe('EnrollPushDialogComponent', () => {
     expect(component.enrolledToken).toEqual(expectedToken);
     expect(component.stepper.selectedIndex).toEqual(2);
     expect(notificationService.message).not.toHaveBeenCalled();
+    expect(component.enrollmentStep.disabled).toEqual(true);
   }));
 
   it('should not output a message when the push enrollment failed', fakeAsync(() => {
@@ -158,6 +159,7 @@ describe('EnrollPushDialogComponent', () => {
     expect(component.enrolledToken).toEqual(undefined);
     expect(component.stepper.selectedIndex).toEqual(0);
     expect(notificationService.message).not.toHaveBeenCalled();
+    expect(component.enrollmentStep.disabled).toEqual(false);
   }));
 
   it('should let the user close the dialog', () => {

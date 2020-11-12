@@ -49,8 +49,9 @@ export class EnrollPasswordDialogComponent extends EnrollDialogBaseComponent imp
       if (response?.result?.value) {
         this.enrolledToken = { serial: response.detail.serial };
         this.stepper.next();
+      } else {
+        this.enrollmentStep.enable();
       }
-      this.enrollmentStep.enable();
     });
   }
 

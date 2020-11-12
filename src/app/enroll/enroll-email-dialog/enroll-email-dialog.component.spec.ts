@@ -111,6 +111,7 @@ describe('The EnrollEmailDialogComponent', () => {
     });
     expect(component.enrolledToken.serial).toEqual(Fixtures.emailEnrollmentResponse.detail.serial);
     expect(component.stepper.next).toHaveBeenCalledTimes(1);
+    expect(component.enrollmentStep.disabled).toEqual(true);
   }));
 
   it('should enroll an email token with a custom description', fakeAsync(() => {
@@ -132,6 +133,7 @@ describe('The EnrollEmailDialogComponent', () => {
     });
     expect(component.enrolledToken.serial).toEqual(Fixtures.emailEnrollmentResponse.detail.serial);
     expect(component.stepper.next).toHaveBeenCalledTimes(1);
+    expect(component.enrollmentStep.disabled).toEqual(true);
   }));
 
   describe('edit_email policy', () => {
@@ -179,6 +181,7 @@ describe('The EnrollEmailDialogComponent', () => {
           description: `Created via SelfService - ${Fixtures.userSystemInfo.user.email}`,
           email_address: Fixtures.userSystemInfo.user.email,
         });
+        expect(component.enrollmentStep.disabled).toEqual(true);
       }));
     });
   });
@@ -197,5 +200,6 @@ describe('The EnrollEmailDialogComponent', () => {
 
     expect(component.enrolledToken).toEqual(undefined);
     expect(notificationService.message).not.toHaveBeenCalled();
+    expect(component.enrollmentStep.disabled).toEqual(false);
   }));
 });
