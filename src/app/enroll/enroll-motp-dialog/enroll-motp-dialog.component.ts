@@ -42,8 +42,9 @@ export class EnrollMOTPDialogComponent extends EnrollDialogBaseComponent impleme
           serial: serial,
         };
         this.stepper.next();
+      } else {
+        this.enrollmentStep.enable();
       }
-      this.enrollmentStep.enable();
     });
   }
 }

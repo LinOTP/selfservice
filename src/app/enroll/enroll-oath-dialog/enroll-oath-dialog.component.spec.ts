@@ -107,6 +107,7 @@ describe('The EnrollOATHDialogComponent', () => {
     });
     expect(component.enrolledToken).toEqual(expectedToken);
     expect(component.stepper.next).toHaveBeenCalledTimes(1);
+    expect(component.enrollmentStep.disabled).toEqual(true);
   }));
 
   it('should enroll a TOTP token with a custom description', fakeAsync(() => {
@@ -127,6 +128,7 @@ describe('The EnrollOATHDialogComponent', () => {
     });
     expect(component.enrolledToken).toEqual(expectedToken);
     expect(component.stepper.next).toHaveBeenCalledTimes(1);
+    expect(component.enrollmentStep.disabled).toEqual(true);
   }));
 
   it('should not notify user if enrollment failed', fakeAsync(() => {
@@ -140,6 +142,7 @@ describe('The EnrollOATHDialogComponent', () => {
 
     expect(component.enrolledToken).toEqual(undefined);
     expect(notificationService.message).not.toHaveBeenCalled();
+    expect(component.enrollmentStep.disabled).toEqual(false);
   }));
 
   describe('copyInputMessage', () => {

@@ -112,6 +112,7 @@ describe('The EnrollSMSDialogComponent', () => {
     });
     expect(component.enrolledToken.serial).toEqual(Fixtures.smsEnrollmentResponse.detail.serial);
     expect(component.stepper.next).toHaveBeenCalledTimes(1);
+    expect(component.enrollmentStep.disabled).toEqual(true);
   }));
 
   it('should enroll an sms token with a custom description', fakeAsync(() => {
@@ -133,6 +134,7 @@ describe('The EnrollSMSDialogComponent', () => {
     });
     expect(component.enrolledToken.serial).toEqual(Fixtures.smsEnrollmentResponse.detail.serial);
     expect(component.stepper.next).toHaveBeenCalledTimes(1);
+    expect(component.enrollmentStep.disabled).toEqual(true);
   }));
 
   describe('edit_sms policy', () => {
@@ -180,6 +182,7 @@ describe('The EnrollSMSDialogComponent', () => {
           description: `Created via SelfService - ${Fixtures.userSystemInfo.user.mobile}`,
           phone: Fixtures.userSystemInfo.user.mobile,
         });
+        expect(component.enrollmentStep.disabled).toEqual(true);
       }));
     });
   });
@@ -197,5 +200,6 @@ describe('The EnrollSMSDialogComponent', () => {
 
     expect(component.enrolledToken).toEqual(undefined);
     expect(notificationService.message).not.toHaveBeenCalled();
+    expect(component.enrollmentStep.disabled).toEqual(false);
   }));
 });

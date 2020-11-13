@@ -47,8 +47,9 @@ export class EnrollSMSDialogComponent extends EnrollDialogBaseComponent implemen
       if (serial) {
         this.enrolledToken = { serial: serial };
         this.stepper.next();
+      } else {
+        this.enrollmentStep.enable();
       }
-      this.enrollmentStep.enable();
     });
   }
 }

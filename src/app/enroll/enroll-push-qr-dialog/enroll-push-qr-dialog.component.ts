@@ -44,8 +44,9 @@ export class EnrollPushQRDialogComponent extends EnrollDialogBaseComponent imple
           this.stepper.next();
         });
         this.stepper.next();
+      } else {
+        this.enrollmentStep.enable();
       }
-      this.enrollmentStep.enable();
     });
   }
 

@@ -101,6 +101,7 @@ describe('The EnrollPasswordDialogComponent', () => {
 
     tick();
     expect(button.disabled).toEqual(true);
+    expect(component.enrollmentStep.disabled).toEqual(false);
   }));
 
   describe('enrollToken', () => {
@@ -126,6 +127,7 @@ describe('The EnrollPasswordDialogComponent', () => {
 
       expect(component.enrolledToken.serial).toEqual(serial);
       expect(component.stepper.next).toHaveBeenCalledTimes(1);
+      expect(component.enrollmentStep.disabled).toEqual(true);
     }));
 
     it('should enroll a password token with a custom description', fakeAsync(() => {
@@ -151,6 +153,7 @@ describe('The EnrollPasswordDialogComponent', () => {
 
       expect(component.enrolledToken.serial).toEqual(serial);
       expect(component.stepper.next).toHaveBeenCalledTimes(1);
+      expect(component.enrollmentStep.disabled).toEqual(true);
     }));
 
     it('should not notify user if enrollment failed', fakeAsync(() => {
@@ -169,6 +172,7 @@ describe('The EnrollPasswordDialogComponent', () => {
 
       expect(component.enrolledToken).toEqual(undefined);
       expect(notificationService.message).not.toHaveBeenCalled();
+      expect(component.enrollmentStep.disabled).toEqual(false);
     }));
   });
 });

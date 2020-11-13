@@ -115,6 +115,8 @@ describe('EnrollMOTPDialogComponent', () => {
       });
       expect(component.enrolledToken).toEqual(expectedToken);
       expect(component.stepper.next).toHaveBeenCalledTimes(1);
+      expect(component.enrollmentStep.disabled).toEqual(true);
+
     }));
 
     it('should enroll an mOTP token with a custom description', fakeAsync(() => {
@@ -138,6 +140,7 @@ describe('EnrollMOTPDialogComponent', () => {
       });
       expect(component.enrolledToken).toEqual(expectedToken);
       expect(component.stepper.next).toHaveBeenCalledTimes(1);
+      expect(component.enrollmentStep.disabled).toEqual(true);
     }));
 
     it('should not notify user if enrollment failed', fakeAsync(() => {
@@ -154,6 +157,7 @@ describe('EnrollMOTPDialogComponent', () => {
 
       expect(component.enrolledToken).toEqual(undefined);
       expect(notificationService.message).not.toHaveBeenCalled();
+      expect(component.enrollmentStep.disabled).toEqual(false);
     }));
 
     it('should not be called on button click if form is invalid', fakeAsync(() => {
@@ -194,7 +198,7 @@ describe('EnrollMOTPDialogComponent', () => {
 
       expect(enrollmentService.enroll).not.toHaveBeenCalled();
       expect(component.stepper.next).not.toHaveBeenCalled();
-
+      expect(component.enrollmentStep.disabled).toEqual(false);
     }));
 
   });
