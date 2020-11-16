@@ -18,5 +18,5 @@ Description: Frontend interface for LinOTP (next generation)
  managing their own tokens.
  .
  The package provides a webinterface which is accessible under the URL
- https://linotp-server/selfservice-v2. It also provides a
- Apache site configuration.
+ https://<linotp-server>/selfservice. It also provides a
+ Apache site configuration for standalone operation.
