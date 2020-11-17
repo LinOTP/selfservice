@@ -44,9 +44,15 @@ build dist:
   script:
     - yarn build
   artifacts:
-    expire_in: 1 week
     paths:
       - dist/
+
+build docker image:
+  stage: build
+  image: docker:latest
+  script:
+    - docker build -t $DOCKERTAG_COMMIT_SHA .
+    - docker rmi $DOCKERTAG_COMMIT_SHA
 
 .build-debs:
   stage: build
@@ -65,39 +71,12 @@ build dist:
     - debuild -us -uc -b
     - mkdir -p artifacts
     - dcmd mv ../*.changes artifacts/
-
-.normal_build: &normal_build
   artifacts:
     paths:
       - artifacts/
-    expire_in: 4 weeks
-  except:
-    - tags
-
-.tag_build: &tag_build
-  artifacts:
-    paths:
-      - artifacts/
-    expire_in: 1000 years
-  only:
-    - tags
-
-build docker image:
-  stage: build
-  image: docker:latest
-  script:
-    - docker build -t $DOCKERTAG_COMMIT_SHA .
-    - docker rmi $DOCKERTAG_COMMIT_SHA
 
 build buster packages:
   extends: .build-debs
-  <<: *normal_build
-  variables:
-    DEBIAN_RELEASE_NAME: buster
-
-build buster packages (tags):
-  extends: .build-debs
-  <<: *tag_build
   variables:
     DEBIAN_RELEASE_NAME: buster
 
