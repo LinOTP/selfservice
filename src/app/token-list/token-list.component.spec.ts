@@ -14,7 +14,7 @@ import { TestingPage } from '../../testing/page-helper';
 import { MaterialModule } from '../material.module';
 import { TokenService } from '../api/token.service';
 import { EnrollmentStatus } from '../api/token';
-import { EnrollmentPermissions } from '../common/permissions';
+import { Permission } from '../common/permissions';
 import { ArrayNotEmptyPipe } from '../common/pipes/array-not-empty.pipe';
 import { ActiveTokensPipe } from '../common/pipes/active-tokens.pipe';
 import { InactiveTokensPipe } from '../common/pipes/inactive-tokens.pipe';
@@ -173,7 +173,18 @@ describe('TokenListComponent with permissions', () => {
   });
 
   it('should load enrollment permissions', () => {
-    expect(component.EnrollmentPermissions).toBe(EnrollmentPermissions);
+    expect(component.enrollmentPermissions).toEqual([
+      Permission.ENROLLPASSWORD,
+      Permission.ENROLLHOTP,
+      Permission.ENROLLTOTP,
+      Permission.ENROLLPUSH,
+      Permission.ENROLLQR,
+      Permission.ENROLLMOTP,
+      Permission.ENROLLSMS,
+      Permission.ENROLLEMAIL,
+      Permission.ENROLLYUBICO,
+      Permission.ASSIGN,
+    ]);
   });
 
   it('should load enrollment status', () => {

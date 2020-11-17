@@ -56,18 +56,6 @@ export interface PermissionSet {
     [permissionScope: string]: Permission[];
 }
 
-export const EnrollmentPermissions = [
-    Permission.ENROLLPUSH,
-    Permission.ENROLLQR,
-    Permission.ENROLLHOTP,
-    Permission.ENROLLTOTP,
-    Permission.ENROLLPASSWORD,
-    Permission.ENROLLEMAIL,
-    Permission.ENROLLSMS,
-    Permission.ASSIGN,
-    Permission.VERIFY,
-];
-
 export const ModifyUnreadyTokenPermissions = [
     Permission.SETPIN,
     Permission.DELETE,

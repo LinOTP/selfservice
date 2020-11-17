@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Token, EnrollmentStatus } from '../api/token';
+import { Token, EnrollmentStatus, tokenTypeDetails } from '../api/token';
 import { TokenService } from '../api/token.service';
-import { EnrollmentPermissions } from '../common/permissions';
+import { Permission } from '../common/permissions';
 import { AppInitService } from '../app-init.service';
 
 @Component({
@@ -13,7 +13,7 @@ import { AppInitService } from '../app-init.service';
 
 export class TokenListComponent implements OnInit {
   public EnrollmentStatus = EnrollmentStatus;
-  public EnrollmentPermissions = EnrollmentPermissions;
+  public enrollmentPermissions: Permission[] = tokenTypeDetails.map(tt => tt.enrollmentPermission).filter(p => !!p);
 
   public tokens: Token[];
   public permissionsLoaded: boolean;
