@@ -23,9 +23,33 @@
 # the correct distribution. We determine the distribution
 # using lsb_release.
 
+if [ -n "$1" ]
+  then
+    # The debian directory is in another directory
+    DEBIAN_DIR=$1
+    if [ ! -d "$DEBIAN_DIR" ]
+      then
+        echo Directory "$DEBIAN_DIR" not found
+        exit 1
+    fi
+    GBP_SINCE_PARAM="-s $(git rev-list -1 HEAD $DEBIAN_DIR/debian/changelog)"
+    export GIT_DIR=$(realpath .git)
+    cd $DEBIAN_DIR
+else
+  DEBIAN_DIR=
+  GBP_SINCE_PARAM="--auto"
+fi
 
 # Determine the release name and number that we are building for
 DEBIAN_RELEASE_NAME="$(lsb_release -c -s)"
+
+# Keep any suffix defined on the distribution name such as
+#  buster-dev -> DISTRIBUTION_SUFFIX="-dev"
+#
+# We will use this to achieve a mapping such as
+#  buster-dev -> squeeze-dev
+# It will be left blank if there is no suffix
+DISTRIBUTION_SUFFIX="$(dpkg-parsechangelog -S Distribution | sed -ne '/-/ s/^[a-z]\+\(-[a-z]\+\)$/\1/p')"
 
 # Ensure generated changelog entries have the same
 export DEBEMAIL="$(dpkg-parsechangelog -S Maintainer)"
@@ -33,7 +57,7 @@ export DEBEMAIL="$(dpkg-parsechangelog -S Maintainer)"
 # To ensure package version numbers for backports follow in the
 # correct order, we treat stable / oldstable as a
 # backport build
-if [ "$DEBIAN_RELEASE_NAME" = buster ]; then
+if [ "$DEBIAN_RELEASE_NAME" = bullseye ]; then
   BPO_FLAG=
 else
   BPO_FLAG=--bpo
@@ -50,7 +74,7 @@ if [ ! -n "${CI_COMMIT_TAG}" ]; then
   COMMIT_DATE=$(date --date="@${COMMIT_TS}" +%Y%m%d%H%M)
   CURRENT_VERSION="$(dpkg-parsechangelog -S Version)"
 
-  gbp dch --auto --snapshot --snapshot-number="${COMMIT_DATE}" --no-multimaint --ignore-branch $BPO_FLAG
+  gbp dch $GBP_SINCE_PARAM --snapshot --snapshot-number="${COMMIT_DATE}" --no-multimaint --ignore-branch $BPO_FLAG
 else
   # Tagged build
 
@@ -63,7 +87,7 @@ fi
 # In order to upload to our internal archive, we need to set the distribution to
 # correct destination distribution
 CURRENT_DISTRIBUTION="$(dpkg-parsechangelog -S Distribution)"
-sed "1s/ ${CURRENT_DISTRIBUTION}\(; urgency=\)/ ${DEBIAN_RELEASE_NAME}\1/" -i debian/changelog
+sed "1s/ ${CURRENT_DISTRIBUTION}\(; urgency=\)/ ${DEBIAN_RELEASE_NAME}${DISTRIBUTION_SUFFIX}\1/" -i debian/changelog
 
 # Show the results
 dpkg-parsechangelog
