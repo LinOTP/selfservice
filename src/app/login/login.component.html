@@ -36,7 +36,7 @@
       <mat-form-field *ngIf="systemInfo?.settings.mfa_login && systemInfo?.settings.mfa_3_fields">
         <input matInput
                formControlName="otp"
-               placeholder="OTP"
+               placeholder="One-time password (OTP)"
                name="otp"
                i18n-placeholder
                autocomplete="one-time-code">
@@ -53,10 +53,10 @@
 
 <mat-card id="loginStage2"
           *ngIf="loginStage === 2">
-  <mat-card-title i18n="card header|login page title">Login</mat-card-title>
+  <mat-card-title i18n="card header|login page title">2-step authentication</mat-card-title>
   <mat-card-content>
     <div *ngIf="factors && factors.length > 0; else noFactors">
-      <p i18n><b>Please choose your preferred authentication method to verify your login:</b></p>
+      <p i18n><b>Please choose an authentication method to verify that it is you logging in:</b></p>
       <mat-action-list class="token-list">
         <button mat-list-item
                 *ngFor="let token of factors; index as i"
@@ -114,10 +114,9 @@
       id="loginFormStage3"
       *ngIf="loginStage === 3">
   <mat-card>
-    <mat-card-title i18n="card header|login page title">Login</mat-card-title>
+    <mat-card-title i18n="card header|login page title">2-step authentication</mat-card-title>
     <mat-card-content>
-      <p i18n>
-        Second factor:
+      <p i18n>Selected authentication method:
         <span class="selectedToken">
           {{ selectedToken.typeDetails.name }} with serial {{ selectedToken.serial }}
         </span>
@@ -130,7 +129,7 @@
           <p *ngSwitchCase="TokenType.YUBICO || TokenType.YUBIKEY"
              i18n>Please connect your Yubikey and press its button.</p>
           <p *ngSwitchDefault
-             i18n>Please enter the next OTP for the selected token:</p>
+             i18n>Please enter the current OTP for the selected token:</p>
         </ng-container>
       </ng-container>
 

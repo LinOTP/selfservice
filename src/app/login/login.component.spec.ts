@@ -513,7 +513,7 @@ describe('LoginComponent', () => {
       ].forEach(token => {
         component.selectedToken = token;
         fixture.detectChanges();
-        expect(page.getOTPForm().textContent).toContain('Please enter the next OTP for the selected token:');
+        expect(page.getOTPForm().textContent).toContain('Please enter the current OTP for the selected token:');
       });
     });
 
