@@ -3,6 +3,7 @@ import { Permission } from '../app/common/permissions';
 import { UserSystemInfo, SystemInfo } from '../app/system.service';
 import { LinOTPResponse } from '../app/api/api';
 import { ReplyMode } from '../app/api/test.service';
+import { HistoryRequestOptions, HistoryPage, HistoryResponse, HistoryField, SortOrder } from '../app/api/history';
 
 export class Fixtures {
 
@@ -539,4 +540,257 @@ export class TokenListFixtures {
       }
     };
   }
+}
+
+export class HistoryFixtures {
+
+  static get mockRequestOptions(): HistoryRequestOptions {
+    return {
+      page: 1,
+      recordCount: 10,
+      sortBy: HistoryField.SERIAL,
+      sortOrder: SortOrder.DESCENDING,
+      query: '',
+      queryType: HistoryField.ACTION
+    };
+  }
+
+  static get mockResponse(): HistoryResponse {
+    return {
+      page: 1,
+      total: 22,
+      rows: [
+        {
+          id: 1,
+          cell: [
+            '2020-11-17 19:52:35.619941',
+            'userservice/history',
+            '1',
+            '',
+            '',
+            '',
+            '',
+            ''
+          ]
+        },
+        {
+          id: 2,
+          cell: [
+            '2020-11-17 11:28:28.058543',
+            'userservice/usertokenlist',
+            '0',
+            '',
+            '',
+            '',
+            '',
+            ''
+          ]
+        },
+        {
+          id: 3,
+          cell: [
+            '2020-11-17 11:28:11.111613',
+            'userservice/enroll',
+            '1',
+            'TOTP0001A063',
+            '',
+            '',
+            'tokennum = 2',
+            ''
+          ]
+        },
+        {
+          id: 4,
+          cell: [
+            '2020-11-17 19:52:35.619941',
+            'userservice/history',
+            '1',
+            '',
+            '',
+            '',
+            '',
+            ''
+          ]
+        },
+        {
+          id: 5,
+          cell: [
+            '2020-11-17 11:28:28.058543',
+            'userservice/usertokenlist',
+            '0',
+            '',
+            '',
+            '',
+            '',
+            ''
+          ]
+        },
+        {
+          id: 6,
+          cell: [
+            '2020-11-17 11:28:11.111613',
+            'userservice/enroll',
+            '1',
+            'TOTP0001A063',
+            '',
+            '',
+            'tokennum = 2',
+            ''
+          ]
+        },
+        {
+          id: 7,
+          cell: [
+            '2020-11-17 19:52:35.619941',
+            'userservice/history',
+            '1',
+            '',
+            '',
+            '',
+            '',
+            ''
+          ]
+        },
+        {
+          id: 8,
+          cell: [
+            '2020-11-17 11:28:28.058543',
+            'userservice/usertokenlist',
+            '0',
+            '',
+            '',
+            '',
+            '',
+            ''
+          ]
+        },
+        {
+          id: 9,
+          cell: [
+            '2020-11-17 11:28:11.111613',
+            'userservice/enroll',
+            '1',
+            'TOTP0001A063',
+            '',
+            '',
+            'tokennum = 2',
+            ''
+          ]
+        },
+        {
+          id: 10,
+          cell: [
+            '2020-11-17 19:52:35.619941',
+            'userservice/history',
+            '1',
+            '',
+            '',
+            '',
+            '',
+            ''
+          ]
+        }
+      ],
+    };
+  }
+
+  static get mockPage(): HistoryPage {
+    return {
+      page: 0,
+      totalRecords: 22,
+      pageRecords: [
+        {
+          date: new Date('2020-11-17 19:52:35.619941'),
+          action: 'userservice/history',
+          success: true,
+          serial: '',
+          tokenType: null,
+          actionDetail: '',
+          info: '',
+        },
+        {
+          date: new Date('2020-11-17 11:28:28.058543'),
+          action: 'userservice/usertokenlist',
+          success: false,
+          serial: '',
+          tokenType: null,
+          actionDetail: '',
+          info: '',
+        },
+        {
+          date: new Date('2020-11-17 11:28:11.111613'),
+          action: 'userservice/enroll',
+          success: true,
+          serial: 'TOTP0001A063',
+          tokenType: null,
+          actionDetail: 'tokennum = 2',
+          info: '',
+        },
+        {
+          date: new Date('2020-11-17 19:52:35.619941'),
+          action: 'userservice/history',
+          success: true,
+          serial: '',
+          tokenType: null,
+          actionDetail: '',
+          info: '',
+        },
+        {
+          date: new Date('2020-11-17 11:28:28.058543'),
+          action: 'userservice/usertokenlist',
+          success: false,
+          serial: '',
+          tokenType: null,
+          actionDetail: '',
+          info: '',
+        },
+        {
+          date: new Date('2020-11-17 11:28:11.111613'),
+          action: 'userservice/enroll',
+          success: true,
+          serial: 'TOTP0001A063',
+          tokenType: null,
+          actionDetail: 'tokennum = 2',
+          info: '',
+        },
+        {
+          date: new Date('2020-11-17 19:52:35.619941'),
+          action: 'userservice/history',
+          success: true,
+          serial: '',
+          tokenType: null,
+          actionDetail: '',
+          info: '',
+        },
+        {
+          date: new Date('2020-11-17 11:28:28.058543'),
+          action: 'userservice/usertokenlist',
+          success: false,
+          serial: '',
+          tokenType: null,
+          actionDetail: '',
+          info: '',
+        },
+        {
+          date: new Date('2020-11-17 11:28:11.111613'),
+          action: 'userservice/enroll',
+          success: true,
+          serial: 'TOTP0001A063',
+          tokenType: null,
+          actionDetail: 'tokennum = 2',
+          info: '',
+        },
+        {
+          date: new Date('2020-11-17 19:52:35.619941'),
+          action: 'userservice/history',
+          success: true,
+          serial: '',
+          tokenType: null,
+          actionDetail: '',
+          info: '',
+        }
+      ],
+    };
+  }
+
 }
