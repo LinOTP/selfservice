@@ -1974,13 +1974,21 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="3884713207892396207" datatype="html">
+        <source>This ensures only you can use your token.</source>
+        <target state="translated">Dies garantiert, dass nur Sie Ihr Token benutzen können.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="1968008926412620990" datatype="html">
         <source>During the authentication process you may need to provide this PIN together with the token
       OTP.</source>
-        <target state="translated">Bei der Authentifizierung brauchen Sie diese PIN gegebenenfalls zusätzlich zu dem Token-OTP.</target>
+        <target state="translated">Bei der Authentifizierung benötigen Sie diese PIN gegebenenfalls zusätzlich zu dem Token-OTP.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.html</context>
-          <context context-type="linenumber">6,7</context>
+          <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7965601894766197562" datatype="html">
@@ -1988,7 +1996,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">PIN setzen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.html</context>
-          <context context-type="linenumber">32</context>
+          <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
       <trans-unit id="127382592332405183" datatype="html">
@@ -1996,7 +2004,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Die eingegebenen PINs sind nicht gleich</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.html</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7601761728301883446" datatype="html">
