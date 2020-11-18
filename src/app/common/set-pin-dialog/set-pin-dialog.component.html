@@ -1,8 +1,10 @@
 <h3 mat-dialog-title
-    i18n>Set a new PIN</h3>
+    i18n>Set a new token PIN</h3>
 <form [formGroup]="form"
       (ngSubmit)="submit()">
   <div mat-dialog-content>
+    <p i18n>During the authentication process you may need to provide this PIN together with the token
+      OTP.</p>
     <mat-form-field>
       <input matInput
              type="password"

@@ -3,6 +3,8 @@
 <form [formGroup]="form"
       (ngSubmit)="submit()">
   <div mat-dialog-content>
+    <p i18n>This is used to generate OTPs which are only known to you. If you change the PIN here, you will also need to
+      change it on your device.</p>
     <mat-form-field>
       <input matInput
              type="password"
