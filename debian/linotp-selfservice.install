@@ -1,1 +1,2 @@
 dist /usr/share/linotp-selfservice/
+config/linotp/50-selfservice-site-redirect.cfg /etc/linotp/conf.d/
