@@ -10,7 +10,6 @@ export enum Permission {
     ENROLLEMAIL = 'EMAIL.ENROLL',
     ENROLLSMS = 'SMS.ENROLL',
     ENROLLYUBICO = 'YUBICO.ENROLL',
-    ENROLLYUBIKEY = 'YUBIKEY.ENROLL',
     DELETE = 'DELETE',
     SETPIN = 'SETPIN',
     SETMOTPPIN = 'SETMOTPPIN',
@@ -39,7 +38,6 @@ export const PoliciesToPermissionsMapping: { [policy: string]: Permission } = {
     'enrollSMS': Permission.ENROLLSMS,
     'enrollEMAIL': Permission.ENROLLEMAIL,
     'enrollYUBICO': Permission.ENROLLYUBICO,
-    'enrollYUBIKEY': Permission.ENROLLYUBIKEY,
     'delete': Permission.DELETE,
     'setOTPPIN': Permission.SETPIN,
     'setMOTPPIN': Permission.SETMOTPPIN,
@@ -57,18 +55,6 @@ export const PoliciesToPermissionsMapping: { [policy: string]: Permission } = {
 export interface PermissionSet {
     [permissionScope: string]: Permission[];
 }
-
-export const EnrollmentPermissions = [
-    Permission.ENROLLPUSH,
-    Permission.ENROLLQR,
-    Permission.ENROLLHOTP,
-    Permission.ENROLLTOTP,
-    Permission.ENROLLPASSWORD,
-    Permission.ENROLLEMAIL,
-    Permission.ENROLLSMS,
-    Permission.ASSIGN,
-    Permission.VERIFY,
-];
 
 export const ModifyUnreadyTokenPermissions = [
     Permission.SETPIN,

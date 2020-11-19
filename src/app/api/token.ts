@@ -154,8 +154,6 @@ export const tokenTypeDetails: TokenTypeDetails[] = [
     name: $localize`Yubikey token`,
     description: $localize`Authenticate with a Yubikey hardware token.`,
     icon: 'vpn_key', // TODO: we might want to use an official logo here
-    enrollmentPermission: Permission.ENROLLYUBIKEY,
-    enrollmentActionLabel: $localize`Register`,
     authenticationPrompt: $localize`Authenticate using your Yubikey token`,
   },
   {

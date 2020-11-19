@@ -39,6 +39,9 @@ linotp-selfservice (1.0.dev0-1) buster-dev; urgency=medium
     opens the token test to verify that the user can use the token now.
   * Pressing enter after successfully creating tokens no longer causes
     unintential duplicated tokens from being created.
+  * The enrollment grid now is ensured to be always shown if a token enrollment
+    policy is set. Also the section will no longer be mistakenly shown if the
+    verify policy is set but no enrollment policies are.
 
  -- KeyIdentity GmbH <packaging@keyidentity.com>  Tue, 17 Nov 2020 14:44:00 +0100
 
