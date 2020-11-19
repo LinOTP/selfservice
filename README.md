@@ -79,7 +79,7 @@ The application needs to know the URL prefix where the project will be served fr
 
 ```bash
    yarn build                                     # http://<hostname>/<de|en>/
-   yarn build --base-href=/selfservice-v2         # http://<hostname>/selfservice-v2/<de|en>/
+   yarn build --base-href=/selfservice            # http://<hostname>/selfservice/<de|en>/
    yarn build --base-href=https://my.server/users # https://my.server/users/<de|en>/
 ```
 
@@ -108,7 +108,7 @@ docker run -it --rm -v $(pwd):/app ngs-deb-builder
 
 The application allows to customize the look and feel after the build. This means that, once installed on a server, support is available to modify the styles served to the customer.
 
-You can put custom files under this location: `/etc/linotp-selfservice/customization/`. Files in this directory will be be served with the url starting with `/selfservice-v2/(en|de)/assets/`.
+You can put custom files under this location: `/etc/linotp-selfservice/customization/`. Files in this directory will be be served with the url starting with `/selfservice/(en|de)/assets/`.
 
 For example, this feature allows you to replace logo.png and favicon.ico to define your own design.
 
