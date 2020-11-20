@@ -553,7 +553,7 @@
         <target state="translated">Schritt 3 von 3</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">145</context>
+          <context context-type="linenumber">146</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7302693902035391340" datatype="html">
@@ -613,12 +613,14 @@
           <context context-type="linenumber">101</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="6280875858044122996" datatype="html">
-        <source>If you wish to set a security PIN, please do so now:</source>
-        <target state="translated">Wenn Sie einen PIN setzen wollen, dann setzen Sie ihn hier:</target>
+      <trans-unit id="8160177433297625366" datatype="html">
+        <source>You may set a PIN now to protect your token against misuse, as it ensures only you can use your token.
+        This step is optional, and you can still do it later over the token menu.</source>
+        <target state="translated">Sie können jetzt eine PIN festlegen, um Ihr Token vor missbräuchlicher Verwendung zu schützen. Sie stellt sicher, dass nur Sie Ihren Token verwenden können.
+Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Menü durchführen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">136</context>
+          <context context-type="linenumber">136,137</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4805394958342190750" datatype="html">
@@ -626,15 +628,15 @@
         <target state="translated">PIN setzen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">140</context>
+          <context context-type="linenumber">141</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="3191395262268974798" datatype="html">
-        <source>Setting a PIN helps you protect your token against misuse.</source>
-        <target state="translated">Einen PIN zu setzen erhöht die Sicherheit gegen Missbrauch des Tokens.</target>
+      <trans-unit id="7034645605656512531" datatype="html">
+        <source>Please verify with a token test whether you can successfully use the token:</source>
+        <target state="translated">Bitte überprüfen Sie mit einem Token-Test, ob Sie den Token erfolgreich verwenden können:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">142</context>
+          <context context-type="linenumber">144</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5852602858003873965" datatype="html">
@@ -911,7 +913,7 @@
         <target state="translated">Beenden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
-          <context context-type="linenumber">88</context>
+          <context context-type="linenumber">87</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7856802224028698537" datatype="html">
@@ -919,7 +921,7 @@
         <target state="translated">Token Aktivieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
-          <context context-type="linenumber">92</context>
+          <context context-type="linenumber">91</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2025479064694601146" datatype="html">
@@ -1976,7 +1978,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
       </trans-unit>
       <trans-unit id="3884713207892396207" datatype="html">
         <source>This ensures only you can use your token.</source>
-        <target state="translated">Dies garantiert, dass nur Sie Ihr Token benutzen können.</target>
+        <target state="translated">Dies stellt sicher, dass nur Sie Ihren Token verwenden können.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.html</context>
           <context context-type="linenumber">6</context>
