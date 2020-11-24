@@ -436,7 +436,7 @@
       </trans-unit>
       <trans-unit id="1645871406213507646" datatype="html">
         <source>PIN set</source>
-        <target state="translated">PIN gesetzt</target>
+        <target state="translated">PIN festgelegt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
           <context context-type="linenumber">73</context>
@@ -625,7 +625,7 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
       </trans-unit>
       <trans-unit id="4805394958342190750" datatype="html">
         <source>Set pin</source>
-        <target state="translated">PIN setzen</target>
+        <target state="translated">PIN vergeben</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
           <context context-type="linenumber">141</context>
@@ -712,7 +712,7 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
       <trans-unit id="6418649048838825299" datatype="html">
         <source>Create a new token that generates OTP values from your mobile device, given a secret password and a custom
       pin.</source>
-        <target state="translated">Erstellen Sie einen Token, der auf Ihrem Mobiltelfon OTPs anhand eines geheimen Passworts und eines von Ihnen definierten PINs generiert.</target>
+        <target state="translated">Erstellen Sie einen Token, der auf Ihrem Mobiltelfon OTPs anhand eines geheimen Passworts und einer von Ihnen definierten PINs generiert.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-motp-dialog/enroll-motp-dialog.component.html</context>
           <context context-type="linenumber">8,9</context>
@@ -753,7 +753,7 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
       </trans-unit>
       <trans-unit id="993034142207925415" datatype="html">
         <source>Enter your token's mOTP pin</source>
-        <target state="translated">Geben Sie Ihr mOTP-PIN ein</target>
+        <target state="translated">Geben Sie Ihre mOTP-PIN ein</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-motp-dialog/enroll-motp-dialog.component.html</context>
           <context context-type="linenumber">32</context>
@@ -945,7 +945,7 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
       </trans-unit>
       <trans-unit id="7301392706728680974" datatype="html">
         <source>mOTP PIN set</source>
-        <target state="translated">mOTP-PIN gesetzt</target>
+        <target state="translated">mOTP-PIN festgeleft</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
           <context context-type="linenumber">90</context>
@@ -1218,17 +1218,17 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
           <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="5211449697094133618" datatype="html">
-        <source>Set PIN</source>
-        <target state="translated">PIN setzen</target>
+      <trans-unit id="2810791743204319094" datatype="html">
+        <source>Change PIN</source>
+        <target state="translated">PIN ändern</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.html</context>
           <context context-type="linenumber">76</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="3190802834715496476" datatype="html">
-        <source>Set mOTP PIN</source>
-        <target state="translated">mOTP-PIN setzen</target>
+      <trans-unit id="6193917997400489563" datatype="html">
+        <source>Change mOTP PIN</source>
+        <target state="translated">mOTP-PIN ändern</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.html</context>
           <context context-type="linenumber">83</context>
@@ -1490,7 +1490,7 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
         required to enter your password for OTP authentication:
       </source>
         <target state="translated">
-        Geben Sie Ihren PIN oder Ihr Passwort ein, falls Sie eine PIN gesetzt haben,
+        Geben Sie Ihre PIN oder Ihr Passwort ein, falls Sie eine PIN vergeben haben,
         oder für die Authentifizierung ein Passwort erforderlich ist:
       </target>
         <context-group purpose="location">
@@ -1946,7 +1946,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
       </trans-unit>
       <trans-unit id="856582100125379791" datatype="html">
         <source>New PIN</source>
-        <target state="translated">Neuer PIN</target>
+        <target state="translated">Neue PIN</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.ts</context>
           <context context-type="linenumber">21</context>
@@ -1954,7 +1954,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
       </trans-unit>
       <trans-unit id="8612534928653419038" datatype="html">
         <source>Confirm your new PIN</source>
-        <target state="translated">Bestätigen Sie Ihren neuen PIN</target>
+        <target state="translated">Bestätigen Sie Ihre neue PIN</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.ts</context>
           <context context-type="linenumber">22</context>
@@ -1962,7 +1962,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
       </trans-unit>
       <trans-unit id="1481043453517638154" datatype="html">
         <source>Pin could not be set. Please try again.</source>
-        <target state="translated">Das Setzen des PIN ist fehlgeschlagen. Bitte versuchen Sie es erneut.</target>
+        <target state="translated">PIN-Vergabe fehlgeschlagen. Bitte versuchen Sie es erneut.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.ts</context>
           <context context-type="linenumber">68</context>
@@ -1970,7 +1970,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
       </trans-unit>
       <trans-unit id="7576435564439636809" datatype="html">
         <source>Set a new token PIN</source>
-        <target state="translated">Neue Token-PIN setzen</target>
+        <target state="translated">Neue Token-PIN festlegen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.html</context>
           <context context-type="linenumber">2</context>
@@ -1995,7 +1995,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
       </trans-unit>
       <trans-unit id="7965601894766197562" datatype="html">
         <source>set pin</source>
-        <target state="translated">PIN setzen</target>
+        <target state="translated">PIN festlegen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.html</context>
           <context context-type="linenumber">33</context>
@@ -2011,7 +2011,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
       </trans-unit>
       <trans-unit id="7601761728301883446" datatype="html">
         <source>mOTP pin could not be set. Please try again.</source>
-        <target state="translated">Das Setzen des mOTP-PIN ist fehlgeschlagen. Bitte versuchen Sie es erneut.</target>
+        <target state="translated">mOTP-PIN-Vergabe fehlgeschlagen. Bitte versuchen Sie es erneut.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-motp-pin-dialog/set-motp-pin-dialog.component.ts</context>
           <context context-type="linenumber">68</context>
@@ -2019,7 +2019,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
       </trans-unit>
       <trans-unit id="3720441502365232593" datatype="html">
         <source>Set a new MOTP PIN</source>
-        <target state="translated">Neuer mOTP-PIN setzen</target>
+        <target state="translated">Neue mOTP-PIN festlegen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-motp-pin-dialog/set-motp-pin-dialog.component.html</context>
           <context context-type="linenumber">2</context>
@@ -2036,7 +2036,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
       </trans-unit>
       <trans-unit id="1664954969409782298" datatype="html">
         <source>set mOTP pin</source>
-        <target state="translated">mOTP-PIN setzen</target>
+        <target state="translated">mOTP-PIN vergeben</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-motp-pin-dialog/set-motp-pin-dialog.component.html</context>
           <context context-type="linenumber">32</context>
