@@ -105,6 +105,35 @@ describe('TokenCardComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should mark the token as synchronizable if it is a HOTP or TOTP token', () => {
+    [Fixtures.activeHotpToken, Fixtures.activeTotpToken].forEach(token => {
+      fixture = TestBed.createComponent(TokenCardComponent);
+      component = fixture.componentInstance;
+      component.token = token;
+      fixture.detectChanges();
+      expect(component.isSynchronizeable).toEqual(true);
+    });
+  });
+
+  it('should mark the token as non-synchronizable if it is not a HOTP or TOTP token', () => {
+    [
+      Fixtures.activeEmailToken,
+      Fixtures.activeSMSToken,
+      Fixtures.activeYubicoToken,
+      Fixtures.activeYubikeyToken,
+      Fixtures.activeMotpToken,
+      Fixtures.activePasswordToken,
+      Fixtures.activePushToken,
+      Fixtures.activeQRToken,
+    ].forEach(token => {
+      fixture = TestBed.createComponent(TokenCardComponent);
+      component = fixture.componentInstance;
+      component.token = token;
+      fixture.detectChanges();
+      expect(component.isSynchronizeable).not.toEqual(true);
+    });
+  });
+
   it('renders the token as a card', () => {
     component.token = Fixtures.activeHotpToken;
     fixture.detectChanges();

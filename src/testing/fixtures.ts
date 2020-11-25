@@ -115,6 +115,10 @@ export class Fixtures {
     return new Token(2, 'Active-PushToken-Serial', this.tokenTypeDetails[TokenType.PUSH], true, 'Description');
   }
 
+  static get activeQRToken(): Token {
+    return new Token(2, 'Active-QRToken-Serial', this.tokenTypeDetails[TokenType.QR], true, 'Description');
+  }
+
   static get inactiveHotpToken(): Token {
     return new Token(3, 'Inactive-Hotp-Token-Serial', this.tokenTypeDetails[TokenType.HOTP], false, 'Description');
   }
