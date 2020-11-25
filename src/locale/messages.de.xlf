@@ -96,9 +96,9 @@ Datenschutz</target>
           <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="1356196246930471502" datatype="html">
-        <source>The following tokens are ready to be used:</source>
-        <target state="translated">Die folgenden Token sind bereit für den Einsatz:</target>
+      <trans-unit id="3411241422554668048" datatype="html">
+        <source>The following tokens are available for use:</source>
+        <target state="translated">Die folgenden Token stehen zur Authentifizierung bereit:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
           <context context-type="linenumber">21</context>
@@ -122,7 +122,7 @@ Datenschutz</target>
       </trans-unit>
       <trans-unit id="860629738331841971" datatype="html">
         <source>Set up a new authentication method</source>
-        <target state="translated">Neue Authentisierungsmethoden einrichten</target>
+        <target state="translated">Neue Authentisierungsmethode einrichten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
           <context context-type="linenumber">42</context>

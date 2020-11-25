@@ -133,7 +133,7 @@ describe('TokenListComponent with permissions', () => {
 
     fixture.detectChanges();
     expect(page.getActiveAuthSectionElement('h2').textContent).toEqual('Active authentication methods');
-    expect(page.getActiveAuthSectionElement('p').textContent).toEqual('The following tokens are ready to be used:');
+    expect(page.getActiveAuthSectionElement('p').textContent).toEqual('The following tokens are available for use:');
 
     expect(page.getEnrollAlternativeTokenSectionElement('h2').textContent).toEqual('Set up a new authentication method');
     expect(page.getEnrollAlternativeTokenSectionElement('p').textContent).toEqual('The following authentication methods' +
