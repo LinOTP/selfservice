@@ -40,6 +40,7 @@ describe('AppComponent', () => {
   let loginService: jasmine.SpyObj<LoginService>;
   let loginChangeSubject: Subject<UserSystemInfo['user']>;
   let systemService: jasmine.SpyObj<SystemService>;
+  let notificationService: jasmine.SpyObj<NotificationService>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
@@ -71,6 +72,7 @@ describe('AppComponent', () => {
   beforeEach(() => {
     loginService = getInjectedStub(LoginService);
     systemService = getInjectedStub(SystemService);
+    notificationService = getInjectedStub(NotificationService);
 
     loginService.logout.and.returnValue(of(null));
     systemService.getSystemInfo$.and.returnValue(of(Fixtures.systemInfo));
@@ -142,5 +144,18 @@ describe('AppComponent', () => {
     fixture.detectChanges();
 
     expect(page.getUserNameValue()).toEqual(user.username);
+  });
+
+  describe('logout', () => {
+    it('should display a success message on successful logout', () => {
+      loginService.logout.and.returnValue(of(true));
+      component.logout();
+      expect(notificationService.message).toHaveBeenCalledWith('Logout successful');
+    });
+    it('should display a failure message on failed logout', () => {
+      loginService.logout.and.returnValue(of(false));
+      component.logout();
+      expect(notificationService.message).toHaveBeenCalledWith('Logout failed');
+    });
   });
 });
