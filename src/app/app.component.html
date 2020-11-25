@@ -8,9 +8,11 @@
     <h1 id="app-name">{{ title }}</h1>
   </div>
   <nav *ngIf="userData">
-    <a *ngFor="let link of navLinks"
-       mat-button
-       [routerLink]="link.path">{{ link.label }}</a>
+    <ng-container *ngFor="let link of navLinks">
+      <a mat-button
+         *ngxPermissionsOnly="link.permission"
+         [routerLink]="link.path">{{ link.label }}</a>
+    </ng-container>
   </nav>
   <div class="user-info"
        *ngIf="userData">

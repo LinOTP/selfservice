@@ -22,6 +22,7 @@ export enum Permission {
     VERIFY = 'VERIFY',
     SETDESCRIPTION = 'SETDESCRIPTION',
     GETSERIAL = 'GETSERIAL',
+    HISTORY = 'HISTORY',
 }
 
 export const PoliciesToPermissionsMapping: { [policy: string]: Permission } = {
@@ -50,6 +51,7 @@ export const PoliciesToPermissionsMapping: { [policy: string]: Permission } = {
     'verify': Permission.VERIFY,
     'setDescription': Permission.SETDESCRIPTION,
     'getserial': Permission.GETSERIAL,
+    'history': Permission.HISTORY,
 };
 
 export interface PermissionSet {
