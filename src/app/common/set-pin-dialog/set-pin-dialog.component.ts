@@ -5,7 +5,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Token } from '../../api/token';
 import { OperationsService } from '../../api/operations.service';
 import { ErrorStateRootMatcher } from '../form-helpers/error-state-root-matcher';
-import { NotificationService } from '../notification.service';
 
 @Component({
   selector: 'app-set-pin-dialog',
@@ -26,7 +25,6 @@ export class SetPinDialogComponent {
     @Inject(MAT_DIALOG_DATA) private token: Token,
     private operationsService: OperationsService,
     private formBuilder: FormBuilder,
-    private notificationService: NotificationService,
   ) {
     this.form = this.formBuilder.group(
       {
@@ -65,7 +63,6 @@ export class SetPinDialogComponent {
           this.dialogRef.close(true);
         } else {
           this.awaitingResponse = false;
-          this.notificationService.message($localize`Pin could not be set. Please try again.`);
         }
       });
     }

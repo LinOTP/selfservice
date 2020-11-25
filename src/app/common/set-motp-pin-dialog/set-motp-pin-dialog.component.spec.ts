@@ -10,7 +10,6 @@ import { spyOnClass } from '../../../testing/spyOnClass';
 
 import { MaterialModule } from '../../material.module';
 import { OperationsService } from '../../api/operations.service';
-import { NotificationService } from '../notification.service';
 
 import { SetMOTPPinDialogComponent } from './set-motp-pin-dialog.component';
 
@@ -25,7 +24,6 @@ describe('SetMOTPPinDialogComponent', () => {
   let component: SetMOTPPinDialogComponent;
   let fixture: ComponentFixture<SetMOTPPinDialogComponent>;
   let operationsService: OperationsService;
-  let notificationService: NotificationService;
   const token = Fixtures.activeHotpToken;
   let page: Page;
   let matDialogRef: MatDialogRef<SetMOTPPinDialogComponent>;
@@ -51,17 +49,12 @@ describe('SetMOTPPinDialogComponent', () => {
           provide: OperationsService,
           useValue: spyOnClass(OperationsService),
         },
-        {
-          provide: NotificationService,
-          useValue: spyOnClass(NotificationService),
-        },
       ]
     }).compileComponents();
   });
 
   beforeEach(() => {
     operationsService = TestBed.inject(OperationsService);
-    notificationService = TestBed.inject(NotificationService);
     matDialogRef = TestBed.inject(MatDialogRef);
 
     fixture = TestBed.createComponent(SetMOTPPinDialogComponent);
@@ -82,7 +75,6 @@ describe('SetMOTPPinDialogComponent', () => {
     component.submit();
     expect(operationsService.setMOTPPin).toHaveBeenCalledWith(token, '1234');
     expect(matDialogRef.close).toHaveBeenCalledWith(true);
-    expect(notificationService.message).not.toHaveBeenCalled();
   });
 
   it('should not allow setting an empty pin', () => {
@@ -92,7 +84,6 @@ describe('SetMOTPPinDialogComponent', () => {
     component.submit();
     expect(operationsService.setMOTPPin).not.toHaveBeenCalled();
     expect(matDialogRef.close).not.toHaveBeenCalled();
-    expect(notificationService.message).not.toHaveBeenCalled();
   });
 
   it('should display a notification message if submission fails', () => {
@@ -101,7 +92,6 @@ describe('SetMOTPPinDialogComponent', () => {
     operationsService.setMOTPPin = jasmine.createSpy('setMOTPPin').and.returnValue(of(false));
 
     component.submit();
-    expect(notificationService.message).toHaveBeenCalledWith('mOTP pin could not be set. Please try again.');
   });
 
   it('should not call setPin nor close dialog if pin values are different on submit', () => {
@@ -111,7 +101,6 @@ describe('SetMOTPPinDialogComponent', () => {
     component.submit();
     expect(operationsService.setMOTPPin).not.toHaveBeenCalled();
     expect(matDialogRef.close).not.toHaveBeenCalled();
-    expect(notificationService.message).not.toHaveBeenCalled();
   });
 
   it('should not send backend request if pin values are different', () => {
@@ -121,7 +110,6 @@ describe('SetMOTPPinDialogComponent', () => {
     component.submit();
     expect(operationsService.setMOTPPin).not.toHaveBeenCalled();
     expect(matDialogRef.close).not.toHaveBeenCalled();
-    expect(notificationService.message).not.toHaveBeenCalled();
   });
 
   it('should disable submit button if pin values are different', () => {

@@ -108,24 +108,23 @@ export class TokenCardComponent implements OnInit {
       .pipe(
         filter((confirmed: boolean) => !!confirmed),
         switchMap(() => this.operationsService.deleteToken(this.token.serial)),
+        filter(result => !!result),
       )
-      .subscribe(response => {
-        if (response) {
-          this.notificationService.message($localize`Token deleted`);
-          this.tokenUpdate.next();
-        }
+      .subscribe(() => {
+        this.notificationService.message($localize`Token deleted`);
+        this.tokenUpdate.next();
       });
   }
 
   public enable(): void {
-    this.operationsService.enable(this.token).subscribe(isSuccessful => {
-      if (isSuccessful) {
+    this.operationsService.enable(this.token)
+      .pipe(
+        filter(result => !!result)
+      )
+      .subscribe(isSuccessful => {
         this.notificationService.message($localize`Token enabled`);
         this.tokenUpdate.next();
-      } else {
-        this.notificationService.message($localize`Error: Could not enable token`);
-      }
-    });
+      });
   }
 
   public disable(): void {
@@ -146,14 +145,11 @@ export class TokenCardComponent implements OnInit {
         }
       }),
       filter(canDisable => !!canDisable),
-      switchMap(() => this.operationsService.disable(this.token))
-    ).subscribe(isSuccessful => {
-      if (isSuccessful) {
-        this.notificationService.message($localize`Token disabled`);
-        this.tokenUpdate.next();
-      } else {
-        this.notificationService.message($localize`Error: Could not disable token`);
-      }
+      switchMap(() => this.operationsService.disable(this.token)),
+      filter(result => !!result)
+    ).subscribe(() => {
+      this.notificationService.message($localize`Token disabled`);
+      this.tokenUpdate.next();
     });
   }
 
@@ -205,13 +201,10 @@ export class TokenCardComponent implements OnInit {
       .pipe(
         filter((confirmed: boolean) => !!confirmed),
         switchMap(() => this.operationsService.unassignToken(this.token.serial)),
+        filter(result => !!result)
       )
-      .subscribe(success => {
-        if (success) {
-          this.notificationService.message($localize`Token unassigned`);
-        } else {
-          this.notificationService.message($localize`Error: could not unassign token`);
-        }
+      .subscribe(() => {
+        this.notificationService.message($localize`Token unassigned`);
         this.tokenUpdate.next();
       });
   }
@@ -241,15 +234,13 @@ export class TokenCardComponent implements OnInit {
   }
 
   public resetFailcounter() {
-    this.operationsService.resetFailcounter(this.token.serial).subscribe(success => {
-      let message: String;
-      if (success) {
-        message = $localize`Failcounter successfully reset`;
-      } else {
-        message = $localize`Error: could not reset failcounter. Please try again or contact your administrator.`;
-      }
-      this.notificationService.message(message);
-    });
+    this.operationsService.resetFailcounter(this.token.serial)
+      .pipe(
+        filter(result => !!result)
+      )
+      .subscribe(() => {
+        this.notificationService.message($localize`Failcounter reset`);
+      });
   }
 
   public resync(): void {

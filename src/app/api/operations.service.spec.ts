@@ -1,5 +1,5 @@
 import { TestBed, inject } from '@angular/core/testing';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { Fixtures } from '../../testing/fixtures';
@@ -7,6 +7,8 @@ import { Fixtures } from '../../testing/fixtures';
 import { SessionService } from '../auth/session.service';
 import { OperationsService } from './operations.service';
 import { Token, EnrollmentStatus, TokenType } from './token';
+import { NotificationService } from '../common/notification.service';
+import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
 
 const session = '';
 
@@ -25,6 +27,7 @@ mockReadyEnabledToken.enrollmentStatus = EnrollmentStatus.COMPLETED;
 
 describe('OperationsService', () => {
   let operationsService: OperationsService;
+  let notificationService: jasmine.SpyObj<NotificationService>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -40,10 +43,15 @@ describe('OperationsService', () => {
             getSession: jasmine.createSpy('getSession').and.returnValue(session),
           }
         },
+        {
+          provide: NotificationService,
+          useValue: spyOnClass(NotificationService)
+        }
       ],
     });
 
     operationsService = TestBed.inject(OperationsService);
+    notificationService = getInjectedStub(NotificationService);
   });
 
   it('should be created', inject([OperationsService], (service: OperationsService) => {
@@ -71,7 +79,7 @@ describe('OperationsService', () => {
       }
     ));
 
-    it('should call the error handler on request failure', inject(
+    it('should show a notification on request failure', inject(
       [HttpClient, HttpTestingController],
       (http: HttpClient, backend: HttpTestingController) => {
 
@@ -88,7 +96,7 @@ describe('OperationsService', () => {
         setPinRequest.error(new ErrorEvent('Error setting token pin'));
         backend.verify();
 
-        expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
+        expect(notificationService.message).toHaveBeenCalledWith('Error: Could not set token PIN. Please try again or contact an administrator');
       }
     ));
   });
@@ -126,7 +134,7 @@ describe('OperationsService', () => {
     }
     ));
 
-    it('should call the error handler on request failure', inject(
+    it('should show a notification on request failure', inject(
       [HttpClient, HttpTestingController],
       (http: HttpClient, backend: HttpTestingController) => {
 
@@ -143,7 +151,7 @@ describe('OperationsService', () => {
         setPinRequest.error(new ErrorEvent('Error setting token pin'));
         backend.verify();
 
-        expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
+        expect(notificationService.message).toHaveBeenCalledWith('Error: Could not set MOTP PIN. Please try again or contact an administrator');
       }
     ));
   });
@@ -163,11 +171,12 @@ describe('OperationsService', () => {
         });
 
         expect(req.request.body).toEqual(deleteRequestBody);
+        req.flush({ result: { value: { 'delete token': 1 } } });
         backend.verify();
       }
     ));
 
-    it('should call the error handler on request failure', inject(
+    it('should show a notification on request failure', inject(
       [HttpClient, HttpTestingController],
       (http: HttpClient, backend: HttpTestingController) => {
 
@@ -184,7 +193,7 @@ describe('OperationsService', () => {
         deleteRequest.error(new ErrorEvent('Error deleting token'));
         backend.verify();
 
-        expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
+        expect(notificationService.message).toHaveBeenCalledWith('Error: Could not delete token. Please try again or contact an administrator');
       }
     ));
   });
@@ -230,7 +239,7 @@ describe('OperationsService', () => {
       }
     ));
 
-    it('should call the error handler on request failure', inject(
+    it('should show a notification on request failure', inject(
       [HttpClient, HttpTestingController],
       (http: HttpClient, backend: HttpTestingController) => {
 
@@ -248,7 +257,7 @@ describe('OperationsService', () => {
         deleteRequest.error(new ErrorEvent('Error unassigning token'));
         backend.verify();
 
-        expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
+        expect(notificationService.message).toHaveBeenCalledWith('Error: Could not unassign token. Please try again or contact an administrator');
       }
     ));
   });
@@ -274,7 +283,7 @@ describe('OperationsService', () => {
       }
     ));
 
-    it('should call the error handler on request failure', inject(
+    it('should show a notification on request failure', inject(
       [HttpClient, HttpTestingController],
       (http: HttpClient, backend: HttpTestingController) => {
 
@@ -289,7 +298,7 @@ describe('OperationsService', () => {
         enableRequest.error(new ErrorEvent('Error enabling token'));
         backend.verify();
 
-        expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
+        expect(notificationService.message).toHaveBeenCalledWith('Error: Could not enable token. Please try again or contact an administrator');
       }
     ));
   });
@@ -315,7 +324,7 @@ describe('OperationsService', () => {
       }
     ));
 
-    it('should call the error handler on request failure', inject(
+    it('should show a notification on request failure', inject(
       [HttpClient, HttpTestingController],
       (http: HttpClient, backend: HttpTestingController) => {
 
@@ -330,7 +339,7 @@ describe('OperationsService', () => {
         disableRequest.error(new ErrorEvent('Error disabling token'));
         backend.verify();
 
-        expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
+        expect(notificationService.message).toHaveBeenCalledWith('Error: Could not disable token. Please try again or contact an administrator');
       }
     ));
   });
@@ -351,7 +360,7 @@ describe('OperationsService', () => {
       }
     ));
 
-    it('should call the error handler on request failure', inject(
+    it('should show a notification on request failure', inject(
       [HttpClient, HttpTestingController],
       (http: HttpClient, backend: HttpTestingController) => {
 
@@ -366,7 +375,7 @@ describe('OperationsService', () => {
         request.error(new ErrorEvent('Error resetting failcounter'));
         backend.verify();
 
-        expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
+        expect(notificationService.message).toHaveBeenCalledWith('Error: Could not reset failcounter. Please try again or contact an administrator');
       }
     ));
 
@@ -388,7 +397,7 @@ describe('OperationsService', () => {
       }
     ));
 
-    it('should call the error handler on request failure', inject(
+    it('should show a notification on request failure', inject(
       [HttpClient, HttpTestingController],
       (http: HttpClient, backend: HttpTestingController) => {
 
@@ -403,7 +412,7 @@ describe('OperationsService', () => {
         request.error(new ErrorEvent('Error resyncing token'));
         backend.verify();
 
-        expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
+        expect(notificationService.message).toHaveBeenCalledWith('Error: Could not synchronize token. Please try again or contact an administrator');
       }
     ));
   });
@@ -424,7 +433,7 @@ describe('OperationsService', () => {
       }
     ));
 
-    it('should call the error handler on request failure', inject(
+    it('should show a notification on request failure', inject(
       [HttpClient, HttpTestingController],
       (http: HttpClient, backend: HttpTestingController) => {
 
@@ -439,7 +448,7 @@ describe('OperationsService', () => {
         request.error(new ErrorEvent('Error setting token description'));
         backend.verify();
 
-        expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
+        expect(notificationService.message).toHaveBeenCalledWith('Error: Could not set token description. Please try again or contact an administrator');
       }
     ));
   });
