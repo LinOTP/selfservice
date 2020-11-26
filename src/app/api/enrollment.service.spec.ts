@@ -200,4 +200,61 @@ describe('EnrollmentService', () => {
     ));
   });
 
+  describe('activate', () => {
+    it('should request a token activation from the server', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
+        const body = {
+          serial: 'serial',
+          data: 'serial',
+          pass: 'pin',
+          user: 'name'
+        };
+
+        const serverResponse = {
+          result: { status: true, value: true },
+          detail: { transactionid: 'id', message: 'ok' }
+        };
+
+        spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify({ username: 'name' }));
+
+        enrollmentService.activate('serial', 'pin').subscribe(response => {
+          expect(response).toEqual(serverResponse);
+        });
+
+        const request = backend.expectOne((req) =>
+          req.url === '/validate/check' &&
+          req.method === 'POST' &&
+          req.body.serial === body.serial &&
+          req.body.data === body.data &&
+          req.body.pass === body.pass &&
+          req.body.user === body.user
+        );
+
+        request.flush(serverResponse);
+        backend.verify();
+      }
+    ));
+
+    it('should return an error message if there was a backend error', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
+        const serverResponse = {
+          result: { status: false },
+        };
+
+        spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify({ username: 'name' }));
+
+        enrollmentService.activate('serial', 'pin').subscribe(response => {
+          expect(response).toEqual(null);
+          expect(notificationService.message).toHaveBeenCalledWith('Token activation failed: Please try again.');
+        });
+
+        const request = backend.expectOne((req) => req.url === '/validate/check' && req.method === 'POST');
+
+        request.flush(serverResponse);
+        backend.verify();
+      }
+    ));
+  });
 });
