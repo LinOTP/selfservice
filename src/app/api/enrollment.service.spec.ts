@@ -81,6 +81,22 @@ describe('EnrollmentService', () => {
     });
   });
 
+  describe('enroll', () => {
+    it('should notify the user of an error if the response status is not a success', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
+
+        enrollmentService.enroll({ type: TokenType.HOTP }).subscribe(res => {
+          expect(notificationService.message).toHaveBeenCalledWith('Token registration failed: Please try again.');
+        });
+
+        const request = backend.expectOne((req) => req.body.type === 'hmac');
+        request.flush({ result: { status: false } });
+
+        backend.verify();
+      }));
+  });
+
   describe('assign', () => {
     it('should request a token assignment from the server', inject(
       [HttpClient, HttpTestingController],
