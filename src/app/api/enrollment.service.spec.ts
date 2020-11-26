@@ -257,4 +257,62 @@ describe('EnrollmentService', () => {
       }
     ));
   });
+
+
+  describe('getChallengeStatus', () => {
+    it('should request a challenge status check from the server', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
+        const body = {
+          transactionid: 'txid',
+          pass: 'pin',
+          user: 'name'
+        };
+
+        const serverResponse = {
+          result: { status: true, value: true },
+          detail: {
+            transactions: {
+              'txid': { status: 'ok' }
+            }
+          }
+        };
+
+        spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify({ username: 'name' }));
+
+        enrollmentService.getChallengeStatus('txid', 'pin', 'serial').subscribe(response => {
+          expect(response).toEqual(serverResponse);
+        });
+
+        const request = backend.expectOne((req) =>
+          req.url === '/validate/check_status' &&
+          req.method === 'POST' &&
+          req.body.transactionid === body.transactionid &&
+          req.body.pass === body.pass &&
+          req.body.user === body.user
+        );
+
+        request.flush(serverResponse);
+        backend.verify();
+      }
+    ));
+
+    it('should return an error message if there was a backend error', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
+
+        spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify({ username: 'name' }));
+
+        enrollmentService.getChallengeStatus('txid', 'pin', 'serial').subscribe(response => {
+          expect(response).toEqual(null);
+          expect(notificationService.message).toHaveBeenCalledWith('Challenge status request failed: Please try again.');
+        });
+
+        const request = backend.expectOne((req) => req.url === '/validate/check_status' && req.method === 'POST');
+
+        request.error(new ErrorEvent('Error checking challenge status'));
+        backend.verify();
+      }
+    ));
+  });
 });
