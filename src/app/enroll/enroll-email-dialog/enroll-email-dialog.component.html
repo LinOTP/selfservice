@@ -61,15 +61,15 @@
        i18n>A token with the serial number {{ enrolledToken.serial }} has been created.</p>
 
     <ng-container *ngxPermissionsOnly="Permission.SETPIN">
-      <p i18n>If you wish to set a security PIN, please do so now:</p>
+      <p i18n>You may set a PIN now to protect your token against misuse, as it ensures only you can use your token.
+        This step is optional, and you can still do it later over the token menu.</p>
       <button mat-raised-button
               color="primary"
               (click)="setPin()"
               i18n>Set pin</button>
-      <p class="mat-hint hint"
-         i18n>Setting a PIN helps you protect your token against misuse.</p>
     </ng-container>
-
+    <p *ngxPermissionsOnly="Permission.VERIFY"
+       i18n>Please verify with a token test whether you can successfully use the token:</p>
     <mat-dialog-actions align="end">
       <div i18n>Step 2 of 2</div>
       <span class="spacer"></span>

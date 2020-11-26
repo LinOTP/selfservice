@@ -42,26 +42,20 @@
           <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="1513490954644392429" datatype="html">
-        <source>
-      Imprint
-    </source>
-        <target state="translated">
-Impressum</target>
+      <trans-unit id="5565349424328430599" datatype="html">
+        <source>Site notice</source>
+        <target state="translated">Impressum</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">50</context>
+          <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="2779381211725338244" datatype="html">
-        <source>
-      Privacy
-      notice</source>
-        <target state="translated">
-Datenschutz</target>
+      <trans-unit id="6090931838305354672" datatype="html">
+        <source>Privacy policy</source>
+        <target state="translated">Datenschutz</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">60</context>
+          <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3964929371931064813" datatype="html">
@@ -96,9 +90,9 @@ Datenschutz</target>
           <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="1356196246930471502" datatype="html">
-        <source>The following tokens are ready to be used:</source>
-        <target state="translated">Die folgenden Token sind bereit für den Einsatz:</target>
+      <trans-unit id="3411241422554668048" datatype="html">
+        <source>The following tokens are available for use:</source>
+        <target state="translated">Die folgenden Token stehen zur Authentifizierung bereit:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
           <context context-type="linenumber">21</context>
@@ -122,7 +116,7 @@ Datenschutz</target>
       </trans-unit>
       <trans-unit id="860629738331841971" datatype="html">
         <source>Set up a new authentication method</source>
-        <target state="translated">Neue Authentisierungsmethoden einrichten</target>
+        <target state="translated">Neue Authentisierungsmethode einrichten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
           <context context-type="linenumber">42</context>
@@ -268,20 +262,38 @@ Datenschutz</target>
           <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="9211665410945124545" datatype="html">
-        <source>OTP</source>
-        <target state="translated">OTP</target>
+      <trans-unit id="3319059418881225105" datatype="html">
+        <source>One-time password (OTP)</source>
+        <target state="translated">Einmal-Passwort (OTP)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
           <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="1961346017013438250" datatype="html">
-        <source><x id="START_BOLD_TEXT" equiv-text="&lt;b>"/>Please choose your preferred authentication method to verify your login:<x id="CLOSE_BOLD_TEXT" equiv-text="&lt;/b>"/></source>
-        <target state="translated"><x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/>Bitte wählen Sie Ihre gewünschte Authentisierungsmethode zur Bestätigung ihrer Anmeldung:<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/></target>
+      <trans-unit id="7518795619202358578" datatype="html">
+        <source>2-step authentication</source>
+        <target state="translated">Bestätigung in zwei Schritten</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/login.component.html</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+        <note priority="1" from="description">login page title</note>
+        <note priority="1" from="meaning">card header</note>
+      </trans-unit>
+      <trans-unit id="2876956681251125515" datatype="html">
+        <source><x id="START_BOLD_TEXT" equiv-text="&lt;b&gt;"/>Please choose an authentication method to verify that it is you logging in:<x id="CLOSE_BOLD_TEXT" equiv-text="&lt;/b&gt;"/></source>
+        <target state="translated"><x id="START_BOLD_TEXT" equiv-text="&lt;b&gt;"/>Mit diesem zusätzlichen Schritt bestätigen Sie Ihre Identität bei der Anmeldung:<x id="CLOSE_BOLD_TEXT" equiv-text="&lt;/b&gt;"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
           <context context-type="linenumber">59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9211665410945124545" datatype="html">
+        <source>OTP</source>
+        <target state="translated">OTP</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/get-serial-dialog/get-serial-dialog.component.html</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1246872154163320950" datatype="html">
@@ -294,16 +306,13 @@ Datenschutz</target>
       </trans-unit>
       <trans-unit id="381259115054568778" datatype="html">
         <source>
-            <x id="START_TAG_APP_KEYBOARD_KEY" equiv-text="&lt;app-keyboard-key icon=&quot;keyboard_arrow_up&quot;>&lt;/app-keyboard-key>"/><x id="CLOSE_TAG_APP_KEYBOARD_KEY" equiv-text="&lt;/app-keyboard-key>
-          "/> +
-            <x id="START_TAG_APP_KEYBOARD_KEY_1" equiv-text="&lt;app-keyboard-key icon=&quot;keyboard_arrow_down&quot;>&lt;/app-keyboard-key>"/><x id="CLOSE_TAG_APP_KEYBOARD_KEY" equiv-text="&lt;/app-keyboard-key>
-          "/> and
-            <x id="START_TAG_APP_KEYBOARD_KEY_2" equiv-text="&lt;app-keyboard-key icon=&quot;keyboard_return&quot;>&lt;/app-keyboard-key>"/><x id="CLOSE_TAG_APP_KEYBOARD_KEY" equiv-text="&lt;/app-keyboard-key>
-          "/>
+            <x id="START_TAG_APP_KEYBOARD_KEY" equiv-text="&lt;app-keyboard-key icon=&quot;keyboard_arrow_up&quot;&gt;&lt;/app-keyboard-key&gt;"/><x id="CLOSE_TAG_APP_KEYBOARD_KEY" equiv-text="&lt;/app-keyboard-key&gt;           "/> +
+            <x id="START_TAG_APP_KEYBOARD_KEY_1" equiv-text="&lt;app-keyboard-key icon=&quot;keyboard_arrow_down&quot;&gt;&lt;/app-keyboard-key&gt;"/><x id="CLOSE_TAG_APP_KEYBOARD_KEY" equiv-text="&lt;/app-keyboard-key&gt;           "/> and
+            <x id="START_TAG_APP_KEYBOARD_KEY_2" equiv-text="&lt;app-keyboard-key icon=&quot;keyboard_return&quot;&gt;&lt;/app-keyboard-key&gt;"/><x id="CLOSE_TAG_APP_KEYBOARD_KEY" equiv-text="&lt;/app-keyboard-key&gt;           "/>
           </source>
-        <target state="translated"><x id="START_TAG_APP_KEYBOARD_KEY" equiv-text="&lt;app-keyboard-key icon=&quot;keyboard_arrow_up&quot;>&lt;/app-keyboard-key>"/><x id="CLOSE_TAG_APP_KEYBOARD_KEY" equiv-text="&lt;/app-keyboard-key>           "/> +
-            <x id="START_TAG_APP_KEYBOARD_KEY_1" equiv-text="&lt;app-keyboard-key icon=&quot;keyboard_arrow_down&quot;>&lt;/app-keyboard-key>"/><x id="CLOSE_TAG_APP_KEYBOARD_KEY" equiv-text="&lt;/app-keyboard-key>           "/> und
-            <x id="START_TAG_APP_KEYBOARD_KEY_2" equiv-text="&lt;app-keyboard-key icon=&quot;keyboard_return&quot;>&lt;/app-keyboard-key>"/><x id="CLOSE_TAG_APP_KEYBOARD_KEY" equiv-text="&lt;/app-keyboard-key>           "/></target>
+        <target state="translated"><x id="START_TAG_APP_KEYBOARD_KEY" equiv-text="&lt;app-keyboard-key icon=&quot;keyboard_arrow_up&quot;&gt;&lt;/app-keyboard-key&gt;"/><x id="CLOSE_TAG_APP_KEYBOARD_KEY" equiv-text="&lt;/app-keyboard-key&gt;           "/> +
+            <x id="START_TAG_APP_KEYBOARD_KEY_1" equiv-text="&lt;app-keyboard-key icon=&quot;keyboard_arrow_down&quot;&gt;&lt;/app-keyboard-key&gt;"/><x id="CLOSE_TAG_APP_KEYBOARD_KEY" equiv-text="&lt;/app-keyboard-key&gt;           "/> und
+            <x id="START_TAG_APP_KEYBOARD_KEY_2" equiv-text="&lt;app-keyboard-key icon=&quot;keyboard_return&quot;&gt;&lt;/app-keyboard-key&gt;"/><x id="CLOSE_TAG_APP_KEYBOARD_KEY" equiv-text="&lt;/app-keyboard-key&gt;           "/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
           <context context-type="linenumber">94,97</context>
@@ -318,22 +327,17 @@ Datenschutz</target>
           <context context-type="linenumber">102,103</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="6579087548329317228" datatype="html">
-        <source>
-        Second factor:
-        <x id="START_TAG_SPAN" equiv-text="&lt;span class=&quot;selectedToken&quot;>
-          "/>
-          <x id="INTERPOLATION" equiv-text="Token.typeDetails.name }} with seria"/> with serial <x id="INTERPOLATION_1" equiv-text="Token.serial }}
-        &lt;/"/>
-        <x id="CLOSE_TAG_SPAN" equiv-text="&lt;/span>
-      "/>
+      <trans-unit id="6386462717867426221" datatype="html">
+        <source>Selected authentication method:
+        <x id="START_TAG_SPAN" equiv-text="&lt;span class=&quot;selectedToken&quot;&gt;           "/>
+          <x id="INTERPOLATION" equiv-text="Token.typeDetails.name }} with seria"/> with serial <x id="INTERPOLATION_1" equiv-text="Token.serial }}         &lt;/"/>
+        <x id="CLOSE_TAG_SPAN" equiv-text="&lt;/span&gt;       "/>
       </source>
-        <target state="translated">
-        Zweiter Faktor:
-        <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span>"/><x id="INTERPOLATION" equiv-text="{{ selectedToken.typeDetails.name }}"/> mit Seriennummer <x id="INTERPOLATION_1" equiv-text="{{ selectedToken.serial }}"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span>"/></target>
+        <target state="translated">Ausgewählte Authentifizierungsmethode:
+        <x id="START_TAG_SPAN" equiv-text="&lt;span class=&quot;selectedToken&quot;&gt;           "/><x id="INTERPOLATION" equiv-text="Token.typeDetails.name }} with seria"/> mit Seriennummer <x id="INTERPOLATION_1" equiv-text="Token.serial }}         &lt;/"/><x id="CLOSE_TAG_SPAN" equiv-text="&lt;/span&gt;       "/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">120,124</context>
+          <context context-type="linenumber">119,123</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3868000447879071786" datatype="html">
@@ -343,17 +347,15 @@ Datenschutz</target>
         <note priority="1" from="meaning">2nd factor login action</note>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">191</context>
+          <context context-type="linenumber">190</context>
         </context-group>
       </trans-unit>
       <trans-unit id="234725495988365425" datatype="html">
         <source>Please enter the password of the selected token:</source>
-        <target state="translated">
-            Bitte geben Sie das Passwort des ausgewählten Token ein:
-          </target>
+        <target state="translated">Bitte geben Sie das Passwort des ausgewählten Token ein:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">129</context>
+          <context context-type="linenumber">128</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4656965482758163984" datatype="html">
@@ -361,17 +363,15 @@ Datenschutz</target>
         <target state="translated">Verbinden Sie Ihren Yubikey und drücken Sie den Knopf.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">131</context>
+          <context context-type="linenumber">130</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="2024620579979743202" datatype="html">
-        <source>Please enter the next OTP for the selected token:</source>
-        <target state="translated">
-            Bitte geben Sie den nächsten OTP für den ausgewählten Token ein:
-          </target>
+      <trans-unit id="2867818116203626831" datatype="html">
+        <source>Please enter the current OTP for the selected token:</source>
+        <target state="translated">Bitte geben Sie das aktuelle OTP für den ausgewählten Token ein:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">133</context>
+          <context context-type="linenumber">132</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2977612657174343243" datatype="html">
@@ -383,21 +383,21 @@ Datenschutz</target>
           </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">140</context>
+          <context context-type="linenumber">139</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4593276974210440916" datatype="html">
         <source>
           Waiting for confirmation of transaction
-          <x id="START_BOLD_TEXT" equiv-text="&lt;b>&lt;code>"/><x id="START_TAG_CODE" equiv-text="&lt;code>{{ shortTransactionId }}"/><x id="INTERPOLATION" equiv-text="{{ shortTransactionId }}&lt;/code>"/><x id="CLOSE_TAG_CODE" equiv-text="&lt;/code>&lt;/b>"/><x id="CLOSE_BOLD_TEXT" equiv-text="&lt;/b> "/> via your LinOTP Authenticator app.
+          <x id="START_BOLD_TEXT" equiv-text="&lt;b&gt;&lt;code&gt;"/><x id="START_TAG_CODE" equiv-text="&lt;code&gt;{{ shortTransactionId }}"/><x id="INTERPOLATION" equiv-text="{{ shortTransactionId }}&lt;/code&gt;"/><x id="CLOSE_TAG_CODE" equiv-text="&lt;/code&gt;&lt;/b&gt;"/><x id="CLOSE_BOLD_TEXT" equiv-text="&lt;/b&gt; "/> via your LinOTP Authenticator app.
         </source>
         <target state="translated">
           Warte auf Bestätigung der Transaktion
-          <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/><x id="START_TAG_CODE" ctype="x-code" equiv-text="&lt;code>"/><x id="INTERPOLATION" equiv-text="{{ shortTransactionId }}"/><x id="CLOSE_TAG_CODE" ctype="x-code" equiv-text="&lt;/code>"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/> durch Ihre LinOTP Authenticator App.
+          <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/><x id="START_TAG_CODE" ctype="x-code" equiv-text="&lt;code&gt;"/><x id="INTERPOLATION" equiv-text="{{ shortTransactionId }}"/><x id="CLOSE_TAG_CODE" ctype="x-code" equiv-text="&lt;/code&gt;"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/> durch Ihre LinOTP Authenticator App.
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">152</context>
+          <context context-type="linenumber">151</context>
         </context-group>
       </trans-unit>
       <trans-unit id="158182840842304476" datatype="html">
@@ -405,7 +405,7 @@ Datenschutz</target>
         <target state="translated">OTP manuell eingeben</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">161</context>
+          <context context-type="linenumber">160</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5009157571879213849" datatype="html">
@@ -413,7 +413,7 @@ Datenschutz</target>
         <target state="translated">OTP-Wert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">178</context>
+          <context context-type="linenumber">177</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1420113530219253027" datatype="html">
@@ -423,7 +423,7 @@ Datenschutz</target>
         <note priority="1" from="meaning">2nd factor login action</note>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">196</context>
+          <context context-type="linenumber">195</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3012199703865433135" datatype="html">
@@ -436,7 +436,7 @@ Datenschutz</target>
       </trans-unit>
       <trans-unit id="1645871406213507646" datatype="html">
         <source>PIN set</source>
-        <target state="translated">PIN gesetzt</target>
+        <target state="translated">PIN festgelegt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
           <context context-type="linenumber">73</context>
@@ -553,7 +553,7 @@ Datenschutz</target>
         <target state="translated">Schritt 3 von 3</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">145</context>
+          <context context-type="linenumber">146</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7302693902035391340" datatype="html">
@@ -565,9 +565,9 @@ Datenschutz</target>
         </context-group>
       </trans-unit>
       <trans-unit id="6594981531271581110" datatype="html">
-        <source>Scan the QR code below with your soft token app or <x id="START_LINK" equiv-text="&lt;a [href]=&quot;enrolledToken.url&quot;>"/>follow this link<x id="CLOSE_LINK" equiv-text="&lt;/a> "/> to
+        <source>Scan the QR code below with your soft token app or <x id="START_LINK" equiv-text="&lt;a [href]=&quot;enrolledToken.url&quot;&gt;"/>follow this link<x id="CLOSE_LINK" equiv-text="&lt;/a&gt; "/> to
         install it on your mobile device.</source>
-        <target state="translated">Scannen Sie den untenstehenden QR-Code mit Ihrer Soft-Token-App oder <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>folgen Sie diesem Link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>, um den Token auf Ihrem Smartphone hinzuzufügen.</target>
+        <target state="translated">Scannen Sie den untenstehenden QR-Code mit Ihrer Soft-Token-App oder <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>folgen Sie diesem Link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>, um den Token auf Ihrem Smartphone hinzuzufügen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
           <context context-type="linenumber">55</context>
@@ -613,28 +613,30 @@ Datenschutz</target>
           <context context-type="linenumber">101</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="6280875858044122996" datatype="html">
-        <source>If you wish to set a security PIN, please do so now:</source>
-        <target state="translated">Wenn Sie einen PIN setzen wollen, dann setzen Sie ihn hier:</target>
+      <trans-unit id="8160177433297625366" datatype="html">
+        <source>You may set a PIN now to protect your token against misuse, as it ensures only you can use your token.
+        This step is optional, and you can still do it later over the token menu.</source>
+        <target state="translated">Sie können jetzt eine PIN festlegen, um Ihr Token vor missbräuchlicher Verwendung zu schützen. Sie stellt sicher, dass nur Sie Ihren Token verwenden können.
+Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Menü durchführen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">136</context>
+          <context context-type="linenumber">136,137</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4805394958342190750" datatype="html">
         <source>Set pin</source>
-        <target state="translated">PIN setzen</target>
+        <target state="translated">PIN vergeben</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">140</context>
+          <context context-type="linenumber">141</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="3191395262268974798" datatype="html">
-        <source>Setting a PIN helps you protect your token against misuse.</source>
-        <target state="translated">Einen PIN zu setzen erhöht die Sicherheit gegen Missbrauch des Tokens.</target>
+      <trans-unit id="7034645605656512531" datatype="html">
+        <source>Please verify with a token test whether you can successfully use the token:</source>
+        <target state="translated">Bitte überprüfen Sie mit einem Token-Test, ob Sie den Token erfolgreich verwenden können:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">142</context>
+          <context context-type="linenumber">144</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5852602858003873965" datatype="html">
@@ -670,8 +672,8 @@ Datenschutz</target>
         </context-group>
       </trans-unit>
       <trans-unit id="801679254629334714" datatype="html">
-        <source>The token will use your user email address: <x id="START_BOLD_TEXT" equiv-text="&lt;b>{{userEmail}}"/><x id="INTERPOLATION" equiv-text="{{userEmail}}&lt;/b>"/><x id="CLOSE_BOLD_TEXT" equiv-text="&lt;/b>"/></source>
-        <target state="translated">Der Token wird ihre Nutzer E-Mail-Adresse verwenden: <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/><x id="INTERPOLATION" equiv-text="{{userEmail}}"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/></target>
+        <source>The token will use your user email address: <x id="START_BOLD_TEXT" equiv-text="&lt;b&gt;{{userEmail}}"/><x id="INTERPOLATION" equiv-text="{{userEmail}}&lt;/b&gt;"/><x id="CLOSE_BOLD_TEXT" equiv-text="&lt;/b&gt;"/></source>
+        <target state="translated">Der Token wird ihre Nutzer E-Mail-Adresse verwenden: <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/><x id="INTERPOLATION" equiv-text="{{userEmail}}"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-email-dialog/enroll-email-dialog.component.html</context>
           <context context-type="linenumber">11</context>
@@ -710,7 +712,7 @@ Datenschutz</target>
       <trans-unit id="6418649048838825299" datatype="html">
         <source>Create a new token that generates OTP values from your mobile device, given a secret password and a custom
       pin.</source>
-        <target state="translated">Erstellen Sie einen Token, der auf Ihrem Mobiltelfon OTPs anhand eines geheimen Passworts und eines von Ihnen definierten PINs generiert.</target>
+        <target state="translated">Erstellen Sie einen Token, der auf Ihrem Mobiltelfon OTPs anhand eines geheimen Passworts und einer von Ihnen definierten PINs generiert.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-motp-dialog/enroll-motp-dialog.component.html</context>
           <context context-type="linenumber">8,9</context>
@@ -751,7 +753,7 @@ Datenschutz</target>
       </trans-unit>
       <trans-unit id="993034142207925415" datatype="html">
         <source>Enter your token's mOTP pin</source>
-        <target state="translated">Geben Sie Ihr mOTP-PIN ein</target>
+        <target state="translated">Geben Sie Ihre mOTP-PIN ein</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-motp-dialog/enroll-motp-dialog.component.html</context>
           <context context-type="linenumber">32</context>
@@ -776,8 +778,8 @@ Datenschutz</target>
         </context-group>
       </trans-unit>
       <trans-unit id="5018516673567615179" datatype="html">
-        <source>The token will use your user mobile number: <x id="START_BOLD_TEXT" equiv-text="&lt;b>{{userPhone}}"/><x id="INTERPOLATION" equiv-text="{{userPhone}}&lt;/b>"/><x id="CLOSE_BOLD_TEXT" equiv-text="&lt;/b>"/></source>
-        <target state="translated">Der Token wird ihre Nutzer Mobilnummer verwenden: <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/>{{userPhonel}}<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/></target>
+        <source>The token will use your user mobile number: <x id="START_BOLD_TEXT" equiv-text="&lt;b&gt;{{userPhone}}"/><x id="INTERPOLATION" equiv-text="{{userPhone}}&lt;/b&gt;"/><x id="CLOSE_BOLD_TEXT" equiv-text="&lt;/b&gt;"/></source>
+        <target state="translated">Der Token wird ihre Nutzer Mobilnummer verwenden: <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>{{userPhonel}}<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
           <context context-type="linenumber">12</context>
@@ -911,7 +913,7 @@ Datenschutz</target>
         <target state="translated">Beenden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
-          <context context-type="linenumber">88</context>
+          <context context-type="linenumber">87</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7856802224028698537" datatype="html">
@@ -919,7 +921,7 @@ Datenschutz</target>
         <target state="translated">Token Aktivieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
-          <context context-type="linenumber">92</context>
+          <context context-type="linenumber">91</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2025479064694601146" datatype="html">
@@ -933,10 +935,9 @@ Datenschutz</target>
         </context-group>
       </trans-unit>
       <trans-unit id="69779375306319824" datatype="html">
-        <source>Scan the QR code below with the Authenticator app or <x id="START_LINK" equiv-text="&lt;a target=&quot;_blank&quot;
-           [href]=&quot;enrolledToken.url&quot;>"/>follow this link<x id="CLOSE_LINK" equiv-text="&lt;/a> "/> to start the
+        <source>Scan the QR code below with the Authenticator app or <x id="START_LINK" equiv-text="&lt;a target=&quot;_blank&quot;            [href]=&quot;enrolledToken.url&quot;&gt;"/>follow this link<x id="CLOSE_LINK" equiv-text="&lt;/a&gt; "/> to start the
         activation process of the new token.</source>
-        <target state="translated">Scannen Sie den nachfolgenden QR-Code mit der Authenticator App, oder <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/> folgen Sie diesen Link <x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>, um die Aktivierung des neuen Tokens zu starten.</target>
+        <target state="translated">Scannen Sie den nachfolgenden QR-Code mit der Authenticator App, oder <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/> folgen Sie diesen Link <x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>, um die Aktivierung des neuen Tokens zu starten.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
           <context context-type="linenumber">56</context>
@@ -944,7 +945,7 @@ Datenschutz</target>
       </trans-unit>
       <trans-unit id="7301392706728680974" datatype="html">
         <source>mOTP PIN set</source>
-        <target state="translated">mOTP-PIN gesetzt</target>
+        <target state="translated">mOTP-PIN festgeleft</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
           <context context-type="linenumber">90</context>
@@ -1217,9 +1218,17 @@ Datenschutz</target>
           <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="6287334326586741831" datatype="html">
-        <source>Set mOTP pin</source>
-        <target state="translated">mOTP-PIN setzen</target>
+      <trans-unit id="2810791743204319094" datatype="html">
+        <source>Change PIN</source>
+        <target state="translated">PIN ändern</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/token-card/token-card.component.html</context>
+          <context context-type="linenumber">76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6193917997400489563" datatype="html">
+        <source>Change mOTP PIN</source>
+        <target state="translated">mOTP-PIN ändern</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.html</context>
           <context context-type="linenumber">83</context>
@@ -1384,11 +1393,11 @@ Datenschutz</target>
       <trans-unit id="9055586857967972921" datatype="html">
         <source>
             Waiting for confirmation of transaction
-            <x id="START_BOLD_TEXT" equiv-text="&lt;b>&lt;code>"/><x id="START_TAG_CODE" equiv-text="&lt;code>{{ shortTransactionId }}"/><x id="INTERPOLATION" equiv-text="{{ shortTransactionId }}&lt;/code>"/><x id="CLOSE_TAG_CODE" equiv-text="&lt;/code>&lt;/b>"/><x id="CLOSE_BOLD_TEXT" equiv-text="&lt;/b> "/> via your LinOTP Authenticator app.
+            <x id="START_BOLD_TEXT" equiv-text="&lt;b&gt;&lt;code&gt;"/><x id="START_TAG_CODE" equiv-text="&lt;code&gt;{{ shortTransactionId }}"/><x id="INTERPOLATION" equiv-text="{{ shortTransactionId }}&lt;/code&gt;"/><x id="CLOSE_TAG_CODE" equiv-text="&lt;/code&gt;&lt;/b&gt;"/><x id="CLOSE_BOLD_TEXT" equiv-text="&lt;/b&gt; "/> via your LinOTP Authenticator app.
           </source>
         <target state="translated">
             Warte auf Bestätigung der Transaktion
-            <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/><x id="START_TAG_CODE" ctype="x-code" equiv-text="&lt;code>"/><x id="INTERPOLATION" equiv-text="{{ shortTransactionId }}"/><x id="CLOSE_TAG_CODE" ctype="x-code" equiv-text="&lt;/code>"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/> durch Ihre LinOTP Authenticator App.
+            <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/><x id="START_TAG_CODE" ctype="x-code" equiv-text="&lt;code&gt;"/><x id="INTERPOLATION" equiv-text="{{ shortTransactionId }}"/><x id="CLOSE_TAG_CODE" ctype="x-code" equiv-text="&lt;/code&gt;"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/> durch Ihre LinOTP Authenticator App.
           </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
@@ -1481,7 +1490,7 @@ Datenschutz</target>
         required to enter your password for OTP authentication:
       </source>
         <target state="translated">
-        Geben Sie Ihren PIN oder Ihr Passwort ein, falls Sie eine PIN gesetzt haben,
+        Geben Sie Ihre PIN oder Ihr Passwort ein, falls Sie eine PIN vergeben haben,
         oder für die Authentifizierung ein Passwort erforderlich ist:
       </target>
         <context-group purpose="location">
@@ -1937,7 +1946,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
       </trans-unit>
       <trans-unit id="856582100125379791" datatype="html">
         <source>New PIN</source>
-        <target state="translated">Neuer PIN</target>
+        <target state="translated">Neue PIN</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.ts</context>
           <context context-type="linenumber">21</context>
@@ -1945,7 +1954,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
       </trans-unit>
       <trans-unit id="8612534928653419038" datatype="html">
         <source>Confirm your new PIN</source>
-        <target state="translated">Bestätigen Sie Ihren neuen PIN</target>
+        <target state="translated">Bestätigen Sie Ihre neue PIN</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.ts</context>
           <context context-type="linenumber">22</context>
@@ -1953,26 +1962,43 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
       </trans-unit>
       <trans-unit id="1481043453517638154" datatype="html">
         <source>Pin could not be set. Please try again.</source>
-        <target state="translated">Das Setzen des PIN ist fehlgeschlagen. Bitte versuchen Sie es erneut.</target>
+        <target state="translated">PIN-Vergabe fehlgeschlagen. Bitte versuchen Sie es erneut.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.ts</context>
           <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="9067077575413860217" datatype="html">
-        <source>Set a new PIN</source>
-        <target state="translated">Neuen PIN setzen</target>
+      <trans-unit id="7576435564439636809" datatype="html">
+        <source>Set a new token PIN</source>
+        <target state="translated">Neue Token-PIN festlegen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.html</context>
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="7965601894766197562" datatype="html">
-        <source>set pin</source>
-        <target state="translated">PIN setzen</target>
+      <trans-unit id="3884713207892396207" datatype="html">
+        <source>This ensures only you can use your token.</source>
+        <target state="translated">Dies stellt sicher, dass nur Sie Ihren Token verwenden können.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.html</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1968008926412620990" datatype="html">
+        <source>During the authentication process you may need to provide this PIN together with the token
+      OTP.</source>
+        <target state="translated">Bei der Authentifizierung benötigen Sie diese PIN gegebenenfalls zusätzlich zu dem Token-OTP.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7965601894766197562" datatype="html">
+        <source>set pin</source>
+        <target state="translated">PIN festlegen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.html</context>
+          <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
       <trans-unit id="127382592332405183" datatype="html">
@@ -1980,12 +2006,12 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Die eingegebenen PINs sind nicht gleich</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.html</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7601761728301883446" datatype="html">
         <source>mOTP pin could not be set. Please try again.</source>
-        <target state="translated">Das Setzen des mOTP-PIN ist fehlgeschlagen. Bitte versuchen Sie es erneut.</target>
+        <target state="translated">mOTP-PIN-Vergabe fehlgeschlagen. Bitte versuchen Sie es erneut.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-motp-pin-dialog/set-motp-pin-dialog.component.ts</context>
           <context context-type="linenumber">68</context>
@@ -1993,18 +2019,27 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
       </trans-unit>
       <trans-unit id="3720441502365232593" datatype="html">
         <source>Set a new MOTP PIN</source>
-        <target state="translated">Neuer mOTP-PIN setzen</target>
+        <target state="translated">Neue mOTP-PIN festlegen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-motp-pin-dialog/set-motp-pin-dialog.component.html</context>
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="1664954969409782298" datatype="html">
-        <source>set mOTP pin</source>
-        <target state="translated">mOTP-PIN setzen</target>
+      <trans-unit id="2526169685251802541" datatype="html">
+        <source>This is used to generate OTPs which are only known to you. If you change the PIN here, you will also need to
+      change it on your device.</source>
+        <target state="translated">Diese wird verwendet, um OTPs zu erzeugen, die nur Sie kennen. Wenn Sie die PIN hier ändern, müssen Sie sie auch auf Ihrem Gerät ändern.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-motp-pin-dialog/set-motp-pin-dialog.component.html</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">6,7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1664954969409782298" datatype="html">
+        <source>set mOTP pin</source>
+        <target state="translated">mOTP-PIN vergeben</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/set-motp-pin-dialog/set-motp-pin-dialog.component.html</context>
+          <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7695726763919839108" datatype="html">
@@ -2348,7 +2383,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Authentisierung durch Ihren Yubikey-Token</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">159</context>
+          <context context-type="linenumber">157</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3883219131132893834" datatype="html">
@@ -2356,7 +2391,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Verknüpfen Sie einen existierenden Token mit Ihrem Benutzerkonto</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">164</context>
+          <context context-type="linenumber">162</context>
         </context-group>
       </trans-unit>
       <trans-unit id="584754872792429089" datatype="html">
@@ -2364,7 +2399,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Zuweisen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">167</context>
+          <context context-type="linenumber">165</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9105518985862571303" datatype="html">
@@ -2372,7 +2407,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Unbekannter Token</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">173</context>
+          <context context-type="linenumber">171</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7817886603841108919" datatype="html">
@@ -2380,7 +2415,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Nicht-unterstützter Tokentyp</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">174</context>
+          <context context-type="linenumber">172</context>
         </context-group>
       </trans-unit>
       <trans-unit id="292673577349231607" datatype="html">

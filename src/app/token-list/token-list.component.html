@@ -18,7 +18,7 @@
   <section id="activeAuthSection"
            *ngIf="tokens | activeTokens | arrayNotEmpty">
     <h2 i18n>Active authentication methods</h2>
-    <p i18n>The following tokens are ready to be used:</p>
+    <p i18n>The following tokens are available for use:</p>
     <app-token-card *ngFor="let token of tokens | activeTokens"
                     [token]="token"
                     (tokenUpdate)="loadTokens()"></app-token-card>
