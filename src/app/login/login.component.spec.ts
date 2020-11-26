@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { of } from 'rxjs';
+import { of, Subject } from 'rxjs';
 
 import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
 import { Fixtures } from '../../testing/fixtures';
@@ -574,5 +574,21 @@ describe('LoginComponent', () => {
       expect(page.getLoginForm()).toBeTruthy();
       expect(component.stopSubscription).toHaveBeenCalled();
     });
+  });
+
+  it('stopSubscription should stop a running polling subscription', () => {
+    loginService.statusPoll.and.returnValue(new Subject().asObservable());
+    fixture.detectChanges();
+
+    expect(component['pollingSubscription']).toBeFalsy();
+
+    component.transactionDetail = Fixtures.transactionDetailOnline;
+    component.checkTransactionState();
+
+    expect(component['pollingSubscription']).toBeTruthy();
+    expect(component['pollingSubscription'].closed).toBe(false);
+
+    component.stopSubscription();
+    expect(component['pollingSubscription'].closed).toBe(true);
   });
 });

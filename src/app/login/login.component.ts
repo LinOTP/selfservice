@@ -268,9 +268,8 @@ export class LoginComponent implements OnInit {
   }
 
   stopSubscription() {
-    if (this.pollingSubscription) {
+    if (this.pollingSubscription?.closed === false) {
       this.pollingSubscription.unsubscribe();
-      this.pollingSubscription = null;
     }
   }
 }
