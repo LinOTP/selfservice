@@ -148,9 +148,7 @@ export class OperationsService {
     return this.http.post<LinOTPResponse<{ 'set description': number }>>(url, bodyAssign)
       .pipe(
         map(response => {
-          if (response?.result?.value['set description'] > 0) {
-            return true;
-          }
+          return response?.result?.value['set description'] > 0;
         }),
         catchError(this.handleError($localize`Could not set token description`, false)
         )

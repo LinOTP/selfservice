@@ -60,7 +60,7 @@ describe('OperationsService', () => {
 
   describe('set token pin', () => {
     const setPinRequestBody = { userpin: '01234', serial: 'serial', session: session };
-    it('should send a pin request', inject(
+    it('should send a pin request and return true on success', inject(
       [HttpClient, HttpTestingController],
       (http: HttpClient, backend: HttpTestingController) => {
         operationsService.setPin(mockReadyEnabledToken, '01234').subscribe(res => {
@@ -78,6 +78,32 @@ describe('OperationsService', () => {
         backend.verify();
       }
     ));
+
+    [
+      { result: { value: { 'set userpin': 0 } } },
+      { result: { value: null } },
+      { result: null },
+      null
+    ].forEach(response => {
+      it('should send a pin request and return false on failure', inject(
+        [HttpClient, HttpTestingController],
+        (http: HttpClient, backend: HttpTestingController) => {
+          operationsService.setPin(mockReadyEnabledToken, '01234').subscribe(res => {
+            expect(res).toEqual(false);
+          });
+
+          const req = backend.expectOne({
+            url: '/userservice/setpin',
+            method: 'POST'
+          });
+
+          expect(req.request.body).toEqual(setPinRequestBody);
+          req.flush(response);
+
+          backend.verify();
+        }
+      ));
+    });
 
     it('should show a notification on request failure', inject(
       [HttpClient, HttpTestingController],
@@ -103,7 +129,7 @@ describe('OperationsService', () => {
 
   describe('set mOTP pin', () => {
     const setPinRequestBody = { pin: '01234', serial: 'serial', session: session };
-    it('should send a mOTP pin request', inject(
+    it('should send a mOTP pin request and return true on success', inject(
       [HttpClient, HttpTestingController],
       (http: HttpClient, backend: HttpTestingController) => {
         operationsService.setMOTPPin(mockReadyEnabledMOTPToken, '01234').subscribe(res => {
@@ -121,6 +147,32 @@ describe('OperationsService', () => {
         backend.verify();
       }
     ));
+
+    [
+      { result: { value: { 'set userpin': 0 } } },
+      { result: { value: null } },
+      { result: null },
+      null
+    ].forEach(response => {
+      it('should send a mOTP pin request and return false on failure', inject(
+        [HttpClient, HttpTestingController],
+        (http: HttpClient, backend: HttpTestingController) => {
+          operationsService.setMOTPPin(mockReadyEnabledMOTPToken, '01234').subscribe(res => {
+            expect(res).toEqual(false);
+          });
+
+          const req = backend.expectOne({
+            url: '/userservice/setmpin',
+            method: 'POST'
+          });
+
+          expect(req.request.body).toEqual(setPinRequestBody);
+          req.flush(response);
+
+          backend.verify();
+        }
+      ));
+    });
 
     it('should not call the backend if the token is not an mOTP token', inject(
       [HttpClient], (http:
@@ -158,7 +210,7 @@ describe('OperationsService', () => {
 
   describe('delete token', () => {
     const deleteRequestBody = { serial: 'serial', session: session };
-    it('should send a delete request', inject(
+    it('should send a delete request and return true on success', inject(
       [HttpClient, HttpTestingController],
       (http: HttpClient, backend: HttpTestingController) => {
         operationsService.deleteToken('serial').subscribe(response => {
@@ -175,6 +227,31 @@ describe('OperationsService', () => {
         backend.verify();
       }
     ));
+
+    [
+      { result: { value: { 'delete token': 0 } } },
+      { result: { value: null } },
+      { result: null },
+      null
+    ].forEach(response => {
+      it('should send a delete request and return false on failure', inject(
+        [HttpClient, HttpTestingController],
+        (http: HttpClient, backend: HttpTestingController) => {
+          operationsService.deleteToken('serial').subscribe(res => {
+            expect(res).toBe(false);
+          });
+
+          const req = backend.expectOne({
+            url: '/userservice/delete',
+            method: 'POST'
+          });
+
+          expect(req.request.body).toEqual(deleteRequestBody);
+          req.flush(response);
+          backend.verify();
+        }
+      ));
+    });
 
     it('should show a notification on request failure', inject(
       [HttpClient, HttpTestingController],
@@ -201,7 +278,7 @@ describe('OperationsService', () => {
   describe('unassign token', () => {
     const unassignRequestBody = { serial: 'serial', session: session };
 
-    it('should send an unassign request and return observable of true on success', inject(
+    it('should send an unassign request and return true on success', inject(
       [HttpClient, HttpTestingController],
       (http: HttpClient, backend: HttpTestingController) => {
         operationsService.unassignToken('serial').subscribe(res => {
@@ -220,24 +297,31 @@ describe('OperationsService', () => {
       }
     ));
 
-    it('should send an unassign request and return observable of false on failure', inject(
-      [HttpClient, HttpTestingController],
-      (http: HttpClient, backend: HttpTestingController) => {
-        operationsService.unassignToken('serial').subscribe(res => {
-          expect(res).toEqual(false);
-        });
+    [
+      { result: { value: { 'unassign token': false } } },
+      { result: { value: null } },
+      { result: null },
+      null
+    ].forEach(response => {
+      it('should send an unassign request and return false on failure', inject(
+        [HttpClient, HttpTestingController],
+        (http: HttpClient, backend: HttpTestingController) => {
+          operationsService.unassignToken('serial').subscribe(res => {
+            expect(res).toEqual(false);
+          });
 
-        const req = backend.expectOne({
-          url: '/userservice/unassign',
-          method: 'POST'
-        });
+          const req = backend.expectOne({
+            url: '/userservice/unassign',
+            method: 'POST'
+          });
 
-        req.flush({ result: { value: { 'unassign token': false } } });
+          req.flush(response);
 
-        expect(req.request.body).toEqual(unassignRequestBody);
-        backend.verify();
-      }
-    ));
+          expect(req.request.body).toEqual(unassignRequestBody);
+          backend.verify();
+        }
+      ));
+    });
 
     it('should show a notification on request failure', inject(
       [HttpClient, HttpTestingController],
@@ -264,7 +348,7 @@ describe('OperationsService', () => {
 
   describe('enable token', () => {
     const enableRequestBody = { serial: mockReadyDisabledToken.serial, session: session };
-    it('should send a enable token request', inject(
+    it('should send a enable token request and return true on success', inject(
       [HttpClient, HttpTestingController],
       (http: HttpClient, backend: HttpTestingController) => {
         operationsService.enable(mockReadyDisabledToken).subscribe(res => {
@@ -282,6 +366,32 @@ describe('OperationsService', () => {
         backend.verify();
       }
     ));
+
+    [
+      { result: { value: { 'enable token': 0 } } },
+      { result: { value: null } },
+      { result: null },
+      null
+    ].forEach(response => {
+      it('should send a enable token request and return false on failure', inject(
+        [HttpClient, HttpTestingController],
+        (http: HttpClient, backend: HttpTestingController) => {
+          operationsService.enable(mockReadyDisabledToken).subscribe(res => {
+            expect(res).toEqual(false);
+          });
+
+          const req = backend.expectOne({
+            url: '/userservice/enable',
+            method: 'POST'
+          });
+
+          expect(req.request.body).toEqual(enableRequestBody);
+          req.flush(response);
+
+          backend.verify();
+        }
+      ));
+    });
 
     it('should show a notification on request failure', inject(
       [HttpClient, HttpTestingController],
@@ -305,7 +415,7 @@ describe('OperationsService', () => {
 
   describe('disable token', () => {
     const disableRequestBody = { serial: mockReadyEnabledToken.serial, session: session };
-    it('should send a disable token request', inject(
+    it('should send a disable token request and return true on success', inject(
       [HttpClient, HttpTestingController],
       (http: HttpClient, backend: HttpTestingController) => {
         operationsService.disable(mockReadyEnabledToken).subscribe(res => {
@@ -323,6 +433,32 @@ describe('OperationsService', () => {
         backend.verify();
       }
     ));
+
+    [
+      { result: { value: { 'disable token': 0 } } },
+      { result: { value: null } },
+      { result: null },
+      null
+    ].forEach(response => {
+      it('should send a disable token request and return false on failure', inject(
+        [HttpClient, HttpTestingController],
+        (http: HttpClient, backend: HttpTestingController) => {
+          operationsService.disable(mockReadyEnabledToken).subscribe(res => {
+            expect(res).toEqual(false);
+          });
+
+          const req = backend.expectOne({
+            url: '/userservice/disable',
+            method: 'POST'
+          });
+
+          expect(req.request.body).toEqual(disableRequestBody);
+          req.flush(response);
+
+          backend.verify();
+        }
+      ));
+    });
 
     it('should show a notification on request failure', inject(
       [HttpClient, HttpTestingController],
@@ -345,7 +481,7 @@ describe('OperationsService', () => {
   });
 
   describe('resetFailcounter', () => {
-    it('should request a failcounter reset from the server', inject(
+    it('should request a failcounter reset from the server and return true on success', inject(
       [HttpClient, HttpTestingController],
       (http: HttpClient, backend: HttpTestingController) => {
 
@@ -359,6 +495,28 @@ describe('OperationsService', () => {
         backend.verify();
       }
     ));
+
+    [
+      { result: { value: { 'reset Failcounter': 0 } } },
+      { result: { value: null } },
+      { result: null },
+      null
+    ].forEach(response => {
+      it('should request a failcounter reset from the server and return false on failure', inject(
+        [HttpClient, HttpTestingController],
+        (http: HttpClient, backend: HttpTestingController) => {
+
+          operationsService.resetFailcounter('serial').subscribe(res => {
+            expect(res).toEqual(false);
+          });
+
+          const request = backend.expectOne((req) => req.url === '/userservice/reset' && req.method === 'POST');
+
+          request.flush(response);
+          backend.verify();
+        }
+      ));
+    });
 
     it('should show a notification on request failure', inject(
       [HttpClient, HttpTestingController],
@@ -382,7 +540,7 @@ describe('OperationsService', () => {
   });
 
   describe('resync', () => {
-    it('should request a token resync from the server', inject(
+    it('should request a token resync from the server and return true on success', inject(
       [HttpClient, HttpTestingController],
       (http: HttpClient, backend: HttpTestingController) => {
 
@@ -396,6 +554,28 @@ describe('OperationsService', () => {
         backend.verify();
       }
     ));
+
+    [
+      { result: { value: { 'resync Token': false } } },
+      { result: { value: null } },
+      { result: null },
+      null
+    ].forEach(response => {
+      it('should request a token resync from the server and return false on failure', inject(
+        [HttpClient, HttpTestingController],
+        (http: HttpClient, backend: HttpTestingController) => {
+
+          operationsService.resync('serial', 'otp1', 'otp2').subscribe(res => {
+            expect(res).toEqual(false);
+          });
+
+          const request = backend.expectOne((req) => req.url === '/userservice/resync' && req.method === 'POST');
+
+          request.flush(response);
+          backend.verify();
+        }
+      ));
+    });
 
     it('should show a notification on request failure', inject(
       [HttpClient, HttpTestingController],
@@ -418,7 +598,7 @@ describe('OperationsService', () => {
   });
 
   describe('setDescription', () => {
-    it('should request setting a token description from the server', inject(
+    it('should request setting a token description from the server and return true on success', inject(
       [HttpClient, HttpTestingController],
       (http: HttpClient, backend: HttpTestingController) => {
 
@@ -432,6 +612,28 @@ describe('OperationsService', () => {
         backend.verify();
       }
     ));
+
+    [
+      { result: { value: { 'set description': false } } },
+      { result: { value: null } },
+      { result: null },
+      null
+    ].forEach(response => {
+      it('should request setting a token description from the server and return false on failure', inject(
+        [HttpClient, HttpTestingController],
+        (http: HttpClient, backend: HttpTestingController) => {
+
+          operationsService.setDescription('serial', 'description').subscribe(res => {
+            expect(res).toEqual(false);
+          });
+
+          const request = backend.expectOne((req) => req.url === '/userservice/setdescription' && req.method === 'POST');
+
+          request.flush(response);
+          backend.verify();
+        }
+      ));
+    });
 
     it('should show a notification on request failure', inject(
       [HttpClient, HttpTestingController],
@@ -452,6 +654,4 @@ describe('OperationsService', () => {
       }
     ));
   });
-
-
 });
