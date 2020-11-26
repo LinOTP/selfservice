@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 
 import { NgxPermissionsService } from 'ngx-permissions';
 
@@ -47,5 +47,16 @@ describe('AppInitService', () => {
     appInitService.init();
 
     expect(ngxPermissionsService.loadPermissions).toHaveBeenCalledWith([]);
+  });
+
+  describe('clearPermissions', () => {
+    it('should clear the list of permissions and set the permissions as not loaded', fakeAsync(() => {
+      appInitService.clearPermissions();
+      tick();
+      appInitService.getPermissionLoad$().subscribe(res => {
+        expect(res).toEqual(false);
+      });
+      expect(ngxPermissionsService.flushPermissions).toHaveBeenCalled();
+    }));
   });
 });
