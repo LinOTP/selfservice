@@ -7,12 +7,10 @@
          i18n-alt>
     <h1 id="app-name">{{ title }}</h1>
   </div>
-  <nav>
-    <ng-container *ngIf="userData">
-      <a *ngFor="let link of navLinks"
-         mat-button
-         [routerLink]="link.path">{{ link.label }}</a>
-    </ng-container>
+  <nav *ngIf="userData">
+    <a *ngFor="let link of navLinks"
+       mat-button
+       [routerLink]="link.path">{{ link.label }}</a>
   </nav>
   <div class="user-info"
        *ngIf="userData">
