@@ -14,14 +14,16 @@ if (isLegacy) {
         }\
     </style>\
     <div class="unsupported">\
-    <h1>Nicht unterstützter Webbrowser</h1>\
-    <p>Ihre Browser-Version wird nicht unterstützt und der LinOTP Selfservice v2 funktioniert nicht richtig.</p>\
-    <p>Die folgenden Browser werden in ihrer aktuellsten Version offiziell unterstützt:</p>\
-        <ul>\
-          <li>Microsoft Edge</li>\
-          <li>Mozilla Firefox</li>\
-          <li>Google Chrome</li>\
-        </ul>\
+      <h1>Nicht unterstützter Webbrowser</h1>\
+      <p>Ihre Browser-Version wird nicht unterstützt und der LinOTP-Self-Service funktioniert nicht richtig.</p>\
+      <p>Die folgenden Browser werden in ihrer aktuellsten Version offiziell unterstützt:</p>\
+      <ul>\
+        <li>Microsoft Edge</li>\
+        <li>Mozilla Firefox</li>\
+        <li>Google Chrome</li>\
+      </ul>\
+      <h2>Legacy Self-Service</h2>\
+      <p>Sie können den alten Self-Service unter <a href="/selfservice-legacy">/selfservice-legacy</a> verwenden, wenn Sie nicht zu einem unterstützten Browser wechseln können.</p>\
     </div>\
   ';
 }
