@@ -1,7 +1,7 @@
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { of } from 'rxjs';
+import { of, ReplaySubject, Subject } from 'rxjs';
 
 import { spyOnClass, getInjectedStub } from '../testing/spyOnClass';
 
@@ -10,16 +10,35 @@ import { MaterialModule } from './material.module';
 import { NotificationService } from './common/notification.service';
 import { LoginService } from './login/login.service';
 import { MockComponent } from '../testing/mock-component';
-import { SystemService } from './system.service';
+import { SystemService, UserSystemInfo } from './system.service';
 import { Fixtures } from '../testing/fixtures';
+import { TestingPage } from '../testing/page-helper';
 
+class Page extends TestingPage<AppComponent> {
+  public getToolbar() {
+    return this.query('mat-toolbar');
+  }
 
-const navLinks = [
-  { 'label': 'label', 'path': 'path/' },
-];
+  public getNavigation() {
+    return this.query('nav');
+  }
+
+  public getUserNameValue() {
+    return this.query('.user-info .name')?.textContent?.trim();
+  }
+
+  public getUserRealmValue() {
+    return this.query('.user-info .realm')?.textContent?.trim();
+  }
+}
 
 describe('AppComponent', () => {
+  let fixture: ComponentFixture<AppComponent>;
+  let component: AppComponent;
+  let page: Page;
+
   let loginService: jasmine.SpyObj<LoginService>;
+  let loginChangeSubject: Subject<UserSystemInfo['user']>;
   let systemService: jasmine.SpyObj<SystemService>;
 
   beforeEach(async () => {
@@ -55,93 +74,73 @@ describe('AppComponent', () => {
 
     loginService.logout.and.returnValue(of(null));
     systemService.getSystemInfo$.and.returnValue(of(Fixtures.systemInfo));
-    (loginService as any).loginChange$ = of();
+
+    loginChangeSubject = new ReplaySubject();
+    (loginService as any).loginChange$ = loginChangeSubject.asObservable();
+
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.debugElement.componentInstance;
+
+    page = new Page(fixture);
   });
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
+    fixture.detectChanges();
+    expect(component).toBeTruthy();
   });
 
   it(`should have as title 'Self Service'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('Self Service');
+    fixture.detectChanges();
+    expect(component.title).toEqual('Self Service');
   });
 
-  it('should render title in a mat-toolbar tag', () => {
-    const fixture = TestBed.createComponent(AppComponent);
+  it('should render title in the toolbar', () => {
     fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('mat-toolbar').textContent).toContain('Self Service');
+    expect(page.getToolbar().textContent).toContain('Self Service');
   });
 
-  it('should render navigation list and user info if user is logged in', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const component = fixture.componentInstance;
-    const compiled = fixture.debugElement.nativeElement;
-
+  it('should render navigation list and user info while user is logged in', () => {
     fixture.detectChanges();
 
-    component.userData = Fixtures.userSystemInfo.user;
-    component.navLinks = navLinks;
+    expect(page.getNavigation()).toBeFalsy();
+    expect(page.getUserNameValue()).toBeFalsy();
+    expect(page.getUserRealmValue()).toBeFalsy();
 
+    loginChangeSubject.next(Fixtures.userSystemInfo.user);
     fixture.detectChanges();
 
-    expect(compiled.querySelector('nav').textContent).toContain(navLinks[0].label);
-    expect(compiled.querySelector('.user-info .name').textContent.trim()).toEqual(
-      `${Fixtures.userSystemInfo.user.givenname} ${Fixtures.userSystemInfo.user.surname}`
-    );
-    expect(compiled.querySelector('.user-info .realm').textContent.trim()).toEqual(
-      Fixtures.userSystemInfo.user.realm
-    );
-  });
+    expect(page.getNavigation()).toBeTruthy();
+    expect(page.getUserNameValue())
+      .toEqual(`${Fixtures.userSystemInfo.user.givenname} ${Fixtures.userSystemInfo.user.surname}`);
+    expect(page.getUserRealmValue())
+      .toEqual(Fixtures.userSystemInfo.user.realm);
 
-  it('should not render navigation list nor user info if user is logged out', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const component = fixture.componentInstance;
-    const compiled = fixture.debugElement.nativeElement;
-
+    loginChangeSubject.next(undefined);
     fixture.detectChanges();
 
-    component.userData = undefined;
-    component.navLinks = navLinks;
-
-    fixture.detectChanges();
-
-    expect(compiled.querySelector('nav').textContent).not.toContain(navLinks[0].label);
-    expect(compiled.querySelector('.user-info .name')).toBeFalsy();
-    expect(compiled.querySelector('.user-info .realm')).toBeFalsy();
+    expect(page.getNavigation()).toBeFalsy();
+    expect(page.getUserNameValue()).toBeFalsy();
+    expect(page.getUserRealmValue()).toBeFalsy();
   });
 
   it('should show the username in user info if user has no given or surname', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const component = fixture.componentInstance;
-    const compiled = fixture.debugElement.nativeElement;
-    component.userData = Fixtures.userSystemInfo.user;
-    component.navLinks = navLinks;
-
+    const user = Fixtures.userSystemInfo.user;
+    loginChangeSubject.next(user);
     fixture.detectChanges();
 
-    expect(compiled.querySelector('.user-info .name').textContent.trim()).toEqual(
-      `${Fixtures.userSystemInfo.user.givenname} ${Fixtures.userSystemInfo.user.surname}`
-    );
+    expect(page.getUserNameValue())
+      .toEqual(`${user.givenname} ${user.surname}`);
 
-    delete component.userData.surname;
-
+    delete user.surname;
+    loginChangeSubject.next(user);
     fixture.detectChanges();
 
-    expect(compiled.querySelector('.user-info .name').textContent.trim()).toEqual(
-      Fixtures.userSystemInfo.user.givenname
-    );
+    expect(page.getUserNameValue()).toEqual(user.givenname);
 
-    delete component.userData.givenname;
-
+    delete user.givenname;
+    loginChangeSubject.next(user);
     fixture.detectChanges();
 
-    expect(compiled.querySelector('.user-info .name').textContent.trim()).toEqual(
-      Fixtures.userSystemInfo.user.username
-    );
+    expect(page.getUserNameValue()).toEqual(user.username);
   });
 });

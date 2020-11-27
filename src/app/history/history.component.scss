@@ -1,0 +1,36 @@
+table {
+  width: 100%;
+}
+
+.filter {
+  display: flex;
+
+  &>* {
+    margin: 5px;
+  }
+
+  .mat-form-field.search-term {
+    flex: 1;
+  }
+
+  mat-icon {
+    align-self: center;
+  }
+
+  button {
+    align-self: baseline;
+  }
+}
+
+.mat-cell:not(:last-of-type),
+mat-header-cell:not(:last-of-type) {
+  padding-right: 8px !important;
+}
+
+.failure {
+  background: #fff8f8;
+
+  mat-icon {
+    color: red;
+  }
+}

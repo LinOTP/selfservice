@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService } from './login/login.service';
 import { NotificationService } from './common/notification.service';
 import { SystemService, UserSystemInfo } from './system.service';
+import { Permission } from './common/permissions';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,7 @@ export class AppComponent implements OnInit {
   public title = 'Self Service';
   public navLinks = [
     { 'label': $localize`Your tokens`, 'path': 'tokens/' },
+    { 'label': $localize`History`, 'path': 'history/', permission: Permission.HISTORY }
   ];
 
   public userData: UserSystemInfo['user'];

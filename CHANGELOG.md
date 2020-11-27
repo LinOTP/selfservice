@@ -1,3 +1,33 @@
+  <a name="1.0.dev0"></a>
+## 1.0.dev0 (2020-11-27)
+
+  ### Features:
+  * Support for enrollHMAC and enrollTOTP policies. These policies are now the preferred way of enabling TOTP and HOTP token enrollment.
+  * Enhanced support for Yubikey and Yubico tokens in MFA login.
+  * Name and realm of logged-in user is displayed in the top bar.
+  * Enhanced consitency between all dialogs for the enrollment of all supported token types.
+  * API polling for status checks is now slowing down with exponential backoff after some time for less load on the backend.
+  * If a token is disabled without having the permission to reenable the token, it must be confirmed with a dialog.
+  * The disable token action is no longer shown at all if permission is not available but the enable token action is shown disabled with a tooltip explaining that the user is not allowed to reenable disabled tokens.
+  * QR and Push tokens show an improved information if they are not yet paired based on the permissions a user has.
+  * Unsupported browser message includes link to legacy Self Service
+  * Display user history in a data table, provided the history policy is set
+
+  ### Breaking changes:
+  * The debian package now builds the selfservice to be available on the url "/selfservice" instead of "/selfservice-v2" in preparation for being the primary selfservice for LinOTP.
+
+  ### Deprecations:
+  * Policies "webprovisionGOOGLE" and "webprovisionGOOGLEtime" are replaced by "enrollHMAC" and "enrollTOTP" respectively. They are still available for compatibility reasons when running the legacy Self Service in parallel.
+
+  ### Fixes:
+  * Apache config files are now correctly linked into "/etc/linotp/" which was previously "/etc/linotp2/" with LinOTP 2.x.
+  * Login redirect to the token list can no longer fail because of redirect paramter stacking up mulitple times pointing to the login page.
+  * Tokens with a pending activation will no longer show an empty token action card if only actions are allowed that are only viable for fully-activated tokens.
+  * Assigning a password token when the verify permission is set now correctly opens the token test to verify that the user can use the token now.
+  * Pressing enter after successfully creating tokens no longer causes unintential duplicated tokens from being created.
+  * The enrollment grid now is ensured to be always shown if a token enrollment policy is set. Also the section will no longer be mistakenly shown if the verify policy is set but no enrollment policies are.
+
+
 <a name="0.7.0"></a>
 ## 0.7.0 (2020-10-22)
 

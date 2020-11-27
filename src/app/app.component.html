@@ -7,10 +7,10 @@
          i18n-alt>
     <h1 id="app-name">{{ title }}</h1>
   </div>
-  <nav>
-    <ng-container *ngIf="userData">
-      <a *ngFor="let link of navLinks"
-         mat-button
+  <nav *ngIf="userData">
+    <ng-container *ngFor="let link of navLinks">
+      <a mat-button
+         *ngxPermissionsOnly="link.permission"
          [routerLink]="link.path">{{ link.label }}</a>
     </ng-container>
   </nav>

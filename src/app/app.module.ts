@@ -15,6 +15,7 @@ import { AuthModule } from './auth/auth.module';
 import { AppComponent } from './app.component';
 import { TokenListComponent } from './token-list/token-list.component';
 import { LoginComponent } from './login/login.component';
+import { HistoryComponent } from './history/history.component';
 import { EnrollOATHDialogComponent } from './enroll/enroll-oath-dialog/enroll-oath-dialog.component';
 import { EnrollEmailDialogComponent } from './enroll/enroll-email-dialog/enroll-email-dialog.component';
 import { EnrollMOTPDialogComponent } from './enroll/enroll-motp-dialog/enroll-motp-dialog.component';
@@ -35,6 +36,7 @@ import { KeyboardKeyComponent } from './keyboard-key/keyboard-key.component';
   declarations: [
     AppComponent,
     TokenListComponent,
+    HistoryComponent,
     LoginComponent,
     TokenCardComponent,
     EnrollmentGridComponent,
