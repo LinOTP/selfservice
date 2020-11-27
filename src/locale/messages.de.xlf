@@ -7,7 +7,15 @@
         <target state="translated">Meine Token</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.ts</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="186236568870281953" datatype="html">
+        <source>History</source>
+        <target state="translated">Chronik</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.ts</context>
+          <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4618484352721043047" datatype="html">
@@ -15,7 +23,7 @@
         <target state="translated">Abmeldung erfolgreich</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.ts</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">48</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7617829407416097696" datatype="html">
@@ -23,7 +31,7 @@
         <target state="translated">Abmeldung fehlgeschlagen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.ts</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">48</context>
         </context-group>
       </trans-unit>
       <trans-unit id="189395343509305217" datatype="html">
@@ -424,6 +432,78 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
           <context context-type="linenumber">195</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3973931101896534797" datatype="html">
+        <source>Date</source>
+        <target state="translated">Datum</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/history/history.component.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9216117865911519658" datatype="html">
+        <source>Action</source>
+        <target state="translated">Vorgang</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/history/history.component.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4648900870671159218" datatype="html">
+        <source>Success</source>
+        <target state="translated">Erfolg</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/history/history.component.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6108435102004383383" datatype="html">
+        <source>Serial</source>
+        <target state="translated">Seriennummer</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/history/history.component.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2781819562467104463" datatype="html">
+        <source>Token type</source>
+        <target state="translated">Tokentyp</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/history/history.component.ts</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5028777105388019087" datatype="html">
+        <source>Details</source>
+        <target state="translated">Details</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/history/history.component.ts</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="314315645942131479" datatype="html">
+        <source>Info</source>
+        <target state="translated">Info</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/history/history.component.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2859654669971203505" datatype="html">
+        <source>Search term</source>
+        <target state="translated">Suchbegriff</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/history/history.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4580988005648117665" datatype="html">
+        <source>Search</source>
+        <target state="translated">Suchen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/history/history.component.html</context>
+          <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3012199703865433135" datatype="html">
@@ -2520,6 +2600,22 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/enrollment.service.ts</context>
           <context context-type="linenumber">183</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4582025863876888028" datatype="html">
+        <source>fetching history failed</source>
+        <target state="translated">Laden der Chronik fehlgeschlagen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/history.service.ts</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8130809600677497545" datatype="html">
+        <source>Error: <x id="PH" equiv-text="message"/>. Please try again</source>
+        <target state="translated">Fehler: <x id="PH" equiv-text="message"/>. Versuchen Sie es bitte erneut</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/history.service.ts</context>
+          <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit>
     </body>
