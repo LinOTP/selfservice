@@ -16,6 +16,8 @@ linotp-selfservice (1.0.dev0-1) buster-dev; urgency=medium
     explaining that the user is not allowed to reenable disabled tokens.
   * QR and Push tokens show an improved information if they are not yet paired
     based on the permissions a user has.
+  * Unsupported browser message includes link to legacy Self Service
+  * Display user history in a data table, provided the history policy is set
 
   Breaking changes:
   * The debian package now builds the selfservice to be available on the url
@@ -25,7 +27,7 @@ linotp-selfservice (1.0.dev0-1) buster-dev; urgency=medium
   Deprecations:
   * Policies "webprovisionGOOGLE" and "webprovisionGOOGLEtime" are replaced by
     "enrollHMAC" and "enrollTOTP" respectively. They are still available for
-    compatibility reasons when running the old selfservice in parallel.
+    compatibility reasons when running the legacy Self Service in parallel.
 
   Fixes:
   * Apache config files are now correctly linked into "/etc/linotp/" which was
