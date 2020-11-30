@@ -211,15 +211,12 @@ describe('EnrollmentService', () => {
           user: 'name'
         };
 
-        const serverResponse = {
-          result: { status: true, value: true },
-          detail: { transactionid: 'id', message: 'ok' }
-        };
+        const serverResponse = { result: { status: true, value: true }, detail: { transactionid: 'id', message: 'ok' } };
 
         spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify({ username: 'name' }));
 
         enrollmentService.activate('serial', 'pin').subscribe(response => {
-          expect(response).toEqual(serverResponse);
+          expect(response).toEqual({ transactionid: 'id', message: 'ok' });
         });
 
         const request = backend.expectOne((req) =>
@@ -236,26 +233,29 @@ describe('EnrollmentService', () => {
       }
     ));
 
-    it('should return an error message if there was a backend error', inject(
-      [HttpClient, HttpTestingController],
-      (http: HttpClient, backend: HttpTestingController) => {
-        const serverResponse = {
-          result: { status: false },
-        };
+    [
+      { result: { status: false } },
+      { result: { status: true, value: false } },
+      { result: { status: true, value: true } },
+    ].forEach(serverResponse => {
+      it('should return an error message if there was a backend error', inject(
+        [HttpClient, HttpTestingController],
+        (http: HttpClient, backend: HttpTestingController) => {
 
-        spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify({ username: 'name' }));
+          spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify({ username: 'name' }));
 
-        enrollmentService.activate('serial', 'pin').subscribe(response => {
-          expect(response).toEqual(null);
-          expect(notificationService.message).toHaveBeenCalledWith('Token activation failed: Please try again.');
-        });
+          enrollmentService.activate('serial', 'pin').subscribe(response => {
+            expect(response).toEqual(null);
+            expect(notificationService.message).toHaveBeenCalledWith('Token activation failed: Please try again.');
+          });
 
-        const request = backend.expectOne((req) => req.url === '/validate/check' && req.method === 'POST');
+          const request = backend.expectOne((req) => req.url === '/validate/check' && req.method === 'POST');
 
-        request.flush(serverResponse);
-        backend.verify();
-      }
-    ));
+          request.flush(serverResponse);
+          backend.verify();
+        }
+      ));
+    });
   });
 
 

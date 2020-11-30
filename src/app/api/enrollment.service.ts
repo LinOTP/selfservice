@@ -89,7 +89,7 @@ export class EnrollmentService {
       take(1));
   }
 
-  activate(serial: string, pin: string): Observable<LinOTPResponse<boolean, ActivationDetail>> {
+  activate(serial: string, pin: string): Observable<ActivationDetail> {
     const userInfo: UserInfo = JSON.parse(localStorage.getItem('user'));
     const body = {
       serial: serial,
@@ -100,10 +100,13 @@ export class EnrollmentService {
     return this.http.post<LinOTPResponse<boolean, ActivationDetail>>(this.validateCheck, body)
       .pipe(
         tap(response => {
-          if (!response.result.status) {
+          if (!response?.result?.status
+            || !response?.result?.value
+            || !response?.detail) {
             throw new APIError(response);
           }
         }),
+        map(response => response?.detail),
         catchError(this.handleError($localize`Token activation`, null))
       );
   }
@@ -137,7 +140,7 @@ export class EnrollmentService {
       mergeMap(() => this.getChallengeStatus(transactionId, pin, serial)),
       filter(res => res.detail.transactions[transactionId].status !== 'open'),
       map(res => res.detail.transactions[transactionId]),
-      catchError(() => of({})),
+      catchError(() => of(null)),
       take(1),
     );
   }

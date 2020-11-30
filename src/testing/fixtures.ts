@@ -253,13 +253,8 @@ export class Fixtures {
 
   static get activationResponse() {
     return {
-      result: {
-        value: true
-      },
-      detail: {
-        transactionid: 1,
-        message: 'QR_URL'
-      }
+      transactionid: 1,
+      message: 'QR_URL'
     };
   }
 

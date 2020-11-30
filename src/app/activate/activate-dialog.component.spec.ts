@@ -92,8 +92,7 @@ describe('ActivateDialogComponent', () => {
   }));
 
   it('should fail on token activation', fakeAsync(() => {
-    enrollmentService.activate.and.returnValue(of({}));
-    spyOn(console, 'error');
+    enrollmentService.activate.and.returnValue(of(null));
 
     fixture.detectChanges();
 
@@ -103,13 +102,12 @@ describe('ActivateDialogComponent', () => {
 
     expect(component.waitingForResponse).toEqual(false);
     expect(component.restartDialog).toEqual(true);
-    expect(console.error).toHaveBeenCalled();
 
   }));
 
   it('should fail on challenge polling', fakeAsync(() => {
     enrollmentService.activate.and.returnValue(of(Fixtures.activationResponse));
-    enrollmentService.challengePoll.and.returnValue(of({}));
+    enrollmentService.challengePoll.and.returnValue(of(null));
 
     fixture.detectChanges();
 
