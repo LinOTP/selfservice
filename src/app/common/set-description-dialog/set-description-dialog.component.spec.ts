@@ -9,14 +9,12 @@ import { spyOnClass } from '../../../testing/spyOnClass';
 
 import { MaterialModule } from '../../material.module';
 import { OperationsService } from '../../api/operations.service';
-import { NotificationService } from '../notification.service';
 import { SetDescriptionDialogComponent } from './set-description-dialog.component';
 
 describe('SetDecriptionDialogComponent', () => {
   let component: SetDescriptionDialogComponent;
   let fixture: ComponentFixture<SetDescriptionDialogComponent>;
   let operationsService: OperationsService;
-  let notificationService: NotificationService;
   const token = Fixtures.activeHotpToken;
   let matDialogRef: MatDialogRef<SetDescriptionDialogComponent>;
 
@@ -41,17 +39,12 @@ describe('SetDecriptionDialogComponent', () => {
           provide: OperationsService,
           useValue: spyOnClass(OperationsService),
         },
-        {
-          provide: NotificationService,
-          useValue: spyOnClass(NotificationService),
-        },
       ]
     }).compileComponents();
   });
 
   beforeEach(() => {
     operationsService = TestBed.inject(OperationsService);
-    notificationService = TestBed.inject(NotificationService);
     matDialogRef = TestBed.inject(MatDialogRef);
 
     fixture = TestBed.createComponent(SetDescriptionDialogComponent);
@@ -71,16 +64,5 @@ describe('SetDecriptionDialogComponent', () => {
     component.submit();
     expect(operationsService.setDescription).toHaveBeenCalledWith(token.serial, 'descr');
     expect(matDialogRef.close).toHaveBeenCalledWith(true);
-    expect(notificationService.message).not.toHaveBeenCalled();
   });
-
-  it('should display a notification message if submission fails', () => {
-    component.form.setValue({ description: 'descr' });
-    fixture.detectChanges();
-    operationsService.setDescription = jasmine.createSpy('setDescription').and.returnValue(of(false));
-
-    component.submit();
-    expect(notificationService.message).toHaveBeenCalledWith('Token description could not be changed. Please try again.');
-  });
-
 });

@@ -87,14 +87,6 @@ describe('SetPinDialogComponent', () => {
     expect(matDialogRef.close).toHaveBeenCalledWith(true);
   });
 
-  it('should display a notification message if submission fails', () => {
-    component.form.setValue({ 'newPin': '1234', 'confirmPin': '1234' });
-    fixture.detectChanges();
-    operationsService.setPin = jasmine.createSpy('setPin').and.returnValue(of(false));
-
-    component.submit();
-  });
-
   it('should not call setPin nor close dialog if pin values are different on submit', () => {
     component.form.setValue({ 'newPin': '1234', 'confirmPin': '5678' });
     fixture.detectChanges();
