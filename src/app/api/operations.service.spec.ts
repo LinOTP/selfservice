@@ -73,15 +73,16 @@ describe('OperationsService', () => {
         });
 
         expect(req.request.body).toEqual(setPinRequestBody);
-        req.flush({ result: { value: { 'set userpin': 1 } } });
+        req.flush({ result: { status: true, value: { 'set userpin': 1 } } });
 
         backend.verify();
       }
     ));
 
     [
-      { result: { value: { 'set userpin': 0 } } },
-      { result: { value: null } },
+      { result: { status: false } },
+      { result: { status: true, value: { 'set userpin': 0 } } },
+      { result: { status: true, value: null } },
       { result: null },
       null
     ].forEach(response => {
@@ -142,15 +143,16 @@ describe('OperationsService', () => {
         });
 
         expect(req.request.body).toEqual(setPinRequestBody);
-        req.flush({ result: { value: { 'set userpin': 1 } } });
+        req.flush({ result: { status: true, value: { 'set userpin': 1 } } });
 
         backend.verify();
       }
     ));
 
     [
-      { result: { value: { 'set userpin': 0 } } },
-      { result: { value: null } },
+      { result: { status: false } },
+      { result: { status: true, value: { 'set userpin': 0 } } },
+      { result: { status: true, value: null } },
       { result: null },
       null
     ].forEach(response => {
@@ -223,14 +225,15 @@ describe('OperationsService', () => {
         });
 
         expect(req.request.body).toEqual(deleteRequestBody);
-        req.flush({ result: { value: { 'delete token': 1 } } });
+        req.flush({ result: { status: true, value: { 'delete token': 1 } } });
         backend.verify();
       }
     ));
 
     [
-      { result: { value: { 'delete token': 0 } } },
-      { result: { value: null } },
+      { result: { status: false } },
+      { result: { status: true, value: { 'delete token': 0 } } },
+      { result: { status: true, value: null } },
       { result: null },
       null
     ].forEach(response => {
@@ -290,7 +293,7 @@ describe('OperationsService', () => {
           method: 'POST'
         });
 
-        req.flush({ result: { value: { 'unassign token': true } } });
+        req.flush({ result: { status: true, value: { 'unassign token': true } } });
 
         expect(req.request.body).toEqual(unassignRequestBody);
         backend.verify();
@@ -298,8 +301,9 @@ describe('OperationsService', () => {
     ));
 
     [
-      { result: { value: { 'unassign token': false } } },
-      { result: { value: null } },
+      { result: { status: false } },
+      { result: { status: true, value: { 'unassign token': false } } },
+      { result: { status: true, value: null } },
       { result: null },
       null
     ].forEach(response => {
@@ -361,15 +365,16 @@ describe('OperationsService', () => {
         });
 
         expect(req.request.body).toEqual(enableRequestBody);
-        req.flush({ result: { value: { 'enable token': 1 } } });
+        req.flush({ result: { status: true, value: { 'enable token': 1 } } });
 
         backend.verify();
       }
     ));
 
     [
-      { result: { value: { 'enable token': 0 } } },
-      { result: { value: null } },
+      { result: { status: false } },
+      { result: { status: true, value: { 'enable token': 0 } } },
+      { result: { status: true, value: null } },
       { result: null },
       null
     ].forEach(response => {
@@ -428,15 +433,16 @@ describe('OperationsService', () => {
         });
 
         expect(req.request.body).toEqual(disableRequestBody);
-        req.flush({ result: { value: { 'disable token': 1 } } });
+        req.flush({ result: { status: true, value: { 'disable token': 1 } } });
 
         backend.verify();
       }
     ));
 
     [
-      { result: { value: { 'disable token': 0 } } },
-      { result: { value: null } },
+      { result: { status: false } },
+      { result: { status: true, value: { 'disable token': 0 } } },
+      { result: { status: true, value: null } },
       { result: null },
       null
     ].forEach(response => {
@@ -497,8 +503,9 @@ describe('OperationsService', () => {
     ));
 
     [
-      { result: { value: { 'reset Failcounter': 0 } } },
-      { result: { value: null } },
+      { result: { status: false } },
+      { result: { status: true, value: { 'reset Failcounter': 0 } } },
+      { result: { status: true, value: null } },
       { result: null },
       null
     ].forEach(response => {
@@ -556,8 +563,9 @@ describe('OperationsService', () => {
     ));
 
     [
-      { result: { value: { 'resync Token': false } } },
-      { result: { value: null } },
+      { result: { status: false } },
+      { result: { status: true, value: { 'resync Token': false } } },
+      { result: { status: true, value: null } },
       { result: null },
       null
     ].forEach(response => {
@@ -608,14 +616,15 @@ describe('OperationsService', () => {
 
         const request = backend.expectOne((req) => req.url === '/userservice/setdescription' && req.method === 'POST');
 
-        request.flush({ result: { status: true, value: { 'set description': true } } });
+        request.flush({ result: { status: true, value: { 'set description': 1 } } });
         backend.verify();
       }
     ));
 
     [
-      { result: { value: { 'set description': false } } },
-      { result: { value: null } },
+      { result: { status: false } },
+      { result: { status: true, value: { 'set description': 0 } } },
+      { result: { status: true, value: null } },
       { result: null },
       null
     ].forEach(response => {
