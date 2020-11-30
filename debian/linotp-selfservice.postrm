@@ -1,0 +1,12 @@
+#!/bin/sh -e
+
+if [ "$1" = "purge" ]; then
+
+	echo "Removing linotp apache site include symlink"
+	rm -f /etc/linotp/apache-site-includes/linotp-selfservice.conf
+
+	# Purge all configuration
+	rm -rf /etc/linotp-selfservice/*
+fi
+
+#DEBHELPER#
