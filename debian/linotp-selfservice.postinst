@@ -14,48 +14,27 @@
 
 set -e
 
-check_apache_module() {
-  # Check the status of a dependency module and enable or warn the
-  # user, depending on the system configuration
-  local module=$1
-
-  if ! which a2query >/dev/null; then
-    echo "Could not find a2query - module check skipped"
-    return 0
-  fi
-
-  local ret=0
-  a2query -q -m $module || ret=$?
-  if [ $ret -eq 32 -o $ret -eq 1 ]; then
-    # Module was disabled by administrator or is not available
-
-    if dpkg-query --status lseappliance >/dev/null 2>&1; then
-      # If we are running on the SVA2, the module was disabled by
-      # the installation script and we must force reenable the
-      # module
-      a2enmod -q $module
-    else
-      # The user deliberately disabled this module so the
-      # package installation could fail
-      echo "Warning: apache module $module was disabled."
-      echo "If the installation fails, you can enable the"
-      echo "module using the command:"
-      echo
-      echo "  a2enmod $module"
-    fi
-  fi
-}
 
 case "$1" in
   configure)
-    # Check required apache modules
-    check_apache_module dir
-    check_apache_module rewrite
+    # Enable required apache modules if a2enmod is available
+    if [ -x /usr/sbin/a2enmod ]; then
+      a2enmod dir
+      a2enmod rewrite
+    else
+      echo "Warning: Can't enable apache modules dir and rewrite."
+      echo "If you intend to use the linotp-selfservice package"
+      echo "with apache, activate modules after apache installation."
+      echo
+      echo "  a2enmod dir && a2enmod rewrite"
+    fi
 
     # Enable the linotp-selfservice via symlink for integration in a linotp site
     if [ -z "$2" ]; then
       # Do this only for a fresh install, in case the linotp-selfservice was manually disabled
-      ln -s /etc/apache2/conf-available/linotp-selfservice.conf /etc/linotp/apache-site-includes/
+      if [ ! -e "/etc/linotp/apache-site-includes/linotp-selfservice.conf" ]; then
+        ln -s /etc/apache2/conf-available/linotp-selfservice.conf /etc/linotp/apache-site-includes/
+      fi
     fi
   ;;
 
