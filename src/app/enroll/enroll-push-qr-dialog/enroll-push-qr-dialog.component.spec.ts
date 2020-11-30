@@ -24,7 +24,6 @@ import { Subscription } from 'rxjs';
 let component: EnrollPushQRDialogComponent;
 let fixture: ComponentFixture<EnrollPushQRDialogComponent>;
 let enrollmentService: jasmine.SpyObj<EnrollmentService>;
-let notificationService: jasmine.SpyObj<NotificationService>;
 
 describe('EnrollPushDialogComponent', () => {
 
@@ -80,7 +79,6 @@ describe('EnrollPushDialogComponent', () => {
     fixture = TestBed.createComponent(EnrollPushQRDialogComponent);
     component = fixture.componentInstance;
     enrollmentService = getInjectedStub(EnrollmentService);
-    notificationService = getInjectedStub(NotificationService);
     fixture.detectChanges();
   });
 
@@ -108,10 +106,9 @@ describe('EnrollPushDialogComponent', () => {
 
   it('should enroll the push token without failure', fakeAsync(() => {
     const mockedEnrollResponse = Fixtures.enrollmentResponse;
-    mockedEnrollResponse.result.value = true;
     const expectedToken = {
-      serial: mockedEnrollResponse.detail.serial,
-      url: mockedEnrollResponse.detail.lse_qr_url.value
+      serial: mockedEnrollResponse.serial,
+      url: mockedEnrollResponse.lse_qr_url.value
     };
 
     enrollmentService.enroll.and.returnValue(of(mockedEnrollResponse));
@@ -127,17 +124,11 @@ describe('EnrollPushDialogComponent', () => {
 
     expect(component.enrolledToken).toEqual(expectedToken);
     expect(component.stepper.selectedIndex).toEqual(2);
-    expect(notificationService.message).not.toHaveBeenCalled();
     expect(component.enrollmentStep.disabled).toEqual(true);
   }));
 
-  it('should not output a message when the push enrollment failed', fakeAsync(() => {
-    // notification is done by the enrollment service
-
-    const mockedEnrollResponse = Fixtures.enrollmentResponse;
-    mockedEnrollResponse.result.value = false;
-
-    enrollmentService.enroll.and.returnValue(of(mockedEnrollResponse));
+  it('should stay on the first step and allow retrying if enrollment fails', fakeAsync(() => {
+    enrollmentService.enroll.and.returnValue(of(null));
 
     component.enrollmentStep.controls.description.setValue('descr');
     fixture.detectChanges();
@@ -149,7 +140,6 @@ describe('EnrollPushDialogComponent', () => {
 
     expect(component.enrolledToken).toEqual(undefined);
     expect(component.stepper.selectedIndex).toEqual(0);
-    expect(notificationService.message).not.toHaveBeenCalled();
     expect(component.enrollmentStep.disabled).toEqual(false);
   }));
 });

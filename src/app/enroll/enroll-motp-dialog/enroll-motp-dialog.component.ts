@@ -35,11 +35,10 @@ export class EnrollMOTPDialogComponent extends EnrollDialogBaseComponent impleme
       otppin: mOTPPin,
     };
 
-    this.enrollmentService.enroll(body).subscribe(response => {
-      const serial = response?.result?.value && response?.detail?.serial;
-      if (serial) {
+    this.enrollmentService.enroll(body).subscribe(token => {
+      if (token?.serial) {
         this.enrolledToken = {
-          serial: serial,
+          serial: token.serial,
         };
         this.stepper.next();
       } else {

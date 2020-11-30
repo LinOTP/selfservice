@@ -21,13 +21,12 @@ import { EnrollMOTPDialogComponent } from './enroll-motp-dialog.component';
 import { MockComponent } from '../../../testing/mock-component';
 
 const enrolledToken = {
-  serial: Fixtures.mOTPEnrollmentResponse.detail.serial,
+  serial: Fixtures.mOTPEnrollmentResponse.serial,
 };
 
 describe('EnrollMOTPDialogComponent', () => {
   let component: EnrollMOTPDialogComponent;
   let fixture: ComponentFixture<EnrollMOTPDialogComponent>;
-  let notificationService: jasmine.SpyObj<NotificationService>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
 
   beforeEach(async () => {
@@ -82,7 +81,6 @@ describe('EnrollMOTPDialogComponent', () => {
     fixture = TestBed.createComponent(EnrollMOTPDialogComponent);
     component = fixture.componentInstance;
 
-    notificationService = getInjectedStub(NotificationService);
     enrollmentService = getInjectedStub(EnrollmentService);
 
     fixture.detectChanges();
@@ -143,20 +141,15 @@ describe('EnrollMOTPDialogComponent', () => {
       expect(component.enrollmentStep.disabled).toEqual(true);
     }));
 
-    it('should not notify user if enrollment failed', fakeAsync(() => {
-      // the enrollment service does the notification now
+    it('should allow retrying if enrollment failed', fakeAsync(() => {
 
-      const mockEnrollmentResponse = Fixtures.mOTPEnrollmentResponse;
-      mockEnrollmentResponse.result.value = false;
-
-      enrollmentService.enroll.and.returnValue(of(mockEnrollmentResponse));
+      enrollmentService.enroll.and.returnValue(of(null));
       fixture.detectChanges();
 
       component.enrollToken();
       tick();
 
       expect(component.enrolledToken).toEqual(undefined);
-      expect(notificationService.message).not.toHaveBeenCalled();
       expect(component.enrollmentStep.disabled).toEqual(false);
     }));
 

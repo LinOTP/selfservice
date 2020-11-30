@@ -19,7 +19,6 @@ describe('EnrollYubicoDialogComponent', () => {
   let component: EnrollYubicoDialogComponent;
   let fixture: ComponentFixture<EnrollYubicoDialogComponent>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
-  let notificationService: jasmine.SpyObj<NotificationService>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
@@ -68,7 +67,6 @@ describe('EnrollYubicoDialogComponent', () => {
     fixture.detectChanges();
 
     enrollmentService = getInjectedStub(EnrollmentService);
-    notificationService = getInjectedStub(NotificationService);
   });
 
   it('should be created', () => {
@@ -78,7 +76,7 @@ describe('EnrollYubicoDialogComponent', () => {
   describe('registerToken', () => {
 
     it('should be successful when registration is successful', () => {
-      enrollmentService.enroll.and.returnValue(of({ result: { value: true }, detail: { serial: 'serial' } }));
+      enrollmentService.enroll.and.returnValue(of({ serial: 'serial' }));
 
       component.stepper.selectedIndex = 0;
       component.registrationForm.setValue({ publicId: 'abc123', description: 'my new token' });
@@ -90,7 +88,7 @@ describe('EnrollYubicoDialogComponent', () => {
     });
 
     it('should fail when registration request returns and stay on the same step', () => {
-      enrollmentService.enroll.and.returnValue(of({ result: { value: false } }));
+      enrollmentService.enroll.and.returnValue(of(null));
 
       component.stepper.selectedIndex = 0;
       component.registrationForm.setValue({ publicId: 'abc123', description: 'my new token' });
@@ -98,18 +96,6 @@ describe('EnrollYubicoDialogComponent', () => {
 
       component.registerToken();
       expect(component.stepper.selectedIndex).toEqual(0);
-      expect(component.registrationForm.disabled).toEqual(false);
-    });
-
-    it('should notify user of failed registration', () => {
-      enrollmentService.enroll.and.returnValue(of({ result: { value: false } }));
-
-      component.stepper.selectedIndex = 0;
-      component.registrationForm.setValue({ publicId: 'abc123', description: 'my new token' });
-      fixture.detectChanges();
-
-      component.registerToken();
-      expect(notificationService.message).toHaveBeenCalledWith('Token registration failed.');
       expect(component.registrationForm.disabled).toEqual(false);
     });
   });

@@ -1,9 +1,9 @@
 import { Token, TokenType, EnrollmentStatus, TokenTypeDetails } from '../app/api/token';
 import { Permission } from '../app/common/permissions';
 import { UserSystemInfo, SystemInfo } from '../app/system.service';
-import { LinOTPResponse } from '../app/api/api';
 import { ReplyMode } from '../app/api/test.service';
 import { HistoryRequestOptions, HistoryPage, HistoryResponse, HistoryField, SortOrder } from '../app/api/history';
+import { EnrollmentDetail } from '../app/api/enrollment.service';
 
 export class Fixtures {
 
@@ -205,70 +205,50 @@ export class Fixtures {
 
   static get enrollmentResponse() {
     return {
-      result: {
-        value: false
-      }
-      ,
-      detail: {
-        googleurl: {
-          value: 'testUrl',
-        },
-        lse_qr_url: {
-          value: 'testUrl',
-        },
-        serial: 'testSerial',
-      }
+      googleurl: {
+        value: 'testUrl',
+      },
+      lse_qr_url: {
+        value: 'testUrl',
+      },
+      serial: 'testSerial',
     };
   }
 
   static get OATHEnrollmentResponse() {
     return {
-      result: {
-        status: true,
-        value: true,
+      serial: 'testSerial',
+      googleurl: {
+        value: 'testUrl',
       },
-      detail: {
-        serial: 'testSerial',
-        googleurl: {
-          value: 'testUrl',
-        },
-        otpkey: {
-          value: 'random value',
-        }
+      otpkey: {
+        value: 'random value',
       }
     };
   }
 
-  static get PasswordEnrollmentResponse() {
+  static get PasswordEnrollmentResponse(): EnrollmentDetail {
     return {
-      result: {
-        status: true,
-        value: true,
-      },
-      detail: {
-        serial: 'serial',
-      },
+      serial: 'serial',
     };
   }
 
-  static get emailEnrollmentResponse(): LinOTPResponse<boolean, { serial: string }> {
+  static get emailEnrollmentResponse(): EnrollmentDetail {
     return {
-      result: {
-        status: true,
-        value: true,
-      },
-      detail: {
-        serial: 'testSerial',
-      }
+      serial: 'testSerial',
     };
   }
 
-  static get smsEnrollmentResponse() {
-    return this.emailEnrollmentResponse;
+  static get smsEnrollmentResponse(): EnrollmentDetail {
+    return {
+      serial: 'testSerial',
+    };
   }
 
-  static get mOTPEnrollmentResponse() {
-    return this.emailEnrollmentResponse;
+  static get mOTPEnrollmentResponse(): EnrollmentDetail {
+    return {
+      serial: 'testSerial',
+    };
   }
 
   static get activationResponse() {

@@ -42,10 +42,9 @@ export class EnrollSMSDialogComponent extends EnrollDialogBaseComponent implemen
       phone: phoneNumber,
     };
 
-    this.enrollmentService.enroll(body).subscribe(response => {
-      const serial = response?.result?.value && response?.detail?.serial;
-      if (serial) {
-        this.enrolledToken = { serial: serial };
+    this.enrollmentService.enroll(body).subscribe(token => {
+      if (token?.serial) {
+        this.enrolledToken = { serial: token.serial };
         this.stepper.next();
       } else {
         this.enrollmentStep.enable();

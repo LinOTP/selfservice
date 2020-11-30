@@ -45,9 +45,9 @@ export class EnrollPasswordDialogComponent extends EnrollDialogBaseComponent imp
       otpkey: this.enrollmentStep.get('password').value,
     };
 
-    this.enrollmentService.enroll(body).subscribe(response => {
-      if (response?.result?.value) {
-        this.enrolledToken = { serial: response.detail.serial };
+    this.enrollmentService.enroll(body).subscribe(token => {
+      if (token?.serial) {
+        this.enrolledToken = { serial: token.serial };
         this.stepper.next();
       } else {
         this.enrollmentStep.enable();

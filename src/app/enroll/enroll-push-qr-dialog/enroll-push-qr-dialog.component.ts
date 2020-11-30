@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
-import { QRCodeEnrollmentDetail } from '../../api/enrollment.service';
 import { TextResources } from '../../common/static-resources';
 import { EnrollDialogBaseComponent, EnrolledToken } from '../enroll-dialog-base.component';
 
@@ -34,13 +33,13 @@ export class EnrollPushQRDialogComponent extends EnrollDialogBaseComponent imple
    */
   enrollToken() {
     this.enrollmentStep.disable();
-    this.enrollmentService.enroll<QRCodeEnrollmentDetail>(this.enrollmentStep.value).subscribe(response => {
-      if (response?.result?.value) {
+    this.enrollmentService.enroll(this.enrollmentStep.value).subscribe(token => {
+      if (token) {
         this.enrolledToken = {
-          url: response.detail.lse_qr_url.value,
-          serial: response.detail.serial
+          url: token.lse_qr_url.value,
+          serial: token.serial
         };
-        this.pairingSubscription = this.enrollmentService.pairingPoll(this.enrolledToken.serial).subscribe(data => {
+        this.pairingSubscription = this.enrollmentService.pairingPoll(this.enrolledToken.serial).subscribe(() => {
           this.stepper.next();
         });
         this.stepper.next();

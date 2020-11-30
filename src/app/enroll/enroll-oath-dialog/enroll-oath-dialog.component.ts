@@ -36,8 +36,7 @@ export class EnrollOATHDialogComponent extends EnrollDialogBaseComponent impleme
       description: this.enrollmentStep.get('description').value,
     };
 
-    this.enrollmentService.enroll<{ serial: string, otpkey: { value: string }, googleurl: { value: string } }>(body).subscribe(response => {
-      const token = response?.detail;
+    this.enrollmentService.enroll(body).subscribe(token => {
       if (token) {
         this.enrolledToken = {
           url: token.googleurl.value,
