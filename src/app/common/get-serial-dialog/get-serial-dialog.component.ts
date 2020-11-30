@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 
 import { TokenService } from '../../api/token.service';
-import { NotificationService } from '../notification.service';
 
 @Component({
   selector: 'app-get-serial-dialog',
@@ -20,7 +19,6 @@ export class GetSerialDialogComponent {
     private dialogRef: MatDialogRef<GetSerialDialogComponent>,
     private tokenService: TokenService,
     private formBuilder: FormBuilder,
-    private notificationService: NotificationService,
   ) {
     this.form = this.formBuilder.group(
       {
@@ -43,7 +41,6 @@ export class GetSerialDialogComponent {
           this.dialogRef.close(result);
         } else {
           this.awaitingResponse = false;
-          this.notificationService.message($localize`Token serial could not be retrieved. Please try again.`);
         }
       });
     }
