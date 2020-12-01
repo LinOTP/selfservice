@@ -15,8 +15,7 @@ export class SessionService {
    *       to keep a channel open for later
    */
   isLoggedIn(): boolean {
-    const session = this.getSession();
-    return !!session;
+    return !!this.getSession() && !!localStorage.getItem('loginIsComplete');
   }
 
   getSession(): string {

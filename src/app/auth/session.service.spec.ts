@@ -3,15 +3,14 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { CookieService } from 'ngx-cookie';
-import { NgxPermissionsService } from 'ngx-permissions';
 
-import { spyOnClass } from '../../testing/spyOnClass';
+import { getInjectedStub, spyOnClass } from '../../testing/spyOnClass';
 
-import { SystemService } from '../system.service';
 import { SessionService } from './session.service';
 
 describe('SessionService', () => {
   let sessionService: SessionService;
+  let cookieService: jasmine.SpyObj<CookieService>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -22,16 +21,8 @@ describe('SessionService', () => {
       providers: [
         SessionService,
         {
-          provide: NgxPermissionsService,
-          useValue: spyOnClass(NgxPermissionsService),
-        },
-        {
           provide: CookieService,
           useValue: spyOnClass(CookieService),
-        },
-        {
-          provide: SystemService,
-          useValue: spyOnClass(SystemService),
         },
       ],
     });
@@ -39,9 +30,28 @@ describe('SessionService', () => {
 
   beforeEach(() => {
     sessionService = TestBed.inject(SessionService);
+    cookieService = getInjectedStub(CookieService);
   });
 
   it('should be created', () => {
     expect(sessionService).toBeTruthy();
+  });
+
+  it('reports users as logged in only if user data was written after login was finalized', () => {
+    const localStorageSpy = spyOn(localStorage, 'getItem');
+    const cases: [string, string, boolean][] = [
+      [null, undefined, false],
+      [null, 'session', false],
+      [JSON.stringify(true), undefined, false],
+      [JSON.stringify(true), 'session', true],
+    ];
+
+    cases.forEach(([userInfo, sessionCookie, expected]) => {
+      localStorageSpy.and.returnValue(userInfo);
+      cookieService.get.and.returnValue(sessionCookie);
+      //
+      expect(sessionService.isLoggedIn()).toBe(expected);
+    });
+
   });
 });
