@@ -222,6 +222,7 @@ export class LoginService {
    * @memberof LoginService
    */
   public handleLogin(success: boolean) {
+    localStorage.setItem('loginIsComplete', JSON.stringify(true));
     if (success) {
       this.refreshUserSystemInfo().subscribe();
     } else {
