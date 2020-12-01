@@ -10,7 +10,6 @@ import { spyOnClass } from '../../../testing/spyOnClass';
 
 import { MaterialModule } from '../../material.module';
 import { OperationsService } from '../../api/operations.service';
-import { NotificationService } from '../notification.service';
 import { ResyncDialogComponent } from './resync-dialog.component';
 
 class Page extends TestingPage<ResyncDialogComponent> {
@@ -24,7 +23,6 @@ describe('ResyncDialogComponent', () => {
   let component: ResyncDialogComponent;
   let fixture: ComponentFixture<ResyncDialogComponent>;
   let operationsService: OperationsService;
-  let notificationService: NotificationService;
   const token = Fixtures.activeHotpToken;
   let page: Page;
   let matDialogRef: MatDialogRef<ResyncDialogComponent>;
@@ -50,17 +48,12 @@ describe('ResyncDialogComponent', () => {
           provide: OperationsService,
           useValue: spyOnClass(OperationsService),
         },
-        {
-          provide: NotificationService,
-          useValue: spyOnClass(NotificationService),
-        },
       ]
     }).compileComponents();
   });
 
   beforeEach(() => {
     operationsService = TestBed.inject(OperationsService);
-    notificationService = TestBed.inject(NotificationService);
     matDialogRef = TestBed.inject(MatDialogRef);
 
     fixture = TestBed.createComponent(ResyncDialogComponent);
@@ -81,16 +74,6 @@ describe('ResyncDialogComponent', () => {
     component.submit();
     expect(operationsService.resync).toHaveBeenCalledWith(token.serial, '1234', '5678');
     expect(matDialogRef.close).toHaveBeenCalledWith(true);
-    expect(notificationService.message).not.toHaveBeenCalled();
-  });
-
-  it('should display a notification message if submission fails', () => {
-    component.form.setValue({ 'otp1': '1234', 'otp2': '4567' });
-    fixture.detectChanges();
-    operationsService.resync = jasmine.createSpy('resync').and.returnValue(of(false));
-
-    component.submit();
-    expect(notificationService.message).toHaveBeenCalledWith('Token could not be synchronized. Please try again.');
   });
 
   it('should not send backend request if first otp value is missing', () => {
@@ -98,6 +81,7 @@ describe('ResyncDialogComponent', () => {
     fixture.detectChanges();
 
     component.submit();
+    expect(operationsService.resync).not.toHaveBeenCalled();
   });
 
   it('should disable submit button if first otp value is missing', () => {
@@ -114,7 +98,6 @@ describe('ResyncDialogComponent', () => {
     component.submit();
     expect(operationsService.resync).not.toHaveBeenCalled();
     expect(matDialogRef.close).not.toHaveBeenCalled();
-    expect(notificationService.message).not.toHaveBeenCalled();
   });
 
   it('should disable submit button if second otp value is missing', () => {

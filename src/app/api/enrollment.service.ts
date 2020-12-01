@@ -12,11 +12,13 @@ import { LinOTPResponse, APIError } from './api';
 import { NotificationService } from '../common/notification.service';
 import { exponentialBackoffInterval } from '../common/exponential-backoff-interval/exponential-backoff-interval';
 
-export interface QRCodeEnrollmentDetail {
-  lse_qr_url: {
+export interface EnrollmentDetail {
+  serial: string;
+  lse_qr_url?: {
     value: string;
   };
-  serial: string;
+  otpkey?: { value: string };
+  googleurl?: { value: string };
 }
 
 interface ActivationDetail {
@@ -53,7 +55,7 @@ export class EnrollmentService {
     private notificationService: NotificationService,
   ) { }
 
-  enroll<T extends { serial: string }>(token: EnrollToken): Observable<LinOTPResponse<boolean, T>> {
+  enroll(token: EnrollToken): Observable<EnrollmentDetail> {
     const body: { session: string, type: string, description?: string, otplen?: number, 'yubico.tokenid'?: string } = {
       ...token,
       session: this.sessionService.getSession(),
@@ -66,13 +68,16 @@ export class EnrollmentService {
       body.type = details.enrollmentType;
     }
 
-    return this.http.post<LinOTPResponse<boolean, T>>(enrollEndpoint, body)
+    return this.http.post<LinOTPResponse<boolean, EnrollmentDetail>>(enrollEndpoint, body)
       .pipe(
         tap(response => {
-          if (!response.result.status) {
+          if (!response?.result?.status
+            || !response?.result?.value
+            || !response?.detail) {
             throw new APIError(response);
           }
         }),
+        map(response => response?.detail),
         catchError(this.handleError($localize`Token registration`, null))
       );
   }
@@ -84,7 +89,7 @@ export class EnrollmentService {
       take(1));
   }
 
-  activate(serial: string, pin: string): Observable<LinOTPResponse<boolean, ActivationDetail>> {
+  activate(serial: string, pin: string): Observable<ActivationDetail> {
     const userInfo: UserInfo = JSON.parse(localStorage.getItem('user'));
     const body = {
       serial: serial,
@@ -95,10 +100,13 @@ export class EnrollmentService {
     return this.http.post<LinOTPResponse<boolean, ActivationDetail>>(this.validateCheck, body)
       .pipe(
         tap(response => {
-          if (!response.result.status) {
+          if (!response?.result?.status
+            || !response?.result?.value
+            || !response?.detail) {
             throw new APIError(response);
           }
         }),
+        map(response => response?.detail),
         catchError(this.handleError($localize`Token activation`, null))
       );
   }
@@ -132,7 +140,7 @@ export class EnrollmentService {
       mergeMap(() => this.getChallengeStatus(transactionId, pin, serial)),
       filter(res => res.detail.transactions[transactionId].status !== 'open'),
       map(res => res.detail.transactions[transactionId]),
-      catchError(() => of({})),
+      catchError(() => of(null)),
       take(1),
     );
   }

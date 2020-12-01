@@ -17,7 +17,6 @@ import { EnrollmentService } from '../../api/enrollment.service';
 import { NotificationService } from '../../common/notification.service';
 
 import { EnrollPasswordDialogComponent } from './enroll-password-dialog.component';
-import { LinOTPResponse } from '../../api/api';
 import { MatButton } from '@angular/material/button';
 import { MockComponent } from '../../../testing/mock-component';
 import { OperationsService } from '../../api/operations.service';
@@ -26,7 +25,6 @@ import { OperationsService } from '../../api/operations.service';
 describe('The EnrollPasswordDialogComponent', () => {
   let component: EnrollPasswordDialogComponent;
   let fixture: ComponentFixture<EnrollPasswordDialogComponent>;
-  let notificationService: jasmine.SpyObj<NotificationService>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
 
   beforeEach(async () => {
@@ -80,7 +78,6 @@ describe('The EnrollPasswordDialogComponent', () => {
     fixture = TestBed.createComponent(EnrollPasswordDialogComponent);
     component = fixture.componentInstance;
 
-    notificationService = getInjectedStub(NotificationService);
     enrollmentService = getInjectedStub(EnrollmentService);
 
     fixture.detectChanges();
@@ -109,7 +106,7 @@ describe('The EnrollPasswordDialogComponent', () => {
       spyOn(component.stepper, 'next');
 
       enrollmentService.enroll.and.returnValue(of(Fixtures.PasswordEnrollmentResponse));
-      const serial = Fixtures.PasswordEnrollmentResponse.detail.serial;
+      const serial = Fixtures.PasswordEnrollmentResponse.serial;
 
       component.data.tokenTypeDetails = Fixtures.tokenTypeDetails[TokenType.PASSWORD];
       component.enrollmentStep.controls.password.setValue('111111');
@@ -134,7 +131,7 @@ describe('The EnrollPasswordDialogComponent', () => {
       spyOn(component.stepper, 'next');
 
       enrollmentService.enroll.and.returnValue(of(Fixtures.PasswordEnrollmentResponse));
-      const serial = Fixtures.PasswordEnrollmentResponse.detail.serial;
+      const serial = Fixtures.PasswordEnrollmentResponse.serial;
 
       component.data.tokenTypeDetails = Fixtures.tokenTypeDetails[TokenType.PASSWORD];
       component.enrollmentStep.controls.description.setValue('custom description');
@@ -156,22 +153,17 @@ describe('The EnrollPasswordDialogComponent', () => {
       expect(component.enrollmentStep.disabled).toEqual(true);
     }));
 
-    it('should not notify user if enrollment failed', fakeAsync(() => {
-      // the enrollment service does the notification now, instead of the enrollment dialog
-
+    it('should allow retrying if enrollment failed', fakeAsync(() => {
       component.data.tokenTypeDetails = Fixtures.tokenTypeDetails[TokenType.PASSWORD];
       component.enrollmentStep.controls.password.setValue('111111');
 
-      const mockEnrollmentResponse: LinOTPResponse<boolean, { serial: string }> = Fixtures.PasswordEnrollmentResponse;
-      mockEnrollmentResponse.result.value = false;
-      enrollmentService.enroll.and.returnValue(of(mockEnrollmentResponse));
+      enrollmentService.enroll.and.returnValue(of(null));
 
       fixture.detectChanges();
       component.enrollToken();
       tick();
 
       expect(component.enrolledToken).toEqual(undefined);
-      expect(notificationService.message).not.toHaveBeenCalled();
       expect(component.enrollmentStep.disabled).toEqual(false);
     }));
   });

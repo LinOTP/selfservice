@@ -24,7 +24,6 @@ import { MockComponent } from '../../../testing/mock-component';
 describe('The EnrollSMSDialogComponent', () => {
   let component: EnrollSMSDialogComponent;
   let fixture: ComponentFixture<EnrollSMSDialogComponent>;
-  let notificationService: jasmine.SpyObj<NotificationService>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
   let localStorageSpy: jasmine.Spy;
 
@@ -81,7 +80,6 @@ describe('The EnrollSMSDialogComponent', () => {
     fixture = TestBed.createComponent(EnrollSMSDialogComponent);
     component = fixture.componentInstance;
 
-    notificationService = getInjectedStub(NotificationService);
     enrollmentService = getInjectedStub(EnrollmentService);
 
     localStorageSpy = spyOn(localStorage, 'getItem').and.returnValue(
@@ -110,7 +108,7 @@ describe('The EnrollSMSDialogComponent', () => {
       description: `Created via SelfService - ${Fixtures.userSystemInfo.user.mobile}`,
       phone: Fixtures.userSystemInfo.user.mobile,
     });
-    expect(component.enrolledToken.serial).toEqual(Fixtures.smsEnrollmentResponse.detail.serial);
+    expect(component.enrolledToken.serial).toEqual(Fixtures.smsEnrollmentResponse.serial);
     expect(component.stepper.next).toHaveBeenCalledTimes(1);
     expect(component.enrollmentStep.disabled).toEqual(true);
   }));
@@ -132,7 +130,7 @@ describe('The EnrollSMSDialogComponent', () => {
       description: `custom description - ${Fixtures.userSystemInfo.user.mobile}`,
       phone: Fixtures.userSystemInfo.user.mobile,
     });
-    expect(component.enrolledToken.serial).toEqual(Fixtures.smsEnrollmentResponse.detail.serial);
+    expect(component.enrolledToken.serial).toEqual(Fixtures.smsEnrollmentResponse.serial);
     expect(component.stepper.next).toHaveBeenCalledTimes(1);
     expect(component.enrollmentStep.disabled).toEqual(true);
   }));
@@ -187,19 +185,15 @@ describe('The EnrollSMSDialogComponent', () => {
     });
   });
 
-  it('should not notify user if enrollment failed', fakeAsync(() => {
-    // the enrollment service does the notification
-    const mockEnrollmentResponse = Fixtures.smsEnrollmentResponse;
-    mockEnrollmentResponse.result.value = false;
+  it('should allow retrying if enrollment failed', fakeAsync(() => {
 
-    enrollmentService.enroll.and.returnValue(of(mockEnrollmentResponse));
+    enrollmentService.enroll.and.returnValue(of(null));
     fixture.detectChanges();
     const result = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
     result.click();
     tick();
 
     expect(component.enrolledToken).toEqual(undefined);
-    expect(notificationService.message).not.toHaveBeenCalled();
     expect(component.enrollmentStep.disabled).toEqual(false);
   }));
 });

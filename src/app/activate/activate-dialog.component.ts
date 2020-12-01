@@ -2,11 +2,11 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatStepper } from '@angular/material/stepper';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
-import { Observable, of } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
 import { EnrollmentService } from '../api/enrollment.service';
 import { Token, EnrollmentStatus, TokenType } from '../api/token';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-activate-dialog',
@@ -56,7 +56,11 @@ export class ActivateDialogComponent implements OnInit {
     stepper.next();
 
     this.enrollmentService.activate(this.data.token.serial, this.pin).pipe(
-      map(response => response.detail),
+      tap(detail => {
+        if (!detail || !(detail.transactionid) || !(detail.message)) {
+          throw new Error();
+        }
+      }),
       tap(detail => {
         this.transactionId = detail.transactionid.toString().slice(0, 6);
         if (this.data.token.typeDetails.type === TokenType.QR) {
@@ -64,24 +68,16 @@ export class ActivateDialogComponent implements OnInit {
         }
       }),
       switchMap(detail => this.enrollmentService.challengePoll(detail.transactionid, this.pin, this.data.token.serial)),
-      catchError(this.handleError('token activation', false)),
-    ).subscribe((res: { accept?: boolean, reject?: boolean, valid_tan?: boolean }) => {
-      this.waitingForResponse = false;
-      if (res.accept === true || res.reject === true || res.valid_tan === true) {
+      map((res: { accept?: boolean, reject?: boolean, valid_tan?: boolean }) => {
         this.result = res;
-        this.restartDialog = false;
-      } else {
-        this.restartDialog = true;
+        return res?.accept === true || res?.reject === true || res?.valid_tan === true;
       }
+      ),
+      catchError(() => of(false)),
+    ).subscribe(success => {
+      this.waitingForResponse = false;
+      this.restartDialog = !success;
     });
-  }
-
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(`${operation} failed: ${error.message}`);
-      console.error(error);
-      return of(result as T);
-    };
   }
 
   public cancelDialog() {

@@ -1,16 +1,19 @@
 import { TestBed, inject } from '@angular/core/testing';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { TokenListFixtures } from '../../testing/fixtures';
 
 import { SessionService } from '../auth/session.service';
 import { TokenService } from './token.service';
+import { NotificationService } from '../common/notification.service';
+import { getInjectedStub, spyOnClass } from '../../testing/spyOnClass';
 
 const session = '';
 
 describe('TokenService', () => {
   let tokenService: TokenService;
+  let notificationService: jasmine.SpyObj<NotificationService>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -26,10 +29,16 @@ describe('TokenService', () => {
             getSession: jasmine.createSpy('getSession').and.returnValue(session),
           }
         },
+        {
+          provide: NotificationService,
+          useValue: spyOnClass(NotificationService)
+        }
       ],
     });
 
     tokenService = TestBed.inject(TokenService);
+    notificationService = getInjectedStub(NotificationService);
+
   });
 
   it('should be created', inject([TokenService], (service: TokenService) => {
@@ -67,7 +76,7 @@ describe('TokenService', () => {
         tokenListRequest.error(new ErrorEvent('Error loading token list'));
         backend.verify();
 
-        expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
+        expect(notificationService.message).toHaveBeenCalledWith('Error: getting tokens failed. Please try again or contact an administrator');
       }
     ));
 
@@ -130,7 +139,7 @@ describe('TokenService', () => {
         tokenListRequest.error(new ErrorEvent('Error getting token serial by OTP'));
         backend.verify();
 
-        expect(console.error).toHaveBeenCalledWith(jasmine.any(HttpErrorResponse));
+        expect(notificationService.message).toHaveBeenCalledWith('Error: retrieving token serial failed. Please try again or contact an administrator');
       }
     ));
   });

@@ -5,7 +5,6 @@ import { FormBuilder, FormGroup, Validators, ValidationErrors } from '@angular/f
 import { Token } from '../../api/token';
 import { OperationsService } from '../../api/operations.service';
 import { ErrorStateRootMatcher } from '../form-helpers/error-state-root-matcher';
-import { NotificationService } from '../notification.service';
 
 @Component({
   selector: 'app-set-motp-pin-dialog',
@@ -26,7 +25,6 @@ export class SetMOTPPinDialogComponent {
     @Inject(MAT_DIALOG_DATA) private token: Token,
     private operationsService: OperationsService,
     private formBuilder: FormBuilder,
-    private notificationService: NotificationService,
   ) {
     this.form = this.formBuilder.group(
       {
@@ -65,7 +63,6 @@ export class SetMOTPPinDialogComponent {
           this.dialogRef.close(true);
         } else {
           this.awaitingResponse = false;
-          this.notificationService.message($localize`mOTP pin could not be set. Please try again.`);
         }
       });
     }

@@ -81,6 +81,22 @@ describe('EnrollmentService', () => {
     });
   });
 
+  describe('enroll', () => {
+    it('should notify the user of an error if the response status is not a success', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
+
+        enrollmentService.enroll({ type: TokenType.HOTP }).subscribe(res => {
+          expect(notificationService.message).toHaveBeenCalledWith('Token registration failed: Please try again.');
+        });
+
+        const request = backend.expectOne((req) => req.body.type === 'hmac');
+        request.flush({ result: { status: false } });
+
+        backend.verify();
+      }));
+  });
+
   describe('assign', () => {
     it('should request a token assignment from the server', inject(
       [HttpClient, HttpTestingController],
@@ -184,4 +200,119 @@ describe('EnrollmentService', () => {
     ));
   });
 
+  describe('activate', () => {
+    it('should request a token activation from the server', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
+        const body = {
+          serial: 'serial',
+          data: 'serial',
+          pass: 'pin',
+          user: 'name'
+        };
+
+        const serverResponse = { result: { status: true, value: true }, detail: { transactionid: 'id', message: 'ok' } };
+
+        spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify({ username: 'name' }));
+
+        enrollmentService.activate('serial', 'pin').subscribe(response => {
+          expect(response).toEqual({ transactionid: 'id', message: 'ok' });
+        });
+
+        const request = backend.expectOne((req) =>
+          req.url === '/validate/check' &&
+          req.method === 'POST' &&
+          req.body.serial === body.serial &&
+          req.body.data === body.data &&
+          req.body.pass === body.pass &&
+          req.body.user === body.user
+        );
+
+        request.flush(serverResponse);
+        backend.verify();
+      }
+    ));
+
+    [
+      { result: { status: false } },
+      { result: { status: true, value: false } },
+      { result: { status: true, value: true } },
+    ].forEach(serverResponse => {
+      it('should return an error message if there was a backend error', inject(
+        [HttpClient, HttpTestingController],
+        (http: HttpClient, backend: HttpTestingController) => {
+
+          spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify({ username: 'name' }));
+
+          enrollmentService.activate('serial', 'pin').subscribe(response => {
+            expect(response).toEqual(null);
+            expect(notificationService.message).toHaveBeenCalledWith('Token activation failed: Please try again.');
+          });
+
+          const request = backend.expectOne((req) => req.url === '/validate/check' && req.method === 'POST');
+
+          request.flush(serverResponse);
+          backend.verify();
+        }
+      ));
+    });
+  });
+
+
+  describe('getChallengeStatus', () => {
+    it('should request a challenge status check from the server', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
+        const body = {
+          transactionid: 'txid',
+          pass: 'pin',
+          user: 'name'
+        };
+
+        const serverResponse = {
+          result: { status: true, value: true },
+          detail: {
+            transactions: {
+              'txid': { status: 'ok' }
+            }
+          }
+        };
+
+        spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify({ username: 'name' }));
+
+        enrollmentService.getChallengeStatus('txid', 'pin', 'serial').subscribe(response => {
+          expect(response).toEqual(serverResponse);
+        });
+
+        const request = backend.expectOne((req) =>
+          req.url === '/validate/check_status' &&
+          req.method === 'POST' &&
+          req.body.transactionid === body.transactionid &&
+          req.body.pass === body.pass &&
+          req.body.user === body.user
+        );
+
+        request.flush(serverResponse);
+        backend.verify();
+      }
+    ));
+
+    it('should return an error message if there was a backend error', inject(
+      [HttpClient, HttpTestingController],
+      (http: HttpClient, backend: HttpTestingController) => {
+
+        spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify({ username: 'name' }));
+
+        enrollmentService.getChallengeStatus('txid', 'pin', 'serial').subscribe(response => {
+          expect(response).toEqual(null);
+          expect(notificationService.message).toHaveBeenCalledWith('Challenge status request failed: Please try again.');
+        });
+
+        const request = backend.expectOne((req) => req.url === '/validate/check_status' && req.method === 'POST');
+
+        request.error(new ErrorEvent('Error checking challenge status'));
+        backend.verify();
+      }
+    ));
+  });
 });

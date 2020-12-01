@@ -24,7 +24,6 @@ import { MockComponent } from '../../../testing/mock-component';
 describe('The EnrollEmailDialogComponent', () => {
   let component: EnrollEmailDialogComponent;
   let fixture: ComponentFixture<EnrollEmailDialogComponent>;
-  let notificationService: jasmine.SpyObj<NotificationService>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
   let localStorageSpy: jasmine.Spy;
 
@@ -80,7 +79,6 @@ describe('The EnrollEmailDialogComponent', () => {
     fixture = TestBed.createComponent(EnrollEmailDialogComponent);
     component = fixture.componentInstance;
 
-    notificationService = getInjectedStub(NotificationService);
     enrollmentService = getInjectedStub(EnrollmentService);
 
     localStorageSpy = spyOn(localStorage, 'getItem').and.returnValue(
@@ -109,7 +107,7 @@ describe('The EnrollEmailDialogComponent', () => {
       description: `Created via SelfService - ${Fixtures.userSystemInfo.user.email}`,
       email_address: Fixtures.userSystemInfo.user.email,
     });
-    expect(component.enrolledToken.serial).toEqual(Fixtures.emailEnrollmentResponse.detail.serial);
+    expect(component.enrolledToken.serial).toEqual(Fixtures.emailEnrollmentResponse.serial);
     expect(component.stepper.next).toHaveBeenCalledTimes(1);
     expect(component.enrollmentStep.disabled).toEqual(true);
   }));
@@ -131,7 +129,7 @@ describe('The EnrollEmailDialogComponent', () => {
       description: `custom description - ${Fixtures.userSystemInfo.user.email}`,
       email_address: Fixtures.userSystemInfo.user.email,
     });
-    expect(component.enrolledToken.serial).toEqual(Fixtures.emailEnrollmentResponse.detail.serial);
+    expect(component.enrolledToken.serial).toEqual(Fixtures.emailEnrollmentResponse.serial);
     expect(component.stepper.next).toHaveBeenCalledTimes(1);
     expect(component.enrollmentStep.disabled).toEqual(true);
   }));
@@ -186,20 +184,14 @@ describe('The EnrollEmailDialogComponent', () => {
     });
   });
 
-  it('should not notify user if enrollment failed', fakeAsync(() => {
-    // the enrollment service now handles the notification
-
-    const mockEnrollmentResponse = Fixtures.emailEnrollmentResponse;
-    mockEnrollmentResponse.result.value = false;
-
-    enrollmentService.enroll.and.returnValue(of(mockEnrollmentResponse));
+  it('should allow retrying if enrollment failed', fakeAsync(() => {
+    enrollmentService.enroll.and.returnValue(of(null));
     fixture.detectChanges();
     const result = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
     result.click();
     tick();
 
     expect(component.enrolledToken).toEqual(undefined);
-    expect(notificationService.message).not.toHaveBeenCalled();
     expect(component.enrollmentStep.disabled).toEqual(false);
   }));
 });

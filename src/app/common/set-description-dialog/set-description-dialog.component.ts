@@ -4,7 +4,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { Token } from '../../api/token';
 import { OperationsService } from '../../api/operations.service';
-import { NotificationService } from '../notification.service';
 
 @Component({
   selector: 'app-set-description-dialog',
@@ -21,7 +20,6 @@ export class SetDescriptionDialogComponent {
     @Inject(MAT_DIALOG_DATA) private token: Token,
     private operationsService: OperationsService,
     private formBuilder: FormBuilder,
-    private notificationService: NotificationService,
   ) {
     this.form = this.formBuilder.group(
       {
@@ -44,7 +42,6 @@ export class SetDescriptionDialogComponent {
           this.dialogRef.close(true);
         } else {
           this.awaitingResponse = false;
-          this.notificationService.message($localize`Token description could not be changed. Please try again.`);
         }
       });
     }

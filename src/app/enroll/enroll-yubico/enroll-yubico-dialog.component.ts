@@ -34,14 +34,12 @@ export class EnrollYubicoDialogComponent extends EnrollDialogBaseComponent imple
       description: this.registrationForm.get('description').value,
       otplen: 44,
     };
-    this.enrollmentService.enroll<{ serial: string }>(body).subscribe(response => {
-      const serial = response?.result?.value && response?.detail?.serial;
-      if (serial) {
-        this.enrolledToken = { serial: serial };
+    this.enrollmentService.enroll(body).subscribe(token => {
+      if (token?.serial) {
+        this.enrolledToken = { serial: token.serial };
         this.stepper.next();
       } else {
         this.registrationForm.enable();
-        this.notificationService.message($localize`Token registration failed.`);
       }
     });
   }

@@ -105,6 +105,35 @@ describe('TokenCardComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should mark the token as synchronizable if it is a HOTP or TOTP token', () => {
+    [Fixtures.activeHotpToken, Fixtures.activeTotpToken].forEach(token => {
+      fixture = TestBed.createComponent(TokenCardComponent);
+      component = fixture.componentInstance;
+      component.token = token;
+      fixture.detectChanges();
+      expect(component.isSynchronizeable).toEqual(true);
+    });
+  });
+
+  it('should mark the token as non-synchronizable if it is not a HOTP or TOTP token', () => {
+    [
+      Fixtures.activeEmailToken,
+      Fixtures.activeSMSToken,
+      Fixtures.activeYubicoToken,
+      Fixtures.activeYubikeyToken,
+      Fixtures.activeMotpToken,
+      Fixtures.activePasswordToken,
+      Fixtures.activePushToken,
+      Fixtures.activeQRToken,
+    ].forEach(token => {
+      fixture = TestBed.createComponent(TokenCardComponent);
+      component = fixture.componentInstance;
+      component.token = token;
+      fixture.detectChanges();
+      expect(component.isSynchronizeable).not.toEqual(true);
+    });
+  });
+
   it('renders the token as a card', () => {
     component.token = Fixtures.activeHotpToken;
     fixture.detectChanges();
@@ -244,14 +273,13 @@ describe('TokenCardComponent', () => {
       expect(tokenUpdateSpy).toHaveBeenCalledTimes(1);
     }));
 
-    it('should notify user after failure and not emit token list update', fakeAsync(() => {
+    it('should not emit token list update after failure', fakeAsync(() => {
       operationsService.enable.and.returnValue(of(false));
 
       component.token = Fixtures.inactiveHotpToken;
       component.enable();
       tick();
 
-      expect(notificationService.message).toHaveBeenCalledWith('Error: Could not enable token');
       expect(tokenUpdateSpy).not.toHaveBeenCalled();
     }));
   });
@@ -271,7 +299,7 @@ describe('TokenCardComponent', () => {
       expect(tokenUpdateSpy).toHaveBeenCalledTimes(1);
     }));
 
-    it('should notify user after failure and not emit token list update', fakeAsync(() => {
+    it('should not emit token list update after failure', fakeAsync(() => {
       permissionsService.hasPermission.and.returnValue(new Promise(resolve => resolve(true)));
       operationsService.disable.and.returnValue(of(false));
 
@@ -279,7 +307,6 @@ describe('TokenCardComponent', () => {
       component.disable();
       tick();
 
-      expect(notificationService.message).toHaveBeenCalledWith('Error: Could not disable token');
       expect(tokenUpdateSpy).not.toHaveBeenCalled();
     }));
 
@@ -338,7 +365,7 @@ describe('TokenCardComponent', () => {
       expect(tokenUpdateSpy).toHaveBeenCalledTimes(1);
     }));
 
-    it('should notify user of failed unassignment', fakeAsync(() => {
+    it('should not update token list on failed unassignment', fakeAsync(() => {
       matDialog.open.and.returnValue({ afterClosed: () => of(true) });
       operationsService.unassignToken.and.returnValue(of(false));
 
@@ -348,8 +375,7 @@ describe('TokenCardComponent', () => {
 
       expect(matDialog.open).toHaveBeenCalledWith(DialogComponent, config);
       expect(operationsService.unassignToken).toHaveBeenCalledWith(Fixtures.activeHotpToken.serial);
-      expect(notificationService.message).toHaveBeenCalled();
-      expect(tokenUpdateSpy).toHaveBeenCalledTimes(1);
+      expect(tokenUpdateSpy).toHaveBeenCalledTimes(0);
     }));
 
     it('should not notify user if unassignment is cancelled', fakeAsync(() => {
@@ -489,22 +515,21 @@ describe('TokenCardComponent', () => {
 
     it('should display a success message if failcounter is reset', () => {
       operationsService.resetFailcounter.and.returnValue(of(true));
-      const message = 'Failcounter successfully reset';
+      const message = 'Failcounter reset';
 
       component.resetFailcounter();
 
       expect(operationsService.resetFailcounter).toHaveBeenCalledWith(component.token.serial);
       expect(notificationService.message).toHaveBeenCalledWith(message);
+      expect(tokenUpdateSpy).not.toHaveBeenCalled();
     });
 
-    it('should display a failure message if failcounter could not be reset', () => {
+    it('should not do anything if the failcounter could not be reset', () => {
       operationsService.resetFailcounter.and.returnValue(of(false));
-      const message = 'Error: could not reset failcounter. Please try again or contact your administrator.';
-
       component.resetFailcounter();
 
       expect(operationsService.resetFailcounter).toHaveBeenCalledWith(component.token.serial);
-      expect(notificationService.message).toHaveBeenCalledWith(message);
+      expect(tokenUpdateSpy).not.toHaveBeenCalled();
     });
   });
 

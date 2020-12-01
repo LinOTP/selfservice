@@ -131,17 +131,14 @@ describe('The EnrollOATHDialogComponent', () => {
     expect(component.enrollmentStep.disabled).toEqual(true);
   }));
 
-  it('should not notify user if enrollment failed', fakeAsync(() => {
-    // the enrollment service does the notification now, instead of the enrollment dialog
-
-    enrollmentService.enroll.and.returnValue(of({ result: { value: false } }));
+  it('should allow retrying if enrollment failed', fakeAsync(() => {
+    enrollmentService.enroll.and.returnValue(of(null));
     fixture.detectChanges();
     const result = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
     result.click();
     tick();
 
     expect(component.enrolledToken).toEqual(undefined);
-    expect(notificationService.message).not.toHaveBeenCalled();
     expect(component.enrollmentStep.disabled).toEqual(false);
   }));
 

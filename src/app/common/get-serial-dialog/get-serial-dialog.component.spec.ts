@@ -8,14 +8,12 @@ import { spyOnClass } from '../../../testing/spyOnClass';
 
 import { MaterialModule } from '../../material.module';
 import { TokenService } from '../../api/token.service';
-import { NotificationService } from '../notification.service';
 import { GetSerialDialogComponent } from './get-serial-dialog.component';
 
 describe('GetSerialDialogComponent', () => {
   let component: GetSerialDialogComponent;
   let fixture: ComponentFixture<GetSerialDialogComponent>;
   let tokenService: TokenService;
-  let notificationService: NotificationService;
   let matDialogRef: MatDialogRef<GetSerialDialogComponent>;
 
   beforeEach(async () => {
@@ -35,17 +33,12 @@ describe('GetSerialDialogComponent', () => {
           provide: TokenService,
           useValue: spyOnClass(TokenService),
         },
-        {
-          provide: NotificationService,
-          useValue: spyOnClass(NotificationService),
-        },
       ]
     }).compileComponents();
   });
 
   beforeEach(() => {
     tokenService = TestBed.inject(TokenService);
-    notificationService = TestBed.inject(NotificationService);
     matDialogRef = TestBed.inject(MatDialogRef);
 
     fixture = TestBed.createComponent(GetSerialDialogComponent);
@@ -65,16 +58,6 @@ describe('GetSerialDialogComponent', () => {
     component.submit();
     expect(tokenService.getSerialByOTP).toHaveBeenCalledWith('1234');
     expect(matDialogRef.close).toHaveBeenCalledWith('serial');
-    expect(notificationService.message).not.toHaveBeenCalled();
-  });
-
-  it('should display a notification message if submission fails', () => {
-    component.form.setValue({ otp: '1234' });
-    fixture.detectChanges();
-    tokenService.getSerialByOTP = jasmine.createSpy('getSerialByOTP').and.returnValue(of(null));
-
-    component.submit();
-    expect(notificationService.message).toHaveBeenCalledWith('Token serial could not be retrieved. Please try again.');
   });
 
 });

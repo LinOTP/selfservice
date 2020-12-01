@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, tap } from 'rxjs/operators';
 
 import { SessionService } from '../auth/session.service';
 import { Token, TokenType } from './token';
-import { TokenService } from './token.service';
-import { LinOTPResponse } from './api';
+import { APIError, LinOTPResponse } from './api';
+import { NotificationService } from '../common/notification.service';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +29,7 @@ export class OperationsService {
   constructor(
     private http: HttpClient,
     private sessionService: SessionService,
-    private tokenService: TokenService,
+    private notificationService: NotificationService,
   ) { }
 
   deleteToken(serial: string): Observable<boolean> {
@@ -40,8 +40,13 @@ export class OperationsService {
 
     return this.http.post<LinOTPResponse<{ 'delete token': number }>>(this.userserviceBase + this.userserviceEndpoints.delete, body)
       .pipe(
+        tap(response => {
+          if (!response?.result?.status || response?.result?.value?.['delete token'] !== 1) {
+            throw new APIError(response);
+          }
+        }),
         map((response) => response?.result?.value?.['delete token'] === 1),
-        catchError(this.tokenService.handleError('deleteToken', false))
+        catchError(this.handleError($localize`Could not delete token`, false))
       );
   }
 
@@ -55,8 +60,13 @@ export class OperationsService {
 
     return this.http.post<LinOTPResponse<{ 'set userpin': number }>>(url, body)
       .pipe(
+        tap(response => {
+          if (!response?.result?.status || response?.result?.value?.['set userpin'] !== 1) {
+            throw new APIError(response);
+          }
+        }),
         map((response) => response?.result?.value?.['set userpin'] === 1),
-        catchError(this.tokenService.handleError('setTokenPin', false))
+        catchError(this.handleError($localize`Could not set token PIN`, false))
       );
   }
 
@@ -74,8 +84,13 @@ export class OperationsService {
 
     return this.http.post<LinOTPResponse<{ 'set userpin': number }>>(url, body)
       .pipe(
+        tap(response => {
+          if (!response?.result?.status || response?.result?.value?.['set userpin'] !== 1) {
+            throw new APIError(response);
+          }
+        }),
         map((response) => response?.result?.value?.['set userpin'] === 1),
-        catchError(this.tokenService.handleError('setMOTPPin', false))
+        catchError(this.handleError($localize`Could not set MOTP PIN`, false))
       );
   }
 
@@ -88,8 +103,13 @@ export class OperationsService {
 
     return this.http.post<LinOTPResponse<{ 'enable token': number }>>(url, body)
       .pipe(
+        tap(response => {
+          if (!response?.result?.status || response?.result?.value?.['enable token'] !== 1) {
+            throw new APIError(response);
+          }
+        }),
         map((response) => response?.result?.value?.['enable token'] === 1),
-        catchError(this.tokenService.handleError('enable', false))
+        catchError(this.handleError($localize`Could not enable token`, false))
       );
   }
 
@@ -102,8 +122,13 @@ export class OperationsService {
 
     return this.http.post<LinOTPResponse<{ 'disable token': number }>>(url, body)
       .pipe(
+        tap(response => {
+          if (!response?.result?.status || response?.result?.value?.['disable token'] !== 1) {
+            throw new APIError(response);
+          }
+        }),
         map((response) => response?.result?.value?.['disable token'] === 1),
-        catchError(this.tokenService.handleError('enable', false))
+        catchError(this.handleError($localize`Could not disable token`, false))
       );
   }
 
@@ -116,8 +141,13 @@ export class OperationsService {
 
     return this.http.post<LinOTPResponse<{ 'reset Failcounter': number }>>(url, body)
       .pipe(
+        tap(response => {
+          if (!response?.result?.status || response?.result?.value?.['reset Failcounter'] !== 1) {
+            throw new APIError(response);
+          }
+        }),
         map(response => response?.result?.value?.['reset Failcounter'] === 1),
-        catchError(this.tokenService.handleError('reset failcounter', false))
+        catchError(this.handleError($localize`Could not reset failcounter`, false))
       );
   }
 
@@ -132,8 +162,13 @@ export class OperationsService {
 
     return this.http.post<LinOTPResponse<{ 'resync Token': boolean }>>(url, body)
       .pipe(
+        tap(response => {
+          if (!response?.result?.status || response?.result?.value?.['resync Token'] !== true) {
+            throw new APIError(response);
+          }
+        }),
         map(response => response?.result?.value?.['resync Token'] === true),
-        catchError(this.tokenService.handleError('resync', false))
+        catchError(this.handleError($localize`Could not synchronize token`, false))
       );
   }
 
@@ -145,14 +180,17 @@ export class OperationsService {
     };
     const url = this.userserviceBase + this.userserviceEndpoints.setDescription;
 
-    return this.http.post<LinOTPResponse<{ 'assign token': boolean }>>(url, bodyAssign)
+    return this.http.post<LinOTPResponse<{ 'set description': number }>>(url, bodyAssign)
       .pipe(
-        map(response => {
-          if (response?.result?.value['set description'] > 0) {
-            return true;
+        tap(response => {
+          if (!response?.result?.status || response?.result?.value?.['set description'] !== 1) {
+            throw new APIError(response);
           }
         }),
-        catchError(this.tokenService.handleError('assign', false)
+        map(response => {
+          return response?.result?.value['set description'] === 1;
+        }),
+        catchError(this.handleError($localize`Could not set token description`, false)
         )
       );
   }
@@ -165,9 +203,21 @@ export class OperationsService {
 
     return this.http.post<LinOTPResponse<{ 'unassign token': boolean }>>(this.userserviceBase + this.userserviceEndpoints.unassign, body)
       .pipe(
-        map(response => response?.result?.value?.['unassign token'] || false),
-        catchError(this.tokenService.handleError('unassignToken', false))
+        tap(response => {
+          if (!response?.result?.status || response?.result?.value?.['unassign token'] !== true) {
+            throw new APIError(response);
+          }
+        }),
+        map(response => response?.result?.value?.['unassign token'] === true),
+        catchError(this.handleError($localize`Could not unassign token`, false))
       );
+  }
+
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      this.notificationService.message($localize`Error: ${operation}. Please try again or contact an administrator`);
+      return of(result as T);
+    };
   }
 
 }

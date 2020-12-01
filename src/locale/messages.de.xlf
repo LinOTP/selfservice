@@ -527,7 +527,7 @@
         <target state="translated">Kopiert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.ts</context>
-          <context context-type="linenumber">57</context>
+          <context context-type="linenumber">56</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1260099573097287890" datatype="html">
@@ -1068,15 +1068,7 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
         <target state="translated">Token aktiviert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">123</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="849617724890146364" datatype="html">
-        <source>Error: Could not enable token</source>
-        <target state="translated">Tokenaktivierung fehlgeschlagen</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">126</context>
+          <context context-type="linenumber">125</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6308551073215344882" datatype="html">
@@ -1084,7 +1076,7 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
         <target state="translated">Token deaktivieren?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">141</context>
+          <context context-type="linenumber">140</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4369510444544321374" datatype="html">
@@ -1092,7 +1084,7 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
         <target state="translated">Sie können den Token dann nicht mehr zum Authentisieren benutzen, da Sie ihn selbst nicht mehr aktivieren können.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">142</context>
+          <context context-type="linenumber">141</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8056364825023681713" datatype="html">
@@ -1100,7 +1092,7 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
         <target state="translated">deaktivieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">143</context>
+          <context context-type="linenumber">142</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8880521633761794673" datatype="html">
@@ -1108,15 +1100,7 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
         <target state="translated">Token deaktiviert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">152</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="7521432430906077968" datatype="html">
-        <source>Error: Could not disable token</source>
-        <target state="translated">Tokendeaktivierung fehlgeschlagen</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">155</context>
+          <context context-type="linenumber">151</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1627369125785144436" datatype="html">
@@ -1124,7 +1108,7 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
         <target state="translated">Token aktiviert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">186</context>
+          <context context-type="linenumber">182</context>
         </context-group>
       </trans-unit>
       <trans-unit id="446006585605027355" datatype="html">
@@ -1132,7 +1116,7 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
         <target state="translated">Tokenzuweisung aufheben?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">196</context>
+          <context context-type="linenumber">192</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8186005700224234900" datatype="html">
@@ -1140,7 +1124,7 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
         <target state="translated">Sie können diesen Token dann nicht mehr zum Authentisieren benutzen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">197</context>
+          <context context-type="linenumber">193</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2187232391313376887" datatype="html">
@@ -1148,7 +1132,7 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
         <target state="translated">Tokenzuweisung aufheben</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">198</context>
+          <context context-type="linenumber">194</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4177408952342860105" datatype="html">
@@ -1156,31 +1140,15 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
         <target state="translated">Tokenzuweisung aufgehoben</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">211</context>
+          <context context-type="linenumber">207</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="5786441840384705945" datatype="html">
-        <source>Error: could not unassign token</source>
-        <target state="translated">Aufhebung der Tokenzuweisung fehlgeschlagen</target>
+      <trans-unit id="4946413545988796244" datatype="html">
+        <source>Failcounter reset</source>
+        <target state="translated">Fehlerzähler zurückgesetz</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">213</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="7681059897446970979" datatype="html">
-        <source>Failcounter successfully reset</source>
-        <target state="translated">Fehlerzähler erfolgreich zurückgesetz</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">247</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="8714684049496697934" datatype="html">
-        <source>Error: could not reset failcounter. Please try again or contact your administrator.</source>
-        <target state="translated">Fehler beim Zurücksetzen des Fehlzählers. Versuchen Sie es bitte erneut oder kontaktieren Sie Ihren Administrator.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">249</context>
+          <context context-type="linenumber">242</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8590151770059972300" datatype="html">
@@ -1188,7 +1156,7 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
         <target state="translated">Token wurde synchronisiert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">268</context>
+          <context context-type="linenumber">259</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3303402949376740921" datatype="html">
@@ -1196,7 +1164,7 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
         <target state="translated">Beschreibung wurde geändert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">285</context>
+          <context context-type="linenumber">276</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3024891378452195539" datatype="html">
@@ -1420,7 +1388,7 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
       </trans-unit>
       <trans-unit id="3991264252930827391" datatype="html">
         <source>The test failed. Please try again or contact an administrator.</source>
-        <target state="translated">Test fehlgeschlagen. Bitte versuchen Sie erneut, oder kontaktieren Sie einen Administrator.</target>
+        <target state="translated">Test fehlgeschlagen. Bitte versuchen Sie es erneut, oder kontaktieren Sie einen Administrator.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.ts</context>
           <context context-type="linenumber">136</context>
@@ -1703,7 +1671,7 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
       </trans-unit>
       <trans-unit id="473077343676056811" datatype="html">
         <source>Activation failed. Please try again, or contact an administrator. </source>
-        <target state="translated">Aktivierung fehlgeschlagen. Bitte versuchen Sie erneut, oder kontaktieren Sie einen Administrator. </target>
+        <target state="translated">Aktivierung fehlgeschlagen. Bitte versuchen Sie es erneut, oder kontaktieren Sie einen Administrator. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">107</context>
@@ -1711,7 +1679,7 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
       </trans-unit>
       <trans-unit id="4456245296297173745" datatype="html">
         <source>Test failed. Please try again, or contact an administrator. </source>
-        <target state="translated">Test fehlgeschlagen. Bitte versuchen Sie erneut, oder kontaktieren Sie einen Administrator. </target>
+        <target state="translated">Test fehlgeschlagen. Bitte versuchen Sie es erneut, oder kontaktieren Sie einen Administrator. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">109</context>
@@ -1902,14 +1870,6 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
           <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="3703101912784039208" datatype="html">
-        <source>Token registration failed.</source>
-        <target state="translated">Token-Registrierung fehlgeschlagen</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-yubico/enroll-yubico-dialog.component.ts</context>
-          <context context-type="linenumber">44</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="1918520446062026084" datatype="html">
         <source>Register YubiCloud token</source>
         <target state="translated">YubiCloud-Token registrieren</target>
@@ -2029,7 +1989,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Neue PIN</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.ts</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8612534928653419038" datatype="html">
@@ -2037,15 +1997,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Bestätigen Sie Ihre neue PIN</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.ts</context>
-          <context context-type="linenumber">22</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="1481043453517638154" datatype="html">
-        <source>Pin could not be set. Please try again.</source>
-        <target state="translated">PIN-Vergabe fehlgeschlagen. Bitte versuchen Sie es erneut.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.ts</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7576435564439636809" datatype="html">
@@ -2089,14 +2041,6 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
           <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="7601761728301883446" datatype="html">
-        <source>mOTP pin could not be set. Please try again.</source>
-        <target state="translated">mOTP-PIN-Vergabe fehlgeschlagen. Bitte versuchen Sie es erneut.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/common/set-motp-pin-dialog/set-motp-pin-dialog.component.ts</context>
-          <context context-type="linenumber">68</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="3720441502365232593" datatype="html">
         <source>Set a new MOTP PIN</source>
         <target state="translated">Neue mOTP-PIN festlegen</target>
@@ -2120,14 +2064,6 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-motp-pin-dialog/set-motp-pin-dialog.component.html</context>
           <context context-type="linenumber">32</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="7695726763919839108" datatype="html">
-        <source>Token could not be synchronized. Please try again.</source>
-        <target state="translated">Token-Synchronisierung fehlgeschlagen. Bitte versuchen Sie es erneut.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/common/resync-dialog/resync-dialog.component.ts</context>
-          <context context-type="linenumber">48</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8342376090028380466" datatype="html">
@@ -2170,14 +2106,6 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
           <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="643092624782752908" datatype="html">
-        <source>Token description could not be changed. Please try again.</source>
-        <target state="translated">Die Beschreibung konnte nicht geändert werden. Bitte versuchen Sie es erneut.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/common/set-description-dialog/set-description-dialog.component.ts</context>
-          <context context-type="linenumber">47</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="8499841762185576300" datatype="html">
         <source>Change token description</source>
         <target state="translated">Beschreibung ändern</target>
@@ -2192,14 +2120,6 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-description-dialog/set-description-dialog.component.html</context>
           <context context-type="linenumber">3</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="843040924865105545" datatype="html">
-        <source>Token serial could not be retrieved. Please try again.</source>
-        <target state="translated">Die Seriennummer konnte nicht ermittelt werden. Bitte versuchen Sie es erneut.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/common/get-serial-dialog/get-serial-dialog.component.ts</context>
-          <context context-type="linenumber">46</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6637240627424008984" datatype="html">
@@ -2498,6 +2418,14 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
           <context context-type="linenumber">172</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="1871596733160586812" datatype="html">
+        <source>Error: <x id="PH" equiv-text="operation"/>. Please try again or contact an administrator</source>
+        <target state="translated">Fehler: <x id="PH" equiv-text="operation"/>. Bitte versuchen Sie es erneut, oder kontaktieren Sie einen Administrator.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">86</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="292673577349231607" datatype="html">
         <source>Your session timed out, please login again.</source>
         <target state="translated">Ihre Sitzung ist abgelaufen, bitte melden Sie sich erneut an.</target>
@@ -2514,12 +2442,84 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
           <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="1208537117090464409" datatype="html">
+        <source>Could not delete token</source>
+        <target state="translated">Token konnte nicht gelöscht werden</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/operations.service.ts</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="670386584317518550" datatype="html">
+        <source>Could not set token PIN</source>
+        <target state="translated">Token-PIN konnte nicht festgelegt werden</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/operations.service.ts</context>
+          <context context-type="linenumber">69</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6042965735071656061" datatype="html">
+        <source>Could not set MOTP PIN</source>
+        <target state="translated">mOTP-PIN konnte nicht festgelegt werden</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/operations.service.ts</context>
+          <context context-type="linenumber">93</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2746812153335654397" datatype="html">
+        <source>Could not enable token</source>
+        <target state="translated">Tokenaktivierung fehlgeschlagen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/operations.service.ts</context>
+          <context context-type="linenumber">112</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3441888096266717214" datatype="html">
+        <source>Could not disable token</source>
+        <target state="translated">Tokendeaktivierung fehlgeschlagen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/operations.service.ts</context>
+          <context context-type="linenumber">131</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2048255442982939971" datatype="html">
+        <source>Could not reset failcounter</source>
+        <target state="translated">Fehlzähler konnte nicht zurückgesetzt werden</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/operations.service.ts</context>
+          <context context-type="linenumber">150</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6030798773826845047" datatype="html">
+        <source>Could not synchronize token</source>
+        <target state="translated">Token konnte nicht synchronisiert werden</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/operations.service.ts</context>
+          <context context-type="linenumber">171</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2767278450351234403" datatype="html">
+        <source>Could not set token description</source>
+        <target state="translated">Beschreibung konnte nicht geändert werden</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/operations.service.ts</context>
+          <context context-type="linenumber">193</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4902853502096630439" datatype="html">
+        <source>Could not unassign token</source>
+        <target state="translated">Aufhebung der Tokenzuweisung fehlgeschlagen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/operations.service.ts</context>
+          <context context-type="linenumber">212</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="2298729618719165042" datatype="html">
         <source>Token registration</source>
         <target state="translated">Token-Registrierung</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/enrollment.service.ts</context>
-          <context context-type="linenumber">76</context>
+          <context context-type="linenumber">81</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5990826891101915633" datatype="html">
@@ -2527,7 +2527,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Token-Aktivierung</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/enrollment.service.ts</context>
-          <context context-type="linenumber">102</context>
+          <context context-type="linenumber">110</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5779804871819153372" datatype="html">
@@ -2535,7 +2535,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Abruf des Challenge-Status</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/enrollment.service.ts</context>
-          <context context-type="linenumber">115</context>
+          <context context-type="linenumber">123</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3468623393069422824" datatype="html">
@@ -2543,7 +2543,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Bitte versuchen Sie es erneut oder kontaktieren Sie einen Administrator.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/enrollment.service.ts</context>
-          <context context-type="linenumber">141</context>
+          <context context-type="linenumber">149</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2642975071204583875" datatype="html">
@@ -2551,7 +2551,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Der Token ist Ihnen oder einem anderen Benutzer bereits zugewiesen. Kontaktieren Sie bitte einen Administrator.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/enrollment.service.ts</context>
-          <context context-type="linenumber">159</context>
+          <context context-type="linenumber">167</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7484742645971454280" datatype="html">
@@ -2559,7 +2559,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Der Token, den Sie zuweisen wollen, ist ungültig (falscher Realm). Kontaktieren Sie bitte einen Administrator.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/enrollment.service.ts</context>
-          <context context-type="linenumber">162</context>
+          <context context-type="linenumber">170</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9140733115483222131" datatype="html">
@@ -2567,7 +2567,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated">Ein API-Abruf</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/enrollment.service.ts</context>
-          <context context-type="linenumber">177</context>
+          <context context-type="linenumber">185</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3537482308577662516" datatype="html">
@@ -2575,7 +2575,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated"><x id="PH" equiv-text="operation"/> fehlgeschlagen: Bitte versuchen Sie es erneut.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/enrollment.service.ts</context>
-          <context context-type="linenumber">179</context>
+          <context context-type="linenumber">187</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4972370163984978038" datatype="html">
@@ -2583,7 +2583,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated"><x id="PH" equiv-text="operation"/> fehlgeschlagen: Sie haben die maximale Anzahl an Token für Ihr Konto erreicht.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/enrollment.service.ts</context>
-          <context context-type="linenumber">181</context>
+          <context context-type="linenumber">189</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4001846779762798502" datatype="html">
@@ -2591,7 +2591,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated"><x id="PH" equiv-text="operation"/> fehlgeschlagen: Sie haben die maximale Anzahl an Token dieses Tokentyps.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/enrollment.service.ts</context>
-          <context context-type="linenumber">182</context>
+          <context context-type="linenumber">190</context>
         </context-group>
       </trans-unit>
       <trans-unit id="471673605810896911" datatype="html">
@@ -2599,7 +2599,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <target state="translated"><x id="PH" equiv-text="operation"/> fehlgeschlagen: Sie dürfen keinen neuen Token mehr registrieren, da Ihr Realm die maximale Tokenanzahl erreicht hat.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/enrollment.service.ts</context>
-          <context context-type="linenumber">183</context>
+          <context context-type="linenumber">191</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4582025863876888028" datatype="html">
