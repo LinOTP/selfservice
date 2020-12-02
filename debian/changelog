@@ -1,4 +1,4 @@
-linotp-selfservice (1.0.dev0-1) buster-dev; urgency=medium
+linotp-selfservice (1.0~rc0-1) buster-dev; urgency=medium
 
   Features:
   * Support for enrollHMAC and enrollTOTP policies. These policies are now the
@@ -16,8 +16,8 @@ linotp-selfservice (1.0.dev0-1) buster-dev; urgency=medium
     explaining that the user is not allowed to reenable disabled tokens.
   * QR and Push tokens show an improved information if they are not yet paired
     based on the permissions a user has.
-  * Unsupported browser message includes link to legacy Self Service
-  * Display user history in a data table, provided the history policy is set
+  * Unsupported browser message includes link to legacy Self Service.
+  * Display user history in a data table, provided the history policy is set.
 
   Breaking changes:
   * The debian package now builds the selfservice to be available on the url
@@ -44,9 +44,10 @@ linotp-selfservice (1.0.dev0-1) buster-dev; urgency=medium
   * The enrollment grid now is ensured to be always shown if a token enrollment
     policy is set. Also the section will no longer be mistakenly shown if the
     verify policy is set but no enrollment policies are.
-  * No longer recognizing a MFA-login session as valid session in SessionService
+  * No longer recognizing a MFA-login session as a valid session in
+    SessionService.
 
- -- KeyIdentity GmbH <packaging@keyidentity.com>  Tue, 17 Nov 2020 14:44:00 +0100
+ -- KeyIdentity GmbH <packaging@keyidentity.com>  Wed, 02 Dec 2020 14:00:00 +0100
 
 linotp-selfservice (0.7.0-1) buster; urgency=medium
 

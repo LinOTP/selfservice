@@ -1,5 +1,5 @@
-  <a name="1.0.dev0"></a>
-## 1.0.dev0 (2020-11-27)
+  <a name="1.0rc0"></a>
+## 1.0rc0 (2020-12-02)
 
   ### Features:
   * Support for enrollHMAC and enrollTOTP policies. These policies are now the preferred way of enabling TOTP and HOTP token enrollment.
@@ -10,8 +10,8 @@
   * If a token is disabled without having the permission to reenable the token, it must be confirmed with a dialog.
   * The disable token action is no longer shown at all if permission is not available but the enable token action is shown disabled with a tooltip explaining that the user is not allowed to reenable disabled tokens.
   * QR and Push tokens show an improved information if they are not yet paired based on the permissions a user has.
-  * Unsupported browser message includes link to legacy Self Service
-  * Display user history in a data table, provided the history policy is set
+  * Unsupported browser message includes link to legacy Self Service.
+  * Display user history in a data table, provided the history policy is set.
 
   ### Breaking changes:
   * The debian package now builds the selfservice to be available on the url "/selfservice" instead of "/selfservice-v2" in preparation for being the primary selfservice for LinOTP.
@@ -26,6 +26,7 @@
   * Assigning a password token when the verify permission is set now correctly opens the token test to verify that the user can use the token now.
   * Pressing enter after successfully creating tokens no longer causes unintential duplicated tokens from being created.
   * The enrollment grid now is ensured to be always shown if a token enrollment policy is set. Also the section will no longer be mistakenly shown if the verify policy is set but no enrollment policies are.
+  * No longer recognizing a MFA-login session as a valid session in SessionService.
 
 
 <a name="0.7.0"></a>
