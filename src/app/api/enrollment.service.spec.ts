@@ -201,37 +201,41 @@ describe('EnrollmentService', () => {
   });
 
   describe('activate', () => {
-    it('should request a token activation from the server', inject(
-      [HttpClient, HttpTestingController],
-      (http: HttpClient, backend: HttpTestingController) => {
-        const body = {
-          serial: 'serial',
-          data: 'serial',
-          pass: 'pin',
-          user: 'name'
-        };
 
-        const serverResponse = { result: { status: true, value: true }, detail: { transactionid: 'id', message: 'ok' } };
+    [
+      { result: { status: true, value: false }, detail: { transactionid: 'id', message: 'ok' } },
+      { result: { status: true, value: true }, detail: { transactionid: 'id', message: 'ok' } },
+    ].forEach(serverResponse => {
+      it('should request a token activation from the server', inject(
+        [HttpClient, HttpTestingController],
+        (http: HttpClient, backend: HttpTestingController) => {
+          const body = {
+            serial: 'serial',
+            data: 'serial',
+            pass: 'pin',
+            user: 'name'
+          };
 
-        spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify({ username: 'name' }));
+          spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify({ username: 'name' }));
 
-        enrollmentService.activate('serial', 'pin').subscribe(response => {
-          expect(response).toEqual({ transactionid: 'id', message: 'ok' });
-        });
+          enrollmentService.activate('serial', 'pin').subscribe(response => {
+            expect(response).toEqual({ transactionid: 'id', message: 'ok' });
+          });
 
-        const request = backend.expectOne((req) =>
-          req.url === '/validate/check' &&
-          req.method === 'POST' &&
-          req.body.serial === body.serial &&
-          req.body.data === body.data &&
-          req.body.pass === body.pass &&
-          req.body.user === body.user
-        );
+          const request = backend.expectOne((req) =>
+            req.url === '/validate/check' &&
+            req.method === 'POST' &&
+            req.body.serial === body.serial &&
+            req.body.data === body.data &&
+            req.body.pass === body.pass &&
+            req.body.user === body.user
+          );
 
-        request.flush(serverResponse);
-        backend.verify();
-      }
-    ));
+          request.flush(serverResponse);
+          backend.verify();
+        }
+      ));
+    });
 
     [
       { result: { status: false } },

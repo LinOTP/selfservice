@@ -101,8 +101,9 @@ export class EnrollmentService {
       .pipe(
         tap(response => {
           if (!response?.result?.status
-            || !response?.result?.value
-            || !response?.detail) {
+            || !response?.detail
+            || !response.detail.message
+            || !response.detail.transactionid) {
             throw new APIError(response);
           }
         }),
