@@ -124,7 +124,6 @@ export class EnrollmentGridComponent implements OnInit {
           };
           return this.dialog.open(testDialog, testConfig).afterClosed();
         }),
-        tap(() => this.tokenUpdate.next()),
-      ).subscribe();
+      ).subscribe(() => this.tokenUpdate.next());
   }
 }
