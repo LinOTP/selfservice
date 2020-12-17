@@ -1,10 +1,10 @@
-![pipeline](https://gitbox.corp.keyidentity.com/dev/linotp/ng-selfservice/badges/master/pipeline.svg) ![coverage](https://gitbox.corp.keyidentity.com/dev/linotp/ng-selfservice/badges/master/coverage.svg)
+# LinOTP Self Service
 
-# KI Selfservice
-
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.1.
+The Self Service is a frontend for end users of LinOTP that allows them to manage their personal tokens. Available functionality is limited by administrator-defined policies, and includes creating, deleting, enabling and disabling tokens, testing OTP generation, customizing token descriptions and viewing activity history.
 
 ## Development
+
+This project is built with [Angular CLI](https://github.com/angular/angular-cli). It was originally generated using version *1.6.1*.
 
 To install all production and dev dependencies to start with development, execute the following command in the root directory of this project:
 
