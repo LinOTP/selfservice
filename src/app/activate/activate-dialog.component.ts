@@ -57,13 +57,17 @@ export class ActivateDialogComponent implements OnInit {
 
     this.enrollmentService.activate(this.data.token.serial, this.pin).pipe(
       tap(detail => {
-        if (!detail || !(detail.transactionid) || !(detail.message)) {
+        if (!detail || !(detail.transactionid)) {
           throw new Error();
         }
       }),
       tap(detail => {
         this.transactionId = detail.transactionid.toString().slice(0, 6);
         if (this.data.token.typeDetails.type === TokenType.QR) {
+          if (!(detail.message)) {
+            throw new Error();
+
+          }
           this.tokenQRUrl = detail.message;
         }
       }),
