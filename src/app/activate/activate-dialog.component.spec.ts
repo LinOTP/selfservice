@@ -61,64 +61,66 @@ describe('ActivateDialogComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should test the push token with success message in case of accept', fakeAsync(() => {
-    enrollmentService.activate.and.returnValue(of(Fixtures.activationResponse));
-    enrollmentService.challengePoll.and.returnValue(of({ accept: true }));
+  describe('activateToken', () => {
 
-    fixture.detectChanges();
+    it('should display success message in case of accepted push token activation transaction', fakeAsync(() => {
+      enrollmentService.activate.and.returnValue(of(Fixtures.activationResponse));
+      enrollmentService.challengePoll.and.returnValue(of({ accept: true }));
 
-    const nextButton = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
-    nextButton.click();
-    tick();
+      fixture.detectChanges();
 
-    expect(component.waitingForResponse).toEqual(false);
-    expect(component.restartDialog).toEqual(false);
-    expect(component.result).toEqual({ accept: true });
-  }));
+      const nextButton = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
+      nextButton.click();
+      tick();
 
-  it('should test the push token with success message in case of deny', fakeAsync(() => {
-    enrollmentService.activate.and.returnValue(of(Fixtures.activationResponse));
-    enrollmentService.challengePoll.and.returnValue(of({ reject: true }));
+      expect(component.waitingForResponse).toEqual(false);
+      expect(component.restartDialog).toEqual(false);
+      expect(component.result).toEqual({ accept: true });
+    }));
 
-    fixture.detectChanges();
+    it('should display success message in case of rejected push token activation transaction', fakeAsync(() => {
+      enrollmentService.activate.and.returnValue(of(Fixtures.activationResponse));
+      enrollmentService.challengePoll.and.returnValue(of({ reject: true }));
 
-    const nextButton = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
-    nextButton.click();
-    tick();
+      fixture.detectChanges();
 
-    expect(component.waitingForResponse).toEqual(false);
-    expect(component.restartDialog).toEqual(false);
-    expect(component.result).toEqual({ reject: true });
-  }));
+      const nextButton = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
+      nextButton.click();
+      tick();
 
-  it('should fail on token activation', fakeAsync(() => {
-    enrollmentService.activate.and.returnValue(of(null));
+      expect(component.waitingForResponse).toEqual(false);
+      expect(component.restartDialog).toEqual(false);
+      expect(component.result).toEqual({ reject: true });
+    }));
 
-    fixture.detectChanges();
+    it('should display failure message on negative response of token activation', fakeAsync(() => {
+      enrollmentService.activate.and.returnValue(of(null));
 
-    const nextButton = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
-    nextButton.click();
-    tick();
+      fixture.detectChanges();
 
-    expect(component.waitingForResponse).toEqual(false);
-    expect(component.restartDialog).toEqual(true);
+      const nextButton = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
+      nextButton.click();
+      tick();
 
-  }));
+      expect(component.waitingForResponse).toEqual(false);
+      expect(component.restartDialog).toEqual(true);
+    }));
 
-  it('should fail on challenge polling', fakeAsync(() => {
-    enrollmentService.activate.and.returnValue(of(Fixtures.activationResponse));
-    enrollmentService.challengePoll.and.returnValue(of(null));
+    it('should display failure message on negative response of challenge polling', fakeAsync(() => {
+      enrollmentService.activate.and.returnValue(of(Fixtures.activationResponse));
+      enrollmentService.challengePoll.and.returnValue(of(null));
 
-    fixture.detectChanges();
+      fixture.detectChanges();
 
-    const nextButton = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
-    nextButton.click();
-    tick();
+      const nextButton = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
+      nextButton.click();
+      tick();
 
-    expect(component.waitingForResponse).toEqual(false);
-    expect(component.restartDialog).toEqual(true);
-    expect(component.result).toBeNull();
-  }));
+      expect(component.waitingForResponse).toEqual(false);
+      expect(component.restartDialog).toEqual(true);
+      expect(component.result).toBeNull();
+    }));
+  });
 
   it('should let the user cancel the test', () => {
     component.cancelDialog();
