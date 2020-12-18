@@ -205,6 +205,8 @@ describe('EnrollmentService', () => {
     [
       { result: { status: true, value: false }, detail: { transactionid: 'id', message: 'ok' } },
       { result: { status: true, value: true }, detail: { transactionid: 'id', message: 'ok' } },
+      { result: { status: true, value: false }, detail: { transactionid: 'id', message: '' } },
+      { result: { status: true, value: false }, detail: { transactionid: 'id' } },
     ].forEach(serverResponse => {
       it('should request a token activation from the server', inject(
         [HttpClient, HttpTestingController],
@@ -219,7 +221,7 @@ describe('EnrollmentService', () => {
           spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify({ username: 'name' }));
 
           enrollmentService.activate('serial', 'pin').subscribe(response => {
-            expect(response).toEqual({ transactionid: 'id', message: 'ok' });
+            expect(response).toEqual(serverResponse.detail);
           });
 
           const request = backend.expectOne((req) =>

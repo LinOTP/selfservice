@@ -23,7 +23,7 @@ export interface EnrollmentDetail {
 
 interface ActivationDetail {
   transactionid: string;
-  message: string;
+  message?: string;
 }
 
 interface ChallengeStatusDetail {
@@ -102,7 +102,6 @@ export class EnrollmentService {
         tap(response => {
           if (!response?.result?.status
             || !response?.detail
-            || !response.detail.message
             || !response.detail.transactionid) {
             throw new APIError(response);
           }

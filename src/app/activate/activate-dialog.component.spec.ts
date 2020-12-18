@@ -63,6 +63,21 @@ describe('ActivateDialogComponent', () => {
 
   describe('activateToken', () => {
 
+    it('should display success message in case of QR token activation with valid TAN', fakeAsync(() => {
+      enrollmentService.activate.and.returnValue(of(Fixtures.activationResponseWithMessage));
+      enrollmentService.challengePoll.and.returnValue(of({ valid_tan: true }));
+
+      fixture.detectChanges();
+
+      const nextButton = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
+      nextButton.click();
+      tick();
+
+      expect(component.waitingForResponse).toEqual(false);
+      expect(component.restartDialog).toEqual(false);
+      expect(component.result).toEqual({ valid_tan: true });
+    }));
+
     it('should display success message in case of accepted push token activation transaction', fakeAsync(() => {
       enrollmentService.activate.and.returnValue(of(Fixtures.activationResponse));
       enrollmentService.challengePoll.and.returnValue(of({ accept: true }));
