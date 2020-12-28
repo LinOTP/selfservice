@@ -214,7 +214,7 @@ export class TokenCardComponent implements OnInit {
   }
 
   public pendingDelete(): boolean {
-    return this.token.enrollmentStatus === EnrollmentStatus.UNPAIRED;
+    return [EnrollmentStatus.PAIRING_URL_SENT, EnrollmentStatus.UNPAIRED].includes(this.token.enrollmentStatus);
   }
 
   public pendingActivate(): boolean {

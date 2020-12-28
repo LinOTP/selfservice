@@ -45,11 +45,15 @@ export class Token {
 }
 
 export enum EnrollmentStatus {
-  UNPAIRED = 'unpaired',
-  PAIRING_URL_SENT = 'pairing_url_sent',
-  PAIRING_CHALLENGE_SENT = 'pairing_challenge_sent',
-  PAIRING_RESPONSE_RECEIVED = 'pairing_response_received',
-  COMPLETED = 'completed',
+  // 1. step
+  UNPAIRED = 'unpaired', // push token created but not paired
+  PAIRING_URL_SENT = 'pairing_url_sent', // qr token created but not paired
+  // 2. step
+  PAIRING_RESPONSE_RECEIVED = 'pairing_response_received', // qr and push token paired but activation not started
+  // 3. step
+  PAIRING_CHALLENGE_SENT = 'pairing_challenge_sent', // qr and push token pairing challenge triggered
+  // enrollment completed
+  COMPLETED = 'completed', // qr and push token activation challenge is answered and token is fully operational now
 }
 
 export interface EnrollToken {
