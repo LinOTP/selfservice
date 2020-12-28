@@ -57,11 +57,6 @@
   <mat-card-footer *ngIf="pendingActions()">
     <button mat-raised-button
             color="primary"
-            (click)="delete()"
-            *ngIf="pendingDelete()"
-            i18n> Delete </button>
-    <button mat-raised-button
-            color="primary"
             (click)="activate()"
             *ngIf="pendingActivate()"
             i18n> Activate </button>

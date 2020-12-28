@@ -423,37 +423,14 @@ describe('TokenCardComponent', () => {
       expect(component.pendingActions()).toEqual(true);
     });
 
-    it('should be true if token is unpaired', () => {
+    it('should be false if token is unpaired', () => {
       component.token = Fixtures.unpairedPushToken;
-      expect(component.pendingActions()).toEqual(true);
+      expect(component.pendingActions()).toEqual(false);
     });
 
     it('should be false if the token has been activated', () => {
       component.token = Fixtures.completedPushToken;
       expect(component.pendingActions()).toEqual(false);
-    });
-  });
-
-
-  describe('pendingDelete', () => {
-    it('should be true if push token is unpaired', () => {
-      component.token = Fixtures.unpairedPushToken;
-      expect(component.pendingDelete()).toEqual(true);
-    });
-
-    it('should be true if QR token is unpaired', () => {
-      component.token = Fixtures.unpairedQRToken;
-      expect(component.pendingDelete()).toEqual(true);
-    });
-
-    it('should be false if push token has been activated ', () => {
-      component.token = Fixtures.completedPushToken;
-      expect(component.pendingDelete()).toEqual(false);
-    });
-
-    it('should be false if QR token has been activated ', () => {
-      component.token = Fixtures.completedQRToken;
-      expect(component.pendingDelete()).toEqual(false);
     });
   });
 

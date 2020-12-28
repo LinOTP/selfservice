@@ -3,6 +3,7 @@
 
   ### Fixes:
   * Push and qr token activation was wrongly reported as failed in [1.0rc0](#1.0rc0). This is now fixed and the activation process is correctly performed.
+  * Non-fully activated push and qr tokens are handled equally now in the token list. This means that push tokens no longer show a primary delete action.
   * Side margins are no longer missing on smaller screens. A minimal side margin is retained on screens smaller than the max-width of the token list.
 
 
