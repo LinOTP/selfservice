@@ -328,10 +328,13 @@ describe('LoginService', () => {
     });
 
     it('should emit a loginChange event', () => {
-      const subjectSpy = spyOn(loginService._loginChange$, 'next');
-      loginService.handleLogout(false);
+      const subscriptionSpy = jasmine.createSpy('loginChange$ subscription');
 
-      expect(subjectSpy).toHaveBeenCalledWith(undefined);
+      loginService.loginChange$.subscribe(subscriptionSpy);
+      subscriptionSpy.calls.reset();
+
+      loginService.handleLogout(false);
+      expect(subscriptionSpy).toHaveBeenCalledWith(undefined);
     });
 
     it('should not set redirect param if disabled', () => {

@@ -49,9 +49,7 @@ export class LoginService {
     logout: 'logout',
   };
 
-  public _loginChange$: BehaviorSubject<UserSystemInfo['user']> = new BehaviorSubject(
-    this.userInfo()
-  );
+  private _loginChange$: BehaviorSubject<UserSystemInfo['user']> = new BehaviorSubject(this.userInfo());
 
   constructor(
     private http: HttpClient,
