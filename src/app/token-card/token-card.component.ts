@@ -214,19 +214,11 @@ export class TokenCardComponent implements OnInit {
   }
 
   public pendingDelete(): boolean {
-    let deletePending = false;
-    if (this.token.enrollmentStatus === EnrollmentStatus.UNPAIRED) {
-      deletePending = this.token.typeDetails.type === TokenType.PUSH || this.token.typeDetails.type === TokenType.QR;
-    }
-    return deletePending;
+    return this.token.enrollmentStatus === EnrollmentStatus.UNPAIRED;
   }
 
   public pendingActivate(): boolean {
-    let activatePending = false;
-    if (this.token.enrollmentStatus === EnrollmentStatus.PAIRING_RESPONSE_RECEIVED) {
-      activatePending = this.token.typeDetails.type === TokenType.PUSH || this.token.typeDetails.type === TokenType.QR;
-    }
-    return activatePending;
+    return this.token.enrollmentStatus === EnrollmentStatus.PAIRING_RESPONSE_RECEIVED;
   }
 
   public isPush(): boolean {
