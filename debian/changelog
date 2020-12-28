@@ -1,3 +1,11 @@
+linotp-selfservice (1.0~rc1-0dev) buster-dev; urgency=medium
+
+  Fixes:
+  * Push and qr token activation was wrongly reported as failed in 1.0rc0.
+    This is now fixed and the activation process is correctly performed.
+
+ -- LinOTP Packaging <packaging.linotp@arxes-tolina.de>  Mon, 28 Dec 2020 16:51:01 +0100
+
 linotp-selfservice (1.0~rc0-1) buster-dev; urgency=medium
 
   Features:

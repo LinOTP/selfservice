@@ -1,4 +1,11 @@
-  <a name="1.0rc0"></a>
+<a name="1.0rc1"></a>
+## 1.0rc1 (unreleased)
+
+  ### Fixes:
+  * Push and qr token activation was wrongly reported as failed in [1.0rc0](#1.0rc0). This is now fixed and the activation process is correctly performed.
+
+
+<a name="1.0rc0"></a>
 ## 1.0rc0 (2020-12-02)
 
   ### Features:
