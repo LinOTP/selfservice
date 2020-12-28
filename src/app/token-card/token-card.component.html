@@ -50,8 +50,8 @@
          i18n> This token is paired with your mobile. The next step is the
         activation: </p>
       <p *ngSwitchCase="EnrollmentStatus.PAIRING_CHALLENGE_SENT"
-         i18n> An activation challenge has been generated. Please process it with
-        your Authenticator app. </p>
+         i18n> An activation challenge has been generated.
+        The challenge is only valid for a short amount of time. </p>
     </ng-container>
   </mat-card-content>
   <mat-card-footer *ngIf="pendingActions()">
