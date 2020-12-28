@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { SessionService } from './auth/session.service';
 import { LoginService } from './login/login.service';
 
 @Injectable({
@@ -8,6 +9,7 @@ export class AppInitService {
 
   constructor(
     private loginService: LoginService,
+    private sessionService: SessionService,
   ) { }
 
   /**
@@ -16,7 +18,12 @@ export class AppInitService {
    * @memberof AppInitService
    */
   init() {
-    this.loginService.loadStoredPermissions();
+    if (this.sessionService.isLoggedIn()) {
+      this.loginService.loadStoredPermissions();
+      setTimeout(() => {
+        this.loginService.refreshUserSystemInfo().subscribe();
+      });
+    }
   }
 
 }

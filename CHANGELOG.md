@@ -1,6 +1,9 @@
 <a name="1.0rc1"></a>
 ## 1.0rc1 (unreleased)
 
+  ### Features:
+  * Permissions are refreshed on every page load after the main requests are done. Previously this was only done once after successful login.
+
   ### Fixes:
   * Push and qr token activation was wrongly reported as failed in [1.0rc0](#1.0rc0). This is now fixed and the activation process is correctly performed.
   * Non-fully activated push and qr tokens are handled equally now in the token list. This means that push tokens no longer show a primary delete action.
