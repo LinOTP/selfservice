@@ -990,7 +990,7 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
       </trans-unit>
       <trans-unit id="7819314041543176992" datatype="html">
         <source>Close</source>
-        <target state="translated">Beenden</target>
+        <target state="translated">Schließen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
           <context context-type="linenumber">105</context>
