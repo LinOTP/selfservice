@@ -5,7 +5,7 @@
   <mat-icon>search</mat-icon>
 
   <mat-form-field class="query-column">
-    <mat-select [(ngModel)]="queryType"
+    <mat-select [(ngModel)]="queryForm.column"
                 name="queryType">
       <mat-option *ngFor="let column of searchColumns"
                   [value]="column">
@@ -16,21 +16,23 @@
 
   <mat-form-field class="search-term">
     <input matInput
-           [(ngModel)]="query"
+           [(ngModel)]="queryForm.searchTerm"
            name="query"
            placeholder="Search term"
            i18n-placeholder
-           autofocus>
+           appFocusOnInit>
   </mat-form-field>
   <button mat-icon-button
           type="button"
-          aria-label="Clear search"
+          matTooltip="Clear search"
+          i18n-matTooltip
           (click)="clearSearch()"
-          *ngIf="lastSubmittedQuery !== ''">
+          *ngIf="searchIsDirty">
     <mat-icon>cancel</mat-icon>
   </button>
   <button mat-raised-button
           color="primary"
+          *ngIf="searchFormIsDirty"
           i18n>Search</button>
 </form>
 
