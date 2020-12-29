@@ -83,7 +83,7 @@ describe('TokenCardComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(TokenCardComponent);
     component = fixture.componentInstance;
-    component.token = Fixtures.activeHotpToken;
+    component.token = Fixtures.activePushToken;
 
     notificationService = getInjectedStub(NotificationService);
     operationsService = getInjectedStub(OperationsService);
@@ -109,14 +109,16 @@ describe('TokenCardComponent', () => {
   });
 
   it('should unsubscribe from permission subscriptions on component destroy', () => {
-    expect((component as any).subscriptions.length).toEqual(1);
-    const activeSubscription: Subscription = (component as any).subscriptions[0];
-    expect(activeSubscription.closed).toEqual(false);
+    expect((component as any).subscriptions.length).toEqual(2);
+    const activeSubscriptions: Subscription[] = [...(component as any).subscriptions];
+    expect(activeSubscriptions[0].closed).toEqual(false);
+    expect(activeSubscriptions[1].closed).toEqual(false);
 
     component.ngOnDestroy();
 
     expect((component as any).subscriptions.length).toEqual(0);
-    expect(activeSubscription.closed).toEqual(true);
+    expect(activeSubscriptions[0].closed).toEqual(true);
+    expect(activeSubscriptions[1].closed).toEqual(true);
   });
 
   it('should mark the token as synchronizable if it is a HOTP or TOTP token', () => {
@@ -433,42 +435,97 @@ describe('TokenCardComponent', () => {
   });
 
   describe('pendingActions', () => {
-    it('should be true if activation is pending', () => {
+    it('should be true if activation is pending', fakeAsync(() => {
+      hasPermissionSubject.next(true);
       component.token = Fixtures.pairedPushToken;
+      tick();
+
+      expect(component.canActivate).toEqual(true);
       expect(component.pendingActions()).toEqual(true);
-    });
+    }));
 
-    it('should be false if token is unpaired', () => {
+    it('should be false if token is unpaired', fakeAsync(() => {
+      hasPermissionSubject.next(true);
       component.token = Fixtures.unpairedPushToken;
-      expect(component.pendingActions()).toEqual(false);
-    });
+      tick();
 
-    it('should be false if the token has been activated', () => {
-      component.token = Fixtures.completedPushToken;
+      expect(component.canActivate).toEqual(true);
       expect(component.pendingActions()).toEqual(false);
-    });
+    }));
+
+    it('should be false if the token has been activated', fakeAsync(() => {
+      hasPermissionSubject.next(true);
+      component.token = Fixtures.completedPushToken;
+      tick();
+
+      expect(component.canActivate).toEqual(true);
+      expect(component.pendingActions()).toEqual(false);
+    }));
+
+    it('should be false if the token activation permission is not granted', fakeAsync(() => {
+      hasPermissionSubject.next(false);
+      component.token = Fixtures.pairedPushToken;
+      tick();
+
+      expect(component.canActivate).toEqual(false);
+      expect(component.pendingActions()).toEqual(false);
+    }));
   });
 
   describe('pendingActivate', () => {
-    it('should be true if push token is paired', () => {
+    it('should be true if push token is paired', fakeAsync(() => {
+      hasPermissionSubject.next(true);
       component.token = Fixtures.pairedPushToken;
-      expect(component.pendingActivate()).toEqual(true);
-    });
+      tick();
 
-    it('should be true if QR token is paired', () => {
+      expect(component.canActivate).toEqual(true);
+      expect(component.pendingActivate()).toEqual(true);
+    }));
+
+    it('should be true if QR token is paired', fakeAsync(() => {
+      hasPermissionSubject.next(true);
       component.token = Fixtures.pairedQRToken;
+      tick();
+
+      expect(component.canActivate).toEqual(true);
       expect(component.pendingActivate()).toEqual(true);
-    });
+    }));
 
-    it('should be false if push token is not in paired state', () => {
+    it('should be false if push token is not in paired state', fakeAsync(() => {
+      hasPermissionSubject.next(true);
       component.token = Fixtures.completedPushToken;
-      expect(component.pendingActivate()).toEqual(false);
-    });
+      tick();
 
-    it('should be false if QR token is not in paired state', () => {
-      component.token = Fixtures.completedQRToken;
+      expect(component.canActivate).toEqual(true);
       expect(component.pendingActivate()).toEqual(false);
-    });
+    }));
+
+    it('should be false if QR token is not in paired state', fakeAsync(() => {
+      hasPermissionSubject.next(true);
+      component.token = Fixtures.completedQRToken;
+      tick();
+
+      expect(component.canActivate).toEqual(true);
+      expect(component.pendingActivate()).toEqual(false);
+    }));
+
+    it('should be false if push token activation permission is not granted', fakeAsync(() => {
+      hasPermissionSubject.next(false);
+      component.token = Fixtures.pairedPushToken;
+      tick();
+
+      expect(component.canActivate).toEqual(false);
+      expect(component.pendingActivate()).toEqual(false);
+    }));
+
+    it('should be false if QR token activation permission is not granted', fakeAsync(() => {
+      hasPermissionSubject.next(false);
+      component.token = Fixtures.pairedQRToken;
+      tick();
+
+      expect(component.canActivate).toEqual(false);
+      expect(component.pendingActivate()).toEqual(false);
+    }));
   });
 
   describe('isPush', () => {

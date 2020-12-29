@@ -36,6 +36,7 @@ export class TokenCardComponent implements OnInit, OnDestroy {
   public isSynchronizeable: boolean;
   public isMOTP: boolean;
   public canEnable: boolean;
+  public canActivate: boolean;
 
   private subscriptions: Subscription[] = [];
 
@@ -60,6 +61,14 @@ export class TokenCardComponent implements OnInit, OnDestroy {
         .hasPermission$(Permission.ENABLE)
         .subscribe(canEnable => this.canEnable = canEnable)
     );
+
+    if (this.token.typeDetails.activationPermission) {
+      this.subscriptions.push(
+        this.loginService
+          .hasPermission$(this.token.typeDetails.activationPermission)
+          .subscribe(canActivate => this.canActivate = canActivate)
+      );
+    }
   }
 
   public ngOnDestroy() {
@@ -224,7 +233,7 @@ export class TokenCardComponent implements OnInit, OnDestroy {
   }
 
   public pendingActivate(): boolean {
-    return this.token.enrollmentStatus === EnrollmentStatus.PAIRING_RESPONSE_RECEIVED;
+    return this.canActivate && this.token.enrollmentStatus === EnrollmentStatus.PAIRING_RESPONSE_RECEIVED;
   }
 
   public isPush(): boolean {

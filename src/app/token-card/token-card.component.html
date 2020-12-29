@@ -46,9 +46,11 @@
       <ng-container *ngSwitchCase="EnrollmentStatus.PAIRING_URL_SENT">
         <ng-container *ngTemplateOutlet="unpairedTokenMessage"></ng-container>
       </ng-container>
-      <p *ngSwitchCase="EnrollmentStatus.PAIRING_RESPONSE_RECEIVED"
-         i18n> This token is paired with your mobile. The next step is the
-        activation: </p>
+      <ng-container *ngSwitchCase="EnrollmentStatus.PAIRING_RESPONSE_RECEIVED">
+        <p i18n> This token is paired with your mobile. It needs to be activated now to finish the setup. </p>
+        <p *ngIf="!canActivate"
+           class="warning"> You do not have the required permission to activate the token on your own. </p>
+      </ng-container>
       <p *ngSwitchCase="EnrollmentStatus.PAIRING_CHALLENGE_SENT"
          i18n> An activation challenge has been generated.
         The challenge is only valid for a short amount of time. </p>

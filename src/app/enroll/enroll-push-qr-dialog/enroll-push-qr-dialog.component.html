@@ -51,8 +51,10 @@
 
   <mat-step>
     <div *ngIf="enrolledToken">
-      <p i18n>A token with the serial number {{enrolledToken.serial}} (description:
-        {{ enrollmentStep.get('description').value }}) has been created.</p>
+      <p i18n>
+        A token with the serial number {{enrolledToken.serial}} (description:
+        {{ enrollmentStep.get('description').value }}) has been created.
+      </p>
       <p i18n>Scan the QR code below with the Authenticator app or <a target="_blank"
            [href]="enrolledToken.url">follow this link</a> to start the
         activation process of the new token.</p>
@@ -71,12 +73,23 @@
     <p i18n>Your token has been successfully paired. In order to use it, you must activate it first.</p>
 
     <ng-container *ngxPermissionsOnly="Permission.SETPIN">
-      <p i18n>You may set a PIN now to protect your token against misuse, as it ensures only you can use your token.
-        This step is optional, and you can still do it later over the token menu.</p> <button mat-raised-button
+      <p i18n>
+        You may set a PIN now to protect your token against misuse, as it ensures only you can use your token.
+        This step is optional, and you can still do it later over the token menu.
+      </p>
+      <button mat-raised-button
               color="primary"
               (click)="setPin()"
               i18n>Set pin</button>
+      <br>
+      <br>
     </ng-container>
+
+    <p *ngxPermissionsExcept="data.tokenTypeDetails.activationPermission"
+       class="warning"
+       i18n>
+      You do not have the required permission to activate the token on your own.
+    </p>
 
     <mat-dialog-actions align="end">
       <div i18n>Step 3 of 3</div>
@@ -85,6 +98,7 @@
               (click)="close()"
               i18n>Close</button>
       <button mat-raised-button
+              *ngxPermissionsOnly="data.tokenTypeDetails.activationPermission"
               color="primary"
               (click)="closeAndReturnSerial()"
               i18n>Activate Token</button>
