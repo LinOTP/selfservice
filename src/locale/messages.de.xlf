@@ -154,7 +154,7 @@
         <target state="translated">
       Sie haben aktuell keine eingerichtete Authentisierungsmethode.
       Wählen Sie zum Start ihren bevorzugten Typ aus:
-    </target>
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
           <context context-type="linenumber">53,55</context>
@@ -973,7 +973,7 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
       </trans-unit>
       <trans-unit id="2999727617066479407" datatype="html">
         <source>The token description is required. </source>
-        <target state="translated">Die Token-Beschreibung ist erforderlich.</target>
+        <target state="translated">Die Token-Beschreibung ist erforderlich. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
           <context context-type="linenumber">33</context>
@@ -1039,8 +1039,10 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
         You may set a PIN now to protect your token against misuse, as it ensures only you can use your token.
         This step is optional, and you can still do it later over the token menu.
       </source>
-        <target state="translated">Sie können jetzt eine PIN festlegen, um Ihr Token vor missbräuchlicher Verwendung zu schützen. Sie stellt sicher, dass nur Sie Ihren Token verwenden können.
-Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Menü durchführen.</target>
+        <target state="translated">
+         Sie können jetzt eine PIN festlegen, um Ihr Token vor missbräuchlicher Verwendung zu schützen. Sie stellt sicher, dass nur Sie Ihren Token verwenden können.
+         Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Menü durchführen.
+       </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
           <context context-type="linenumber">83</context>
@@ -1615,7 +1617,7 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
         <source>
         Please confirm the challenge on the app.
       </source>
-        <target state="translated">Bitte bestätigen Sie die Challenge auf der App. </target>
+        <target state="translated"> Bitte bestätigen Sie die Challenge auf der App. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">37,38</context>
@@ -1639,7 +1641,7 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
       </trans-unit>
       <trans-unit id="4759723562137600498" datatype="html">
         <source>Activate</source>
-        <target state="translated"> Aktivieren </target>
+        <target state="translated">Aktivieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">55</context>
@@ -1736,7 +1738,7 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
       </trans-unit>
       <trans-unit id="876033237781590761" datatype="html">
         <source> The activation was successful. Your token is ready to be used. </source>
-        <target state="translated">Die Aktivierung war erfolgreich. Ihr Token ist betriebsbereit. </target>
+        <target state="translated"> Die Aktivierung war erfolgreich. Ihr Token ist betriebsbereit. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">122</context>
@@ -1744,7 +1746,7 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
       </trans-unit>
       <trans-unit id="1101952250967560170" datatype="html">
         <source> The test was successful. Your token is ready to be used. </source>
-        <target state="translated">Der Test war erfolgreich. Ihr Token ist betriebsbereit. </target>
+        <target state="translated"> Der Test war erfolgreich. Ihr Token ist betriebsbereit. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">124</context>
@@ -1800,7 +1802,7 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
       </trans-unit>
       <trans-unit id="7595387655980079595" datatype="html">
         <source>Token assignment failed.</source>
-        <target state="translated">Token-Zuweisung fehlgeschlagen</target>
+        <target state="translated">Token-Zuweisung fehlgeschlagen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/assign-token-dialog/assign-token-dialog.component.ts</context>
           <context context-type="linenumber">41</context>
@@ -2445,7 +2447,7 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
       </trans-unit>
       <trans-unit id="1871596733160586812" datatype="html">
         <source>Error: <x id="PH" equiv-text="operation"/>. Please try again or contact an administrator</source>
-        <target state="translated">Fehler: <x id="PH" equiv-text="operation"/>. Bitte versuchen Sie es erneut, oder kontaktieren Sie einen Administrator.</target>
+        <target state="translated">Fehler: <x id="PH" equiv-text="operation"/>. Bitte versuchen Sie es erneut, oder kontaktieren Sie einen Administrator</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.service.ts</context>
           <context context-type="linenumber">86</context>
