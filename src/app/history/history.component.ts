@@ -46,7 +46,9 @@ export class HistoryComponent implements AfterViewInit {
   ngAfterViewInit() {
     merge(
       this.paginator.page,
-      this.sort.sortChange,
+      this.sort.sortChange.pipe(
+        tap(() => this.paginator.pageIndex = 0)
+      ),
       this.queryTrigger$,
     ).pipe(
       startWith({}),
@@ -56,8 +58,6 @@ export class HistoryComponent implements AfterViewInit {
       this.paginator.length = history.totalRecords;
       this.cdr.detectChanges();
     });
-
-    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
   }
 
   submitSearch() {
