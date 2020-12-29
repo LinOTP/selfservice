@@ -14,6 +14,8 @@ linotp-selfservice (1.0~rc1-0dev) buster-dev; urgency=medium
     not.
   * Push and qr token enrollment dialog now only allows to start activation if
     the correct permission was granted.
+  * Push and qr token enrollment dialog now correctly handles the links to the
+    mobile apps and for pairing.
   * Side margins are no longer missing on smaller screens. A minimal side
     margin is retained on screens smaller than the max-width of the token list.
 
