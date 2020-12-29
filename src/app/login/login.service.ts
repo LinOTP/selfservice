@@ -14,6 +14,7 @@ import { LinOTPResponse } from '../api/api';
 import { TokenService } from '../api/token.service';
 import { ReplyMode, TransactionDetail, StatusDetail } from '../api/test.service';
 import { exponentialBackoffInterval } from '../common/exponential-backoff-interval/exponential-backoff-interval';
+import { Permission } from '../common/permissions';
 
 export interface LoginOptions {
   username?: string;
@@ -192,7 +193,6 @@ export class LoginService {
         localStorage.setItem('settings', JSON.stringify(userSystemInfo.settings));
 
         this._loginChange$.next(userSystemInfo.user);
-
         this.loadStoredPermissions();
       }),
       catchError(this.handleError('loadPermissions', undefined)),
@@ -235,8 +235,8 @@ export class LoginService {
   public loadStoredPermissions() {
     const permissions = JSON.parse(localStorage.getItem('permissions'));
     if (permissions) {
-      this._permissionLoad$.next(true);
       this.permissionsService.loadPermissions(permissions);
+      this._permissionLoad$.next(true);
     }
   }
 
@@ -248,6 +248,19 @@ export class LoginService {
   public clearPermissions() {
     this.permissionsService.flushPermissions();
     this._permissionLoad$.next(false);
+  }
+
+  /**
+   * Reevaluates given permission when permissions get loaded
+   *
+   * @param {Permission} permission to evaluate
+   * @returns {Observable<boolean>} whether permission is currently granted
+   * @memberof LoginService
+   */
+  public hasPermission$(permission: Permission): Observable<boolean> {
+    return this.permissionLoad$.pipe(
+      mergeMap(() => this.permissionsService.hasPermission(permission)),
+    );
   }
 
   /**

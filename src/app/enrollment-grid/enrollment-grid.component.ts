@@ -1,14 +1,14 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnDestroy, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
-import { NgxPermissionsService } from 'ngx-permissions';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { switchMap, filter, tap } from 'rxjs/operators';
 
 import { Permission } from '../common/permissions';
 import { NotificationService } from '../common/notification.service';
 import { TokenType, TokenTypeDetails } from '../api/token';
 import { TokenService } from '../api/token.service';
+import { LoginService } from '../login/login.service';
 
 import { AssignTokenDialogComponent } from '../enroll/assign-token-dialog/assign-token-dialog.component';
 import { EnrollOATHDialogComponent } from '../enroll/enroll-oath-dialog/enroll-oath-dialog.component';
@@ -26,22 +26,33 @@ import { EnrollPasswordDialogComponent } from '../enroll/enroll-password-dialog/
   templateUrl: './enrollment-grid.component.html',
   styleUrls: ['./enrollment-grid.component.scss']
 })
-export class EnrollmentGridComponent implements OnInit {
+export class EnrollmentGridComponent implements OnInit, OnDestroy {
 
   public tokenTypes: TokenTypeDetails[] = this.tokenService.getEnrollableTypes();
   @Output() public tokenUpdate: Subject<null> = new Subject();
   public testAfterEnrollment: boolean;
 
+  private subscriptions: Subscription[] = [];
+
   constructor(
     public dialog: MatDialog,
     private tokenService: TokenService,
     private notificationService: NotificationService,
-    private permissionService: NgxPermissionsService,
+    private loginService: LoginService,
   ) { }
 
   public ngOnInit() {
-    this.permissionService.hasPermission(Permission.VERIFY)
-      .then(hasPermission => this.testAfterEnrollment = hasPermission);
+    this.subscriptions.push(
+      this.loginService
+        .hasPermission$(Permission.VERIFY)
+        .subscribe(hasPermission => this.testAfterEnrollment = hasPermission)
+    );
+  }
+
+  public ngOnDestroy() {
+    while (this.subscriptions.length) {
+      this.subscriptions.pop().unsubscribe();
+    }
   }
 
   /**

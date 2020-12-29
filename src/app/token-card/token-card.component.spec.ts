@@ -1,7 +1,7 @@
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
 
-import { NgxPermissionsAllowStubDirective, NgxPermissionsService } from 'ngx-permissions';
+import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
 
 import { of } from 'rxjs/internal/observable/of';
 
@@ -20,6 +20,8 @@ import { ActivateDialogComponent } from '../activate/activate-dialog.component';
 import { TestDialogComponent } from '../test/test-dialog.component';
 import { TokenCardComponent } from './token-card.component';
 import { DialogComponent } from '../common/dialog/dialog.component';
+import { LoginService } from '../login/login.service';
+import { BehaviorSubject, Subscription } from 'rxjs';
 
 class Page extends TestingPage<TokenCardComponent> {
 
@@ -39,7 +41,8 @@ describe('TokenCardComponent', () => {
   let notificationService: jasmine.SpyObj<NotificationService>;
   let matDialog: jasmine.SpyObj<MatDialog>;
   let operationsService: jasmine.SpyObj<OperationsService>;
-  let permissionsService: jasmine.SpyObj<NgxPermissionsService>;
+  let loginService: jasmine.SpyObj<LoginService>;
+  const hasPermissionSubject = new BehaviorSubject(true);
   let tokenUpdateSpy: jasmine.Spy;
 
   let page: Page;
@@ -69,8 +72,8 @@ describe('TokenCardComponent', () => {
           useValue: spyOnClass(MatDialog)
         },
         {
-          provide: NgxPermissionsService,
-          useValue: spyOnClass(NgxPermissionsService),
+          provide: LoginService,
+          useValue: spyOnClass(LoginService),
         },
       ]
     })
@@ -85,8 +88,8 @@ describe('TokenCardComponent', () => {
     notificationService = getInjectedStub(NotificationService);
     operationsService = getInjectedStub(OperationsService);
     operationsService.deleteToken.and.returnValue(of({}));
-    permissionsService = getInjectedStub(NgxPermissionsService);
-    permissionsService.hasPermission.and.returnValue(new Promise(resolve => resolve(true)));
+    loginService = getInjectedStub(LoginService);
+    loginService.hasPermission$.and.returnValue(hasPermissionSubject.asObservable());
     matDialog = getInjectedStub(MatDialog);
     tokenUpdateSpy = spyOn(component.tokenUpdate, 'next');
 
@@ -103,6 +106,17 @@ describe('TokenCardComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should unsubscribe from permission subscriptions on component destroy', () => {
+    expect((component as any).subscriptions.length).toEqual(1);
+    const activeSubscription: Subscription = (component as any).subscriptions[0];
+    expect(activeSubscription.closed).toEqual(false);
+
+    component.ngOnDestroy();
+
+    expect((component as any).subscriptions.length).toEqual(0);
+    expect(activeSubscription.closed).toEqual(true);
   });
 
   it('should mark the token as synchronizable if it is a HOTP or TOTP token', () => {
@@ -287,23 +301,24 @@ describe('TokenCardComponent', () => {
   describe('disable', () => {
 
     it('should notify user after success and emit token list update', fakeAsync(() => {
-      permissionsService.hasPermission.and.returnValue(new Promise(resolve => resolve(true)));
+      hasPermissionSubject.next(true);
       operationsService.disable.and.returnValue(of(true));
-
       component.token = Fixtures.activeHotpToken;
+      tick();
+
       component.disable();
       tick();
 
       expect(notificationService.message).toHaveBeenCalledWith('Token disabled');
-
       expect(tokenUpdateSpy).toHaveBeenCalledTimes(1);
     }));
 
     it('should not emit token list update after failure', fakeAsync(() => {
-      permissionsService.hasPermission.and.returnValue(new Promise(resolve => resolve(true)));
+      hasPermissionSubject.next(true);
       operationsService.disable.and.returnValue(of(false));
-
       component.token = Fixtures.activeHotpToken;
+      tick();
+
       component.disable();
       tick();
 
@@ -311,29 +326,29 @@ describe('TokenCardComponent', () => {
     }));
 
     it('without enable permissions should disable if the user confirmed the action', fakeAsync(() => {
-      permissionsService.hasPermission.and.returnValue(new Promise(resolve => resolve(false)));
+      hasPermissionSubject.next(false);
       matDialog.open.and.returnValue({ afterClosed: () => of(true) });
       operationsService.disable.and.returnValue(of(true));
-
       component.token = Fixtures.activeHotpToken;
+      tick();
+
       component.disable();
       tick();
 
       expect(notificationService.message).toHaveBeenCalledWith('Token disabled');
-
       expect(tokenUpdateSpy).toHaveBeenCalledTimes(1);
     }));
 
     it('without enable permissions should not disable if the user did not confirmed the action', fakeAsync(() => {
-      permissionsService.hasPermission.and.returnValue(new Promise(resolve => resolve(false)));
+      hasPermissionSubject.next(false);
       matDialog.open.and.returnValue({ afterClosed: () => of(false) });
-
       component.token = Fixtures.activeHotpToken;
+      tick();
+
       component.disable();
       tick();
 
       expect(notificationService.message).not.toHaveBeenCalled();
-
       expect(tokenUpdateSpy).not.toHaveBeenCalled();
     }));
 

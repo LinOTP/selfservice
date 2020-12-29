@@ -17,6 +17,7 @@ import { TokenService } from '../api/token.service';
 
 import { LoginService } from './login.service';
 import { NgxPermissionsService } from 'ngx-permissions';
+import { Permission } from '../common/permissions';
 
 describe('LoginService', () => {
   let loginService: LoginService;
@@ -319,6 +320,41 @@ describe('LoginService', () => {
         expect(res).toEqual(false);
       });
       expect(ngxPermissionsService.flushPermissions).toHaveBeenCalled();
+    }));
+  });
+
+  describe('hasPermission$', () => {
+    it('should directly return the current permission state', fakeAsync(() => {
+      const subscriptionSpy = jasmine.createSpy('permission subscription');
+      ngxPermissionsService.hasPermission.and.returnValue(new Promise(resolve => resolve(false)));
+
+      loginService.hasPermission$(Permission.DISABLE).subscribe(subscriptionSpy);
+      tick();
+
+      expect(subscriptionSpy).toHaveBeenCalledWith(false);
+    }));
+
+    it('should push changed state on permission flush and update', fakeAsync(() => {
+      const subscriptionSpy = jasmine.createSpy('permission subscription');
+      ngxPermissionsService.hasPermission.and.returnValue(new Promise(resolve => resolve(true)));
+
+      loginService.hasPermission$(Permission.DISABLE).subscribe(subscriptionSpy);
+      tick();
+
+      subscriptionSpy.calls.reset();
+      ngxPermissionsService.hasPermission.and.returnValue(new Promise(resolve => resolve(false)));
+      loginService.clearPermissions();
+      tick();
+
+      expect(subscriptionSpy).toHaveBeenCalledWith(false);
+
+      subscriptionSpy.calls.reset();
+      ngxPermissionsService.hasPermission.and.returnValue(new Promise(resolve => resolve(true)));
+      spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify(Fixtures.permissionList));
+      loginService.loadStoredPermissions();
+      tick();
+
+      expect(subscriptionSpy).toHaveBeenCalledWith(true);
     }));
   });
 

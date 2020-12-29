@@ -2,9 +2,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MatDialog } from '@angular/material/dialog';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 
-import { NgxPermissionsAllowStubDirective, NgxPermissionsService } from 'ngx-permissions';
+import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
 
-import { of } from 'rxjs/internal/observable/of';
+import { BehaviorSubject, Subscription } from 'rxjs';
+import { of } from 'rxjs';
 
 import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
 import { Fixtures } from '../../testing/fixtures';
@@ -26,6 +27,7 @@ import { EnrollSMSDialogComponent } from '../enroll/enroll-sms-dialog/enroll-sms
 import { EnrollMOTPDialogComponent } from '../enroll/enroll-motp-dialog/enroll-motp-dialog.component';
 import { EnrollYubicoDialogComponent } from '../enroll/enroll-yubico/enroll-yubico-dialog.component';
 import { EnrollPasswordDialogComponent } from '../enroll/enroll-password-dialog/enroll-password-dialog.component';
+import { LoginService } from '../login/login.service';
 
 
 describe('EnrollmentGridComponent', () => {
@@ -35,7 +37,8 @@ describe('EnrollmentGridComponent', () => {
   let tokenService: jasmine.SpyObj<TokenService>;
   let matDialog: jasmine.SpyObj<MatDialog>;
   let tokenUpdateSpy;
-  let permissionsService: jasmine.SpyObj<NgxPermissionsService>;
+  let loginService: jasmine.SpyObj<LoginService>;
+  const hasPermissionSubject = new BehaviorSubject(true);
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
@@ -62,8 +65,8 @@ describe('EnrollmentGridComponent', () => {
           useValue: spyOnClass(MatDialog)
         },
         {
-          provide: NgxPermissionsService,
-          useValue: spyOnClass(NgxPermissionsService)
+          provide: LoginService,
+          useValue: spyOnClass(LoginService)
         },
       ]
     })
@@ -77,8 +80,8 @@ describe('EnrollmentGridComponent', () => {
     notificationService = getInjectedStub(NotificationService);
     tokenService = getInjectedStub(TokenService);
     matDialog = getInjectedStub(MatDialog);
-    permissionsService = getInjectedStub(NgxPermissionsService);
-    permissionsService.hasPermission.and.returnValue(Promise.resolve(true));
+    loginService = getInjectedStub(LoginService);
+    loginService.hasPermission$.and.returnValue(hasPermissionSubject.asObservable());
 
     (<any>tokenService).tokenTypeDetails = [Fixtures.tokenTypeDetails.hmac, Fixtures.tokenTypeDetails.push];
 
@@ -88,6 +91,17 @@ describe('EnrollmentGridComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should unsubscribe from permission subscriptions on component destroy', () => {
+    expect((component as any).subscriptions.length).toEqual(1);
+    const activeSubscription: Subscription = (component as any).subscriptions[0];
+    expect(activeSubscription.closed).toEqual(false);
+
+    component.ngOnDestroy();
+
+    expect((component as any).subscriptions.length).toEqual(0);
+    expect(activeSubscription.closed).toEqual(true);
   });
 
   it('should open the HOTP dialog and update the token list when completed', fakeAsync(() => {
