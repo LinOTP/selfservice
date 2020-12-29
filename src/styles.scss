@@ -41,3 +41,7 @@ body {
 .spacer {
   flex: 1;
 }
+
+.warning {
+  color: mat-color($theme-app-warn, 500);
+}
