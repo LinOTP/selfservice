@@ -1,7 +1,11 @@
 @import '/src/theme.scss';
 
-table {
-  width: 100%;
+.table-wrap {
+  overflow-x: auto;
+
+  table {
+    width: 100%;
+  }
 }
 
 .filter {
