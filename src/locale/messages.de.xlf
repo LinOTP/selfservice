@@ -625,7 +625,7 @@
         <target state="translated">Schritt 2 von 3</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">120</context>
+          <context context-type="linenumber">125</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7030886580906467302" datatype="html">
@@ -633,7 +633,7 @@
         <target state="translated">Ihr Token ist jetzt eingerichtet.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">134</context>
+          <context context-type="linenumber">139</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7046637465133982405" datatype="html">
@@ -641,7 +641,7 @@
         <target state="translated">Schritt 3 von 3</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">146</context>
+          <context context-type="linenumber">151</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7302693902035391340" datatype="html">
@@ -652,13 +652,20 @@
           <context context-type="linenumber">54</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="6594981531271581110" datatype="html">
-        <source>Scan the QR code below with your soft token app or <x id="START_LINK" equiv-text="&lt;a [href]=&quot;enrolledToken.url&quot;>"/>follow this link<x id="CLOSE_LINK" equiv-text="&lt;/a> "/> to
-        install it on your mobile device.</source>
-        <target state="translated">Scannen Sie den untenstehenden QR-Code mit Ihrer Soft-Token-App oder <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>folgen Sie diesem Link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>, um den Token auf Ihrem Smartphone hinzuzufügen.</target>
+      <trans-unit id="4499194291574424298" datatype="html">
+        <source>
+        Scan the QR code below with your soft token app or
+        <x id="START_LINK" equiv-text="&lt;a target=&quot;_blank&quot;            rel=&quot;noopener noreferrer&quot;            [href]=&quot;sanitizer.bypassSecurityTrustUrl(enrolledToken.url)&quot;>"/>follow this link<x id="CLOSE_LINK" equiv-text="&lt;/a>         "/>
+        to install it on your mobile device.
+      </source>
+        <target state="translated">
+        Scannen Sie den untenstehenden QR-Code mit Ihrer Soft-Token-App oder
+        <x id="START_LINK" equiv-text="&lt;a target=&quot;_blank&quot;            rel=&quot;noopener noreferrer&quot;            [href]=&quot;sanitizer.bypassSecurityTrustUrl(enrolledToken.url)&quot;>"/>folgen Sie diesem Link<x id="CLOSE_LINK" equiv-text="&lt;/a>         "/>,
+        um den Token auf Ihrem Smartphone hinzuzufügen.
+      </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">55</context>
+          <context context-type="linenumber">56,61</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3694047789818869519" datatype="html">
@@ -666,7 +673,7 @@
         <target state="translated">Tokendetails ausblenden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="linenumber">73</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7783799134378384593" datatype="html">
@@ -674,7 +681,7 @@
         <target state="translated">Tokendetails einblenden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">74</context>
+          <context context-type="linenumber">79</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2090679117895729961" datatype="html">
@@ -682,7 +689,7 @@
         <target state="translated">URL zum Ausrollen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">81</context>
+          <context context-type="linenumber">86</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4323470180912194028" datatype="html">
@@ -690,7 +697,7 @@
         <target state="translated">Kopieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">90</context>
+          <context context-type="linenumber">95</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1819215007804875232" datatype="html">
@@ -698,7 +705,7 @@
         <target state="translated">Seed</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">101</context>
+          <context context-type="linenumber">106</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8160177433297625366" datatype="html">
@@ -708,7 +715,7 @@
 Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Menü durchführen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">136,137</context>
+          <context context-type="linenumber">141</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4805394958342190750" datatype="html">
@@ -716,7 +723,7 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
         <target state="translated">PIN vergeben</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">141</context>
+          <context context-type="linenumber">146</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7034645605656512531" datatype="html">
@@ -724,7 +731,7 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
         <target state="translated">Bitte überprüfen Sie mit einem Token-Test, ob Sie den Token erfolgreich verwenden können:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">144</context>
+          <context context-type="linenumber">149</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5852602858003873965" datatype="html">
@@ -993,7 +1000,7 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
         <target state="translated">Ihr Token wurde erfolgreich initialisiert. Um ihn benutzen zu können, müssen Sie ihn jedoch zuerst aktivieren.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
-          <context context-type="linenumber">79</context>
+          <context context-type="linenumber">83</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7819314041543176992" datatype="html">
@@ -1001,7 +1008,7 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
         <target state="translated">Schließen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
-          <context context-type="linenumber">105</context>
+          <context context-type="linenumber">109</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7856802224028698537" datatype="html">
@@ -1009,7 +1016,7 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
         <target state="translated">Token Aktivieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
-          <context context-type="linenumber">110</context>
+          <context context-type="linenumber">114</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5287284075925831054" datatype="html">
@@ -1024,13 +1031,20 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
           <context context-type="linenumber">61</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="69779375306319824" datatype="html">
-        <source>Scan the QR code below with the Authenticator app or <x id="START_LINK" equiv-text="&lt;a target=&quot;_blank&quot;            [href]=&quot;sanitizer.bypassSecurityTrustUrl(enrolledToken.url)&quot;>"/>follow this link<x id="CLOSE_LINK" equiv-text="&lt;/a> "/> to start the
-        activation process of the new token.</source>
-        <target state="translated">Scannen Sie den nachfolgenden QR-Code mit der Authenticator App, oder <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/> folgen Sie diesen Link <x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>, um die Aktivierung des neuen Tokens zu starten.</target>
+      <trans-unit id="889186227003310008" datatype="html">
+        <source>
+        Scan the QR code below with the Authenticator app or
+        <x id="START_LINK" equiv-text="&lt;a target=&quot;_blank&quot;            rel=&quot;noopener noreferrer&quot;            [href]=&quot;sanitizer.bypassSecurityTrustUrl(enrolledToken.url)&quot;>"/>follow this link<x id="CLOSE_LINK" equiv-text="&lt;/a>         "/>
+        to start the activation process of the new token.
+      </source>
+        <target state="translated">
+        Scannen Sie den nachfolgenden QR-Code mit der Authenticator App, oder
+        <x id="START_LINK" equiv-text="&lt;a target=&quot;_blank&quot;            rel=&quot;noopener noreferrer&quot;            [href]=&quot;sanitizer.bypassSecurityTrustUrl(enrolledToken.url)&quot;>"/>folgen Sie diesen Link<x id="CLOSE_LINK" equiv-text="&lt;/a>         "/>,
+        um die Aktivierung des neuen Tokens zu starten.
+      </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
-          <context context-type="linenumber">64</context>
+          <context context-type="linenumber">65,70</context>
         </context-group>
       </trans-unit>
       <trans-unit id="685460807569102750" datatype="html">
@@ -1044,7 +1058,7 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
-          <context context-type="linenumber">83</context>
+          <context context-type="linenumber">87</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5067145507068422180" datatype="html">
@@ -1056,7 +1070,7 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
     </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
-          <context context-type="linenumber">97</context>
+          <context context-type="linenumber">101</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7301392706728680974" datatype="html">
