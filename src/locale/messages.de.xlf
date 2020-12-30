@@ -912,7 +912,7 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
       </trans-unit>
       <trans-unit id="83515123170705566" datatype="html">
         <source>The incomplete token will be deleted.</source>
-        <target state="translated">Der noch nicht aktivierten Token wird gelöscht.</target>
+        <target state="translated">Der noch nicht aktivierte Token wird gelöscht.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-dialog-base.component.ts</context>
           <context context-type="linenumber">71</context>
