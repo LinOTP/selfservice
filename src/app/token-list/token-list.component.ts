@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Token, EnrollmentStatus, tokenTypeDetails } from '../api/token';
 import { TokenService } from '../api/token.service';
 import { Permission } from '../common/permissions';
-import { AppInitService } from '../app-init.service';
+import { LoginService } from '../login/login.service';
 
 @Component({
   selector: 'app-token-list',
@@ -20,13 +20,13 @@ export class TokenListComponent implements OnInit {
 
   constructor(
     private tokenService: TokenService,
-    private appInitService: AppInitService,
+    private loginService: LoginService,
   ) { }
 
   ngOnInit() {
     this.loadTokens();
 
-    this.appInitService.getPermissionLoad$().subscribe(permissionsLoaded => {
+    this.loginService.permissionLoad$.subscribe(permissionsLoaded => {
       this.permissionsLoaded = permissionsLoaded;
     });
   }

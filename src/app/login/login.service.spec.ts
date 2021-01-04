@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed, inject, fakeAsync, tick } from '@angular/core/testing';
 import { Type } from '@angular/core';
 
 import { of } from 'rxjs';
@@ -14,15 +14,16 @@ import { MaterialModule } from '../material.module';
 import { SessionService } from '../auth/session.service';
 import { SystemService } from '../system.service';
 import { TokenService } from '../api/token.service';
-import { AppInitService } from '../app-init.service';
 
 import { LoginService } from './login.service';
+import { NgxPermissionsService } from 'ngx-permissions';
+import { Permission } from '../common/permissions';
 
 describe('LoginService', () => {
   let loginService: LoginService;
   let tokenService: jasmine.SpyObj<TokenService>;
   let systemService: jasmine.SpyObj<SystemService>;
-  let appInitService: jasmine.SpyObj<AppInitService>;
+  let ngxPermissionsService: jasmine.SpyObj<NgxPermissionsService>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -48,8 +49,8 @@ describe('LoginService', () => {
           useValue: spyOnClass(SystemService),
         },
         {
-          provide: AppInitService,
-          useValue: spyOnClass(AppInitService)
+          provide: NgxPermissionsService,
+          useValue: spyOnClass(NgxPermissionsService)
         },
       ],
     });
@@ -59,7 +60,7 @@ describe('LoginService', () => {
     loginService = TestBed.inject(LoginService);
     tokenService = getInjectedStub(TokenService);
     systemService = getInjectedStub(SystemService);
-    appInitService = getInjectedStub(AppInitService);
+    ngxPermissionsService = getInjectedStub(NgxPermissionsService);
 
     systemService.getUserSystemInfo.and.returnValue(of(Fixtures.userSystemInfo));
   });
@@ -305,10 +306,56 @@ describe('LoginService', () => {
       systemService.getUserSystemInfo.and.returnValue(of(usersysInfo));
 
       loginService.refreshUserSystemInfo().subscribe(() => {
-        expect(appInitService.loadStoredPermissions).toHaveBeenCalled();
+        expect(loginService.loadStoredPermissions).toHaveBeenCalled();
         expect(localStorage.setItem).toHaveBeenCalledWith('permissions', JSON.stringify(Fixtures.permissionList));
       });
     });
+  });
+
+  describe('clearPermissions', () => {
+    it('should clear the list of permissions and set the permissions as not loaded', fakeAsync(() => {
+      loginService.clearPermissions();
+      tick();
+      loginService.permissionLoad$.subscribe(res => {
+        expect(res).toEqual(false);
+      });
+      expect(ngxPermissionsService.flushPermissions).toHaveBeenCalled();
+    }));
+  });
+
+  describe('hasPermission$', () => {
+    it('should directly return the current permission state', fakeAsync(() => {
+      const subscriptionSpy = jasmine.createSpy('permission subscription');
+      ngxPermissionsService.hasPermission.and.returnValue(new Promise(resolve => resolve(false)));
+
+      loginService.hasPermission$(Permission.DISABLE).subscribe(subscriptionSpy);
+      tick();
+
+      expect(subscriptionSpy).toHaveBeenCalledWith(false);
+    }));
+
+    it('should push changed state on permission flush and update', fakeAsync(() => {
+      const subscriptionSpy = jasmine.createSpy('permission subscription');
+      ngxPermissionsService.hasPermission.and.returnValue(new Promise(resolve => resolve(true)));
+
+      loginService.hasPermission$(Permission.DISABLE).subscribe(subscriptionSpy);
+      tick();
+
+      subscriptionSpy.calls.reset();
+      ngxPermissionsService.hasPermission.and.returnValue(new Promise(resolve => resolve(false)));
+      loginService.clearPermissions();
+      tick();
+
+      expect(subscriptionSpy).toHaveBeenCalledWith(false);
+
+      subscriptionSpy.calls.reset();
+      ngxPermissionsService.hasPermission.and.returnValue(new Promise(resolve => resolve(true)));
+      spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify(Fixtures.permissionList));
+      loginService.loadStoredPermissions();
+      tick();
+
+      expect(subscriptionSpy).toHaveBeenCalledWith(true);
+    }));
   });
 
   describe('handleLogout', () => {
@@ -320,18 +367,22 @@ describe('LoginService', () => {
 
     it('should flush permissions and clear all local storage items', () => {
       spyOn(localStorage, 'clear');
+      spyOn(loginService, 'clearPermissions');
 
       loginService.handleLogout(false);
 
       expect(localStorage.clear).toHaveBeenCalled();
-      expect(appInitService.clearPermissions).toHaveBeenCalled();
+      expect(loginService.clearPermissions).toHaveBeenCalled();
     });
 
     it('should emit a loginChange event', () => {
-      const subjectSpy = spyOn(loginService._loginChange$, 'next');
-      loginService.handleLogout(false);
+      const subscriptionSpy = jasmine.createSpy('loginChange$ subscription');
 
-      expect(subjectSpy).toHaveBeenCalledWith(undefined);
+      loginService.loginChange$.subscribe(subscriptionSpy);
+      subscriptionSpy.calls.reset();
+
+      loginService.handleLogout(false);
+      expect(subscriptionSpy).toHaveBeenCalledWith(undefined);
     });
 
     it('should not set redirect param if disabled', () => {

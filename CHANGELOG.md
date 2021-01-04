@@ -1,4 +1,19 @@
-  <a name="1.0rc0"></a>
+<a name="1.0rc1"></a>
+## 1.0rc1 (unreleased)
+
+  ### Features:
+  * Permissions are refreshed on every page load after the main requests are done. Previously this was only done once after successful login.
+
+  ### Fixes:
+  * Push and qr token activation was wrongly reported as failed in [1.0rc0](#1.0rc0). This is now fixed and the activation process is correctly performed.
+  * Non-fully activated push and qr tokens are handled equally now in the token list. This means that push tokens no longer show a primary delete action and the wording reflects whether the activation permission was granted or not.
+  * Push and qr token enrollment dialog now only allows to start activation if the correct permission was granted.
+  * Push and qr token enrollment dialog now correctly handles the links to the mobile apps and for pairing.
+  * Side margins are no longer missing on smaller screens. A minimal side margin is retained on screens smaller than the max-width of the token list.
+  * History search is no longer submitted implicitly when the pagination or sort order changes. The user now has to explicitly submit the search once it is happy with the selected column and search term. The "clear search" icon button is shown if the table does not show the unfiltered search. The search button is now only shown if the search form has changes that are not submitted.
+
+
+<a name="1.0rc0"></a>
 ## 1.0rc0 (2020-12-02)
 
   ### Features:

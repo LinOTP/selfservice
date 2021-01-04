@@ -4,7 +4,7 @@ import { HistoryService } from '../api/history.service';
 import { HistoryRequestOptions, HistoryRecord, SortOrder, HistoryField, HistoryPage } from '../api/history';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { merge, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, merge, Observable } from 'rxjs';
 import { startWith, switchMap, tap, filter } from 'rxjs/operators';
 
 const historyColumns = ['success', 'date', 'action', 'serial', 'tokentype', 'action_detail', 'info'] as const;
@@ -33,10 +33,24 @@ export class HistoryComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  public query = '';
-  public queryType: HistoryColumn = 'action';
-  public queryTrigger$ = new Subject();
-  public lastSubmittedQuery = '';
+  public queryForm: {
+    searchTerm: string,
+    column: HistoryColumn
+  } = {
+      searchTerm: '',
+      column: 'action'
+    };
+
+  public queryTrigger$ = new BehaviorSubject({ ...this.queryForm });
+
+  public get searchIsDirty() {
+    return this.queryTrigger$.value.column !== 'action'
+      || this.queryTrigger$.value.searchTerm !== '';
+  }
+  public get searchFormIsDirty() {
+    return this.queryForm.column !== this.queryTrigger$.value.column
+      || this.queryForm.searchTerm !== this.queryTrigger$.value.searchTerm;
+  }
 
   constructor(
     private historyService: HistoryService,
@@ -46,8 +60,12 @@ export class HistoryComponent implements AfterViewInit {
   ngAfterViewInit() {
     merge(
       this.paginator.page,
-      this.sort.sortChange,
-      this.queryTrigger$,
+      this.sort.sortChange.pipe(
+        tap(() => this.paginator.pageIndex = 0)
+      ),
+      this.queryTrigger$.pipe(
+        tap(() => this.paginator.pageIndex = 0)
+      ),
     ).pipe(
       startWith({}),
       switchMap(() => this.loadHistory())
@@ -56,18 +74,18 @@ export class HistoryComponent implements AfterViewInit {
       this.paginator.length = history.totalRecords;
       this.cdr.detectChanges();
     });
-
-    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
   }
 
   submitSearch() {
-    this.paginator.pageIndex = 0;
-    this.queryTrigger$.next();
+    this.queryTrigger$.next({ ...this.queryForm });
   }
 
   clearSearch() {
-    this.query = '';
-    this.queryTrigger$.next();
+    this.queryForm = {
+      searchTerm: '',
+      column: 'action'
+    };
+    this.submitSearch();
   }
 
   loadHistory(): Observable<HistoryPage> {
@@ -76,10 +94,9 @@ export class HistoryComponent implements AfterViewInit {
       recordCount: this.paginator.pageSize,
       sortBy: <HistoryField>this.sort.active,
       sortOrder: <SortOrder>this.sort.direction,
-      query: this.query,
-      queryType: <HistoryField>this.queryType,
+      query: this.queryTrigger$.value.searchTerm,
+      queryType: <HistoryField>this.queryTrigger$.value.column,
     };
-    this.lastSubmittedQuery = this.query;
 
     return this.historyService.getHistory(options).pipe(
       filter(history => !!history),

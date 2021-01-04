@@ -1,4 +1,5 @@
 import { OnDestroy, Inject, Component } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
@@ -30,13 +31,14 @@ export abstract class EnrollDialogBaseComponent implements OnDestroy {
 
   constructor(
     protected dialogRef: MatDialogRef<ThisType<EnrollDialogBaseComponent>>,
+    protected sanitizer: DomSanitizer,
     protected permissionsService: NgxPermissionsService,
     protected enrollmentService: EnrollmentService,
     protected formBuilder: FormBuilder,
     protected notificationService: NotificationService,
     protected operationsService: OperationsService,
     protected dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: { tokenTypeDetails: TokenTypeDetails, closeLabel?: String }
+    @Inject(MAT_DIALOG_DATA) public data: { tokenTypeDetails: TokenTypeDetails, closeLabel?: String },
   ) { }
 
   public ngOnDestroy() {

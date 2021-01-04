@@ -52,8 +52,13 @@
             id="stepShowQR">
     <div *ngIf="enrolledToken">
       <p i18n>A token with the serial number {{enrolledToken.serial}} has been created.</p>
-      <p i18n>Scan the QR code below with your soft token app or <a [href]="enrolledToken.url">follow this link</a> to
-        install it on your mobile device.</p>
+      <p i18n>
+        Scan the QR code below with your soft token app or
+        <a target="_blank"
+           rel="noopener noreferrer"
+           [href]="sanitizer.bypassSecurityTrustUrl(enrolledToken.url)">follow this link</a>
+        to install it on your mobile device.
+      </p>
 
       <qrcode [qrdata]="enrolledToken.url"
               [width]="256"

@@ -1,5 +1,11 @@
-table {
-  width: 100%;
+@import '/src/theme.scss';
+
+.table-wrap {
+  overflow-x: auto;
+
+  table {
+    width: 100%;
+  }
 }
 
 .filter {
@@ -31,6 +37,6 @@ mat-header-cell:not(:last-of-type) {
   background: #fff8f8;
 
   mat-icon {
-    color: red;
+    color: mat-color($theme-app-warn, 500);
   }
 }

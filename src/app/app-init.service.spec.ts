@@ -1,22 +1,28 @@
-import { TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { of } from 'rxjs';
 
-import { NgxPermissionsService } from 'ngx-permissions';
 
 import { spyOnClass, getInjectedStub } from '../testing/spyOnClass';
 
-import { Permission } from './common/permissions';
 import { AppInitService } from './app-init.service';
+import { SessionService } from './auth/session.service';
+import { LoginService } from './login/login.service';
 
 describe('AppInitService', () => {
   let appInitService: AppInitService;
-  let ngxPermissionsService: jasmine.SpyObj<NgxPermissionsService>;
+  let loginService: jasmine.SpyObj<LoginService>;
+  let sessionService: jasmine.SpyObj<SessionService>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
         {
-          provide: NgxPermissionsService,
-          useValue: spyOnClass(NgxPermissionsService)
+          provide: LoginService,
+          useValue: spyOnClass(LoginService)
+        },
+        {
+          provide: SessionService,
+          useValue: spyOnClass(SessionService)
         }
       ],
     });
@@ -24,39 +30,32 @@ describe('AppInitService', () => {
 
   beforeEach(() => {
     appInitService = TestBed.inject(AppInitService);
-    ngxPermissionsService = getInjectedStub(NgxPermissionsService);
+    loginService = getInjectedStub(LoginService);
+    sessionService = getInjectedStub(SessionService);
+
+    loginService.refreshUserSystemInfo.and.returnValue(of());
   });
 
   it('should be created', () => {
     expect(appInitService).toBeTruthy();
   });
 
-  it('should load previously stored permissions', () => {
-    spyOn(localStorage, 'getItem').and.returnValue(
-      JSON.stringify([Permission.ENROLLHOTP, Permission.SETPIN])
-    );
-
+  it('should load previously stored permissions and request new permissions if user is logged in', fakeAsync(() => {
+    sessionService.isLoggedIn.and.returnValue(true);
     appInitService.init();
 
-    expect(ngxPermissionsService.loadPermissions).toHaveBeenCalledWith([Permission.ENROLLHOTP, Permission.SETPIN]);
-  });
+    expect(loginService.loadStoredPermissions).toHaveBeenCalled();
+    expect(loginService.refreshUserSystemInfo).not.toHaveBeenCalled();
+    tick();
+    expect(loginService.refreshUserSystemInfo).toHaveBeenCalled();
+  }));
 
-  it('should load an empty permission set without previously stored permissions', () => {
-    spyOn(localStorage, 'getItem').and.returnValue('[]');
-
+  it('should not load permissions if user is not logged in', fakeAsync(() => {
+    sessionService.isLoggedIn.and.returnValue(false);
     appInitService.init();
 
-    expect(ngxPermissionsService.loadPermissions).toHaveBeenCalledWith([]);
-  });
-
-  describe('clearPermissions', () => {
-    it('should clear the list of permissions and set the permissions as not loaded', fakeAsync(() => {
-      appInitService.clearPermissions();
-      tick();
-      appInitService.getPermissionLoad$().subscribe(res => {
-        expect(res).toEqual(false);
-      });
-      expect(ngxPermissionsService.flushPermissions).toHaveBeenCalled();
-    }));
-  });
+    expect(loginService.loadStoredPermissions).not.toHaveBeenCalled();
+    tick();
+    expect(loginService.refreshUserSystemInfo).not.toHaveBeenCalled();
+  }));
 });

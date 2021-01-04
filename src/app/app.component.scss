@@ -4,15 +4,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow: auto;
-  height: 100vh;
-  background: whitesmoke;
+  min-height: 100%;
 
-  & > :not(mat-toolbar) {
+  &>:not(mat-toolbar) {
     width: 100%;
-    max-width: 800px;
-    margin-left: 1em;
-    margin-right: 1em;
+    max-width: 850px;
+    padding-left: 1em;
+    padding-right: 1em;
+    box-sizing: border-box;
   }
 }
 
@@ -20,6 +19,8 @@ mat-toolbar {
   position: relative;
   padding: 8px 12px;
   margin-bottom: 1em;
+  min-width: 100%;
+  width: initial;
   @include mat-elevation(1);
 
   #title {
@@ -32,7 +33,7 @@ mat-toolbar {
       height: 100%;
     }
 
-    #app-name{
+    #app-name {
       margin-left: 16px;
     }
   }
@@ -53,6 +54,7 @@ mat-toolbar {
     &>* {
       margin: 5px 16px;
     }
+
     &>*:not(:last-child) {
       margin-right: 0;
     }
@@ -84,7 +86,7 @@ mat-divider {
   margin-bottom: .5em;
 }
 
-footer{
+footer {
   display: flex;
   align-items: center;
   padding-bottom: .5em;

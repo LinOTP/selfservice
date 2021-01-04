@@ -14,6 +14,7 @@ html,
 body {
   margin: 0;
   height: 100%;
+  background: whitesmoke;
 }
 
 /* Remove the spacing needed for hints */
@@ -39,4 +40,8 @@ body {
 
 .spacer {
   flex: 1;
+}
+
+.warning {
+  color: mat-color($theme-app-warn, 500);
 }

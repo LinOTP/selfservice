@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { NgxPermissionsAllowStubDirective, NgxPermissionsRestrictStubDirective } from 'ngx-permissions';
 
-import { of } from 'rxjs';
+import { BehaviorSubject, of, Subject } from 'rxjs';
 
 import { MockPipe } from '../../testing/mock-pipe';
 import { MockComponent } from '../../testing/mock-component';
@@ -22,7 +22,7 @@ import { UnreadyTokensPipe } from '../common/pipes/unready-tokens.pipe';
 import { CapitalizePipe } from '../common/pipes/capitalize.pipe';
 
 import { TokenListComponent } from './token-list.component';
-import { AppInitService } from '../app-init.service';
+import { LoginService } from '../login/login.service';
 
 class Page extends TestingPage<TokenListComponent> {
 
@@ -56,7 +56,8 @@ describe('TokenListComponent with permissions', () => {
   let component: TokenListComponent;
   let fixture: ComponentFixture<TokenListComponent>;
   let tokenService: jasmine.SpyObj<TokenService>;
-  let appInitService: jasmine.SpyObj<AppInitService>;
+  let loginService: jasmine.SpyObj<LoginService>;
+  let permissionLoadSubject: Subject<boolean>;
   let page: Page;
 
   beforeEach(async () => {
@@ -83,8 +84,8 @@ describe('TokenListComponent with permissions', () => {
           useValue: spyOnClass(TokenService)
         },
         {
-          provide: AppInitService,
-          useValue: spyOnClass(AppInitService)
+          provide: LoginService,
+          useValue: spyOnClass(LoginService)
         },
       ],
       imports: [
@@ -101,8 +102,10 @@ describe('TokenListComponent with permissions', () => {
     page = new Page(fixture);
 
     tokenService = getInjectedStub(TokenService);
-    appInitService = getInjectedStub(AppInitService);
-    appInitService.getPermissionLoad$.and.returnValue(of(true));
+    loginService = getInjectedStub(LoginService);
+
+    permissionLoadSubject = new BehaviorSubject(true);
+    (loginService as any).permissionLoad$ = permissionLoadSubject.asObservable();
   });
 
   it('should create', () => {
@@ -197,7 +200,8 @@ describe('TokenListComponent without tokens and permissions', () => {
   let component: TokenListComponent;
   let fixture: ComponentFixture<TokenListComponent>;
   let tokenService: jasmine.SpyObj<TokenService>;
-  let appInitService: jasmine.SpyObj<AppInitService>;
+  let loginService: jasmine.SpyObj<LoginService>;
+  let permissionLoadSubject: Subject<boolean>;
   let page: Page;
 
   beforeEach(async () => {
@@ -223,8 +227,8 @@ describe('TokenListComponent without tokens and permissions', () => {
           useValue: spyOnClass(TokenService)
         },
         {
-          provide: AppInitService,
-          useValue: spyOnClass(AppInitService)
+          provide: LoginService,
+          useValue: spyOnClass(LoginService)
         },
       ],
       imports: [
@@ -241,8 +245,11 @@ describe('TokenListComponent without tokens and permissions', () => {
     page = new Page(fixture);
 
     tokenService = getInjectedStub(TokenService);
-    appInitService = getInjectedStub(AppInitService);
-    appInitService.getPermissionLoad$.and.returnValue(of(false));
+    loginService = getInjectedStub(LoginService);
+
+    permissionLoadSubject = new BehaviorSubject(false);
+    (loginService as any).permissionLoad$ = permissionLoadSubject.asObservable();
+
     tokenService.getTokens.and.returnValue(of([]));
   });
 

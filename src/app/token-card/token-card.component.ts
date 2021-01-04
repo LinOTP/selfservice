@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit, Input, Output, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
-import { Subject, from, of } from 'rxjs';
+import { Subject, of, Subscription } from 'rxjs';
 import { filter, switchMap } from 'rxjs/operators';
 
 import { Permission, ModifyTokenPermissions, ModifyUnreadyTokenPermissions } from '../common/permissions';
@@ -16,14 +16,14 @@ import { ResyncDialogComponent } from '../common/resync-dialog/resync-dialog.com
 import { TestDialogComponent } from '../test/test-dialog.component';
 import { ActivateDialogComponent } from '../activate/activate-dialog.component';
 import { SetDescriptionDialogComponent } from '../common/set-description-dialog/set-description-dialog.component';
-import { NgxPermissionsService } from 'ngx-permissions';
+import { LoginService } from '../login/login.service';
 
 @Component({
   selector: 'app-token-card',
   templateUrl: './token-card.component.html',
   styleUrls: ['./token-card.component.scss']
 })
-export class TokenCardComponent implements OnInit {
+export class TokenCardComponent implements OnInit, OnDestroy {
 
   @Input() public token: Token;
   @Output() public tokenUpdate: Subject<null> = new Subject();
@@ -36,12 +36,15 @@ export class TokenCardComponent implements OnInit {
   public isSynchronizeable: boolean;
   public isMOTP: boolean;
   public canEnable: boolean;
+  public canActivate: boolean;
+
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private dialog: MatDialog,
     private notificationService: NotificationService,
     private operationsService: OperationsService,
-    private permissionsService: NgxPermissionsService,
+    private loginService: LoginService,
   ) { }
 
   public ngOnInit() {
@@ -52,9 +55,26 @@ export class TokenCardComponent implements OnInit {
     if (this.token.typeDetails.type === TokenType.MOTP) {
       this.isMOTP = true;
     }
-    this.permissionsService.hasPermission(Permission.ENABLE).then(
-      canEnable => this.canEnable = canEnable
+
+    this.subscriptions.push(
+      this.loginService
+        .hasPermission$(Permission.ENABLE)
+        .subscribe(canEnable => this.canEnable = canEnable)
     );
+
+    if (this.token.typeDetails.activationPermission) {
+      this.subscriptions.push(
+        this.loginService
+          .hasPermission$(this.token.typeDetails.activationPermission)
+          .subscribe(canActivate => this.canActivate = canActivate)
+      );
+    }
+  }
+
+  public ngOnDestroy() {
+    while (this.subscriptions.length) {
+      this.subscriptions.pop().unsubscribe();
+    }
   }
 
   public setPin(): void {
@@ -128,25 +148,24 @@ export class TokenCardComponent implements OnInit {
   }
 
   public disable(): void {
-    from(this.permissionsService.hasPermission(Permission.ENABLE)).pipe(
-      switchMap(canEnable => {
-        if (canEnable) {
-          return of(true);
-        } else {
-          const config = {
-            width: '25em',
-            data:
-            {
-              title: $localize`Disable token?`,
-              text: $localize`You will not be able to use it to authenticate yourself anymore, as you cannot enable it on your own.`,
-              confirmationLabel: $localize`disable`
-            }
-          }; return this.dialog.open(DialogComponent, config).afterClosed();
+    const confirmationObservable = this.canEnable ?
+      of(true) :
+      this.dialog.open(
+        DialogComponent,
+        {
+          width: '25em',
+          data: {
+            title: $localize`Disable token?`,
+            text: $localize`You will not be able to use it to authenticate yourself anymore, as you cannot enable it on your own.`,
+            confirmationLabel: $localize`disable`
+          }
         }
-      }),
-      filter(canDisable => !!canDisable),
+      ).afterClosed();
+
+    confirmationObservable.pipe(
+      filter(confirmed => !!confirmed),
       switchMap(() => this.operationsService.disable(this.token)),
-      filter(result => !!result)
+      filter(success => !!success)
     ).subscribe(() => {
       this.notificationService.message($localize`Token disabled`);
       this.tokenUpdate.next();
@@ -210,23 +229,11 @@ export class TokenCardComponent implements OnInit {
   }
 
   public pendingActions(): boolean {
-    return this.pendingDelete() || this.pendingActivate();
-  }
-
-  public pendingDelete(): boolean {
-    let deletePending = false;
-    if (this.token.enrollmentStatus === EnrollmentStatus.UNPAIRED) {
-      deletePending = this.token.typeDetails.type === TokenType.PUSH || this.token.typeDetails.type === TokenType.QR;
-    }
-    return deletePending;
+    return this.pendingActivate();
   }
 
   public pendingActivate(): boolean {
-    let activatePending = false;
-    if (this.token.enrollmentStatus === EnrollmentStatus.PAIRING_RESPONSE_RECEIVED) {
-      activatePending = this.token.typeDetails.type === TokenType.PUSH || this.token.typeDetails.type === TokenType.QR;
-    }
-    return activatePending;
+    return this.canActivate && this.token.enrollmentStatus === EnrollmentStatus.PAIRING_RESPONSE_RECEIVED;
   }
 
   public isPush(): boolean {

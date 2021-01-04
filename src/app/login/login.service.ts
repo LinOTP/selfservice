@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { Observable, of, BehaviorSubject } from 'rxjs';
 import { map, tap, filter, mergeMap, take, catchError } from 'rxjs/operators';
+import { NgxPermissionsService } from 'ngx-permissions';
 
 import { SystemService, UserSystemInfo } from '../system.service';
 import { Token } from '../api/token';
@@ -12,8 +13,8 @@ import { SessionService } from '../auth/session.service';
 import { LinOTPResponse } from '../api/api';
 import { TokenService } from '../api/token.service';
 import { ReplyMode, TransactionDetail, StatusDetail } from '../api/test.service';
-import { AppInitService } from '../app-init.service';
 import { exponentialBackoffInterval } from '../common/exponential-backoff-interval/exponential-backoff-interval';
+import { Permission } from '../common/permissions';
 
 export interface LoginOptions {
   username?: string;
@@ -49,18 +50,17 @@ export class LoginService {
     logout: 'logout',
   };
 
-  public _loginChange$: BehaviorSubject<UserSystemInfo['user']> = new BehaviorSubject(
-    this.userInfo()
-  );
+  private _loginChange$: BehaviorSubject<UserSystemInfo['user']> = new BehaviorSubject(this.userInfo());
+  private _permissionLoad$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(
     private http: HttpClient,
     private sessionService: SessionService,
     private systemService: SystemService,
     private tokenService: TokenService,
-    private appInitService: AppInitService,
     private router: Router,
     private dialogRef: MatDialog,
+    private permissionsService: NgxPermissionsService,
   ) { }
 
   /**
@@ -193,8 +193,7 @@ export class LoginService {
         localStorage.setItem('settings', JSON.stringify(userSystemInfo.settings));
 
         this._loginChange$.next(userSystemInfo.user);
-
-        this.appInitService.loadStoredPermissions();
+        this.loadStoredPermissions();
       }),
       catchError(this.handleError('loadPermissions', undefined)),
     );
@@ -214,6 +213,54 @@ export class LoginService {
    */
   get loginChange$(): Observable<UserSystemInfo['user']> {
     return this._loginChange$.asObservable();
+  }
+
+  /**
+   * Getter for the load permission observable, which issues events when
+   * permissions are loaded
+   *
+   * @readonly
+   * @type {Observable<boolean>} observable of permission load event
+   * @memberof LoginService
+   */
+  get permissionLoad$(): Observable<boolean> {
+    return this._permissionLoad$.asObservable();
+  }
+
+  /**
+   * bootstraps permissions stored in localStorage.
+   *
+   * @memberof LoginService
+   */
+  public loadStoredPermissions() {
+    const permissions = JSON.parse(localStorage.getItem('permissions'));
+    if (permissions) {
+      this.permissionsService.loadPermissions(permissions);
+      this._permissionLoad$.next(true);
+    }
+  }
+
+  /**
+   * removes all permissions currently loaded.
+   *
+   * @memberof LoginService
+   */
+  public clearPermissions() {
+    this.permissionsService.flushPermissions();
+    this._permissionLoad$.next(false);
+  }
+
+  /**
+   * Reevaluates given permission when permissions get loaded
+   *
+   * @param {Permission} permission to evaluate
+   * @returns {Observable<boolean>} whether permission is currently granted
+   * @memberof LoginService
+   */
+  public hasPermission$(permission: Permission): Observable<boolean> {
+    return this.permissionLoad$.pipe(
+      mergeMap(() => this.permissionsService.hasPermission(permission)),
+    );
   }
 
   /**
@@ -245,7 +292,7 @@ export class LoginService {
    */
   public handleLogout(storeRoute: boolean) {
     localStorage.clear();
-    this.appInitService.clearPermissions();
+    this.clearPermissions();
 
     this.dialogRef.closeAll();
 

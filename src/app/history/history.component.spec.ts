@@ -61,8 +61,8 @@ describe('HistoryComponent', () => {
         recordCount: component.paginator.pageSize,
         sortBy: component.sort.active,
         sortOrder: component.sort.direction,
-        query: component.query,
-        queryType: component.queryType,
+        query: component.queryForm.searchTerm,
+        queryType: component.queryForm.column,
       };
       expect(historyService.getHistory).toHaveBeenCalledWith(options);
 
@@ -80,10 +80,15 @@ describe('HistoryComponent', () => {
   });
 
   it('clearSearch should set the query to an empty string and reload history', () => {
-    component.query = 'test';
+    component.queryForm.searchTerm = 'test';
+    component.queryForm.column = component.searchColumns[2];
+
     fixture.detectChanges();
+
     component.clearSearch();
-    expect(component.query).toEqual('');
+
+    expect(component.queryForm.searchTerm).toEqual('');
+    expect(component.queryForm.column).toEqual('action');
     expect(historyService.getHistory).toHaveBeenCalled();
   });
 
