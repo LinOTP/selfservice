@@ -5,7 +5,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
 import { EnrollmentService } from '../api/enrollment.service';
-import { Token, EnrollmentStatus, TokenType } from '../api/token';
+import { Token, TokenType } from '../api/token';
 import { of } from 'rxjs';
 
 @Component({
@@ -17,7 +17,6 @@ export class ActivateDialogComponent implements OnInit {
   public waitingForResponse: boolean;
   public restartDialog: boolean;
 
-  public isActivation = false;
   public isQR = false;
   public isPush = false;
 
@@ -25,16 +24,11 @@ export class ActivateDialogComponent implements OnInit {
   public tokenQRUrl: string = null;
   public pin = '';
 
-  public result = null;
-
   constructor(
     private enrollmentService: EnrollmentService,
     private dialogRef: MatDialogRef<ActivateDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { token: Token },
   ) {
-    if (data.token.enrollmentStatus !== EnrollmentStatus.COMPLETED) {
-      this.isActivation = true;
-    }
     if (data.token.typeDetails.type === TokenType.PUSH) {
       this.isPush = true;
     }
@@ -51,7 +45,6 @@ export class ActivateDialogComponent implements OnInit {
 
     this.restartDialog = false;
     this.waitingForResponse = true;
-    this.result = null;
 
     stepper.next();
 
@@ -73,7 +66,6 @@ export class ActivateDialogComponent implements OnInit {
       }),
       switchMap(detail => this.enrollmentService.challengePoll(detail.transactionid, this.pin, this.data.token.serial)),
       map((res: { accept?: boolean, reject?: boolean, valid_tan?: boolean }) => {
-        this.result = res;
         return res?.accept === true || res?.reject === true || res?.valid_tan === true;
       }
       ),
