@@ -198,7 +198,6 @@ export class TokenCardComponent implements OnInit, OnDestroy {
     this.dialog.open(ActivateDialogComponent, dialogConfig)
       .afterClosed()
       .subscribe(() => {
-        this.notificationService.message($localize`Token activated`);
         this.tokenUpdate.next();
       });
   }
