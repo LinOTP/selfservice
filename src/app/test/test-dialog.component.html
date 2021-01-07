@@ -105,10 +105,12 @@
 
   <div mat-dialog-actions>
     <button mat-button
+            type="button"
             mat-dialog-close
             *ngIf="state !== TestState.SUCCESS"
             i18n>cancel</button>
     <button mat-raised-button
+            type="button"
             color="primary"
             type="reset"
             (click)="reset()"
@@ -122,6 +124,7 @@
             *ngIf="state === TestState.UNTESTED && hasOfflineMode"
             i18n>submit</button>
     <button mat-raised-button
+            type="button"
             color="primary"
             mat-dialog-close
             *ngIf="state === TestState.SUCCESS"
