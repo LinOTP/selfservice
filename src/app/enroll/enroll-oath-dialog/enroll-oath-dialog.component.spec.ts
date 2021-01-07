@@ -32,6 +32,7 @@ describe('The EnrollOATHDialogComponent', () => {
       declarations: [
         EnrollOATHDialogComponent,
         MockComponent({ selector: 'qrcode', inputs: ['qrdata', 'width', 'errorCorrectionLevel'] }),
+        MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] }),
         NgxPermissionsAllowStubDirective,
       ],
       imports: [

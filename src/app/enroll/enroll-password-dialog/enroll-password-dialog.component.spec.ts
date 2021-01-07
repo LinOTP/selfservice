@@ -5,7 +5,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { By } from '@angular/platform-browser';
 
-import { NgxPermissionsService } from 'ngx-permissions';
+import { NgxPermissionsAllowStubDirective, NgxPermissionsService } from 'ngx-permissions';
 import { of } from 'rxjs';
 
 import { Fixtures } from '../../../testing/fixtures';
@@ -32,6 +32,7 @@ describe('The EnrollPasswordDialogComponent', () => {
       declarations: [
         EnrollPasswordDialogComponent,
         MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] }),
+        NgxPermissionsAllowStubDirective,
       ],
       imports: [
         RouterTestingModule,

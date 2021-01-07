@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TestingPage } from '../../testing/page-helper';
+import { MaterialModule } from '../material.module';
 
 import { ButtonWaitIndicatorComponent } from './button-wait-indicator.component';
 
@@ -18,7 +19,12 @@ describe('ButtonWaitIndicatorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ButtonWaitIndicatorComponent]
+      imports: [
+        MaterialModule,
+      ],
+      declarations: [
+        ButtonWaitIndicatorComponent,
+      ],
     })
       .compileComponents();
   });

@@ -13,6 +13,7 @@ import { MockComponent } from '../testing/mock-component';
 import { SystemService, UserSystemInfo } from './system.service';
 import { Fixtures } from '../testing/fixtures';
 import { TestingPage } from '../testing/page-helper';
+import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
 
 class Page extends TestingPage<AppComponent> {
   public getToolbar() {
@@ -51,6 +52,7 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent,
         MockComponent({ selector: 'app-language-picker' }),
+        NgxPermissionsAllowStubDirective,
       ],
       providers: [
         {
