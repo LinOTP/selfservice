@@ -301,6 +301,7 @@ describe('LoginService', () => {
   describe('refreshUserSystemInfo', () => {
     it('should set the permissions in local storage', () => {
       spyOn(localStorage, 'setItem');
+      spyOn(loginService, 'loadStoredPermissions');
       const usersysInfo = Fixtures.userSystemInfo;
       usersysInfo.permissions = Fixtures.permissionList;
       systemService.getUserSystemInfo.and.returnValue(of(usersysInfo));
