@@ -45,6 +45,8 @@ export class LoginComponent implements OnInit {
 
   loginStage = LoginStage.USER_PW_INPUT;
 
+  awaitingResponse = false;
+
   public transactionDetail: TransactionDetail;
   public shortTransactionId: string;
   public challengeResult: StatusDetail;
@@ -133,6 +135,10 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    if (this.awaitingResponse) {
+      return;
+    }
+    this.awaitingResponse = true;
     this.message = $localize`Waiting for response`;
 
     const loginOptions: LoginOptions = {
@@ -166,6 +172,7 @@ export class LoginComponent implements OnInit {
           this.tokenChoiceItems.first.nativeElement.focus();
         });
       }
+      this.awaitingResponse = false;
     });
   }
 
@@ -196,6 +203,10 @@ export class LoginComponent implements OnInit {
   }
 
   chooseSecondFactor(token: Token) {
+    if (this.awaitingResponse) {
+      return;
+    }
+    this.awaitingResponse = true;
     this.selectedToken = token;
     this.loginService.login({ serial: token.serial })
       .subscribe(result => {
@@ -204,12 +215,20 @@ export class LoginComponent implements OnInit {
           this.checkTransactionState();
         }
         this.loginStage = LoginStage.OTP_INPUT;
+        this.awaitingResponse = false;
       });
   }
 
   submitSecondFactor() {
+    if (this.awaitingResponse) {
+      return;
+    }
+    this.awaitingResponse = true;
     this.loginService.login({ otp: this.secondFactorFormGroup.value.otp })
-      .subscribe(result => this.finalAuthenticationHandling(result.success));
+      .subscribe(result => {
+        this.finalAuthenticationHandling(result.success);
+        this.awaitingResponse = false;
+      });
   }
 
   public checkTransactionState() {
