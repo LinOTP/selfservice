@@ -70,6 +70,24 @@ span.selectedToken {
   }
 }
 
+mat-spinner {
+  margin: 50px auto;
+}
+
+.center-content {
+  margin: 20px 0;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.instruction {
+  margin: 1em 0;
+}
 
 .otpInput {
   display: flex;

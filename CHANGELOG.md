@@ -13,6 +13,7 @@
   * History search is no longer submitted implicitly when the pagination or sort order changes. The user now has to explicitly submit the search once it is happy with the selected column and search term. The "clear search" icon button is shown if the table does not show the unfiltered search. The search button is now only shown if the search form has changes that are not submitted.
   * Cancelling Push and QR token activation no longer opens a pop-up informing of a successful activation.
   * Prevent multiple submission of login requests in rapid succession
+  * Push token MFA login UI is now correctly aligned.
 
 
 <a name="1.0rc0"></a>
