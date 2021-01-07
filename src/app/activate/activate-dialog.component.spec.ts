@@ -75,7 +75,6 @@ describe('ActivateDialogComponent', () => {
 
       expect(component.waitingForResponse).toEqual(false);
       expect(component.restartDialog).toEqual(false);
-      expect(component.result).toEqual({ valid_tan: true });
     }));
 
     it('should display success message in case of accepted push token activation transaction', fakeAsync(() => {
@@ -90,7 +89,6 @@ describe('ActivateDialogComponent', () => {
 
       expect(component.waitingForResponse).toEqual(false);
       expect(component.restartDialog).toEqual(false);
-      expect(component.result).toEqual({ accept: true });
     }));
 
     it('should display success message in case of rejected push token activation transaction', fakeAsync(() => {
@@ -105,7 +103,6 @@ describe('ActivateDialogComponent', () => {
 
       expect(component.waitingForResponse).toEqual(false);
       expect(component.restartDialog).toEqual(false);
-      expect(component.result).toEqual({ reject: true });
     }));
 
     it('should display failure message on negative response of token activation', fakeAsync(() => {
@@ -133,7 +130,6 @@ describe('ActivateDialogComponent', () => {
 
       expect(component.waitingForResponse).toEqual(false);
       expect(component.restartDialog).toEqual(true);
-      expect(component.result).toBeNull();
     }));
   });
 
