@@ -13,7 +13,7 @@ import { EnrollYubicoDialogComponent } from './enroll-yubico-dialog.component';
 import { MockComponent } from '../../../testing/mock-component';
 import { NotificationService } from '../../common/notification.service';
 import { OperationsService } from '../../api/operations.service';
-import { NgxPermissionsService } from 'ngx-permissions';
+import { NgxPermissionsAllowStubDirective, NgxPermissionsService } from 'ngx-permissions';
 
 describe('EnrollYubicoDialogComponent', () => {
   let component: EnrollYubicoDialogComponent;
@@ -25,6 +25,7 @@ describe('EnrollYubicoDialogComponent', () => {
       declarations: [
         EnrollYubicoDialogComponent,
         MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] }),
+        NgxPermissionsAllowStubDirective,
       ],
       imports: [
         MaterialModule,
