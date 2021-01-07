@@ -24,6 +24,8 @@ linotp-selfservice (1.0~rc1-0dev) buster-dev; urgency=medium
     icon button is shown if the table does not show the unfiltered search. The
     search button is now only shown if the search form has changes that are not
     submitted.
+  * Cancelling Push and QR token activation no longer opens a pop-up informing
+    of a successful activation.
 
  -- LinOTP Packaging <packaging.linotp@arxes-tolina.de>  Mon, 28 Dec 2020 16:51:01 +0100
 
