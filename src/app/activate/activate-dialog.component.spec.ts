@@ -15,6 +15,7 @@ import { MaterialModule } from '../material.module';
 import { EnrollmentService } from '../api/enrollment.service';
 import { EnrollPushQRDialogComponent } from '../enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component';
 import { ActivateDialogComponent } from './activate-dialog.component';
+import { Subscription } from 'rxjs';
 
 describe('ActivateDialogComponent', () => {
   let component: ActivateDialogComponent;
@@ -59,6 +60,14 @@ describe('ActivateDialogComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should unsubscribe from polling on destroy if there is a subscription', () => {
+    component['pairingSubscription'] = new Subscription();
+    const unsubscribeSpy = spyOn(component['pairingSubscription'], 'unsubscribe');
+
+    component.ngOnDestroy();
+    expect(unsubscribeSpy).toHaveBeenCalledTimes(1);
   });
 
   describe('activateToken', () => {

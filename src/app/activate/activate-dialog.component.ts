@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { MatStepper } from '@angular/material/stepper';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
@@ -6,14 +6,14 @@ import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
 import { EnrollmentService } from '../api/enrollment.service';
 import { Token, TokenType } from '../api/token';
-import { of } from 'rxjs';
+import { of, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-activate-dialog',
   templateUrl: './activate-dialog.component.html',
   styleUrls: ['./activate-dialog.component.scss']
 })
-export class ActivateDialogComponent implements OnInit {
+export class ActivateDialogComponent implements OnInit, OnDestroy {
   public waitingForResponse: boolean;
   public restartDialog: boolean;
 
@@ -23,6 +23,8 @@ export class ActivateDialogComponent implements OnInit {
   public transactionId: string = null;
   public tokenQRUrl: string = null;
   public pin = '';
+
+  private pairingSubscription: Subscription;
 
   constructor(
     private enrollmentService: EnrollmentService,
@@ -41,6 +43,12 @@ export class ActivateDialogComponent implements OnInit {
     this.waitingForResponse = false;
   }
 
+  public ngOnDestroy() {
+    if (this.pairingSubscription) {
+      this.pairingSubscription.unsubscribe();
+    }
+  }
+
   public activateToken(stepper: MatStepper): void {
 
     this.restartDialog = false;
@@ -48,7 +56,7 @@ export class ActivateDialogComponent implements OnInit {
 
     stepper.next();
 
-    this.enrollmentService.activate(this.data.token.serial, this.pin).pipe(
+    this.pairingSubscription = this.enrollmentService.activate(this.data.token.serial, this.pin).pipe(
       tap(detail => {
         if (!detail || !(detail.transactionid)) {
           throw new Error();

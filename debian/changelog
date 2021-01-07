@@ -27,6 +27,8 @@ linotp-selfservice (1.0~rc1-0dev) buster-dev; urgency=medium
     of a successful activation.
   * Prevent multiple submission of login requests in rapid succession
   * Push token MFA login UI is now correctly aligned.
+  * Cancelling Push and QR token activation now directly cancels status
+    polling.
 
  -- LinOTP Packaging <packaging.linotp@arxes-tolina.de>  Mon, 28 Dec 2020 16:51:01 +0100
 

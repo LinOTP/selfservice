@@ -14,6 +14,7 @@
   * Cancelling Push and QR token activation no longer opens a pop-up informing of a successful activation.
   * Prevent multiple submission of login requests in rapid succession
   * Push token MFA login UI is now correctly aligned.
+  * Cancelling Push and QR token activation now directly cancels status polling.
 
 
 <a name="1.0rc0"></a>
