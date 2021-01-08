@@ -3,6 +3,7 @@
 
   ### Features:
   * Permissions are refreshed on every page load after the main requests are done. Previously this was only done once after successful login.
+  * Token list is registered as the fallback route that is redirected to if no other route was hit.
 
   ### Fixes:
   * Push and qr token activation was wrongly reported as failed in [1.0rc0](#1.0rc0). This is now fixed and the activation process is correctly performed.
@@ -13,6 +14,8 @@
   * History search is no longer submitted implicitly when the pagination or sort order changes. The user now has to explicitly submit the search once it is happy with the selected column and search term. The "clear search" icon button is shown if the table does not show the unfiltered search. The search button is now only shown if the search form has changes that are not submitted.
   * Cancelling Push and QR token activation no longer opens a pop-up informing of a successful activation.
   * Prevent multiple submission of login requests in rapid succession
+  * Push token MFA login UI is now correctly aligned.
+  * Cancelling Push and QR token activation now directly cancels status polling.
 
 
 <a name="1.0rc0"></a>
