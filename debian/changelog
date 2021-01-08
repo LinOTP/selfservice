@@ -26,6 +26,7 @@ linotp-selfservice (1.0~rc1-0dev) buster-dev; urgency=medium
     submitted.
   * Cancelling Push and QR token activation no longer opens a pop-up informing
     of a successful activation.
+  * Prevent multiple submission of login requests in rapid succession
 
  -- LinOTP Packaging <packaging.linotp@arxes-tolina.de>  Mon, 28 Dec 2020 16:51:01 +0100
 

@@ -46,7 +46,10 @@
       <button mat-raised-button
               type="submit"
               color="primary"
-              i18n="login action|login page submit button">Login</button>
+              [disabled]="awaitingResponse">
+        <app-button-wait-indicator [show]="awaitingResponse"></app-button-wait-indicator>
+        <ng-container i18n="login action|login page submit button">Login</ng-container>
+      </button>
     </mat-card-actions>
   </mat-card>
 </form>
@@ -191,8 +194,11 @@
       <button mat-raised-button
               type="submit"
               color="primary"
-              i18n="2nd factor login action|login page second factor submit button"
-              *ngIf="!transactionDetail || !hasOnlineMode || showInputField">Submit</button>
+              [disabled]="awaitingResponse"
+              *ngIf="!transactionDetail || !hasOnlineMode || showInputField">
+        <app-button-wait-indicator [show]="awaitingResponse"></app-button-wait-indicator>
+        <ng-container i18n="2nd factor login action|login page second factor submit button">Submit</ng-container>
+      </button>
     </mat-card-actions>
   </mat-card>
 </form>
