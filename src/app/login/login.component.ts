@@ -156,6 +156,7 @@ export class LoginComponent implements OnInit {
     }
 
     this.loginService.login(loginOptions).subscribe(result => {
+      this.awaitingResponse = false;
       if (!result.tokens) {
         this.finalAuthenticationHandling(result.success);
       } else if (result.tokens.length === 0) {
@@ -172,7 +173,6 @@ export class LoginComponent implements OnInit {
           this.tokenChoiceItems.first.nativeElement.focus();
         });
       }
-      this.awaitingResponse = false;
     });
   }
 
@@ -210,12 +210,12 @@ export class LoginComponent implements OnInit {
     this.selectedToken = token;
     this.loginService.login({ serial: token.serial })
       .subscribe(result => {
+        this.awaitingResponse = false;
         if (result.challengedata) {
           this.transactionDetail = result.challengedata;
           this.checkTransactionState();
         }
         this.loginStage = LoginStage.OTP_INPUT;
-        this.awaitingResponse = false;
       });
   }
 
@@ -226,8 +226,8 @@ export class LoginComponent implements OnInit {
     this.awaitingResponse = true;
     this.loginService.login({ otp: this.secondFactorFormGroup.value.otp })
       .subscribe(result => {
-        this.finalAuthenticationHandling(result.success);
         this.awaitingResponse = false;
+        this.finalAuthenticationHandling(result.success);
       });
   }
 
