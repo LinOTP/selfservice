@@ -1,5 +1,12 @@
+<a name="1.0rc2"></a>
+## 1.0rc2 (unreleased)
+
+  ### Fixes:
+  * 2-step MFA login no longer fails if user has only one token.
+
+
 <a name="1.0rc1"></a>
-## 1.0rc1 (unreleased)
+## 1.0rc1 (2021-01-08)
 
   ### Features:
   * Permissions are refreshed on every page load after the main requests are done. Previously this was only done once after successful login.
