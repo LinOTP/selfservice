@@ -96,6 +96,7 @@ export class EnrollmentService {
       data: serial,
       pass: pin,
       user: userInfo.username,
+      realm: userInfo.realm,
     };
     return this.http.post<LinOTPResponse<boolean, ActivationDetail>>(this.validateCheck, body)
       .pipe(
@@ -117,6 +118,7 @@ export class EnrollmentService {
       transactionid: transactionId,
       pass: pin,
       user: userInfo.username,
+      realm: userInfo.realm,
     };
     return this.http.post<LinOTPResponse<boolean, ChallengeStatusDetail>>(this.validateCheckStatus, body)
       .pipe(

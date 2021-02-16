@@ -3,6 +3,7 @@
 
   ### Fixes:
   * 2-step MFA login no longer fails if user has only one token.
+  * Token activation no longer fails for users not in the default realm.
 
 
 <a name="1.0rc1"></a>
