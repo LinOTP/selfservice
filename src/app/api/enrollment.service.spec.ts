@@ -215,10 +215,11 @@ describe('EnrollmentService', () => {
             serial: 'serial',
             data: 'serial',
             pass: 'pin',
-            user: 'name'
+            user: 'name',
+            realm: 'realm1',
           };
 
-          spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify({ username: 'name' }));
+          spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify({ username: 'name', realm: 'realm1' }));
 
           enrollmentService.activate('serial', 'pin').subscribe(response => {
             expect(response).toEqual(serverResponse.detail);
@@ -230,7 +231,8 @@ describe('EnrollmentService', () => {
             req.body.serial === body.serial &&
             req.body.data === body.data &&
             req.body.pass === body.pass &&
-            req.body.user === body.user
+            req.body.user === body.user &&
+            req.body.realm === body.realm
           );
 
           request.flush(serverResponse);
@@ -248,7 +250,7 @@ describe('EnrollmentService', () => {
         [HttpClient, HttpTestingController],
         (http: HttpClient, backend: HttpTestingController) => {
 
-          spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify({ username: 'name' }));
+          spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify({ username: 'name', realm: 'realm1' }));
 
           enrollmentService.activate('serial', 'pin').subscribe(response => {
             expect(response).toEqual(null);
@@ -272,7 +274,8 @@ describe('EnrollmentService', () => {
         const body = {
           transactionid: 'txid',
           pass: 'pin',
-          user: 'name'
+          user: 'name',
+          realm: 'realm1',
         };
 
         const serverResponse = {
@@ -284,7 +287,7 @@ describe('EnrollmentService', () => {
           }
         };
 
-        spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify({ username: 'name' }));
+        spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify({ username: 'name', realm: 'realm1' }));
 
         enrollmentService.getChallengeStatus('txid', 'pin', 'serial').subscribe(response => {
           expect(response).toEqual(serverResponse);
@@ -295,6 +298,7 @@ describe('EnrollmentService', () => {
           req.method === 'POST' &&
           req.body.transactionid === body.transactionid &&
           req.body.pass === body.pass &&
+          req.body.user === body.user &&
           req.body.user === body.user
         );
 
