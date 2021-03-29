@@ -1,5 +1,5 @@
 <a name="1.0rc2"></a>
-## 1.0rc2 (unreleased)
+## 1.0rc2 (2021-03-29)
 
   ### Fixes:
   * 2-step MFA login no longer fails if user has only one token.
