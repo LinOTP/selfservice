@@ -1,10 +1,10 @@
-linotp-selfservice (1.0~rc2-0dev) buster-dev; urgency=medium
+linotp-selfservice (1.0~rc2-1) buster-dev; urgency=medium
 
   Fixes:
   * 2-step MFA login no longer fails if user has only one token.
   * Token activation no longer fails for users not in the default realm.
 
- -- LinOTP Packaging <packaging.linotp@arxes-tolina.de>  Tue, 26 Jan 2021 14:22:01 +0100
+ -- LinOTP Packaging <packaging.linotp@arxes-tolina.de>  Mon, 29 Mar 2021 09:45:00 +0200
 
 linotp-selfservice (1.0~rc1-1) buster-dev; urgency=medium
 
