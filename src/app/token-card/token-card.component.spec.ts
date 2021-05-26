@@ -1,5 +1,5 @@
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
 
@@ -22,6 +22,10 @@ import { TokenCardComponent } from './token-card.component';
 import { DialogComponent } from '../common/dialog/dialog.component';
 import { LoginService } from '../login/login.service';
 import { BehaviorSubject, Subscription } from 'rxjs';
+import { SetDescriptionDialogComponent } from '../common/set-description-dialog/set-description-dialog.component';
+import { ResyncDialogComponent } from '../common/resync-dialog/resync-dialog.component';
+import { SetMOTPPinDialogComponent } from '../common/set-motp-pin-dialog/set-motp-pin-dialog.component';
+import { SetPinDialogComponent } from '../common/set-pin-dialog/set-pin-dialog.component';
 
 class Page extends TestingPage<TokenCardComponent> {
 
@@ -87,7 +91,7 @@ describe('TokenCardComponent', () => {
 
     notificationService = getInjectedStub(NotificationService);
     operationsService = getInjectedStub(OperationsService);
-    operationsService.deleteToken.and.returnValue(of({}));
+    operationsService.deleteToken.and.returnValue(of(false));
     loginService = getInjectedStub(LoginService);
     loginService.hasPermission$.and.returnValue(hasPermissionSubject.asObservable());
     matDialog = getInjectedStub(MatDialog);
@@ -171,7 +175,7 @@ describe('TokenCardComponent', () => {
   describe('set token pin', () => {
 
     it('should set pin of token and notify user after success', fakeAsync(() => {
-      matDialog.open.and.returnValue({ afterClosed: () => of(true) });
+      matDialog.open.and.returnValue({ afterClosed: () => of(true) } as MatDialogRef<SetPinDialogComponent>);
 
       component.token = Fixtures.activeHotpToken;
       component.setPin();
@@ -183,7 +187,7 @@ describe('TokenCardComponent', () => {
     }));
 
     it('should not notify user if set pin was cancelled', fakeAsync(() => {
-      matDialog.open.and.returnValue({ afterClosed: () => of(false) });
+      matDialog.open.and.returnValue({ afterClosed: () => of(false) } as MatDialogRef<SetPinDialogComponent>);
 
       component.token = Fixtures.activeHotpToken;
       component.setPin();
@@ -197,7 +201,7 @@ describe('TokenCardComponent', () => {
   describe('set mOTP token pin', () => {
 
     it('should set mOTP pin of an mOTP token and notify user after success', fakeAsync(() => {
-      matDialog.open.and.returnValue({ afterClosed: () => of(true) });
+      matDialog.open.and.returnValue({ afterClosed: () => of(true) } as MatDialogRef<SetMOTPPinDialogComponent>);
 
       component.token = Fixtures.activeMotpToken;
       component.setMOTPPin();
@@ -209,7 +213,7 @@ describe('TokenCardComponent', () => {
     }));
 
     it('should not notify user if set pin was cancelled', fakeAsync(() => {
-      matDialog.open.and.returnValue({ afterClosed: () => of(false) });
+      matDialog.open.and.returnValue({ afterClosed: () => of(false) } as MatDialogRef<SetMOTPPinDialogComponent>);
 
       component.token = Fixtures.activeMotpToken;
       component.setMOTPPin();
@@ -223,7 +227,8 @@ describe('TokenCardComponent', () => {
   describe('token deletion', () => {
 
     it('should notify user of deletion', fakeAsync(() => {
-      matDialog.open.and.returnValue({ afterClosed: () => of(true) });
+      matDialog.open.and.returnValue({ afterClosed: () => of(true) } as MatDialogRef<DialogComponent>);
+      operationsService.deleteToken.and.returnValue(of(true));
 
       component.token = Fixtures.activeHotpToken;
       component.delete();
@@ -234,7 +239,7 @@ describe('TokenCardComponent', () => {
     }));
 
     it('should not notify user if deletion is cancelled', fakeAsync(() => {
-      matDialog.open.and.returnValue({ afterClosed: () => of(false) });
+      matDialog.open.and.returnValue({ afterClosed: () => of(false) } as MatDialogRef<DialogComponent>);
 
       component.token = Fixtures.activeHotpToken;
       component.delete();
@@ -244,7 +249,8 @@ describe('TokenCardComponent', () => {
     }));
 
     it('should issue an update event after deletion', fakeAsync(() => {
-      matDialog.open.and.returnValue({ afterClosed: () => of(true) });
+      matDialog.open.and.returnValue({ afterClosed: () => of(true) } as MatDialogRef<DialogComponent>);
+      operationsService.deleteToken.and.returnValue(of(true));
 
       component.token = Fixtures.activeHotpToken;
       component.delete();
@@ -255,7 +261,7 @@ describe('TokenCardComponent', () => {
 
 
     it('should delete the token if confirmed', fakeAsync(() => {
-      matDialog.open.and.returnValue({ afterClosed: () => of(true) });
+      matDialog.open.and.returnValue({ afterClosed: () => of(true) } as MatDialogRef<DialogComponent>);
 
       component.token = Fixtures.activeHotpToken;
       component.delete();
@@ -266,7 +272,7 @@ describe('TokenCardComponent', () => {
     }));
 
     it('should not delete the token if confirmation is cancelled', fakeAsync(() => {
-      matDialog.open.and.returnValue({ afterClosed: () => of(false) });
+      matDialog.open.and.returnValue({ afterClosed: () => of(false) } as MatDialogRef<DialogComponent>);
 
       component.delete();
       tick();
@@ -329,7 +335,7 @@ describe('TokenCardComponent', () => {
 
     it('without enable permissions should disable if the user confirmed the action', fakeAsync(() => {
       hasPermissionSubject.next(false);
-      matDialog.open.and.returnValue({ afterClosed: () => of(true) });
+      matDialog.open.and.returnValue({ afterClosed: () => of(true) } as MatDialogRef<DialogComponent>);
       operationsService.disable.and.returnValue(of(true));
       component.token = Fixtures.activeHotpToken;
       tick();
@@ -343,7 +349,7 @@ describe('TokenCardComponent', () => {
 
     it('without enable permissions should not disable if the user did not confirmed the action', fakeAsync(() => {
       hasPermissionSubject.next(false);
-      matDialog.open.and.returnValue({ afterClosed: () => of(false) });
+      matDialog.open.and.returnValue({ afterClosed: () => of(false) } as MatDialogRef<DialogComponent>);
       component.token = Fixtures.activeHotpToken;
       tick();
 
@@ -368,7 +374,7 @@ describe('TokenCardComponent', () => {
     };
 
     it('should notify user of successful unassignment', fakeAsync(() => {
-      matDialog.open.and.returnValue({ afterClosed: () => of(true) });
+      matDialog.open.and.returnValue({ afterClosed: () => of(true) } as MatDialogRef<DialogComponent>);
       operationsService.unassignToken.and.returnValue(of(true));
 
       component.token = Fixtures.activeHotpToken;
@@ -383,7 +389,7 @@ describe('TokenCardComponent', () => {
     }));
 
     it('should not update token list on failed unassignment', fakeAsync(() => {
-      matDialog.open.and.returnValue({ afterClosed: () => of(true) });
+      matDialog.open.and.returnValue({ afterClosed: () => of(true) } as MatDialogRef<DialogComponent>);
       operationsService.unassignToken.and.returnValue(of(false));
 
       component.token = Fixtures.activeHotpToken;
@@ -396,7 +402,7 @@ describe('TokenCardComponent', () => {
     }));
 
     it('should not notify user if unassignment is cancelled', fakeAsync(() => {
-      matDialog.open.and.returnValue({ afterClosed: () => of(false) });
+      matDialog.open.and.returnValue({ afterClosed: () => of(false) } as MatDialogRef<DialogComponent>);
 
       component.token = Fixtures.activeHotpToken;
       component.unassign();
@@ -410,7 +416,7 @@ describe('TokenCardComponent', () => {
 
   describe('activate', () => {
     it('should open a Push token activation dialog', fakeAsync(() => {
-      matDialog.open.and.returnValue({ afterClosed: () => of({}) });
+      matDialog.open.and.returnValue({ afterClosed: () => of({}) } as MatDialogRef<ActivateDialogComponent>);
       expectedDialogConfig.data.token = Fixtures.pairedPushToken;
       expectedDialogConfig.data.activate = true;
 
@@ -422,7 +428,7 @@ describe('TokenCardComponent', () => {
     }));
 
     it('should open a Push token activation dialog', fakeAsync(() => {
-      matDialog.open.and.returnValue({ afterClosed: () => of({}) });
+      matDialog.open.and.returnValue({ afterClosed: () => of({}) } as MatDialogRef<ActivateDialogComponent>);
       expectedDialogConfig.data.token = Fixtures.pairedQRToken;
       expectedDialogConfig.data.activate = true;
 
@@ -541,8 +547,8 @@ describe('TokenCardComponent', () => {
   });
 
   describe('testToken', () => {
-    it('should open the TestOTPDialogComponent', fakeAsync(() => {
-      matDialog.open.and.returnValue({ afterClosed: () => of({}) });
+    it('should open the TestDialogComponent', fakeAsync(() => {
+      matDialog.open.and.returnValue({ afterClosed: () => of({}) } as MatDialogRef<TestDialogComponent>);
       component.token = Fixtures.activeHotpToken;
       fixture.detectChanges();
 
@@ -585,7 +591,7 @@ describe('TokenCardComponent', () => {
   describe('resync', () => {
 
     it('should display a success message if token is synchronized', fakeAsync(() => {
-      matDialog.open.and.returnValue({ afterClosed: () => of(true) });
+      matDialog.open.and.returnValue({ afterClosed: () => of(true) } as MatDialogRef<ResyncDialogComponent>);
 
       component.token = Fixtures.activeHotpToken;
       component.resync();
@@ -597,7 +603,7 @@ describe('TokenCardComponent', () => {
     }));
 
     it('should not notify user if resync was cancelled', fakeAsync(() => {
-      matDialog.open.and.returnValue({ afterClosed: () => of(false) });
+      matDialog.open.and.returnValue({ afterClosed: () => of(false) } as MatDialogRef<ResyncDialogComponent>);
 
       component.token = Fixtures.activeHotpToken;
       component.resync();
@@ -611,7 +617,7 @@ describe('TokenCardComponent', () => {
   describe('setDescription', () => {
 
     it('should display a success message if token description is set and reload the token list', fakeAsync(() => {
-      matDialog.open.and.returnValue({ afterClosed: () => of(true) });
+      matDialog.open.and.returnValue({ afterClosed: () => of(true) } as MatDialogRef<SetDescriptionDialogComponent>);
 
       component.token = Fixtures.activeHotpToken;
       component.setDescription();
@@ -624,7 +630,7 @@ describe('TokenCardComponent', () => {
     }));
 
     it('should not notify user if resync was cancelled', fakeAsync(() => {
-      matDialog.open.and.returnValue({ afterClosed: () => of(false) });
+      matDialog.open.and.returnValue({ afterClosed: () => of(false) } as MatDialogRef<SetDescriptionDialogComponent>);
 
       component.token = Fixtures.activeHotpToken;
       component.setDescription();

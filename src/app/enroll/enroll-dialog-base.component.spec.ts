@@ -13,6 +13,8 @@ import { NotificationService } from '../common/notification.service';
 
 import { EnrollDialogBaseComponent } from './enroll-dialog-base.component';
 import { of } from 'rxjs';
+import { SetPinDialogComponent } from '../common/set-pin-dialog/set-pin-dialog.component';
+import { DialogComponent } from '../common/dialog/dialog.component';
 
 class MockComponent extends EnrollDialogBaseComponent { }
 
@@ -114,7 +116,7 @@ describe('EnrollDialogBaseComponent', () => {
         it('should delete enrolled token if the user has permissions and close dialog', fakeAsync(() => {
             permissionsService.hasPermission.and.returnValue(new Promise(resolve => resolve(true)));
             operationsService.deleteToken.and.returnValue(of(true));
-            dialog.open.and.returnValue({ afterClosed: () => of(true) });
+            dialog.open.and.returnValue({ afterClosed: () => of(true) } as MatDialogRef<DialogComponent>);
 
 
             component.enrolledToken = { serial: 'serial' };
@@ -131,7 +133,7 @@ describe('EnrollDialogBaseComponent', () => {
         it('should not delete enrolled token if the user has no permissions and close dialog with false', fakeAsync(() => {
             component.enrolledToken = { serial: 'serial' };
             permissionsService.hasPermission.and.returnValue(new Promise(resolve => resolve(false)));
-            dialog.open.and.returnValue({ afterClosed: () => of(true) });
+            dialog.open.and.returnValue({ afterClosed: () => of(true) } as MatDialogRef<DialogComponent>);
 
             fixture.detectChanges();
 
@@ -145,7 +147,7 @@ describe('EnrollDialogBaseComponent', () => {
 
         it('should not call delete token if no token was enrolled', fakeAsync(() => {
             permissionsService.hasPermission.and.returnValue(new Promise(resolve => resolve(true)));
-            dialog.open.and.returnValue({ afterClosed: () => of(true) });
+            dialog.open.and.returnValue({ afterClosed: () => of(true) } as MatDialogRef<DialogComponent>);
 
             component.cancel();
             tick();
@@ -156,7 +158,7 @@ describe('EnrollDialogBaseComponent', () => {
 
         it('should not call delete token nor close dialog if user does not confirm', fakeAsync(() => {
             permissionsService.hasPermission.and.returnValue(new Promise(resolve => resolve(true)));
-            dialog.open.and.returnValue({ afterClosed: () => of(false) });
+            dialog.open.and.returnValue({ afterClosed: () => of(false) } as MatDialogRef<DialogComponent>);
 
             component.cancel();
             tick();
@@ -172,7 +174,7 @@ describe('EnrollDialogBaseComponent', () => {
         });
 
         it('should set pin of token and output message', fakeAsync(() => {
-            dialog.open.and.returnValue({ afterClosed: () => of(true) });
+            dialog.open.and.returnValue({ afterClosed: () => of(true) } as MatDialogRef<SetPinDialogComponent>);
 
             component.enrolledToken = { serial: 'serial' };
             component.setPin();
@@ -183,7 +185,7 @@ describe('EnrollDialogBaseComponent', () => {
         }));
 
         it('should not do anything if the user closes the dialog', fakeAsync(() => {
-            dialog.open.and.returnValue({ afterClosed: () => of(false) });
+            dialog.open.and.returnValue({ afterClosed: () => of(false) } as MatDialogRef<SetPinDialogComponent>);
 
             component.enrolledToken = { serial: 'serial' };
             component.setPin();

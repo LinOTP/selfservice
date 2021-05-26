@@ -46,9 +46,9 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(
     routes,
     {
-      onSameUrlNavigation: 'reload',
-      // enableTracing: true,
-    }
+    onSameUrlNavigation: 'reload',
+    relativeLinkResolution: 'legacy'
+}
   )],
   exports: [RouterModule]
 })

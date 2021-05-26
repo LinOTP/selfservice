@@ -1,5 +1,5 @@
 import { RouterTestingModule } from '@angular/router/testing';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 
 import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
@@ -122,7 +122,10 @@ describe('EnrollmentGridComponent', () => {
       data: { token: token },
     };
 
-    matDialog.open.and.returnValues({ afterClosed: () => of(token.serial) }, { afterClosed: () => of(true) });
+    matDialog.open.and.returnValues(
+      { afterClosed: () => of(token.serial) } as MatDialogRef<EnrollOATHDialogComponent>,
+      { afterClosed: () => of(true) } as MatDialogRef<TestDialogComponent>
+    );
     tokenService.getToken.and.returnValue(of(token));
     component.runEnrollmentWorkflow(tokenTypeDetails);
     tick();
@@ -147,7 +150,7 @@ describe('EnrollmentGridComponent', () => {
       },
     };
 
-    matDialog.open.and.returnValue({ afterClosed: () => of('serial') });
+    matDialog.open.and.returnValue({ afterClosed: () => of('serial') } as MatDialogRef<EnrollOATHDialogComponent>);
     tokenService.getToken.and.returnValue(of(null));
     component.runEnrollmentWorkflow(tokenTypeDetails);
     tick();
@@ -171,7 +174,7 @@ describe('EnrollmentGridComponent', () => {
       },
     };
 
-    matDialog.open.and.returnValue({ afterClosed: () => of(null) });
+    matDialog.open.and.returnValue({ afterClosed: () => of(null) } as MatDialogRef<EnrollOATHDialogComponent>);
     component.runEnrollmentWorkflow(tokenTypeDetails);
     tick();
 
@@ -199,7 +202,10 @@ describe('EnrollmentGridComponent', () => {
       data: { token: token },
     };
 
-    matDialog.open.and.returnValues({ afterClosed: () => of(token.serial) }, { afterClosed: () => of(true) });
+    matDialog.open.and.returnValues(
+      { afterClosed: () => of(token.serial) } as MatDialogRef<EnrollOATHDialogComponent>,
+      { afterClosed: () => of(true) } as MatDialogRef<TestDialogComponent>
+    );
     tokenService.getToken.and.returnValue(of(token));
     component.runEnrollmentWorkflow(tokenTypeDetails);
     tick();
@@ -225,7 +231,7 @@ describe('EnrollmentGridComponent', () => {
       },
     };
 
-    matDialog.open.and.returnValues({ afterClosed: () => of(token.serial) });
+    matDialog.open.and.returnValues({ afterClosed: () => of(token.serial) } as MatDialogRef<EnrollPasswordDialogComponent>);
     tokenService.getToken.and.returnValue(of(token));
     component.runEnrollmentWorkflow(tokenTypeDetails);
     tick();
@@ -255,7 +261,10 @@ describe('EnrollmentGridComponent', () => {
       data: { token: token },
     };
 
-    matDialog.open.and.returnValues({ afterClosed: () => of(token.serial) }, { afterClosed: () => of(true) });
+    matDialog.open.and.returnValues(
+      { afterClosed: () => of(token.serial) } as MatDialogRef<EnrollEmailDialogComponent>,
+      { afterClosed: () => of(true) } as MatDialogRef<TestDialogComponent>
+    );
     tokenService.getToken.and.returnValue(of(token));
     component.runEnrollmentWorkflow(tokenTypeDetails);
     tick();
@@ -285,7 +294,10 @@ describe('EnrollmentGridComponent', () => {
       data: { token: token },
     };
 
-    matDialog.open.and.returnValues({ afterClosed: () => of(token.serial) }, { afterClosed: () => of(true) });
+    matDialog.open.and.returnValues(
+      { afterClosed: () => of(token.serial) } as MatDialogRef<EnrollSMSDialogComponent>,
+      { afterClosed: () => of(true) } as MatDialogRef<TestDialogComponent>
+    );
     tokenService.getToken.and.returnValue(of(token));
     component.runEnrollmentWorkflow(tokenTypeDetails);
     tick();
@@ -315,7 +327,10 @@ describe('EnrollmentGridComponent', () => {
       data: { token: token },
     };
 
-    matDialog.open.and.returnValues({ afterClosed: () => of(token.serial) }, { afterClosed: () => of(true) });
+    matDialog.open.and.returnValues(
+      { afterClosed: () => of(token.serial) } as MatDialogRef<EnrollMOTPDialogComponent>,
+      { afterClosed: () => of(true) } as MatDialogRef<TestDialogComponent>
+    );
     tokenService.getToken.and.returnValue(of(token));
     component.runEnrollmentWorkflow(tokenTypeDetails);
     tick();
@@ -345,7 +360,10 @@ describe('EnrollmentGridComponent', () => {
       data: { token: token },
     };
 
-    matDialog.open.and.returnValues({ afterClosed: () => of(token.serial) }, { afterClosed: () => of(true) });
+    matDialog.open.and.returnValues(
+      { afterClosed: () => of(token.serial) } as MatDialogRef<EnrollPushQRDialogComponent>,
+      { afterClosed: () => of(true) } as MatDialogRef<TestDialogComponent>
+    );
     tokenService.getToken.and.returnValue(of(token));
     component.runEnrollmentWorkflow(tokenTypeDetails);
     tick();
@@ -375,7 +393,10 @@ describe('EnrollmentGridComponent', () => {
       data: { token: token },
     };
 
-    matDialog.open.and.returnValues({ afterClosed: () => of(token.serial) }, { afterClosed: () => of(true) });
+    matDialog.open.and.returnValues(
+      { afterClosed: () => of(token.serial) } as MatDialogRef<EnrollYubicoDialogComponent>,
+      { afterClosed: () => of(true) } as MatDialogRef<TestDialogComponent>
+    );
     tokenService.getToken.and.returnValue(of(token));
     component.runEnrollmentWorkflow(tokenTypeDetails);
     tick();
@@ -405,7 +426,10 @@ describe('EnrollmentGridComponent', () => {
       data: { token: token },
     };
 
-    matDialog.open.and.returnValues({ afterClosed: () => of(token.serial) }, { afterClosed: () => of(true) });
+    matDialog.open.and.returnValues(
+      { afterClosed: () => of(token.serial) } as MatDialogRef<AssignTokenDialogComponent>,
+      { afterClosed: () => of(true) } as MatDialogRef<TestDialogComponent>
+    );
     tokenService.getToken.and.returnValue(of(token));
     component.runEnrollmentWorkflow(tokenTypeDetails);
     tick();
@@ -435,7 +459,10 @@ describe('EnrollmentGridComponent', () => {
       data: { token: token },
     };
 
-    matDialog.open.and.returnValues({ afterClosed: () => of(token.serial) }, { afterClosed: () => of(true) });
+    matDialog.open.and.returnValues(
+      { afterClosed: () => of(token.serial) } as MatDialogRef<AssignTokenDialogComponent>,
+      { afterClosed: () => of(true) } as MatDialogRef<TestDialogComponent>
+    );
     tokenService.getToken.and.returnValue(of(token));
     component.runEnrollmentWorkflow(tokenTypeDetails);
     tick();
@@ -476,7 +503,7 @@ describe('EnrollmentGridComponent', () => {
         },
       };
 
-      matDialog.open.and.returnValue({ afterClosed: () => of(token.serial) });
+      matDialog.open.and.returnValue({ afterClosed: () => of(token.serial) } as MatDialogRef<TestDialogComponent>);
       component.runEnrollmentWorkflow(tokenTypeDetails);
       tick();
 

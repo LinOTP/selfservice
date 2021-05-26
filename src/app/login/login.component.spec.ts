@@ -577,7 +577,7 @@ describe('LoginComponent', () => {
   });
 
   it('stopSubscription should stop a running polling subscription', () => {
-    loginService.statusPoll.and.returnValue(new Subject().asObservable());
+    loginService.statusPoll.and.returnValue(new Subject<boolean>().asObservable());
     fixture.detectChanges();
 
     expect(component['pollingSubscription']).toBeFalsy();

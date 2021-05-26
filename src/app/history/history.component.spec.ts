@@ -12,6 +12,7 @@ import { of } from 'rxjs';
 import { MockPipe } from '../../testing/mock-pipe';
 import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { HistoryField, HistoryRequestOptions, SortOrder } from '../api/history';
 
 describe('HistoryComponent', () => {
   let component: HistoryComponent;
@@ -56,13 +57,13 @@ describe('HistoryComponent', () => {
       component.loadHistory();
       tick();
 
-      const options = {
+      const options: HistoryRequestOptions = {
         page: component.paginator.pageIndex,
         recordCount: component.paginator.pageSize,
-        sortBy: component.sort.active,
-        sortOrder: component.sort.direction,
+        sortBy: component.sort.active as HistoryField,
+        sortOrder: component.sort.direction as SortOrder,
         query: component.queryForm.searchTerm,
-        queryType: component.queryForm.column,
+        queryType: component.queryForm.column as HistoryField,
       };
       expect(historyService.getHistory).toHaveBeenCalledWith(options);
 

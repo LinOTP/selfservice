@@ -20,7 +20,7 @@
                     name="realm">
           <mat-option *ngFor="let realm of systemInfo.realms | keyvalue"
                       [value]="realm.key">
-            {{realm.value.realmname}}
+            {{realm.value['realmname']}}
           </mat-option>
         </mat-select>
       </mat-form-field>
