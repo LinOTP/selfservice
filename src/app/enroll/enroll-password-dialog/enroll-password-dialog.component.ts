@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { EnrollToken } from '../../api/token';
 import { ErrorStateRootMatcher } from '../../common/form-helpers/error-state-root-matcher';
@@ -18,15 +18,13 @@ export class EnrollPasswordDialogComponent extends EnrollDialogBaseComponent imp
   public enrollmentStep: FormGroup;
 
   public ngOnInit() {
-    this.enrollmentStep = this.formBuilder.group(
+    this.enrollmentStep = new FormGroup(
       {
-        'password': ['', Validators.required],
-        'confirmation': ['', Validators.required],
-        'description': [$localize`Created via SelfService`, Validators.required],
+        'password': new FormControl('', [Validators.required]),
+        'confirmation': new FormControl('', [Validators.required]),
+        'description': new FormControl($localize`Created via SelfService`, [Validators.required]),
       },
-      {
-        validator: this.checkPasswords
-      }
+      this.checkPasswords
     );
   }
 

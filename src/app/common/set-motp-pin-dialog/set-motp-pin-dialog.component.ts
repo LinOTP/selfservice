@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormBuilder, FormGroup, Validators, ValidationErrors } from '@angular/forms';
+import { FormGroup, Validators, ValidationErrors, FormControl } from '@angular/forms';
 
 import { Token } from '../../api/token';
 import { OperationsService } from '../../api/operations.service';
@@ -24,16 +24,13 @@ export class SetMOTPPinDialogComponent {
     private dialogRef: MatDialogRef<SetMOTPPinDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private token: Token,
     private operationsService: OperationsService,
-    private formBuilder: FormBuilder,
   ) {
-    this.form = this.formBuilder.group(
+    this.form = new FormGroup(
       {
-        newPin: ['', Validators.required],
-        confirmPin: ['', Validators.required]
+        newPin: new FormControl('', [Validators.required]),
+        confirmPin: new FormControl('', [, Validators.required]),
       },
-      {
-        validator: this.checkPins
-      }
+      this.checkPins
     );
   }
 
