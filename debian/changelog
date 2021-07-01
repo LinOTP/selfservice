@@ -1,3 +1,9 @@
+linotp-selfservice (1.0-1) buster; urgency=medium
+
+  Final 1.0 release. No new changes.
+
+ -- LinOTP Packaging <packaging.linotp@arxes-tolina.de>  Thu, 01 Jul 2021 12:40:00 +0200
+
 linotp-selfservice (1.0~rc2-1) buster-dev; urgency=medium
 
   Fixes:

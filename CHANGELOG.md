@@ -1,3 +1,9 @@
+<a name="1.0"></a>
+## 1.0 (2021-07-01)
+
+  Final 1.0 release. No new changes.
+
+
 <a name="1.0rc2"></a>
 ## 1.0rc2 (2021-03-29)
 
