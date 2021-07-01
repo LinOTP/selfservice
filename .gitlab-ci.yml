@@ -29,7 +29,7 @@ typescript lint:
 
 unit tests:
   stage: test
-  image: docker.repos.corp.keyidentity.com/gitlab-images/node-chrome:10-stretch
+  image: docker.repos.corp.keyidentity.com/gitlab-images/node-chrome:12-stretch
   before_script:
     - yarn install --frozen-lockfile
   script:
