@@ -4,7 +4,7 @@ variables:
   DOCKERTAG_GIT_TAG: $REGISTRY_URL/$IMAGE_NAME:$CI_COMMIT_TAG
   DEV_REPO_URL: http://avocado.corp.lsexperts.de/deb-repo
   LANG: C.UTF-8
-  EMAIL: "KeyIdentity GmbH <packaging@keyidentity.com>"
+  EMAIL: "LinOTP Packaging <packaging@linotp.de>"
 
   # Merges / tags to this branch trigger uploads
   GITBOX_CI_UPLOAD_BRANCHES: '/^(branch-v|master)/'
