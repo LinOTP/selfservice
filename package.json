@@ -20,7 +20,7 @@
     "test:ci-no-sandbox": "ng test --browsers ChromeHeadlessNoSandbox --code-coverage --watch=false",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "extract-i18n": "ng xi18n self-service --ivy --format xlf --output-path src/locale/",
+    "extract-i18n": "ng extract-i18n self-service --format xlf --output-path src/locale/",
     "postextract-i18n": "xliffmerge --profile .xliffmerge.json"
   },
   "private": true,
