@@ -4,7 +4,9 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { Subscription } from 'rxjs';
 
-import { Token, TokenType } from '../api/token';
+import { Token } from '../api/token';
+import { TokenType } from '@linotp/data-models';
+
 import { TestService, TransactionDetail, TestOptions, ReplyMode, StatusDetail } from '../api/test.service';
 
 enum TestState {

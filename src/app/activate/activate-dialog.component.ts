@@ -5,7 +5,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
 import { EnrollmentService } from '../api/enrollment.service';
-import { Token, TokenType } from '../api/token';
+import { Token } from '../api/token';
+import { TokenType } from '@linotp/data-models';
 import { of, Subscription } from 'rxjs';
 
 @Component({

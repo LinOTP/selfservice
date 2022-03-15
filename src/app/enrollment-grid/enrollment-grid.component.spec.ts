@@ -13,7 +13,9 @@ import { Fixtures } from '../../testing/fixtures';
 import { MaterialModule } from '../material.module';
 import { NotificationService } from '../common/notification.service';
 import { CapitalizePipe } from '../common/pipes/capitalize.pipe';
-import { TokenTypeDetails, TokenType } from '../api/token';
+import { TokenTypeDetails } from '../api/token';
+import { TokenType } from '@linotp/data-models';
+
 import { TokenService } from '../api/token.service';
 
 import { EnrollmentGridComponent } from './enrollment-grid.component';

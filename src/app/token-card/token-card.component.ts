@@ -5,7 +5,8 @@ import { Subject, of, Subscription } from 'rxjs';
 import { filter, switchMap } from 'rxjs/operators';
 
 import { Permission, ModifyTokenPermissions, ModifyUnreadyTokenPermissions } from '../common/permissions';
-import { Token, EnrollmentStatus, TokenType } from '../api/token';
+import { Token, EnrollmentStatus } from '../api/token';
+import { TokenType } from '@linotp/data-models';
 import { NotificationService } from '../common/notification.service';
 import { OperationsService } from '../api/operations.service';
 

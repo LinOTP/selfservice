@@ -1,4 +1,5 @@
 import { Permission } from '../common/permissions';
+import { TokenType } from '@linotp/data-models';
 
 export enum EnrollmentEndpointType {
   ENROLL = 'enroll',
@@ -15,21 +16,6 @@ export interface TokenTypeDetails {
   enrollmentType?: string;
   enrollmentActionLabel?: string;
   authenticationPrompt?: string;
-}
-
-export enum TokenType {
-  PASSWORD = 'pw',
-  HOTP = 'hmac',
-  TOTP = 'totp',
-  PUSH = 'push',
-  QR = 'qr',
-  MOTP = 'motp',
-  SMS = 'sms',
-  EMAIL = 'email',
-  YUBICO = 'yubico',
-  YUBIKEY = 'yubikey',
-  ASSIGN = 'assign', // virtual type for token assignment
-  UNKNOWN = 'unknown', // fallback type
 }
 
 export class Token {

@@ -13,7 +13,7 @@ import { MockComponent } from '../../../testing/mock-component';
 import { spyOnClass, getInjectedStub } from '../../../testing/spyOnClass';
 
 import { MaterialModule } from '../../material.module';
-import { TokenType } from '../../api/token';
+import { TokenType } from '@linotp/data-models';
 import { OperationsService } from '../../api/operations.service';
 import { EnrollmentService } from '../../api/enrollment.service';
 import { NotificationService } from '../../common/notification.service';

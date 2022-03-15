@@ -5,7 +5,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 
 import { NotificationService } from '../common/notification.service';
-import { Token, TokenType, TokenTypeDetails } from '../api/token';
+import { Token, TokenTypeDetails } from '../api/token';
+import { TokenType } from '@linotp/data-models';
 import { SystemService, SystemInfo } from '../system.service';
 import { LoginService, LoginOptions } from './login.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';

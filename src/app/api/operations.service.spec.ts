@@ -6,7 +6,9 @@ import { Fixtures } from '../../testing/fixtures';
 
 import { SessionService } from '../auth/session.service';
 import { OperationsService } from './operations.service';
-import { Token, EnrollmentStatus, TokenType } from './token';
+import { Token, EnrollmentStatus } from './token';
+import { TokenType } from '@linotp/data-models';
+
 import { NotificationService } from '../common/notification.service';
 import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
 

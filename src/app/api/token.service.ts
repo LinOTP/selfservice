@@ -5,7 +5,8 @@ import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { SessionService } from '../auth/session.service';
-import { Token, TokenType, tokenTypeDetails, TokenTypeDetails, unknownTokenTypeDetail } from './token';
+import { Token, tokenTypeDetails, TokenTypeDetails, unknownTokenTypeDetail } from './token';
+import { TokenType } from '@linotp/data-models';
 import { LinOTPResponse } from './api';
 import { NotificationService } from '../common/notification.service';
 

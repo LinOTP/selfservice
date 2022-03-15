@@ -1,4 +1,5 @@
-import { Token, TokenType, EnrollmentStatus, TokenTypeDetails } from '../app/api/token';
+import { Token, EnrollmentStatus, TokenTypeDetails } from '../app/api/token';
+import { TokenType } from '@linotp/data-models';
 import { Permission } from '../app/common/permissions';
 import { UserSystemInfo, SystemInfo } from '../app/system.service';
 import { ReplyMode } from '../app/api/test.service';

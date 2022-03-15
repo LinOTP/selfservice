@@ -1,11 +1,12 @@
 ### STAGE 1: Build ###
 
 FROM node:12-alpine as builder
+ARG NPM_CI_TOKEN
 
 WORKDIR /app
 
 ## Copy only the dependency list for enhanced caching
-COPY package.json yarn.lock ./
+COPY package.json yarn.lock .npmrc ./
 
 ## Install all dependencies required for build
 RUN yarn --no-progress --frozen-lockfile

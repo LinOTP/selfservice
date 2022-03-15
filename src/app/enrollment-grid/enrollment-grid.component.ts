@@ -6,7 +6,9 @@ import { switchMap, filter, tap } from 'rxjs/operators';
 
 import { Permission } from '../common/permissions';
 import { NotificationService } from '../common/notification.service';
-import { TokenType, TokenTypeDetails } from '../api/token';
+import { TokenTypeDetails } from '../api/token';
+import { TokenType } from '@linotp/data-models';
+
 import { TokenService } from '../api/token.service';
 import { LoginService } from '../login/login.service';
 

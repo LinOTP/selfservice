@@ -4,7 +4,9 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 
 import { Fixtures } from '../../testing/fixtures';
 
-import { Token, EnrollmentStatus, TokenType } from './token';
+import { Token, EnrollmentStatus } from './token';
+import { TokenType } from '@linotp/data-models';
+
 import { SessionService } from '../auth/session.service';
 import { NotificationService } from '../common/notification.service';
 import { EnrollmentService } from './enrollment.service';

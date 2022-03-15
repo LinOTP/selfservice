@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
-import { TokenType } from '../../api/token';
+import { TokenType } from '@linotp/data-models';
 import { EnrollDialogBaseComponent } from '../enroll-dialog-base.component';
 
 @Component({
