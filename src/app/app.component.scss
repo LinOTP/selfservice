@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import '/src/theme.scss';
 
 :host {
@@ -21,7 +22,7 @@ mat-toolbar {
   margin-bottom: 1em;
   min-width: 100%;
   width: initial;
-  @include mat-elevation(1);
+  @include mat.elevation(1);
 
   #title {
     display: flex;
@@ -61,9 +62,9 @@ mat-toolbar {
 
     mat-icon {
       padding: 8px;
-      background: mat-color($theme-app-primary, '500-contrast');
+      background: mat.get-color-from-palette($theme-app-primary, '500-contrast');
       border-radius: 50%;
-      color: mat-color($theme-app-primary, 500);
+      color: mat.get-color-from-palette($theme-app-primary, 500);
     }
 
     .name {

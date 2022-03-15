@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import '/src/theme.scss';
 
 .table-wrap {
@@ -37,6 +38,6 @@ mat-header-cell:not(:last-of-type) {
   background: #fff8f8;
 
   mat-icon {
-    color: mat-color($theme-app-warn, 500);
+    color: mat.get-color-from-palette($theme-app-warn, 500);
   }
 }

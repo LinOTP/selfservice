@@ -1,6 +1,6 @@
 /* Theming: */
+@use '~@angular/material' as mat;
 
-@import '~@angular/material/theming';
 
 $primary-colors: (
   50 : #e4e4e6,
@@ -101,7 +101,7 @@ $warn-colors: (
   )
 );
 
-$theme-app-primary: mat-palette($primary-colors);
-$theme-app-accent: mat-palette($accent-colors, A200, A100, A400);
-$theme-app-warn: mat-palette($warn-colors);
-$theme: mat-light-theme($theme-app-primary, $theme-app-accent, $theme-app-warn);
+$theme-app-primary: mat.define-palette($primary-colors);
+$theme-app-accent: mat.define-palette($accent-colors, A200, A100, A400);
+$theme-app-warn: mat.define-palette($warn-colors);
+$theme: mat.define-light-theme($theme-app-primary, $theme-app-accent, $theme-app-warn);
