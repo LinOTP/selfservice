@@ -8,7 +8,6 @@
     "declaration": false,
     "moduleResolution": "node",
     "noUnusedLocals": true,
-    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es2018",
     "typeRoots": [
