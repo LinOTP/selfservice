@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, ValidationErrors } from '@angular/forms';
+import { FormControl, FormGroup, ValidationErrors } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { Token } from '../../api/token';
@@ -24,16 +24,13 @@ export class SetPinDialogComponent {
     private dialogRef: MatDialogRef<SetPinDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private token: Token,
     private operationsService: OperationsService,
-    private formBuilder: FormBuilder,
   ) {
-    this.form = this.formBuilder.group(
+    this.form = new FormGroup(
       {
-        newPin: [''],
-        confirmPin: ['']
+        newPin: new FormControl(''),
+        confirmPin: new FormControl(''),
       },
-      {
-        validator: this.checkPins
-      }
+      this.checkPins
     );
   }
 

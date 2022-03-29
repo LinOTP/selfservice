@@ -117,7 +117,7 @@ describe('AssignTokenDialogComponent', () => {
   describe('getSerial', () => {
     it('should open the getSerial dialog and assign the return value to the serial control', () => {
 
-      dialog.open.and.returnValue({ afterClosed: () => of('serial') });
+      dialog.open.and.returnValue({ afterClosed: () => of('serial') } as MatDialogRef<GetSerialDialogComponent>);
 
       expect(component.assignmentForm.controls.serial.value).toEqual('');
 
@@ -130,7 +130,7 @@ describe('AssignTokenDialogComponent', () => {
 
     it('should open the getSerial dialog and keep the serial unchanged if the return value is not truthy', () => {
 
-      dialog.open.and.returnValue({ afterClosed: () => of(false) });
+      dialog.open.and.returnValue({ afterClosed: () => of(false) } as MatDialogRef<GetSerialDialogComponent>);
 
       component.assignmentForm.controls.serial.setValue('some value');
 

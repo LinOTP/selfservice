@@ -9,13 +9,13 @@ import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
 import { MockComponent } from '../../testing/mock-component';
 
 import { MaterialModule } from '../material.module';
-import { TestService, TestOptions, ReplyMode } from '../api/test.service';
+import { TestService, TestOptions, ReplyMode, TransactionDetail } from '../api/test.service';
 
 import { TestDialogComponent } from './test-dialog.component';
 
-const challengeOnlyDetail = { replyMode: ['offline'] };
-const successfulOfflineDetail = { transactionId: 'id', replyMode: ['offline'] };
-const successfulOnlineDetail = { transactionId: 'id', replyMode: ['online'] };
+const challengeOnlyDetail: TransactionDetail = { replyMode: [ReplyMode.OFFLINE] };
+const successfulOfflineDetail: TransactionDetail = { transactionId: 'id', replyMode: [ReplyMode.OFFLINE] };
+const successfulOnlineDetail: TransactionDetail = { transactionId: 'id', replyMode: [ReplyMode.ONLINE] };
 
 describe('TestDialogComponent', () => {
   let component: TestDialogComponent;
