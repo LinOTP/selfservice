@@ -7,7 +7,7 @@ import { EnrollmentDetail } from '../app/api/enrollment.service';
 
 export class Fixtures {
 
-  static get tokenTypeDetails(): { [t in TokenType]: TokenTypeDetails } {
+  static get tokenTypeDetails(): { [t in TokenType | 'assign']: TokenTypeDetails } {
     return {
       pw: {
         type: TokenType.PASSWORD,
@@ -87,7 +87,7 @@ export class Fixtures {
         icon: 'stay_current_portrait',
       },
       assign: {
-        type: TokenType.ASSIGN,
+        type: 'assign',
         name: 'Assign Token',
         description: 'Claim an existing token and link it to your user account',
         icon: 'link',

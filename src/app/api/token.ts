@@ -6,7 +6,7 @@ export enum EnrollmentEndpointType {
 }
 
 export interface TokenTypeDetails {
-  type: TokenType;
+  type: TokenType | 'assign';
   name: string;
   description: string;
   icon: string; // material icon ligature string to use for this token type
@@ -57,7 +57,7 @@ export enum EnrollmentStatus {
 }
 
 export interface EnrollToken {
-  type: TokenType;
+  type: TokenType | 'assign';
   description?: string;
   email_address?: string;
   phone?: string;
@@ -161,7 +161,7 @@ export const tokenTypeDetails: TokenTypeDetails[] = [
     authenticationPrompt: $localize`Authenticate using your Yubikey token`,
   },
   {
-    type: TokenType.ASSIGN,
+    type: 'assign',
     name: $localize`Assign token`,
     description: $localize`Claim an existing token and link it to your user account`,
     icon: 'link',

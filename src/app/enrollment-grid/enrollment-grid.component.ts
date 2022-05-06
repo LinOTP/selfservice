@@ -106,7 +106,7 @@ export class EnrollmentGridComponent implements OnInit, OnDestroy {
       case TokenType.YUBICO:
         enrollmentDialog = EnrollYubicoDialogComponent;
         break;
-      case TokenType.ASSIGN:
+      case 'assign':
         enrollmentDialog = AssignTokenDialogComponent;
         break;
       default:

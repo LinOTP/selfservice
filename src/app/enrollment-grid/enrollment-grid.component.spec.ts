@@ -410,7 +410,7 @@ describe('EnrollmentGridComponent', () => {
 
   it('should open the assignment dialog and update the token list when completed', fakeAsync(() => {
     const token = Fixtures.activeTotpToken;
-    const tokenTypeDetails = Fixtures.tokenTypeDetails[TokenType.ASSIGN];
+    const tokenTypeDetails = Fixtures.tokenTypeDetails['assign'];
 
     const expectedEnrollDialogConfig = {
       width: '850px',
@@ -443,7 +443,7 @@ describe('EnrollmentGridComponent', () => {
 
   it('should test a password token after assignment like any other assigned token', fakeAsync(() => {
     const token = Fixtures.activePasswordToken;
-    const tokenTypeDetails = Fixtures.tokenTypeDetails[TokenType.ASSIGN];
+    const tokenTypeDetails = Fixtures.tokenTypeDetails['assign'];
 
     const expectedEnrollDialogConfig = {
       width: '850px',

@@ -53,7 +53,7 @@ export class TokenService {
     return t;
   }
 
-  getTypeDetails(type: TokenType): TokenTypeDetails {
+  getTypeDetails(type: TokenType | 'assign'): TokenTypeDetails {
     return tokenTypeDetails.find(td => td.type === type.toLowerCase()) || unknownTokenTypeDetail;
   }
 
