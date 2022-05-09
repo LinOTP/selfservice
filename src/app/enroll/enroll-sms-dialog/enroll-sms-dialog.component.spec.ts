@@ -69,7 +69,7 @@ describe('The EnrollSMSDialogComponent', () => {
 
         {
           provide: MAT_DIALOG_DATA,
-          useValue: { tokenTypeDetails: Fixtures.tokenTypeDetails[TokenType.SMS], closeLabel: null },
+          useValue: { tokenDisplayData: Fixtures.tokenDisplayData[TokenType.SMS], closeLabel: null },
         },
       ],
     })
@@ -90,7 +90,7 @@ describe('The EnrollSMSDialogComponent', () => {
   it('should be created', () => {
     fixture.detectChanges();
     expect(component).toBeTruthy();
-    expect(component.data.tokenTypeDetails.type).toEqual(TokenType.SMS);
+    expect(component.data.tokenDisplayData.type).toEqual(TokenType.SMS);
   });
 
   it('should enroll an sms token with a default description', fakeAsync(() => {
@@ -119,7 +119,7 @@ describe('The EnrollSMSDialogComponent', () => {
 
     enrollmentService.enroll.and.returnValue(of(Fixtures.smsEnrollmentResponse));
 
-    component.data.tokenTypeDetails = Fixtures.tokenTypeDetails[TokenType.SMS];
+    component.data.tokenDisplayData = Fixtures.tokenDisplayData[TokenType.SMS];
     component.enrollmentStep.controls.description.setValue('custom description');
     fixture.detectChanges();
     component.enrollToken();

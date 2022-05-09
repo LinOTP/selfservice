@@ -5,7 +5,7 @@ import { Subject, of, Subscription } from 'rxjs';
 import { filter, switchMap } from 'rxjs/operators';
 
 import { Permission, ModifyTokenPermissions, ModifyUnreadyTokenPermissions } from '../common/permissions';
-import { Token, EnrollmentStatus } from '../api/token';
+import { SelfserviceToken, EnrollmentStatus } from '../api/token';
 import { TokenType } from '@linotp/data-models';
 import { NotificationService } from '../common/notification.service';
 import { OperationsService } from '../api/operations.service';
@@ -26,7 +26,7 @@ import { LoginService } from '../login/login.service';
 })
 export class TokenCardComponent implements OnInit, OnDestroy {
 
-  @Input() public token: Token;
+  @Input() public token: SelfserviceToken;
   @Output() public tokenUpdate: Subject<null> = new Subject();
 
   public EnrollmentStatus = EnrollmentStatus;

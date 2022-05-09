@@ -13,7 +13,7 @@ import { Fixtures } from '../../testing/fixtures';
 import { MaterialModule } from '../material.module';
 import { NotificationService } from '../common/notification.service';
 import { CapitalizePipe } from '../common/pipes/capitalize.pipe';
-import { TokenTypeDetails } from '../api/token';
+import { TokenDisplayData } from '../api/token';
 import { TokenType } from '@linotp/data-models';
 
 import { TokenService } from '../api/token.service';
@@ -85,7 +85,7 @@ describe('EnrollmentGridComponent', () => {
     loginService = getInjectedStub(LoginService);
     loginService.hasPermission$.and.returnValue(hasPermissionSubject.asObservable());
 
-    (<any>tokenService).tokenTypeDetails = [Fixtures.tokenTypeDetails.hmac, Fixtures.tokenTypeDetails.push];
+    (<any>tokenService).tokenDisplayData = [Fixtures.tokenDisplayData.hmac, Fixtures.tokenDisplayData.push];
 
     component.testAfterEnrollment = true;
     fixture.detectChanges();
@@ -108,14 +108,14 @@ describe('EnrollmentGridComponent', () => {
 
   it('should open the HOTP dialog and update the token list when completed', fakeAsync(() => {
     const token = Fixtures.activeHotpToken;
-    const tokenTypeDetails: TokenTypeDetails = token.typeDetails;
+    const tokenDisplayData: TokenDisplayData = token.typeDetails;
 
     const expectedEnrollDialogConfig = {
       width: '850px',
       autoFocus: false,
       disableClose: true,
       data: {
-        tokenTypeDetails: tokenTypeDetails,
+        tokenDisplayData: tokenDisplayData,
         closeLabel: 'Test',
       },
     };
@@ -129,7 +129,7 @@ describe('EnrollmentGridComponent', () => {
       { afterClosed: () => of(true) } as MatDialogRef<TestDialogComponent>
     );
     tokenService.getToken.and.returnValue(of(token));
-    component.runEnrollmentWorkflow(tokenTypeDetails);
+    component.runEnrollmentWorkflow(tokenDisplayData);
     tick();
 
     expect(matDialog.open).toHaveBeenCalledWith(EnrollOATHDialogComponent, expectedEnrollDialogConfig);
@@ -140,21 +140,21 @@ describe('EnrollmentGridComponent', () => {
   }));
 
   it('should notify the user if there was an issue retrieving the token before the test', fakeAsync(() => {
-    const tokenTypeDetails: TokenTypeDetails = Fixtures.tokenTypeDetails[TokenType.HOTP];
+    const tokenDisplayData: TokenDisplayData = Fixtures.tokenDisplayData[TokenType.HOTP];
 
     const expectedEnrollDialogConfig = {
       width: '850px',
       autoFocus: false,
       disableClose: true,
       data: {
-        tokenTypeDetails: tokenTypeDetails,
+        tokenDisplayData: tokenDisplayData,
         closeLabel: 'Test',
       },
     };
 
     matDialog.open.and.returnValue({ afterClosed: () => of('serial') } as MatDialogRef<EnrollOATHDialogComponent>);
     tokenService.getToken.and.returnValue(of(null));
-    component.runEnrollmentWorkflow(tokenTypeDetails);
+    component.runEnrollmentWorkflow(tokenDisplayData);
     tick();
 
     expect(matDialog.open).toHaveBeenCalledTimes(1);
@@ -164,20 +164,20 @@ describe('EnrollmentGridComponent', () => {
   }));
 
   it('should not notify the user if the enrollment was cancelled', fakeAsync(() => {
-    const tokenTypeDetails: TokenTypeDetails = Fixtures.tokenTypeDetails[TokenType.HOTP];
+    const tokenDisplayData: TokenDisplayData = Fixtures.tokenDisplayData[TokenType.HOTP];
 
     const expectedEnrollDialogConfig = {
       width: '850px',
       autoFocus: false,
       disableClose: true,
       data: {
-        tokenTypeDetails: tokenTypeDetails,
+        tokenDisplayData: tokenDisplayData,
         closeLabel: 'Test',
       },
     };
 
     matDialog.open.and.returnValue({ afterClosed: () => of(null) } as MatDialogRef<EnrollOATHDialogComponent>);
-    component.runEnrollmentWorkflow(tokenTypeDetails);
+    component.runEnrollmentWorkflow(tokenDisplayData);
     tick();
 
     expect(matDialog.open).toHaveBeenCalledTimes(1);
@@ -188,14 +188,14 @@ describe('EnrollmentGridComponent', () => {
 
   it('should open the TOTP dialog and update the token list when completed', fakeAsync(() => {
     const token = Fixtures.activeTotpToken;
-    const tokenTypeDetails: TokenTypeDetails = token.typeDetails;
+    const tokenDisplayData: TokenDisplayData = token.typeDetails;
 
     const expectedEnrollDialogConfig = {
       width: '850px',
       autoFocus: false,
       disableClose: true,
       data: {
-        tokenTypeDetails: tokenTypeDetails,
+        tokenDisplayData: tokenDisplayData,
         closeLabel: 'Test',
       },
     };
@@ -209,7 +209,7 @@ describe('EnrollmentGridComponent', () => {
       { afterClosed: () => of(true) } as MatDialogRef<TestDialogComponent>
     );
     tokenService.getToken.and.returnValue(of(token));
-    component.runEnrollmentWorkflow(tokenTypeDetails);
+    component.runEnrollmentWorkflow(tokenDisplayData);
     tick();
 
     expect(matDialog.open).toHaveBeenCalledWith(EnrollOATHDialogComponent, expectedEnrollDialogConfig);
@@ -221,21 +221,21 @@ describe('EnrollmentGridComponent', () => {
 
   it('should open the Password dialog and update the token list when completed', fakeAsync(() => {
     const token = Fixtures.activePasswordToken;
-    const tokenTypeDetails: TokenTypeDetails = token.typeDetails;
+    const tokenDisplayData: TokenDisplayData = token.typeDetails;
 
     const expectedEnrollDialogConfig = {
       width: '850px',
       autoFocus: false,
       disableClose: true,
       data: {
-        tokenTypeDetails: tokenTypeDetails,
+        tokenDisplayData: tokenDisplayData,
         closeLabel: 'Close',
       },
     };
 
     matDialog.open.and.returnValues({ afterClosed: () => of(token.serial) } as MatDialogRef<EnrollPasswordDialogComponent>);
     tokenService.getToken.and.returnValue(of(token));
-    component.runEnrollmentWorkflow(tokenTypeDetails);
+    component.runEnrollmentWorkflow(tokenDisplayData);
     tick();
 
     expect(matDialog.open).toHaveBeenCalledWith(EnrollPasswordDialogComponent, expectedEnrollDialogConfig);
@@ -247,14 +247,14 @@ describe('EnrollmentGridComponent', () => {
 
   it('should open the Email Token dialog and update the token list when completed', fakeAsync(() => {
     const token = Fixtures.activeEmailToken;
-    const tokenTypeDetails: TokenTypeDetails = token.typeDetails;
+    const tokenDisplayData: TokenDisplayData = token.typeDetails;
 
     const expectedEnrollDialogConfig = {
       width: '850px',
       autoFocus: false,
       disableClose: true,
       data: {
-        tokenTypeDetails: tokenTypeDetails,
+        tokenDisplayData: tokenDisplayData,
         closeLabel: 'Test',
       },
     };
@@ -268,7 +268,7 @@ describe('EnrollmentGridComponent', () => {
       { afterClosed: () => of(true) } as MatDialogRef<TestDialogComponent>
     );
     tokenService.getToken.and.returnValue(of(token));
-    component.runEnrollmentWorkflow(tokenTypeDetails);
+    component.runEnrollmentWorkflow(tokenDisplayData);
     tick();
 
     expect(matDialog.open).toHaveBeenCalledWith(EnrollEmailDialogComponent, expectedEnrollDialogConfig);
@@ -280,14 +280,14 @@ describe('EnrollmentGridComponent', () => {
 
   it('should open the SMS dialog and update the token list when completed', fakeAsync(() => {
     const token = Fixtures.activeSMSToken;
-    const tokenTypeDetails: TokenTypeDetails = token.typeDetails;
+    const tokenDisplayData: TokenDisplayData = token.typeDetails;
 
     const expectedEnrollDialogConfig = {
       width: '850px',
       autoFocus: false,
       disableClose: true,
       data: {
-        tokenTypeDetails: tokenTypeDetails,
+        tokenDisplayData: tokenDisplayData,
         closeLabel: 'Test',
       },
     };
@@ -301,7 +301,7 @@ describe('EnrollmentGridComponent', () => {
       { afterClosed: () => of(true) } as MatDialogRef<TestDialogComponent>
     );
     tokenService.getToken.and.returnValue(of(token));
-    component.runEnrollmentWorkflow(tokenTypeDetails);
+    component.runEnrollmentWorkflow(tokenDisplayData);
     tick();
 
     expect(matDialog.open).toHaveBeenCalledWith(EnrollSMSDialogComponent, expectedEnrollDialogConfig);
@@ -313,14 +313,14 @@ describe('EnrollmentGridComponent', () => {
 
   it('should open the MOTP dialog and update the token list when completed', fakeAsync(() => {
     const token = Fixtures.activeMotpToken;
-    const tokenTypeDetails: TokenTypeDetails = token.typeDetails;
+    const tokenDisplayData: TokenDisplayData = token.typeDetails;
 
     const expectedEnrollDialogConfig = {
       width: '850px',
       autoFocus: false,
       disableClose: true,
       data: {
-        tokenTypeDetails: tokenTypeDetails,
+        tokenDisplayData: tokenDisplayData,
         closeLabel: 'Test',
       },
     };
@@ -334,7 +334,7 @@ describe('EnrollmentGridComponent', () => {
       { afterClosed: () => of(true) } as MatDialogRef<TestDialogComponent>
     );
     tokenService.getToken.and.returnValue(of(token));
-    component.runEnrollmentWorkflow(tokenTypeDetails);
+    component.runEnrollmentWorkflow(tokenDisplayData);
     tick();
 
     expect(matDialog.open).toHaveBeenCalledWith(EnrollMOTPDialogComponent, expectedEnrollDialogConfig);
@@ -346,14 +346,14 @@ describe('EnrollmentGridComponent', () => {
 
   it('should open the Push dialog and trigger the token list updater', fakeAsync(() => {
     const token = Fixtures.unpairedPushToken;
-    const tokenTypeDetails: TokenTypeDetails = token.typeDetails;
+    const tokenDisplayData: TokenDisplayData = token.typeDetails;
 
     const expectedEnrollDialogConfig = {
       width: '850px',
       autoFocus: false,
       disableClose: true,
       data: {
-        tokenTypeDetails: token.typeDetails,
+        tokenDisplayData: token.typeDetails,
       },
     };
 
@@ -367,7 +367,7 @@ describe('EnrollmentGridComponent', () => {
       { afterClosed: () => of(true) } as MatDialogRef<TestDialogComponent>
     );
     tokenService.getToken.and.returnValue(of(token));
-    component.runEnrollmentWorkflow(tokenTypeDetails);
+    component.runEnrollmentWorkflow(tokenDisplayData);
     tick();
 
     expect(matDialog.open).toHaveBeenCalledWith(EnrollPushQRDialogComponent, expectedEnrollDialogConfig);
@@ -379,14 +379,14 @@ describe('EnrollmentGridComponent', () => {
 
   it('should open the Yubico registration dialog and update the token list when completed', fakeAsync(() => {
     const token = Fixtures.activeYubicoToken;
-    const tokenTypeDetails: TokenTypeDetails = token.typeDetails;
+    const tokenDisplayData: TokenDisplayData = token.typeDetails;
 
     const expectedEnrollDialogConfig = {
       width: '850px',
       autoFocus: false,
       disableClose: true,
       data: {
-        tokenTypeDetails: tokenTypeDetails,
+        tokenDisplayData: tokenDisplayData,
         closeLabel: 'Test',
       },
     };
@@ -400,7 +400,7 @@ describe('EnrollmentGridComponent', () => {
       { afterClosed: () => of(true) } as MatDialogRef<TestDialogComponent>
     );
     tokenService.getToken.and.returnValue(of(token));
-    component.runEnrollmentWorkflow(tokenTypeDetails);
+    component.runEnrollmentWorkflow(tokenDisplayData);
     tick();
 
     expect(matDialog.open).toHaveBeenCalledWith(EnrollYubicoDialogComponent, expectedEnrollDialogConfig);
@@ -412,14 +412,14 @@ describe('EnrollmentGridComponent', () => {
 
   it('should open the assignment dialog and update the token list when completed', fakeAsync(() => {
     const token = Fixtures.activeTotpToken;
-    const tokenTypeDetails = Fixtures.tokenTypeDetails['assign'];
+    const tokenDisplayData = Fixtures.tokenDisplayData['assign'];
 
     const expectedEnrollDialogConfig = {
       width: '850px',
       autoFocus: false,
       disableClose: true,
       data: {
-        tokenTypeDetails: tokenTypeDetails,
+        tokenDisplayData: tokenDisplayData,
         closeLabel: 'Test',
       },
     };
@@ -433,7 +433,7 @@ describe('EnrollmentGridComponent', () => {
       { afterClosed: () => of(true) } as MatDialogRef<TestDialogComponent>
     );
     tokenService.getToken.and.returnValue(of(token));
-    component.runEnrollmentWorkflow(tokenTypeDetails);
+    component.runEnrollmentWorkflow(tokenDisplayData);
     tick();
 
     expect(matDialog.open).toHaveBeenCalledWith(AssignTokenDialogComponent, expectedEnrollDialogConfig);
@@ -445,14 +445,14 @@ describe('EnrollmentGridComponent', () => {
 
   it('should test a password token after assignment like any other assigned token', fakeAsync(() => {
     const token = Fixtures.activePasswordToken;
-    const tokenTypeDetails = Fixtures.tokenTypeDetails['assign'];
+    const tokenDisplayData = Fixtures.tokenDisplayData['assign'];
 
     const expectedEnrollDialogConfig = {
       width: '850px',
       autoFocus: false,
       disableClose: true,
       data: {
-        tokenTypeDetails: tokenTypeDetails,
+        tokenDisplayData: tokenDisplayData,
         closeLabel: 'Test',
       },
     };
@@ -466,7 +466,7 @@ describe('EnrollmentGridComponent', () => {
       { afterClosed: () => of(true) } as MatDialogRef<TestDialogComponent>
     );
     tokenService.getToken.and.returnValue(of(token));
-    component.runEnrollmentWorkflow(tokenTypeDetails);
+    component.runEnrollmentWorkflow(tokenDisplayData);
     tick();
 
     expect(matDialog.open).toHaveBeenCalledWith(AssignTokenDialogComponent, expectedEnrollDialogConfig);
@@ -477,8 +477,8 @@ describe('EnrollmentGridComponent', () => {
   }));
 
   it('should notify the user if the token cannot be enrolled', fakeAsync(() => {
-    const tokenTypeDetails: TokenTypeDetails = Fixtures.tokenTypeDetails[TokenType.UNKNOWN];
-    component.runEnrollmentWorkflow(tokenTypeDetails);
+    const tokenDisplayData: TokenDisplayData = Fixtures.tokenDisplayData[TokenType.UNKNOWN];
+    component.runEnrollmentWorkflow(tokenDisplayData);
     tick();
 
     expect(matDialog.open).toHaveBeenCalledTimes(0);
@@ -493,20 +493,20 @@ describe('EnrollmentGridComponent', () => {
       fixture.detectChanges();
 
       const token = Fixtures.activeTotpToken;
-      const tokenTypeDetails: TokenTypeDetails = Fixtures.tokenTypeDetails[TokenType.HOTP];
+      const tokenDisplayData: TokenDisplayData = Fixtures.tokenDisplayData[TokenType.HOTP];
 
       const expectedEnrollDialogConfig = {
         width: '850px',
         autoFocus: false,
         disableClose: true,
         data: {
-          tokenTypeDetails: tokenTypeDetails,
+          tokenDisplayData: tokenDisplayData,
           closeLabel: 'Close',
         },
       };
 
       matDialog.open.and.returnValue({ afterClosed: () => of(token.serial) } as MatDialogRef<TestDialogComponent>);
-      component.runEnrollmentWorkflow(tokenTypeDetails);
+      component.runEnrollmentWorkflow(tokenDisplayData);
       tick();
 
       expect(matDialog.open).toHaveBeenCalledTimes(1);

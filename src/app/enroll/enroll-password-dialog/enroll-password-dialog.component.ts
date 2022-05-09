@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
-import { EnrollToken } from '../../api/token';
+import { EnrollmentOptions } from '../../api/token';
 import { ErrorStateRootMatcher } from '../../common/form-helpers/error-state-root-matcher';
 import { EnrollDialogBaseComponent } from '../enroll-dialog-base.component';
 
@@ -37,8 +37,8 @@ export class EnrollPasswordDialogComponent extends EnrollDialogBaseComponent imp
 
   public enrollToken() {
     this.enrollmentStep.disable();
-    const body: EnrollToken = {
-      type: this.data.tokenTypeDetails.type,
+    const body: EnrollmentOptions = {
+      type: this.data.tokenDisplayData.type,
       description: this.enrollmentStep.get('description').value,
       otpkey: this.enrollmentStep.get('password').value,
     };

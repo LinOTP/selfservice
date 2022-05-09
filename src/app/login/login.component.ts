@@ -5,7 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 
 import { NotificationService } from '../common/notification.service';
-import { Token, TokenTypeDetails } from '../api/token';
+import { SelfserviceToken, TokenDisplayData } from '../api/token';
 import { TokenType } from '@linotp/data-models';
 import { SystemService, SystemInfo } from '../system.service';
 import { LoginService, LoginOptions } from './login.service';
@@ -41,8 +41,8 @@ export class LoginComponent implements OnInit {
 
   systemInfo: SystemInfo;
 
-  factors: Token[] = [];
-  selectedToken: { serial: string; typeDetails: TokenTypeDetails };
+  factors: SelfserviceToken[] = [];
+  selectedToken: { serial: string; typeDetails: TokenDisplayData };
 
   loginStage = LoginStage.USER_PW_INPUT;
 
@@ -203,7 +203,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  chooseSecondFactor(token: Token) {
+  chooseSecondFactor(token: SelfserviceToken) {
     if (this.awaitingResponse) {
       return;
     }

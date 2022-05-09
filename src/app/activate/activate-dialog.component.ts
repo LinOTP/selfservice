@@ -5,7 +5,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
 import { EnrollmentService } from '../api/enrollment.service';
-import { Token } from '../api/token';
+import { SelfserviceToken } from '../api/token';
 import { TokenType } from '@linotp/data-models';
 import { of, Subscription } from 'rxjs';
 
@@ -30,7 +30,7 @@ export class ActivateDialogComponent implements OnInit, OnDestroy {
   constructor(
     private enrollmentService: EnrollmentService,
     private dialogRef: MatDialogRef<ActivateDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { token: Token },
+    @Inject(MAT_DIALOG_DATA) public data: { token: SelfserviceToken },
   ) {
     if (data.token.typeDetails.type === TokenType.PUSH) {
       this.isPush = true;

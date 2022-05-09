@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Token, EnrollmentStatus } from '../../api/token';
+import { SelfserviceToken, EnrollmentStatus } from '../../api/token';
 
 @Pipe({
   name: 'unreadyTokens',
@@ -7,7 +7,7 @@ import { Token, EnrollmentStatus } from '../../api/token';
 })
 export class UnreadyTokensPipe implements PipeTransform {
 
-  transform(value: Token[]): any {
+  transform(value: SelfserviceToken[]): any {
     return value.filter(t => t.enrollmentStatus !== EnrollmentStatus.COMPLETED);
   }
 

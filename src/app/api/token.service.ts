@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { SessionService } from '../auth/session.service';
-import { Token, tokenTypeDetails, TokenTypeDetails, unknownTokenTypeDetail } from './token';
+import { SelfserviceToken, tokenDisplayData, TokenDisplayData, unknownTokenTypeDetail } from './token';
 import { TokenType } from '@linotp/data-models';
 import { LinOTPResponse } from './api';
 import { NotificationService } from '../common/notification.service';
@@ -28,7 +28,7 @@ export class TokenService {
     private notificationService: NotificationService,
   ) { }
 
-  getTokens(): Observable<Token[]> {
+  getTokens(): Observable<SelfserviceToken[]> {
     const url = this.userserviceBase + this.userserviceEndpoints.tokens;
     return this.http.get<LinOTPResponse<any[]>>(url, { params: { session: this.sessionService.getSession() } }).pipe(
       map(res => res.result.value.map(t => this.mapBackendToken(t))),
@@ -36,14 +36,14 @@ export class TokenService {
     );
   }
 
-  getToken(serial: string): Observable<Token> {
+  getToken(serial: string): Observable<SelfserviceToken> {
     return this.getTokens().pipe(
       map(tokens => tokens.find(t => t.serial === serial)),
     );
   }
 
-  mapBackendToken(token: any): Token {
-    const t = new Token(
+  mapBackendToken(token: any): SelfserviceToken {
+    const t = new SelfserviceToken(
       token['LinOtp.TokenId'],
       token['LinOtp.TokenSerialnumber'],
       this.getTypeDetails(token['LinOtp.TokenType']),
@@ -54,12 +54,12 @@ export class TokenService {
     return t;
   }
 
-  getTypeDetails(type: TokenType | 'assign'): TokenTypeDetails {
-    return tokenTypeDetails.find(td => td.type === type.toLowerCase()) || unknownTokenTypeDetail;
+  getTypeDetails(type: TokenType | 'assign'): TokenDisplayData {
+    return tokenDisplayData.find(td => td.type === type.toLowerCase()) || unknownTokenTypeDetail;
   }
 
-  getEnrollableTypes(): TokenTypeDetails[] {
-    return tokenTypeDetails.filter(t => t.enrollmentPermission);
+  getEnrollableTypes(): TokenDisplayData[] {
+    return tokenDisplayData.filter(t => t.enrollmentPermission);
   }
 
   /**

@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 
 import { SessionService } from '../auth/session.service';
-import { Token } from './token';
+import { SelfserviceToken } from './token';
 import { TokenType } from '@linotp/data-models';
 
 import { APIError, LinOTPResponse } from './api';
@@ -52,7 +52,7 @@ export class OperationsService {
       );
   }
 
-  setPin(token: Token, pin: string): Observable<boolean> {
+  setPin(token: SelfserviceToken, pin: string): Observable<boolean> {
     const url = this.userserviceBase + this.userserviceEndpoints.setpin;
     const body = {
       userpin: pin,
@@ -72,7 +72,7 @@ export class OperationsService {
       );
   }
 
-  setMOTPPin(token: Token, pin: string): Observable<boolean> {
+  setMOTPPin(token: SelfserviceToken, pin: string): Observable<boolean> {
     if (token.typeDetails.type !== TokenType.MOTP) {
       return of(false);
     }
@@ -96,7 +96,7 @@ export class OperationsService {
       );
   }
 
-  enable(token: Token): Observable<boolean> {
+  enable(token: SelfserviceToken): Observable<boolean> {
     const url = this.userserviceBase + this.userserviceEndpoints.enable;
     const body = {
       serial: token.serial,
@@ -115,7 +115,7 @@ export class OperationsService {
       );
   }
 
-  disable(token: Token): Observable<boolean> {
+  disable(token: SelfserviceToken): Observable<boolean> {
     const url = this.userserviceBase + this.userserviceEndpoints.disable;
     const body = {
       serial: token.serial,

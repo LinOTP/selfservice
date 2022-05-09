@@ -68,7 +68,7 @@ describe('EnrollPushDialogComponent', () => {
         },
         {
           provide: MAT_DIALOG_DATA,
-          useValue: { tokenTypeDetails: Fixtures.tokenTypeDetails[TokenType.PUSH], closeLabel: null },
+          useValue: { tokenDisplayData: Fixtures.tokenDisplayData[TokenType.PUSH], closeLabel: null },
         },
       ],
     })

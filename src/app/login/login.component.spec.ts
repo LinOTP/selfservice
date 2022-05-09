@@ -17,7 +17,7 @@ import { SystemService } from '../system.service';
 import { LoginComponent, LoginStage } from './login.component';
 import { LoginService } from './login.service';
 import { MockComponent } from '../../testing/mock-component';
-import { Token } from '../api/token';
+import { SelfserviceToken } from '../api/token';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../common/dialog/dialog.component';
 
@@ -372,7 +372,7 @@ describe('LoginComponent', () => {
     });
 
     describe('keyboard support', () => {
-      let tokens: Token[];
+      let tokens: SelfserviceToken[];
       let tokenListItems: NodeListOf<HTMLElement>;
 
       beforeEach(() => {

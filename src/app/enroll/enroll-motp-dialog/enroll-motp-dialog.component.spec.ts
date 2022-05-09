@@ -70,7 +70,7 @@ describe('EnrollMOTPDialogComponent', () => {
         },
         {
           provide: MAT_DIALOG_DATA,
-          useValue: { tokenTypeDetails: Fixtures.tokenTypeDetails[TokenType.MOTP], closeLabel: null },
+          useValue: { tokenDisplayData: Fixtures.tokenDisplayData[TokenType.MOTP], closeLabel: null },
         },
       ],
     })
@@ -88,7 +88,7 @@ describe('EnrollMOTPDialogComponent', () => {
 
   it('should be created', () => {
     expect(component).toBeTruthy();
-    expect(component.data.tokenTypeDetails.type).toEqual(TokenType.MOTP);
+    expect(component.data.tokenDisplayData.type).toEqual(TokenType.MOTP);
   });
 
   describe('enrollToken', () => {

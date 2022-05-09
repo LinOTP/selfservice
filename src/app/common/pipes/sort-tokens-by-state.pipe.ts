@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Token, EnrollmentStatus } from '../../api/token';
+import { SelfserviceToken, EnrollmentStatus } from '../../api/token';
 
 @Pipe({
   name: 'sortTokensByState'
@@ -13,7 +13,7 @@ export class SortTokensByStatePipe implements PipeTransform {
     [EnrollmentStatus.COMPLETED]: 3,
   };
 
-  transform(value: Token[], args?: any): any {
+  transform(value: SelfserviceToken[], args?: any): any {
     return value.sort((a, b) => this.tokenOrder[a.enrollmentStatus.toString()] - this.tokenOrder[b.enrollmentStatus.toString()]);
   }
 

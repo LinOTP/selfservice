@@ -68,7 +68,7 @@ describe('The EnrollEmailDialogComponent', () => {
         },
         {
           provide: MAT_DIALOG_DATA,
-          useValue: { tokenTypeDetails: Fixtures.tokenTypeDetails[TokenType.EMAIL], closeLabel: null },
+          useValue: { tokenDisplayData: Fixtures.tokenDisplayData[TokenType.EMAIL], closeLabel: null },
         },
       ],
     })
@@ -89,7 +89,7 @@ describe('The EnrollEmailDialogComponent', () => {
   it('should be created', () => {
     fixture.detectChanges();
     expect(component).toBeTruthy();
-    expect(component.data.tokenTypeDetails.type).toEqual(TokenType.EMAIL);
+    expect(component.data.tokenDisplayData.type).toEqual(TokenType.EMAIL);
   });
 
   it('should enroll an email token with a default description', fakeAsync(() => {
@@ -118,7 +118,7 @@ describe('The EnrollEmailDialogComponent', () => {
 
     enrollmentService.enroll.and.returnValue(of(Fixtures.emailEnrollmentResponse));
 
-    component.data.tokenTypeDetails = Fixtures.tokenTypeDetails[TokenType.EMAIL];
+    component.data.tokenDisplayData = Fixtures.tokenDisplayData[TokenType.EMAIL];
     component.enrollmentStep.controls.description.setValue('custom description');
     fixture.detectChanges();
     component.enrollToken();

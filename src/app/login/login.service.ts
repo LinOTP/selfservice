@@ -8,7 +8,7 @@ import { map, tap, filter, mergeMap, take, catchError } from 'rxjs/operators';
 import { NgxPermissionsService } from 'ngx-permissions';
 
 import { SystemService, UserSystemInfo } from '../system.service';
-import { Token } from '../api/token';
+import { SelfserviceToken } from '../api/token';
 import { SessionService } from '../auth/session.service';
 import { LinOTPResponse } from '../api/api';
 import { TokenService } from '../api/token.service';
@@ -26,7 +26,7 @@ export interface LoginOptions {
 }
 
 interface LoginResponse {
-  tokenList?: Token[];
+  tokenList?: SelfserviceToken[];
   transactionId?: string;
   transactionData?: string;
   message?: string;
@@ -35,7 +35,7 @@ interface LoginResponse {
 
 interface LoginResult {
   success: boolean;
-  tokens?: Token[];
+  tokens?: SelfserviceToken[];
   challengedata?: TransactionDetail;
 }
 

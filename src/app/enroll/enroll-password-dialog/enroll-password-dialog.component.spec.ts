@@ -68,7 +68,7 @@ describe('The EnrollPasswordDialogComponent', () => {
         },
         {
           provide: MAT_DIALOG_DATA,
-          useValue: { tokenTypeDetails: Fixtures.tokenTypeDetails[TokenType.HOTP], closeLabel: null },
+          useValue: { tokenDisplayData: Fixtures.tokenDisplayData[TokenType.HOTP], closeLabel: null },
         },
       ],
     })
@@ -86,12 +86,12 @@ describe('The EnrollPasswordDialogComponent', () => {
 
   it('should be created', () => {
     expect(component).toBeTruthy();
-    expect(component.data.tokenTypeDetails.type).toEqual(TokenType.HOTP);
+    expect(component.data.tokenDisplayData.type).toEqual(TokenType.HOTP);
   });
 
   it('should not allow enrollment if the passwords differ', fakeAsync(() => {
     const button: MatButton = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
-    component.data.tokenTypeDetails = Fixtures.tokenTypeDetails[TokenType.PASSWORD];
+    component.data.tokenDisplayData = Fixtures.tokenDisplayData[TokenType.PASSWORD];
     component.enrollmentStep.controls.password.setValue('111111');
     component.enrollmentStep.controls.confirmation.setValue('222222');
 
@@ -109,7 +109,7 @@ describe('The EnrollPasswordDialogComponent', () => {
       enrollmentService.enroll.and.returnValue(of(Fixtures.PasswordEnrollmentResponse));
       const serial = Fixtures.PasswordEnrollmentResponse.serial;
 
-      component.data.tokenTypeDetails = Fixtures.tokenTypeDetails[TokenType.PASSWORD];
+      component.data.tokenDisplayData = Fixtures.tokenDisplayData[TokenType.PASSWORD];
       component.enrollmentStep.controls.password.setValue('111111');
       component.enrollmentStep.controls.confirmation.setValue('111111');
 
@@ -134,7 +134,7 @@ describe('The EnrollPasswordDialogComponent', () => {
       enrollmentService.enroll.and.returnValue(of(Fixtures.PasswordEnrollmentResponse));
       const serial = Fixtures.PasswordEnrollmentResponse.serial;
 
-      component.data.tokenTypeDetails = Fixtures.tokenTypeDetails[TokenType.PASSWORD];
+      component.data.tokenDisplayData = Fixtures.tokenDisplayData[TokenType.PASSWORD];
       component.enrollmentStep.controls.description.setValue('custom description');
       component.enrollmentStep.controls.password.setValue('111111');
       component.enrollmentStep.controls.confirmation.setValue('111111');
@@ -155,7 +155,7 @@ describe('The EnrollPasswordDialogComponent', () => {
     }));
 
     it('should allow retrying if enrollment failed', fakeAsync(() => {
-      component.data.tokenTypeDetails = Fixtures.tokenTypeDetails[TokenType.PASSWORD];
+      component.data.tokenDisplayData = Fixtures.tokenDisplayData[TokenType.PASSWORD];
       component.enrollmentStep.controls.password.setValue('111111');
 
       enrollmentService.enroll.and.returnValue(of(null));

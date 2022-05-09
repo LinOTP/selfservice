@@ -24,7 +24,7 @@ export class EnrollPushQRDialogComponent extends EnrollDialogBaseComponent imple
   public ngOnInit() {
     this.enrollmentStep = this.formBuilder.group({
       'description': [$localize`Created via SelfService`, Validators.required],
-      'type': this.data.tokenTypeDetails.type,
+      'type': this.data.tokenDisplayData.type,
     });
   }
 

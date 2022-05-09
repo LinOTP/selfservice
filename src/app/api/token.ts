@@ -6,7 +6,7 @@ export enum EnrollmentEndpointType {
   WEBPROVISION = 'webprovision',
 }
 
-export interface TokenTypeDetails {
+export interface TokenDisplayData {
   type: TokenType | 'assign';
   name: string;
   description: string;
@@ -18,13 +18,13 @@ export interface TokenTypeDetails {
   authenticationPrompt?: string;
 }
 
-export class Token {
+export class SelfserviceToken {
   enrollmentStatus: EnrollmentStatus;
 
   constructor(
     public id: number,
     public serial: string,
-    public typeDetails: TokenTypeDetails,
+    public typeDetails: TokenDisplayData,
     public enabled: boolean,
     public description?: string,
   ) { }
@@ -42,7 +42,7 @@ export enum EnrollmentStatus {
   COMPLETED = 'completed', // qr and push token activation challenge is answered and token is fully operational now
 }
 
-export interface EnrollToken {
+export interface EnrollmentOptions {
   type: TokenType | 'assign';
   description?: string;
   email_address?: string;
@@ -53,7 +53,7 @@ export interface EnrollToken {
   'yubico.tokenid'?: string;
 }
 
-export const tokenTypeDetails: TokenTypeDetails[] = [
+export const tokenDisplayData: TokenDisplayData[] = [
   {
     type: TokenType.PASSWORD,
     name: $localize`password token`,
@@ -156,7 +156,7 @@ export const tokenTypeDetails: TokenTypeDetails[] = [
   }
 ];
 
-export const unknownTokenTypeDetail: TokenTypeDetails = {
+export const unknownTokenTypeDetail: TokenDisplayData = {
   type: TokenType.UNKNOWN,
   name: $localize`Unknown Token`,
   description: $localize`Unsupported token type`,

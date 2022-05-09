@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, filter, mergeMap, take, catchError, tap } from 'rxjs/operators';
 
-import { EnrollToken, EnrollmentStatus } from './token';
+import { EnrollmentOptions, EnrollmentStatus } from './token';
 import { TokenService } from './token.service';
 import { SessionService } from '../auth/session.service';
 import { UserInfo } from '../system.service';
@@ -55,7 +55,7 @@ export class EnrollmentService {
     private notificationService: NotificationService,
   ) { }
 
-  enroll(token: EnrollToken): Observable<EnrollmentDetail> {
+  enroll(token: EnrollmentOptions): Observable<EnrollmentDetail> {
     const body: { session: string, type: string, description?: string, otplen?: number, 'yubico.tokenid'?: string } = {
       ...token,
       session: this.sessionService.getSession(),
