@@ -6,22 +6,24 @@ import { Fixtures } from '../../testing/fixtures';
 
 import { SessionService } from '../auth/session.service';
 import { OperationsService } from './operations.service';
-import { Token, EnrollmentStatus, TokenType } from './token';
+import { SelfserviceToken, EnrollmentStatus } from './token';
+import { TokenType } from '@linotp/data-models';
+
 import { NotificationService } from '../common/notification.service';
 import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
 
 const session = '';
 
-const mockReadyEnabledToken = new Token(1, 'serial', Fixtures.tokenTypeDetails[TokenType.UNKNOWN], true, 'desc');
+const mockReadyEnabledToken = new SelfserviceToken(1, 'serial', Fixtures.tokenDisplayData[TokenType.UNKNOWN], true, 'desc');
 mockReadyEnabledToken.enrollmentStatus = EnrollmentStatus.COMPLETED;
 
-const mockReadyDisabledToken = new Token(2, 'serial2', Fixtures.tokenTypeDetails[TokenType.UNKNOWN], false, 'desc');
+const mockReadyDisabledToken = new SelfserviceToken(2, 'serial2', Fixtures.tokenDisplayData[TokenType.UNKNOWN], false, 'desc');
 mockReadyDisabledToken.enrollmentStatus = EnrollmentStatus.COMPLETED;
 
-const mockUnreadyDisabledToken = new Token(3, 'serial3', Fixtures.tokenTypeDetails[TokenType.UNKNOWN], false, 'desc');
+const mockUnreadyDisabledToken = new SelfserviceToken(3, 'serial3', Fixtures.tokenDisplayData[TokenType.UNKNOWN], false, 'desc');
 mockUnreadyDisabledToken.enrollmentStatus = EnrollmentStatus.UNPAIRED;
 
-const mockReadyEnabledMOTPToken = new Token(4, 'serial', Fixtures.tokenTypeDetails[TokenType.MOTP], true, 'desc');
+const mockReadyEnabledMOTPToken = new SelfserviceToken(4, 'serial', Fixtures.tokenDisplayData[TokenType.MOTP], true, 'desc');
 mockReadyEnabledToken.enrollmentStatus = EnrollmentStatus.COMPLETED;
 
 

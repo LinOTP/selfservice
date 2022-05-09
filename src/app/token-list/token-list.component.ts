@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Token, EnrollmentStatus, tokenTypeDetails } from '../api/token';
+import { SelfserviceToken, EnrollmentStatus, tokenDisplayData } from '../api/token';
 import { TokenService } from '../api/token.service';
 import { Permission } from '../common/permissions';
 import { LoginService } from '../login/login.service';
@@ -13,9 +13,9 @@ import { LoginService } from '../login/login.service';
 
 export class TokenListComponent implements OnInit {
   public EnrollmentStatus = EnrollmentStatus;
-  public enrollmentPermissions: Permission[] = tokenTypeDetails.map(tt => tt.enrollmentPermission).filter(p => !!p);
+  public enrollmentPermissions: Permission[] = tokenDisplayData.map(tt => tt.enrollmentPermission).filter(p => !!p);
 
-  public tokens: Token[];
+  public tokens: SelfserviceToken[];
   public permissionsLoaded: boolean;
 
   constructor(

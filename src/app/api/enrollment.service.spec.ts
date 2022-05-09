@@ -4,7 +4,9 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 
 import { Fixtures } from '../../testing/fixtures';
 
-import { Token, EnrollmentStatus, TokenType } from './token';
+import { SelfserviceToken, EnrollmentStatus } from './token';
+import { TokenType } from '@linotp/data-models';
+
 import { SessionService } from '../auth/session.service';
 import { NotificationService } from '../common/notification.service';
 import { EnrollmentService } from './enrollment.service';
@@ -12,13 +14,13 @@ import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
 
 const session = '';
 
-const mockReadyEnabledToken = new Token(1, 'serial', Fixtures.tokenTypeDetails[TokenType.UNKNOWN], true, 'desc');
+const mockReadyEnabledToken = new SelfserviceToken(1, 'serial', Fixtures.tokenDisplayData[TokenType.UNKNOWN], true, 'desc');
 mockReadyEnabledToken.enrollmentStatus = EnrollmentStatus.COMPLETED;
 
-const mockReadyDisabledToken = new Token(2, 'serial2', Fixtures.tokenTypeDetails[TokenType.UNKNOWN], false, 'desc');
+const mockReadyDisabledToken = new SelfserviceToken(2, 'serial2', Fixtures.tokenDisplayData[TokenType.UNKNOWN], false, 'desc');
 mockReadyDisabledToken.enrollmentStatus = EnrollmentStatus.COMPLETED;
 
-const mockUnreadyDisabledToken = new Token(3, 'serial3', Fixtures.tokenTypeDetails[TokenType.UNKNOWN], false, 'desc');
+const mockUnreadyDisabledToken = new SelfserviceToken(3, 'serial3', Fixtures.tokenDisplayData[TokenType.UNKNOWN], false, 'desc');
 mockUnreadyDisabledToken.enrollmentStatus = EnrollmentStatus.UNPAIRED;
 
 

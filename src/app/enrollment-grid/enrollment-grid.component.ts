@@ -6,7 +6,9 @@ import { switchMap, filter, tap } from 'rxjs/operators';
 
 import { Permission } from '../common/permissions';
 import { NotificationService } from '../common/notification.service';
-import { TokenType, TokenTypeDetails } from '../api/token';
+import { TokenDisplayData } from '../api/token';
+import { TokenType } from '@linotp/data-models';
+
 import { TokenService } from '../api/token.service';
 import { LoginService } from '../login/login.service';
 
@@ -28,7 +30,7 @@ import { EnrollPasswordDialogComponent } from '../enroll/enroll-password-dialog/
 })
 export class EnrollmentGridComponent implements OnInit, OnDestroy {
 
-  public tokenTypes: TokenTypeDetails[] = this.tokenService.getEnrollableTypes();
+  public tokenTypes: TokenDisplayData[] = this.tokenService.getEnrollableTypes();
   @Output() public tokenUpdate: Subject<null> = new Subject();
   public testAfterEnrollment: boolean;
 
@@ -59,18 +61,18 @@ export class EnrollmentGridComponent implements OnInit, OnDestroy {
   * opens the correct enrollment dialog for the given token type
   *
   * @public
-  * @param {TokenTypeDetails} typeDetails
+  * @param {TokenDisplayData} typeDetails
   * @returns {Observable<string>}
   * @memberof EnrollmentGridComponent
   */
-  public runEnrollmentWorkflow(typeDetails: TokenTypeDetails) {
+  public runEnrollmentWorkflow(typeDetails: TokenDisplayData) {
 
     const enrollmentConfig: MatDialogConfig = {
       width: '850px',
       autoFocus: false,
       disableClose: true,
       data: {
-        tokenTypeDetails: typeDetails,
+        tokenDisplayData: typeDetails,
         closeLabel: this.testAfterEnrollment ? $localize`Test` : $localize`Close`,
       },
     };
@@ -106,7 +108,7 @@ export class EnrollmentGridComponent implements OnInit, OnDestroy {
       case TokenType.YUBICO:
         enrollmentDialog = EnrollYubicoDialogComponent;
         break;
-      case TokenType.ASSIGN:
+      case 'assign':
         enrollmentDialog = AssignTokenDialogComponent;
         break;
       default:

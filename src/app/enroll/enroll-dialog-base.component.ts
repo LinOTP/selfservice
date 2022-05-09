@@ -11,7 +11,7 @@ import { Permission } from '../common/permissions';
 import { EnrollmentService } from '../api/enrollment.service';
 import { FormBuilder } from '@angular/forms';
 import { NotificationService } from '../common/notification.service';
-import { TokenTypeDetails } from '../api/token';
+import { TokenDisplayData } from '../api/token';
 import { DialogComponent } from '../common/dialog/dialog.component';
 import { OperationsService } from '../api/operations.service';
 import { SetPinDialogComponent } from '../common/set-pin-dialog/set-pin-dialog.component';
@@ -38,7 +38,7 @@ export abstract class EnrollDialogBaseComponent implements OnDestroy {
     protected notificationService: NotificationService,
     protected operationsService: OperationsService,
     protected dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: { tokenTypeDetails: TokenTypeDetails, closeLabel?: String },
+    @Inject(MAT_DIALOG_DATA) public data: { tokenDisplayData: TokenDisplayData, closeLabel?: String },
   ) { }
 
   public ngOnDestroy() {

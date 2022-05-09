@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, ValidationErrors } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { Token } from '../../api/token';
+import { SelfserviceToken } from '../../api/token';
 import { OperationsService } from '../../api/operations.service';
 import { ErrorStateRootMatcher } from '../form-helpers/error-state-root-matcher';
 
@@ -22,7 +22,7 @@ export class SetPinDialogComponent {
 
   constructor(
     private dialogRef: MatDialogRef<SetPinDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) private token: Token,
+    @Inject(MAT_DIALOG_DATA) private token: SelfserviceToken,
     private operationsService: OperationsService,
   ) {
     this.form = new FormGroup(

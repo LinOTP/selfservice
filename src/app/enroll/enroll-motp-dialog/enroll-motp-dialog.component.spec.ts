@@ -12,7 +12,7 @@ import { Fixtures } from '../../../testing/fixtures';
 import { spyOnClass, getInjectedStub } from '../../../testing/spyOnClass';
 
 import { MaterialModule } from '../../material.module';
-import { TokenType } from '../../api/token';
+import { TokenType } from '@linotp/data-models';
 import { OperationsService } from '../../api/operations.service';
 import { EnrollmentService } from '../../api/enrollment.service';
 import { NotificationService } from '../../common/notification.service';
@@ -70,7 +70,7 @@ describe('EnrollMOTPDialogComponent', () => {
         },
         {
           provide: MAT_DIALOG_DATA,
-          useValue: { tokenTypeDetails: Fixtures.tokenTypeDetails[TokenType.MOTP], closeLabel: null },
+          useValue: { tokenDisplayData: Fixtures.tokenDisplayData[TokenType.MOTP], closeLabel: null },
         },
       ],
     })
@@ -88,7 +88,7 @@ describe('EnrollMOTPDialogComponent', () => {
 
   it('should be created', () => {
     expect(component).toBeTruthy();
-    expect(component.data.tokenTypeDetails.type).toEqual(TokenType.MOTP);
+    expect(component.data.tokenDisplayData.type).toEqual(TokenType.MOTP);
   });
 
   describe('enrollToken', () => {

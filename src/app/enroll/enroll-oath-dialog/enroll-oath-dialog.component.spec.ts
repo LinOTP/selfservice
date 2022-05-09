@@ -13,7 +13,7 @@ import { MockComponent } from '../../../testing/mock-component';
 import { spyOnClass, getInjectedStub } from '../../../testing/spyOnClass';
 
 import { MaterialModule } from '../../material.module';
-import { TokenType } from '../../api/token';
+import { TokenType } from '@linotp/data-models';
 import { OperationsService } from '../../api/operations.service';
 import { EnrollmentService } from '../../api/enrollment.service';
 import { NotificationService } from '../../common/notification.service';
@@ -69,7 +69,7 @@ describe('The EnrollOATHDialogComponent', () => {
         },
         {
           provide: MAT_DIALOG_DATA,
-          useValue: { tokenTypeDetails: Fixtures.tokenTypeDetails[TokenType.HOTP], closeLabel: null },
+          useValue: { tokenDisplayData: Fixtures.tokenDisplayData[TokenType.HOTP], closeLabel: null },
         },
       ],
     })
@@ -88,7 +88,7 @@ describe('The EnrollOATHDialogComponent', () => {
 
   it('should be created', () => {
     expect(component).toBeTruthy();
-    expect(component.data.tokenTypeDetails.type).toEqual(TokenType.HOTP);
+    expect(component.data.tokenDisplayData.type).toEqual(TokenType.HOTP);
   });
 
   it('should enroll an HOTP token with a default description', fakeAsync(() => {
@@ -117,7 +117,7 @@ describe('The EnrollOATHDialogComponent', () => {
     enrollmentService.enroll.and.returnValue(of(Fixtures.OATHEnrollmentResponse));
     const expectedToken = Fixtures.enrolledToken;
 
-    component.data.tokenTypeDetails = Fixtures.tokenTypeDetails[TokenType.TOTP];
+    component.data.tokenDisplayData = Fixtures.tokenDisplayData[TokenType.TOTP];
     component.enrollmentStep.controls.description.setValue('custom description');
     fixture.detectChanges();
     component.enrollToken();

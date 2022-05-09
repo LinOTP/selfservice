@@ -1,12 +1,13 @@
 import { Permission } from '../common/permissions';
+import { TokenType } from '@linotp/data-models';
 
 export enum EnrollmentEndpointType {
   ENROLL = 'enroll',
   WEBPROVISION = 'webprovision',
 }
 
-export interface TokenTypeDetails {
-  type: TokenType;
+export interface TokenDisplayData {
+  type: TokenType | 'assign';
   name: string;
   description: string;
   icon: string; // material icon ligature string to use for this token type
@@ -17,28 +18,13 @@ export interface TokenTypeDetails {
   authenticationPrompt?: string;
 }
 
-export enum TokenType {
-  PASSWORD = 'pw',
-  HOTP = 'hmac',
-  TOTP = 'totp',
-  PUSH = 'push',
-  QR = 'qr',
-  MOTP = 'motp',
-  SMS = 'sms',
-  EMAIL = 'email',
-  YUBICO = 'yubico',
-  YUBIKEY = 'yubikey',
-  ASSIGN = 'assign', // virtual type for token assignment
-  UNKNOWN = 'unknown', // fallback type
-}
-
-export class Token {
+export class SelfserviceToken {
   enrollmentStatus: EnrollmentStatus;
 
   constructor(
     public id: number,
     public serial: string,
-    public typeDetails: TokenTypeDetails,
+    public typeDetails: TokenDisplayData,
     public enabled: boolean,
     public description?: string,
   ) { }
@@ -56,8 +42,8 @@ export enum EnrollmentStatus {
   COMPLETED = 'completed', // qr and push token activation challenge is answered and token is fully operational now
 }
 
-export interface EnrollToken {
-  type: TokenType;
+export interface EnrollmentOptions {
+  type: TokenType | 'assign';
   description?: string;
   email_address?: string;
   phone?: string;
@@ -67,7 +53,7 @@ export interface EnrollToken {
   'yubico.tokenid'?: string;
 }
 
-export const tokenTypeDetails: TokenTypeDetails[] = [
+export const tokenDisplayData: TokenDisplayData[] = [
   {
     type: TokenType.PASSWORD,
     name: $localize`password token`,
@@ -161,7 +147,7 @@ export const tokenTypeDetails: TokenTypeDetails[] = [
     authenticationPrompt: $localize`Authenticate using your Yubikey token`,
   },
   {
-    type: TokenType.ASSIGN,
+    type: 'assign',
     name: $localize`Assign token`,
     description: $localize`Claim an existing token and link it to your user account`,
     icon: 'link',
@@ -170,7 +156,7 @@ export const tokenTypeDetails: TokenTypeDetails[] = [
   }
 ];
 
-export const unknownTokenTypeDetail: TokenTypeDetails = {
+export const unknownTokenTypeDetail: TokenDisplayData = {
   type: TokenType.UNKNOWN,
   name: $localize`Unknown Token`,
   description: $localize`Unsupported token type`,

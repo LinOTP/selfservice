@@ -1327,6 +1327,11 @@
     merge-source-map "^1.1.0"
     schema-utils "^2.7.0"
 
+"@linotp/data-models@^1.1.1":
+  version "1.1.1"
+  resolved "https://gitbox.corp.keyidentity.com/api/v4/projects/381/packages/npm/@linotp/data-models/-/@linotp/data-models-1.1.1.tgz#42182c2647dc0eedae0852867acd22e1ed72f577"
+  integrity sha1-QhgsJkfcDu2uCFKGes0i4e1y9Xc=
+
 "@ngtools/webpack@12.2.16":
   version "12.2.16"
   resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-12.2.16.tgz#262fe1f8e75453ff6bcb01693af4838737ce45f3"
@@ -5117,9 +5122,9 @@ lie@~3.3.0:
     immediate "~3.0.5"
 
 lilconfig@^2.0.3:
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/lilconfig/-/lilconfig-2.0.4.tgz#f4507d043d7058b380b6a8f5cb7bcd4b34cee082"
-  integrity sha512-bfTIN7lEsiooCocSISTWXkiWJkRqtL9wYtYy+8EK3Y41qh3mpwPU0ycTOgjdY9ErwXCc8QyrQp82bdL0Xkm9yA==
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/lilconfig/-/lilconfig-2.0.5.tgz#19e57fd06ccc3848fd1891655b5a447092225b25"
+  integrity sha512-xaYmXZtTHPAw5m+xLN8ab9C+3a8YmV3asNSPOATITbtwrfbwaLJj8h66H1WMIpALCkqsIzK3h7oQ+PdX+LQ9Eg==
 
 lines-and-columns@^1.1.6:
   version "1.2.4"

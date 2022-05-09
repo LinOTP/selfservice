@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, Validators, ValidationErrors, FormControl } from '@angular/forms';
 
-import { Token } from '../../api/token';
+import { SelfserviceToken } from '../../api/token';
 import { OperationsService } from '../../api/operations.service';
 import { ErrorStateRootMatcher } from '../form-helpers/error-state-root-matcher';
 
@@ -22,7 +22,7 @@ export class SetMOTPPinDialogComponent {
 
   constructor(
     private dialogRef: MatDialogRef<SetMOTPPinDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) private token: Token,
+    @Inject(MAT_DIALOG_DATA) private token: SelfserviceToken,
     private operationsService: OperationsService,
   ) {
     this.form = new FormGroup(

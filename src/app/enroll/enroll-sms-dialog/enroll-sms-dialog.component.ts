@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
-import { EnrollToken } from '../../api/token';
+import { EnrollmentOptions } from '../../api/token';
 import { UserInfo, UserSystemInfo } from '../../system.service';
 import { EnrollDialogBaseComponent } from '../enroll-dialog-base.component';
 
@@ -36,8 +36,8 @@ export class EnrollSMSDialogComponent extends EnrollDialogBaseComponent implemen
     this.enrollmentStep.disable();
     const description = this.enrollmentStep.get('description').value;
     const phoneNumber = this.canEditPhone ? this.enrollmentStep.get('phoneNumber').value : this.userPhone;
-    const body: EnrollToken = {
-      type: this.data.tokenTypeDetails.type,
+    const body: EnrollmentOptions = {
+      type: this.data.tokenDisplayData.type,
       description: `${description} - ${phoneNumber}`,
       phone: phoneNumber,
     };

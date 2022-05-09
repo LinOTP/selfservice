@@ -4,7 +4,9 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { Subscription } from 'rxjs';
 
-import { Token, TokenType } from '../api/token';
+import { SelfserviceToken } from '../api/token';
+import { TokenType } from '@linotp/data-models';
+
 import { TestService, TransactionDetail, TestOptions, ReplyMode, StatusDetail } from '../api/test.service';
 
 enum TestState {
@@ -45,7 +47,7 @@ export class TestDialogComponent implements OnInit, OnDestroy {
   public formDirective: NgForm;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: { token: Token },
+    @Inject(MAT_DIALOG_DATA) public data: { token: SelfserviceToken },
     private testService: TestService,
     private formBuilder: FormBuilder,
   ) {

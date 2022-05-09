@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { Token } from '../../api/token';
+import { SelfserviceToken } from '../../api/token';
 import { OperationsService } from '../../api/operations.service';
 
 @Component({
@@ -17,7 +17,7 @@ export class ResyncDialogComponent {
 
   constructor(
     private dialogRef: MatDialogRef<ResyncDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) private token: Token,
+    @Inject(MAT_DIALOG_DATA) private token: SelfserviceToken,
     private operationsService: OperationsService,
     private formBuilder: FormBuilder,
   ) {

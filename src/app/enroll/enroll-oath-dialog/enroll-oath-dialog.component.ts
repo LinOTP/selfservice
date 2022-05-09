@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
-import { EnrollToken } from '../../api/token';
+import { EnrollmentOptions } from '../../api/token';
 import { EnrollDialogBaseComponent, EnrolledToken } from '../enroll-dialog-base.component';
 
 interface OATHEnrolledToken extends EnrolledToken {
@@ -31,8 +31,8 @@ export class EnrollOATHDialogComponent extends EnrollDialogBaseComponent impleme
 
   public enrollToken() {
     this.enrollmentStep.disable();
-    const body: EnrollToken = {
-      type: this.data.tokenTypeDetails.type,
+    const body: EnrollmentOptions = {
+      type: this.data.tokenDisplayData.type,
       description: this.enrollmentStep.get('description').value,
     };
 

@@ -17,7 +17,7 @@ import { MaterialModule } from '../../material.module';
 import { NotificationService } from '../../common/notification.service';
 
 import { EnrollPushQRDialogComponent } from './enroll-push-qr-dialog.component';
-import { TokenType } from '../../api/token';
+import { TokenType } from '@linotp/data-models';
 import { NgxPermissionsService, NgxPermissionsAllowStubDirective } from 'ngx-permissions';
 import { Subscription } from 'rxjs';
 
@@ -68,7 +68,7 @@ describe('EnrollPushDialogComponent', () => {
         },
         {
           provide: MAT_DIALOG_DATA,
-          useValue: { tokenTypeDetails: Fixtures.tokenTypeDetails[TokenType.PUSH], closeLabel: null },
+          useValue: { tokenDisplayData: Fixtures.tokenDisplayData[TokenType.PUSH], closeLabel: null },
         },
       ],
     })

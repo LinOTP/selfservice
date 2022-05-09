@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
-import { EnrollToken } from '../../api/token';
+import { EnrollmentOptions } from '../../api/token';
 import { EnrollDialogBaseComponent } from '../enroll-dialog-base.component';
 
 @Component({
@@ -28,8 +28,8 @@ export class EnrollMOTPDialogComponent extends EnrollDialogBaseComponent impleme
     const password = this.enrollmentStep.get('password').value;
     const mOTPPin = this.enrollmentStep.get('mOTPPin').value;
 
-    const body: EnrollToken = {
-      type: this.data.tokenTypeDetails.type,
+    const body: EnrollmentOptions = {
+      type: this.data.tokenDisplayData.type,
       description,
       otpkey: password,
       otppin: mOTPPin,

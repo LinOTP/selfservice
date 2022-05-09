@@ -38,6 +38,7 @@
     "@angular/router": "^12.2.16",
     "angularx-qrcode": "^10.0.10",
     "core-js": "^2.4.1",
+    "@linotp/data-models": "^1.1.1",
     "ngx-cookie": "^5.0.0",
     "ngx-permissions": "^8.1.1",
     "rxjs": "^6.6.3",
