@@ -65,9 +65,6 @@
               "outputPath": "dist/en",
               "scripts": [
                 "src/unsupported-browser-en.js"
-              ],
-              "localize": [
-                "en"
               ]
             },
             "de": {
