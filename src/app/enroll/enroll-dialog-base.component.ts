@@ -24,7 +24,7 @@ export interface EnrolledToken {
   template: '',
 })
 export abstract class EnrollDialogBaseComponent implements OnDestroy {
-  protected pairingSubscription: Subscription;
+  protected subscriptions: Subscription[] = [];
   public enrolledToken: EnrolledToken;
 
   public Permission = Permission;
@@ -42,8 +42,8 @@ export abstract class EnrollDialogBaseComponent implements OnDestroy {
   ) { }
 
   public ngOnDestroy() {
-    if (this.pairingSubscription) {
-      this.pairingSubscription.unsubscribe();
+    while (this.subscriptions.length) {
+      this.subscriptions.pop().unsubscribe();
     }
   }
 

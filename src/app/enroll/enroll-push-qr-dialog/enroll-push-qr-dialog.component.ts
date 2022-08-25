@@ -39,9 +39,9 @@ export class EnrollPushQRDialogComponent extends EnrollDialogBaseComponent imple
           url: token.lse_qr_url.value,
           serial: token.serial
         };
-        this.pairingSubscription = this.enrollmentService.pairingPoll(this.enrolledToken.serial).subscribe(() => {
+        this.subscriptions.push(this.enrollmentService.pairingPoll(this.enrolledToken.serial).subscribe(() => {
           this.stepper.next();
-        });
+        }));
         this.stepper.next();
       } else {
         this.enrollmentStep.enable();

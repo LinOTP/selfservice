@@ -87,8 +87,8 @@ describe('EnrollPushDialogComponent', () => {
   });
 
   it('should unsubscribe from polling on destroy if there is a subscription', () => {
-    component['pairingSubscription'] = new Subscription();
-    const componentSpy = spyOn(component['pairingSubscription'], 'unsubscribe');
+    component['subscriptions'] = [new Subscription()];
+    const componentSpy = spyOn(component['subscriptions'][0], 'unsubscribe');
 
     component.ngOnDestroy();
     expect(componentSpy).toHaveBeenCalledTimes(1);
