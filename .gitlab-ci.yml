@@ -1,18 +1,26 @@
 include:
-  - project: 'dev/ext-project-packaging/ci-includes'
-    file: 'node-projects/build-dist.yml'
-  - project: 'dev/ext-project-packaging/ci-includes'
-    file: 'node-projects/build-n-deploy-docker.yml'
-  - project: 'dev/ext-project-packaging/ci-includes'
-    file: 'node-projects/build-n-deploy-debian.yml'
-  - project: 'dev/ext-project-packaging/ci-includes'
-    file: 'node-projects/test.yml'
-
+  - project: "dev/ext-project-packaging/ci-includes"
+    file: "node-projects/build-dist.yml"
+  - project: "dev/ext-project-packaging/ci-includes"
+    file: "node-projects/build-n-deploy-docker.yml"
+  - project: "dev/ext-project-packaging/ci-includes"
+    file: "node-projects/build-n-deploy-debian.yml"
+  - project: "dev/ext-project-packaging/ci-includes"
+    file: "node-projects/test.yml"
 
 variables:
   IMAGE_NAME: linotp/ng-selfservice
   LANG: C.UTF-8
   EMAIL: "LinOTP Packaging <packaging@linotp.de>"
+  # Variables for upload-debs
+  REPOSITORY: linotp3
+  COMPONENT: linotp
+
+.debian-releases:
+  parallel:
+    matrix:
+      - DEBIAN_RELEASE_NAME:
+          - buster
 
 cache:
   paths:
