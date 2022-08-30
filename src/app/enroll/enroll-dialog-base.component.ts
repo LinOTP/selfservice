@@ -57,7 +57,7 @@ export abstract class EnrollDialogBaseComponent implements OnDestroy {
   /**
    * Close the enrollment dialog and return the serial of the enrolled token.
    */
-  public closeAndReturnSerial() {
+  public finalizeEnrollment() {
     this.dialogRef.close(this.enrolledToken.serial);
   }
 

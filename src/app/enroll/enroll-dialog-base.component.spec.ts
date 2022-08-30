@@ -99,14 +99,14 @@ describe('EnrollDialogBaseComponent', () => {
         });
     });
 
-    describe('closeAndReturnSerial', () => {
+    describe('finalizeEnrollment', () => {
         it('should return token serial', () => {
             fixture.detectChanges();
 
             component.enrolledToken = { serial: 'serial' };
             fixture.detectChanges();
 
-            component.closeAndReturnSerial();
+            component.finalizeEnrollment();
             expect(dialogRef.close).toHaveBeenCalledWith('serial');
         });
     });
