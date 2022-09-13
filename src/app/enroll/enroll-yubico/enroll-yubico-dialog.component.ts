@@ -19,6 +19,7 @@ export class EnrollYubicoDialogComponent extends EnrollDialogBaseComponent imple
       'publicId': ['', Validators.required],
       'description': [$localize`Registered via SelfService`, Validators.required],
     });
+    super.ngOnInit();
   }
 
   /**
@@ -36,7 +37,7 @@ export class EnrollYubicoDialogComponent extends EnrollDialogBaseComponent imple
     };
     this.enrollmentService.enroll(body).subscribe(token => {
       if (token?.serial) {
-        this.enrolledToken = { serial: token.serial };
+        this.enrolledToken = { serial: token.serial, type: TokenType.YUBICO };
         this.stepper.next();
       } else {
         this.registrationForm.enable();

@@ -20,11 +20,13 @@ import { NotificationService } from '../../common/notification.service';
 import { EnrollSMSDialogComponent } from './enroll-sms-dialog.component';
 import { UserSystemInfo } from '../../system.service';
 import { MockComponent } from '../../../testing/mock-component';
+import { LoginService } from '../../login/login.service';
 
 describe('The EnrollSMSDialogComponent', () => {
   let component: EnrollSMSDialogComponent;
   let fixture: ComponentFixture<EnrollSMSDialogComponent>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
+  let loginService: jasmine.SpyObj<LoginService>;
   let localStorageSpy: jasmine.Spy;
 
   beforeEach(async () => {
@@ -55,6 +57,10 @@ describe('The EnrollSMSDialogComponent', () => {
           useValue: spyOnClass(NotificationService),
         },
         {
+          provide: LoginService,
+          useValue: spyOnClass(LoginService),
+        },
+        {
           provide: NgxPermissionsService,
           useValue: spyOnClass(NgxPermissionsService),
         },
@@ -69,7 +75,7 @@ describe('The EnrollSMSDialogComponent', () => {
 
         {
           provide: MAT_DIALOG_DATA,
-          useValue: { tokenDisplayData: Fixtures.tokenDisplayData[TokenType.SMS], closeLabel: null },
+          useValue: { tokenType: TokenType.SMS },
         },
       ],
     })
@@ -81,6 +87,9 @@ describe('The EnrollSMSDialogComponent', () => {
     component = fixture.componentInstance;
 
     enrollmentService = getInjectedStub(EnrollmentService);
+    loginService = getInjectedStub(LoginService);
+
+    loginService.hasPermission$.and.returnValue(of(true));
 
     localStorageSpy = spyOn(localStorage, 'getItem').and.returnValue(
       JSON.stringify({ mobile: Fixtures.userSystemInfo.user.mobile })
@@ -90,7 +99,7 @@ describe('The EnrollSMSDialogComponent', () => {
   it('should be created', () => {
     fixture.detectChanges();
     expect(component).toBeTruthy();
-    expect(component.data.tokenDisplayData.type).toEqual(TokenType.SMS);
+    expect(component.data.tokenType).toEqual(TokenType.SMS);
   });
 
   it('should enroll an sms token with a default description', fakeAsync(() => {
@@ -119,7 +128,7 @@ describe('The EnrollSMSDialogComponent', () => {
 
     enrollmentService.enroll.and.returnValue(of(Fixtures.smsEnrollmentResponse));
 
-    component.data.tokenDisplayData = Fixtures.tokenDisplayData[TokenType.SMS];
+    component.data.tokenType = TokenType.SMS;
     component.enrollmentStep.controls.description.setValue('custom description');
     fixture.detectChanges();
     component.enrollToken();

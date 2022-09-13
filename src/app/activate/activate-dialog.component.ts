@@ -5,9 +5,10 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
 import { EnrollmentService } from '../api/enrollment.service';
-import { SelfserviceToken } from '../api/token';
 import { TokenType } from '@linotp/data-models';
 import { of, Subscription } from 'rxjs';
+import { EnrolledToken } from '../enroll/enroll-dialog-base.component';
+import { TokenDisplayData, tokenDisplayData } from '../api/token';
 
 @Component({
   selector: 'app-activate-dialog',
@@ -25,19 +26,22 @@ export class ActivateDialogComponent implements OnInit, OnDestroy {
   public tokenQRUrl: string = null;
   public pin = '';
 
+  public typeDetails: TokenDisplayData;
+
   private pairingSubscription: Subscription;
 
   constructor(
     private enrollmentService: EnrollmentService,
     private dialogRef: MatDialogRef<ActivateDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { token: SelfserviceToken },
+    @Inject(MAT_DIALOG_DATA) public data: { token: EnrolledToken },
   ) {
-    if (data.token.typeDetails.type === TokenType.PUSH) {
+    if (data.token.type === TokenType.PUSH) {
       this.isPush = true;
     }
-    if (data.token.typeDetails.type === TokenType.QR) {
+    if (data.token.type === TokenType.QR) {
       this.isQR = true;
     }
+    this.typeDetails = tokenDisplayData.find(d => d.type === data.token.type);
   }
 
   public ngOnInit() {
@@ -65,7 +69,7 @@ export class ActivateDialogComponent implements OnInit, OnDestroy {
       }),
       tap(detail => {
         this.transactionId = detail.transactionid.toString().slice(0, 6);
-        if (this.data.token.typeDetails.type === TokenType.QR) {
+        if (this.data.token.type === TokenType.QR) {
           if (!(detail.message)) {
             throw new Error();
 

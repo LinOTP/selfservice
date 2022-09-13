@@ -16,6 +16,13 @@ import { EnrollmentService } from '../api/enrollment.service';
 import { EnrollPushQRDialogComponent } from '../enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component';
 import { ActivateDialogComponent } from './activate-dialog.component';
 import { Subscription } from 'rxjs';
+import { TokenType } from '@linotp/data-models';
+
+const enrolledPushToken = {
+  url: 'urlpush',
+  serial: 'serialpush',
+  type: TokenType.PUSH
+};
 
 describe('ActivateDialogComponent', () => {
   let component: ActivateDialogComponent;
@@ -40,7 +47,7 @@ describe('ActivateDialogComponent', () => {
           provide: EnrollmentService,
           useValue: spyOnClass(EnrollmentService),
         },
-        { provide: MAT_DIALOG_DATA, useValue: { token: Fixtures.inactivePushToken } },
+        { provide: MAT_DIALOG_DATA, useValue: { token: enrolledPushToken } },
         { provide: MatDialogRef, useValue: spyOnClass(MatDialogRef) },
         { provide: MatStepper, useValue: spyOnClass(MatStepper) },
       ],

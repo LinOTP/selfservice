@@ -1,4 +1,4 @@
-<h2 i18n>Add {{data.tokenDisplayData.name}}</h2>
+<h2 i18n>Add {{this.tokenDisplayData.name}}</h2>
 
 <mat-horizontal-stepper [linear]="true"
                         linear>
@@ -81,7 +81,7 @@
       <span class="spacer"></span>
       <button mat-raised-button
               color="primary"
-              (click)="finalizeEnrollment()"> {{ data.closeLabel }}</button>
+              (click)="finalizeEnrollment()"> {{ closeLabel }}</button>
     </mat-dialog-actions>
   </mat-step>
 

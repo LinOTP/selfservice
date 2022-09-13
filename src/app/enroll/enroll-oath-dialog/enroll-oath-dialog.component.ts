@@ -27,12 +27,13 @@ export class EnrollOATHDialogComponent extends EnrollDialogBaseComponent impleme
     this.enrollmentStep = this.formBuilder.group({
       'description': [$localize`Created via SelfService`, Validators.required],
     });
+    super.ngOnInit();
   }
 
   public enrollToken() {
     this.enrollmentStep.disable();
     const body: EnrollmentOptions = {
-      type: this.data.tokenDisplayData.type,
+      type: this.tokenDisplayData.type,
       description: this.enrollmentStep.get('description').value,
     };
 
@@ -42,6 +43,7 @@ export class EnrollOATHDialogComponent extends EnrollDialogBaseComponent impleme
           url: token.googleurl.value,
           serial: token.serial,
           seed: token.otpkey.value,
+          type: this.tokenDisplayData.type,
         };
         this.stepper.next();
       } else {

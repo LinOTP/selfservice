@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
+import { MatDialogConfig } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
+import { switchMap } from 'rxjs/operators';
+import { ActivateDialogComponent } from '../../activate/activate-dialog.component';
 import { TextResources } from '../../common/static-resources';
 import { EnrollDialogBaseComponent, EnrolledToken } from '../enroll-dialog-base.component';
 
@@ -18,14 +21,17 @@ export class EnrollPushQRDialogComponent extends EnrollDialogBaseComponent imple
   public TextResources = TextResources;
   public enrolledToken: PushQrEnrolledToken;
 
+  public closeLabel = $localize`Activate`;
+
   @ViewChild(MatStepper, { static: true }) public stepper: MatStepper;
   public enrollmentStep: FormGroup;
 
   public ngOnInit() {
     this.enrollmentStep = this.formBuilder.group({
       'description': [$localize`Created via SelfService`, Validators.required],
-      'type': this.data.tokenDisplayData.type,
+      'type': this.tokenDisplayData.type,
     });
+    super.ngOnInit();
   }
 
   /**
@@ -37,7 +43,8 @@ export class EnrollPushQRDialogComponent extends EnrollDialogBaseComponent imple
       if (token) {
         this.enrolledToken = {
           url: token.lse_qr_url.value,
-          serial: token.serial
+          serial: token.serial,
+          type: this.tokenDisplayData.type
         };
         this.subscriptions.push(this.enrollmentService.pairingPoll(this.enrolledToken.serial).subscribe(() => {
           this.stepper.next();
@@ -49,4 +56,14 @@ export class EnrollPushQRDialogComponent extends EnrollDialogBaseComponent imple
     });
   }
 
+  public finalizeEnrollment() {
+    const testConfig: MatDialogConfig = {
+      width: '650px',
+      data: { token: this.enrolledToken }
+    };
+    this.dialogRef.afterClosed().pipe(
+      switchMap(() => this.dialog.open(ActivateDialogComponent, testConfig).afterClosed())
+    ).subscribe();
+    this.dialogRef.close(true);
+  }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
+import { TokenType } from '@linotp/data-models';
 import { EnrollmentOptions } from '../../api/token';
 import { UserInfo, UserSystemInfo } from '../../system.service';
 import { EnrollDialogBaseComponent } from '../enroll-dialog-base.component';
@@ -30,6 +31,7 @@ export class EnrollSMSDialogComponent extends EnrollDialogBaseComponent implemen
     if (this.canEditPhone) {
       this.enrollmentStep.addControl('phoneNumber', this.formBuilder.control(this.userPhone, Validators.required));
     }
+    super.ngOnInit();
   }
 
   public enrollToken() {
@@ -37,14 +39,14 @@ export class EnrollSMSDialogComponent extends EnrollDialogBaseComponent implemen
     const description = this.enrollmentStep.get('description').value;
     const phoneNumber = this.canEditPhone ? this.enrollmentStep.get('phoneNumber').value : this.userPhone;
     const body: EnrollmentOptions = {
-      type: this.data.tokenDisplayData.type,
+      type: this.tokenDisplayData.type,
       description: `${description} - ${phoneNumber}`,
       phone: phoneNumber,
     };
 
     this.enrollmentService.enroll(body).subscribe(token => {
       if (token?.serial) {
-        this.enrolledToken = { serial: token.serial };
+        this.enrolledToken = { serial: token.serial, type: TokenType.SMS };
         this.stepper.next();
       } else {
         this.enrollmentStep.enable();

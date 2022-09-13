@@ -1,16 +1,13 @@
-import { Component, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, Output } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
-import { Subject, Subscription } from 'rxjs';
-import { switchMap, filter, tap } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
-import { Permission } from '../common/permissions';
 import { NotificationService } from '../common/notification.service';
 import { TokenDisplayData } from '../api/token';
 import { TokenType } from '@linotp/data-models';
 
 import { TokenService } from '../api/token.service';
-import { LoginService } from '../login/login.service';
 
 import { AssignTokenDialogComponent } from '../enroll/assign-token-dialog/assign-token-dialog.component';
 import { EnrollOATHDialogComponent } from '../enroll/enroll-oath-dialog/enroll-oath-dialog.component';
@@ -18,8 +15,6 @@ import { EnrollEmailDialogComponent } from '../enroll/enroll-email-dialog/enroll
 import { EnrollSMSDialogComponent } from '../enroll/enroll-sms-dialog/enroll-sms-dialog.component';
 import { EnrollMOTPDialogComponent } from '../enroll/enroll-motp-dialog/enroll-motp-dialog.component';
 import { EnrollPushQRDialogComponent } from '../enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component';
-import { ActivateDialogComponent } from '../activate/activate-dialog.component';
-import { TestDialogComponent } from '../test/test-dialog.component';
 import { EnrollYubicoDialogComponent } from '../enroll/enroll-yubico/enroll-yubico-dialog.component';
 import { EnrollPasswordDialogComponent } from '../enroll/enroll-password-dialog/enroll-password-dialog.component';
 
@@ -28,34 +23,18 @@ import { EnrollPasswordDialogComponent } from '../enroll/enroll-password-dialog/
   templateUrl: './enrollment-grid.component.html',
   styleUrls: ['./enrollment-grid.component.scss']
 })
-export class EnrollmentGridComponent implements OnInit, OnDestroy {
+export class EnrollmentGridComponent {
 
   public tokenTypes: TokenDisplayData[] = this.tokenService.getEnrollableTypes();
   @Output() public tokenUpdate: Subject<null> = new Subject();
-  public testAfterEnrollment: boolean;
 
-  private subscriptions: Subscription[] = [];
 
   constructor(
     public dialog: MatDialog,
     private tokenService: TokenService,
     private notificationService: NotificationService,
-    private loginService: LoginService,
   ) { }
 
-  public ngOnInit() {
-    this.subscriptions.push(
-      this.loginService
-        .hasPermission$(Permission.VERIFY)
-        .subscribe(hasPermission => this.testAfterEnrollment = hasPermission)
-    );
-  }
-
-  public ngOnDestroy() {
-    while (this.subscriptions.length) {
-      this.subscriptions.pop().unsubscribe();
-    }
-  }
 
   /**
   * opens the correct enrollment dialog for the given token type
@@ -67,18 +46,18 @@ export class EnrollmentGridComponent implements OnInit, OnDestroy {
   */
   public runEnrollmentWorkflow(typeDetails: TokenDisplayData) {
 
+
+
     const enrollmentConfig: MatDialogConfig = {
       width: '850px',
       autoFocus: false,
       disableClose: true,
       data: {
-        tokenDisplayData: typeDetails,
-        closeLabel: this.testAfterEnrollment ? $localize`Test` : $localize`Close`,
+        tokenType: typeDetails.type,
       },
     };
 
     let enrollmentDialog;
-    let testDialog: any = TestDialogComponent;
 
     switch (typeDetails.type) {
       case TokenType.HOTP:
@@ -87,8 +66,6 @@ export class EnrollmentGridComponent implements OnInit, OnDestroy {
         break;
       case TokenType.PASSWORD:
         enrollmentDialog = EnrollPasswordDialogComponent;
-        enrollmentConfig.data.closeLabel = $localize`Close`;
-        testDialog = null;
         break;
       case TokenType.EMAIL:
         enrollmentDialog = EnrollEmailDialogComponent;
@@ -102,8 +79,6 @@ export class EnrollmentGridComponent implements OnInit, OnDestroy {
       case TokenType.PUSH:
       case TokenType.QR:
         enrollmentDialog = EnrollPushQRDialogComponent;
-        delete enrollmentConfig.data.closeLabel;
-        testDialog = ActivateDialogComponent;
         break;
       case TokenType.YUBICO:
         enrollmentDialog = EnrollYubicoDialogComponent;
@@ -119,24 +94,6 @@ export class EnrollmentGridComponent implements OnInit, OnDestroy {
     this.dialog
       .open(enrollmentDialog, enrollmentConfig)
       .afterClosed()
-      .pipe(
-        tap(() => this.tokenUpdate.next()),
-        filter(() => this.testAfterEnrollment),
-        filter(serial => !!serial),
-        switchMap(serial => this.tokenService.getToken(serial)),
-        tap(token => {
-          if (!token) {
-            this.notificationService.message($localize`There was a problem starting the token test, please try again later.`);
-          }
-        }),
-        filter(token => !!token && testDialog),
-        switchMap(token => {
-          const testConfig: MatDialogConfig = {
-            width: '650px',
-            data: { token: token }
-          };
-          return this.dialog.open(testDialog, testConfig).afterClosed();
-        }),
-      ).subscribe(() => this.tokenUpdate.next());
+      .subscribe(() => this.tokenUpdate.next());
   }
 }

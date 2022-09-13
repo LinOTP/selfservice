@@ -20,19 +20,25 @@ import { EnrollPushQRDialogComponent } from './enroll-push-qr-dialog.component';
 import { TokenType } from '@linotp/data-models';
 import { NgxPermissionsService, NgxPermissionsAllowStubDirective } from 'ngx-permissions';
 import { Subscription } from 'rxjs';
+import { LoginService } from '../../login/login.service';
+import { ActivateDialogComponent } from '../../activate/activate-dialog.component';
 
-let component: EnrollPushQRDialogComponent;
-let fixture: ComponentFixture<EnrollPushQRDialogComponent>;
-let enrollmentService: jasmine.SpyObj<EnrollmentService>;
 
 describe('EnrollPushDialogComponent', () => {
+  let component: EnrollPushQRDialogComponent;
+  let fixture: ComponentFixture<EnrollPushQRDialogComponent>;
+  let enrollmentService: jasmine.SpyObj<EnrollmentService>;
+  let loginService: jasmine.SpyObj<LoginService>;
+
+  let dialogRef: jasmine.SpyObj<MatDialogRef<EnrollPushQRDialogComponent>>;
+  let dialog: jasmine.SpyObj<MatDialog>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [
         EnrollPushQRDialogComponent,
         NgxPermissionsAllowStubDirective,
-        MockComponent({ selector: 'qrcode', inputs: ['qrdata', 'width', 'errorCorrectionLevel'] }),
+        MockComponent({ selector: 'app-qr-code', inputs: ['qrUrl'] }),
         MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] }),
       ],
       imports: [
@@ -55,6 +61,10 @@ describe('EnrollPushDialogComponent', () => {
           useValue: spyOnClass(NotificationService)
         },
         {
+          provide: LoginService,
+          useValue: spyOnClass(LoginService),
+        },
+        {
           provide: NgxPermissionsService,
           useValue: spyOnClass(NgxPermissionsService),
         },
@@ -68,7 +78,7 @@ describe('EnrollPushDialogComponent', () => {
         },
         {
           provide: MAT_DIALOG_DATA,
-          useValue: { tokenDisplayData: Fixtures.tokenDisplayData[TokenType.PUSH], closeLabel: null },
+          useValue: { tokenType: TokenType.PUSH },
         },
       ],
     })
@@ -79,6 +89,12 @@ describe('EnrollPushDialogComponent', () => {
     fixture = TestBed.createComponent(EnrollPushQRDialogComponent);
     component = fixture.componentInstance;
     enrollmentService = getInjectedStub(EnrollmentService);
+    loginService = getInjectedStub(LoginService);
+
+    dialogRef = getInjectedStub<MatDialogRef<EnrollPushQRDialogComponent>>(MatDialogRef);
+    dialog = getInjectedStub(MatDialog);
+
+    loginService.hasPermission$.and.returnValue(of(true));
     fixture.detectChanges();
   });
 
@@ -108,7 +124,8 @@ describe('EnrollPushDialogComponent', () => {
     const mockedEnrollResponse = Fixtures.enrollmentResponse;
     const expectedToken = {
       serial: mockedEnrollResponse.serial,
-      url: mockedEnrollResponse.lse_qr_url.value
+      url: mockedEnrollResponse.lse_qr_url.value,
+      type: TokenType.PUSH
     };
 
     enrollmentService.enroll.and.returnValue(of(mockedEnrollResponse));
@@ -142,4 +159,35 @@ describe('EnrollPushDialogComponent', () => {
     expect(component.stepper.selectedIndex).toEqual(0);
     expect(component.enrollmentStep.disabled).toEqual(false);
   }));
+
+  describe('finalizeEnrollment', () => {
+    it(`should open the ActivateDialog`, () => {
+      fixture.detectChanges();
+
+      component.enrolledToken = { serial: 'serial', type: TokenType.PUSH, url: 'url' };
+      fixture.detectChanges();
+
+      dialogRef.afterClosed.and.returnValue(of({}));
+      dialog.open.and.returnValue({ afterClosed: () => of({}) } as MatDialogRef<ActivateDialogComponent>);
+
+      component.finalizeEnrollment();
+      expect(dialogRef.close).toHaveBeenCalledWith(true);
+      expect(dialog.open).toHaveBeenCalledTimes(1);
+    });
+
+    it(`should open the ActivateDialog even if the user does not have permissions to test a token`, () => {
+      component.testAfterEnrollment = false;
+      fixture.detectChanges();
+
+      component.enrolledToken = { serial: 'serial', type: TokenType.PUSH, url: 'url' };
+      fixture.detectChanges();
+
+      dialogRef.afterClosed.and.returnValue(of({}));
+      dialog.open.and.returnValue({ afterClosed: () => of({}) } as MatDialogRef<ActivateDialogComponent>);
+
+      component.finalizeEnrollment();
+      expect(dialogRef.close).toHaveBeenCalledWith(true);
+      expect(dialog.open).toHaveBeenCalledTimes(1);
+    });
+  });
 });
