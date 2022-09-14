@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { take } from 'rxjs/operators';
 
 import { SelfserviceToken, EnrollmentStatus, tokenDisplayData } from '../api/token';
 import { TokenService } from '../api/token.service';
@@ -26,7 +27,7 @@ export class TokenListComponent implements OnInit {
   ngOnInit() {
     this.loadTokens();
 
-    this.loginService.permissionLoad$.subscribe(permissionsLoaded => {
+    this.loginService.permissionLoad$.pipe(take(1)).subscribe(permissionsLoaded => {
       this.permissionsLoaded = permissionsLoaded;
     });
   }

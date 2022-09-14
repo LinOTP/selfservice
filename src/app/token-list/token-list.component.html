@@ -41,7 +41,7 @@
            *ngxPermissionsOnly="enrollmentPermissions">
     <h2 i18n>Set up a new authentication method</h2>
     <p i18n>The following authentication methods are available:</p>
-    <app-enrollment-grid (tokenUpdate)="loadTokens()"></app-enrollment-grid>
+    <app-enrollment-grid></app-enrollment-grid>
   </section>
 </ng-template>
 
@@ -53,7 +53,7 @@
       You currently do not have any authentication method set up.
       Start by selecting your preferred type:
     </p>
-    <app-enrollment-grid (tokenUpdate)="loadTokens()"></app-enrollment-grid>
+    <app-enrollment-grid> </app-enrollment-grid>
   </section>
   <ng-template #emptyState>
     <section id="emptyStateSection">
@@ -63,3 +63,5 @@
     </section>
   </ng-template>
 </ng-template>
+
+<router-outlet></router-outlet>
