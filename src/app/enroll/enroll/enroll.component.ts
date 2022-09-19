@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
@@ -18,7 +18,7 @@ import { EnrollPasswordDialogComponent } from '../enroll-password-dialog/enroll-
 import { EnrollPushQRDialogComponent } from '../enroll-push-qr-dialog/enroll-push-qr-dialog.component';
 import { EnrollSMSDialogComponent } from '../enroll-sms-dialog/enroll-sms-dialog.component';
 import { EnrollYubicoDialogComponent } from '../enroll-yubico/enroll-yubico-dialog.component';
-import { Subject } from 'rxjs';
+import { TokenService } from '../../api/token.service';
 
 @Component({
   selector: 'app-enroll',
@@ -26,7 +26,6 @@ import { Subject } from 'rxjs';
 })
 export class EnrollComponent implements OnInit {
 
-  @Output() public tokenUpdate: Subject<null> = new Subject();
   private displayData: TokenDisplayData;
 
   constructor(
@@ -35,6 +34,7 @@ export class EnrollComponent implements OnInit {
     private dialog: MatDialog,
     private notificationService: NotificationService,
     private loginService: LoginService,
+    private tokenService: TokenService,
   ) {
     this.route.params.pipe(
       take(1),
@@ -64,8 +64,8 @@ export class EnrollComponent implements OnInit {
       filter(hasPermission => hasPermission),
       switchMap(() => this.openDialog()),
     ).subscribe(() => {
+      this.tokenService.updateTokenList();
       this.leave();
-      this.tokenUpdate.next();
     });
   }
 

@@ -1,4 +1,4 @@
-<section *ngIf="!(permissionsLoaded && tokens); else content"
+<section *ngIf="!tokens; else content"
          class="loading"
          id="loadingTokensSection">
   <mat-spinner></mat-spinner>

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { SessionService } from '../auth/session.service';
@@ -22,11 +22,18 @@ export class TokenService {
     serialByOTP: 'getSerialByOtp',
   };
 
+  private emitTokenUpdateeSource = new Subject<null>();
+  tokenUpdateEmitted$ = this.emitTokenUpdateeSource.asObservable();
+
   constructor(
     private http: HttpClient,
     private sessionService: SessionService,
     private notificationService: NotificationService,
   ) { }
+
+  updateTokenList() {
+    this.emitTokenUpdateeSource.next();
+  }
 
   getTokens(): Observable<SelfserviceToken[]> {
     const url = this.userserviceBase + this.userserviceEndpoints.tokens;

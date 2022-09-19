@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { NgxPermissionsAllowStubDirective, NgxPermissionsRestrictStubDirective } from 'ngx-permissions';
+import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
 
 import { BehaviorSubject, of, Subject } from 'rxjs';
 
@@ -52,12 +52,13 @@ class Page extends TestingPage<TokenListComponent> {
 
 }
 
-describe('TokenListComponent with permissions', () => {
+describe('TokenListComponent', () => {
   let component: TokenListComponent;
   let fixture: ComponentFixture<TokenListComponent>;
   let tokenService: jasmine.SpyObj<TokenService>;
   let loginService: jasmine.SpyObj<LoginService>;
   let permissionLoadSubject: Subject<boolean>;
+  let tokenListUpdateSubject: Subject<null>;
   let page: Page;
 
   beforeEach(async () => {
@@ -102,20 +103,24 @@ describe('TokenListComponent with permissions', () => {
     page = new Page(fixture);
 
     tokenService = getInjectedStub(TokenService);
-    loginService = getInjectedStub(LoginService);
+    tokenListUpdateSubject = new Subject();
+    tokenService.tokenUpdateEmitted$ = tokenListUpdateSubject.asObservable();
 
+    loginService = getInjectedStub(LoginService);
     permissionLoadSubject = new BehaviorSubject(true);
     (loginService as any).permissionLoad$ = permissionLoadSubject.asObservable();
   });
 
   it('should create', () => {
+    tokenService.getTokens.and.returnValue(of([]));
+    fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 
   it('should render expected title and text for first token enrollment section', () => {
     tokenService.getTokens.and.returnValue(of([]));
-
     fixture.detectChanges();
+
     expect(page.getEnrollFirstTokenSectionElement('h2').textContent).toEqual('Set up your first authentication method');
     expect(page.getEnrollFirstTokenSectionElement('p').textContent).toEqual(' You currently do not have any authentication' +
       ' method set up. Start by selecting your preferred type: ');
@@ -133,8 +138,8 @@ describe('TokenListComponent with permissions', () => {
     hotpToken.enrollmentStatus = EnrollmentStatus.COMPLETED;
 
     tokenService.getTokens.and.returnValue(of([hotpToken]));
-
     fixture.detectChanges();
+
     expect(page.getActiveAuthSectionElement('h2').textContent).toEqual('Active authentication methods');
     expect(page.getActiveAuthSectionElement('p').textContent).toEqual('The following tokens are available for use:');
 
@@ -151,8 +156,8 @@ describe('TokenListComponent with permissions', () => {
   it('should render expected title and text for the pending and alternative auth. method section', () => {
     const hotpToken = Fixtures.activeHotpToken;
     hotpToken.enrollmentStatus = EnrollmentStatus.UNPAIRED;
-    tokenService.getTokens.and.returnValue(of([hotpToken]));
 
+    tokenService.getTokens.and.returnValue(of([hotpToken]));
     fixture.detectChanges();
 
     expect(page.getPendingSectionElement('h2').textContent).toEqual('Pending actions');
@@ -194,73 +199,10 @@ describe('TokenListComponent with permissions', () => {
     expect(component.EnrollmentStatus).toBe(EnrollmentStatus);
   });
 
-});
-
-describe('TokenListComponent without tokens and permissions', () => {
-  let component: TokenListComponent;
-  let fixture: ComponentFixture<TokenListComponent>;
-  let tokenService: jasmine.SpyObj<TokenService>;
-  let loginService: jasmine.SpyObj<LoginService>;
-  let permissionLoadSubject: Subject<boolean>;
-  let page: Page;
-
-  beforeEach(async () => {
-    TestBed.configureTestingModule({
-      declarations: [
-        TokenListComponent,
-        MockPipe({ 'name': 'unreadyTokens' }),
-        MockPipe({ 'name': 'inactiveTokens' }),
-        MockPipe({ 'name': 'activeTokens' }),
-        MockPipe({ 'name': 'arrayNotEmpty' }),
-        MockPipe({ 'name': 'sortTokensByState' }),
-        MockComponent({ 'selector': 'app-token-card', inputs: ['token'], outputs: ['tokenUpdate'] }),
-        MockComponent({ 'selector': 'app-enrollment-grid' }),
-        ArrayNotEmptyPipe,
-        ActiveTokensPipe,
-        InactiveTokensPipe,
-        UnreadyTokensPipe,
-        NgxPermissionsRestrictStubDirective,
-      ],
-      providers: [
-        {
-          provide: TokenService,
-          useValue: spyOnClass(TokenService)
-        },
-        {
-          provide: LoginService,
-          useValue: spyOnClass(LoginService)
-        },
-      ],
-      imports: [
-        MaterialModule,
-        RouterTestingModule.withRoutes([])
-      ]
-    })
-      .compileComponents();
-  });
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(TokenListComponent);
-    component = fixture.componentInstance;
-    page = new Page(fixture);
-
-    tokenService = getInjectedStub(TokenService);
-    loginService = getInjectedStub(LoginService);
-
-    permissionLoadSubject = new BehaviorSubject(false);
-    (loginService as any).permissionLoad$ = permissionLoadSubject.asObservable();
-
-    tokenService.getTokens.and.returnValue(of([]));
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-
-  it('should render no title nor text, save for the loading spinning indicator', () => {
-    tokenService.getTokens.and.returnValue(of([]));
-
+  it('should render no title nor text, save for the loading spinning indicator before the tokens loaded', () => {
+    tokenService.getTokens.and.returnValue(of(undefined));
     fixture.detectChanges();
+
     expect(page.getLoadingTokensElement('mat-spinner')).toBeTruthy();
     expect(page.getLoadingTokensElement('p').textContent).toEqual('Loading tokens…');
 
