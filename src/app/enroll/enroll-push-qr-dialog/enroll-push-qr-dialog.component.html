@@ -1,4 +1,4 @@
-<h2 i18n>Add {{data.tokenDisplayData.name}}</h2>
+<h2 i18n>Add {{this.tokenDisplayData.name}}</h2>
 <mat-horizontal-stepper [linear]="true"
                         linear
                         #stepper>
@@ -95,7 +95,7 @@
       <br>
     </ng-container>
 
-    <p *ngxPermissionsExcept="data.tokenDisplayData.activationPermission"
+    <p *ngxPermissionsExcept="this.tokenDisplayData.activationPermission"
        class="warning"
        i18n>
       You do not have the required permission to activate the token on your own.
@@ -108,9 +108,9 @@
               (click)="close()"
               i18n>Close</button>
       <button mat-raised-button
-              *ngxPermissionsOnly="data.tokenDisplayData.activationPermission"
+              *ngxPermissionsOnly="this.tokenDisplayData.activationPermission"
               color="primary"
-              (click)="closeAndReturnSerial()"
+              (click)="finalizeEnrollment()"
               i18n>Activate Token</button>
     </mat-dialog-actions>
   </mat-step>

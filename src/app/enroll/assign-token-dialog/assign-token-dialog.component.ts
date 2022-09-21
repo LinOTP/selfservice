@@ -21,6 +21,7 @@ export class AssignTokenDialogComponent extends EnrollDialogBaseComponent implem
       'serial': ['', Validators.required],
       'description': [$localize`Assigned via SelfService`, Validators.required],
     });
+    super.ngOnInit();
   }
 
   /**
@@ -34,7 +35,7 @@ export class AssignTokenDialogComponent extends EnrollDialogBaseComponent implem
     const description = this.assignmentForm.get('description').value;
     this.enrollmentService.assign(serial, description).subscribe(result => {
       if (result.success) {
-        this.enrolledToken = { serial: serial };
+        this.enrolledToken = { serial: serial, type: 'assign' }; // TODO: retrieve real token type
         this.stepper.next();
       } else {
         this.assignmentForm.enable();

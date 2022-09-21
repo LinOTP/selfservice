@@ -20,11 +20,13 @@ import { NotificationService } from '../../common/notification.service';
 import { EnrollEmailDialogComponent } from './enroll-email-dialog.component';
 import { UserSystemInfo } from '../../system.service';
 import { MockComponent } from '../../../testing/mock-component';
+import { LoginService } from '../../login/login.service';
 
 describe('The EnrollEmailDialogComponent', () => {
   let component: EnrollEmailDialogComponent;
   let fixture: ComponentFixture<EnrollEmailDialogComponent>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
+  let loginService: jasmine.SpyObj<LoginService>;
   let localStorageSpy: jasmine.Spy;
 
   beforeEach(async () => {
@@ -55,6 +57,10 @@ describe('The EnrollEmailDialogComponent', () => {
           useValue: spyOnClass(NotificationService),
         },
         {
+          provide: LoginService,
+          useValue: spyOnClass(LoginService),
+        },
+        {
           provide: NgxPermissionsService,
           useValue: spyOnClass(NgxPermissionsService),
         },
@@ -68,7 +74,7 @@ describe('The EnrollEmailDialogComponent', () => {
         },
         {
           provide: MAT_DIALOG_DATA,
-          useValue: { tokenDisplayData: Fixtures.tokenDisplayData[TokenType.EMAIL], closeLabel: null },
+          useValue: { tokenType: TokenType.EMAIL },
         },
       ],
     })
@@ -80,6 +86,9 @@ describe('The EnrollEmailDialogComponent', () => {
     component = fixture.componentInstance;
 
     enrollmentService = getInjectedStub(EnrollmentService);
+    loginService = getInjectedStub(LoginService);
+
+    loginService.hasPermission$.and.returnValue(of(true));
 
     localStorageSpy = spyOn(localStorage, 'getItem').and.returnValue(
       JSON.stringify({ email: Fixtures.userSystemInfo.user.email })
@@ -89,7 +98,7 @@ describe('The EnrollEmailDialogComponent', () => {
   it('should be created', () => {
     fixture.detectChanges();
     expect(component).toBeTruthy();
-    expect(component.data.tokenDisplayData.type).toEqual(TokenType.EMAIL);
+    expect(component.data.tokenType).toEqual(TokenType.EMAIL);
   });
 
   it('should enroll an email token with a default description', fakeAsync(() => {
@@ -118,7 +127,7 @@ describe('The EnrollEmailDialogComponent', () => {
 
     enrollmentService.enroll.and.returnValue(of(Fixtures.emailEnrollmentResponse));
 
-    component.data.tokenDisplayData = Fixtures.tokenDisplayData[TokenType.EMAIL];
+    component.data.tokenType = TokenType.EMAIL;
     component.enrollmentStep.controls.description.setValue('custom description');
     fixture.detectChanges();
     component.enrollToken();

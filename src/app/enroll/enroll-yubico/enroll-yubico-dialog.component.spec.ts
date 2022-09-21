@@ -14,11 +14,13 @@ import { MockComponent } from '../../../testing/mock-component';
 import { NotificationService } from '../../common/notification.service';
 import { OperationsService } from '../../api/operations.service';
 import { NgxPermissionsAllowStubDirective, NgxPermissionsService } from 'ngx-permissions';
+import { LoginService } from '../../login/login.service';
 
 describe('EnrollYubicoDialogComponent', () => {
   let component: EnrollYubicoDialogComponent;
   let fixture: ComponentFixture<EnrollYubicoDialogComponent>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
+  let loginService: jasmine.SpyObj<LoginService>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
@@ -46,6 +48,10 @@ describe('EnrollYubicoDialogComponent', () => {
           useValue: spyOnClass(NotificationService)
         },
         {
+          provide: LoginService,
+          useValue: spyOnClass(LoginService),
+        },
+        {
           provide: MatDialogRef,
           useValue: spyOnClass(MatDialogRef),
         },
@@ -65,9 +71,12 @@ describe('EnrollYubicoDialogComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(EnrollYubicoDialogComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
 
     enrollmentService = getInjectedStub(EnrollmentService);
+    loginService = getInjectedStub(LoginService);
+
+    loginService.hasPermission$.and.returnValue(of(true));
+    fixture.detectChanges();
   });
 
   it('should be created', () => {

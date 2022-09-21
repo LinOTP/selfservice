@@ -7,6 +7,7 @@ import { AuthGuard } from './auth/auth-guard.service';
 import { HistoryComponent } from './history/history.component';
 import { NgxPermissionsGuard } from 'ngx-permissions';
 import { Permission } from './common/permissions';
+import { EnrollComponent } from './enroll/enroll/enroll.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,12 @@ const routes: Routes = [
     component: TokenListComponent,
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard],
+    children: [
+      {
+        path: `enroll/:type`,
+        component: EnrollComponent,
+      }
+    ]
   },
   {
     path: 'history',

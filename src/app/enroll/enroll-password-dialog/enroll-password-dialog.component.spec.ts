@@ -20,12 +20,17 @@ import { EnrollPasswordDialogComponent } from './enroll-password-dialog.componen
 import { MatButton } from '@angular/material/button';
 import { MockComponent } from '../../../testing/mock-component';
 import { OperationsService } from '../../api/operations.service';
+import { LoginService } from '../../login/login.service';
 
 
 describe('The EnrollPasswordDialogComponent', () => {
   let component: EnrollPasswordDialogComponent;
   let fixture: ComponentFixture<EnrollPasswordDialogComponent>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
+  let loginService: jasmine.SpyObj<LoginService>;
+
+  let dialogRef: jasmine.SpyObj<MatDialogRef<EnrollPasswordDialogComponent>>;
+  let dialog: jasmine.SpyObj<MatDialog>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
@@ -55,6 +60,10 @@ describe('The EnrollPasswordDialogComponent', () => {
           useValue: spyOnClass(NotificationService),
         },
         {
+          provide: LoginService,
+          useValue: spyOnClass(LoginService),
+        },
+        {
           provide: NgxPermissionsService,
           useValue: spyOnClass(NgxPermissionsService),
         },
@@ -68,7 +77,7 @@ describe('The EnrollPasswordDialogComponent', () => {
         },
         {
           provide: MAT_DIALOG_DATA,
-          useValue: { tokenDisplayData: Fixtures.tokenDisplayData[TokenType.HOTP], closeLabel: null },
+          useValue: { tokenType: TokenType.PASSWORD },
         },
       ],
     })
@@ -80,18 +89,24 @@ describe('The EnrollPasswordDialogComponent', () => {
     component = fixture.componentInstance;
 
     enrollmentService = getInjectedStub(EnrollmentService);
+    loginService = getInjectedStub(LoginService);
+
+    dialogRef = getInjectedStub<MatDialogRef<EnrollPasswordDialogComponent>>(MatDialogRef);
+    dialog = getInjectedStub(MatDialog);
+
+    loginService.hasPermission$.and.returnValue(of(true));
 
     fixture.detectChanges();
   });
 
   it('should be created', () => {
     expect(component).toBeTruthy();
-    expect(component.data.tokenDisplayData.type).toEqual(TokenType.HOTP);
+    expect(component.data.tokenType).toEqual(TokenType.PASSWORD);
   });
 
   it('should not allow enrollment if the passwords differ', fakeAsync(() => {
     const button: MatButton = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
-    component.data.tokenDisplayData = Fixtures.tokenDisplayData[TokenType.PASSWORD];
+    component.data.tokenType = TokenType.PASSWORD;
     component.enrollmentStep.controls.password.setValue('111111');
     component.enrollmentStep.controls.confirmation.setValue('222222');
 
@@ -109,7 +124,7 @@ describe('The EnrollPasswordDialogComponent', () => {
       enrollmentService.enroll.and.returnValue(of(Fixtures.PasswordEnrollmentResponse));
       const serial = Fixtures.PasswordEnrollmentResponse.serial;
 
-      component.data.tokenDisplayData = Fixtures.tokenDisplayData[TokenType.PASSWORD];
+      component.data.tokenType = TokenType.PASSWORD;
       component.enrollmentStep.controls.password.setValue('111111');
       component.enrollmentStep.controls.confirmation.setValue('111111');
 
@@ -134,7 +149,7 @@ describe('The EnrollPasswordDialogComponent', () => {
       enrollmentService.enroll.and.returnValue(of(Fixtures.PasswordEnrollmentResponse));
       const serial = Fixtures.PasswordEnrollmentResponse.serial;
 
-      component.data.tokenDisplayData = Fixtures.tokenDisplayData[TokenType.PASSWORD];
+      component.data.tokenType = TokenType.PASSWORD;
       component.enrollmentStep.controls.description.setValue('custom description');
       component.enrollmentStep.controls.password.setValue('111111');
       component.enrollmentStep.controls.confirmation.setValue('111111');
@@ -155,7 +170,7 @@ describe('The EnrollPasswordDialogComponent', () => {
     }));
 
     it('should allow retrying if enrollment failed', fakeAsync(() => {
-      component.data.tokenDisplayData = Fixtures.tokenDisplayData[TokenType.PASSWORD];
+      component.data.tokenType = TokenType.PASSWORD;
       component.enrollmentStep.controls.password.setValue('111111');
 
       enrollmentService.enroll.and.returnValue(of(null));
@@ -167,5 +182,19 @@ describe('The EnrollPasswordDialogComponent', () => {
       expect(component.enrolledToken).toEqual(undefined);
       expect(component.enrollmentStep.disabled).toEqual(false);
     }));
+  });
+
+  describe('finalizeEnrollment', () => {
+    it(`should not open the TestDialog even if the user has permissions to test a token`, () => {
+      component.testAfterEnrollment = true;
+      fixture.detectChanges();
+
+      component.enrolledToken = { serial: 'serial', type: TokenType.PASSWORD };
+      fixture.detectChanges();
+
+      component.finalizeEnrollment();
+      expect(dialog.open).not.toHaveBeenCalled();
+      expect(dialogRef.close).toHaveBeenCalledWith(true);
+    });
   });
 });

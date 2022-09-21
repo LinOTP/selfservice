@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { take, tap } from 'rxjs/operators';
 
 import { SelfserviceToken, EnrollmentStatus, tokenDisplayData } from '../api/token';
 import { TokenService } from '../api/token.service';
@@ -24,10 +25,13 @@ export class TokenListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.loadTokens();
+    this.loginService.permissionLoad$.pipe(
+      take(1),
+      tap(permissionsLoaded => this.permissionsLoaded = permissionsLoaded),
+    ).subscribe(() => this.loadTokens());
 
-    this.loginService.permissionLoad$.subscribe(permissionsLoaded => {
-      this.permissionsLoaded = permissionsLoaded;
+    this.tokenService.tokenUpdateEmitted$.subscribe(() => {
+      this.loadTokens();
     });
   }
 

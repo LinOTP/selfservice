@@ -4,7 +4,6 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { of, Observable, Observer } from 'rxjs';
 
-import { Fixtures } from '../../testing/fixtures';
 import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
 import { MockComponent } from '../../testing/mock-component';
 
@@ -12,6 +11,8 @@ import { MaterialModule } from '../material.module';
 import { TestService, TestOptions, ReplyMode, TransactionDetail } from '../api/test.service';
 
 import { TestDialogComponent } from './test-dialog.component';
+import { EnrolledToken } from '../enroll/enroll-dialog-base.component';
+import { TokenType } from '@linotp/data-models';
 
 const challengeOnlyDetail: TransactionDetail = { replyMode: [ReplyMode.OFFLINE] };
 const successfulOfflineDetail: TransactionDetail = { transactionId: 'id', replyMode: [ReplyMode.OFFLINE] };
@@ -21,7 +22,7 @@ describe('TestDialogComponent', () => {
   let component: TestDialogComponent;
   let fixture: ComponentFixture<TestDialogComponent>;
   let testService: jasmine.SpyObj<TestService>;
-  const token = Fixtures.activeHotpToken;
+  const enrolledToken: EnrolledToken = { serial: 'serial', type: TokenType.HOTP };
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
@@ -37,7 +38,7 @@ describe('TestDialogComponent', () => {
       providers: [
         {
           provide: MAT_DIALOG_DATA,
-          useValue: { token: token },
+          useValue: { token: enrolledToken },
         },
         {
           provide: TestService,
@@ -92,7 +93,7 @@ describe('TestDialogComponent', () => {
     fixture.detectChanges();
 
     expect(component).toBeTruthy();
-    const options = { serial: token.serial };
+    const options = { serial: enrolledToken.serial };
     expect(testService.testToken).toHaveBeenCalledWith(options);
   });
 
@@ -214,7 +215,7 @@ describe('TestDialogComponent', () => {
       fixture.detectChanges();
 
       component.submit();
-      const options: TestOptions = { serial: token.serial, otp: otp, transactionid: undefined };
+      const options: TestOptions = { serial: enrolledToken.serial, otp: otp, transactionid: undefined };
       expect(testService.testToken).toHaveBeenCalledWith(options);
     });
 

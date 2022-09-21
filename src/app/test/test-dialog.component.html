@@ -4,7 +4,7 @@
 
   <h2 mat-dialog-title
       *ngIf="data.token"
-      i18n>Test {{ data.token.typeDetails.name }} {{ data.token.serial }}</h2>
+      i18n>Test {{ typeDetails.name }} {{ data.token.serial }}</h2>
 
 
   <div mat-dialog-content>
@@ -18,7 +18,7 @@
 
         <div class="instruction"
              *ngIf="!hasOnlineMode">
-          <ng-container *ngIf="data.token.typeDetails.type === TokenType.PASSWORD; else otpInputMessage"
+          <ng-container *ngIf="typeDetails.type === TokenType.PASSWORD; else otpInputMessage"
                         i18n>
             Please enter the password of the selected token:
           </ng-container>
@@ -58,7 +58,7 @@
         <div [ngClass]="{'center-content': hasOnlineMode && hasOfflineMode}">
           <mat-form-field *ngIf="!hasOnlineMode || showInputField">
             <input matInput
-                   *ngIf="data.token.typeDetails.type === TokenType.PASSWORD"
+                   *ngIf="typeDetails.type === TokenType.PASSWORD"
                    type="password"
                    formControlName="otp"
                    placeholder="Password"
@@ -67,7 +67,7 @@
                    autocomplete="current-password"
                    appFocusOnInit>
             <input matInput
-                   *ngIf="data.token.typeDetails.type !== TokenType.PASSWORD"
+                   *ngIf="typeDetails.type !== TokenType.PASSWORD"
                    type="text"
                    formControlName="otp"
                    placeholder="OTP value"
@@ -75,9 +75,9 @@
                    i18n-placeholder
                    autocomplete="one-time-code"
                    appFocusOnInit>
-            <mat-error *ngIf="data.token.typeDetails.type === TokenType.PASSWORD"
+            <mat-error *ngIf="typeDetails.type === TokenType.PASSWORD"
                        i18n>The password field cannot be empty</mat-error>
-            <mat-error *ngIf="data.token.typeDetails.type !== TokenType.PASSWORD"
+            <mat-error *ngIf="typeDetails.type !== TokenType.PASSWORD"
                        i18n>The OTP field cannot be empty</mat-error>
           </mat-form-field>
         </div>

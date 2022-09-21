@@ -31,6 +31,7 @@ import { EnrollYubicoDialogComponent } from './enroll/enroll-yubico/enroll-yubic
 import { EnrollPasswordDialogComponent } from './enroll/enroll-password-dialog/enroll-password-dialog.component';
 import { LanguagePickerComponent } from './language-picker/language-picker.component';
 import { KeyboardKeyComponent } from './keyboard-key/keyboard-key.component';
+import { EnrollComponent } from './enroll/enroll/enroll.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { KeyboardKeyComponent } from './keyboard-key/keyboard-key.component';
     LoginComponent,
     TokenCardComponent,
     EnrollmentGridComponent,
+    EnrollComponent,
     EnrollOATHDialogComponent,
     EnrollPasswordDialogComponent,
     EnrollEmailDialogComponent,

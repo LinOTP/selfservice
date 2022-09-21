@@ -4,10 +4,11 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { Subscription } from 'rxjs';
 
-import { SelfserviceToken } from '../api/token';
-import { TokenType } from '@linotp/data-models';
+import { tokenDisplayData, TokenDisplayData } from '../api/token';
 
 import { TestService, TransactionDetail, TestOptions, ReplyMode, StatusDetail } from '../api/test.service';
+import { EnrolledToken } from '../enroll/enroll-dialog-base.component';
+import { TokenType } from '@linotp/data-models';
 
 enum TestState {
   UNTESTED = 'untested',
@@ -24,6 +25,7 @@ enum TestState {
 export class TestDialogComponent implements OnInit, OnDestroy {
 
   public TokenType = TokenType;
+  public typeDetails: TokenDisplayData = undefined;
 
   public TestState = TestState;
   public ReplyMode = ReplyMode;
@@ -47,7 +49,7 @@ export class TestDialogComponent implements OnInit, OnDestroy {
   public formDirective: NgForm;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: { token: SelfserviceToken },
+    @Inject(MAT_DIALOG_DATA) public data: { token: EnrolledToken },
     private testService: TestService,
     private formBuilder: FormBuilder,
   ) {
@@ -55,6 +57,7 @@ export class TestDialogComponent implements OnInit, OnDestroy {
       otp: ['', Validators.required],
     });
     this.serial = data.token.serial;
+    this.typeDetails = tokenDisplayData.find(d => d.type === data.token.type);
   }
 
   ngOnInit() {

@@ -1,7 +1,7 @@
-import { OnDestroy, Inject, Component } from '@angular/core';
+import { OnDestroy, Component, OnInit, Inject } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
-import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MatDialog, MatDialogConfig, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { switchMap, tap, map, filter } from 'rxjs/operators';
 import { from, of, Subscription } from 'rxjs';
@@ -11,26 +11,33 @@ import { Permission } from '../common/permissions';
 import { EnrollmentService } from '../api/enrollment.service';
 import { FormBuilder } from '@angular/forms';
 import { NotificationService } from '../common/notification.service';
-import { TokenDisplayData } from '../api/token';
+import { tokenDisplayData, TokenDisplayData } from '../api/token';
 import { DialogComponent } from '../common/dialog/dialog.component';
 import { OperationsService } from '../api/operations.service';
 import { SetPinDialogComponent } from '../common/set-pin-dialog/set-pin-dialog.component';
+import { LoginService } from '../login/login.service';
+import { TestDialogComponent } from '../test/test-dialog.component';
+import { TokenType } from '@linotp/data-models';
 
 
 export interface EnrolledToken {
   serial: string;
+  type: TokenType | 'assign';
 }
 @Component({
   template: '',
 })
-export abstract class EnrollDialogBaseComponent implements OnDestroy {
-  protected pairingSubscription: Subscription;
+export abstract class EnrollDialogBaseComponent implements OnInit, OnDestroy {
+  protected subscriptions: Subscription[] = [];
   public enrolledToken: EnrolledToken;
-
+  public testAfterEnrollment = false;
+  public canBeActivated = false;
+  public closeLabel = $localize`Close`;
+  public tokenDisplayData: TokenDisplayData;
   public Permission = Permission;
 
   constructor(
-    protected dialogRef: MatDialogRef<ThisType<EnrollDialogBaseComponent>>,
+    protected dialogRef: MatDialogRef<EnrollDialogBaseComponent>,
     protected sanitizer: DomSanitizer,
     protected permissionsService: NgxPermissionsService,
     protected enrollmentService: EnrollmentService,
@@ -38,12 +45,28 @@ export abstract class EnrollDialogBaseComponent implements OnDestroy {
     protected notificationService: NotificationService,
     protected operationsService: OperationsService,
     protected dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: { tokenDisplayData: TokenDisplayData, closeLabel?: String },
-  ) { }
+    protected loginService: LoginService,
+    @Inject(MAT_DIALOG_DATA) public data: { tokenType: TokenType },
+  ) {
+    this.tokenDisplayData = tokenDisplayData.find(d => d.type === data.tokenType);
+  }
+
+  public ngOnInit() {
+    this.subscriptions.push(
+      this.loginService
+        .hasPermission$(Permission.VERIFY)
+        .subscribe(hasPermission => {
+          if (hasPermission) {
+            this.closeLabel = $localize`Test`;
+            this.testAfterEnrollment = true;
+          }
+        })
+    );
+  }
 
   public ngOnDestroy() {
-    if (this.pairingSubscription) {
-      this.pairingSubscription.unsubscribe();
+    while (this.subscriptions.length) {
+      this.subscriptions.pop().unsubscribe();
     }
   }
 
@@ -55,10 +78,21 @@ export abstract class EnrollDialogBaseComponent implements OnDestroy {
   }
 
   /**
-   * Close the enrollment dialog and return the serial of the enrolled token.
+   * Check if token should be tested. If yes, open the test dialog. On close,
+   * return true to signalize a successful enrollment (independently of the test
+   * result).
    */
-  public closeAndReturnSerial() {
-    this.dialogRef.close(this.enrolledToken.serial);
+  public finalizeEnrollment() {
+    if (this.testAfterEnrollment) {
+      const testConfig: MatDialogConfig = {
+        width: '650px',
+        data: { token: this.enrolledToken }
+      };
+      this.dialogRef.afterClosed().pipe(
+        switchMap(() => this.dialog.open(TestDialogComponent, testConfig).afterClosed())
+      ).subscribe();
+    }
+    this.dialogRef.close(true);
   }
 
   /**

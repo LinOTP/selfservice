@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
+import { TokenType } from '@linotp/data-models';
 import { EnrollmentOptions } from '../../api/token';
 import { EnrollDialogBaseComponent } from '../enroll-dialog-base.component';
 
@@ -20,6 +21,7 @@ export class EnrollMOTPDialogComponent extends EnrollDialogBaseComponent impleme
       'mOTPPin': ['', Validators.required],
       'description': [$localize`Created via SelfService`, Validators.required],
     });
+    super.ngOnInit();
   }
 
   public enrollToken() {
@@ -29,7 +31,7 @@ export class EnrollMOTPDialogComponent extends EnrollDialogBaseComponent impleme
     const mOTPPin = this.enrollmentStep.get('mOTPPin').value;
 
     const body: EnrollmentOptions = {
-      type: this.data.tokenDisplayData.type,
+      type: this.tokenDisplayData.type,
       description,
       otpkey: password,
       otppin: mOTPPin,
@@ -39,6 +41,7 @@ export class EnrollMOTPDialogComponent extends EnrollDialogBaseComponent impleme
       if (token?.serial) {
         this.enrolledToken = {
           serial: token.serial,
+          type: TokenType.MOTP
         };
         this.stepper.next();
       } else {

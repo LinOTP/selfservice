@@ -16,6 +16,7 @@ import { GetSerialDialogComponent } from '../../common/get-serial-dialog/get-ser
 import { MockComponent } from '../../../testing/mock-component';
 import { NotificationService } from '../../common/notification.service';
 import { OperationsService } from '../../api/operations.service';
+import { LoginService } from '../../login/login.service';
 
 describe('AssignTokenDialogComponent', () => {
   let component: AssignTokenDialogComponent;
@@ -23,6 +24,7 @@ describe('AssignTokenDialogComponent', () => {
   let dialog: jasmine.SpyObj<MatDialog>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
   let notificationService: jasmine.SpyObj<NotificationService>;
+  let loginService: jasmine.SpyObj<LoginService>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
@@ -50,6 +52,10 @@ describe('AssignTokenDialogComponent', () => {
           useValue: spyOnClass(NotificationService)
         },
         {
+          provide: LoginService,
+          useValue: spyOnClass(LoginService)
+        },
+        {
           provide: MatDialog,
           useValue: spyOnClass(MatDialog),
         },
@@ -63,7 +69,7 @@ describe('AssignTokenDialogComponent', () => {
         },
         {
           provide: MAT_DIALOG_DATA,
-          useValue: { closeLabel: null },
+          useValue: { tokenType: 'assign' },
         },
       ],
     })
@@ -73,11 +79,14 @@ describe('AssignTokenDialogComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AssignTokenDialogComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
 
     dialog = getInjectedStub(MatDialog);
     enrollmentService = getInjectedStub(EnrollmentService);
     notificationService = getInjectedStub(NotificationService);
+    loginService = getInjectedStub(LoginService);
+
+    loginService.hasPermission$.and.returnValue(of(true));
+    fixture.detectChanges();
   });
 
   it('should be created', () => {

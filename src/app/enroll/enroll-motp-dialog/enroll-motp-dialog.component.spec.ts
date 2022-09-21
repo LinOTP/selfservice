@@ -19,15 +19,18 @@ import { NotificationService } from '../../common/notification.service';
 
 import { EnrollMOTPDialogComponent } from './enroll-motp-dialog.component';
 import { MockComponent } from '../../../testing/mock-component';
+import { LoginService } from '../../login/login.service';
 
 const enrolledToken = {
   serial: Fixtures.mOTPEnrollmentResponse.serial,
+  type: TokenType.MOTP
 };
 
 describe('EnrollMOTPDialogComponent', () => {
   let component: EnrollMOTPDialogComponent;
   let fixture: ComponentFixture<EnrollMOTPDialogComponent>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
+  let loginService: jasmine.SpyObj<LoginService>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
@@ -57,6 +60,10 @@ describe('EnrollMOTPDialogComponent', () => {
           useValue: spyOnClass(NotificationService),
         },
         {
+          provide: LoginService,
+          useValue: spyOnClass(LoginService),
+        },
+        {
           provide: NgxPermissionsService,
           useValue: spyOnClass(NgxPermissionsService),
         },
@@ -70,7 +77,7 @@ describe('EnrollMOTPDialogComponent', () => {
         },
         {
           provide: MAT_DIALOG_DATA,
-          useValue: { tokenDisplayData: Fixtures.tokenDisplayData[TokenType.MOTP], closeLabel: null },
+          useValue: { tokenType: TokenType.MOTP },
         },
       ],
     })
@@ -82,13 +89,16 @@ describe('EnrollMOTPDialogComponent', () => {
     component = fixture.componentInstance;
 
     enrollmentService = getInjectedStub(EnrollmentService);
+    loginService = getInjectedStub(LoginService);
+
+    loginService.hasPermission$.and.returnValue(of(true));
 
     fixture.detectChanges();
   });
 
   it('should be created', () => {
     expect(component).toBeTruthy();
-    expect(component.data.tokenDisplayData.type).toEqual(TokenType.MOTP);
+    expect(component.data.tokenType).toEqual(TokenType.MOTP);
   });
 
   describe('enrollToken', () => {
