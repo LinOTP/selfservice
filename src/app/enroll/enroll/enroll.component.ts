@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
-import { filter, map, switchMap, take, tap } from 'rxjs/operators';
+import { catchError, filter, map, switchMap, take, tap } from 'rxjs/operators';
 
 import { TokenType } from '@linotp/data-models';
 
@@ -19,6 +19,7 @@ import { EnrollPushQRDialogComponent } from '../enroll-push-qr-dialog/enroll-pus
 import { EnrollSMSDialogComponent } from '../enroll-sms-dialog/enroll-sms-dialog.component';
 import { EnrollYubicoDialogComponent } from '../enroll-yubico/enroll-yubico-dialog.component';
 import { TokenService } from '../../api/token.service';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-enroll',
@@ -35,36 +36,35 @@ export class EnrollComponent implements OnInit {
     private notificationService: NotificationService,
     private loginService: LoginService,
     private tokenService: TokenService,
-  ) {
+  ) { }
+
+  ngOnInit() {
     this.route.params.pipe(
       take(1),
       map(params => params['type']),
-      tap(type => this.displayData = tokenDisplayData.find(d => d.type === type))
-    ).subscribe(type => {
-      if (!this.displayData) {
-        this.notificationService.message($localize`Error: Cannot enroll token of unknown type "${type}".`);
-      }
-    });
-  }
-
-  ngOnInit() {
-    if (!this.displayData) {
-      this.leave();
-      return;
-    }
-
-    this.loginService.hasPermission$(this.displayData.enrollmentPermission).pipe(
+      tap(type => {
+        this.displayData = tokenDisplayData.find(d => d.type === type);
+        if (!this.displayData) {
+          throw new Error($localize`Cannot enroll token of unknown type "${type}".`);
+        }
+      }),
+      switchMap(() => this.loginService.hasPermission$(this.displayData.enrollmentPermission)),
       take(1),
       tap(hasPermission => {
         if (!hasPermission) {
-          this.notificationService.message($localize`Error: You are not allowed to enroll tokens of type ${this.displayData.type}.`);
-          this.leave();
+          throw new Error($localize`You are not allowed to enroll tokens of type "${this.displayData.type}".`);
         }
       }),
       filter(hasPermission => hasPermission),
       switchMap(() => this.openDialog()),
-    ).subscribe(() => {
-      this.tokenService.updateTokenList();
+      catchError((err, _) => {
+        this.notificationService.message($localize`Error: ${err.message}`);
+        return of(null);
+      })
+    ).subscribe(result => {
+      if (result) {
+        this.tokenService.updateTokenList();
+      }
       this.leave();
     });
   }
@@ -107,8 +107,7 @@ export class EnrollComponent implements OnInit {
         enrollmentDialog = AssignTokenDialogComponent;
         break;
       default:
-        this.notificationService.message($localize`The selected token type cannot be added at the moment.`);
-        return;
+        throw new Error($localize`The selected token type cannot be added at the moment.`);
     }
 
     return this.dialog

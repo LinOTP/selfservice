@@ -1,6 +1,7 @@
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ActivatedRoute } from '@angular/router';
 
 import { of } from 'rxjs';
 
@@ -8,14 +9,12 @@ import { TokenType } from '@linotp/data-models';
 
 import { getInjectedStub, spyOnClass } from '../../../testing/spyOnClass';
 
+import { LoginService } from '../../login/login.service';
+import { TokenService } from '../../api/token.service';
 import { NotificationService } from '../../common/notification.service';
 
-import { EnrollComponent } from './enroll.component';
-
-import { EnrollOATHDialogComponent } from '../enroll-oath-dialog/enroll-oath-dialog.component';
-import { LoginService } from '../../login/login.service';
-import { ActivatedRoute } from '@angular/router';
 import { TokenListComponent } from '../../token-list/token-list.component';
+import { EnrollOATHDialogComponent } from '../enroll-oath-dialog/enroll-oath-dialog.component';
 import { EnrollMOTPDialogComponent } from '../enroll-motp-dialog/enroll-motp-dialog.component';
 import { EnrollPasswordDialogComponent } from '../enroll-password-dialog/enroll-password-dialog.component';
 import { EnrollPushQRDialogComponent } from '../enroll-push-qr-dialog/enroll-push-qr-dialog.component';
@@ -23,7 +22,8 @@ import { EnrollYubicoDialogComponent } from '../enroll-yubico/enroll-yubico-dial
 import { AssignTokenDialogComponent } from '../assign-token-dialog/assign-token-dialog.component';
 import { EnrollSMSDialogComponent } from '../enroll-sms-dialog/enroll-sms-dialog.component';
 import { EnrollEmailDialogComponent } from '../enroll-email-dialog/enroll-email-dialog.component';
-import { TokenService } from '../../api/token.service';
+
+import { EnrollComponent } from './enroll.component';
 
 [
   {
@@ -223,6 +223,80 @@ describe(`EnrollComponent on navigate to /tokens/enroll/someUnknownType`, () => 
   }));
 });
 
+describe(`EnrollComponent on navigate to /tokens/enroll/yubikey`, () => {
+  let component: EnrollComponent;
+  let fixture: ComponentFixture<EnrollComponent>;
+
+  let loginService: jasmine.SpyObj<LoginService>;
+  let tokenService: jasmine.SpyObj<TokenService>;
+  let notificationService: jasmine.SpyObj<NotificationService>;
+
+  let dialog: jasmine.SpyObj<MatDialog>;
+
+  beforeEach(async () => {
+    TestBed.configureTestingModule({
+      imports: [
+        RouterTestingModule.withRoutes([
+          { path: 'tokens', component: TokenListComponent, },
+          { path: 'tokens/enroll/:type', component: EnrollComponent, },
+        ]),
+      ],
+      declarations: [
+        EnrollComponent,
+      ],
+      providers: [
+        {
+          provide: NotificationService,
+          useValue: spyOnClass(NotificationService)
+        },
+        {
+          provide: MatDialog,
+          useValue: spyOnClass(MatDialog),
+        },
+        {
+          provide: LoginService,
+          useValue: spyOnClass(LoginService),
+        },
+        {
+          provide: TokenService,
+          useValue: spyOnClass(TokenService),
+        },
+        {
+          provide: ActivatedRoute,
+          useValue: { params: of({ type: TokenType.YUBIKEY }) }
+        },
+      ]
+    })
+      .compileComponents();
+  });
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(EnrollComponent);
+    component = fixture.componentInstance;
+
+    loginService = getInjectedStub(LoginService);
+    tokenService = getInjectedStub(TokenService);
+    notificationService = getInjectedStub(NotificationService);
+    dialog = getInjectedStub(MatDialog);
+
+    loginService.hasPermission$.and.returnValue(of(true));
+  });
+
+  it('should not open the enrollment dialog nor update the token list, and notify the user', fakeAsync(() => {
+    tick();
+    spyOn(component, 'leave');
+
+    fixture.detectChanges();
+
+    tick();
+
+    expect(dialog.open).not.toHaveBeenCalled();
+    expect(tokenService.updateTokenList).not.toHaveBeenCalled();
+    expect(notificationService.message).toHaveBeenCalledWith('Error: The selected token type cannot be added at the moment.');
+    expect(component.leave).toHaveBeenCalled();
+  }));
+});
+
 
 [
   {
@@ -337,7 +411,7 @@ describe(`EnrollComponent on navigate to /tokens/enroll/someUnknownType`, () => 
       expect(dialog.open).not.toHaveBeenCalled();
       expect(tokenService.updateTokenList).not.toHaveBeenCalled();
       expect(notificationService.message).toHaveBeenCalledWith(
-        `Error: You are not allowed to enroll tokens of type ${tokenUnderTest.type}.`
+        `Error: You are not allowed to enroll tokens of type "${tokenUnderTest.type}".`
       );
       expect(component.leave).toHaveBeenCalled();
     }));

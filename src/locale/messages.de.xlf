@@ -575,7 +575,7 @@
         <target state="translated">PIN festgelegt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-dialog-base.component.ts</context>
-          <context context-type="linenumber">155</context>
+          <context context-type="linenumber">156</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
@@ -1273,7 +1273,7 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
         <target state="translated">Der noch nicht aktivierte Token wird gelöscht.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-dialog-base.component.ts</context>
-          <context context-type="linenumber">104</context>
+          <context context-type="linenumber">105</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1552149428703580410" datatype="html">
@@ -1281,7 +1281,7 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
         <target state="translated">Der unvollständig eingerichtete Token wird nicht benutzbar sein.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-dialog-base.component.ts</context>
-          <context context-type="linenumber">105</context>
+          <context context-type="linenumber">106</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8866362071254927692" datatype="html">
@@ -1289,7 +1289,7 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
         <target state="translated">Sie müssen den Einrichtungsvorgang neustarten, um diese Art von Token benutzen zu können.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-dialog-base.component.ts</context>
-          <context context-type="linenumber">106</context>
+          <context context-type="linenumber">107</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1500753035555458197" datatype="html">
@@ -1297,7 +1297,7 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
         <target state="translated">Tokeneinrichtung abbrechen?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-dialog-base.component.ts</context>
-          <context context-type="linenumber">118</context>
+          <context context-type="linenumber">119</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9178182467454450952" datatype="html">
@@ -1305,7 +1305,7 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
         <target state="translated">Bestätigen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-dialog-base.component.ts</context>
-          <context context-type="linenumber">120</context>
+          <context context-type="linenumber">121</context>
         </context-group>
       </trans-unit>
       <trans-unit id="154514244524342578" datatype="html">
@@ -1313,7 +1313,7 @@ Dieser Schritt ist optional, und Sie können ihn später noch über das Token-Me
         <target state="translated">Der unvollständig eingerichtete Token wurde gelöscht</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-dialog-base.component.ts</context>
-          <context context-type="linenumber">130</context>
+          <context context-type="linenumber">131</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8740534530631333368" datatype="html">
@@ -2261,20 +2261,28 @@ Alternativ, kann die Public ID manuell eingegeben werden.</target>
           <context context-type="linenumber">48</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="5960807942483913297" datatype="html">
-        <source>Error: Cannot enroll token of unknown type "<x id="PH" equiv-text="type"/>".</source>
-        <target state="translated">Fehler: Token von unbekanntem Typ "<x id="PH" equiv-text="type"/> kann nicht erstellt werden".</target>
+      <trans-unit id="6428207120403142021" datatype="html">
+        <source>Cannot enroll token of unknown type "<x id="PH" equiv-text="type"/>".</source>
+        <target state="translated">Token von unbekanntem Typ "<x id="PH" equiv-text="type"/>" kann nicht erstellt werden.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll/enroll.component.ts</context>
-          <context context-type="linenumber">45</context>
+          <context context-type="linenumber">48</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="7429096418239446001" datatype="html">
-        <source>Error: You are not allowed to enroll tokens of type <x id="PH" equiv-text="this.displayData.type"/>.</source>
-        <target state="translated">Fehler: Sie sind nicht berechtigt, Tokens vom Typ <x id="PH" equiv-text="this.displayData.type"/> zu erstellen.</target>
+      <trans-unit id="1460878502616749162" datatype="html">
+        <source>You are not allowed to enroll tokens of type "<x id="PH" equiv-text="this.displayData.type"/>".</source>
+        <target state="translated">Sie sind nicht berechtigt, Tokens vom Typ "<x id="PH" equiv-text="this.displayData.type"/>" zu erstellen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll/enroll.component.ts</context>
-          <context context-type="linenumber">60</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6652424493490915459" datatype="html">
+        <source>Error: <x id="PH" equiv-text="err.message"/></source>
+        <target state="translated">Fehler: <x id="PH" equiv-text="err.message"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/enroll/enroll.component.ts</context>
+          <context context-type="linenumber">61</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4339012091739421928" datatype="html">
