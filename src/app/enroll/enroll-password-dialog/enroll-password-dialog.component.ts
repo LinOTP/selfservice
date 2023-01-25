@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { TokenType } from '@linotp/data-models';
 import { EnrollmentOptions } from '../../api/token';
@@ -16,20 +16,20 @@ export class EnrollPasswordDialogComponent extends EnrollDialogBaseComponent imp
   public matcher = new ErrorStateRootMatcher();
 
   @ViewChild(MatStepper, { static: true }) public stepper: MatStepper;
-  public enrollmentStep: FormGroup;
+  public enrollmentStep: UntypedFormGroup;
 
   public ngOnInit() {
-    this.enrollmentStep = new FormGroup(
+    this.enrollmentStep = new UntypedFormGroup(
       {
-        'password': new FormControl('', [Validators.required]),
-        'confirmation': new FormControl('', [Validators.required]),
-        'description': new FormControl($localize`Created via SelfService`, [Validators.required]),
+        'password': new UntypedFormControl('', [Validators.required]),
+        'confirmation': new UntypedFormControl('', [Validators.required]),
+        'description': new UntypedFormControl($localize`Created via SelfService`, [Validators.required]),
       },
       this.checkPasswords
     );
   }
 
-  private checkPasswords(group: FormGroup): (ValidationErrors | null) {
+  private checkPasswords(group: UntypedFormGroup): (ValidationErrors | null) {
     const password: string = group.get('password')?.value;
     const passwordConfirmation: string = group.get('confirmation')?.value;
 

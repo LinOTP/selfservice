@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 
 import { TokenService } from '../../api/token.service';
@@ -12,13 +12,13 @@ import { TokenService } from '../../api/token.service';
 export class GetSerialDialogComponent {
 
   private awaitingResponse = false;
-  public form: FormGroup;
+  public form: UntypedFormGroup;
 
 
   constructor(
     private dialogRef: MatDialogRef<GetSerialDialogComponent>,
     private tokenService: TokenService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
   ) {
     this.form = this.formBuilder.group(
       {

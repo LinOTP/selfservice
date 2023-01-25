@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, Validators } from '@angular/forms';
+import { UntypedFormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { TokenType } from '@linotp/data-models';
 import { EnrollDialogBaseComponent } from '../enroll-dialog-base.component';
@@ -11,7 +11,7 @@ import { EnrollDialogBaseComponent } from '../enroll-dialog-base.component';
 })
 export class EnrollYubicoDialogComponent extends EnrollDialogBaseComponent implements OnInit {
 
-  public registrationForm: FormGroup;
+  public registrationForm: UntypedFormGroup;
   @ViewChild(MatStepper) public stepper: MatStepper;
 
   ngOnInit() {

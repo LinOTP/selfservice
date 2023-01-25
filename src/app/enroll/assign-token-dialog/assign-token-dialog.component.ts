@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, Validators } from '@angular/forms';
+import { UntypedFormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { GetSerialDialogComponent } from '../../common/get-serial-dialog/get-serial-dialog.component';
 import { EnrollDialogBaseComponent } from '../enroll-dialog-base.component';
@@ -12,7 +12,7 @@ import { EnrollDialogBaseComponent } from '../enroll-dialog-base.component';
 })
 export class AssignTokenDialogComponent extends EnrollDialogBaseComponent implements OnInit {
 
-  public assignmentForm: FormGroup;
+  public assignmentForm: UntypedFormGroup;
   @ViewChild(MatStepper) public stepper: MatStepper;
   @ViewChild('serialInput') public serialInput: ElementRef;
 

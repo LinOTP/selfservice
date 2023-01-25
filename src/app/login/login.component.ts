@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChildren, QueryList, ElementRef, HostListener } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { map } from 'rxjs/operators';
@@ -34,8 +34,8 @@ export class LoginComponent implements OnInit {
 
   message: string;
 
-  loginFormGroup: FormGroup;
-  secondFactorFormGroup: FormGroup;
+  loginFormGroup: UntypedFormGroup;
+  secondFactorFormGroup: UntypedFormGroup;
 
   redirectUrl: string;
 
@@ -65,7 +65,7 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private systemService: SystemService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private breakpointObserver: BreakpointObserver,
     private dialog: MatDialog,
   ) { }

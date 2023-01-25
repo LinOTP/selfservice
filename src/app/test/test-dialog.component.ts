@@ -1,5 +1,5 @@
 import { Component, Inject, ViewChild, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, Validators, FormBuilder, NgForm } from '@angular/forms';
+import { UntypedFormGroup, Validators, UntypedFormBuilder, NgForm } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { Subscription } from 'rxjs';
@@ -34,7 +34,7 @@ export class TestDialogComponent implements OnInit, OnDestroy {
   public challResult: StatusDetail;
   public errorMessage: string;
 
-  public formGroup: FormGroup;
+  public formGroup: UntypedFormGroup;
 
   public serial: string;
   public transactionDetail: TransactionDetail;
@@ -50,7 +50,7 @@ export class TestDialogComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { serial: string, type: TokenType },
     private testService: TestService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
   ) {
     this.formGroup = this.formBuilder.group({
       otp: ['', Validators.required],

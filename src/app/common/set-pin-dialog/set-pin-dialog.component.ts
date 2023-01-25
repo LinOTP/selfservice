@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { FormControl, FormGroup, ValidationErrors } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, ValidationErrors } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { SelfserviceToken } from '../../api/token';
@@ -15,7 +15,7 @@ export class SetPinDialogComponent {
 
   private awaitingResponse = false;
   public matcher = new ErrorStateRootMatcher();
-  public form: FormGroup;
+  public form: UntypedFormGroup;
 
   public newPinPlaceholder = $localize`New PIN`;
   public confirmPinPlaceholder = $localize`Confirm your new PIN`;
@@ -25,10 +25,10 @@ export class SetPinDialogComponent {
     @Inject(MAT_DIALOG_DATA) private token: SelfserviceToken,
     private operationsService: OperationsService,
   ) {
-    this.form = new FormGroup(
+    this.form = new UntypedFormGroup(
       {
-        newPin: new FormControl(''),
-        confirmPin: new FormControl(''),
+        newPin: new UntypedFormControl(''),
+        confirmPin: new UntypedFormControl(''),
       },
       this.checkPins
     );
@@ -39,7 +39,7 @@ export class SetPinDialogComponent {
    *
    * @param group form group containing a `newPin` and a `confirmPin` control.
    */
-  private checkPins(group: FormGroup): (ValidationErrors | null) {
+  private checkPins(group: UntypedFormGroup): (ValidationErrors | null) {
     const newPin: string = group.get('newPin')?.value;
     const confirmPin: string = group.get('confirmPin')?.value;
 

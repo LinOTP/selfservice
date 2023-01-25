@@ -1,4 +1,4 @@
-import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
+import { UntypedFormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 
 /**
@@ -13,7 +13,7 @@ export class ErrorStateRootMatcher implements ErrorStateMatcher {
      * @param control the control where to display eventual error state warnings
      * @param form form reference not used in this method, but required by the interface.
      */
-    isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    isErrorState(control: UntypedFormControl | null, form: FormGroupDirective | NgForm | null): boolean {
         return control?.touched && (control.invalid || control.root.invalid);
     }
 }
