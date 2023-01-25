@@ -23,7 +23,7 @@
     "@angular-devkit/core" "14.2.10"
     rxjs "6.6.7"
 
-"@angular-devkit/build-angular@~14.2.10":
+"@angular-devkit/build-angular@^14.2.10":
   version "14.2.10"
   resolved "https://registry.yarnpkg.com/@angular-devkit/build-angular/-/build-angular-14.2.10.tgz#dfa0d85ba31a7624081145be5e1d9ca3ad07a666"
   integrity sha512-VCeZAyq4uPCJukKInaSiD4i/GgxgcU4jFlLFQtoYNmaBS4xbPOymL19forRIihiV0dwNEa2L694vRTAPMBxIfw==
@@ -271,7 +271,7 @@
   resolved "https://registry.yarnpkg.com/@angular/language-service/-/language-service-14.2.12.tgz#d17b18f0f7cab815bd0cdeb8b9c04989d6a4512b"
   integrity sha512-YmW6simyEVmpDmbYVUhZ2IxSP6pmsWrV120rB9Y21/BeM39WIXA4NCNirVWlAd/KAKY9O7Sbn1nXI6rSDfhopQ==
 
-"@angular/localize@~14.2.12":
+"@angular/localize@^14.2.12":
   version "14.2.12"
   resolved "https://registry.yarnpkg.com/@angular/localize/-/localize-14.2.12.tgz#d422654ded5d1a014440438031af1af0e276c91b"
   integrity sha512-6TTnuvubvYL1LDIJhDfd7ygxTaj0ShTILCDXT4URBhZKQbQ3HAorDqsc6SXqZVGCHdqF0hGTaeN/7zVvgP9kzA==
