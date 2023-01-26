@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormGroup, Validators } from '@angular/forms';
-import { MatDialogConfig } from '@angular/material/dialog';
+import { MatLegacyDialogConfig as MatDialogConfig } from '@angular/material/legacy-dialog';
 import { MatStepper } from '@angular/material/stepper';
 import { switchMap } from 'rxjs/operators';
 import { ActivateDialogComponent } from '../../activate/activate-dialog.component';

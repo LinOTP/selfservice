@@ -13,7 +13,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { TransactionDetail, ReplyMode, StatusDetail } from '../api/test.service';
 import { Subscription } from 'rxjs';
 import { DialogComponent } from '../common/dialog/dialog.component';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 
 export enum LoginStage {
   USER_PW_INPUT = 1,
