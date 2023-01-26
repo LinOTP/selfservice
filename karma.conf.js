@@ -7,6 +7,7 @@ module.exports = function (config) {
     frameworks: ['jasmine', '@angular-devkit/build-angular'],
     plugins: [
       require('karma-jasmine'),
+      require('karma-coverage'),
       require('karma-chrome-launcher'),
       require('karma-firefox-launcher'),
       require('karma-jasmine-html-reporter'),
@@ -20,7 +21,10 @@ module.exports = function (config) {
       dir: require('path').join(__dirname, 'coverage'), reports: ['html', 'lcovonly', 'text', 'text-summary'],
       fixWebpackSourcePaths: true
     },
-    reporters: ['progress', 'kjhtml'],
+    jasmineHtmlReporter: {
+      suppressAll: true // removes the duplicated traces
+    },
+    reporters: ['progress', 'kjhtml', 'coverage'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
@@ -34,6 +38,6 @@ module.exports = function (config) {
         ]
       }
     },
-    singleRun: false
+    restartOnFileChange: true
   });
 };
