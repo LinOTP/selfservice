@@ -1,7 +1,8 @@
 {
   "root": true,
   "ignorePatterns": [
-    "projects/**/*"
+    "dist",
+    "coverage"
   ],
   "overrides": [
     {
@@ -9,13 +10,12 @@
         "*.ts"
       ],
       "parserOptions": {
-        "project": [
-          "tsconfig.json",
-          "e2e/tsconfig.json"
-        ],
+        "ecmaVersion": 2020,
         "createDefaultProgram": true
       },
       "extends": [
+        //"plugin:@typescript-eslint/recommended",
+        //"eslint:recommended",
         "plugin:@angular-eslint/recommended",
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
