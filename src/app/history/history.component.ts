@@ -2,7 +2,7 @@ import { Component, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular
 
 import { HistoryService } from '../api/history.service';
 import { HistoryRequestOptions, HistoryRecord, SortOrder, HistoryField, HistoryPage } from '../api/history';
-import { MatLegacyPaginator as MatPaginator } from '@angular/material/legacy-paginator';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { BehaviorSubject, merge, Observable } from 'rxjs';
 import { startWith, switchMap, tap, filter } from 'rxjs/operators';

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, OnDestroy } from '@angular/core';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 
 import { Subject, of, Subscription } from 'rxjs';
 import { filter, switchMap } from 'rxjs/operators';

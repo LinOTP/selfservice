@@ -2,7 +2,7 @@
       (ngSubmit)="login()"
       id="loginFormStage1"
       *ngIf="loginStage === 1">
-  <mat-card>
+  <mat-card appearance="outlined">
     <mat-card-title i18n="card header|login page title">Login</mat-card-title>
     <mat-card-content>
       <mat-form-field>
@@ -54,7 +54,7 @@
   </mat-card>
 </form>
 
-<mat-card id="loginStage2"
+<mat-card appearance="outlined" id="loginStage2"
           *ngIf="loginStage === 2">
   <mat-card-title i18n="card header|login page title">2-step authentication</mat-card-title>
   <mat-card-content>
@@ -116,7 +116,7 @@
       (ngSubmit)="submitSecondFactor()"
       id="loginFormStage3"
       *ngIf="loginStage === 3">
-  <mat-card>
+  <mat-card appearance="outlined">
     <mat-card-title i18n="card header|login page title">2-step authentication</mat-card-title>
     <mat-card-content>
       <p i18n>Selected authentication method:

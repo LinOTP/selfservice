@@ -18,7 +18,7 @@ import { LoginComponent, LoginStage } from './login.component';
 import { LoginService } from './login.service';
 import { MockComponent } from '../../testing/mock-component';
 import { SelfserviceToken } from '../api/token';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../common/dialog/dialog.component';
 
 class Page extends TestingPage<LoginComponent> {

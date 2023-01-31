@@ -13,10 +13,10 @@
 //  If you specify typography styles for the components you use elsewhere, you should delete this line.
 //  If you don't need the default component typographies but still want the hierarchy styles,
 //  you can delete this line and instead use:
-//    `@include mat.legacy-typography-hierarchy(mat.define-legacy-typography-config());`
-@include mat.all-legacy-component-typographies();
-@include mat.legacy-core();
-@include mat.all-legacy-component-themes($theme);
+//    `@include mat.legacy-typography-hierarchy(mat.define-typography-config());`
+@include mat.all-component-typographies();
+@include mat.core();
+@include mat.all-component-themes($theme);
 
 /* Global styles: */
 
@@ -29,22 +29,22 @@ body {
 
 /* Remove the spacing needed for hints */
 /* use class .inline-no-hint in mat form fields to activate this rule */
-.mat-form-field.inline-no-hint {
-
+.mat-mdc-form-field.inline-no-hint {
+  /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
   .mat-form-field-wrapper {
     padding-bottom: 0;
   }
-
+  /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
   .mat-form-field-underline {
     bottom: 0;
   }
-
+  /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
   .mat-form-field-subscript-wrapper {
     display: none;
   }
 }
 
-.mat-form-field {
+.mat-mdc-form-field {
   margin-bottom: 10px;
 }
 

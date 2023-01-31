@@ -1,5 +1,5 @@
 <ng-container *ngFor="let type of tokenTypes">
-  <mat-card *ngxPermissionsOnly="type.enrollmentPermission">
+  <mat-card appearance="outlined" *ngxPermissionsOnly="type.enrollmentPermission">
     <mat-card-header>
       <mat-icon mat-card-avatar>{{type.icon}}</mat-icon>
       <mat-card-title>{{type.name | capitalize }}</mat-card-title>

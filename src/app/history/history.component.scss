@@ -16,7 +16,7 @@
     margin: 5px;
   }
 
-  .mat-form-field.search-term {
+  .mat-mdc-form-field.search-term {
     flex: 1;
   }
 
@@ -29,7 +29,7 @@
   }
 }
 
-.mat-cell:not(:last-of-type),
+.mat-mdc-cell:not(:last-of-type),
 mat-header-cell:not(:last-of-type) {
   padding-right: 8px !important;
 }
