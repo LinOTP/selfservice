@@ -1,8 +1,8 @@
 @use '@angular/material' as mat;
 @import './../../theme.scss';
 
-#loginCard {
-  width: 25em;
+mat-card {
+  width: 35em;
   margin: 0 auto;
 }
 
@@ -10,15 +10,10 @@ mat-form-field {
   width: 100%;
 }
 
-/* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
 mat-card-actions {
-  display: flex;
-  padding-left: 0;
-  padding-right: 0;
   justify-content: flex-end;
 }
 
-/* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
 mat-card-title {
   margin-bottom: 1em;
 }
@@ -31,8 +26,9 @@ span.selectedToken {
   }
 }
 
-#loginStage2 .token-list > * {
+#loginStage2 .token-list>* {
   border-left: 5px solid transparent;
+
   &:focus {
     border-left-color: mat.get-color-from-palette($theme-app-primary, 500);
   }
@@ -40,6 +36,9 @@ span.selectedToken {
 
 .token-list-item-heading {
   text-transform: capitalize;
+  margin: 0px;
+  padding-top: 36px;
+
   mat-icon {
     vertical-align: middle;
     margin-right: 3px;
@@ -52,11 +51,12 @@ span.selectedToken {
 }
 
 .token-list-item-prompt {
-  padding-top: 4px!important;
+  padding-top: 4px !important;
+  padding-bottom: 16px;
 }
 
 .token.mat-mdc-list-item {
-  height: 96px!important;
+  height: 112px !important;
 }
 
 .keyboard-hint {

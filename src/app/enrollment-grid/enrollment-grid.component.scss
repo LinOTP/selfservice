@@ -4,18 +4,22 @@
   margin: -.5em -.5em;
 }
 
-/* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
-/* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
 mat-card {
   display: flex;
   flex-direction: column;
   margin: .5em .5em;
-  /* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
+
+  .icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   mat-card-actions {
     display: flex;
     justify-content: center;
 
-    button {
+    a {
       flex: 1;
       text-transform: uppercase;
     }

@@ -3,7 +3,9 @@
       id="loginFormStage1"
       *ngIf="loginStage === 1">
   <mat-card appearance="outlined">
-    <mat-card-title i18n="card header|login page title">Login</mat-card-title>
+    <mat-card-header>
+      <mat-card-title i18n="card header|login page title">Login</mat-card-title>
+    </mat-card-header>
     <mat-card-content>
       <mat-form-field>
         <input matInput
@@ -54,9 +56,12 @@
   </mat-card>
 </form>
 
-<mat-card appearance="outlined" id="loginStage2"
+<mat-card appearance="outlined"
+          id="loginStage2"
           *ngIf="loginStage === 2">
-  <mat-card-title i18n="card header|login page title">2-step authentication</mat-card-title>
+  <mat-card-header>
+    <mat-card-title i18n="card header|login page title">2-step authentication</mat-card-title>
+  </mat-card-header>
   <mat-card-content>
     <div *ngIf="factors && factors.length > 0; else noFactors">
       <p i18n><b>Please choose an authentication method to verify that it is you logging in:</b></p>
@@ -117,7 +122,9 @@
       id="loginFormStage3"
       *ngIf="loginStage === 3">
   <mat-card appearance="outlined">
-    <mat-card-title i18n="card header|login page title">2-step authentication</mat-card-title>
+    <mat-card-header>
+      <mat-card-title i18n="card header|login page title">2-step authentication</mat-card-title>
+    </mat-card-header>
     <mat-card-content>
       <p i18n>Selected authentication method:
         <span class="selectedToken">

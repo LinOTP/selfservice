@@ -6,7 +6,7 @@
       i18n>Test {{ typeDetails.name }} {{ data.serial }}</h2>
 
 
-  <div mat-dialog-content>
+  <mat-dialog-content>
     <ng-container [ngSwitch]="state">
 
       <ng-container *ngSwitchCase="TestState.LOADING">
@@ -100,9 +100,9 @@
       </ng-container>
 
     </ng-container>
-  </div>
+  </mat-dialog-content>
 
-  <div mat-dialog-actions>
+  <mat-dialog-actions>
     <button mat-button
             type="button"
             mat-dialog-close
@@ -129,6 +129,6 @@
             *ngIf="state === TestState.SUCCESS"
             appFocusOnInit
             i18n>done</button>
-  </div>
+  </mat-dialog-actions>
 
 </form>
