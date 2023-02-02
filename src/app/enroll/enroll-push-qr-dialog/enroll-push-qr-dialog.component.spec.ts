@@ -173,6 +173,10 @@ describe('EnrollPushDialogComponent', () => {
       component.finalizeEnrollment();
       expect(dialogRef.close).toHaveBeenCalledWith(true);
       expect(dialog.open).toHaveBeenCalledTimes(1);
+      expect(dialog.open).toHaveBeenCalledOnceWith(ActivateDialogComponent, {
+        width: '650px',
+        data: { serial: component.enrolledToken.serial, type: component.enrolledToken.type }
+      });
     });
 
     it(`should open the ActivateDialog even if the user does not have permissions to test a token`, () => {

@@ -126,6 +126,10 @@ describe('EnrollDialogBaseComponent with testing permissions', () => {
             component.finalizeEnrollment();
             expect(dialogRef.close).toHaveBeenCalledWith(true);
             expect(dialog.open).toHaveBeenCalledTimes(1);
+            expect(dialog.open).toHaveBeenCalledOnceWith(TestDialogComponent, {
+                width: '650px',
+                data: component.enrolledToken
+            });
         });
     });
 

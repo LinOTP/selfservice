@@ -104,7 +104,7 @@ describe('TokenCardComponent', () => {
       width: '850px',
       autoFocus: false,
       disableClose: true,
-      data: { token: component.token },
+      data: { serial: component.token.serial, type: component.token.typeDetails.type },
     };
   });
 
@@ -417,8 +417,8 @@ describe('TokenCardComponent', () => {
   describe('activate', () => {
     it('should open a Push token activation dialog', fakeAsync(() => {
       matDialog.open.and.returnValue({ afterClosed: () => of({}) } as MatDialogRef<ActivateDialogComponent>);
-      expectedDialogConfig.data.token = Fixtures.pairedPushToken;
-      expectedDialogConfig.data.activate = true;
+      expectedDialogConfig.data.serial = Fixtures.pairedPushToken.serial;
+      expectedDialogConfig.data.type = Fixtures.pairedPushToken.typeDetails.type;
 
       component.token = Fixtures.pairedPushToken;
       component.activate();
@@ -429,8 +429,8 @@ describe('TokenCardComponent', () => {
 
     it('should open a Push token activation dialog', fakeAsync(() => {
       matDialog.open.and.returnValue({ afterClosed: () => of({}) } as MatDialogRef<ActivateDialogComponent>);
-      expectedDialogConfig.data.token = Fixtures.pairedQRToken;
-      expectedDialogConfig.data.activate = true;
+      expectedDialogConfig.data.serial = Fixtures.pairedQRToken.serial;
+      expectedDialogConfig.data.type = Fixtures.pairedQRToken.typeDetails.type;
 
       component.token = Fixtures.pairedQRToken;
       component.activate();
@@ -556,7 +556,7 @@ describe('TokenCardComponent', () => {
         width: '850px',
         autoFocus: false,
         disableClose: true,
-        data: { token: component.token },
+        data: { serial: component.token.serial, type: component.token.typeDetails.type },
       };
 
       component.testToken();

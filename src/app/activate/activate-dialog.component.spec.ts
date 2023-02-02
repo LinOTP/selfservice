@@ -18,8 +18,7 @@ import { ActivateDialogComponent } from './activate-dialog.component';
 import { Subscription } from 'rxjs';
 import { TokenType } from '@linotp/data-models';
 
-const enrolledPushToken = {
-  url: 'urlpush',
+const data = {
   serial: 'serialpush',
   type: TokenType.PUSH
 };
@@ -47,7 +46,7 @@ describe('ActivateDialogComponent', () => {
           provide: EnrollmentService,
           useValue: spyOnClass(EnrollmentService),
         },
-        { provide: MAT_DIALOG_DATA, useValue: { token: enrolledPushToken } },
+        { provide: MAT_DIALOG_DATA, useValue: data },
         { provide: MatDialogRef, useValue: spyOnClass(MatDialogRef) },
         { provide: MatStepper, useValue: spyOnClass(MatStepper) },
       ],

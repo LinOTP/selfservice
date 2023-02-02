@@ -7,7 +7,6 @@ import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { EnrollmentService } from '../api/enrollment.service';
 import { TokenType } from '@linotp/data-models';
 import { of, Subscription } from 'rxjs';
-import { EnrolledToken } from '../enroll/enroll-dialog-base.component';
 import { TokenDisplayData, tokenDisplayData } from '../api/token';
 
 @Component({
@@ -33,15 +32,15 @@ export class ActivateDialogComponent implements OnInit, OnDestroy {
   constructor(
     private enrollmentService: EnrollmentService,
     private dialogRef: MatDialogRef<ActivateDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { token: EnrolledToken },
+    @Inject(MAT_DIALOG_DATA) public data: { serial: string, type: TokenType },
   ) {
-    if (data.token.type === TokenType.PUSH) {
+    if (data.type === TokenType.PUSH) {
       this.isPush = true;
     }
-    if (data.token.type === TokenType.QR) {
+    if (data.type === TokenType.QR) {
       this.isQR = true;
     }
-    this.typeDetails = tokenDisplayData.find(d => d.type === data.token.type);
+    this.typeDetails = tokenDisplayData.find(d => d.type === data.type);
   }
 
   public ngOnInit() {
@@ -61,7 +60,7 @@ export class ActivateDialogComponent implements OnInit, OnDestroy {
 
     stepper.next();
 
-    this.pairingSubscription = this.enrollmentService.activate(this.data.token.serial, this.pin).pipe(
+    this.pairingSubscription = this.enrollmentService.activate(this.data.serial, this.pin).pipe(
       tap(detail => {
         if (!detail || !(detail.transactionid)) {
           throw new Error();
@@ -69,7 +68,7 @@ export class ActivateDialogComponent implements OnInit, OnDestroy {
       }),
       tap(detail => {
         this.transactionId = detail.transactionid.toString().slice(0, 6);
-        if (this.data.token.type === TokenType.QR) {
+        if (this.data.type === TokenType.QR) {
           if (!(detail.message)) {
             throw new Error();
 
@@ -77,7 +76,7 @@ export class ActivateDialogComponent implements OnInit, OnDestroy {
           this.tokenQRUrl = detail.message;
         }
       }),
-      switchMap(detail => this.enrollmentService.challengePoll(detail.transactionid, this.pin, this.data.token.serial)),
+      switchMap(detail => this.enrollmentService.challengePoll(detail.transactionid, this.pin, this.data.serial)),
       map((res: { accept?: boolean, reject?: boolean, valid_tan?: boolean }) => {
         return res?.accept === true || res?.reject === true || res?.valid_tan === true;
       }

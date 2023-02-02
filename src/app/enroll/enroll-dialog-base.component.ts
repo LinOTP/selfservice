@@ -86,7 +86,7 @@ export abstract class EnrollDialogBaseComponent implements OnInit, OnDestroy {
     if (this.testAfterEnrollment) {
       const testConfig: MatDialogConfig = {
         width: '650px',
-        data: { token: this.enrolledToken }
+        data: { serial: this.enrolledToken.serial, type: this.enrolledToken.type }
       };
       this.dialogRef.afterClosed().pipe(
         switchMap(() => this.dialog.open(TestDialogComponent, testConfig).afterClosed())
