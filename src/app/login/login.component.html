@@ -45,7 +45,7 @@
       </mat-form-field>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button
+      <button mat-button
               type="submit"
               color="primary"
               [disabled]="awaitingResponse">
@@ -109,7 +109,7 @@
     <ng-template #noFactors>
       <p i18n>You do not own any valid tokens or there was a problem retrieving them from the server.
         Please contact an administrator.</p>
-      <button mat-raised-button
+      <button mat-button
               (click)="resetAuthForm()">
         Retry
       </button>
@@ -164,7 +164,7 @@
       </ng-container>
 
       <div class="otpInput">
-        <button mat-raised-button
+        <button mat-button
                 (click)="showInput()"
                 *ngIf="transactionDetail && hasOnlineMode && hasOfflineMode && !showInputField"
                 i18n>Manually enter OTP</button>
@@ -198,7 +198,7 @@
               color="primary"
               (click)="resetAuthForm()"
               i18n="2nd factor login action|login page second factor cancel button">Cancel</button>
-      <button mat-raised-button
+      <button mat-button
               type="submit"
               color="primary"
               [disabled]="awaitingResponse"

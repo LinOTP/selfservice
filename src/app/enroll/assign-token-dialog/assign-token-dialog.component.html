@@ -19,7 +19,7 @@
              *ngxPermissionsOnly="Permission.GETSERIAL">
           <p i18n>If you do not have the token serial at hand, you can use a generated OTP value to determine the
             serial of your token.</p>
-          <button mat-raised-button
+          <button mat-button
                   (click)="getSerial()"
                   i18n>Determine serial</button>
         </div>
@@ -49,11 +49,11 @@
       <mat-dialog-actions align="end">
         <div i18n>Step 1 of 2</div>
         <span class="spacer"></span>
-        <button mat-raised-button
+        <button mat-button
                 type="button"
                 (click)="close()"
                 i18n>Cancel</button>
-        <button mat-raised-button
+        <button mat-button
                 color="primary"
                 type="submit"
                 [disabled]="assignmentForm.invalid || assignmentForm.disabled">
@@ -71,7 +71,7 @@
       <ng-container *ngxPermissionsOnly="Permission.SETPIN">
         <p i18n>You may set a PIN now to protect your token against misuse, as it ensures only you can use your token.
           This step is optional, and you can still do it later over the token menu.</p>
-        <button mat-raised-button
+        <button mat-button
                 color="primary"
                 (click)="setPin()"
                 i18n>Set pin</button>
@@ -85,7 +85,7 @@
     <mat-dialog-actions align="end">
       <div i18n>Step 2 of 2</div>
       <span class="spacer"></span>
-      <button mat-raised-button
+      <button mat-button
               (click)="finalizeEnrollment()"
               color="primary">{{ closeLabel }}</button>
     </mat-dialog-actions>

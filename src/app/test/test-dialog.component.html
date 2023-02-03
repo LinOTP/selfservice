@@ -48,7 +48,7 @@
         </ng-container>
 
         <div class="otpInput">
-          <button mat-raised-button
+          <button mat-button
                   (click)="showInput()"
                   *ngIf="hasOnlineMode && hasOfflineMode && !showInputField"
                   i18n>Manually enter OTP</button>
@@ -108,7 +108,7 @@
             mat-dialog-close
             *ngIf="state !== TestState.SUCCESS"
             i18n>cancel</button>
-    <button mat-raised-button
+    <button mat-button
             type="button"
             color="primary"
             type="reset"
@@ -116,13 +116,13 @@
             *ngIf="state === TestState.FAILURE"
             appFocusOnInit
             i18n>restart test</button>
-    <button mat-raised-button
+    <button mat-button
             color="primary"
             type="submit"
             [disabled]="formGroup.invalid"
             *ngIf="state === TestState.UNTESTED && hasOfflineMode"
             i18n>submit</button>
-    <button mat-raised-button
+    <button mat-button
             type="button"
             color="primary"
             mat-dialog-close

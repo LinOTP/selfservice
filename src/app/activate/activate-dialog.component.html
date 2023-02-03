@@ -31,10 +31,10 @@
     <mat-dialog-actions align="end">
       <div i18n>Activation step 1 of 3</div>
       <span class="spacer"></span>
-      <button mat-raised-button
+      <button mat-button
               (click)="close()"
               i18n>Cancel</button>
-      <button mat-raised-button
+      <button mat-button
               color="primary"
               id="goTo2"
               (click)="activateToken(stepper)"
@@ -62,7 +62,7 @@
       <mat-dialog-actions align="end">
         <div i18n>Activation step 2 of 3</div>
         <span class="spacer"></span>
-        <button mat-raised-button
+        <button mat-button
                 i18n
                 (click)="close()">Cancel</button>
       </mat-dialog-actions>
@@ -80,16 +80,16 @@
       <mat-dialog-actions align="end">
         <div i18n>Activation step 3 of 3</div>
         <span class="spacer"></span>
-        <button mat-raised-button
+        <button mat-button
                 (click)="close()"
                 *ngIf="restartDialog"
                 i18n>Cancel</button>
-        <button mat-raised-button
+        <button mat-button
                 color="primary"
                 (click)="resetDialogToInitial(stepper)"
                 *ngIf="restartDialog"
                 i18n> Restart activation </button>
-        <button mat-raised-button
+        <button mat-button
                 color="primary"
                 (click)="close()"
                 *ngIf="!restartDialog"
