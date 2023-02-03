@@ -555,7 +555,6 @@ export class HistoryFixtures {
             '',
             '',
             '',
-            '',
             ''
           ]
         },
@@ -565,7 +564,6 @@ export class HistoryFixtures {
             '2020-11-17 11:28:28.058543',
             'userservice/usertokenlist',
             '0',
-            '',
             '',
             '',
             '',
@@ -581,8 +579,7 @@ export class HistoryFixtures {
             'TOTP0001A063',
             '',
             '',
-            'tokennum = 2',
-            ''
+            'tokennum = 2'
           ]
         },
         {
@@ -591,7 +588,6 @@ export class HistoryFixtures {
             '2020-11-17 19:52:35.619941',
             'userservice/history',
             '1',
-            '',
             '',
             '',
             '',
@@ -607,7 +603,6 @@ export class HistoryFixtures {
             '',
             '',
             '',
-            '',
             ''
           ]
         },
@@ -620,8 +615,7 @@ export class HistoryFixtures {
             'TOTP0001A063',
             '',
             '',
-            'tokennum = 2',
-            ''
+            'tokennum = 2'
           ]
         },
         {
@@ -630,7 +624,6 @@ export class HistoryFixtures {
             '2020-11-17 19:52:35.619941',
             'userservice/history',
             '1',
-            '',
             '',
             '',
             '',
@@ -646,7 +639,6 @@ export class HistoryFixtures {
             '',
             '',
             '',
-            '',
             ''
           ]
         },
@@ -659,8 +651,7 @@ export class HistoryFixtures {
             'TOTP0001A063',
             '',
             '',
-            'tokennum = 2',
-            ''
+            'tokennum = 2'
           ]
         },
         {
@@ -669,7 +660,6 @@ export class HistoryFixtures {
             '2020-11-17 19:52:35.619941',
             'userservice/history',
             '1',
-            '',
             '',
             '',
             '',
@@ -691,8 +681,7 @@ export class HistoryFixtures {
           success: true,
           serial: '',
           tokenType: null,
-          actionDetail: '',
-          info: '',
+          actionDetail: ''
         },
         {
           date: new Date('2020-11-17 11:28:28.058543'),
@@ -700,8 +689,7 @@ export class HistoryFixtures {
           success: false,
           serial: '',
           tokenType: null,
-          actionDetail: '',
-          info: '',
+          actionDetail: ''
         },
         {
           date: new Date('2020-11-17 11:28:11.111613'),
@@ -709,8 +697,7 @@ export class HistoryFixtures {
           success: true,
           serial: 'TOTP0001A063',
           tokenType: null,
-          actionDetail: 'tokennum = 2',
-          info: '',
+          actionDetail: 'tokennum = 2'
         },
         {
           date: new Date('2020-11-17 19:52:35.619941'),
@@ -718,8 +705,7 @@ export class HistoryFixtures {
           success: true,
           serial: '',
           tokenType: null,
-          actionDetail: '',
-          info: '',
+          actionDetail: ''
         },
         {
           date: new Date('2020-11-17 11:28:28.058543'),
@@ -727,8 +713,7 @@ export class HistoryFixtures {
           success: false,
           serial: '',
           tokenType: null,
-          actionDetail: '',
-          info: '',
+          actionDetail: ''
         },
         {
           date: new Date('2020-11-17 11:28:11.111613'),
@@ -736,8 +721,7 @@ export class HistoryFixtures {
           success: true,
           serial: 'TOTP0001A063',
           tokenType: null,
-          actionDetail: 'tokennum = 2',
-          info: '',
+          actionDetail: 'tokennum = 2'
         },
         {
           date: new Date('2020-11-17 19:52:35.619941'),
@@ -745,8 +729,7 @@ export class HistoryFixtures {
           success: true,
           serial: '',
           tokenType: null,
-          actionDetail: '',
-          info: '',
+          actionDetail: ''
         },
         {
           date: new Date('2020-11-17 11:28:28.058543'),
@@ -754,8 +737,7 @@ export class HistoryFixtures {
           success: false,
           serial: '',
           tokenType: null,
-          actionDetail: '',
-          info: '',
+          actionDetail: ''
         },
         {
           date: new Date('2020-11-17 11:28:11.111613'),
@@ -763,8 +745,7 @@ export class HistoryFixtures {
           success: true,
           serial: 'TOTP0001A063',
           tokenType: null,
-          actionDetail: 'tokennum = 2',
-          info: '',
+          actionDetail: 'tokennum = 2'
         },
         {
           date: new Date('2020-11-17 19:52:35.619941'),
@@ -772,8 +753,7 @@ export class HistoryFixtures {
           success: true,
           serial: '',
           tokenType: null,
-          actionDetail: '',
-          info: '',
+          actionDetail: ''
         }
       ],
     };
