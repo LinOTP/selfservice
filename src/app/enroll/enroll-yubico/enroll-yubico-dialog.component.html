@@ -10,19 +10,20 @@
 
       <mat-dialog-content>
         <p i18n>Register your Yubikey to authenticate against the YubiCloud.</p>
-        <p i18n>Please enter its Public ID below, and an optional description:</p>
-
+        <p i18n>To link your token, enter a generated OTP by connecting your YubiKey and pressing the button.
+          Alternatively, you may enter the public ID manually:</p>
         <mat-form-field>
           <input matInput
                  i18n-placeholder
-                 placeholder="Public ID or OTP"
+                 placeholder="OTP or public ID"
                  formControlName="publicId"
                  appFocusOnInit>
-          <mat-error i18n>The public ID is required.</mat-error>
-          <mat-hint i18n>To link your token, enter a generated OTP by connecting your YubiKey and pressing the button.
-            Alternatively, you may enter the public ID manually.</mat-hint>
+          <mat-error i18n>This field is required.</mat-error>
+          <mat-hint i18n>Generate an OTP with your Yubikey.</mat-hint>
         </mat-form-field>
 
+        <p class="formSectionIntro"
+           i18n>You may set a token description, which should help you identify your token:</p>
         <mat-form-field>
           <input matInput
                  i18n-placeholder
