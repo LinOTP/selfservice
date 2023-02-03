@@ -92,7 +92,7 @@ export class LoginComponent implements OnInit {
       const majorVersion = Number(systemInfo?.version?.match(/LinOTP (\d*?)\./)[1]) || 0;
       if (majorVersion < MIN_BACKEND_MAJOR_VERSION && !this.incompatibleServerDialog) {
         const config = {
-          width: '25em',
+          width: '35em',
           disableClose: true,
           autoFocus: true,
           data: {

@@ -142,7 +142,7 @@ describe('LoginComponent', () => {
       fixture.detectChanges();
 
       const config = {
-        width: '25em',
+        width: '35em',
         disableClose: true,
         autoFocus: true,
         data: {
@@ -160,7 +160,7 @@ describe('LoginComponent', () => {
       fixture.detectChanges();
 
       const config = {
-        width: '25em',
+        width: '35em',
         disableClose: true,
         autoFocus: true,
         data: {

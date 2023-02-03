@@ -114,7 +114,7 @@ export abstract class EnrollDialogBaseComponent implements OnInit, OnDestroy {
       tap(res => canDelete = res),
       switchMap(() => {
         const dialogConfig = {
-          width: '25em',
+          width: '35em',
           autoFocus: false,
           disableClose: true,
           data: {
@@ -148,7 +148,7 @@ export abstract class EnrollDialogBaseComponent implements OnInit, OnDestroy {
 
   public setPin() {
     const config = {
-      width: '25em',
+      width: '35em',
       data: this.enrolledToken
     };
     this.dialog
