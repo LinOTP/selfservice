@@ -45,6 +45,7 @@ export class EnrollOATHDialogComponent extends EnrollDialogBaseComponent impleme
           seed: token.otpkey.value,
           type: this.tokenDisplayData.type,
         };
+        this.tokenService.updateTokenList();
         this.stepper.next();
       } else {
         this.enrollmentStep.enable();

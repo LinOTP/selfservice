@@ -22,11 +22,14 @@ import { NgxPermissionsService, NgxPermissionsAllowStubDirective } from 'ngx-per
 import { Subscription } from 'rxjs';
 import { LoginService } from '../../login/login.service';
 import { ActivateDialogComponent } from '../../activate/activate-dialog.component';
+import { TokenService } from '../../api/token.service';
 
 
 describe('EnrollPushDialogComponent', () => {
   let component: EnrollPushQRDialogComponent;
   let fixture: ComponentFixture<EnrollPushQRDialogComponent>;
+
+  let tokenService: jasmine.SpyObj<TokenService>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
   let loginService: jasmine.SpyObj<LoginService>;
 
@@ -52,7 +55,12 @@ describe('EnrollPushDialogComponent', () => {
         {
           provide: OperationsService,
           useValue: spyOnClass(OperationsService),
-        }, {
+        },
+        {
+          provide: TokenService,
+          useValue: spyOnClass(TokenService)
+        },
+        {
           provide: EnrollmentService,
           useValue: spyOnClass(EnrollmentService),
         },
@@ -88,6 +96,8 @@ describe('EnrollPushDialogComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(EnrollPushQRDialogComponent);
     component = fixture.componentInstance;
+
+    tokenService = getInjectedStub(TokenService);
     enrollmentService = getInjectedStub(EnrollmentService);
     loginService = getInjectedStub(LoginService);
 
@@ -142,6 +152,7 @@ describe('EnrollPushDialogComponent', () => {
     expect(component.enrolledToken).toEqual(expectedToken);
     expect(component.stepper.selectedIndex).toEqual(2);
     expect(component.enrollmentStep.disabled).toEqual(true);
+    expect(tokenService.updateTokenList).toHaveBeenCalledTimes(2);
   }));
 
   it('should stay on the first step and allow retrying if enrollment fails', fakeAsync(() => {
@@ -158,6 +169,7 @@ describe('EnrollPushDialogComponent', () => {
     expect(component.enrolledToken).toEqual(undefined);
     expect(component.stepper.selectedIndex).toEqual(0);
     expect(component.enrollmentStep.disabled).toEqual(false);
+    expect(tokenService.updateTokenList).not.toHaveBeenCalled();
   }));
 
   describe('finalizeEnrollment', () => {
@@ -171,12 +183,13 @@ describe('EnrollPushDialogComponent', () => {
       dialog.open.and.returnValue({ afterClosed: () => of({}) } as MatDialogRef<ActivateDialogComponent>);
 
       component.finalizeEnrollment();
-      expect(dialogRef.close).toHaveBeenCalledWith(true);
+      expect(dialogRef.close).toHaveBeenCalledWith();
       expect(dialog.open).toHaveBeenCalledTimes(1);
       expect(dialog.open).toHaveBeenCalledOnceWith(ActivateDialogComponent, {
         width: '650px',
         data: { serial: component.enrolledToken.serial, type: component.enrolledToken.type }
       });
+      expect(tokenService.updateTokenList).not.toHaveBeenCalled();
     });
 
     it(`should open the ActivateDialog even if the user does not have permissions to test a token`, () => {
@@ -190,8 +203,10 @@ describe('EnrollPushDialogComponent', () => {
       dialog.open.and.returnValue({ afterClosed: () => of({}) } as MatDialogRef<ActivateDialogComponent>);
 
       component.finalizeEnrollment();
-      expect(dialogRef.close).toHaveBeenCalledWith(true);
+      expect(dialogRef.close).toHaveBeenCalledWith();
       expect(dialog.open).toHaveBeenCalledTimes(1);
+      expect(tokenService.updateTokenList).not.toHaveBeenCalled();
+
     });
   });
 });

@@ -18,6 +18,7 @@ import { SetPinDialogComponent } from '../common/set-pin-dialog/set-pin-dialog.c
 import { LoginService } from '../login/login.service';
 import { TestDialogComponent } from '../test/test-dialog.component';
 import { TokenType } from '@linotp/data-models';
+import { TokenService } from '../api/token.service';
 
 
 export interface EnrolledToken {
@@ -41,6 +42,7 @@ export abstract class EnrollDialogBaseComponent implements OnInit, OnDestroy {
     protected sanitizer: DomSanitizer,
     protected permissionsService: NgxPermissionsService,
     protected enrollmentService: EnrollmentService,
+    protected tokenService: TokenService,
     protected formBuilder: FormBuilder,
     protected notificationService: NotificationService,
     protected operationsService: OperationsService,
@@ -92,7 +94,7 @@ export abstract class EnrollDialogBaseComponent implements OnInit, OnDestroy {
         switchMap(() => this.dialog.open(TestDialogComponent, testConfig).afterClosed())
       ).subscribe();
     }
-    this.dialogRef.close(true);
+    this.dialogRef.close();
   }
 
   /**
@@ -128,6 +130,7 @@ export abstract class EnrollDialogBaseComponent implements OnInit, OnDestroy {
           return this.operationsService.deleteToken(this.enrolledToken.serial).pipe(
             tap(response => {
               if (response) {
+                this.tokenService.updateTokenList();
                 this.notificationService.message($localize`Incomplete token was deleted`);
               }
             }),

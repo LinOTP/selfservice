@@ -46,7 +46,9 @@ export class EnrollPushQRDialogComponent extends EnrollDialogBaseComponent imple
           serial: token.serial,
           type: this.tokenDisplayData.type
         };
+        this.tokenService.updateTokenList();
         this.subscriptions.push(this.enrollmentService.pairingPoll(this.enrolledToken.serial).subscribe(() => {
+          this.tokenService.updateTokenList();
           this.stepper.next();
         }));
         this.stepper.next();
@@ -64,6 +66,6 @@ export class EnrollPushQRDialogComponent extends EnrollDialogBaseComponent imple
     this.dialogRef.afterClosed().pipe(
       switchMap(() => this.dialog.open(ActivateDialogComponent, testConfig).afterClosed())
     ).subscribe();
-    this.dialogRef.close(true);
+    this.dialogRef.close();
   }
 }

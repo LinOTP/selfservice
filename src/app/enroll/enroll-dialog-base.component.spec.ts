@@ -18,6 +18,7 @@ import { DialogComponent } from '../common/dialog/dialog.component';
 import { TokenType } from '@linotp/data-models';
 import { LoginService } from '../login/login.service';
 import { TestDialogComponent } from '../test/test-dialog.component';
+import { TokenService } from '../api/token.service';
 
 class MockComponent extends EnrollDialogBaseComponent { }
 
@@ -48,6 +49,10 @@ describe('EnrollDialogBaseComponent with testing permissions', () => {
                 {
                     provide: OperationsService,
                     useValue: spyOnClass(OperationsService)
+                },
+                {
+                    provide: TokenService,
+                    useValue: spyOnClass(TokenService)
                 },
                 {
                     provide: EnrollmentService,
@@ -124,7 +129,7 @@ describe('EnrollDialogBaseComponent with testing permissions', () => {
             dialog.open.and.returnValue({ afterClosed: () => of({}) } as MatDialogRef<TestDialogComponent>);
 
             component.finalizeEnrollment();
-            expect(dialogRef.close).toHaveBeenCalledWith(true);
+            expect(dialogRef.close).toHaveBeenCalledWith();
             expect(dialog.open).toHaveBeenCalledTimes(1);
             expect(dialog.open).toHaveBeenCalledOnceWith(TestDialogComponent, {
                 width: '650px',
@@ -261,6 +266,10 @@ describe('EnrollDialogBaseComponent without testing permissions', () => {
                     useValue: spyOnClass(OperationsService)
                 },
                 {
+                    provide: TokenService,
+                    useValue: spyOnClass(TokenService)
+                },
+                {
                     provide: EnrollmentService,
                     useValue: spyOnClass(EnrollmentService)
                 },
@@ -323,7 +332,7 @@ describe('EnrollDialogBaseComponent without testing permissions', () => {
 
             component.finalizeEnrollment();
             expect(dialog.open).not.toHaveBeenCalled();
-            expect(dialogRef.close).toHaveBeenCalledWith(true);
+            expect(dialogRef.close).toHaveBeenCalledWith();
         });
     });
 });

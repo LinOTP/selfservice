@@ -183,9 +183,7 @@ export class TokenCardComponent implements OnInit, OnDestroy {
 
     this.dialog.open(TestDialogComponent, dialogConfig)
       .afterClosed()
-      .subscribe(() => {
-        this.tokenUpdate.next();
-      });
+      .subscribe();
   }
 
   public activate(): void {
@@ -198,9 +196,7 @@ export class TokenCardComponent implements OnInit, OnDestroy {
 
     this.dialog.open(ActivateDialogComponent, dialogConfig)
       .afterClosed()
-      .subscribe(() => {
-        this.tokenUpdate.next();
-      });
+      .subscribe();
   }
 
   public unassign(): void {

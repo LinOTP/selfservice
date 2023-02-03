@@ -562,7 +562,6 @@ describe('TokenCardComponent', () => {
       component.testToken();
 
       expect(matDialog.open).toHaveBeenCalledWith(TestDialogComponent, expectedConfig);
-      expect(tokenUpdateSpy).toHaveBeenCalled();
     }));
   });
 
