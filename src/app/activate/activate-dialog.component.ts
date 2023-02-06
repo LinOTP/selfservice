@@ -8,7 +8,6 @@ import { EnrollmentService } from '../api/enrollment.service';
 import { TokenType } from '@linotp/data-models';
 import { of, Subscription } from 'rxjs';
 import { TokenDisplayData, tokenDisplayData } from '../api/token';
-import { TokenService } from '../api/token.service';
 
 @Component({
   selector: 'app-activate-dialog',
@@ -32,7 +31,6 @@ export class ActivateDialogComponent implements OnInit, OnDestroy {
 
   constructor(
     private enrollmentService: EnrollmentService,
-    private tokenService: TokenService,
     private dialogRef: MatDialogRef<ActivateDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { serial: string, type: TokenType },
   ) {
@@ -86,9 +84,6 @@ export class ActivateDialogComponent implements OnInit, OnDestroy {
     ).subscribe(success => {
       this.waitingForResponse = false;
       this.restartDialog = !success;
-      if (success) {
-        this.tokenService.updateTokenList();
-      }
     });
   }
 

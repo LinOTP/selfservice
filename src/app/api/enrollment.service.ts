@@ -70,6 +70,7 @@ export class EnrollmentService {
 
     return this.http.post<LinOTPResponse<boolean, EnrollmentDetail>>(enrollEndpoint, body)
       .pipe(
+        tap(() => this.tokenService.updateTokenList()), //TODO: move to back of pipe once tests support it
         tap(response => {
           if (!response?.result?.status
             || !response?.result?.value
@@ -86,7 +87,9 @@ export class EnrollmentService {
     return exponentialBackoffInterval(2000, 90000, 2).pipe(
       mergeMap(() => this.tokenService.getToken(serial)),
       filter(token => token.enrollmentStatus === EnrollmentStatus.PAIRING_RESPONSE_RECEIVED),
-      take(1));
+      take(1),
+      tap(() => this.tokenService.updateTokenList())
+    );
   }
 
   activate(serial: string, pin: string): Observable<ActivationDetail> {
@@ -100,6 +103,7 @@ export class EnrollmentService {
     };
     return this.http.post<LinOTPResponse<boolean, ActivationDetail>>(this.validateCheck, body)
       .pipe(
+        tap(() => this.tokenService.updateTokenList()), //TODO: move to back of pipe once tests support it
         tap(response => {
           if (!response?.result?.status
             || !response?.detail
@@ -144,6 +148,7 @@ export class EnrollmentService {
       map(res => res.detail.transactions[transactionId]),
       catchError(() => of(null)),
       take(1),
+      tap(() => this.tokenService.updateTokenList()),
     );
   }
 
@@ -160,6 +165,7 @@ export class EnrollmentService {
       .pipe(
         map(response => {
           if (response?.result?.value) {
+            this.tokenService.updateTokenList()
             return { success: response.result.value['assign token'] === true };
           } else if (response?.result?.error?.message) {
             let message = '';

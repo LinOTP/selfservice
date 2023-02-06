@@ -47,7 +47,6 @@ export class EnrollPasswordDialogComponent extends EnrollDialogBaseComponent imp
     this.enrollmentService.enroll(body).subscribe(token => {
       if (token?.serial) {
         this.enrolledToken = { serial: token.serial, type: TokenType.PASSWORD };
-        this.tokenService.updateTokenList();
         this.stepper.next();
       } else {
         this.enrollmentStep.enable();
