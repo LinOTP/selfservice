@@ -7,7 +7,6 @@ import { Subscription } from 'rxjs';
 import { tokenDisplayData, TokenDisplayData } from '../api/token';
 
 import { TestService, TransactionDetail, TestOptions, ReplyMode, StatusDetail } from '../api/test.service';
-import { EnrolledToken } from '../enroll/enroll-dialog-base.component';
 import { TokenType } from '@linotp/data-models';
 
 enum TestState {
@@ -49,15 +48,15 @@ export class TestDialogComponent implements OnInit, OnDestroy {
   public formDirective: NgForm;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: { token: EnrolledToken },
+    @Inject(MAT_DIALOG_DATA) public data: { serial: string, type: TokenType },
     private testService: TestService,
     private formBuilder: FormBuilder,
   ) {
     this.formGroup = this.formBuilder.group({
       otp: ['', Validators.required],
     });
-    this.serial = data.token.serial;
-    this.typeDetails = tokenDisplayData.find(d => d.type === data.token.type);
+    this.serial = data.serial;
+    this.typeDetails = tokenDisplayData.find(d => d.type === data.type);
   }
 
   ngOnInit() {
@@ -114,7 +113,7 @@ export class TestDialogComponent implements OnInit, OnDestroy {
       }
       const controls = this.formGroup.controls;
       const options: TestOptions = {
-        serial: this.data.token.serial,
+        serial: this.data.serial,
         otp: controls.otp.value,
         transactionid: this.transactionDetail.transactionId,
       };

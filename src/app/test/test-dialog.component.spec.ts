@@ -38,7 +38,7 @@ describe('TestDialogComponent', () => {
       providers: [
         {
           provide: MAT_DIALOG_DATA,
-          useValue: { token: enrolledToken },
+          useValue: enrolledToken,
         },
         {
           provide: TestService,

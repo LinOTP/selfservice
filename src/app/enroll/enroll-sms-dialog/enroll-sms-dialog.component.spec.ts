@@ -21,10 +21,13 @@ import { EnrollSMSDialogComponent } from './enroll-sms-dialog.component';
 import { UserSystemInfo } from '../../system.service';
 import { MockComponent } from '../../../testing/mock-component';
 import { LoginService } from '../../login/login.service';
+import { TokenService } from '../../api/token.service';
 
 describe('The EnrollSMSDialogComponent', () => {
   let component: EnrollSMSDialogComponent;
   let fixture: ComponentFixture<EnrollSMSDialogComponent>;
+
+  let tokenService: jasmine.SpyObj<TokenService>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
   let loginService: jasmine.SpyObj<LoginService>;
   let localStorageSpy: jasmine.Spy;
@@ -47,6 +50,10 @@ describe('The EnrollSMSDialogComponent', () => {
         {
           provide: OperationsService,
           useValue: spyOnClass(OperationsService)
+        },
+        {
+          provide: TokenService,
+          useValue: spyOnClass(TokenService)
         },
         {
           provide: EnrollmentService,
@@ -86,6 +93,7 @@ describe('The EnrollSMSDialogComponent', () => {
     fixture = TestBed.createComponent(EnrollSMSDialogComponent);
     component = fixture.componentInstance;
 
+    tokenService = getInjectedStub(TokenService);
     enrollmentService = getInjectedStub(EnrollmentService);
     loginService = getInjectedStub(LoginService);
 
@@ -120,6 +128,7 @@ describe('The EnrollSMSDialogComponent', () => {
     expect(component.enrolledToken.serial).toEqual(Fixtures.smsEnrollmentResponse.serial);
     expect(component.stepper.next).toHaveBeenCalledTimes(1);
     expect(component.enrollmentStep.disabled).toEqual(true);
+    expect(tokenService.updateTokenList).toHaveBeenCalledTimes(1);
   }));
 
   it('should enroll an sms token with a custom description', fakeAsync(() => {
@@ -142,6 +151,7 @@ describe('The EnrollSMSDialogComponent', () => {
     expect(component.enrolledToken.serial).toEqual(Fixtures.smsEnrollmentResponse.serial);
     expect(component.stepper.next).toHaveBeenCalledTimes(1);
     expect(component.enrollmentStep.disabled).toEqual(true);
+    expect(tokenService.updateTokenList).toHaveBeenCalledTimes(1);
   }));
 
   describe('edit_sms policy', () => {
@@ -204,5 +214,6 @@ describe('The EnrollSMSDialogComponent', () => {
 
     expect(component.enrolledToken).toEqual(undefined);
     expect(component.enrollmentStep.disabled).toEqual(false);
+    expect(tokenService.updateTokenList).not.toHaveBeenCalled();
   }));
 });

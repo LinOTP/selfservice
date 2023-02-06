@@ -17,9 +17,9 @@ import { EnrollPushQRDialogComponent } from '../enroll/enroll-push-qr-dialog/enr
 import { ActivateDialogComponent } from './activate-dialog.component';
 import { Subscription } from 'rxjs';
 import { TokenType } from '@linotp/data-models';
+import { TokenService } from '../api/token.service';
 
-const enrolledPushToken = {
-  url: 'urlpush',
+const data = {
   serial: 'serialpush',
   type: TokenType.PUSH
 };
@@ -28,6 +28,7 @@ describe('ActivateDialogComponent', () => {
   let component: ActivateDialogComponent;
   let fixture: ComponentFixture<ActivateDialogComponent>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
+  let tokenService: jasmine.SpyObj<TokenService>;
   let dialogRef: jasmine.SpyObj<MatDialogRef<EnrollPushQRDialogComponent>>;
   let stepper: jasmine.SpyObj<MatStepper>;
 
@@ -47,7 +48,11 @@ describe('ActivateDialogComponent', () => {
           provide: EnrollmentService,
           useValue: spyOnClass(EnrollmentService),
         },
-        { provide: MAT_DIALOG_DATA, useValue: { token: enrolledPushToken } },
+        {
+          provide: TokenService,
+          useValue: spyOnClass(TokenService),
+        },
+        { provide: MAT_DIALOG_DATA, useValue: data },
         { provide: MatDialogRef, useValue: spyOnClass(MatDialogRef) },
         { provide: MatStepper, useValue: spyOnClass(MatStepper) },
       ],
@@ -57,6 +62,7 @@ describe('ActivateDialogComponent', () => {
 
   beforeEach(() => {
     enrollmentService = getInjectedStub(EnrollmentService);
+    tokenService = getInjectedStub(TokenService);
     dialogRef = getInjectedStub<MatDialogRef<EnrollPushQRDialogComponent>>(MatDialogRef);
     stepper = getInjectedStub(MatStepper);
 
@@ -91,6 +97,7 @@ describe('ActivateDialogComponent', () => {
 
       expect(component.waitingForResponse).toEqual(false);
       expect(component.restartDialog).toEqual(false);
+      expect(tokenService.updateTokenList).toHaveBeenCalled();
     }));
 
     it('should display success message in case of accepted push token activation transaction', fakeAsync(() => {
@@ -105,6 +112,7 @@ describe('ActivateDialogComponent', () => {
 
       expect(component.waitingForResponse).toEqual(false);
       expect(component.restartDialog).toEqual(false);
+      expect(tokenService.updateTokenList).toHaveBeenCalled();
     }));
 
     it('should display success message in case of rejected push token activation transaction', fakeAsync(() => {
@@ -119,6 +127,7 @@ describe('ActivateDialogComponent', () => {
 
       expect(component.waitingForResponse).toEqual(false);
       expect(component.restartDialog).toEqual(false);
+      expect(tokenService.updateTokenList).toHaveBeenCalled();
     }));
 
     it('should display failure message on negative response of token activation', fakeAsync(() => {
@@ -132,6 +141,7 @@ describe('ActivateDialogComponent', () => {
 
       expect(component.waitingForResponse).toEqual(false);
       expect(component.restartDialog).toEqual(true);
+      expect(tokenService.updateTokenList).not.toHaveBeenCalled();
     }));
 
     it('should display failure message on negative response of challenge polling', fakeAsync(() => {
@@ -146,19 +156,14 @@ describe('ActivateDialogComponent', () => {
 
       expect(component.waitingForResponse).toEqual(false);
       expect(component.restartDialog).toEqual(true);
+      expect(tokenService.updateTokenList).not.toHaveBeenCalled();
     }));
   });
 
-  it('should let the user cancel the test', () => {
-    component.cancelDialog();
+  it('should let the user close the dialog', () => {
+    component.close();
     expect(dialogRef.close).toHaveBeenCalledTimes(1);
-    expect(dialogRef.close).toHaveBeenCalledWith(false);
-  });
-
-  it('should let the user close the test dialog', () => {
-    component.closeDialog();
-    expect(dialogRef.close).toHaveBeenCalledTimes(1);
-    expect(dialogRef.close).toHaveBeenCalledWith(true);
+    expect(dialogRef.close).toHaveBeenCalledWith();
   });
 
   it('should let the user retry a failed test', () => {

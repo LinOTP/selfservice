@@ -10,7 +10,6 @@ import { TokenType } from '@linotp/data-models';
 import { getInjectedStub, spyOnClass } from '../../../testing/spyOnClass';
 
 import { LoginService } from '../../login/login.service';
-import { TokenService } from '../../api/token.service';
 import { NotificationService } from '../../common/notification.service';
 
 import { TokenListComponent } from '../../token-list/token-list.component';
@@ -72,7 +71,6 @@ import { EnrollComponent } from './enroll.component';
     let fixture: ComponentFixture<EnrollComponent>;
 
     let notificationService: jasmine.SpyObj<NotificationService>;
-    let tokenService: jasmine.SpyObj<TokenService>;
     let loginService: jasmine.SpyObj<LoginService>;
 
     let dialog: jasmine.SpyObj<MatDialog>;
@@ -102,10 +100,6 @@ import { EnrollComponent } from './enroll.component';
             useValue: spyOnClass(LoginService),
           },
           {
-            provide: TokenService,
-            useValue: spyOnClass(TokenService),
-          },
-          {
             provide: ActivatedRoute,
             useValue: { params: of({ type: tokenUnderTest.type }) }
           },
@@ -119,7 +113,6 @@ import { EnrollComponent } from './enroll.component';
       component = fixture.componentInstance;
 
       loginService = getInjectedStub(LoginService);
-      tokenService = getInjectedStub(TokenService);
       notificationService = getInjectedStub(NotificationService);
       dialog = getInjectedStub(MatDialog);
 
@@ -145,7 +138,6 @@ import { EnrollComponent } from './enroll.component';
       tick();
 
       expect(dialog.open).toHaveBeenCalledWith(tokenUnderTest.enrollmentComponent, expectedEnrollDialogConfig);
-      expect(tokenService.updateTokenList).toHaveBeenCalledTimes(1);
       expect(notificationService.message).not.toHaveBeenCalled();
       expect(component.leave).toHaveBeenCalled();
     }));
@@ -156,7 +148,6 @@ describe(`EnrollComponent on navigate to /tokens/enroll/someUnknownType`, () => 
   let component: EnrollComponent;
   let fixture: ComponentFixture<EnrollComponent>;
 
-  let tokenService: jasmine.SpyObj<TokenService>;
   let notificationService: jasmine.SpyObj<NotificationService>;
 
   let dialog: jasmine.SpyObj<MatDialog>;
@@ -184,10 +175,6 @@ describe(`EnrollComponent on navigate to /tokens/enroll/someUnknownType`, () => 
         {
           provide: LoginService,
           useValue: spyOnClass(LoginService),
-        },
-        {
-          provide: TokenService,
-          useValue: spyOnClass(TokenService),
         },
         {
           provide: ActivatedRoute,
@@ -202,7 +189,6 @@ describe(`EnrollComponent on navigate to /tokens/enroll/someUnknownType`, () => 
     fixture = TestBed.createComponent(EnrollComponent);
     component = fixture.componentInstance;
 
-    tokenService = getInjectedStub(TokenService);
     notificationService = getInjectedStub(NotificationService);
     dialog = getInjectedStub(MatDialog);
 
@@ -217,7 +203,6 @@ describe(`EnrollComponent on navigate to /tokens/enroll/someUnknownType`, () => 
     tick();
 
     expect(dialog.open).not.toHaveBeenCalled();
-    expect(tokenService.updateTokenList).not.toHaveBeenCalled();
     expect(notificationService.message).toHaveBeenCalledWith('Error: Cannot enroll token of unknown type "someUnknownType".');
     expect(component.leave).toHaveBeenCalled();
   }));
@@ -228,7 +213,6 @@ describe(`EnrollComponent on navigate to /tokens/enroll/yubikey`, () => {
   let fixture: ComponentFixture<EnrollComponent>;
 
   let loginService: jasmine.SpyObj<LoginService>;
-  let tokenService: jasmine.SpyObj<TokenService>;
   let notificationService: jasmine.SpyObj<NotificationService>;
 
   let dialog: jasmine.SpyObj<MatDialog>;
@@ -256,10 +240,6 @@ describe(`EnrollComponent on navigate to /tokens/enroll/yubikey`, () => {
         {
           provide: LoginService,
           useValue: spyOnClass(LoginService),
-        },
-        {
-          provide: TokenService,
-          useValue: spyOnClass(TokenService),
         },
         {
           provide: ActivatedRoute,
@@ -275,7 +255,6 @@ describe(`EnrollComponent on navigate to /tokens/enroll/yubikey`, () => {
     component = fixture.componentInstance;
 
     loginService = getInjectedStub(LoginService);
-    tokenService = getInjectedStub(TokenService);
     notificationService = getInjectedStub(NotificationService);
     dialog = getInjectedStub(MatDialog);
 
@@ -291,7 +270,6 @@ describe(`EnrollComponent on navigate to /tokens/enroll/yubikey`, () => {
     tick();
 
     expect(dialog.open).not.toHaveBeenCalled();
-    expect(tokenService.updateTokenList).not.toHaveBeenCalled();
     expect(notificationService.message).toHaveBeenCalledWith('Error: The selected token type cannot be added at the moment.');
     expect(component.leave).toHaveBeenCalled();
   }));
@@ -346,7 +324,6 @@ describe(`EnrollComponent on navigate to /tokens/enroll/yubikey`, () => {
 
     let notificationService: jasmine.SpyObj<NotificationService>;
     let loginService: jasmine.SpyObj<LoginService>;
-    let tokenService: jasmine.SpyObj<TokenService>;
 
     let dialog: jasmine.SpyObj<MatDialog>;
 
@@ -375,10 +352,6 @@ describe(`EnrollComponent on navigate to /tokens/enroll/yubikey`, () => {
             useValue: spyOnClass(LoginService),
           },
           {
-            provide: TokenService,
-            useValue: spyOnClass(TokenService),
-          },
-          {
             provide: ActivatedRoute,
             useValue: { params: of({ type: tokenUnderTest.type }) }
           },
@@ -392,7 +365,6 @@ describe(`EnrollComponent on navigate to /tokens/enroll/yubikey`, () => {
       component = fixture.componentInstance;
 
       loginService = getInjectedStub(LoginService);
-      tokenService = getInjectedStub(TokenService);
       notificationService = getInjectedStub(NotificationService);
       dialog = getInjectedStub(MatDialog);
 
@@ -409,7 +381,6 @@ describe(`EnrollComponent on navigate to /tokens/enroll/yubikey`, () => {
       tick();
 
       expect(dialog.open).not.toHaveBeenCalled();
-      expect(tokenService.updateTokenList).not.toHaveBeenCalled();
       expect(notificationService.message).toHaveBeenCalledWith(
         `Error: You are not allowed to enroll tokens of type "${tokenUnderTest.type}".`
       );

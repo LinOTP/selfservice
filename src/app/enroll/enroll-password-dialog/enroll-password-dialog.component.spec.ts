@@ -21,11 +21,14 @@ import { MatButton } from '@angular/material/button';
 import { MockComponent } from '../../../testing/mock-component';
 import { OperationsService } from '../../api/operations.service';
 import { LoginService } from '../../login/login.service';
+import { TokenService } from '../../api/token.service';
 
 
 describe('The EnrollPasswordDialogComponent', () => {
   let component: EnrollPasswordDialogComponent;
   let fixture: ComponentFixture<EnrollPasswordDialogComponent>;
+
+  let tokenService: jasmine.SpyObj<TokenService>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
   let loginService: jasmine.SpyObj<LoginService>;
 
@@ -50,6 +53,10 @@ describe('The EnrollPasswordDialogComponent', () => {
         {
           provide: OperationsService,
           useValue: spyOnClass(OperationsService)
+        },
+        {
+          provide: TokenService,
+          useValue: spyOnClass(TokenService)
         },
         {
           provide: EnrollmentService,
@@ -88,6 +95,7 @@ describe('The EnrollPasswordDialogComponent', () => {
     fixture = TestBed.createComponent(EnrollPasswordDialogComponent);
     component = fixture.componentInstance;
 
+    tokenService = getInjectedStub(TokenService);
     enrollmentService = getInjectedStub(EnrollmentService);
     loginService = getInjectedStub(LoginService);
 
@@ -115,6 +123,8 @@ describe('The EnrollPasswordDialogComponent', () => {
     tick();
     expect(button.disabled).toEqual(true);
     expect(component.enrollmentStep.disabled).toEqual(false);
+    expect(tokenService.updateTokenList).not.toHaveBeenCalled();
+
   }));
 
   describe('enrollToken', () => {
@@ -141,6 +151,7 @@ describe('The EnrollPasswordDialogComponent', () => {
       expect(component.enrolledToken.serial).toEqual(serial);
       expect(component.stepper.next).toHaveBeenCalledTimes(1);
       expect(component.enrollmentStep.disabled).toEqual(true);
+      expect(tokenService.updateTokenList).toHaveBeenCalledTimes(1);
     }));
 
     it('should enroll a password token with a custom description', fakeAsync(() => {
@@ -167,6 +178,7 @@ describe('The EnrollPasswordDialogComponent', () => {
       expect(component.enrolledToken.serial).toEqual(serial);
       expect(component.stepper.next).toHaveBeenCalledTimes(1);
       expect(component.enrollmentStep.disabled).toEqual(true);
+      expect(tokenService.updateTokenList).toHaveBeenCalledTimes(1);
     }));
 
     it('should allow retrying if enrollment failed', fakeAsync(() => {
@@ -181,6 +193,7 @@ describe('The EnrollPasswordDialogComponent', () => {
 
       expect(component.enrolledToken).toEqual(undefined);
       expect(component.enrollmentStep.disabled).toEqual(false);
+      expect(tokenService.updateTokenList).not.toHaveBeenCalled();
     }));
   });
 
@@ -195,6 +208,7 @@ describe('The EnrollPasswordDialogComponent', () => {
       component.finalizeEnrollment();
       expect(dialog.open).not.toHaveBeenCalled();
       expect(dialogRef.close).toHaveBeenCalledWith(true);
+      expect(tokenService.updateTokenList).not.toHaveBeenCalled();
     });
   });
 });

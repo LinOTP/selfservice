@@ -178,14 +178,12 @@ export class TokenCardComponent implements OnInit, OnDestroy {
       width: '850px',
       autoFocus: false,
       disableClose: true,
-      data: { token: this.token }
+      data: { serial: this.token.serial, type: this.token.typeDetails.type }
     };
 
     this.dialog.open(TestDialogComponent, dialogConfig)
       .afterClosed()
-      .subscribe(() => {
-        this.tokenUpdate.next();
-      });
+      .subscribe();
   }
 
   public activate(): void {
@@ -193,14 +191,12 @@ export class TokenCardComponent implements OnInit, OnDestroy {
       width: '850px',
       autoFocus: false,
       disableClose: true,
-      data: { token: this.token, activate: true }
+      data: { serial: this.token.serial, type: this.token.typeDetails.type }
     };
 
     this.dialog.open(ActivateDialogComponent, dialogConfig)
       .afterClosed()
-      .subscribe(() => {
-        this.tokenUpdate.next();
-      });
+      .subscribe();
   }
 
   public unassign(): void {

@@ -1,4 +1,4 @@
-<h2 i18n>Activate {{ typeDetails.name }} {{ data.token.serial }}</h2>
+<h2 i18n>Activate {{ typeDetails.name }} {{ data.serial }}</h2>
 <mat-horizontal-stepper [linear]="true"
                         linear
                         #stepper>
@@ -30,7 +30,7 @@
       <div i18n>Activation step 1 of 3</div>
       <span class="spacer"></span>
       <button mat-raised-button
-              (click)="cancelDialog()"
+              (click)="close()"
               i18n>Cancel</button>
       <button mat-raised-button
               color="primary"
@@ -62,7 +62,7 @@
         <span class="spacer"></span>
         <button mat-raised-button
                 i18n
-                (click)="cancelDialog()">Cancel</button>
+                (click)="close()">Cancel</button>
       </mat-dialog-actions>
     </ng-template>
 
@@ -79,7 +79,7 @@
         <div i18n>Activation step 3 of 3</div>
         <span class="spacer"></span>
         <button mat-raised-button
-                (click)="cancelDialog()"
+                (click)="close()"
                 *ngIf="restartDialog"
                 i18n>Cancel</button>
         <button mat-raised-button
@@ -89,7 +89,7 @@
                 i18n> Restart activation </button>
         <button mat-raised-button
                 color="primary"
-                (click)="closeDialog()"
+                (click)="close()"
                 *ngIf="!restartDialog"
                 i18n>Finish</button>
       </mat-dialog-actions>

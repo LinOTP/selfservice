@@ -36,6 +36,7 @@ export class AssignTokenDialogComponent extends EnrollDialogBaseComponent implem
     this.enrollmentService.assign(serial, description).subscribe(result => {
       if (result.success) {
         this.enrolledToken = { serial: serial, type: 'assign' }; // TODO: retrieve real token type
+        this.tokenService.updateTokenList();
         this.stepper.next();
       } else {
         this.assignmentForm.enable();

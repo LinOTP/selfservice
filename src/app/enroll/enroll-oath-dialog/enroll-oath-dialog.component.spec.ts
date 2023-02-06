@@ -20,12 +20,14 @@ import { NotificationService } from '../../common/notification.service';
 
 import { EnrollOATHDialogComponent } from './enroll-oath-dialog.component';
 import { LoginService } from '../../login/login.service';
+import { TokenService } from '../../api/token.service';
 
 
 [TokenType.HOTP, TokenType.TOTP].forEach(inputType =>
   describe('The EnrollOATHDialogComponent', () => {
     let component: EnrollOATHDialogComponent;
     let fixture: ComponentFixture<EnrollOATHDialogComponent>;
+    let tokenService: jasmine.SpyObj<TokenService>;
     let notificationService: jasmine.SpyObj<NotificationService>;
     let enrollmentService: jasmine.SpyObj<EnrollmentService>;
     let loginService: jasmine.SpyObj<LoginService>;
@@ -49,6 +51,10 @@ import { LoginService } from '../../login/login.service';
           {
             provide: OperationsService,
             useValue: spyOnClass(OperationsService)
+          },
+          {
+            provide: TokenService,
+            useValue: spyOnClass(TokenService)
           },
           {
             provide: EnrollmentService,
@@ -87,6 +93,7 @@ import { LoginService } from '../../login/login.service';
       fixture = TestBed.createComponent(EnrollOATHDialogComponent);
       component = fixture.componentInstance;
 
+      tokenService = getInjectedStub(TokenService);
       notificationService = getInjectedStub(NotificationService);
       enrollmentService = getInjectedStub(EnrollmentService);
       loginService = getInjectedStub(LoginService);
@@ -119,6 +126,7 @@ import { LoginService } from '../../login/login.service';
       expect(component.enrolledToken).toEqual(expectedToken);
       expect(component.stepper.next).toHaveBeenCalledTimes(1);
       expect(component.enrollmentStep.disabled).toEqual(true);
+      expect(tokenService.updateTokenList).toHaveBeenCalledTimes(1);
     }));
 
     it('should enroll a ${inputType} token with a custom description', fakeAsync(() => {
@@ -139,6 +147,7 @@ import { LoginService } from '../../login/login.service';
       expect(component.enrolledToken).toEqual(expectedToken);
       expect(component.stepper.next).toHaveBeenCalledTimes(1);
       expect(component.enrollmentStep.disabled).toEqual(true);
+      expect(tokenService.updateTokenList).toHaveBeenCalledTimes(1);
     }));
 
     it('should allow retrying if enrollment failed', fakeAsync(() => {
@@ -150,6 +159,7 @@ import { LoginService } from '../../login/login.service';
 
       expect(component.enrolledToken).toEqual(undefined);
       expect(component.enrollmentStep.disabled).toEqual(false);
+      expect(tokenService.updateTokenList).not.toHaveBeenCalled();
     }));
 
     describe('copyInputMessage', () => {

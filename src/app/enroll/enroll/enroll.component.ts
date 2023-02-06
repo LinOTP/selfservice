@@ -18,7 +18,6 @@ import { EnrollPasswordDialogComponent } from '../enroll-password-dialog/enroll-
 import { EnrollPushQRDialogComponent } from '../enroll-push-qr-dialog/enroll-push-qr-dialog.component';
 import { EnrollSMSDialogComponent } from '../enroll-sms-dialog/enroll-sms-dialog.component';
 import { EnrollYubicoDialogComponent } from '../enroll-yubico/enroll-yubico-dialog.component';
-import { TokenService } from '../../api/token.service';
 import { of } from 'rxjs';
 
 @Component({
@@ -35,7 +34,6 @@ export class EnrollComponent implements OnInit {
     private dialog: MatDialog,
     private notificationService: NotificationService,
     private loginService: LoginService,
-    private tokenService: TokenService,
   ) { }
 
   ngOnInit() {
@@ -61,10 +59,7 @@ export class EnrollComponent implements OnInit {
         this.notificationService.message($localize`Error: ${err.message}`);
         return of(null);
       })
-    ).subscribe(result => {
-      if (result) {
-        this.tokenService.updateTokenList();
-      }
+    ).subscribe(() => {
       this.leave();
     });
   }
