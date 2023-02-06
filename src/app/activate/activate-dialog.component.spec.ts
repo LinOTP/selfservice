@@ -28,7 +28,6 @@ describe('ActivateDialogComponent', () => {
   let component: ActivateDialogComponent;
   let fixture: ComponentFixture<ActivateDialogComponent>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
-  let tokenService: jasmine.SpyObj<TokenService>;
   let dialogRef: jasmine.SpyObj<MatDialogRef<EnrollPushQRDialogComponent>>;
   let stepper: jasmine.SpyObj<MatStepper>;
 
@@ -62,7 +61,6 @@ describe('ActivateDialogComponent', () => {
 
   beforeEach(() => {
     enrollmentService = getInjectedStub(EnrollmentService);
-    tokenService = getInjectedStub(TokenService);
     dialogRef = getInjectedStub<MatDialogRef<EnrollPushQRDialogComponent>>(MatDialogRef);
     stepper = getInjectedStub(MatStepper);
 
@@ -97,7 +95,6 @@ describe('ActivateDialogComponent', () => {
 
       expect(component.waitingForResponse).toEqual(false);
       expect(component.restartDialog).toEqual(false);
-      expect(tokenService.updateTokenList).toHaveBeenCalled();
     }));
 
     it('should display success message in case of accepted push token activation transaction', fakeAsync(() => {
@@ -112,7 +109,6 @@ describe('ActivateDialogComponent', () => {
 
       expect(component.waitingForResponse).toEqual(false);
       expect(component.restartDialog).toEqual(false);
-      expect(tokenService.updateTokenList).toHaveBeenCalled();
     }));
 
     it('should display success message in case of rejected push token activation transaction', fakeAsync(() => {
@@ -127,7 +123,6 @@ describe('ActivateDialogComponent', () => {
 
       expect(component.waitingForResponse).toEqual(false);
       expect(component.restartDialog).toEqual(false);
-      expect(tokenService.updateTokenList).toHaveBeenCalled();
     }));
 
     it('should display failure message on negative response of token activation', fakeAsync(() => {
@@ -141,7 +136,6 @@ describe('ActivateDialogComponent', () => {
 
       expect(component.waitingForResponse).toEqual(false);
       expect(component.restartDialog).toEqual(true);
-      expect(tokenService.updateTokenList).not.toHaveBeenCalled();
     }));
 
     it('should display failure message on negative response of challenge polling', fakeAsync(() => {
@@ -156,7 +150,6 @@ describe('ActivateDialogComponent', () => {
 
       expect(component.waitingForResponse).toEqual(false);
       expect(component.restartDialog).toEqual(true);
-      expect(tokenService.updateTokenList).not.toHaveBeenCalled();
     }));
   });
 

@@ -30,7 +30,6 @@ const enrolledToken = {
 describe('EnrollMOTPDialogComponent', () => {
   let component: EnrollMOTPDialogComponent;
   let fixture: ComponentFixture<EnrollMOTPDialogComponent>;
-  let tokenService: jasmine.SpyObj<TokenService>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
   let loginService: jasmine.SpyObj<LoginService>;
 
@@ -94,7 +93,6 @@ describe('EnrollMOTPDialogComponent', () => {
     fixture = TestBed.createComponent(EnrollMOTPDialogComponent);
     component = fixture.componentInstance;
 
-    tokenService = getInjectedStub(TokenService);
     enrollmentService = getInjectedStub(EnrollmentService);
     loginService = getInjectedStub(LoginService);
 
@@ -131,7 +129,6 @@ describe('EnrollMOTPDialogComponent', () => {
       expect(component.enrolledToken).toEqual(expectedToken);
       expect(component.stepper.next).toHaveBeenCalledTimes(1);
       expect(component.enrollmentStep.disabled).toEqual(true);
-      expect(tokenService.updateTokenList).toHaveBeenCalledTimes(1);
     }));
 
     it('should enroll an mOTP token with a custom description', fakeAsync(() => {
@@ -156,7 +153,6 @@ describe('EnrollMOTPDialogComponent', () => {
       expect(component.enrolledToken).toEqual(expectedToken);
       expect(component.stepper.next).toHaveBeenCalledTimes(1);
       expect(component.enrollmentStep.disabled).toEqual(true);
-      expect(tokenService.updateTokenList).toHaveBeenCalledTimes(1);
     }));
 
     it('should allow retrying if enrollment failed', fakeAsync(() => {
@@ -169,7 +165,6 @@ describe('EnrollMOTPDialogComponent', () => {
 
       expect(component.enrolledToken).toEqual(undefined);
       expect(component.enrollmentStep.disabled).toEqual(false);
-      expect(tokenService.updateTokenList).not.toHaveBeenCalled();
     }));
 
     it('should not be called on button click if form is invalid', fakeAsync(() => {
@@ -211,7 +206,6 @@ describe('EnrollMOTPDialogComponent', () => {
       expect(enrollmentService.enroll).not.toHaveBeenCalled();
       expect(component.stepper.next).not.toHaveBeenCalled();
       expect(component.enrollmentStep.disabled).toEqual(false);
-      expect(tokenService.updateTokenList).not.toHaveBeenCalled();
     }));
 
   });

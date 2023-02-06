@@ -26,7 +26,6 @@ import { TokenService } from '../../api/token.service';
 describe('The EnrollEmailDialogComponent', () => {
   let component: EnrollEmailDialogComponent;
   let fixture: ComponentFixture<EnrollEmailDialogComponent>;
-  let tokenService: jasmine.SpyObj<TokenService>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
   let loginService: jasmine.SpyObj<LoginService>;
   let localStorageSpy: jasmine.Spy;
@@ -91,7 +90,6 @@ describe('The EnrollEmailDialogComponent', () => {
     fixture = TestBed.createComponent(EnrollEmailDialogComponent);
     component = fixture.componentInstance;
 
-    tokenService = getInjectedStub(TokenService);
     enrollmentService = getInjectedStub(EnrollmentService);
     loginService = getInjectedStub(LoginService);
 
@@ -124,7 +122,6 @@ describe('The EnrollEmailDialogComponent', () => {
       email_address: Fixtures.userSystemInfo.user.email,
     });
     expect(component.enrolledToken.serial).toEqual(Fixtures.emailEnrollmentResponse.serial);
-    expect(tokenService.updateTokenList).toHaveBeenCalledTimes(1);
     expect(component.stepper.next).toHaveBeenCalledTimes(1);
     expect(component.enrollmentStep.disabled).toEqual(true);
   }));
@@ -147,7 +144,6 @@ describe('The EnrollEmailDialogComponent', () => {
       email_address: Fixtures.userSystemInfo.user.email,
     });
     expect(component.enrolledToken.serial).toEqual(Fixtures.emailEnrollmentResponse.serial);
-    expect(tokenService.updateTokenList).toHaveBeenCalledTimes(1);
     expect(component.stepper.next).toHaveBeenCalledTimes(1);
     expect(component.enrollmentStep.disabled).toEqual(true);
   }));
@@ -211,6 +207,5 @@ describe('The EnrollEmailDialogComponent', () => {
 
     expect(component.enrolledToken).toEqual(undefined);
     expect(component.enrollmentStep.disabled).toEqual(false);
-    expect(tokenService.updateTokenList).not.toHaveBeenCalled();
   }));
 });

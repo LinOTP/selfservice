@@ -27,7 +27,6 @@ import { TokenService } from '../../api/token.service';
   describe('The EnrollOATHDialogComponent', () => {
     let component: EnrollOATHDialogComponent;
     let fixture: ComponentFixture<EnrollOATHDialogComponent>;
-    let tokenService: jasmine.SpyObj<TokenService>;
     let notificationService: jasmine.SpyObj<NotificationService>;
     let enrollmentService: jasmine.SpyObj<EnrollmentService>;
     let loginService: jasmine.SpyObj<LoginService>;
@@ -93,7 +92,6 @@ import { TokenService } from '../../api/token.service';
       fixture = TestBed.createComponent(EnrollOATHDialogComponent);
       component = fixture.componentInstance;
 
-      tokenService = getInjectedStub(TokenService);
       notificationService = getInjectedStub(NotificationService);
       enrollmentService = getInjectedStub(EnrollmentService);
       loginService = getInjectedStub(LoginService);
@@ -126,7 +124,6 @@ import { TokenService } from '../../api/token.service';
       expect(component.enrolledToken).toEqual(expectedToken);
       expect(component.stepper.next).toHaveBeenCalledTimes(1);
       expect(component.enrollmentStep.disabled).toEqual(true);
-      expect(tokenService.updateTokenList).toHaveBeenCalledTimes(1);
     }));
 
     it('should enroll a ${inputType} token with a custom description', fakeAsync(() => {
@@ -147,7 +144,6 @@ import { TokenService } from '../../api/token.service';
       expect(component.enrolledToken).toEqual(expectedToken);
       expect(component.stepper.next).toHaveBeenCalledTimes(1);
       expect(component.enrollmentStep.disabled).toEqual(true);
-      expect(tokenService.updateTokenList).toHaveBeenCalledTimes(1);
     }));
 
     it('should allow retrying if enrollment failed', fakeAsync(() => {
@@ -159,7 +155,6 @@ import { TokenService } from '../../api/token.service';
 
       expect(component.enrolledToken).toEqual(undefined);
       expect(component.enrollmentStep.disabled).toEqual(false);
-      expect(tokenService.updateTokenList).not.toHaveBeenCalled();
     }));
 
     describe('copyInputMessage', () => {

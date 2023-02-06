@@ -11,6 +11,7 @@ import { SessionService } from '../auth/session.service';
 import { NotificationService } from '../common/notification.service';
 import { EnrollmentService } from './enrollment.service';
 import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
+import { TokenService } from './token.service';
 
 const session = '';
 
@@ -27,6 +28,7 @@ mockUnreadyDisabledToken.enrollmentStatus = EnrollmentStatus.UNPAIRED;
 describe('EnrollmentService', () => {
   let enrollmentService: EnrollmentService;
   let notificationService: jasmine.SpyObj<NotificationService>;
+  let tokenService: jasmine.SpyObj<TokenService>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -46,8 +48,17 @@ describe('EnrollmentService', () => {
           provide: NotificationService,
           useValue: spyOnClass(NotificationService),
         },
+        {
+          provide: TokenService,
+          useValue: {
+            updateTokenList: jasmine.createSpy('updateTokenList'),
+            getTypeDetails: jasmine.createSpy('getTypeDetails').and.returnValue("some_data"),
+          }
+        },
       ],
     });
+
+    tokenService = getInjectedStub(TokenService);
 
     enrollmentService = TestBed.inject(EnrollmentService);
     notificationService = getInjectedStub(NotificationService);
@@ -71,6 +82,7 @@ describe('EnrollmentService', () => {
             type: type,
           }).subscribe(response => {
             expect(response).toEqual(null);
+            expect(tokenService.updateTokenList).toHaveBeenCalledTimes(1);
           });
 
           const expectedType = enrollmentType ? enrollmentType : type;
@@ -90,6 +102,7 @@ describe('EnrollmentService', () => {
 
         enrollmentService.enroll({ type: TokenType.HOTP }).subscribe(res => {
           expect(notificationService.message).toHaveBeenCalledWith('Token registration failed: Please try again.');
+          expect(tokenService.updateTokenList).toHaveBeenCalledTimes(1);
         });
 
         const request = backend.expectOne((req) => req.body.type === 'hmac');
@@ -106,6 +119,7 @@ describe('EnrollmentService', () => {
 
         enrollmentService.assign('serial', 'description').subscribe(response => {
           expect(response).toEqual({ success: true });
+          expect(tokenService.updateTokenList).toHaveBeenCalledTimes(1);
         });
 
         const request = backend.expectOne((req) => req.url === '/userservice/assign' && req.method === 'POST');
@@ -122,6 +136,7 @@ describe('EnrollmentService', () => {
 
         enrollmentService.assign('serial', 'description').subscribe(response => {
           expect(response).toEqual({ success: false, message: returnedMessage });
+          expect(tokenService.updateTokenList).toHaveBeenCalledTimes(0);
         });
 
         const request = backend.expectOne((req) => req.url === '/userservice/assign' && req.method === 'POST');
@@ -140,6 +155,7 @@ describe('EnrollmentService', () => {
 
         enrollmentService.assign('serial', 'description').subscribe(response => {
           expect(response).toEqual({ success: false, message: returnedMessage });
+          expect(tokenService.updateTokenList).toHaveBeenCalledTimes(0);
         });
 
         const request = backend.expectOne((req) => req.url === '/userservice/assign' && req.method === 'POST');
@@ -157,6 +173,7 @@ describe('EnrollmentService', () => {
 
         enrollmentService.assign('serial', 'description').subscribe(response => {
           expect(response).toEqual({ success: false, message: returnedMessage });
+          expect(tokenService.updateTokenList).toHaveBeenCalledTimes(0);
         });
 
         const request = backend.expectOne((req) => req.url === '/userservice/assign' && req.method === 'POST');
@@ -174,6 +191,7 @@ describe('EnrollmentService', () => {
 
         enrollmentService.assign('serial', 'description').subscribe(response => {
           expect(response).toEqual({ success: false, message: returnedMessage });
+          expect(tokenService.updateTokenList).toHaveBeenCalledTimes(0);
         });
 
         const request = backend.expectOne((req) => req.url === '/userservice/assign' && req.method === 'POST');
@@ -192,6 +210,7 @@ describe('EnrollmentService', () => {
         enrollmentService.assign('serial', 'description').subscribe(response => {
           expect(notificationService.message).toHaveBeenCalledWith('assign failed: Please try again.');
           expect(response).toEqual({ success: false });
+          expect(tokenService.updateTokenList).toHaveBeenCalledTimes(0);
         });
 
         const request = backend.expectOne((req) => req.url === '/userservice/assign' && req.method === 'POST');
@@ -225,6 +244,7 @@ describe('EnrollmentService', () => {
 
           enrollmentService.activate('serial', 'pin').subscribe(response => {
             expect(response).toEqual(serverResponse.detail);
+            expect(tokenService.updateTokenList).toHaveBeenCalledTimes(1);
           });
 
           const request = backend.expectOne((req) =>
@@ -257,6 +277,7 @@ describe('EnrollmentService', () => {
           enrollmentService.activate('serial', 'pin').subscribe(response => {
             expect(response).toEqual(null);
             expect(notificationService.message).toHaveBeenCalledWith('Token activation failed: Please try again.');
+            expect(tokenService.updateTokenList).toHaveBeenCalledTimes(1);
           });
 
           const request = backend.expectOne((req) => req.url === '/validate/check' && req.method === 'POST');
