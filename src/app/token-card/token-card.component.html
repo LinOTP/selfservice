@@ -1,7 +1,9 @@
-<mat-card *ngIf="token"
+<mat-card appearance="outlined"
+          *ngIf="token"
           [ngClass]="{disabled: !token.enabled && token.enrollmentStatus === EnrollmentStatus.COMPLETED }">
   <mat-card-header>
-    <mat-icon mat-card-avatar>{{token.typeDetails.icon}}</mat-icon>
+    <mat-icon mat-card-avatar
+              class="icon">{{token.typeDetails.icon}}</mat-icon>
     <mat-card-title>{{token.typeDetails.name | capitalize}}</mat-card-title>
     <mat-card-subtitle class="description">
       {{token.description}}
@@ -57,11 +59,13 @@
     </ng-container>
   </mat-card-content>
   <mat-card-footer *ngIf="pendingActions()">
-    <button mat-raised-button
-            color="primary"
-            (click)="activate()"
-            *ngIf="pendingActivate()"
-            i18n> Activate </button>
+    <mat-card-actions>
+      <button mat-button
+              color="primary"
+              (click)="activate()"
+              *ngIf="pendingActivate()"
+              i18n> Activate </button>
+    </mat-card-actions>
   </mat-card-footer>
 </mat-card>
 

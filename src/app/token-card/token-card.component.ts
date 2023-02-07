@@ -80,7 +80,7 @@ export class TokenCardComponent implements OnInit, OnDestroy {
 
   public setPin(): void {
     const config = {
-      width: '25em',
+      width: '35em',
       data: this.token
     };
 
@@ -97,7 +97,7 @@ export class TokenCardComponent implements OnInit, OnDestroy {
 
   public setMOTPPin(): void {
     const config = {
-      width: '25em',
+      width: '35em',
       data: this.token
     };
 
@@ -114,7 +114,7 @@ export class TokenCardComponent implements OnInit, OnDestroy {
 
   public delete(): void {
     const config = {
-      width: '25em',
+      width: '35em',
       data:
       {
         title: $localize`Delete token?`,
@@ -154,7 +154,7 @@ export class TokenCardComponent implements OnInit, OnDestroy {
       this.dialog.open(
         DialogComponent,
         {
-          width: '25em',
+          width: '35em',
           data: {
             title: $localize`Disable token?`,
             text: $localize`You will not be able to use it to authenticate yourself anymore, as you cannot enable it on your own.`,
@@ -248,7 +248,7 @@ export class TokenCardComponent implements OnInit, OnDestroy {
 
   public resync(): void {
     const config = {
-      width: '25em',
+      width: '35em',
       data: this.token
     };
 
@@ -265,7 +265,7 @@ export class TokenCardComponent implements OnInit, OnDestroy {
 
   public setDescription(): void {
     const config = {
-      width: '25em',
+      width: '35em',
       data: this.token
     };
 

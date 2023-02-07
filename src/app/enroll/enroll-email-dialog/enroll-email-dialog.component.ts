@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, Validators } from '@angular/forms';
+import { UntypedFormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { TokenType } from '@linotp/data-models';
 import { EnrollmentOptions } from '../../api/token';
@@ -15,7 +15,7 @@ import { EnrollDialogBaseComponent } from '../enroll-dialog-base.component';
 export class EnrollEmailDialogComponent extends EnrollDialogBaseComponent implements OnInit {
 
   @ViewChild(MatStepper, { static: true }) public stepper: MatStepper;
-  public enrollmentStep: FormGroup;
+  public enrollmentStep: UntypedFormGroup;
 
   public canEditEmail: boolean;
   public userEmail: string;

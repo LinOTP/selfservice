@@ -15,12 +15,12 @@ const testLocalesList = [
 
 class Page extends TestingPage<LanguagePickerComponent> {
 
-  public getButton() {
-    return this.query('.mat-button');
+  public getButton(): HTMLButtonElement {
+    return this.query('button');
   }
 
   public getDropdownItems() {
-    return this.fixture.debugElement.queryAll(By.css('.mat-menu-item'));
+    return this.fixture.debugElement.queryAll(By.css('a'));
   }
 }
 
@@ -69,7 +69,7 @@ describe('LanguagePickerComponent', () => {
   });
 
   it('should show the currently selected locale', () => {
-    expect(page.getButton().innerText).toMatch(/language A/);
+    expect(page.getButton().textContent).toMatch('A');
   });
 
   it('should show all available locales in a menu', () => {

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, Validators } from '@angular/forms';
+import { UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogConfig } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import { switchMap } from 'rxjs/operators';
@@ -24,7 +24,7 @@ export class EnrollPushQRDialogComponent extends EnrollDialogBaseComponent imple
   public closeLabel = $localize`Activate`;
 
   @ViewChild(MatStepper, { static: true }) public stepper: MatStepper;
-  public enrollmentStep: FormGroup;
+  public enrollmentStep: UntypedFormGroup;
 
   public ngOnInit() {
     this.enrollmentStep = this.formBuilder.group({

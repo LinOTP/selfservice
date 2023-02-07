@@ -1,11 +1,20 @@
 /* Global imports */
-@use '~@angular/material' as mat;
+@use '@angular/material' as mat;
 
 @import url('https://fonts.googleapis.com/css?family=Roboto|Material+Icons');
 @import './theme.scss';
 @import './styles/stepper.material-theming';
 /* end of global imports */
 
+// TODO(v15): As of v15 mat.legacy-core no longer includes default typography styles.
+//  The following line adds:
+//    1. Default typography styles for all components
+//    2. Styles for typography hierarchy classes (e.g. .mat-headline-1)
+//  If you specify typography styles for the components you use elsewhere, you should delete this line.
+//  If you don't need the default component typographies but still want the hierarchy styles,
+//  you can delete this line and instead use:
+//    `@include mat.legacy-typography-hierarchy(mat.define-typography-config());`
+@include mat.all-component-typographies();
 @include mat.core();
 @include mat.all-component-themes($theme);
 
@@ -20,22 +29,25 @@ body {
 
 /* Remove the spacing needed for hints */
 /* use class .inline-no-hint in mat form fields to activate this rule */
-.mat-form-field.inline-no-hint {
+.mat-mdc-form-field.inline-no-hint {
 
+  /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
   .mat-form-field-wrapper {
     padding-bottom: 0;
   }
 
+  /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
   .mat-form-field-underline {
     bottom: 0;
   }
 
+  /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
   .mat-form-field-subscript-wrapper {
     display: none;
   }
 }
 
-.mat-form-field {
+.mat-mdc-form-field {
   margin-bottom: 10px;
 }
 
@@ -45,4 +57,8 @@ body {
 
 .warning {
   color: mat.get-color-from-palette($theme-app-warn, 500);
+}
+
+.mdc-button {
+  text-transform: uppercase;
 }

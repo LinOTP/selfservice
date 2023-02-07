@@ -1,11 +1,3 @@
-.stepperControls {
-  display: flex;
-  justify-content: flex-end;
-  & > * {
-    margin: 10px;
-  }
-}
-
 mat-form-field {
   width: 100%;
   margin-bottom: 15px;
@@ -13,14 +5,16 @@ mat-form-field {
 
 .testOTP {
   width: 100%;
+
   mat-form-field {
     width: 10em;
   }
+
   button {
     margin-left: 1em;
   }
 }
 
-.hint {
-  font-size: 75%;
+.verify {
+  margin-top: 1em;
 }

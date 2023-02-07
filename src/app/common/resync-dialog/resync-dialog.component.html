@@ -1,9 +1,10 @@
 <h3 mat-dialog-title
     i18n>Synchronize token</h3>
-<p i18n>Generate two OTP values and enter them below:</p>
 <form [formGroup]="form"
       (ngSubmit)="submit()">
-  <div mat-dialog-content>
+
+  <mat-dialog-content>
+    <p i18n>Generate two OTP values and enter them below:</p>
     <mat-form-field>
       <input matInput
              type="text"
@@ -19,15 +20,16 @@
              placeholder="OTP 2"
              i18n-placeholder>
     </mat-form-field>
-    <div class="button-row">
-      <button mat-button
-              mat-dialog-close
-              i18n>cancel</button>
-      <button mat-button
-              color="primary"
-              type="submit"
-              [disabled]="preventSubmit()"
-              i18n>synchronize</button>
-    </div>
-  </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button
+            mat-dialog-close
+            i18n>Cancel</button>
+    <button mat-button
+            color="primary"
+            type="submit"
+            [disabled]="preventSubmit()"
+            i18n>Synchronize</button>
+  </mat-dialog-actions>
 </form>

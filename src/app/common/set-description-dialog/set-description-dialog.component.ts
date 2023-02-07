@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { SelfserviceToken } from '../../api/token';
@@ -13,13 +13,13 @@ import { OperationsService } from '../../api/operations.service';
 export class SetDescriptionDialogComponent {
 
   private awaitingResponse = false;
-  public form: FormGroup;
+  public form: UntypedFormGroup;
 
   constructor(
     private dialogRef: MatDialogRef<SetDescriptionDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private token: SelfserviceToken,
     private operationsService: OperationsService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
   ) {
     this.form = this.formBuilder.group(
       {

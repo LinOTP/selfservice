@@ -30,13 +30,13 @@
           *ngIf="searchIsDirty">
     <mat-icon>cancel</mat-icon>
   </button>
-  <button mat-raised-button
+  <button mat-button
           color="primary"
           *ngIf="searchFormIsDirty"
           i18n>Search</button>
 </form>
 
-<mat-card>
+<mat-card appearance="outlined">
   <div class="table-wrap">
     <table mat-table
            [dataSource]="dataSource"

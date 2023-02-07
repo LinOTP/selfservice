@@ -1,6 +1,6 @@
 ### STAGE 1: Build ###
 
-FROM node:12-alpine as builder
+FROM node:14.21.1-alpine3.15 as builder
 ARG NPM_CI_TOKEN
 
 WORKDIR /app

@@ -1,20 +1,14 @@
-.stepperControls {
-  display: flex;
-  justify-content: flex-end;
-  &>* {
-    margin: 10px;
-  }
-}
-
 mat-form-field {
   width: 100%
 }
 
 .testOTP {
   width: 100%;
+
   mat-form-field {
     width: 10em;
   }
+
   button {
     margin-left: 1em;
   }
@@ -24,4 +18,8 @@ qrcode {
   display: flex;
   justify-content: space-around;
   margin: 20px 0;
+}
+
+.noactivate {
+  margin-top: 1em;
 }

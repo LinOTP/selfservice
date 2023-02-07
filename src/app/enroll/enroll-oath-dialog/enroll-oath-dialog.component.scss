@@ -1,27 +1,18 @@
-.stepperControls {
-  display: flex;
-  justify-content: flex-end;
-  & > * {
-    margin: 10px;
-  }
-}
-
 mat-form-field {
-  width: 100%
+  width: 100%;
+  margin-bottom: 15px;
 }
 
 .testOTP {
   width: 100%;
+
   mat-form-field {
     width: 10em;
   }
+
   button {
     margin-left: 1em;
   }
-}
-
-.hint {
-  font-size: 75%;
 }
 
 qrcode {
@@ -34,6 +25,7 @@ qrcode {
   margin: 10px 0;
   display: flex;
   justify-content: space-around;
+
   button {
     font-variant: small-caps;
   }
@@ -43,11 +35,13 @@ qrcode {
   display: flex;
   align-items: center;
   margin: 10px 0;
-  .mat-form-field {
+
+  .mat-mdc-form-field {
     flex: 1;
     margin-bottom: 0;
     font-size: 75%;
   }
+
   .mat-icon {
     width: 18px;
     height: 18px;
@@ -55,4 +49,8 @@ qrcode {
     line-height: 1;
   }
 
+}
+
+.verify {
+  margin-top: 1em;
 }

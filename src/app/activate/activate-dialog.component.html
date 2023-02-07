@@ -1,14 +1,15 @@
-<h2 i18n>Activate {{ typeDetails.name }} {{ data.serial }}</h2>
+<h2 mat-dialog-title
+    i18n>Activate {{ typeDetails.name }} {{ data.serial }}</h2>
 <mat-horizontal-stepper [linear]="true"
                         linear
                         #stepper>
   <mat-step>
+    <mat-dialog-content>
 
-    <div class="dialog-input">
-      <div i18n>
+      <p i18n>
         Enter your token PIN or password if you have set a PIN or you are
         required to enter your password for OTP authentication:
-      </div>
+      </p>
       <mat-form-field>
         <input matInput
                type="password"
@@ -18,76 +19,77 @@
                i18n-placeholder
                autofocus>
       </mat-form-field>
-    </div>
 
-    <ng-container *ngIf="isPush">
-      <p i18n>
-        In the next step your Authenticator app will be verified by the authentication server.
-      </p>
-    </ng-container>
+      <ng-container *ngIf="isPush">
+        <p i18n
+           class="info-if-push">
+          In the next step your Authenticator app will be verified by the authentication server.
+        </p>
+      </ng-container>
+    </mat-dialog-content>
 
     <mat-dialog-actions align="end">
       <div i18n>Activation step 1 of 3</div>
       <span class="spacer"></span>
-      <button mat-raised-button
+      <button mat-button
               (click)="close()"
               i18n>Cancel</button>
-      <button mat-raised-button
+      <button mat-button
               color="primary"
               id="goTo2"
               (click)="activateToken(stepper)"
               i18n>Activate</button>
     </mat-dialog-actions>
   </mat-step>
+
   <mat-step>
     <ng-container *ngIf="waitingForResponse; then waitingBlock else challengeResponseBlock"></ng-container>
 
     <ng-template #waitingBlock>
-
-      <section class="response"
-               *ngIf="isPush">
-        <mat-spinner></mat-spinner>
-        <p div
-           i18n>Waiting for confirmation for test transaction via Authenticator app.</p>
-      </section>
-
-      <section class="response"
-               *ngIf="isQR">
-        <p i18n>Scan the QR code below with the Authenticator app to activate your token:</p>
-        <app-qr-code [qrUrl]="tokenQRUrl"></app-qr-code>
-      </section>
-
+      <mat-dialog-content>
+        <section class="response"
+                 *ngIf="isPush">
+          <mat-spinner></mat-spinner>
+          <p div
+             i18n>Waiting for confirmation for test transaction via Authenticator app.</p>
+        </section>
+        <section class="response"
+                 *ngIf="isQR">
+          <p i18n>Scan the QR code below with the Authenticator app to activate your token:</p>
+          <app-qr-code [qrUrl]="tokenQRUrl"></app-qr-code>
+        </section>
+      </mat-dialog-content>
       <mat-dialog-actions align="end">
         <div i18n>Activation step 2 of 3</div>
         <span class="spacer"></span>
-        <button mat-raised-button
+        <button mat-button
                 i18n
                 (click)="close()">Cancel</button>
       </mat-dialog-actions>
     </ng-template>
 
     <ng-template #challengeResponseBlock>
-
-      <section class="response">
-        <p i18n
-           *ngIf="restartDialog">Activation failed. Please try again, or contact an administrator.</p>
-        <p i18n
-           *ngIf="!restartDialog">The activation was successful. Your token is ready to be used.</p>
-      </section>
-
+      <mat-dialog-content>
+        <section class="response">
+          <p i18n
+             *ngIf="restartDialog">Activation failed. Please try again, or contact an administrator.</p>
+          <p i18n
+             *ngIf="!restartDialog">The activation was successful. Your token is ready to be used.</p>
+        </section>
+      </mat-dialog-content>
       <mat-dialog-actions align="end">
         <div i18n>Activation step 3 of 3</div>
         <span class="spacer"></span>
-        <button mat-raised-button
+        <button mat-button
                 (click)="close()"
                 *ngIf="restartDialog"
                 i18n>Cancel</button>
-        <button mat-raised-button
+        <button mat-button
                 color="primary"
                 (click)="resetDialogToInitial(stepper)"
                 *ngIf="restartDialog"
                 i18n> Restart activation </button>
-        <button mat-raised-button
+        <button mat-button
                 color="primary"
                 (click)="close()"
                 *ngIf="!restartDialog"

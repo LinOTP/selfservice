@@ -33,7 +33,6 @@ export interface HistoryRecord {
     serial: string;
     tokenType: TokenType;
     actionDetail: string;
-    info: string;
 }
 
 export interface HistoryPage {
@@ -59,6 +58,5 @@ export function mapCellToRecord(cell: string[]): HistoryRecord {
         serial: cell[3],
         tokenType: cell[4] ? <TokenType>cell[4] : null,
         actionDetail: cell[6],
-        info: cell[7],
     };
 }

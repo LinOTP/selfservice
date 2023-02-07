@@ -2,15 +2,18 @@
   display: block;
 }
 
-mat-card-content {
-  padding: 0 16px 0 16px;
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-mat-card-footer {
-  padding: 0 32px 16px 32px;
-  text-align: right;
+
+mat-card-actions {
+  justify-content: end;
 }
 
+/* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version.*/
 mat-card.disabled {
   background: hsla(0, 0%, 94%, 1);
 
@@ -19,6 +22,7 @@ mat-card.disabled {
   }
 }
 
-.mat-divider:first-child, .mat-divider:last-child {
+.mat-divider:first-child,
+.mat-divider:last-child {
   display: none; // do not show divider between elements if no elements above or below
 }

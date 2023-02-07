@@ -19,7 +19,7 @@ export class HistoryComponent implements AfterViewInit {
 
   public dataSource: HistoryRecord[];
   public columnsToDisplay: readonly HistoryColumn[] = historyColumns;
-  public searchColumns: readonly HistoryColumn[] = ['action', 'serial', 'tokentype', 'action_detail', 'info'];
+  public searchColumns: readonly HistoryColumn[] = ['action', 'serial', 'tokentype', 'action_detail'];
   public columnNameMapping = {
     date: $localize`Date`,
     action: $localize`Action`,
@@ -27,7 +27,6 @@ export class HistoryComponent implements AfterViewInit {
     serial: $localize`Serial`,
     tokentype: $localize`Token type`,
     action_detail: $localize`Details`,
-    info: $localize`Info`,
   };
 
   @ViewChild(MatPaginator) paginator: MatPaginator;

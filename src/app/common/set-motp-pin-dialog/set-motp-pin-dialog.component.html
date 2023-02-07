@@ -2,7 +2,8 @@
     i18n>Set a new MOTP PIN</h3>
 <form [formGroup]="form"
       (ngSubmit)="submit()">
-  <div mat-dialog-content>
+
+  <mat-dialog-content>
     <p i18n>This is used to generate OTPs which are only known to you. If you change the PIN here, you will also need to
       change it on your device.</p>
     <mat-form-field>
@@ -21,15 +22,16 @@
       <mat-error *ngIf="form.hasError('pinsDoNotMatch')"
                  i18n>Entered PINs do not match</mat-error>
     </mat-form-field>
-    <div class="button-row">
-      <button mat-button
-              mat-dialog-close
-              i18n>cancel</button>
-      <button mat-button
-              color="primary"
-              type="submit"
-              [disabled]="preventSubmit()"
-              i18n>set mOTP pin</button>
-    </div>
-  </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button
+            mat-dialog-close
+            i18n>Cancel</button>
+    <button mat-button
+            color="primary"
+            type="submit"
+            [disabled]="preventSubmit()"
+            i18n>Set mOTP pin</button>
+  </mat-dialog-actions>
+
 </form>

@@ -1,42 +1,47 @@
-<h2 i18n>Register YubiCloud token</h2>
+<h2 mat-dialog-title
+    i18n>Register YubiCloud token</h2>
 <mat-horizontal-stepper [linear]="true"
                         linear
                         #stepper>
 
   <mat-step [stepControl]="registrationForm">
-    <p i18n>Register your Yubikey to authenticate against the YubiCloud.</p>
-    <p i18n>Please enter its Public ID below, and an optional description:</p>
-
     <form [formGroup]="registrationForm"
           (submit)="registerToken()">
-      <mat-form-field>
-        <input matInput
-               i18n-placeholder
-               placeholder="Public ID or OTP"
-               formControlName="publicId"
-               appFocusOnInit>
-        <mat-error i18n>The public ID is required.</mat-error>
-        <mat-hint i18n>To link your token, enter a generated OTP by connecting your YubiKey and pressing the button.
-          Alternatively, you may enter the public ID manually.</mat-hint>
-      </mat-form-field>
 
-      <mat-form-field>
-        <input matInput
-               i18n-placeholder
-               placeholder="Token description"
-               formControlName="description">
-        <mat-error i18n>The token description is required.</mat-error>
-        <mat-hint i18n>Enter a description for your token.</mat-hint>
-      </mat-form-field>
+      <mat-dialog-content>
+        <p i18n>Register your Yubikey to authenticate against the YubiCloud.</p>
+        <p i18n>To link your token, enter a generated OTP by connecting your YubiKey and pressing the button.
+          Alternatively, you may enter the public ID manually:</p>
+        <mat-form-field>
+          <input matInput
+                 i18n-placeholder
+                 placeholder="OTP or public ID"
+                 formControlName="publicId"
+                 appFocusOnInit>
+          <mat-error i18n>This field is required.</mat-error>
+          <mat-hint i18n>Generate an OTP with your Yubikey.</mat-hint>
+        </mat-form-field>
+
+        <p class="formSectionIntro"
+           i18n>You may set a token description, which should help you identify your token:</p>
+        <mat-form-field>
+          <input matInput
+                 i18n-placeholder
+                 placeholder="Token description"
+                 formControlName="description">
+          <mat-error i18n>The token description is required.</mat-error>
+          <mat-hint i18n>Enter a description for your token.</mat-hint>
+        </mat-form-field>
+      </mat-dialog-content>
 
       <mat-dialog-actions align="end">
         <div i18n>Step 1 of 2</div>
         <span class="spacer"></span>
-        <button mat-raised-button
+        <button mat-button
                 type="button"
                 (click)="close()"
                 i18n>Cancel</button>
-        <button mat-raised-button
+        <button mat-button
                 color="primary"
                 type="submit"
                 [disabled]="registrationForm.invalid || registrationForm.disabled">
@@ -48,22 +53,26 @@
   </mat-step>
 
   <mat-step>
-    <p i18n>The token was successfully linked to your user account.</p>
+    <mat-dialog-content>
+      <p i18n>The token was successfully linked to your user account.</p>
 
-    <ng-container *ngxPermissionsOnly="Permission.SETPIN">
-      <p i18n>You may set a PIN now to protect your token against misuse, as it ensures only you can use your token.
-        This step is optional, and you can still do it later over the token menu.</p>
-      <button mat-raised-button
-              color="primary"
-              (click)="setPin()"
-              i18n>Set pin</button>
-    </ng-container>
-    <p *ngxPermissionsOnly="Permission.VERIFY"
-       i18n>Please verify with a token test whether you can successfully use the token:</p>
+      <ng-container *ngxPermissionsOnly="Permission.SETPIN">
+        <p i18n>You may set a PIN now to protect your token against misuse, as it ensures only you can use your token.
+          This step is optional, and you can still do it later over the token menu.</p>
+        <button mat-button
+                color="primary"
+                (click)="setPin()"
+                i18n>Set pin</button>
+      </ng-container>
+      <p *ngxPermissionsOnly="Permission.VERIFY"
+         class="verify"
+         i18n>Please verify with a token test whether you can successfully use the token:</p>
+    </mat-dialog-content>
+
     <mat-dialog-actions align="end">
       <div i18n>Step 2 of 2</div>
       <span class="spacer"></span>
-      <button mat-raised-button
+      <button mat-button
               (click)="finalizeEnrollment()"
               color="primary">{{ closeLabel }}</button>
     </mat-dialog-actions>

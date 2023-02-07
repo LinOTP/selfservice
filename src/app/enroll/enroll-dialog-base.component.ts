@@ -9,7 +9,7 @@ import { from, of, Subscription } from 'rxjs';
 import { NgxPermissionsService } from 'ngx-permissions';
 import { Permission } from '../common/permissions';
 import { EnrollmentService } from '../api/enrollment.service';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { NotificationService } from '../common/notification.service';
 import { tokenDisplayData, TokenDisplayData } from '../api/token';
 import { DialogComponent } from '../common/dialog/dialog.component';
@@ -43,7 +43,7 @@ export abstract class EnrollDialogBaseComponent implements OnInit, OnDestroy {
     protected permissionsService: NgxPermissionsService,
     protected enrollmentService: EnrollmentService,
     protected tokenService: TokenService,
-    protected formBuilder: FormBuilder,
+    protected formBuilder: UntypedFormBuilder,
     protected notificationService: NotificationService,
     protected operationsService: OperationsService,
     protected dialog: MatDialog,
@@ -114,7 +114,7 @@ export abstract class EnrollDialogBaseComponent implements OnInit, OnDestroy {
       tap(res => canDelete = res),
       switchMap(() => {
         const dialogConfig = {
-          width: '25em',
+          width: '35em',
           autoFocus: false,
           disableClose: true,
           data: {
@@ -148,7 +148,7 @@ export abstract class EnrollDialogBaseComponent implements OnInit, OnDestroy {
 
   public setPin() {
     const config = {
-      width: '25em',
+      width: '35em',
       data: this.enrolledToken
     };
     this.dialog

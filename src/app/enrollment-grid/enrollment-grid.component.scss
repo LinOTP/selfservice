@@ -9,13 +9,18 @@ mat-card {
   flex-direction: column;
   margin: .5em .5em;
 
+  .icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   mat-card-actions {
     display: flex;
     justify-content: center;
 
-    button {
+    a {
       flex: 1;
-      text-transform: uppercase;
     }
   }
 }

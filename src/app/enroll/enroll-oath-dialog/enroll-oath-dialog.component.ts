@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, Validators } from '@angular/forms';
+import { UntypedFormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { EnrollmentOptions } from '../../api/token';
 import { EnrollDialogBaseComponent, EnrolledToken } from '../enroll-dialog-base.component';
@@ -19,7 +19,7 @@ export class EnrollOATHDialogComponent extends EnrollDialogBaseComponent impleme
   public enrolledToken: OATHEnrolledToken;
 
   @ViewChild(MatStepper, { static: true }) public stepper: MatStepper;
-  public enrollmentStep: FormGroup;
+  public enrollmentStep: UntypedFormGroup;
 
   public showDetails = false;
 

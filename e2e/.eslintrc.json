@@ -9,17 +9,14 @@
         "*.ts"
       ],
       "parserOptions": {
-        "project": [
-          "e2e/tsconfig.app.json",
-          "e2e/tsconfig.spec.json",
-          "e2e/e2e/tsconfig.json"
-        ],
+        "ecmaVersion": 2020,
         "createDefaultProgram": true
       },
       "rules": {
         "@angular-eslint/directive-selector": [
           "error",
           {
+            "prefix": "app",
             "type": "attribute",
             "style": "camelCase"
           }
@@ -27,6 +24,7 @@
         "@angular-eslint/component-selector": [
           "error",
           {
+            "prefix": "app",
             "type": "element",
             "style": "kebab-case"
           }

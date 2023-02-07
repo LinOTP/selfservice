@@ -1,4 +1,4 @@
-@use '~@angular/material' as mat;
+@use '@angular/material' as mat;
 @import '/src/theme.scss';
 
 :host {
@@ -95,4 +95,8 @@ footer {
   .footerText {
     margin-right: 16px;
   }
+}
+
+.logout {
+  text-transform: none;
 }

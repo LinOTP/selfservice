@@ -6,7 +6,7 @@
       i18n>Test {{ typeDetails.name }} {{ data.serial }}</h2>
 
 
-  <div mat-dialog-content>
+  <mat-dialog-content>
     <ng-container [ngSwitch]="state">
 
       <ng-container *ngSwitchCase="TestState.LOADING">
@@ -48,7 +48,7 @@
         </ng-container>
 
         <div class="otpInput">
-          <button mat-raised-button
+          <button mat-button
                   (click)="showInput()"
                   *ngIf="hasOnlineMode && hasOfflineMode && !showInputField"
                   i18n>Manually enter OTP</button>
@@ -100,15 +100,15 @@
       </ng-container>
 
     </ng-container>
-  </div>
+  </mat-dialog-content>
 
-  <div mat-dialog-actions>
+  <mat-dialog-actions>
     <button mat-button
             type="button"
             mat-dialog-close
             *ngIf="state !== TestState.SUCCESS"
             i18n>cancel</button>
-    <button mat-raised-button
+    <button mat-button
             type="button"
             color="primary"
             type="reset"
@@ -116,19 +116,19 @@
             *ngIf="state === TestState.FAILURE"
             appFocusOnInit
             i18n>restart test</button>
-    <button mat-raised-button
+    <button mat-button
             color="primary"
             type="submit"
             [disabled]="formGroup.invalid"
             *ngIf="state === TestState.UNTESTED && hasOfflineMode"
             i18n>submit</button>
-    <button mat-raised-button
+    <button mat-button
             type="button"
             color="primary"
             mat-dialog-close
             *ngIf="state === TestState.SUCCESS"
             appFocusOnInit
             i18n>done</button>
-  </div>
+  </mat-dialog-actions>
 
 </form>

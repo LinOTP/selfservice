@@ -20,15 +20,16 @@
     <div>
       <div class="name">
         {{ userData.givenname || userData.surname
-          ? ((userData.givenname || '') + ' ' + (userData.surname || ''))
-          : userData.username
+        ? ((userData.givenname || '') + ' ' + (userData.surname || ''))
+        : userData.username
         }}
       </div>
       <div class="realm">{{userData.realm}}</div>
     </div>
     <button mat-button
             (click)="logout()"
-            i18n>Logout</button>
+            i18n
+            class="logout">Logout</button>
   </div>
 </mat-toolbar>
 
