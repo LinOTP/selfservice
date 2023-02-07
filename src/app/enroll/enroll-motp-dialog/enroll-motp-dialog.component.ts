@@ -43,7 +43,6 @@ export class EnrollMOTPDialogComponent extends EnrollDialogBaseComponent impleme
           serial: token.serial,
           type: TokenType.MOTP
         };
-        this.tokenService.updateTokenList();
         this.stepper.next();
       } else {
         this.enrollmentStep.enable();

@@ -21,7 +21,6 @@ describe('EnrollYubicoDialogComponent', () => {
   let component: EnrollYubicoDialogComponent;
   let fixture: ComponentFixture<EnrollYubicoDialogComponent>;
 
-  let tokenService: jasmine.SpyObj<TokenService>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
   let loginService: jasmine.SpyObj<LoginService>;
 
@@ -79,7 +78,6 @@ describe('EnrollYubicoDialogComponent', () => {
     fixture = TestBed.createComponent(EnrollYubicoDialogComponent);
     component = fixture.componentInstance;
 
-    tokenService = getInjectedStub(TokenService);
     enrollmentService = getInjectedStub(EnrollmentService);
     loginService = getInjectedStub(LoginService);
 
@@ -103,7 +101,6 @@ describe('EnrollYubicoDialogComponent', () => {
       component.registerToken();
       expect(component.stepper.selectedIndex).toEqual(1);
       expect(component.registrationForm.disabled).toEqual(true);
-      expect(tokenService.updateTokenList).toHaveBeenCalledTimes(1);
     });
 
     it('should fail when registration request returns and stay on the same step', () => {
@@ -116,7 +113,6 @@ describe('EnrollYubicoDialogComponent', () => {
       component.registerToken();
       expect(component.stepper.selectedIndex).toEqual(0);
       expect(component.registrationForm.disabled).toEqual(false);
-      expect(tokenService.updateTokenList).not.toHaveBeenCalled();
     });
   });
 });

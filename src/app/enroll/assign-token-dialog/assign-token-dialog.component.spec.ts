@@ -22,7 +22,6 @@ import { TokenService } from '../../api/token.service';
 describe('AssignTokenDialogComponent', () => {
   let component: AssignTokenDialogComponent;
   let fixture: ComponentFixture<AssignTokenDialogComponent>;
-  let tokenService: jasmine.SpyObj<TokenService>;
   let dialog: jasmine.SpyObj<MatDialog>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
   let notificationService: jasmine.SpyObj<NotificationService>;
@@ -88,7 +87,6 @@ describe('AssignTokenDialogComponent', () => {
 
     dialog = getInjectedStub(MatDialog);
 
-    tokenService = getInjectedStub(TokenService);
     enrollmentService = getInjectedStub(EnrollmentService);
     notificationService = getInjectedStub(NotificationService);
     loginService = getInjectedStub(LoginService);
@@ -113,7 +111,6 @@ describe('AssignTokenDialogComponent', () => {
       component.assignToken();
       expect(component.stepper.selectedIndex).toEqual(1);
       expect(component.assignmentForm.disabled).toEqual(true);
-      expect(tokenService.updateTokenList).toHaveBeenCalledTimes(1);
     });
 
     it('should fail when assignment request returns and display an error message on failure', fakeAsync(() => {
@@ -129,7 +126,6 @@ describe('AssignTokenDialogComponent', () => {
       expect(component.stepper.selectedIndex).toEqual(0);
       expect(notificationService.message).toHaveBeenCalledWith('Token assignment failed.');
       expect(component.assignmentForm.disabled).toEqual(false);
-      expect(tokenService.updateTokenList).not.toHaveBeenCalled();
     }));
   });
 
