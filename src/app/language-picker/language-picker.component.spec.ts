@@ -1,12 +1,14 @@
+import { LOCALE_ID } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 
-import { LanguagePickerComponent } from './language-picker.component';
+import { TestingPage } from '@testing/page-helper';
+import { getInjectedStub, spyOnClass } from '@testing/spyOnClass';
+
 import { MaterialModule } from '@app/material.module';
 import { SystemService } from '@app/system.service';
-import { spyOnClass, getInjectedStub } from '@testing/spyOnClass';
-import { TestingPage } from '@testing/page-helper';
-import { LOCALE_ID } from '@angular/core';
-import { By } from '@angular/platform-browser';
+
+import { LanguagePickerComponent } from './language-picker.component';
 
 const testLocalesList = [
   { id: 'a', name: 'alpha', shortName: 'A' },

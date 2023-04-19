@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { of } from 'rxjs';
 
@@ -8,8 +8,8 @@ import { Fixtures } from '@testing/fixtures';
 import { TestingPage } from '@testing/page-helper';
 import { spyOnClass } from '@testing/spyOnClass';
 
-import { MaterialModule } from '@app/material.module';
 import { OperationsService } from '@api/operations.service';
+import { MaterialModule } from '@app/material.module';
 
 import { SetMOTPPinDialogComponent } from './set-motp-pin-dialog.component';
 

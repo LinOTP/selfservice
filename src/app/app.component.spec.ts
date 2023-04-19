@@ -3,17 +3,18 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { of, ReplaySubject, Subject } from 'rxjs';
 
-import { spyOnClass, getInjectedStub } from '@testing/spyOnClass';
+import { Fixtures } from '@testing/fixtures';
+import { MockComponent } from '@testing/mock-component';
+import { TestingPage } from '@testing/page-helper';
+import { getInjectedStub, spyOnClass } from '@testing/spyOnClass';
+
+import { LoginService } from '@app/login/login.service';
+import { MaterialModule } from '@app/material.module';
+import { SystemService, UserSystemInfo } from '@app/system.service';
+import { NotificationService } from '@common/notification.service';
+import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
 
 import { AppComponent } from './app.component';
-import { MaterialModule } from '@app/material.module';
-import { NotificationService } from '@common/notification.service';
-import { LoginService } from '@app/login/login.service';
-import { MockComponent } from '@testing/mock-component';
-import { SystemService, UserSystemInfo } from '@app/system.service';
-import { Fixtures } from '@testing/fixtures';
-import { TestingPage } from '@testing/page-helper';
-import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
 
 class Page extends TestingPage<AppComponent> {
   public getToolbar() {

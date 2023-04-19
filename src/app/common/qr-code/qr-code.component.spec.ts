@@ -4,6 +4,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockComponent } from '@testing/mock-component';
 
 import { MaterialModule } from '@app/material.module';
+
 import { QRCodeComponent } from './qr-code.component';
 
 describe('QRCodeComponent', () => {

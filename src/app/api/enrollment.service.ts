@@ -1,16 +1,17 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
 import { Observable, of } from 'rxjs';
-import { map, filter, mergeMap, take, catchError, tap } from 'rxjs/operators';
+import { catchError, filter, map, mergeMap, take, tap } from 'rxjs/operators';
 
-import { EnrollmentOptions, EnrollmentStatus } from './token';
-import { TokenService } from './token.service';
 import { SessionService } from '@app/auth/session.service';
 import { UserInfo } from '@app/system.service';
-import { LinOTPResponse, APIError } from './api';
-import { NotificationService } from '@common/notification.service';
 import { exponentialBackoffInterval } from '@common/exponential-backoff-interval/exponential-backoff-interval';
+import { NotificationService } from '@common/notification.service';
+
+import { APIError, LinOTPResponse } from './api';
+import { EnrollmentOptions, EnrollmentStatus } from './token';
+import { TokenService } from './token.service';
 
 export interface EnrollmentDetail {
   serial: string;

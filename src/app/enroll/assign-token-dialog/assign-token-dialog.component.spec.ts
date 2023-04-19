@@ -1,23 +1,23 @@
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { NgxPermissionsAllowStubDirective, NgxPermissionsService } from 'ngx-permissions';
 
 import { of } from 'rxjs';
 
-import { spyOnClass, getInjectedStub } from '@testing/spyOnClass';
+import { MockComponent } from '@testing/mock-component';
+import { getInjectedStub, spyOnClass } from '@testing/spyOnClass';
 
-import { MaterialModule } from '@app/material.module';
 import { EnrollmentService } from '@api/enrollment.service';
+import { OperationsService } from '@api/operations.service';
+import { TokenService } from '@api/token.service';
+import { LoginService } from '@app/login/login.service';
+import { MaterialModule } from '@app/material.module';
+import { GetSerialDialogComponent } from '@common/get-serial-dialog/get-serial-dialog.component';
+import { NotificationService } from '@common/notification.service';
 
 import { AssignTokenDialogComponent } from './assign-token-dialog.component';
-import { GetSerialDialogComponent } from '@common/get-serial-dialog/get-serial-dialog.component';
-import { MockComponent } from '@testing/mock-component';
-import { NotificationService } from '@common/notification.service';
-import { OperationsService } from '@api/operations.service';
-import { LoginService } from '@app/login/login.service';
-import { TokenService } from '@api/token.service';
 
 describe('AssignTokenDialogComponent', () => {
   let component: AssignTokenDialogComponent;

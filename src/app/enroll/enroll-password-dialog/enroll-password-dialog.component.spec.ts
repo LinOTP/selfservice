@@ -1,27 +1,28 @@
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButton } from '@angular/material/button';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { NgxPermissionsAllowStubDirective, NgxPermissionsService } from 'ngx-permissions';
 import { of } from 'rxjs';
 
-import { Fixtures } from '@testing/fixtures';
-import { spyOnClass, getInjectedStub } from '@testing/spyOnClass';
-
-import { MaterialModule } from '@app/material.module';
 import { TokenType } from '@linotp/data-models';
+
+import { Fixtures } from '@testing/fixtures';
+import { MockComponent } from '@testing/mock-component';
+import { getInjectedStub, spyOnClass } from '@testing/spyOnClass';
+
 import { EnrollmentService } from '@api/enrollment.service';
+import { OperationsService } from '@api/operations.service';
+import { TokenService } from '@api/token.service';
+import { LoginService } from '@app/login/login.service';
+import { MaterialModule } from '@app/material.module';
 import { NotificationService } from '@common/notification.service';
 
 import { EnrollPasswordDialogComponent } from './enroll-password-dialog.component';
-import { MatButton } from '@angular/material/button';
-import { MockComponent } from '@testing/mock-component';
-import { OperationsService } from '@api/operations.service';
-import { LoginService } from '@app/login/login.service';
-import { TokenService } from '@api/token.service';
 
 
 describe('The EnrollPasswordDialogComponent', () => {

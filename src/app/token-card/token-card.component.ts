@@ -1,23 +1,23 @@
-import { Component, OnInit, Input, Output, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
-import { Subject, of, Subscription } from 'rxjs';
+import { of, Subject, Subscription } from 'rxjs';
 import { filter, switchMap } from 'rxjs/operators';
 
-import { Permission, ModifyTokenPermissions, ModifyUnreadyTokenPermissions } from '@common/permissions';
-import { SelfserviceToken, EnrollmentStatus } from '@api/token';
 import { TokenType } from '@linotp/data-models';
-import { NotificationService } from '@common/notification.service';
-import { OperationsService } from '@api/operations.service';
 
-import { DialogComponent } from '@common/dialog/dialog.component';
-import { SetPinDialogComponent } from '@common/set-pin-dialog/set-pin-dialog.component';
-import { SetMOTPPinDialogComponent } from '@common/set-motp-pin-dialog/set-motp-pin-dialog.component';
-import { ResyncDialogComponent } from '@common/resync-dialog/resync-dialog.component';
-import { TestDialogComponent } from '@app/test/test-dialog.component';
+import { OperationsService } from '@api/operations.service';
+import { EnrollmentStatus, SelfserviceToken } from '@api/token';
 import { ActivateDialogComponent } from '@app/activate/activate-dialog.component';
-import { SetDescriptionDialogComponent } from '@common/set-description-dialog/set-description-dialog.component';
 import { LoginService } from '@app/login/login.service';
+import { TestDialogComponent } from '@app/test/test-dialog.component';
+import { DialogComponent } from '@common/dialog/dialog.component';
+import { NotificationService } from '@common/notification.service';
+import { ModifyTokenPermissions, ModifyUnreadyTokenPermissions, Permission } from '@common/permissions';
+import { ResyncDialogComponent } from '@common/resync-dialog/resync-dialog.component';
+import { SetDescriptionDialogComponent } from '@common/set-description-dialog/set-description-dialog.component';
+import { SetMOTPPinDialogComponent } from '@common/set-motp-pin-dialog/set-motp-pin-dialog.component';
+import { SetPinDialogComponent } from '@common/set-pin-dialog/set-pin-dialog.component';
 
 @Component({
   selector: 'app-token-card',

@@ -1,23 +1,23 @@
-import { Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { TestBed, inject, fakeAsync, tick } from '@angular/core/testing';
 import { Type } from '@angular/core';
+import { fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
+import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 
+import { NgxPermissionsService } from 'ngx-permissions';
 import { of } from 'rxjs';
 
-import { spyOnClass, getInjectedStub } from '@testing/spyOnClass';
 import { Fixtures, TokenListFixtures } from '@testing/fixtures';
+import { getInjectedStub, spyOnClass } from '@testing/spyOnClass';
 
-import { MaterialModule } from '@app/material.module';
-import { SessionService } from '@app/auth/session.service';
-import { SystemService } from '@app/system.service';
 import { TokenService } from '@api/token.service';
+import { SessionService } from '@app/auth/session.service';
+import { MaterialModule } from '@app/material.module';
+import { SystemService } from '@app/system.service';
+import { Permission } from '@common/permissions';
 
 import { LoginService } from './login.service';
-import { NgxPermissionsService } from 'ngx-permissions';
-import { Permission } from '@common/permissions';
 
 describe('LoginService', () => {
   let loginService: LoginService;

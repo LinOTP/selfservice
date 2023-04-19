@@ -1,24 +1,24 @@
-import { OnDestroy, Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { UntypedFormBuilder } from '@angular/forms';
+import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
 
-import { MatDialogRef, MatDialog, MatDialogConfig, MAT_DIALOG_DATA } from '@angular/material/dialog';
-
-import { switchMap, tap, map, filter } from 'rxjs/operators';
-import { from, of, Subscription } from 'rxjs';
-
 import { NgxPermissionsService } from 'ngx-permissions';
-import { Permission } from '@common/permissions';
+import { from, of, Subscription } from 'rxjs';
+import { filter, map, switchMap, tap } from 'rxjs/operators';
+
+import { TokenType } from '@linotp/data-models';
+
 import { EnrollmentService } from '@api/enrollment.service';
-import { UntypedFormBuilder } from '@angular/forms';
-import { NotificationService } from '@common/notification.service';
-import { tokenDisplayData, TokenDisplayData } from '@api/token';
-import { DialogComponent } from '@common/dialog/dialog.component';
 import { OperationsService } from '@api/operations.service';
-import { SetPinDialogComponent } from '@common/set-pin-dialog/set-pin-dialog.component';
+import { tokenDisplayData, TokenDisplayData } from '@api/token';
+import { TokenService } from '@api/token.service';
 import { LoginService } from '@app/login/login.service';
 import { TestDialogComponent } from '@app/test/test-dialog.component';
-import { TokenType } from '@linotp/data-models';
-import { TokenService } from '@api/token.service';
+import { DialogComponent } from '@common/dialog/dialog.component';
+import { NotificationService } from '@common/notification.service';
+import { Permission } from '@common/permissions';
+import { SetPinDialogComponent } from '@common/set-pin-dialog/set-pin-dialog.component';
 
 
 export interface EnrolledToken {

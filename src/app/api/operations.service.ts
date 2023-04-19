@@ -1,15 +1,16 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
 import { Observable, of } from 'rxjs';
-import { map, catchError, tap } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 
-import { SessionService } from '@app/auth/session.service';
-import { SelfserviceToken } from './token';
 import { TokenType } from '@linotp/data-models';
 
-import { APIError, LinOTPResponse } from './api';
+import { SessionService } from '@app/auth/session.service';
 import { NotificationService } from '@common/notification.service';
+
+import { APIError, LinOTPResponse } from './api';
+import { SelfserviceToken } from './token';
 
 @Injectable({
   providedIn: 'root'

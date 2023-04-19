@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { LoginService } from '@app/login/login.service';
-import { NotificationService } from '@common/notification.service';
 import { SystemService, UserSystemInfo } from '@app/system.service';
+import { NotificationService } from '@common/notification.service';
 import { Permission } from '@common/permissions';
 
 @Component({

@@ -1,25 +1,25 @@
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { of, Subject } from 'rxjs';
 
-import { spyOnClass, getInjectedStub } from '@testing/spyOnClass';
 import { Fixtures } from '@testing/fixtures';
+import { MockComponent } from '@testing/mock-component';
 import { MockPipe } from '@testing/mock-pipe';
 import { TestingPage } from '@testing/page-helper';
+import { getInjectedStub, spyOnClass } from '@testing/spyOnClass';
 
+import { SelfserviceToken } from '@api/token';
 import { MaterialModule } from '@app/material.module';
-import { NotificationService } from '@common/notification.service';
 import { SystemService } from '@app/system.service';
+import { DialogComponent } from '@common/dialog/dialog.component';
+import { NotificationService } from '@common/notification.service';
 
 import { LoginComponent, LoginStage } from './login.component';
 import { LoginService } from './login.service';
-import { MockComponent } from '@testing/mock-component';
-import { SelfserviceToken } from '@api/token';
-import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent } from '@common/dialog/dialog.component';
 
 class Page extends TestingPage<LoginComponent> {
 

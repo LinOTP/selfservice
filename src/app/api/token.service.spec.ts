@@ -1,13 +1,14 @@
-import { TestBed, inject } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { inject, TestBed } from '@angular/core/testing';
 
 import { TokenListFixtures } from '@testing/fixtures';
+import { getInjectedStub, spyOnClass } from '@testing/spyOnClass';
 
 import { SessionService } from '@app/auth/session.service';
-import { TokenService } from './token.service';
 import { NotificationService } from '@common/notification.service';
-import { getInjectedStub, spyOnClass } from '@testing/spyOnClass';
+
+import { TokenService } from './token.service';
 
 const session = '';
 

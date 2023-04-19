@@ -1,5 +1,8 @@
 {
   "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
+  },
   "search.exclude": {
     "**/node_modules": true,
   },
@@ -8,6 +11,4 @@
   "scss.lint.float": "warning",
   "files.trimTrailingWhitespace": true,
   "html.format.wrapAttributes": "force-aligned",
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "typescript.preferences.importModuleSpecifier": "relative",
 }

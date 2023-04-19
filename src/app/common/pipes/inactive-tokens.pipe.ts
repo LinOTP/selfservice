@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { SelfserviceToken, EnrollmentStatus } from '@api/token';
+
+import { EnrollmentStatus, SelfserviceToken } from '@api/token';
 
 @Pipe({
   name: 'inactiveTokens',

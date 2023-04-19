@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
 
+import { of } from 'rxjs';
 import { catchError, filter, map, switchMap, take, tap } from 'rxjs/operators';
 
 import { TokenType } from '@linotp/data-models';
 
-import { NotificationService } from '@common/notification.service';
-import { LoginService } from '@app/login/login.service';
 import { TokenDisplayData, tokenDisplayData } from '@api/token';
+import { LoginService } from '@app/login/login.service';
+import { NotificationService } from '@common/notification.service';
 
 import { AssignTokenDialogComponent } from '@app/enroll/assign-token-dialog/assign-token-dialog.component';
 import { EnrollEmailDialogComponent } from '@app/enroll/enroll-email-dialog/enroll-email-dialog.component';
@@ -18,7 +19,6 @@ import { EnrollPasswordDialogComponent } from '@app/enroll/enroll-password-dialo
 import { EnrollPushQRDialogComponent } from '@app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component';
 import { EnrollSMSDialogComponent } from '@app/enroll/enroll-sms-dialog/enroll-sms-dialog.component';
 import { EnrollYubicoDialogComponent } from '@app/enroll/enroll-yubico/enroll-yubico-dialog.component';
-import { of } from 'rxjs';
 
 @Component({
   selector: 'app-enroll',

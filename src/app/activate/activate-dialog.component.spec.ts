@@ -1,23 +1,25 @@
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import { By } from '@angular/platform-browser';
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
 
+import { Subscription } from 'rxjs';
 import { of } from 'rxjs/internal/observable/of';
+
+import { TokenType } from '@linotp/data-models';
 
 import { Fixtures } from '@testing/fixtures';
 import { MockComponent } from '@testing/mock-component';
-import { spyOnClass, getInjectedStub } from '@testing/spyOnClass';
+import { getInjectedStub, spyOnClass } from '@testing/spyOnClass';
 
-import { MaterialModule } from '@app/material.module';
 import { EnrollmentService } from '@api/enrollment.service';
-import { EnrollPushQRDialogComponent } from '@app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component';
-import { ActivateDialogComponent } from './activate-dialog.component';
-import { Subscription } from 'rxjs';
-import { TokenType } from '@linotp/data-models';
 import { TokenService } from '@api/token.service';
+import { EnrollPushQRDialogComponent } from '@app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component';
+import { MaterialModule } from '@app/material.module';
+
+import { ActivateDialogComponent } from './activate-dialog.component';
 
 const data = {
   serial: 'serialpush',

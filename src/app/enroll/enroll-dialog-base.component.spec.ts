@@ -1,24 +1,25 @@
-import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { NgxPermissionsService } from 'ngx-permissions';
+import { of } from 'rxjs';
 
-import { spyOnClass, getInjectedStub } from '@testing/spyOnClass';
+import { getInjectedStub, spyOnClass } from '@testing/spyOnClass';
 
-import { MaterialModule } from '@app/material.module';
+import { TokenType } from '@linotp/data-models';
+
 import { EnrollmentService } from '@api/enrollment.service';
 import { OperationsService } from '@api/operations.service';
+import { TokenService } from '@api/token.service';
+import { LoginService } from '@app/login/login.service';
+import { MaterialModule } from '@app/material.module';
+import { TestDialogComponent } from '@app/test/test-dialog.component';
+import { DialogComponent } from '@common/dialog/dialog.component';
 import { NotificationService } from '@common/notification.service';
+import { SetPinDialogComponent } from '@common/set-pin-dialog/set-pin-dialog.component';
 
 import { EnrollDialogBaseComponent } from './enroll-dialog-base.component';
-import { of } from 'rxjs';
-import { SetPinDialogComponent } from '@common/set-pin-dialog/set-pin-dialog.component';
-import { DialogComponent } from '@common/dialog/dialog.component';
-import { TokenType } from '@linotp/data-models';
-import { LoginService } from '@app/login/login.service';
-import { TestDialogComponent } from '@app/test/test-dialog.component';
-import { TokenService } from '@api/token.service';
 
 class MockComponent extends EnrollDialogBaseComponent { }
 

@@ -1,12 +1,13 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
 import { Observable, of } from 'rxjs';
-import { map, catchError, filter, mergeMap, take } from 'rxjs/operators';
+import { catchError, filter, map, mergeMap, take } from 'rxjs/operators';
 
 import { SessionService } from '@app/auth/session.service';
-import { LinOTPResponse } from './api';
 import { exponentialBackoffInterval } from '@common/exponential-backoff-interval/exponential-backoff-interval';
+
+import { LinOTPResponse } from './api';
 
 export enum ReplyMode {
   ONLINE = 'online',
