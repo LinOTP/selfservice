@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { SelfserviceToken, EnrollmentStatus } from '../../api/token';
+import { SelfserviceToken, EnrollmentStatus } from '@api/token';
 
 @Pipe({
   name: 'sortTokensByState'

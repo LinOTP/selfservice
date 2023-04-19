@@ -7,17 +7,17 @@ import { Type } from '@angular/core';
 
 import { of } from 'rxjs';
 
-import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
-import { Fixtures, TokenListFixtures } from '../../testing/fixtures';
+import { spyOnClass, getInjectedStub } from '@testing/spyOnClass';
+import { Fixtures, TokenListFixtures } from '@testing/fixtures';
 
-import { MaterialModule } from '../material.module';
-import { SessionService } from '../auth/session.service';
-import { SystemService } from '../system.service';
-import { TokenService } from '../api/token.service';
+import { MaterialModule } from '@app/material.module';
+import { SessionService } from '@app/auth/session.service';
+import { SystemService } from '@app/system.service';
+import { TokenService } from '@api/token.service';
 
 import { LoginService } from './login.service';
 import { NgxPermissionsService } from 'ngx-permissions';
-import { Permission } from '../common/permissions';
+import { Permission } from '@common/permissions';
 
 describe('LoginService', () => {
   let loginService: LoginService;

@@ -1,10 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LanguagePickerComponent } from './language-picker.component';
-import { MaterialModule } from '../material.module';
-import { SystemService } from '../system.service';
-import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
-import { TestingPage } from '../../testing/page-helper';
+import { MaterialModule } from '@app/material.module';
+import { SystemService } from '@app/system.service';
+import { spyOnClass, getInjectedStub } from '@testing/spyOnClass';
+import { TestingPage } from '@testing/page-helper';
 import { LOCALE_ID } from '@angular/core';
 import { By } from '@angular/platform-browser';
 

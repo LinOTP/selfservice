@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { MaterialModule } from '../material.module';
+import { MaterialModule } from '@app/material.module';
 
 import { NotificationService } from './notification.service';
 
@@ -24,7 +24,7 @@ import { QRCodeComponent } from './qr-code/qr-code.component';
 import { QRCodeModule } from 'angularx-qrcode';
 
 import { FocusOnInitDirective } from './focus-on-init/focus-on-init.directive';
-import { ButtonWaitIndicatorComponent } from '../button-wait-indicator/button-wait-indicator.component';
+import { ButtonWaitIndicatorComponent } from '@app/button-wait-indicator/button-wait-indicator.component';
 
 
 @NgModule({

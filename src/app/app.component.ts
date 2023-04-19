@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
-import { LoginService } from './login/login.service';
-import { NotificationService } from './common/notification.service';
-import { SystemService, UserSystemInfo } from './system.service';
-import { Permission } from './common/permissions';
+import { LoginService } from '@app/login/login.service';
+import { NotificationService } from '@common/notification.service';
+import { SystemService, UserSystemInfo } from '@app/system.service';
+import { Permission } from '@common/permissions';
 
 @Component({
   selector: 'app-root',

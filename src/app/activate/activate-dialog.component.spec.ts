@@ -7,17 +7,17 @@ import { FormsModule } from '@angular/forms';
 
 import { of } from 'rxjs/internal/observable/of';
 
-import { Fixtures } from '../../testing/fixtures';
-import { MockComponent } from '../../testing/mock-component';
-import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
+import { Fixtures } from '@testing/fixtures';
+import { MockComponent } from '@testing/mock-component';
+import { spyOnClass, getInjectedStub } from '@testing/spyOnClass';
 
-import { MaterialModule } from '../material.module';
-import { EnrollmentService } from '../api/enrollment.service';
-import { EnrollPushQRDialogComponent } from '../enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component';
+import { MaterialModule } from '@app/material.module';
+import { EnrollmentService } from '@api/enrollment.service';
+import { EnrollPushQRDialogComponent } from '@app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component';
 import { ActivateDialogComponent } from './activate-dialog.component';
 import { Subscription } from 'rxjs';
 import { TokenType } from '@linotp/data-models';
-import { TokenService } from '../api/token.service';
+import { TokenService } from '@api/token.service';
 
 const data = {
   serial: 'serialpush',

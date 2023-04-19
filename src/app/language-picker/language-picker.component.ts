@@ -1,5 +1,5 @@
 import { Component, Inject, LOCALE_ID, OnInit } from '@angular/core';
-import { SystemService } from '../system.service';
+import { SystemService } from '@app/system.service';
 
 @Component({
   selector: 'app-language-picker',

@@ -5,24 +5,24 @@ import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
 
 import { BehaviorSubject, of, Subject } from 'rxjs';
 
-import { MockPipe } from '../../testing/mock-pipe';
-import { MockComponent } from '../../testing/mock-component';
-import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
-import { Fixtures } from '../../testing/fixtures';
-import { TestingPage } from '../../testing/page-helper';
+import { MockPipe } from '@testing/mock-pipe';
+import { MockComponent } from '@testing/mock-component';
+import { spyOnClass, getInjectedStub } from '@testing/spyOnClass';
+import { Fixtures } from '@testing/fixtures';
+import { TestingPage } from '@testing/page-helper';
 
-import { MaterialModule } from '../material.module';
-import { TokenService } from '../api/token.service';
-import { EnrollmentStatus } from '../api/token';
-import { Permission } from '../common/permissions';
-import { ArrayNotEmptyPipe } from '../common/pipes/array-not-empty.pipe';
-import { ActiveTokensPipe } from '../common/pipes/active-tokens.pipe';
-import { InactiveTokensPipe } from '../common/pipes/inactive-tokens.pipe';
-import { UnreadyTokensPipe } from '../common/pipes/unready-tokens.pipe';
-import { CapitalizePipe } from '../common/pipes/capitalize.pipe';
+import { MaterialModule } from '@app/material.module';
+import { TokenService } from '@api/token.service';
+import { EnrollmentStatus } from '@api/token';
+import { Permission } from '@common/permissions';
+import { ArrayNotEmptyPipe } from '@common/pipes/array-not-empty.pipe';
+import { ActiveTokensPipe } from '@common/pipes/active-tokens.pipe';
+import { InactiveTokensPipe } from '@common/pipes/inactive-tokens.pipe';
+import { UnreadyTokensPipe } from '@common/pipes/unready-tokens.pipe';
+import { CapitalizePipe } from '@common/pipes/capitalize.pipe';
 
 import { TokenListComponent } from './token-list.component';
-import { LoginService } from '../login/login.service';
+import { LoginService } from '@app/login/login.service';
 
 class Page extends TestingPage<TokenListComponent> {
 

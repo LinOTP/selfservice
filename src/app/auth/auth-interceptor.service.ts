@@ -4,8 +4,8 @@ import { HttpInterceptor, HttpErrorResponse, HttpRequest, HttpHandler, HttpEvent
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { LoginService } from '../login/login.service';
-import { NotificationService, Duration } from '../common/notification.service';
+import { LoginService } from '@app/login/login.service';
+import { NotificationService, Duration } from '@common/notification.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {

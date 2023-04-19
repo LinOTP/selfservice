@@ -4,11 +4,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { of } from 'rxjs';
 
-import { Fixtures } from '../../../testing/fixtures';
-import { spyOnClass } from '../../../testing/spyOnClass';
+import { Fixtures } from '@testing/fixtures';
+import { spyOnClass } from '@testing/spyOnClass';
 
-import { MaterialModule } from '../../material.module';
-import { OperationsService } from '../../api/operations.service';
+import { MaterialModule } from '@app/material.module';
+import { OperationsService } from '@api/operations.service';
 import { SetDescriptionDialogComponent } from './set-description-dialog.component';
 
 describe('SetDecriptionDialogComponent', () => {

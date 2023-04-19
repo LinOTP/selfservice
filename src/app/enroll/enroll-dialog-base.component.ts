@@ -7,18 +7,18 @@ import { switchMap, tap, map, filter } from 'rxjs/operators';
 import { from, of, Subscription } from 'rxjs';
 
 import { NgxPermissionsService } from 'ngx-permissions';
-import { Permission } from '../common/permissions';
-import { EnrollmentService } from '../api/enrollment.service';
+import { Permission } from '@common/permissions';
+import { EnrollmentService } from '@api/enrollment.service';
 import { UntypedFormBuilder } from '@angular/forms';
-import { NotificationService } from '../common/notification.service';
-import { tokenDisplayData, TokenDisplayData } from '../api/token';
-import { DialogComponent } from '../common/dialog/dialog.component';
-import { OperationsService } from '../api/operations.service';
-import { SetPinDialogComponent } from '../common/set-pin-dialog/set-pin-dialog.component';
-import { LoginService } from '../login/login.service';
-import { TestDialogComponent } from '../test/test-dialog.component';
+import { NotificationService } from '@common/notification.service';
+import { tokenDisplayData, TokenDisplayData } from '@api/token';
+import { DialogComponent } from '@common/dialog/dialog.component';
+import { OperationsService } from '@api/operations.service';
+import { SetPinDialogComponent } from '@common/set-pin-dialog/set-pin-dialog.component';
+import { LoginService } from '@app/login/login.service';
+import { TestDialogComponent } from '@app/test/test-dialog.component';
 import { TokenType } from '@linotp/data-models';
-import { TokenService } from '../api/token.service';
+import { TokenService } from '@api/token.service';
 
 
 export interface EnrolledToken {

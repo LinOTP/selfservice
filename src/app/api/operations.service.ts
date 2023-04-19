@@ -4,12 +4,12 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 
-import { SessionService } from '../auth/session.service';
+import { SessionService } from '@app/auth/session.service';
 import { SelfserviceToken } from './token';
 import { TokenType } from '@linotp/data-models';
 
 import { APIError, LinOTPResponse } from './api';
-import { NotificationService } from '../common/notification.service';
+import { NotificationService } from '@common/notification.service';
 
 @Injectable({
   providedIn: 'root'

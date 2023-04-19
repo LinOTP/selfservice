@@ -8,19 +8,19 @@ import { By } from '@angular/platform-browser';
 import { NgxPermissionsAllowStubDirective, NgxPermissionsService } from 'ngx-permissions';
 import { of } from 'rxjs';
 
-import { Fixtures } from '../../../testing/fixtures';
-import { spyOnClass, getInjectedStub } from '../../../testing/spyOnClass';
+import { Fixtures } from '@testing/fixtures';
+import { spyOnClass, getInjectedStub } from '@testing/spyOnClass';
 
-import { MaterialModule } from '../../material.module';
+import { MaterialModule } from '@app/material.module';
 import { TokenType } from '@linotp/data-models';
-import { OperationsService } from '../../api/operations.service';
-import { EnrollmentService } from '../../api/enrollment.service';
-import { NotificationService } from '../../common/notification.service';
+import { OperationsService } from '@api/operations.service';
+import { EnrollmentService } from '@api/enrollment.service';
+import { NotificationService } from '@common/notification.service';
 
 import { EnrollMOTPDialogComponent } from './enroll-motp-dialog.component';
-import { MockComponent } from '../../../testing/mock-component';
-import { LoginService } from '../../login/login.service';
-import { TokenService } from '../../api/token.service';
+import { MockComponent } from '@testing/mock-component';
+import { LoginService } from '@app/login/login.service';
+import { TokenService } from '@api/token.service';
 
 const enrolledToken = {
   serial: Fixtures.mOTPEnrollmentResponse.serial,

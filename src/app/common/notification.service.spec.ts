@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { MaterialModule } from '../material.module';
+import { MaterialModule } from '@app/material.module';
 
 import { NotificationService } from './notification.service';
 

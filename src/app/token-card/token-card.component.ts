@@ -4,20 +4,20 @@ import { MatDialog } from '@angular/material/dialog';
 import { Subject, of, Subscription } from 'rxjs';
 import { filter, switchMap } from 'rxjs/operators';
 
-import { Permission, ModifyTokenPermissions, ModifyUnreadyTokenPermissions } from '../common/permissions';
-import { SelfserviceToken, EnrollmentStatus } from '../api/token';
+import { Permission, ModifyTokenPermissions, ModifyUnreadyTokenPermissions } from '@common/permissions';
+import { SelfserviceToken, EnrollmentStatus } from '@api/token';
 import { TokenType } from '@linotp/data-models';
-import { NotificationService } from '../common/notification.service';
-import { OperationsService } from '../api/operations.service';
+import { NotificationService } from '@common/notification.service';
+import { OperationsService } from '@api/operations.service';
 
-import { DialogComponent } from '../common/dialog/dialog.component';
-import { SetPinDialogComponent } from '../common/set-pin-dialog/set-pin-dialog.component';
-import { SetMOTPPinDialogComponent } from '../common/set-motp-pin-dialog/set-motp-pin-dialog.component';
-import { ResyncDialogComponent } from '../common/resync-dialog/resync-dialog.component';
-import { TestDialogComponent } from '../test/test-dialog.component';
-import { ActivateDialogComponent } from '../activate/activate-dialog.component';
-import { SetDescriptionDialogComponent } from '../common/set-description-dialog/set-description-dialog.component';
-import { LoginService } from '../login/login.service';
+import { DialogComponent } from '@common/dialog/dialog.component';
+import { SetPinDialogComponent } from '@common/set-pin-dialog/set-pin-dialog.component';
+import { SetMOTPPinDialogComponent } from '@common/set-motp-pin-dialog/set-motp-pin-dialog.component';
+import { ResyncDialogComponent } from '@common/resync-dialog/resync-dialog.component';
+import { TestDialogComponent } from '@app/test/test-dialog.component';
+import { ActivateDialogComponent } from '@app/activate/activate-dialog.component';
+import { SetDescriptionDialogComponent } from '@common/set-description-dialog/set-description-dialog.component';
+import { LoginService } from '@app/login/login.service';
 
 @Component({
   selector: 'app-token-card',

@@ -2,9 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { TokenType } from '@linotp/data-models';
-import { EnrollmentOptions } from '../../api/token';
-import { UserInfo, UserSystemInfo } from '../../system.service';
-import { EnrollDialogBaseComponent } from '../enroll-dialog-base.component';
+import { EnrollmentOptions } from '@api/token';
+import { UserInfo, UserSystemInfo } from '@app/system.service';
+import { EnrollDialogBaseComponent } from '@app/enroll/enroll-dialog-base.component';
 
 @Component({
   selector: 'app-enroll-sms',

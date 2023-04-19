@@ -4,12 +4,12 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { of } from 'rxjs';
 
-import { Fixtures } from '../../../testing/fixtures';
-import { TestingPage } from '../../../testing/page-helper';
-import { spyOnClass } from '../../../testing/spyOnClass';
+import { Fixtures } from '@testing/fixtures';
+import { TestingPage } from '@testing/page-helper';
+import { spyOnClass } from '@testing/spyOnClass';
 
-import { MaterialModule } from '../../material.module';
-import { OperationsService } from '../../api/operations.service';
+import { MaterialModule } from '@app/material.module';
+import { OperationsService } from '@api/operations.service';
 import { ResyncDialogComponent } from './resync-dialog.component';
 
 class Page extends TestingPage<ResyncDialogComponent> {

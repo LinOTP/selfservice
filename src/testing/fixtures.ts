@@ -1,10 +1,10 @@
-import { SelfserviceToken, EnrollmentStatus, TokenDisplayData } from '../app/api/token';
+import { SelfserviceToken, EnrollmentStatus, TokenDisplayData } from '@api/token';
 import { TokenType } from '@linotp/data-models';
-import { Permission } from '../app/common/permissions';
-import { UserSystemInfo, SystemInfo } from '../app/system.service';
-import { ReplyMode } from '../app/api/test.service';
-import { HistoryRequestOptions, HistoryPage, HistoryResponse, HistoryField, SortOrder } from '../app/api/history';
-import { EnrollmentDetail } from '../app/api/enrollment.service';
+import { Permission } from '@common/permissions';
+import { UserSystemInfo, SystemInfo } from '@app/system.service';
+import { ReplyMode } from '@api/test.service';
+import { HistoryRequestOptions, HistoryPage, HistoryResponse, HistoryField, SortOrder } from '@api/history';
+import { EnrollmentDetail } from '@api/enrollment.service';
 
 export class Fixtures {
 

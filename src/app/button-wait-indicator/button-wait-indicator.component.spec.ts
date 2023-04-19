@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TestingPage } from '../../testing/page-helper';
-import { MaterialModule } from '../material.module';
+import { TestingPage } from '@testing/page-helper';
+import { MaterialModule } from '@app/material.module';
 
 import { ButtonWaitIndicatorComponent } from './button-wait-indicator.component';
 

@@ -7,14 +7,14 @@ import { Observable, of, BehaviorSubject } from 'rxjs';
 import { map, tap, filter, mergeMap, take, catchError } from 'rxjs/operators';
 import { NgxPermissionsService } from 'ngx-permissions';
 
-import { SystemService, UserSystemInfo } from '../system.service';
-import { SelfserviceToken } from '../api/token';
-import { SessionService } from '../auth/session.service';
-import { LinOTPResponse } from '../api/api';
-import { TokenService } from '../api/token.service';
-import { ReplyMode, TransactionDetail, StatusDetail } from '../api/test.service';
-import { exponentialBackoffInterval } from '../common/exponential-backoff-interval/exponential-backoff-interval';
-import { Permission } from '../common/permissions';
+import { SystemService, UserSystemInfo } from '@app/system.service';
+import { SelfserviceToken } from '@api/token';
+import { SessionService } from '@app/auth/session.service';
+import { LinOTPResponse } from '@api/api';
+import { TokenService } from '@api/token.service';
+import { ReplyMode, TransactionDetail, StatusDetail } from '@api/test.service';
+import { exponentialBackoffInterval } from '@common/exponential-backoff-interval/exponential-backoff-interval';
+import { Permission } from '@common/permissions';
 
 export interface LoginOptions {
   username?: string;

@@ -4,18 +4,18 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { of } from 'rxjs';
 
-import { spyOnClass, getInjectedStub } from '../../../testing/spyOnClass';
+import { spyOnClass, getInjectedStub } from '@testing/spyOnClass';
 
-import { MaterialModule } from '../../material.module';
-import { EnrollmentService } from '../../api/enrollment.service';
+import { MaterialModule } from '@app/material.module';
+import { EnrollmentService } from '@api/enrollment.service';
 
 import { EnrollYubicoDialogComponent } from './enroll-yubico-dialog.component';
-import { MockComponent } from '../../../testing/mock-component';
-import { NotificationService } from '../../common/notification.service';
-import { OperationsService } from '../../api/operations.service';
+import { MockComponent } from '@testing/mock-component';
+import { NotificationService } from '@common/notification.service';
+import { OperationsService } from '@api/operations.service';
 import { NgxPermissionsAllowStubDirective, NgxPermissionsService } from 'ngx-permissions';
-import { LoginService } from '../../login/login.service';
-import { TokenService } from '../../api/token.service';
+import { LoginService } from '@app/login/login.service';
+import { TokenService } from '@api/token.service';
 
 describe('EnrollYubicoDialogComponent', () => {
   let component: EnrollYubicoDialogComponent;

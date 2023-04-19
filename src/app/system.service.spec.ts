@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { TestBed, inject } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
-import { ExampleAPIResponses, Fixtures } from '../testing/fixtures';
-import { spyOnClass, getInjectedStub } from '../testing/spyOnClass';
+import { ExampleAPIResponses, Fixtures } from '@testing/fixtures';
+import { spyOnClass, getInjectedStub } from '@testing/spyOnClass';
 
 import { SystemService } from './system.service';
 import { SessionService } from './auth/session.service';

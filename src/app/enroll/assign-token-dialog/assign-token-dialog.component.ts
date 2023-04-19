@@ -1,8 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
-import { GetSerialDialogComponent } from '../../common/get-serial-dialog/get-serial-dialog.component';
-import { EnrollDialogBaseComponent } from '../enroll-dialog-base.component';
+import { GetSerialDialogComponent } from '@common/get-serial-dialog/get-serial-dialog.component';
+import { EnrollDialogBaseComponent } from '@app/enroll/enroll-dialog-base.component';
 
 
 @Component({

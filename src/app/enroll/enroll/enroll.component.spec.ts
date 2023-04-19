@@ -7,20 +7,20 @@ import { of } from 'rxjs';
 
 import { TokenType } from '@linotp/data-models';
 
-import { getInjectedStub, spyOnClass } from '../../../testing/spyOnClass';
+import { getInjectedStub, spyOnClass } from '@testing/spyOnClass';
 
-import { LoginService } from '../../login/login.service';
-import { NotificationService } from '../../common/notification.service';
+import { LoginService } from '@app/login/login.service';
+import { NotificationService } from '@common/notification.service';
 
-import { TokenListComponent } from '../../token-list/token-list.component';
-import { EnrollOATHDialogComponent } from '../enroll-oath-dialog/enroll-oath-dialog.component';
-import { EnrollMOTPDialogComponent } from '../enroll-motp-dialog/enroll-motp-dialog.component';
-import { EnrollPasswordDialogComponent } from '../enroll-password-dialog/enroll-password-dialog.component';
-import { EnrollPushQRDialogComponent } from '../enroll-push-qr-dialog/enroll-push-qr-dialog.component';
-import { EnrollYubicoDialogComponent } from '../enroll-yubico/enroll-yubico-dialog.component';
-import { AssignTokenDialogComponent } from '../assign-token-dialog/assign-token-dialog.component';
-import { EnrollSMSDialogComponent } from '../enroll-sms-dialog/enroll-sms-dialog.component';
-import { EnrollEmailDialogComponent } from '../enroll-email-dialog/enroll-email-dialog.component';
+import { TokenListComponent } from '@app/token-list/token-list.component';
+import { EnrollOATHDialogComponent } from '@app/enroll/enroll-oath-dialog/enroll-oath-dialog.component';
+import { EnrollMOTPDialogComponent } from '@app/enroll/enroll-motp-dialog/enroll-motp-dialog.component';
+import { EnrollPasswordDialogComponent } from '@app/enroll/enroll-password-dialog/enroll-password-dialog.component';
+import { EnrollPushQRDialogComponent } from '@app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component';
+import { EnrollYubicoDialogComponent } from '@app/enroll/enroll-yubico/enroll-yubico-dialog.component';
+import { AssignTokenDialogComponent } from '@app/enroll/assign-token-dialog/assign-token-dialog.component';
+import { EnrollSMSDialogComponent } from '@app/enroll/enroll-sms-dialog/enroll-sms-dialog.component';
+import { EnrollEmailDialogComponent } from '@app/enroll/enroll-email-dialog/enroll-email-dialog.component';
 
 import { EnrollComponent } from './enroll.component';
 

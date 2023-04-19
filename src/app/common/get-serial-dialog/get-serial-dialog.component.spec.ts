@@ -4,10 +4,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { of } from 'rxjs';
 
-import { spyOnClass } from '../../../testing/spyOnClass';
+import { spyOnClass } from '@testing/spyOnClass';
 
-import { MaterialModule } from '../../material.module';
-import { TokenService } from '../../api/token.service';
+import { MaterialModule } from '@app/material.module';
+import { TokenService } from '@api/token.service';
 import { GetSerialDialogComponent } from './get-serial-dialog.component';
 
 describe('GetSerialDialogComponent', () => {

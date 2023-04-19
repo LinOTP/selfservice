@@ -4,15 +4,15 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { map } from 'rxjs/operators';
 
-import { NotificationService } from '../common/notification.service';
-import { SelfserviceToken, TokenDisplayData } from '../api/token';
+import { NotificationService } from '@common/notification.service';
+import { SelfserviceToken, TokenDisplayData } from '@api/token';
 import { TokenType } from '@linotp/data-models';
-import { SystemService, SystemInfo } from '../system.service';
+import { SystemService, SystemInfo } from '@app/system.service';
 import { LoginService, LoginOptions } from './login.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { TransactionDetail, ReplyMode, StatusDetail } from '../api/test.service';
+import { TransactionDetail, ReplyMode, StatusDetail } from '@api/test.service';
 import { Subscription } from 'rxjs';
-import { DialogComponent } from '../common/dialog/dialog.component';
+import { DialogComponent } from '@common/dialog/dialog.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 export enum LoginStage {

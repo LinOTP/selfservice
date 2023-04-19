@@ -7,22 +7,22 @@ import { By } from '@angular/platform-browser';
 
 import { of } from 'rxjs/internal/observable/of';
 
-import { MockComponent } from '../../../testing/mock-component';
-import { spyOnClass, getInjectedStub } from '../../../testing/spyOnClass';
-import { Fixtures } from '../../../testing/fixtures';
+import { MockComponent } from '@testing/mock-component';
+import { spyOnClass, getInjectedStub } from '@testing/spyOnClass';
+import { Fixtures } from '@testing/fixtures';
 
-import { OperationsService } from '../../api/operations.service';
-import { EnrollmentService } from '../../api/enrollment.service';
-import { MaterialModule } from '../../material.module';
-import { NotificationService } from '../../common/notification.service';
+import { OperationsService } from '@api/operations.service';
+import { EnrollmentService } from '@api/enrollment.service';
+import { MaterialModule } from '@app/material.module';
+import { NotificationService } from '@common/notification.service';
 
 import { EnrollPushQRDialogComponent } from './enroll-push-qr-dialog.component';
 import { TokenType } from '@linotp/data-models';
 import { NgxPermissionsService, NgxPermissionsAllowStubDirective } from 'ngx-permissions';
 import { Subscription } from 'rxjs';
-import { LoginService } from '../../login/login.service';
-import { ActivateDialogComponent } from '../../activate/activate-dialog.component';
-import { TokenService } from '../../api/token.service';
+import { LoginService } from '@app/login/login.service';
+import { ActivateDialogComponent } from '@app/activate/activate-dialog.component';
+import { TokenService } from '@api/token.service';
 
 
 describe('EnrollPushDialogComponent', () => {

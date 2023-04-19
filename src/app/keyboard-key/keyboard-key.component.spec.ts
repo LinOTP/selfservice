@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { KeyboardKeyComponent } from './keyboard-key.component';
-import { MaterialModule } from '../material.module';
+import { MaterialModule } from '@app/material.module';
 
 describe('KeyboardKeyComponent', () => {
   let component: KeyboardKeyComponent;

@@ -3,7 +3,7 @@ import { TestBed, inject } from '@angular/core/testing';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
-import { SessionService } from '../auth/session.service';
+import { SessionService } from '@app/auth/session.service';
 import { TestService, ReplyMode } from './test.service';
 
 const session = '';

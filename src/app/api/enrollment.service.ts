@@ -6,11 +6,11 @@ import { map, filter, mergeMap, take, catchError, tap } from 'rxjs/operators';
 
 import { EnrollmentOptions, EnrollmentStatus } from './token';
 import { TokenService } from './token.service';
-import { SessionService } from '../auth/session.service';
-import { UserInfo } from '../system.service';
+import { SessionService } from '@app/auth/session.service';
+import { UserInfo } from '@app/system.service';
 import { LinOTPResponse, APIError } from './api';
-import { NotificationService } from '../common/notification.service';
-import { exponentialBackoffInterval } from '../common/exponential-backoff-interval/exponential-backoff-interval';
+import { NotificationService } from '@common/notification.service';
+import { exponentialBackoffInterval } from '@common/exponential-backoff-interval/exponential-backoff-interval';
 
 export interface EnrollmentDetail {
   serial: string;

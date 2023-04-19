@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 
-import { TokenService } from '../../api/token.service';
+import { TokenService } from '@api/token.service';
 
 @Component({
   selector: 'app-get-serial-dialog',

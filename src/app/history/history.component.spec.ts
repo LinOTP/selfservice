@@ -2,17 +2,17 @@ import { ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testin
 
 import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
 
-import { MaterialModule } from '../material.module';
+import { MaterialModule } from '@app/material.module';
 
-import { HistoryService } from '../api/history.service';
+import { HistoryService } from '@api/history.service';
 import { HistoryComponent } from './history.component';
-import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
-import { HistoryFixtures } from '../../testing/fixtures';
+import { spyOnClass, getInjectedStub } from '@testing/spyOnClass';
+import { HistoryFixtures } from '@testing/fixtures';
 import { of } from 'rxjs';
-import { MockPipe } from '../../testing/mock-pipe';
+import { MockPipe } from '@testing/mock-pipe';
 import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HistoryField, HistoryRequestOptions, SortOrder } from '../api/history';
+import { HistoryField, HistoryRequestOptions, SortOrder } from '@api/history';
 
 describe('HistoryComponent', () => {
   let component: HistoryComponent;

@@ -4,10 +4,10 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
-import { EnrollmentService } from '../api/enrollment.service';
+import { EnrollmentService } from '@api/enrollment.service';
 import { TokenType } from '@linotp/data-models';
 import { of, Subscription } from 'rxjs';
-import { TokenDisplayData, tokenDisplayData } from '../api/token';
+import { TokenDisplayData, tokenDisplayData } from '@api/token';
 
 @Component({
   selector: 'app-activate-dialog',

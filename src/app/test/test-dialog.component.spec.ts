@@ -4,14 +4,14 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { of, Observable, Observer } from 'rxjs';
 
-import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
-import { MockComponent } from '../../testing/mock-component';
+import { spyOnClass, getInjectedStub } from '@testing/spyOnClass';
+import { MockComponent } from '@testing/mock-component';
 
-import { MaterialModule } from '../material.module';
-import { TestService, TestOptions, ReplyMode, TransactionDetail } from '../api/test.service';
+import { MaterialModule } from '@app/material.module';
+import { TestService, TestOptions, ReplyMode, TransactionDetail } from '@api/test.service';
 
 import { TestDialogComponent } from './test-dialog.component';
-import { EnrolledToken } from '../enroll/enroll-dialog-base.component';
+import { EnrolledToken } from '@app/enroll/enroll-dialog-base.component';
 import { TokenType } from '@linotp/data-models';
 
 const challengeOnlyDetail: TransactionDetail = { replyMode: [ReplyMode.OFFLINE] };

@@ -4,21 +4,21 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dial
 
 import { NgxPermissionsService } from 'ngx-permissions';
 
-import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
+import { spyOnClass, getInjectedStub } from '@testing/spyOnClass';
 
-import { MaterialModule } from '../material.module';
-import { EnrollmentService } from '../api/enrollment.service';
-import { OperationsService } from '../api/operations.service';
-import { NotificationService } from '../common/notification.service';
+import { MaterialModule } from '@app/material.module';
+import { EnrollmentService } from '@api/enrollment.service';
+import { OperationsService } from '@api/operations.service';
+import { NotificationService } from '@common/notification.service';
 
 import { EnrollDialogBaseComponent } from './enroll-dialog-base.component';
 import { of } from 'rxjs';
-import { SetPinDialogComponent } from '../common/set-pin-dialog/set-pin-dialog.component';
-import { DialogComponent } from '../common/dialog/dialog.component';
+import { SetPinDialogComponent } from '@common/set-pin-dialog/set-pin-dialog.component';
+import { DialogComponent } from '@common/dialog/dialog.component';
 import { TokenType } from '@linotp/data-models';
-import { LoginService } from '../login/login.service';
-import { TestDialogComponent } from '../test/test-dialog.component';
-import { TokenService } from '../api/token.service';
+import { LoginService } from '@app/login/login.service';
+import { TestDialogComponent } from '@app/test/test-dialog.component';
+import { TokenService } from '@api/token.service';
 
 class MockComponent extends EnrollDialogBaseComponent { }
 

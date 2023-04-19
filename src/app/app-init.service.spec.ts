@@ -2,11 +2,11 @@ import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { of } from 'rxjs';
 
 
-import { spyOnClass, getInjectedStub } from '../testing/spyOnClass';
+import { spyOnClass, getInjectedStub } from '@testing/spyOnClass';
 
 import { AppInitService } from './app-init.service';
-import { SessionService } from './auth/session.service';
-import { LoginService } from './login/login.service';
+import { SessionService } from '@app/auth/session.service';
+import { LoginService } from '@app/login/login.service';
 
 describe('AppInitService', () => {
   let appInitService: AppInitService;

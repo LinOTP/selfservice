@@ -6,18 +6,18 @@ import { NgxPermissionsAllowStubDirective, NgxPermissionsService } from 'ngx-per
 
 import { of } from 'rxjs';
 
-import { spyOnClass, getInjectedStub } from '../../../testing/spyOnClass';
+import { spyOnClass, getInjectedStub } from '@testing/spyOnClass';
 
-import { MaterialModule } from '../../material.module';
-import { EnrollmentService } from '../../api/enrollment.service';
+import { MaterialModule } from '@app/material.module';
+import { EnrollmentService } from '@api/enrollment.service';
 
 import { AssignTokenDialogComponent } from './assign-token-dialog.component';
-import { GetSerialDialogComponent } from '../../common/get-serial-dialog/get-serial-dialog.component';
-import { MockComponent } from '../../../testing/mock-component';
-import { NotificationService } from '../../common/notification.service';
-import { OperationsService } from '../../api/operations.service';
-import { LoginService } from '../../login/login.service';
-import { TokenService } from '../../api/token.service';
+import { GetSerialDialogComponent } from '@common/get-serial-dialog/get-serial-dialog.component';
+import { MockComponent } from '@testing/mock-component';
+import { NotificationService } from '@common/notification.service';
+import { OperationsService } from '@api/operations.service';
+import { LoginService } from '@app/login/login.service';
+import { TokenService } from '@api/token.service';
 
 describe('AssignTokenDialogComponent', () => {
   let component: AssignTokenDialogComponent;

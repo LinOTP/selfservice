@@ -5,27 +5,27 @@ import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
 
 import { of } from 'rxjs/internal/observable/of';
 
-import { Fixtures } from '../../testing/fixtures';
-import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
-import { TestingPage } from '../../testing/page-helper';
+import { Fixtures } from '@testing/fixtures';
+import { spyOnClass, getInjectedStub } from '@testing/spyOnClass';
+import { TestingPage } from '@testing/page-helper';
 
-import { MaterialModule } from '../material.module';
-import { CapitalizePipe } from '../common/pipes/capitalize.pipe';
-import { NotificationService } from '../common/notification.service';
-import { Permission, ModifyTokenPermissions } from '../common/permissions';
-import { OperationsService } from '../api/operations.service';
-import { EnrollmentStatus } from '../api/token';
+import { MaterialModule } from '@app/material.module';
+import { CapitalizePipe } from '@common/pipes/capitalize.pipe';
+import { NotificationService } from '@common/notification.service';
+import { Permission, ModifyTokenPermissions } from '@common/permissions';
+import { OperationsService } from '@api/operations.service';
+import { EnrollmentStatus } from '@api/token';
 
-import { ActivateDialogComponent } from '../activate/activate-dialog.component';
-import { TestDialogComponent } from '../test/test-dialog.component';
+import { ActivateDialogComponent } from '@app/activate/activate-dialog.component';
+import { TestDialogComponent } from '@app/test/test-dialog.component';
 import { TokenCardComponent } from './token-card.component';
-import { DialogComponent } from '../common/dialog/dialog.component';
-import { LoginService } from '../login/login.service';
+import { DialogComponent } from '@common/dialog/dialog.component';
+import { LoginService } from '@app/login/login.service';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { SetDescriptionDialogComponent } from '../common/set-description-dialog/set-description-dialog.component';
-import { ResyncDialogComponent } from '../common/resync-dialog/resync-dialog.component';
-import { SetMOTPPinDialogComponent } from '../common/set-motp-pin-dialog/set-motp-pin-dialog.component';
-import { SetPinDialogComponent } from '../common/set-pin-dialog/set-pin-dialog.component';
+import { SetDescriptionDialogComponent } from '@common/set-description-dialog/set-description-dialog.component';
+import { ResyncDialogComponent } from '@common/resync-dialog/resync-dialog.component';
+import { SetMOTPPinDialogComponent } from '@common/set-motp-pin-dialog/set-motp-pin-dialog.component';
+import { SetPinDialogComponent } from '@common/set-pin-dialog/set-pin-dialog.component';
 
 class Page extends TestingPage<TokenCardComponent> {
 

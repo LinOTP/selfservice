@@ -4,12 +4,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { of } from 'rxjs';
 
-import { Fixtures } from '../../../testing/fixtures';
-import { TestingPage } from '../../../testing/page-helper';
-import { spyOnClass } from '../../../testing/spyOnClass';
+import { Fixtures } from '@testing/fixtures';
+import { TestingPage } from '@testing/page-helper';
+import { spyOnClass } from '@testing/spyOnClass';
 
-import { MaterialModule } from '../../material.module';
-import { OperationsService } from '../../api/operations.service';
+import { MaterialModule } from '@app/material.module';
+import { OperationsService } from '@api/operations.service';
 
 import { SetMOTPPinDialogComponent } from './set-motp-pin-dialog.component';
 

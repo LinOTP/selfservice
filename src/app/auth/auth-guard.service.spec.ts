@@ -2,9 +2,9 @@ import { RouterStateSnapshot } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TestBed, inject } from '@angular/core/testing';
 
-import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
+import { spyOnClass, getInjectedStub } from '@testing/spyOnClass';
 
-import { LoginService } from '../login/login.service';
+import { LoginService } from '@app/login/login.service';
 import { SessionService } from './session.service';
 import { AuthGuard } from './auth-guard.service';
 

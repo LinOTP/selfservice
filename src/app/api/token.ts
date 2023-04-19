@@ -1,4 +1,4 @@
-import { Permission } from '../common/permissions';
+import { Permission } from '@common/permissions';
 import { TokenType } from '@linotp/data-models';
 
 export enum EnrollmentEndpointType {

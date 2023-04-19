@@ -5,21 +5,21 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { of, Subject } from 'rxjs';
 
-import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
-import { Fixtures } from '../../testing/fixtures';
-import { MockPipe } from '../../testing/mock-pipe';
-import { TestingPage } from '../../testing/page-helper';
+import { spyOnClass, getInjectedStub } from '@testing/spyOnClass';
+import { Fixtures } from '@testing/fixtures';
+import { MockPipe } from '@testing/mock-pipe';
+import { TestingPage } from '@testing/page-helper';
 
-import { MaterialModule } from '../material.module';
-import { NotificationService } from '../common/notification.service';
-import { SystemService } from '../system.service';
+import { MaterialModule } from '@app/material.module';
+import { NotificationService } from '@common/notification.service';
+import { SystemService } from '@app/system.service';
 
 import { LoginComponent, LoginStage } from './login.component';
 import { LoginService } from './login.service';
-import { MockComponent } from '../../testing/mock-component';
-import { SelfserviceToken } from '../api/token';
+import { MockComponent } from '@testing/mock-component';
+import { SelfserviceToken } from '@api/token';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent } from '../common/dialog/dialog.component';
+import { DialogComponent } from '@common/dialog/dialog.component';
 
 class Page extends TestingPage<LoginComponent> {
 

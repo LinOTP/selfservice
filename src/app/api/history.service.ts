@@ -4,9 +4,9 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
-import { SessionService } from '../auth/session.service';
+import { SessionService } from '@app/auth/session.service';
 import { HistoryRequestOptions, HistoryPage, HistoryResponse, mapCellToRecord } from './history';
-import { NotificationService } from '../common/notification.service';
+import { NotificationService } from '@common/notification.service';
 
 
 @Injectable({

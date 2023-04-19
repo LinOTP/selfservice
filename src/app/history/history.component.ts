@@ -1,7 +1,7 @@
 import { Component, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 
-import { HistoryService } from '../api/history.service';
-import { HistoryRequestOptions, HistoryRecord, SortOrder, HistoryField, HistoryPage } from '../api/history';
+import { HistoryService } from '@api/history.service';
+import { HistoryRequestOptions, HistoryRecord, SortOrder, HistoryField, HistoryPage } from '@api/history';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { BehaviorSubject, merge, Observable } from 'rxjs';
