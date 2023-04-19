@@ -18,7 +18,24 @@
       "dom"
     ],
     "module": "es2020",
-    "baseUrl": "./",
+    "baseUrl": "src/",
+    "paths": {
+      "@env/*": [
+        "environments/*"
+      ],
+      "@app/*": [
+        "app/*"
+      ],
+      "@api/*": [
+        "app/api/*"
+      ],
+      "@common/*": [
+        "app/common/*"
+      ],
+      "@testing/*": [
+        "testing/*"
+      ],
+    },
     "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
