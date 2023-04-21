@@ -2,20 +2,21 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
+import { NgxPermissionsAllowStubDirective, NgxPermissionsService } from 'ngx-permissions';
 import { of } from 'rxjs';
 
-import { spyOnClass, getInjectedStub } from '../../../testing/spyOnClass';
+import { MockComponent } from '@testing/mock-component';
+import { getInjectedStub, spyOnClass } from '@testing/spyOnClass';
 
-import { MaterialModule } from '../../material.module';
-import { EnrollmentService } from '../../api/enrollment.service';
+import { EnrollmentService } from '@api/enrollment.service';
+import { MaterialModule } from '@app/material.module';
+
+import { OperationsService } from '@api/operations.service';
+import { TokenService } from '@api/token.service';
+import { LoginService } from '@app/login/login.service';
+import { NotificationService } from '@common/notification.service';
 
 import { EnrollYubicoDialogComponent } from './enroll-yubico-dialog.component';
-import { MockComponent } from '../../../testing/mock-component';
-import { NotificationService } from '../../common/notification.service';
-import { OperationsService } from '../../api/operations.service';
-import { NgxPermissionsAllowStubDirective, NgxPermissionsService } from 'ngx-permissions';
-import { LoginService } from '../../login/login.service';
-import { TokenService } from '../../api/token.service';
 
 describe('EnrollYubicoDialogComponent', () => {
   let component: EnrollYubicoDialogComponent;

@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { CookieService } from 'ngx-cookie';
 
-import { getInjectedStub, spyOnClass } from '../../testing/spyOnClass';
+import { getInjectedStub, spyOnClass } from '@testing/spyOnClass';
 
 import { SessionService } from './session.service';
 

@@ -1,13 +1,13 @@
-import { Component, Inject, ViewChild, OnInit, OnDestroy } from '@angular/core';
-import { UntypedFormGroup, Validators, UntypedFormBuilder, NgForm } from '@angular/forms';
+import { Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { NgForm, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { Subscription } from 'rxjs';
 
-import { tokenDisplayData, TokenDisplayData } from '../api/token';
-
-import { TestService, TransactionDetail, TestOptions, ReplyMode, StatusDetail } from '../api/test.service';
 import { TokenType } from '@linotp/data-models';
+
+import { ReplyMode, StatusDetail, TestOptions, TestService, TransactionDetail } from '@api/test.service';
+import { tokenDisplayData, TokenDisplayData } from '@api/token';
 
 enum TestState {
   UNTESTED = 'untested',

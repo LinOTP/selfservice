@@ -1,11 +1,12 @@
-import { Component, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
-
-import { HistoryService } from '../api/history.service';
-import { HistoryRequestOptions, HistoryRecord, SortOrder, HistoryField, HistoryPage } from '../api/history';
+import { AfterViewInit, ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+
 import { BehaviorSubject, merge, Observable } from 'rxjs';
-import { startWith, switchMap, tap, filter } from 'rxjs/operators';
+import { filter, startWith, switchMap, tap } from 'rxjs/operators';
+
+import { HistoryField, HistoryPage, HistoryRecord, HistoryRequestOptions, SortOrder } from '@api/history';
+import { HistoryService } from '@api/history.service';
 
 const historyColumns = ['success', 'date', 'action', 'serial', 'tokentype', 'action_detail', 'info'] as const;
 type HistoryColumn = typeof historyColumns[number];

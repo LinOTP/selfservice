@@ -1,18 +1,19 @@
-import { ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { of, Observable, Observer } from 'rxjs';
+import { Observable, Observer, of } from 'rxjs';
 
-import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
-import { MockComponent } from '../../testing/mock-component';
+import { TokenType } from '@linotp/data-models';
 
-import { MaterialModule } from '../material.module';
-import { TestService, TestOptions, ReplyMode, TransactionDetail } from '../api/test.service';
+import { MockComponent } from '@testing/mock-component';
+import { getInjectedStub, spyOnClass } from '@testing/spyOnClass';
+
+import { ReplyMode, TestOptions, TestService, TransactionDetail } from '@api/test.service';
+import { EnrolledToken } from '@app/enroll/enroll-dialog-base.component';
+import { MaterialModule } from '@app/material.module';
 
 import { TestDialogComponent } from './test-dialog.component';
-import { EnrolledToken } from '../enroll/enroll-dialog-base.component';
-import { TokenType } from '@linotp/data-models';
 
 const challengeOnlyDetail: TransactionDetail = { replyMode: [ReplyMode.OFFLINE] };
 const successfulOfflineDetail: TransactionDetail = { transactionId: 'id', replyMode: [ReplyMode.OFFLINE] };

@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
-import { TokenListComponent } from './token-list/token-list.component';
-import { LoginComponent } from './login/login.component';
-import { AuthGuard } from './auth/auth-guard.service';
-import { HistoryComponent } from './history/history.component';
 import { NgxPermissionsGuard } from 'ngx-permissions';
-import { Permission } from './common/permissions';
-import { EnrollComponent } from './enroll/enroll/enroll.component';
+
+import { AuthGuard } from '@app/auth/auth-guard.service';
+import { EnrollComponent } from '@app/enroll/enroll/enroll.component';
+import { HistoryComponent } from '@app/history/history.component';
+import { LoginComponent } from '@app/login/login.component';
+import { TokenListComponent } from '@app/token-list/token-list.component';
+import { Permission } from '@common/permissions';
 
 const routes: Routes = [
   {

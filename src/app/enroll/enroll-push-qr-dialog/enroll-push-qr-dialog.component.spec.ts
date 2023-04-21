@@ -1,28 +1,29 @@
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { By } from '@angular/platform-browser';
 
+import { NgxPermissionsAllowStubDirective, NgxPermissionsService } from 'ngx-permissions';
+import { Subscription } from 'rxjs';
 import { of } from 'rxjs/internal/observable/of';
 
-import { MockComponent } from '../../../testing/mock-component';
-import { spyOnClass, getInjectedStub } from '../../../testing/spyOnClass';
-import { Fixtures } from '../../../testing/fixtures';
+import { TokenType } from '@linotp/data-models';
 
-import { OperationsService } from '../../api/operations.service';
-import { EnrollmentService } from '../../api/enrollment.service';
-import { MaterialModule } from '../../material.module';
-import { NotificationService } from '../../common/notification.service';
+import { Fixtures } from '@testing/fixtures';
+import { MockComponent } from '@testing/mock-component';
+import { getInjectedStub, spyOnClass } from '@testing/spyOnClass';
+
+import { EnrollmentService } from '@api/enrollment.service';
+import { OperationsService } from '@api/operations.service';
+import { TokenService } from '@api/token.service';
+import { ActivateDialogComponent } from '@app/activate/activate-dialog.component';
+import { LoginService } from '@app/login/login.service';
+import { MaterialModule } from '@app/material.module';
+import { NotificationService } from '@common/notification.service';
 
 import { EnrollPushQRDialogComponent } from './enroll-push-qr-dialog.component';
-import { TokenType } from '@linotp/data-models';
-import { NgxPermissionsService, NgxPermissionsAllowStubDirective } from 'ngx-permissions';
-import { Subscription } from 'rxjs';
-import { LoginService } from '../../login/login.service';
-import { ActivateDialogComponent } from '../../activate/activate-dialog.component';
-import { TokenService } from '../../api/token.service';
 
 
 describe('EnrollPushDialogComponent', () => {

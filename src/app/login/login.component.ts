@@ -1,19 +1,21 @@
-import { Component, OnInit, ViewChildren, QueryList, ElementRef, HostListener } from '@angular/core';
-import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Component, ElementRef, HostListener, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
 
+import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { NotificationService } from '../common/notification.service';
-import { SelfserviceToken, TokenDisplayData } from '../api/token';
 import { TokenType } from '@linotp/data-models';
-import { SystemService, SystemInfo } from '../system.service';
-import { LoginService, LoginOptions } from './login.service';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { TransactionDetail, ReplyMode, StatusDetail } from '../api/test.service';
-import { Subscription } from 'rxjs';
-import { DialogComponent } from '../common/dialog/dialog.component';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+
+import { ReplyMode, StatusDetail, TransactionDetail } from '@api/test.service';
+import { SelfserviceToken, TokenDisplayData } from '@api/token';
+import { SystemInfo, SystemService } from '@app/system.service';
+import { DialogComponent } from '@common/dialog/dialog.component';
+import { NotificationService } from '@common/notification.service';
+
+import { LoginOptions, LoginService } from './login.service';
 
 export enum LoginStage {
   USER_PW_INPUT = 1,

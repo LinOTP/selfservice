@@ -1,13 +1,14 @@
-import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
+import { of, Subscription } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
-import { EnrollmentService } from '../api/enrollment.service';
 import { TokenType } from '@linotp/data-models';
-import { of, Subscription } from 'rxjs';
-import { TokenDisplayData, tokenDisplayData } from '../api/token';
+
+import { EnrollmentService } from '@api/enrollment.service';
+import { TokenDisplayData, tokenDisplayData } from '@api/token';
 
 @Component({
   selector: 'app-activate-dialog',

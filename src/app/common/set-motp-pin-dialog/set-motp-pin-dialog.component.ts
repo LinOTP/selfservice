@@ -1,10 +1,10 @@
 import { Component, Inject } from '@angular/core';
+import { UntypedFormControl, UntypedFormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { UntypedFormGroup, Validators, ValidationErrors, UntypedFormControl } from '@angular/forms';
 
-import { SelfserviceToken } from '../../api/token';
-import { OperationsService } from '../../api/operations.service';
-import { ErrorStateRootMatcher } from '../form-helpers/error-state-root-matcher';
+import { OperationsService } from '@api/operations.service';
+import { SelfserviceToken } from '@api/token';
+import { ErrorStateRootMatcher } from '@common/form-helpers/error-state-root-matcher';
 
 @Component({
   selector: 'app-set-motp-pin-dialog',

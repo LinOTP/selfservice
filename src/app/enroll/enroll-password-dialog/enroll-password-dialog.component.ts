@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
+
 import { TokenType } from '@linotp/data-models';
-import { EnrollmentOptions } from '../../api/token';
-import { ErrorStateRootMatcher } from '../../common/form-helpers/error-state-root-matcher';
-import { EnrollDialogBaseComponent } from '../enroll-dialog-base.component';
+
+import { EnrollmentOptions } from '@api/token';
+import { EnrollDialogBaseComponent } from '@app/enroll/enroll-dialog-base.component';
+import { ErrorStateRootMatcher } from '@common/form-helpers/error-state-root-matcher';
 
 @Component({
   selector: 'app-enroll-password',

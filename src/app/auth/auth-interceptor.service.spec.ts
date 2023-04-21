@@ -2,11 +2,11 @@ import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed, inject } from '@angular/core/testing';
 
-import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
+import { spyOnClass, getInjectedStub } from '@testing/spyOnClass';
 
-import { LoginService } from '../login/login.service';
+import { LoginService } from '@app/login/login.service';
 import { AuthInterceptor } from './auth-interceptor.service';
-import { NotificationService } from '../common/notification.service';
+import { NotificationService } from '@common/notification.service';
 
 describe('AuthInterceptor', () => {
 

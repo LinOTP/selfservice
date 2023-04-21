@@ -1,20 +1,20 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { NavigationExtras, Router } from '@angular/router';
+import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { NavigationExtras, Router } from '@angular/router';
 
-import { Observable, of, BehaviorSubject } from 'rxjs';
-import { map, tap, filter, mergeMap, take, catchError } from 'rxjs/operators';
 import { NgxPermissionsService } from 'ngx-permissions';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { catchError, filter, map, mergeMap, take, tap } from 'rxjs/operators';
 
-import { SystemService, UserSystemInfo } from '../system.service';
-import { SelfserviceToken } from '../api/token';
-import { SessionService } from '../auth/session.service';
-import { LinOTPResponse } from '../api/api';
-import { TokenService } from '../api/token.service';
-import { ReplyMode, TransactionDetail, StatusDetail } from '../api/test.service';
-import { exponentialBackoffInterval } from '../common/exponential-backoff-interval/exponential-backoff-interval';
-import { Permission } from '../common/permissions';
+import { LinOTPResponse } from '@api/api';
+import { ReplyMode, StatusDetail, TransactionDetail } from '@api/test.service';
+import { SelfserviceToken } from '@api/token';
+import { TokenService } from '@api/token.service';
+import { SessionService } from '@app/auth/session.service';
+import { SystemService, UserSystemInfo } from '@app/system.service';
+import { exponentialBackoffInterval } from '@common/exponential-backoff-interval/exponential-backoff-interval';
+import { Permission } from '@common/permissions';
 
 export interface LoginOptions {
   username?: string;

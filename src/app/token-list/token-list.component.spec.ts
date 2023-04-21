@@ -2,27 +2,26 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
-
 import { BehaviorSubject, of, Subject } from 'rxjs';
 
-import { MockPipe } from '../../testing/mock-pipe';
-import { MockComponent } from '../../testing/mock-component';
-import { spyOnClass, getInjectedStub } from '../../testing/spyOnClass';
-import { Fixtures } from '../../testing/fixtures';
-import { TestingPage } from '../../testing/page-helper';
+import { Fixtures } from '@testing/fixtures';
+import { MockComponent } from '@testing/mock-component';
+import { MockPipe } from '@testing/mock-pipe';
+import { TestingPage } from '@testing/page-helper';
+import { getInjectedStub, spyOnClass } from '@testing/spyOnClass';
 
-import { MaterialModule } from '../material.module';
-import { TokenService } from '../api/token.service';
-import { EnrollmentStatus } from '../api/token';
-import { Permission } from '../common/permissions';
-import { ArrayNotEmptyPipe } from '../common/pipes/array-not-empty.pipe';
-import { ActiveTokensPipe } from '../common/pipes/active-tokens.pipe';
-import { InactiveTokensPipe } from '../common/pipes/inactive-tokens.pipe';
-import { UnreadyTokensPipe } from '../common/pipes/unready-tokens.pipe';
-import { CapitalizePipe } from '../common/pipes/capitalize.pipe';
+import { EnrollmentStatus } from '@api/token';
+import { TokenService } from '@api/token.service';
+import { LoginService } from '@app/login/login.service';
+import { MaterialModule } from '@app/material.module';
+import { Permission } from '@common/permissions';
+import { ActiveTokensPipe } from '@common/pipes/active-tokens.pipe';
+import { ArrayNotEmptyPipe } from '@common/pipes/array-not-empty.pipe';
+import { CapitalizePipe } from '@common/pipes/capitalize.pipe';
+import { InactiveTokensPipe } from '@common/pipes/inactive-tokens.pipe';
+import { UnreadyTokensPipe } from '@common/pipes/unready-tokens.pipe';
 
 import { TokenListComponent } from './token-list.component';
-import { LoginService } from '../login/login.service';
 
 class Page extends TestingPage<TokenListComponent> {
 

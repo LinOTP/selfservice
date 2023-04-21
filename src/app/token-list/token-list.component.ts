@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+
 import { take, tap } from 'rxjs/operators';
 
-import { SelfserviceToken, EnrollmentStatus, tokenDisplayData } from '../api/token';
-import { TokenService } from '../api/token.service';
-import { Permission } from '../common/permissions';
-import { LoginService } from '../login/login.service';
+import { EnrollmentStatus, SelfserviceToken, tokenDisplayData } from '@api/token';
+import { TokenService } from '@api/token.service';
+import { LoginService } from '@app/login/login.service';
+import { Permission } from '@common/permissions';
 
 @Component({
   selector: 'app-token-list',

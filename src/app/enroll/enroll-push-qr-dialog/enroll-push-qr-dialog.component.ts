@@ -2,10 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogConfig } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
+
 import { switchMap } from 'rxjs/operators';
-import { ActivateDialogComponent } from '../../activate/activate-dialog.component';
-import { TextResources } from '../../common/static-resources';
-import { EnrollDialogBaseComponent, EnrolledToken } from '../enroll-dialog-base.component';
+
+import { ActivateDialogComponent } from '@app/activate/activate-dialog.component';
+import { EnrollDialogBaseComponent, EnrolledToken } from '@app/enroll/enroll-dialog-base.component';
+import { TextResources } from '@common/static-resources';
 
 
 interface PushQrEnrolledToken extends EnrolledToken {

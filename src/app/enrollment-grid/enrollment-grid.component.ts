@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
-import { TokenDisplayData } from '../api/token';
-import { TokenService } from '../api/token.service';
+import { TokenDisplayData } from '@api/token';
+import { TokenService } from '@api/token.service';
 
 @Component({
   selector: 'app-enrollment-grid',
