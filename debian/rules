@@ -12,6 +12,8 @@ override_dh_clean:
 	dh_clean
 
 override_dh_auto_configure:
+	# let yarn use ca-certificates
+	yarn config set cafile /etc/ssl/certs/ca-certificates.crt
 	# Install dependencies. This needs a working internet connection.
 	yarn install --frozen-lockfile
 

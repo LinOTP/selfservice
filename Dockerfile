@@ -8,6 +8,11 @@ WORKDIR /app
 ## Copy only the dependency list for enhanced caching
 COPY package.json yarn.lock .npmrc ./
 
+# Let yarn use ca-certificates
+COPY step-ca.crt /usr/local/share/ca-certificates/
+RUN apk update && apk add ca-certificates && update-ca-certificates
+RUN yarn config set cafile /etc/ssl/certs/ca-certificates.crt
+
 ## Install all dependencies required for build
 RUN yarn --no-progress --frozen-lockfile
 
