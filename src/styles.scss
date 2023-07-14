@@ -6,18 +6,6 @@
 @import './styles/stepper.material-theming';
 /* end of global imports */
 
-// TODO(v15): As of v15 mat.legacy-core no longer includes default typography styles.
-//  The following line adds:
-//    1. Default typography styles for all components
-//    2. Styles for typography hierarchy classes (e.g. .mat-headline-1)
-//  If you specify typography styles for the components you use elsewhere, you should delete this line.
-//  If you don't need the default component typographies but still want the hierarchy styles,
-//  you can delete this line and instead use:
-//    `@include mat.legacy-typography-hierarchy(mat.define-typography-config());`
-@include mat.all-component-typographies();
-@include mat.core();
-@include mat.all-component-themes($theme);
-
 /* Global styles: */
 
 html,
@@ -56,7 +44,7 @@ body {
 }
 
 .warning {
-  color: mat.get-color-from-palette($theme-app-warn, 500);
+  color: mat.get-color-from-palette($theme-app-warn, '500');
 }
 
 .mdc-button {

@@ -30,7 +30,7 @@ span.selectedToken {
   border-left: 5px solid transparent;
 
   &:focus {
-    border-left-color: mat.get-color-from-palette($theme-app-primary, 500);
+    border-left-color: mat.get-color-from-palette($theme-app-primary, '500');
   }
 }
 
