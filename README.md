@@ -83,11 +83,13 @@ The application needs to know the URL prefix where the project will be served fr
    yarn build --base-href=https://my.server/users # https://my.server/users/<de|en>/
 ```
 
-### Docker
+### Containers
 
 A multi stage [Dockerfile](Dockerfile) is provided to build the sources in the first stage and to produce an nginx based container in the second step.
 
-This can be done by running:
+The build container needs access to the linotp NPM repository, including a TLS trust chain. Please retrieve the required certificate via `step ca root > linotp.de.pem` in the root dir of the repository.
+
+You can run the container build afterwards by executing the following command:
 
 ```bash
 docker build -t linotp-selfservice .

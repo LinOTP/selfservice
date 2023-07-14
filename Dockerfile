@@ -8,8 +8,12 @@ WORKDIR /app
 ## Copy only the dependency list for enhanced caching
 COPY package.json yarn.lock .npmrc ./
 
-# Let yarn use ca-certificates
-COPY step-ca.crt /usr/local/share/ca-certificates/
+## Let yarn use ca-certificates
+
+## The file linotp.de.pem must be retrieved manually before
+## build. Please check README.md, section "Containers".
+COPY linotp.de.pem /usr/local/share/ca-certificates/
+
 RUN apk update && apk add ca-certificates && update-ca-certificates
 RUN yarn config set cafile /etc/ssl/certs/ca-certificates.crt
 

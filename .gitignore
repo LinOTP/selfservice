@@ -1,5 +1,9 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
+# internally used TLS certificate for builds,
+#   please check README.md, section "Containers".
+linotp.de.pem
+
 # compiled output
 /dist
 /tmp
