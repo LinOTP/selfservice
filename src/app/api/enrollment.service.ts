@@ -31,6 +31,9 @@ interface ChallengeStatusDetail {
   transactions: {
     [transactionId: string]: {
       status: string;
+      accept?: boolean;
+      reject?: boolean;
+      valid_tan?: boolean;
     }
   };
 }
@@ -142,7 +145,7 @@ export class EnrollmentService {
    *          or whether the TAN was valid, in case of a QR token.
    */
   challengePoll(transactionId: string, pin: string, serial: string):
-    Observable<{ accept?: boolean, reject?: boolean, valid_tan?: boolean }> {
+    Observable<{ accept?: boolean, reject?: boolean, valid_tan?: boolean, status: string }> {
     return exponentialBackoffInterval(2000, 90000, 2).pipe(
       mergeMap(() => this.getChallengeStatus(transactionId, pin, serial)),
       filter(res => res.detail.transactions[transactionId].status !== 'open'),
