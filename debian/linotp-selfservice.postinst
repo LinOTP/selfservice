@@ -21,12 +21,14 @@ case "$1" in
     if [ -x /usr/sbin/a2enmod ]; then
       a2enmod dir
       a2enmod rewrite
+      a2enmod proxy_http
     else
-      echo "Warning: Can't enable apache modules dir and rewrite."
+      echo "Warning: Can't enable required Apache modules right now."
       echo "If you intend to use the linotp-selfservice package"
-      echo "with apache, activate modules after apache installation."
+      echo "with apache, activate the following modules after the"
+      echo "Apache server installation."
       echo
-      echo "  a2enmod dir && a2enmod rewrite"
+      echo "a2enmod dir && a2enmod rewrite && a2enmod proxy_http"
     fi
 
     # Enable the linotp-selfservice via symlink for integration in a linotp site
