@@ -1523,7 +1523,7 @@
 
 "@linotp/data-models@^1.1.1":
   version "1.2.1"
-  resolved "https://gitbox.corp.keyidentity.com/api/v4/projects/381/packages/npm/@linotp/data-models/-/@linotp/data-models-1.2.1.tgz#ff231e9e74ae955a5a546a0b0d217bd8248d2fd4"
+  resolved "https://gitbox.corp.linotp.de/api/v4/projects/381/packages/npm/@linotp/data-models/-/@linotp/data-models-1.2.1.tgz#ff231e9e74ae955a5a546a0b0d217bd8248d2fd4"
   integrity sha1-/yMennSulVpaVGoLDSF72CSNL9Q=
 
 "@material/animation@15.0.0-canary.684e33d25.0":
