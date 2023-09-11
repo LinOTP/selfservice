@@ -16,7 +16,7 @@ import { SelfserviceToken } from '@api/token';
 import { MaterialModule } from '@app/material.module';
 import { SystemService } from '@app/system.service';
 import { DialogComponent } from '@common/dialog/dialog.component';
-import { NotificationService } from '@common/notification.service';
+import { Duration, NotificationService } from '@common/notification.service';
 
 import { LoginComponent, LoginStage } from './login.component';
 import { LoginService } from './login.service';
@@ -341,7 +341,7 @@ describe('LoginComponent', () => {
       fixture.detectChanges();
 
       expect(loginService.login).toHaveBeenCalledWith({ username: 'user', password: 'pass' });
-      expect(notificationService.message).toHaveBeenCalledWith(noTokensMessage, 20000);
+      expect(notificationService.message).toHaveBeenCalledWith(noTokensMessage, Duration.LONG);
       expect(component.redirect).not.toHaveBeenCalled();
       expect(page.getLoginForm()).toBeTruthy();
     });

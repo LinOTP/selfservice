@@ -64,7 +64,7 @@ mat-toolbar {
       padding: 8px;
       background: mat.get-color-from-palette($theme-app-primary, '500-contrast');
       border-radius: 50%;
-      color: mat.get-color-from-palette($theme-app-primary, 500);
+      color: mat.get-color-from-palette($theme-app-primary, '500');
     }
 
     .name {

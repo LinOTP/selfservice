@@ -1,6 +1,6 @@
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -87,7 +87,7 @@ describe('ActivateDialogComponent', () => {
 
     it('should display success message in case of QR token activation with valid TAN', fakeAsync(() => {
       enrollmentService.activate.and.returnValue(of(Fixtures.activationResponseWithMessage));
-      enrollmentService.challengePoll.and.returnValue(of({ valid_tan: true }));
+      enrollmentService.challengePoll.and.returnValue(of({ valid_tan: true, status: "closed" }));
 
       fixture.detectChanges();
 
@@ -101,7 +101,7 @@ describe('ActivateDialogComponent', () => {
 
     it('should display success message in case of accepted push token activation transaction', fakeAsync(() => {
       enrollmentService.activate.and.returnValue(of(Fixtures.activationResponse));
-      enrollmentService.challengePoll.and.returnValue(of({ accept: true }));
+      enrollmentService.challengePoll.and.returnValue(of({ accept: true, status: "closed" }));
 
       fixture.detectChanges();
 
@@ -115,7 +115,7 @@ describe('ActivateDialogComponent', () => {
 
     it('should display success message in case of rejected push token activation transaction', fakeAsync(() => {
       enrollmentService.activate.and.returnValue(of(Fixtures.activationResponse));
-      enrollmentService.challengePoll.and.returnValue(of({ reject: true }));
+      enrollmentService.challengePoll.and.returnValue(of({ reject: true, status: "closed" }));
 
       fixture.detectChanges();
 

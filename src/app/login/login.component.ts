@@ -13,7 +13,7 @@ import { ReplyMode, StatusDetail, TransactionDetail } from '@api/test.service';
 import { SelfserviceToken, TokenDisplayData } from '@api/token';
 import { SystemInfo, SystemService } from '@app/system.service';
 import { DialogComponent } from '@common/dialog/dialog.component';
-import { NotificationService } from '@common/notification.service';
+import { Duration, NotificationService } from '@common/notification.service';
 
 import { LoginOptions, LoginService } from './login.service';
 
@@ -165,7 +165,7 @@ export class LoginComponent implements OnInit {
       } else if (result.tokens.length === 0) {
         this.notificationService.message(
           $localize`Login failed: you do not have a second factor set up. Please contact an admin.`,
-          20000
+          Duration.LONG
         );
       } else if (result.tokens.length === 1) {
         this.chooseSecondFactor(result.tokens[0]);
