@@ -1,0 +1,22 @@
+@use '@angular/material' as mat;
+
+$theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: mat.define-palette(mat.$pink-palette),
+      accent: mat.define-palette(mat.$blue-grey-palette),
+      warn: mat.define-palette(mat.$red-palette),
+    ),
+  )
+);
+
+@mixin global-styles() {
+  color: #fff;
+  app-root {
+    background: #303030;
+  }
+
+  a:not(.mat-mdc-button-base) {
+    color: #f48fb1;
+  }
+}

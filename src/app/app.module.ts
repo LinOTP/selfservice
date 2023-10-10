@@ -31,6 +31,7 @@ import { TestDialogComponent } from '@app/test/test-dialog.component';
 import { TokenCardComponent } from '@app/token-card/token-card.component';
 import { TokenListComponent } from '@app/token-list/token-list.component';
 import { NgSelfServiceCommonModule } from '@common/common.module';
+import { ThemePickerComponent } from './theme-picker/theme-picker.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { NgSelfServiceCommonModule } from '@common/common.module';
     ActivateDialogComponent,
     LanguagePickerComponent,
     KeyboardKeyComponent,
+    ThemePickerComponent,
   ],
   imports: [
     BrowserModule,

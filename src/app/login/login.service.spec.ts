@@ -366,13 +366,14 @@ describe('LoginService', () => {
       router = TestBed.inject(Router);
     });
 
-    it('should flush permissions and clear all local storage items', () => {
-      spyOn(localStorage, 'clear');
+    it('should flush permissions and clear clearable local storage items', () => {
       spyOn(loginService, 'clearPermissions');
+      // spying on private method
+      spyOn(loginService as any, 'clearLocalStorage');
 
       loginService.handleLogout(false);
 
-      expect(localStorage.clear).toHaveBeenCalled();
+      expect((loginService as any).clearLocalStorage).toHaveBeenCalled();
       expect(loginService.clearPermissions).toHaveBeenCalled();
     });
 

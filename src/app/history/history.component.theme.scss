@@ -1,0 +1,31 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+@mixin theme($theme) {
+  $color-config: mat.get-color-config($theme);
+  $warn-palette: map.get($color-config, 'warn');
+
+  app-history {
+    .failure {
+      mat-icon {
+        color: mat.get-color-from-palette($warn-palette, 500);
+      }
+    }
+  }
+}
+
+@mixin dark-theme($theme) {
+  app-history {
+    .failure {
+      background: #423434
+    }
+  }
+}
+
+@mixin light-theme($theme) {
+  app-history {
+    .failure {
+      background: #fff8f8;
+    }
+  }
+}

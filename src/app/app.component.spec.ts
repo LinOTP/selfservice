@@ -53,6 +53,7 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent,
         MockComponent({ selector: 'app-language-picker' }),
+        MockComponent({ selector: 'app-theme-picker' }),
         NgxPermissionsAllowStubDirective,
       ],
       providers: [

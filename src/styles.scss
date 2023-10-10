@@ -1,6 +1,6 @@
 /* Global imports */
 @use '@angular/material' as mat;
-
+@use 'themes/light' as light-theme;
 @import url('https://fonts.googleapis.com/css?family=Roboto|Material+Icons');
 @import './theme.scss';
 @import './styles/stepper.material-theming';
@@ -12,13 +12,15 @@ html,
 body {
   margin: 0;
   height: 100%;
+}
+
+app-root {
   background: whitesmoke;
 }
 
 /* Remove the spacing needed for hints */
 /* use class .inline-no-hint in mat form fields to activate this rule */
 .mat-mdc-form-field.inline-no-hint {
-
   /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
   .mat-form-field-wrapper {
     padding-bottom: 0;
@@ -41,10 +43,6 @@ body {
 
 .spacer {
   flex: 1;
-}
-
-.warning {
-  color: mat.get-color-from-palette($theme-app-warn, '500');
 }
 
 .mdc-button {

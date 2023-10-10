@@ -1,5 +1,4 @@
 @use '@angular/material' as mat;
-@import '/src/theme.scss';
 
 :host {
   display: flex;
@@ -62,9 +61,7 @@ mat-toolbar {
 
     mat-icon {
       padding: 8px;
-      background: mat.get-color-from-palette($theme-app-primary, '500-contrast');
       border-radius: 50%;
-      color: mat.get-color-from-palette($theme-app-primary, '500');
     }
 
     .name {
@@ -99,4 +96,8 @@ footer {
 
 .logout {
   text-transform: none;
+}
+
+app-theme-picker {
+  margin-right: 12px;
 }

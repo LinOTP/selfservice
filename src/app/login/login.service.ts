@@ -291,7 +291,7 @@ export class LoginService {
    * @memberof LoginService
    */
   public handleLogout(storeRoute: boolean) {
-    localStorage.clear();
+    this.clearLocalStorage();
     this.clearPermissions();
 
     this.dialogRef.closeAll();
@@ -317,4 +317,17 @@ export class LoginService {
     };
   }
 
+  // needed for testing. this method will be mocked in tests.
+  private clearLocalStorage() {
+    clearLocalStorage();
+  }
+}
+function clearLocalStorage() {
+  // clear all keys except for the ones that are specified in nonClearableKeys
+  const nonClearableKeys = ['theme'];
+  Object.keys(localStorage).forEach((key) => {
+    if (!nonClearableKeys.includes(key)) {
+      localStorage.removeItem(key);
+    }
+  });
 }
