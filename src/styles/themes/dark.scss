@@ -1,17 +1,45 @@
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
 
-$theme: mat.define-dark-theme(
-  (
-    color: (
-      primary: mat.define-palette(mat.$pink-palette),
-      accent: mat.define-palette(mat.$blue-grey-palette),
-      warn: mat.define-palette(mat.$red-palette),
-    ),
-  )
-);
+$theme-app-primary: mat.define-palette((50: #fcefe6,
+      100: #f8d7bf,
+      200: #f3bc95,
+      300: #eea16b,
+      400: #eb8d4b,
+      500: #e7792b,
+      600: #e47126,
+      700: #e06620,
+      800: #dd5c1a,
+      900: #d74910,
+      A100: #ffffff,
+      A200: #ffdcd1,
+      A400: #ffb69e,
+      A700: #ffa385,
+      contrast: (50: #000000,
+        100: #000000,
+        200: #000000,
+        300: #000000,
+        400: #000000,
+        500: #000000,
+        600: #000000,
+        700: #000000,
+        800: #ffffff,
+        900: #ffffff,
+        A100: #000000,
+        A200: #000000,
+        A400: #000000,
+        A700: #000000,
+      ),
+    ));
+
+$theme: mat.define-dark-theme((color: (primary: $theme-app-primary,
+        accent: mat.define-palette(mat.$blue-grey-palette),
+        warn: mat.define-palette(mat.$red-palette),
+      ),
+    ));
 
 @mixin global-styles() {
   color: #fff;
+
   app-root {
     background: #303030;
   }
