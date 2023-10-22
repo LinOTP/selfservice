@@ -63,8 +63,8 @@ describe('HistoryComponent', () => {
       tick();
 
       const options: HistoryRequestOptions = {
-        page: component.paginator.pageIndex,
-        recordCount: component.paginator.pageSize,
+        page: component.page,
+        recordCount: component.pageSize,
         sortBy: component.sort.active as HistoryField,
         sortOrder: component.sort.direction as SortOrder,
         query: component.queryForm.value.searchTerm,
@@ -72,21 +72,21 @@ describe('HistoryComponent', () => {
       };
       expect(historyService.getHistory).toHaveBeenCalledWith(options);
 
-      expect(component.paginator.pageIndex).toEqual(
+      expect(component.page).toEqual(
         HistoryFixtures.mockPage.page,
       );
-      expect(component.paginator.pageSize).toEqual(
+      expect(component.pageSize).toEqual(
         HistoryFixtures.mockPage.pageRecords.length,
       );
     }));
   });
 
   it('submitSearch should set the page index to 0 and reload history', fakeAsync(() => {
-    component.paginator.pageIndex = 3;
+    component.changePage({ pageIndex: 3, pageSize: component.pageSize });
     fixture.detectChanges();
     component.queryForm.get('column').patchValue('serial');
     tick(0);
-    expect(component.paginator.pageIndex).toEqual(0);
+    expect(component.page).toEqual(0);
     expect(historyService.getHistory).toHaveBeenCalled();
   }));
 

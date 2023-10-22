@@ -35,9 +35,10 @@
   <div class="table-wrap">
     <table mat-table
            [dataSource]="dataSource"
-           matSort
-           [matSortActive]="'date'"
-           [matSortDirection]="'desc'">
+           matSort     
+           (matSortChange)="changeSort($event)"
+           [matSortActive]="sort.active"
+           [matSortDirection]="sort.direction">
 
       <tr mat-header-row
           *matHeaderRowDef="columnsToDisplay"></tr>
@@ -103,8 +104,12 @@
     </table>
   </div>
 
-  <mat-paginator #paginator
-                 [pageSizeOptions]="[10, 20, 30, 50, 100]"
-                 showFirstLastButtons>
+  <mat-paginator [pageSizeOptions]="[10, 20, 30, 50, 100]"
+                  (page)="changePage($event)"
+                  [pageSize]="pageSize"
+                  [pageIndex]="page"
+                  [disabled]="loading"
+                  [length]="totalRecords"
+                  showFirstLastButtons>
   </mat-paginator>
 </mat-card>
