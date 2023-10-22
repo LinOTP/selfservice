@@ -49,7 +49,12 @@
           <tr mat-row
               *matRowDef="let historyItem; columns: columnsToDisplay"
               [ngClass]="{failure: !historyItem.success}"></tr>
-
+          <tr *matNoDataRow>
+            <td class="no-data-cell"
+                [attr.colspan]="columnsToDisplay.length">
+              <span i18n>No data</span>
+            </td>
+          </tr>
           <ng-container matColumnDef="date">
             <th mat-header-cell
                 *matHeaderCellDef

@@ -39,3 +39,8 @@ mat-header-cell:not(:last-of-type) {
   align-items: center;
   padding: 20px 0;
 }
+
+.no-data-cell {
+  padding: 25px 0px;
+  text-align: center;
+}
