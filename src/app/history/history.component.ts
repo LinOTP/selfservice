@@ -56,8 +56,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
   }
 
   public get searchIsDirty() {
-    return this.queryForm.value.column !== 'action'
-      || this.queryForm.value.searchTerm !== '';
+    return this.queryForm.value.searchTerm !== '';
   }
 
   private subscription: Subscription = new Subscription();
@@ -68,8 +67,10 @@ export class HistoryComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loadHistory();
-    const searchTermChange$ = this.queryForm.get('searchTerm').valueChanges.pipe(debounceTime(400), distinctUntilChanged())
-    const filterValueChange$ = this.queryForm.get('column').valueChanges.pipe(delay(0), distinctUntilChanged())
+    const searchTermChange$ = this.queryForm.get('searchTerm').valueChanges.pipe(debounceTime(500), distinctUntilChanged())
+    const filterValueChange$ = this.queryForm.get('column').valueChanges.pipe(delay(0), distinctUntilChanged(), filter(() => {
+      return !!this.queryForm.value.searchTerm
+    }))
     const formChanges$ = merge(searchTermChange$, filterValueChange$).pipe(
       switchMap(() => {
         this._requestedPage = 0
@@ -96,21 +97,13 @@ export class HistoryComponent implements OnInit, OnDestroy {
     this.loadHistory()
   }
 
-
-  clearSearch() {
-    this.queryForm.patchValue({
-      searchTerm: '',
-      column: 'action'
-    });
-  }
-
   private getHistory() {
     const options: HistoryRequestOptions = {
       page: this._requestedPage,
       recordCount: this.pageSize,
       sortBy: <HistoryField>this.sort.active,
       sortOrder: <SortOrder>this.sort.direction,
-      query: this.queryForm.value.searchTerm,
+      query: this.queryForm.value.searchTerm + '%',
       queryType: <HistoryField>this.queryForm.value.column,
     };
 

@@ -14,28 +14,28 @@
   </mat-form-field>
 
   <mat-form-field class="search-term">
+    <mat-label i18n>Search term</mat-label>
     <input matInput
            [formControl]="queryForm.get('searchTerm')"
            name="query"
-           placeholder="Search term"
-           i18n-placeholder
            appFocusOnInit>
+    <button mat-icon-button
+            matSuffix
+            type="button"
+            matTooltip="Clear search"
+            i18n-matTooltip
+            (click)="queryForm.get('searchTerm').setValue('')"
+            *ngIf="searchIsDirty && queryForm.value.searchTerm">
+      <mat-icon>cancel</mat-icon>
+    </button>
   </mat-form-field>
-  <button mat-icon-button
-          type="button"
-          matTooltip="Clear search"
-          i18n-matTooltip
-          (click)="clearSearch()"
-          *ngIf="searchIsDirty">
-    <mat-icon>cancel</mat-icon>
-  </button>
 </form>
 
 <mat-card appearance="outlined">
   <div class="table-wrap">
     <table mat-table
            [dataSource]="dataSource"
-           matSort     
+           matSort
            (matSortChange)="changeSort($event)"
            [matSortActive]="sort.active"
            [matSortDirection]="sort.direction">
@@ -105,11 +105,10 @@
   </div>
 
   <mat-paginator [pageSizeOptions]="[10, 20, 30, 50, 100]"
-                  (page)="changePage($event)"
-                  [pageSize]="pageSize"
-                  [pageIndex]="page"
-                  [disabled]="loading"
-                  [length]="totalRecords"
-                  showFirstLastButtons>
+                 (page)="changePage($event)"
+                 [pageSize]="pageSize"
+                 [pageIndex]="page"
+                 [length]="totalRecords"
+                 showFirstLastButtons>
   </mat-paginator>
 </mat-card>

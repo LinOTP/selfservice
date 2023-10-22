@@ -67,7 +67,7 @@ describe('HistoryComponent', () => {
         recordCount: component.pageSize,
         sortBy: component.sort.active as HistoryField,
         sortOrder: component.sort.direction as SortOrder,
-        query: component.queryForm.value.searchTerm,
+        query: component.queryForm.value.searchTerm + '%',
         queryType: component.queryForm.value.column as HistoryField,
       };
       expect(historyService.getHistory).toHaveBeenCalledWith(options);
@@ -98,7 +98,10 @@ describe('HistoryComponent', () => {
 
     fixture.detectChanges();
 
-    component.clearSearch();
+    component.queryForm.patchValue({
+      searchTerm: '',
+      column: component.searchColumns[0],
+    });
 
     expect(component.queryForm.value.searchTerm).toEqual('');
     expect(component.queryForm.value.column).toEqual('action');
