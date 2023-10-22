@@ -32,3 +32,10 @@
 mat-header-cell:not(:last-of-type) {
   padding-right: 8px !important;
 }
+
+.spinner-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+}

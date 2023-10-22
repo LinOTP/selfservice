@@ -3,7 +3,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
 
 import { Subscription, merge } from 'rxjs';
-import { debounceTime, delay, distinctUntilChanged, filter, switchMap, tap } from 'rxjs/operators';
+import { debounceTime, delay, distinctUntilChanged, filter, finalize, switchMap, tap } from 'rxjs/operators';
 
 import { FormControl, FormGroup } from '@angular/forms';
 import { HistoryField, HistoryPage, HistoryRecord, HistoryRequestOptions, SortOrder } from '@api/history';
@@ -18,6 +18,8 @@ type HistoryColumn = typeof historyColumns[number];
   styleUrls: ['./history.component.scss'],
 })
 export class HistoryComponent implements OnInit, OnDestroy {
+  loading = false;
+  loaded = false;
 
   public columnsToDisplay: readonly HistoryColumn[] = historyColumns;
   public searchColumns: readonly HistoryColumn[] = ['action', 'serial', 'tokentype', 'action_detail'];
@@ -107,11 +109,16 @@ export class HistoryComponent implements OnInit, OnDestroy {
       queryType: <HistoryField>this.queryForm.value.column,
     };
 
+    this.loading = true;
     return this.historyService.getHistory(options).pipe(
       filter(history => !!history),
       tap(history => {
         this._history = history;
         this._loadedPage = history.page;
+      }),
+      finalize(() => {
+        this.loading = false;
+        this.loaded = true;
       })
     )
   }
