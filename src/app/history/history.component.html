@@ -1,11 +1,10 @@
 <h2 i18n>History</h2>
 
-<form (submit)="submitSearch()"
-      class="filter">
+<form class="filter">
   <mat-icon>search</mat-icon>
 
   <mat-form-field class="query-column">
-    <mat-select [(ngModel)]="queryForm.column"
+    <mat-select [formControl]="queryForm.get('column')"
                 name="queryType">
       <mat-option *ngFor="let column of searchColumns"
                   [value]="column">
@@ -16,7 +15,7 @@
 
   <mat-form-field class="search-term">
     <input matInput
-           [(ngModel)]="queryForm.searchTerm"
+           [formControl]="queryForm.get('searchTerm')"
            name="query"
            placeholder="Search term"
            i18n-placeholder
@@ -30,10 +29,6 @@
           *ngIf="searchIsDirty">
     <mat-icon>cancel</mat-icon>
   </button>
-  <button mat-button
-          color="primary"
-          *ngIf="searchFormIsDirty"
-          i18n>Search</button>
 </form>
 
 <mat-card appearance="outlined">

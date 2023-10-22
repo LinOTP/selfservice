@@ -1,6 +1,11 @@
 import { DatePipe } from '@angular/common';
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
 import { of } from 'rxjs';
@@ -30,15 +35,14 @@ describe('HistoryComponent', () => {
       providers: [
         {
           provide: HistoryService,
-          useValue: spyOnClass(HistoryService)
+          useValue: spyOnClass(HistoryService),
         },
       ],
       imports: [
         MaterialModule,
-        FormsModule,
-      ]
-    })
-      .compileComponents();
+        ReactiveFormsModule
+      ],
+    }).compileComponents();
     historyService = getInjectedStub(HistoryService);
   });
 
@@ -63,35 +67,41 @@ describe('HistoryComponent', () => {
         recordCount: component.paginator.pageSize,
         sortBy: component.sort.active as HistoryField,
         sortOrder: component.sort.direction as SortOrder,
-        query: component.queryForm.searchTerm,
-        queryType: component.queryForm.column as HistoryField,
+        query: component.queryForm.value.searchTerm,
+        queryType: component.queryForm.value.column as HistoryField,
       };
       expect(historyService.getHistory).toHaveBeenCalledWith(options);
 
-      expect(component.paginator.pageIndex).toEqual(HistoryFixtures.mockPage.page);
-      expect(component.paginator.pageSize).toEqual(HistoryFixtures.mockPage.pageRecords.length);
+      expect(component.paginator.pageIndex).toEqual(
+        HistoryFixtures.mockPage.page,
+      );
+      expect(component.paginator.pageSize).toEqual(
+        HistoryFixtures.mockPage.pageRecords.length,
+      );
     }));
   });
 
-  it('submitSearch should set the page index to 0 and reload history', () => {
+  it('submitSearch should set the page index to 0 and reload history', fakeAsync(() => {
     component.paginator.pageIndex = 3;
     fixture.detectChanges();
-    component.submitSearch();
+    component.queryForm.get('column').patchValue('serial');
+    tick(0);
     expect(component.paginator.pageIndex).toEqual(0);
     expect(historyService.getHistory).toHaveBeenCalled();
-  });
+  }));
 
   it('clearSearch should set the query to an empty string and reload history', () => {
-    component.queryForm.searchTerm = 'test';
-    component.queryForm.column = component.searchColumns[2];
+    component.queryForm.patchValue({
+      searchTerm: 'test',
+      column: component.searchColumns[2],
+    });
 
     fixture.detectChanges();
 
     component.clearSearch();
 
-    expect(component.queryForm.searchTerm).toEqual('');
-    expect(component.queryForm.column).toEqual('action');
+    expect(component.queryForm.value.searchTerm).toEqual('');
+    expect(component.queryForm.value.column).toEqual('action');
     expect(historyService.getHistory).toHaveBeenCalled();
   });
-
 });

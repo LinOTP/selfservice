@@ -2,11 +2,12 @@ import { AfterViewInit, ChangeDetectorRef, Component, ViewChild } from '@angular
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 
-import { BehaviorSubject, merge, Observable } from 'rxjs';
-import { filter, startWith, switchMap, tap } from 'rxjs/operators';
+import { merge, Observable } from 'rxjs';
+import { debounceTime, delay, distinctUntilChanged, filter, startWith, switchMap, tap } from 'rxjs/operators';
 
 import { HistoryField, HistoryPage, HistoryRecord, HistoryRequestOptions, SortOrder } from '@api/history';
 import { HistoryService } from '@api/history.service';
+import { FormControl, FormGroup } from '@angular/forms';
 
 const historyColumns = ['success', 'date', 'action', 'serial', 'tokentype', 'action_detail', 'info'] as const;
 type HistoryColumn = typeof historyColumns[number];
@@ -33,23 +34,19 @@ export class HistoryComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  public queryForm: {
-    searchTerm: string,
-    column: HistoryColumn
-  } = {
-      searchTerm: '',
-      column: 'action'
-    };
+  public queryForm = new FormGroup({
+    searchTerm: new FormControl(''),
+    column: new FormControl<HistoryColumn>('action')
+  });
 
-  public queryTrigger$ = new BehaviorSubject({ ...this.queryForm });
+  public queryTrigger$ = merge(this.queryForm.get('searchTerm').valueChanges.pipe(debounceTime(500), distinctUntilChanged()), 
+  // delay(0) is needed to prevent calling loadHistory() with changes from the previous value
+  this.queryForm.get('column').valueChanges.pipe(delay(0),distinctUntilChanged())
+  )
 
   public get searchIsDirty() {
-    return this.queryTrigger$.value.column !== 'action'
-      || this.queryTrigger$.value.searchTerm !== '';
-  }
-  public get searchFormIsDirty() {
-    return this.queryForm.column !== this.queryTrigger$.value.column
-      || this.queryForm.searchTerm !== this.queryTrigger$.value.searchTerm;
+    return this.queryForm.value.column !== 'action'
+      || this.queryForm.value.searchTerm !== '';
   }
 
   constructor(
@@ -76,16 +73,11 @@ export class HistoryComponent implements AfterViewInit {
     });
   }
 
-  submitSearch() {
-    this.queryTrigger$.next({ ...this.queryForm });
-  }
-
   clearSearch() {
-    this.queryForm = {
+    this.queryForm.patchValue({
       searchTerm: '',
       column: 'action'
-    };
-    this.submitSearch();
+    });
   }
 
   loadHistory(): Observable<HistoryPage> {
@@ -94,8 +86,8 @@ export class HistoryComponent implements AfterViewInit {
       recordCount: this.paginator.pageSize,
       sortBy: <HistoryField>this.sort.active,
       sortOrder: <SortOrder>this.sort.direction,
-      query: this.queryTrigger$.value.searchTerm,
-      queryType: <HistoryField>this.queryTrigger$.value.column,
+      query: this.queryForm.value.searchTerm,
+      queryType: <HistoryField>this.queryForm.value.column,
     };
 
     return this.historyService.getHistory(options).pipe(
