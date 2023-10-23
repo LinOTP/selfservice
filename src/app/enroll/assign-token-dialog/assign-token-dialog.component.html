@@ -42,6 +42,8 @@
           <input matInput
                  formControlName="description">
           <mat-hint i18n>Enter a description for your token.</mat-hint>
+          <mat-error i18n
+                     *ngIf="assignmentForm.get('description').hasError('required')">This field is required.</mat-error>
         </mat-form-field>
       </mat-dialog-content>
 

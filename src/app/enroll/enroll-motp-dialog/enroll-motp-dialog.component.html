@@ -24,7 +24,10 @@
                  type="password"
                  appFocusOnInit>
           <mat-hint i18n>Enter your token's secret</mat-hint>
-          <mat-error i18n>Please enter exactly 16 characters. Allowed are digits (0-9) and the letters A to F (lowercase
+          <mat-error *ngIf="enrollmentStep.get('password').hasError('required')"
+                     i18n>The field cannot be empty.</mat-error>
+          <mat-error *ngIf="enrollmentStep.get('password').hasError('pattern')"
+                     i18n>Please enter exactly 16 characters. Allowed are digits (0-9) and the letters A to F (lowercase
             or uppercase).</mat-error>
         </mat-form-field>
         <mat-form-field>

@@ -12,6 +12,8 @@
              type="password"
              formControlName="newPin"
              autofocus>
+      <mat-error i18n
+                 *ngIf="form.get('newPin').hasError('required')">This field is required.</mat-error>
     </mat-form-field>
     <mat-form-field>
       <mat-label>{{ confirmPinPlaceholder }}</mat-label>
@@ -19,7 +21,9 @@
              type="password"
              formControlName="confirmPin"
              [errorStateMatcher]="matcher">
-      <mat-error *ngIf="form.hasError('pinsDoNotMatch')"
+      <mat-error i18n
+                 *ngIf="form.get('confirmPin').hasError('required')">This field is required.</mat-error>
+      <mat-error *ngIf="form.hasError('pinsDoNotMatch') && !form.get('confirmPin').hasError('required')"
                  i18n>Entered PINs do not match</mat-error>
     </mat-form-field>
   </mat-dialog-content>

@@ -28,12 +28,16 @@
                  formControlName="emailAddress"
                  appFocusOnInit>
           <mat-hint i18n>Set the email address to use for your token</mat-hint>
+          <mat-error i18n
+                     *ngIf="enrollmentStep.get('emailAddress').hasError('required')">This field is required.</mat-error>
         </mat-form-field>
         <mat-form-field>
           <mat-label i18n>Token description</mat-label>
           <input matInput
                  formControlName="description">
           <mat-hint i18n>Enter a description for your token.</mat-hint>
+          <mat-error i18n
+                     *ngIf="enrollmentStep.get('description').hasError('required')">This field is required.</mat-error>
         </mat-form-field>
       </mat-dialog-content>
 

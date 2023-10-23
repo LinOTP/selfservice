@@ -30,6 +30,8 @@
                  formControlName="description"
                  appFocusOnInit>
           <mat-hint i18n>Enter a description for your token.</mat-hint>
+          <mat-error i18n
+                     *ngIf="enrollmentStep.get('description').hasError('required')">This field is required.</mat-error>
         </mat-form-field>
       </mat-dialog-content>
 
