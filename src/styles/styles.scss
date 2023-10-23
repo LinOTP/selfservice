@@ -49,3 +49,7 @@ app-root {
 .mdc-button {
   text-transform: uppercase;
 }
+
+.mat-mdc-dialog-container mat-horizontal-stepper .mat-mdc-dialog-content {
+  padding-top: 0;
+}
