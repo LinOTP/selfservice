@@ -138,6 +138,11 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    if (!this.loginFormGroup.valid) {
+      this.loginFormGroup.markAllAsTouched();
+      return;
+    }
+
     if (this.awaitingResponse) {
       return;
     }
@@ -223,6 +228,11 @@ export class LoginComponent implements OnInit {
   }
 
   submitSecondFactor() {
+    if (!this.secondFactorFormGroup.valid) {
+      this.secondFactorFormGroup.markAllAsTouched();
+      return;
+    }
+
     if (this.awaitingResponse) {
       return;
     }
