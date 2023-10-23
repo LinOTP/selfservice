@@ -21,8 +21,10 @@
             serial of your token.</p>
           <button mat-stroked-button
                   color="primary"
-                  (click)="getSerial()"
-                  i18n>Determine serial</button>
+                  (click)="getSerial()">
+            <mat-icon>find_in_page</mat-icon>
+            <span i18n>Determine serial</span>
+          </button>
         </div>
 
         <mat-form-field>
@@ -74,8 +76,10 @@
           This step is optional, and you can still do it later over the token menu.</p>
         <button mat-stroked-button
                 color="primary"
-                (click)="setPin()"
-                i18n>Set pin</button>
+                (click)="setPin()">
+          <mat-icon>security</mat-icon>
+          <span i18n>Set pin</span>
+        </button>
       </ng-container>
 
       <p *ngxPermissionsOnly="Permission.VERIFY"
