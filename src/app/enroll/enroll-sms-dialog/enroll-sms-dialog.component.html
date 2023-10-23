@@ -26,18 +26,16 @@
 
         <p i18n>You may set the following token details before creation:</p>
         <mat-form-field *ngIf="canEditPhone">
+          <mat-label i18n>Mobile phone number</mat-label>
           <input matInput
-                 i18n-placeholder
-                 placeholder="Mobile phone number"
                  formControlName="phoneNumber"
                  appFocusOnInit>
           <mat-hint *ngIf="canEditPhone"
                     i18n>Set the mobile phone number to use for your token</mat-hint>
         </mat-form-field>
         <mat-form-field>
+          <mat-label i18n>Token description</mat-label>
           <input matInput
-                 i18n-placeholder
-                 placeholder="Token description"
                  formControlName="description">
           <mat-hint i18n>Enter a description for your token.</mat-hint>
         </mat-form-field>
@@ -50,7 +48,7 @@
                 type="button"
                 (click)="close()"
                 i18n>Cancel</button>
-        <button mat-button
+        <button mat-raised-button
                 color="primary"
                 type="submit"
                 id="goTo2"
@@ -72,7 +70,7 @@
       <ng-container *ngxPermissionsOnly="Permission.SETPIN">
         <p i18n>You may set a PIN now to protect your token against misuse, as it ensures only you can use your token.
           This step is optional, and you can still do it later over the token menu.</p>
-        <button mat-button
+        <button mat-stroked-button
                 color="primary"
                 (click)="setPin()"
                 i18n>Set pin</button>
@@ -85,7 +83,7 @@
     <mat-dialog-actions align="end">
       <div i18n>Step 3 of 3</div>
       <span class="spacer"></span>
-      <button mat-button
+      <button mat-raised-button
               color="primary"
               (click)="finalizeEnrollment()"> {{ closeLabel }}</button>
     </mat-dialog-actions>

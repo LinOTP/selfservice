@@ -13,9 +13,8 @@
         <p i18n>To link your token, enter a generated OTP by connecting your YubiKey and pressing the button.
           Alternatively, you may enter the public ID manually:</p>
         <mat-form-field>
+          <mat-label i18n>OTP or public ID</mat-label>
           <input matInput
-                 i18n-placeholder
-                 placeholder="OTP or public ID"
                  formControlName="publicId"
                  appFocusOnInit>
           <mat-error i18n>This field is required.</mat-error>
@@ -25,9 +24,8 @@
         <p class="formSectionIntro"
            i18n>You may set a token description, which should help you identify your token:</p>
         <mat-form-field>
+          <mat-label i18n>Token description</mat-label>
           <input matInput
-                 i18n-placeholder
-                 placeholder="Token description"
                  formControlName="description">
           <mat-error i18n>The token description is required.</mat-error>
           <mat-hint i18n>Enter a description for your token.</mat-hint>
@@ -41,7 +39,7 @@
                 type="button"
                 (click)="close()"
                 i18n>Cancel</button>
-        <button mat-button
+        <button mat-raised-button
                 color="primary"
                 type="submit"
                 [disabled]="registrationForm.invalid || registrationForm.disabled">
@@ -59,7 +57,7 @@
       <ng-container *ngxPermissionsOnly="Permission.SETPIN">
         <p i18n>You may set a PIN now to protect your token against misuse, as it ensures only you can use your token.
           This step is optional, and you can still do it later over the token menu.</p>
-        <button mat-button
+        <button mat-stroked-button
                 color="primary"
                 (click)="setPin()"
                 i18n>Set pin</button>
@@ -72,7 +70,7 @@
     <mat-dialog-actions align="end">
       <div i18n>Step 2 of 2</div>
       <span class="spacer"></span>
-      <button mat-button
+      <button mat-raised-button
               (click)="finalizeEnrollment()"
               color="primary">{{ closeLabel }}</button>
     </mat-dialog-actions>

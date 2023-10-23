@@ -56,22 +56,22 @@
 
         <div [ngClass]="{'center-content': hasOnlineMode && hasOfflineMode}">
           <mat-form-field *ngIf="!hasOnlineMode || showInputField">
+            <mat-label *ngIf="typeDetails.type === TokenType.PASSWORD"
+                       i18n>Password</mat-label>
+            <mat-label *ngIf="typeDetails.type !== TokenType.PASSWORD"
+                       i18n>OTP value</mat-label>
             <input matInput
                    *ngIf="typeDetails.type === TokenType.PASSWORD"
                    type="password"
                    formControlName="otp"
-                   placeholder="Password"
                    name="otp"
-                   i18n-placeholder
                    autocomplete="current-password"
                    appFocusOnInit>
             <input matInput
                    *ngIf="typeDetails.type !== TokenType.PASSWORD"
                    type="text"
                    formControlName="otp"
-                   placeholder="OTP value"
                    name="otp"
-                   i18n-placeholder
                    autocomplete="one-time-code"
                    appFocusOnInit>
             <mat-error *ngIf="typeDetails.type === TokenType.PASSWORD"
@@ -108,7 +108,7 @@
             mat-dialog-close
             *ngIf="state !== TestState.SUCCESS"
             i18n>cancel</button>
-    <button mat-button
+    <button mat-raised-button
             type="button"
             color="primary"
             type="reset"
@@ -116,13 +116,13 @@
             *ngIf="state === TestState.FAILURE"
             appFocusOnInit
             i18n>restart test</button>
-    <button mat-button
+    <button mat-raised-button
             color="primary"
             type="submit"
             [disabled]="formGroup.invalid"
             *ngIf="state === TestState.UNTESTED && hasOfflineMode"
             i18n>submit</button>
-    <button mat-button
+    <button mat-raised-button
             type="button"
             color="primary"
             mat-dialog-close

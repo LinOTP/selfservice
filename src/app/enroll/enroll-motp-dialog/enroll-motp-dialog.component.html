@@ -18,9 +18,8 @@
 
         <p i18n>You may set the following token details before creation:</p>
         <mat-form-field>
+          <mat-label i18n>mOTP password</mat-label>
           <input matInput
-                 i18n-placeholder
-                 placeholder="mOTP password"
                  formControlName="password"
                  type="password"
                  appFocusOnInit>
@@ -29,18 +28,16 @@
             or uppercase).</mat-error>
         </mat-form-field>
         <mat-form-field>
+          <mat-label i18n>mOTP PIN</mat-label>
           <input matInput
-                 i18n-placeholder
-                 placeholder="mOTP PIN"
                  type="password"
                  formControlName="mOTPPin">
           <mat-hint i18n>Enter your token's mOTP pin</mat-hint>
           <mat-error i18n>The field cannot be empty.</mat-error>
         </mat-form-field>
         <mat-form-field>
+          <mat-label i18n>Token description</mat-label>
           <input matInput
-                 i18n-placeholder
-                 placeholder="Token description"
                  formControlName="description">
           <mat-hint i18n>Enter a description for your token.</mat-hint>
           <mat-error i18n>The field cannot be empty.</mat-error>
@@ -55,7 +52,7 @@
                 type="button"
                 (click)="close()"
                 i18n>Cancel</button>
-        <button mat-button
+        <button mat-raised-button
                 color="primary"
                 type="submit"
                 id="goTo2"
@@ -78,7 +75,7 @@
       <ng-container *ngxPermissionsOnly="Permission.SETPIN">
         <p i18n>You may set a PIN now to protect your token against misuse, as it ensures only you can use your token.
           This step is optional, and you can still do it later over the token menu.</p>
-        <button mat-button
+        <button mat-stroked-button
                 color="primary"
                 (click)="setPin()"
                 i18n>Set pin</button>
@@ -91,7 +88,7 @@
     <mat-dialog-actions align="end">
       <div i18n>Step 3 of 3</div>
       <span class="spacer"></span>
-      <button mat-button
+      <button mat-raised-button
               color="primary"
               (click)="finalizeEnrollment()"> {{ closeLabel }}</button>
     </mat-dialog-actions>

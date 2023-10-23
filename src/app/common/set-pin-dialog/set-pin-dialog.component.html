@@ -7,17 +7,17 @@
     <p i18n>During the authentication process you may need to provide this PIN together with the token
       OTP.</p>
     <mat-form-field>
+      <mat-label>{{ newPinPlaceholder }}</mat-label>
       <input matInput
              type="password"
              formControlName="newPin"
-             placeholder="{{ newPinPlaceholder }}"
              autofocus>
     </mat-form-field>
     <mat-form-field>
+      <mat-label>{{ confirmPinPlaceholder }}</mat-label>
       <input matInput
              type="password"
              formControlName="confirmPin"
-             placeholder="{{ confirmPinPlaceholder }}"
              [errorStateMatcher]="matcher">
       <mat-error *ngIf="form.hasError('pinsDoNotMatch')"
                  i18n>Entered PINs do not match</mat-error>
@@ -28,7 +28,7 @@
     <button mat-button
             mat-dialog-close
             i18n>Cancel</button>
-    <button mat-button
+    <button mat-raised-button
             color="primary"
             type="submit"
             [disabled]="preventSubmit()"
