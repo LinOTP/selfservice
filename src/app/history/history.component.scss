@@ -10,6 +10,7 @@
 
 .filter {
   display: flex;
+  padding-top: 5px;
 
   &>* {
     margin: 5px;
@@ -43,4 +44,10 @@ mat-header-cell:not(:last-of-type) {
 .no-data-cell {
   padding: 25px 0px;
   text-align: center;
+}
+
+.search-card {
+  mat-card-content {
+    padding-bottom: 0px;
+  }
 }
