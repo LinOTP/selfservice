@@ -61,7 +61,7 @@ describe('ThemePicker', () => {
     await items[1].click();
     let buttonText = await triggerBtn.getText();
     expect(buttonText).toContain('dark');
-    expect(themeService.theme).toBe('dark');
+    expect(themeService.theme.id).toBe('dark');
 
     await menu.open();
     items = await menu.getItems();
@@ -69,7 +69,7 @@ describe('ThemePicker', () => {
 
     buttonText = await triggerBtn.getText();
     expect(buttonText).toContain('light');
-    expect(themeService.theme).toBe('light');
+    expect(themeService.theme.id).toBe('light');
   });
 });
 

@@ -6,24 +6,28 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class ThemeService {
-  private _theme = new BehaviorSubject<Theme>('light');
+  themes = getThemes();
+  private _theme = new BehaviorSubject<Theme>(this.themes[0]);
   theme$ = this._theme.asObservable();
   get theme() {
     return this._theme.value;
   }
 
-  themes = getThemes();
 
   constructor(@Inject(DOCUMENT) private document: Document) {
     this._initTheme();
   }
 
-  selectTheme(theme: Theme) {
+  selectTheme(themeId: ThemeId) {
+    if (themeId === this._theme.value.id) return;
+    const theme = this.themes.find((theme) => theme.id === themeId);
+    if (!theme) throw new Error('Theme not found');
+
     this.document.body.classList.replace(
-      'theme-' + this._theme.value,
-      'theme-' + theme
+      'theme-' + this._theme.value.id,
+      'theme-' + theme.id
     );
-    localStorage.setItem('theme', theme);
+    localStorage.setItem('theme', theme.id);
     this._theme.next(theme);
   }
 
@@ -31,19 +35,21 @@ export class ThemeService {
     const theme =
       this._getSelectedTheme() || this._getThemeForPreferredColorScheme();
     this._theme.next(theme);
-    this.document.body.classList.add('theme-' + this._theme.value);
+    this.document.body.classList.add('theme-' + this._theme.value.id);
   }
 
   private _getSelectedTheme(): Theme | null {
-    const selectedTheme = localStorage.getItem('theme');
-    if (isTheme(selectedTheme)) {
-      return selectedTheme;
-    }
-    return null;
+    const selectedThemeId = localStorage.getItem('theme');
+    const selectedTheme = this.themes.find((theme) => theme.id === selectedThemeId);
+    return selectedTheme || null;
   }
 
   private _getThemeForPreferredColorScheme() {
-    return this.isDarkModePreferred() ? 'dark' : 'light';
+    if (this.isDarkModePreferred()) {
+      return this.themes[1] as typeof darkTheme
+    } else {
+      return this.themes[0] as typeof lightTheme
+    }
   }
 
   protected isDarkModePreferred() {
@@ -54,13 +60,38 @@ export class ThemeService {
   }
 }
 
-export type Theme = ReturnType<typeof getThemes>[number];
 
+export type ThemeDefinition<T extends string> = Readonly<{
+  id: T
+  prettyName: string
+  prettyNameShort: string
+  icon: string
+  linotpLogo: string
+}>;
+
+const lightTheme: ThemeDefinition<'light'> = {
+  id: "light",
+  prettyName: $localize`Light Theme`,
+  prettyNameShort: $localize`Light`,
+  icon: "light_mode",
+  linotpLogo: "assets/logo.png",
+}
+
+const darkTheme: ThemeDefinition<'dark'> = {
+  id: "dark",
+  prettyName: $localize`Dark Theme`,
+  prettyNameShort: $localize`Dark`,
+  icon: "dark_mode",
+  linotpLogo: "assets/logo-dark.png",
+}
+
+// first theme from the list is the default theme
 export function getThemes() {
-  const themes = ['dark', 'light'] as const;
-  return themes;
+  const themes = [
+    lightTheme, darkTheme
+  ] as const
+  return themes
 }
 
-function isTheme(theme: string): theme is Theme {
-  return theme === 'dark' || theme === 'light';
-}
+export type Theme = ReturnType<typeof getThemes>[number]
+export type ThemeId = ReturnType<typeof getThemes>[number]['id']

@@ -2,11 +2,7 @@
 <mat-toolbar class="mat-primary toolbar">
   <div id="title">
     <img id="logo"
-         [src]="
-        themeService.theme === 'dark'
-          ? 'assets/logo-dark.png'
-          : 'assets/logo.png'
-      "
+         [src]="themeService.theme.linotpLogo"
          alt="Company Logo"
          i18n-alt>
     <h1 id="app-name">{{ title }}</h1>

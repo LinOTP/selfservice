@@ -7,7 +7,7 @@
         <target state="translated">Meine Token</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.ts</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
       <trans-unit id="186236568870281953" datatype="html">
@@ -15,7 +15,7 @@
         <target state="translated">Chronik</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.ts</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">18</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/history/history.component.html</context>
@@ -27,7 +27,7 @@
         <target state="translated">Abmeldung erfolgreich</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.ts</context>
-          <context context-type="linenumber">48</context>
+          <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7617829407416097696" datatype="html">
@@ -35,7 +35,7 @@
         <target state="translated">Abmeldung fehlgeschlagen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.ts</context>
-          <context context-type="linenumber">48</context>
+          <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
       <trans-unit id="189395343509305217" datatype="html">
@@ -1771,28 +1771,36 @@
           <context context-type="linenumber">140</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="6664089326308072643" datatype="html">
-        <source>{VAR_SELECT, select, light {light} dark {dark}}</source>
-        <target state="translated">{VAR_SELECT, select, light {hell} dark {dunkel}}</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/theme-picker/theme-picker.component.ts</context>
-          <context context-type="linenumber">12</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="1648472582356305138" datatype="html">
         <source>Light Theme</source>
         <target state="translated">Helles Design</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/theme-picker/theme-picker.component.ts</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="sourcefile">src/app/theme.service.ts</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="413116577994876478" datatype="html">
+        <source>Light</source>
+        <target state="new">Hell</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/theme.service.ts</context>
+          <context context-type="linenumber">75</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5824507108095419704" datatype="html">
         <source>Dark Theme</source>
         <target state="translated">Dunkles Design</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/theme-picker/theme-picker.component.ts</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="sourcefile">src/app/theme.service.ts</context>
+          <context context-type="linenumber">82</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3892161059518616136" datatype="html">
+        <source>Dark</source>
+        <target state="new">Dunkel</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/theme.service.ts</context>
+          <context context-type="linenumber">83</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3701321471868149835" datatype="html">
