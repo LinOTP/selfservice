@@ -1,5 +1,4 @@
 @use '@angular/material' as mat;
-@import '../../theme.scss';
 
 mat-card {
   width: 35em;
@@ -22,15 +21,7 @@ span.selectedToken {
   display: inline-block;
 
   &::first-letter {
-    text-transform: uppercase
-  }
-}
-
-#loginStage2 .token-list>* {
-  border-left: 5px solid transparent;
-
-  &:focus {
-    border-left-color: mat.get-color-from-palette($theme-app-primary, '500');
+    text-transform: uppercase;
   }
 }
 
@@ -46,7 +37,6 @@ span.selectedToken {
 }
 
 .token-list-item-description {
-  color: rgba(0, 0, 0, 0.54);
   font-style: italic;
 }
 
@@ -64,7 +54,6 @@ span.selectedToken {
   flex-direction: column;
   display: flex;
   align-items: center;
-  color: rgba(0, 0, 0, 0.54);
 
   &>* {
     border: 1px solid currentColor;

@@ -5,5 +5,9 @@ $language-icon-size: 20px;
   width: $language-icon-size;
   height: $language-icon-size;
   font-size: $language-icon-size;
+}
 
+.icon-container {
+  display: flex;
+  align-items: center;
 }

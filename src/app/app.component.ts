@@ -4,6 +4,7 @@ import { LoginService } from '@app/login/login.service';
 import { SystemService, UserSystemInfo } from '@app/system.service';
 import { NotificationService } from '@common/notification.service';
 import { Permission } from '@common/permissions';
+import { ThemeService } from './theme.service';
 
 @Component({
   selector: 'app-root',
@@ -29,6 +30,7 @@ export class AppComponent implements OnInit {
     private loginService: LoginService,
     private notificationService: NotificationService,
     private systemService: SystemService,
+    public themeService: ThemeService,
   ) { }
 
   ngOnInit() {

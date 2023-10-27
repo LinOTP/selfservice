@@ -1,0 +1,52 @@
+@use '@angular/material' as mat;
+@use './styles.theme.scss' as global-styles;
+@use '../app/login/login.component.theme.scss' as login;
+@use '../app/app.component.theme.scss' as app-root;
+@use '../app/history/history.component.theme.scss' as history;
+@use '../app/token-card/token-card.component.theme.scss' as token-card;
+@use '../app/keyboard-key/keyboard-key.component.theme.scss' as keyboard-key;
+@use './themes/light.scss' as light-theme;
+@use './themes/dark.scss' as dark-theme;
+
+@include mat.core();
+
+// custom components theming that should be applied to all themes
+@mixin component-styles($theme) {
+  @include global-styles.theme($theme);
+  @include login.theme($theme);
+  @include app-root.theme($theme);
+  @include history.theme($theme);
+}
+
+// custom components theming that should be applied to all light themes
+@mixin component-styles-light($theme) {
+  @include history.light-theme($theme);
+  @include token-card.light-theme($theme);
+  @include login.light-theme($theme);
+  @include keyboard-key.light-theme($theme);
+}
+
+@mixin component-styles-dark($theme) {
+  @include global-styles.dark-theme($theme);
+  @include history.dark-theme($theme);
+  @include token-card.dark-theme($theme);
+  @include login.dark-theme($theme);
+  @include keyboard-key.dark-theme($theme);
+}
+
+// themes setup
+@include mat.all-component-typographies(light-theme.$theme);
+@include mat.all-component-densities(light-theme.$theme);
+
+.theme-light {
+  @include mat.all-component-colors(light-theme.$theme);
+  @include component-styles(light-theme.$theme);
+  @include component-styles-light(light-theme.$theme);
+}
+
+.theme-dark {
+  @include mat.all-component-colors(dark-theme.$theme);
+  @include component-styles(dark-theme.$theme);
+  @include component-styles-dark(dark-theme.$theme);
+  @include dark-theme.global-styles();
+}

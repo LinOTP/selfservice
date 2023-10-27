@@ -1,0 +1,18 @@
+<ng-container *ngIf="selectedTheme$ | async as selectedTheme">
+  <button mat-button
+          [matMenuTriggerFor]="themePicker">
+    <mat-icon>{{selectedTheme.icon}}</mat-icon>
+    <span class="icon-container">
+      <span>{{selectedTheme.prettyNameShort}}</span>
+      <mat-icon>arrow_drop_down</mat-icon>
+    </span>
+  </button>
+  <mat-menu #themePicker="matMenu">
+    <button *ngFor="let theme of themes"
+            mat-menu-item
+            (click)="themeService.selectTheme(theme.id)">
+      <mat-icon>{{theme.icon}}</mat-icon>
+      <span>{{theme.prettyName}}</span>
+    </button>
+  </mat-menu>
+</ng-container>

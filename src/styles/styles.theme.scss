@@ -1,0 +1,17 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+@mixin theme($theme) {
+  $color-config: mat.get-color-config($theme);
+  $warn-palette: map.get($color-config, 'warn');
+
+  .warning {
+    color: mat.get-color-from-palette($warn-palette, 500);
+  }
+}
+
+@mixin dark-theme($theme) {
+  input {
+    color-scheme: dark;
+  }
+}

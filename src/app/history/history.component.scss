@@ -1,5 +1,4 @@
 @use '@angular/material' as mat;
-@import '/src/theme.scss';
 
 .table-wrap {
   overflow-x: auto;
@@ -32,12 +31,4 @@
 .mat-mdc-cell:not(:last-of-type),
 mat-header-cell:not(:last-of-type) {
   padding-right: 8px !important;
-}
-
-.failure {
-  background: #fff8f8;
-
-  mat-icon {
-    color: mat.get-color-from-palette($theme-app-warn, 500);
-  }
 }

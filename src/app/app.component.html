@@ -2,7 +2,7 @@
 <mat-toolbar class="mat-primary toolbar">
   <div id="title">
     <img id="logo"
-         src="assets/logo.png"
+         [src]="themeService.theme.linotpLogo"
          alt="Company Logo"
          i18n-alt>
     <h1 id="app-name">{{ title }}</h1>
@@ -58,5 +58,6 @@
        i18n>Privacy policy</a>
   </ng-container>
   <span class="spacer"></span>
+  <app-theme-picker></app-theme-picker>
   <app-language-picker></app-language-picker>
 </footer>
