@@ -11,12 +11,11 @@
         required to enter your password for OTP authentication:
       </p>
       <mat-form-field>
+        <mat-label i18n>PIN or password</mat-label>
         <input matInput
                type="password"
                autocomplete="current-password"
                [(ngModel)]="pin"
-               placeholder="PIN or password"
-               i18n-placeholder
                autofocus>
       </mat-form-field>
 

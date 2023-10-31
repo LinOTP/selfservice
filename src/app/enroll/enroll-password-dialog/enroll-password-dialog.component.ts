@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { FormGroupDirective, NgForm, UntypedFormControl, UntypedFormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 
 import { TokenType } from '@linotp/data-models';
 
+import { ErrorStateMatcher } from '@angular/material/core';
 import { EnrollmentOptions } from '@api/token';
 import { EnrollDialogBaseComponent } from '@app/enroll/enroll-dialog-base.component';
-import { ErrorStateRootMatcher } from '@common/form-helpers/error-state-root-matcher';
 
 @Component({
   selector: 'app-enroll-password',
@@ -15,7 +15,7 @@ import { ErrorStateRootMatcher } from '@common/form-helpers/error-state-root-mat
 })
 export class EnrollPasswordDialogComponent extends EnrollDialogBaseComponent implements OnInit {
 
-  public matcher = new ErrorStateRootMatcher();
+  public matcher = new ConfirmPasswordErrorStateMatcher();
 
   @ViewChild(MatStepper, { static: true }) public stepper: MatStepper;
   public enrollmentStep: UntypedFormGroup;
@@ -60,4 +60,15 @@ export class EnrollPasswordDialogComponent extends EnrollDialogBaseComponent imp
     this.dialogRef.close(true);
   }
 
+}
+
+
+class ConfirmPasswordErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(
+    control: UntypedFormControl | null,
+    form: FormGroupDirective | NgForm | null,
+  ): boolean {
+    const passwordsDoNotMatch = form?.hasError('passwordsDoNotMatch');
+    return control?.touched && (control.invalid || passwordsDoNotMatch);
+  }
 }

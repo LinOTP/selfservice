@@ -5,19 +5,20 @@
   <mat-dialog-content>
     <p i18n>Label your token with a new description:</p>
     <mat-form-field>
+      <mat-label i18n>Token description</mat-label>
       <input matInput
              type="text"
              formControlName="description"
-             placeholder="Token description"
-             i18n-placeholder
              autofocus>
+      <mat-error i18n
+                 *ngIf="form.get('description').hasError('required')">This field is required.</mat-error>
     </mat-form-field>
   </mat-dialog-content>
   <mat-dialog-actions align="end">
     <button mat-button
             mat-dialog-close
             i18n>Cancel</button>
-    <button mat-button
+    <button mat-raised-button
             color="primary"
             type="submit"
             [disabled]="preventSubmit()"

@@ -1,8 +1,11 @@
 @use '@angular/material' as mat;
 
 mat-card {
-  width: 35em;
   margin: 0 auto;
+}
+
+.login-card {
+  width: 35em;
 }
 
 mat-form-field {
@@ -28,7 +31,6 @@ span.selectedToken {
 .token-list-item-heading {
   text-transform: capitalize;
   margin: 0px;
-  padding-top: 36px;
 
   mat-icon {
     vertical-align: middle;
@@ -38,11 +40,12 @@ span.selectedToken {
 
 .token-list-item-description {
   font-style: italic;
+  margin-bottom: 0px;
 }
 
 .token-list-item-prompt {
   padding-top: 4px !important;
-  padding-bottom: 16px;
+  margin-bottom: 0;
 }
 
 .token.mat-mdc-list-item {
@@ -84,4 +87,12 @@ mat-spinner {
 .otpInput {
   display: flex;
   justify-content: center;
+}
+
+.cancel-btn-stage-3 {
+  margin-right: 0.5rem;
+}
+
+.cancel.token-list-item {
+  text-align: center;
 }

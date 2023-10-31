@@ -10,6 +10,7 @@
 
 .filter {
   display: flex;
+  padding-top: 5px;
 
   &>* {
     margin: 5px;
@@ -31,4 +32,22 @@
 .mat-mdc-cell:not(:last-of-type),
 mat-header-cell:not(:last-of-type) {
   padding-right: 8px !important;
+}
+
+.spinner-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.no-data-cell {
+  padding: 25px 0px;
+  text-align: center;
+}
+
+.search-card {
+  mat-card-content {
+    padding-bottom: 0px;
+  }
 }

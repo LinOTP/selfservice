@@ -1,115 +1,136 @@
 <h2 i18n>History</h2>
+<ng-container *ngIf="loaded;else spinnerTmp">
+  <mat-card class="search-card"
+            appearance="outlined">
+    <mat-card-content>
+      <form class="filter">
+        <mat-form-field class="query-column">
+          <mat-icon matPrefix>filter_alt</mat-icon>
+          <mat-select [formControl]="queryForm.get('column')"
+                      name="queryType">
+            <mat-option *ngFor="let column of searchColumns"
+                        [value]="column">
+              {{columnNameMapping[column]}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
 
-<form (submit)="submitSearch()"
-      class="filter">
-  <mat-icon>search</mat-icon>
+        <mat-form-field class="search-term">
+          <mat-label i18n>Search term</mat-label>
+          <mat-icon matPrefix>search</mat-icon>
+          <input matInput
+                 [formControl]="queryForm.get('searchTerm')"
+                 name="query"
+                 appFocusOnInit>
+          <button mat-icon-button
+                  matSuffix
+                  type="button"
+                  matTooltip="Clear search"
+                  i18n-matTooltip
+                  (click)="queryForm.get('searchTerm').setValue('')"
+                  *ngIf="searchIsDirty && queryForm.value.searchTerm">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+  </mat-card>
 
-  <mat-form-field class="query-column">
-    <mat-select [(ngModel)]="queryForm.column"
-                name="queryType">
-      <mat-option *ngFor="let column of searchColumns"
-                  [value]="column">
-        {{columnNameMapping[column]}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+  <mat-progress-bar [style.visibility]="loading ? 'visible' : 'hidden'"
+                    mode="indeterminate"></mat-progress-bar>
+  <mat-card appearance="outlined">
+    <mat-card-content>
+      <div class="table-wrap">
+        <table mat-table
+               [dataSource]="dataSource"
+               matSort
+               (matSortChange)="changeSort($event)"
+               [matSortActive]="sort.active"
+               [matSortDirection]="sort.direction">
 
-  <mat-form-field class="search-term">
-    <input matInput
-           [(ngModel)]="queryForm.searchTerm"
-           name="query"
-           placeholder="Search term"
-           i18n-placeholder
-           appFocusOnInit>
-  </mat-form-field>
-  <button mat-icon-button
-          type="button"
-          matTooltip="Clear search"
-          i18n-matTooltip
-          (click)="clearSearch()"
-          *ngIf="searchIsDirty">
-    <mat-icon>cancel</mat-icon>
-  </button>
-  <button mat-button
-          color="primary"
-          *ngIf="searchFormIsDirty"
-          i18n>Search</button>
-</form>
+          <tr mat-header-row
+              *matHeaderRowDef="columnsToDisplay"></tr>
+          <tr mat-row
+              *matRowDef="let historyItem; columns: columnsToDisplay"
+              [ngClass]="{failure: !historyItem.success}"></tr>
+          <tr *matNoDataRow>
+            <td class="no-data-cell"
+                [attr.colspan]="columnsToDisplay.length">
+              <span i18n>No data</span>
+            </td>
+          </tr>
+          <ng-container matColumnDef="date">
+            <th mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+                [start]="'desc'">{{ columnNameMapping.date }}</th>
+            <td mat-cell
+                *matCellDef="let record"
+                [matTooltip]="record.date | date: 'full'">
+              {{ record.date | date: 'medium' }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="action">
+            <th mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header>{{ columnNameMapping.action }}</th>
+            <td mat-cell
+                *matCellDef="let record"> {{record.action}} </td>
+          </ng-container>
+          <ng-container matColumnDef="success">
+            <th mat-header-cell
+                *matHeaderCellDef
+                mt-sort-heaader></th>
+            <td mat-cell
+                *matCellDef="let record">
+              <mat-icon *ngIf="!record.success">clear</mat-icon>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="serial">
+            <th mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header>{{ columnNameMapping.serial }}</th>
+            <td mat-cell
+                *matCellDef="let record"> {{record.serial}} </td>
+          </ng-container>
+          <ng-container matColumnDef="tokentype">
+            <th mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header>{{ columnNameMapping.tokentype }}</th>
+            <td mat-cell
+                *matCellDef="let record"> {{record.tokenType}} </td>
+          </ng-container>
+          <ng-container matColumnDef="action_detail">
+            <th mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header>{{ columnNameMapping.action_detail }}</th>
+            <td mat-cell
+                *matCellDef="let record"> {{record.actionDetail}} </td>
+          </ng-container>
+          <ng-container matColumnDef="info">
+            <th mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header>{{ columnNameMapping.info }}</th>
+            <td mat-cell
+                *matCellDef="let record"> {{record.info}} </td>
+          </ng-container>
+        </table>
+      </div>
 
-<mat-card appearance="outlined">
-  <div class="table-wrap">
-    <table mat-table
-           [dataSource]="dataSource"
-           matSort
-           [matSortActive]="'date'"
-           [matSortDirection]="'desc'">
+      <mat-paginator [pageSizeOptions]="[10, 20, 30, 50, 100]"
+                     (page)="changePage($event)"
+                     [pageSize]="pageSize"
+                     [pageIndex]="page"
+                     [disabled]="loading"
+                     [length]="totalRecords"
+                     showFirstLastButtons>
+      </mat-paginator>
+    </mat-card-content>
+  </mat-card>
+</ng-container>
 
-      <tr mat-header-row
-          *matHeaderRowDef="columnsToDisplay"></tr>
-      <tr mat-row
-          *matRowDef="let historyItem; columns: columnsToDisplay"
-          [ngClass]="{failure: !historyItem.success}"></tr>
-
-      <ng-container matColumnDef="date">
-        <th mat-header-cell
-            *matHeaderCellDef
-            mat-sort-header
-            [start]="'desc'">{{ columnNameMapping.date }}</th>
-        <td mat-cell
-            *matCellDef="let record"
-            [matTooltip]="record.date | date: 'full'">
-          {{ record.date | date: 'medium' }}
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="action">
-        <th mat-header-cell
-            *matHeaderCellDef
-            mat-sort-header>{{ columnNameMapping.action }}</th>
-        <td mat-cell
-            *matCellDef="let record"> {{record.action}} </td>
-      </ng-container>
-      <ng-container matColumnDef="success">
-        <th mat-header-cell
-            *matHeaderCellDef
-            mt-sort-heaader></th>
-        <td mat-cell
-            *matCellDef="let record">
-          <mat-icon *ngIf="!record.success">clear</mat-icon>
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="serial">
-        <th mat-header-cell
-            *matHeaderCellDef
-            mat-sort-header>{{ columnNameMapping.serial }}</th>
-        <td mat-cell
-            *matCellDef="let record"> {{record.serial}} </td>
-      </ng-container>
-      <ng-container matColumnDef="tokentype">
-        <th mat-header-cell
-            *matHeaderCellDef
-            mat-sort-header>{{ columnNameMapping.tokentype }}</th>
-        <td mat-cell
-            *matCellDef="let record"> {{record.tokenType}} </td>
-      </ng-container>
-      <ng-container matColumnDef="action_detail">
-        <th mat-header-cell
-            *matHeaderCellDef
-            mat-sort-header>{{ columnNameMapping.action_detail }}</th>
-        <td mat-cell
-            *matCellDef="let record"> {{record.actionDetail}} </td>
-      </ng-container>
-      <ng-container matColumnDef="info">
-        <th mat-header-cell
-            *matHeaderCellDef
-            mat-sort-header>{{ columnNameMapping.info }}</th>
-        <td mat-cell
-            *matCellDef="let record"> {{record.info}} </td>
-      </ng-container>
-    </table>
+<ng-template #spinnerTmp>
+  <div class="spinner-wrapper">
+    <mat-spinner></mat-spinner>
   </div>
-
-  <mat-paginator #paginator
-                 [pageSizeOptions]="[10, 20, 30, 50, 100]"
-                 showFirstLastButtons>
-  </mat-paginator>
-</mat-card>
+</ng-template>

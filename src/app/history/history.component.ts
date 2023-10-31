@@ -1,10 +1,11 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
+import { Sort } from '@angular/material/sort';
 
-import { BehaviorSubject, merge, Observable } from 'rxjs';
-import { filter, startWith, switchMap, tap } from 'rxjs/operators';
+import { Subscription, merge } from 'rxjs';
+import { debounceTime, delay, distinctUntilChanged, filter, finalize, switchMap, tap } from 'rxjs/operators';
 
+import { FormControl, FormGroup } from '@angular/forms';
 import { HistoryField, HistoryPage, HistoryRecord, HistoryRequestOptions, SortOrder } from '@api/history';
 import { HistoryService } from '@api/history.service';
 
@@ -16,9 +17,10 @@ type HistoryColumn = typeof historyColumns[number];
   templateUrl: './history.component.html',
   styleUrls: ['./history.component.scss'],
 })
-export class HistoryComponent implements AfterViewInit {
+export class HistoryComponent implements OnInit, OnDestroy {
+  loading = false;
+  loaded = false;
 
-  public dataSource: HistoryRecord[];
   public columnsToDisplay: readonly HistoryColumn[] = historyColumns;
   public searchColumns: readonly HistoryColumn[] = ['action', 'serial', 'tokentype', 'action_detail'];
   public columnNameMapping = {
@@ -30,79 +32,99 @@ export class HistoryComponent implements AfterViewInit {
     action_detail: $localize`Details`,
   };
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  public queryForm = new FormGroup({
+    searchTerm: new FormControl(''),
+    column: new FormControl<HistoryColumn>('action')
+  });
 
-  public queryForm: {
-    searchTerm: string,
-    column: HistoryColumn
-  } = {
-      searchTerm: '',
-      column: 'action'
-    };
+  private _history: HistoryPage | undefined
+  get dataSource(): HistoryRecord[] {
+    return this._history?.pageRecords ?? [];
+  }
+  get totalRecords(): number {
+    return this._history?.totalRecords ?? 0;
+  }
 
-  public queryTrigger$ = new BehaviorSubject({ ...this.queryForm });
+  private _requestedPage = 0
+  private _loadedPage = 0
+  get page() {
+    return this._loadedPage
+  }
+  pageSize = 10
+
+  sort: Sort = {
+    active: 'date',
+    direction: 'desc'
+  }
 
   public get searchIsDirty() {
-    return this.queryTrigger$.value.column !== 'action'
-      || this.queryTrigger$.value.searchTerm !== '';
+    return this.queryForm.value.searchTerm !== '';
   }
-  public get searchFormIsDirty() {
-    return this.queryForm.column !== this.queryTrigger$.value.column
-      || this.queryForm.searchTerm !== this.queryTrigger$.value.searchTerm;
-  }
+
+  private subscription: Subscription = new Subscription();
 
   constructor(
     private historyService: HistoryService,
-    private cdr: ChangeDetectorRef,
   ) { }
 
-  ngAfterViewInit() {
-    merge(
-      this.paginator.page,
-      this.sort.sortChange.pipe(
-        tap(() => this.paginator.pageIndex = 0)
-      ),
-      this.queryTrigger$.pipe(
-        tap(() => this.paginator.pageIndex = 0)
-      ),
-    ).pipe(
-      startWith({}),
-      switchMap(() => this.loadHistory())
-    ).subscribe(history => {
-      this.paginator.pageIndex = history.page;
-      this.paginator.length = history.totalRecords;
-      this.cdr.detectChanges();
-    });
+  ngOnInit(): void {
+    this.loadHistory();
+    const searchTermChange$ = this.queryForm.get('searchTerm').valueChanges.pipe(debounceTime(500), distinctUntilChanged())
+    const filterValueChange$ = this.queryForm.get('column').valueChanges.pipe(delay(0), distinctUntilChanged(), filter(() => {
+      return !!this.queryForm.value.searchTerm
+    }))
+    const formChanges$ = merge(searchTermChange$, filterValueChange$).pipe(
+      switchMap(() => {
+        this._requestedPage = 0
+        return this.getHistory()
+      })
+    )
+    this.subscription.add(formChanges$.subscribe())
   }
 
-  submitSearch() {
-    this.queryTrigger$.next({ ...this.queryForm });
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
-  clearSearch() {
-    this.queryForm = {
-      searchTerm: '',
-      column: 'action'
-    };
-    this.submitSearch();
+
+  changeSort(sort: Sort) {
+    this.sort = sort
+    this._requestedPage = 0
+    this.loadHistory()
   }
 
-  loadHistory(): Observable<HistoryPage> {
+  changePage(event: Pick<PageEvent, "pageIndex" | "pageSize">) {
+    this._requestedPage = event.pageSize === this.pageSize ? event.pageIndex : 0
+    this.pageSize = event.pageSize
+    this.loadHistory()
+  }
+
+  private getHistory() {
     const options: HistoryRequestOptions = {
-      page: this.paginator.pageIndex,
-      recordCount: this.paginator.pageSize,
+      page: this._requestedPage,
+      recordCount: this.pageSize,
       sortBy: <HistoryField>this.sort.active,
       sortOrder: <SortOrder>this.sort.direction,
-      query: this.queryTrigger$.value.searchTerm,
-      queryType: <HistoryField>this.queryTrigger$.value.column,
+      query: this.queryForm.value.searchTerm + '%',
+      queryType: <HistoryField>this.queryForm.value.column,
     };
 
+    this.loading = true;
     return this.historyService.getHistory(options).pipe(
       filter(history => !!history),
       tap(history => {
-        this.dataSource = history.pageRecords;
-      }));
+        this._history = history;
+        this._loadedPage = history.page;
+      }),
+      finalize(() => {
+        this.loading = false;
+        this.loaded = true;
+      })
+    )
+  }
+
+  loadHistory() {
+    this.getHistory().subscribe()
   }
 
 }

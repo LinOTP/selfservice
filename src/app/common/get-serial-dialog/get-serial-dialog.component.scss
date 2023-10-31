@@ -6,3 +6,7 @@ mat-form-field {
   display: flex;
   justify-content: flex-end;
 }
+
+form mat-dialog-content {
+  padding-top: 0;
+}

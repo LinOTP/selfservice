@@ -197,9 +197,7 @@ describe('LoginComponent', () => {
 
       expect(page.getLoginForm().querySelector('mat-select[name="realm"]')).toBeTruthy();
 
-      component.loginFormGroup.value.username = 'user';
-      component.loginFormGroup.value.password = 'pass';
-      component.loginFormGroup.value.realm = 'realm';
+      component.loginFormGroup.patchValue({ username: 'user', password: 'pass', realm: 'realm' });
       fixture.detectChanges();
 
       component.login();
@@ -232,9 +230,7 @@ describe('LoginComponent', () => {
 
       expect(page.getLoginForm().querySelector('input[name="otp"]')).toBeTruthy();
 
-      component.loginFormGroup.value.username = 'user';
-      component.loginFormGroup.value.password = 'pass';
-      component.loginFormGroup.value.otp = 'otp';
+      component.loginFormGroup.patchValue({ username: 'user', password: 'pass', otp: 'otp' });
       fixture.detectChanges();
 
       component.login();
@@ -245,8 +241,7 @@ describe('LoginComponent', () => {
       fixture.detectChanges();
 
       spyOn(component, 'redirect');
-      component.loginFormGroup.value.username = 'user';
-      component.loginFormGroup.value.password = 'pass';
+      component.loginFormGroup.patchValue({ username: 'user', password: 'pass' });
       loginService.login.and.returnValue(of({ needsSecondFactor: false, success: true }));
       fixture.detectChanges();
 
@@ -261,8 +256,7 @@ describe('LoginComponent', () => {
       fixture.detectChanges();
 
       spyOn(component, 'redirect');
-      component.loginFormGroup.value.username = 'user';
-      component.loginFormGroup.value.password = 'pass';
+      component.loginFormGroup.patchValue({ username: 'user', password: 'pass' });
       loginService.login.and.returnValue(of({ needsSecondFactor: false, success: false }));
       fixture.detectChanges();
 
@@ -288,8 +282,7 @@ describe('LoginComponent', () => {
         spyOn(component, 'redirect');
         spyOn(component, 'chooseSecondFactor').and.callThrough();
 
-        component.loginFormGroup.value.username = 'user';
-        component.loginFormGroup.value.password = 'pass';
+        component.loginFormGroup.patchValue({ username: 'user', password: 'pass' });
         fixture.detectChanges();
 
         expect(component.factors).toEqual([]);
@@ -330,8 +323,7 @@ describe('LoginComponent', () => {
       const noTokensMessage = 'Login failed: you do not have a second factor set up. Please contact an admin.';
       spyOn(component, 'redirect');
 
-      component.loginFormGroup.value.username = 'user';
-      component.loginFormGroup.value.password = 'pass';
+      component.loginFormGroup.patchValue({ username: 'user', password: 'pass' });
       loginService.login.and.returnValue(of({ needsSecondFactor: true, success: false, tokens: [] }));
       fixture.detectChanges();
 
@@ -450,7 +442,7 @@ describe('LoginComponent', () => {
     it('should submit the OTP to the LoginService for the 2nd login step and return true on success', () => {
       spyOn(component, 'finalAuthenticationHandling');
       loginService.login.and.returnValue(of({ success: true }));
-      component.secondFactorFormGroup.value.otp = 'otp';
+      component.secondFactorFormGroup.patchValue({ otp: 'otp' });
       fixture.detectChanges();
 
       component.submitSecondFactor();
@@ -462,7 +454,7 @@ describe('LoginComponent', () => {
     it('should submit the OTP to the LoginService for the 2nd login step and return false on failure', () => {
       spyOn(component, 'finalAuthenticationHandling');
       loginService.login.and.returnValue(of({ success: false }));
-      component.secondFactorFormGroup.value.otp = 'otp';
+      component.secondFactorFormGroup.patchValue({ otp: 'otp' });
       fixture.detectChanges();
 
       component.submitSecondFactor();

@@ -28,9 +28,8 @@
         <p i18n>Once you have the Authenticator installed on your device, you can set a description for your new token
           and start the enrollment process: </p>
         <mat-form-field>
+          <mat-label i18n>Token description</mat-label>
           <input matInput
-                 placeholder="Token description"
-                 i18n-placeholder
                  formControlName="description"
                  appFocusOnInit>
           <mat-error i18n>The token description is required. </mat-error>
@@ -47,7 +46,7 @@
                 type="button"
                 (click)="close()"
                 i18n>Cancel</button>
-        <button mat-button
+        <button mat-raised-button
                 color="primary"
                 type="submit"
                 id="goTo2"
@@ -96,10 +95,12 @@
           You may set a PIN now to protect your token against misuse, as it ensures only you can use your token.
           This step is optional, and you can still do it later over the token menu.
         </p>
-        <button mat-button
+        <button mat-stroked-button
                 color="primary"
-                (click)="setPin()"
-                i18n>Set pin</button>
+                (click)="setPin()">
+          <mat-icon>security</mat-icon>
+          <span i18n>Set pin</span>
+        </button>
       </ng-container>
 
       <p *ngxPermissionsExcept="this.tokenDisplayData.activationPermission"
@@ -115,7 +116,7 @@
       <button mat-button
               (click)="close()"
               i18n>Close</button>
-      <button mat-button
+      <button mat-raised-button
               *ngxPermissionsOnly="this.tokenDisplayData.activationPermission"
               color="primary"
               (click)="finalizeEnrollment()"
