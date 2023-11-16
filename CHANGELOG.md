@@ -1,5 +1,5 @@
-<a name="1.1"></a>
-## 1.1 (2022-09-01)
+<a name="1.1rc0"></a>
+## 1.1rc0 (2023-11-16)
 
   ### Features:
   * Dark-Mode based on browser/user preference.
