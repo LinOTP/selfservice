@@ -1,8 +1,18 @@
-<a name="1.1"></a>
-## 1.1 (2022-09-01)
+<a name="1.1rc0"></a>
+## 1.1rc0 (2023-11-16)
 
-  * Set version to 1.1
+  ### Features:
+  * Dark-Mode based on browser/user preference.
+  * Deep-linking to token enrollment: `/tokens/enroll/:tokentype` opens the selfservice and directly shows the enrollment dialog for the given tokentype.
+  * Refined interfaces.
 
+  ### Fixes:
+  * Apache config workaround for customization no longer needed with lseappliance 3.0.2.
+  * testing a token via the tokens actions menu opens test dialog correctly.
+
+  ### Dependencies
+  * Update to Angular 15
+  * Update to Node 14.21.1
 
 <a name="1.0"></a>
 ## 1.0 (2021-07-01)
