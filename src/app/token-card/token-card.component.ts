@@ -27,7 +27,7 @@ import { SetPinDialogComponent } from '@common/set-pin-dialog/set-pin-dialog.com
 export class TokenCardComponent implements OnInit, OnDestroy {
 
   @Input() public token: SelfserviceToken;
-  @Output() public tokenUpdate: Subject<null> = new Subject();
+  @Output() public tokenUpdate: Subject<void> = new Subject();
 
   public EnrollmentStatus = EnrollmentStatus;
   public TokenType = TokenType;
