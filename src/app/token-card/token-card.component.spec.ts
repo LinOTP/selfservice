@@ -55,10 +55,10 @@ describe('TokenCardComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         MaterialModule,
+        NgxPermissionsAllowStubDirective,
       ],
       declarations: [
         TokenCardComponent,
-        NgxPermissionsAllowStubDirective,
         CapitalizePipe,
       ],
       providers: [

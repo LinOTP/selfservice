@@ -1,6 +1,6 @@
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 import { NgxPermissionsAllowStubDirective, NgxPermissionsService } from 'ngx-permissions';
 
@@ -31,13 +31,13 @@ describe('AssignTokenDialogComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         AssignTokenDialogComponent,
-        NgxPermissionsAllowStubDirective,
         MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] }),
       ],
       imports: [
         MaterialModule,
         FormsModule,
         ReactiveFormsModule,
+        NgxPermissionsAllowStubDirective,
       ],
       providers: [
         {

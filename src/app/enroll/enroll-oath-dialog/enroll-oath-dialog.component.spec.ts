@@ -1,6 +1,6 @@
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -38,7 +38,6 @@ import { EnrollOATHDialogComponent } from './enroll-oath-dialog.component';
           EnrollOATHDialogComponent,
           MockComponent({ selector: 'qrcode', inputs: ['qrdata', 'width', 'errorCorrectionLevel'] }),
           MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] }),
-          NgxPermissionsAllowStubDirective,
         ],
         imports: [
           RouterTestingModule,
@@ -46,6 +45,7 @@ import { EnrollOATHDialogComponent } from './enroll-oath-dialog.component';
           ReactiveFormsModule,
           MaterialModule,
           NoopAnimationsModule,
+          NgxPermissionsAllowStubDirective,
         ],
         providers: [
           {

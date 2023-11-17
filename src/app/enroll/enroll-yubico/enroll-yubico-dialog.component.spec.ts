@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { NgxPermissionsAllowStubDirective, NgxPermissionsService } from 'ngx-permissions';
 import { of } from 'rxjs';
@@ -30,12 +30,12 @@ describe('EnrollYubicoDialogComponent', () => {
       declarations: [
         EnrollYubicoDialogComponent,
         MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] }),
-        NgxPermissionsAllowStubDirective,
       ],
       imports: [
         MaterialModule,
         FormsModule,
         ReactiveFormsModule,
+        NgxPermissionsAllowStubDirective,
       ],
       providers: [
         {
