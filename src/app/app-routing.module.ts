@@ -10,6 +10,8 @@ import { HistoryComponent } from '@app/history/history.component';
 import { LoginComponent } from '@app/login/login.component';
 import { TokenListComponent } from '@app/token-list/token-list.component';
 import { Permission } from '@common/permissions';
+import { UnauthenticatedGuard } from './auth/unauthenticated-guard.service';
+
 
 const routes: Routes = [
   {
@@ -43,7 +45,9 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+    runGuardsAndResolvers: 'always',
+    canActivate: [UnauthenticatedGuard],
   },
   {
     path: '**',
