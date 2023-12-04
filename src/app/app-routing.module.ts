@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgxPermissionsGuard } from 'ngx-permissions';
 
 import { AuthGuard } from '@app/auth/auth-guard.service';
+import { mapToCanActivate, runGuardsSerially } from '@app/auth/run-guards-serially';
 import { EnrollComponent } from '@app/enroll/enroll/enroll.component';
 import { HistoryComponent } from '@app/history/history.component';
 import { LoginComponent } from '@app/login/login.component';
@@ -32,7 +33,7 @@ const routes: Routes = [
     path: 'history',
     component: HistoryComponent,
     runGuardsAndResolvers: 'always',
-    canActivate: [AuthGuard, NgxPermissionsGuard],
+    canActivate: [runGuardsSerially(mapToCanActivate([AuthGuard, NgxPermissionsGuard]))],
     data: {
       permissions: {
         only: Permission.HISTORY,
