@@ -1,4 +1,4 @@
-linotp-selfservice (1.1~rc1~0dev-1) buster; urgency=medium
+linotp-selfservice (1.1~rc1-1) buster; urgency=medium
 
   Fixes:
   * deep-linking to enrollment page for unauthenticated user after login
