@@ -1,7 +1,9 @@
-<a name="1.1rc1-0dev"></a>
-## 1.1rc1-0dev (unreleased)
+<a name="1.1rc1"></a>
+## 1.1rc1 (2023-12-05)
 
-  * Set to version 1.1rc1-0dev
+  ### Fixes:
+  * deep-linking to enrollment page for unauthenticated user after login
+  * logged in users are redirected from login page to token list
 
 <a name="1.1rc0"></a>
 ## 1.1rc0 (2023-11-16)

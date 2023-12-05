@@ -5,7 +5,7 @@ import { NavigationExtras, Router } from '@angular/router';
 
 import { NgxPermissionsService } from 'ngx-permissions';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { catchError, filter, map, mergeMap, take, tap } from 'rxjs/operators';
+import { catchError, filter, map, mergeMap, switchMap, take, tap } from 'rxjs/operators';
 
 import { LinOTPResponse } from '@api/api';
 import { ReplyMode, StatusDetail, TransactionDetail } from '@api/test.service';
@@ -95,7 +95,7 @@ export class LoginService {
   login(loginOptions: LoginOptions): Observable<LoginResult> {
     const url = this.baseUrl + this.endpoints.login;
 
-    const params: LoginOptions & { session?: string } = { ...loginOptions };
+    const params: LoginOptions & { session?: string; } = { ...loginOptions };
 
     if (!('username' in loginOptions)) {
       // Do send session only for follow-up login requests after the initial credentials are verified.
@@ -128,7 +128,9 @@ export class LoginService {
 
           return { success: false, challengedata };
         }),
-        tap(loginState => this.handleLogin(loginState.success)),
+        switchMap(loginState => {
+          return this.handleLogin(loginState.success).pipe(map(() => loginState));
+        }),
         catchError(this.handleError('login', { success: false })),
       );
   }
@@ -146,7 +148,7 @@ export class LoginService {
       filter(res => res?.detail?.status !== 'open'),
       take(1),
       map(res => res?.detail?.valid_tan || res?.detail?.accept),
-      tap(success => this.handleLogin(success)),
+      switchMap(success => this.handleLogin(success)),
       catchError(this.handleError<any>('MFA login status poll', {})),
     );
   }
@@ -268,12 +270,13 @@ export class LoginService {
    * @param success true when the user was successfully logged in, false otherwise
    * @memberof LoginService
    */
-  public handleLogin(success: boolean) {
+  private handleLogin(success: boolean): Observable<boolean> {
     localStorage.setItem('loginIsComplete', JSON.stringify(true));
     if (success) {
-      this.refreshUserSystemInfo().subscribe();
+      return this.refreshUserSystemInfo().pipe(map(() => true));
     } else {
       this._loginChange$.next(undefined);
+      return of(false);
     }
   }
 

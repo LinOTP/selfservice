@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { Type } from '@angular/core';
-import { fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
+import { TestBed, fakeAsync, inject, tick } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -112,7 +112,7 @@ describe('LoginService', () => {
     it('should refresh the permissions on successful login', inject(
       [HttpClient, HttpTestingController],
       (http: HttpClient, backend: HttpTestingController) => {
-        spyOn(loginService, 'handleLogin');
+        spyOn(loginService as any, 'handleLogin').and.callThrough();
 
         loginService.login({ username: 'user', password: 'pass' }).subscribe(response => {
           expect(response).toEqual({ success: true });
@@ -121,7 +121,7 @@ describe('LoginService', () => {
         const loginRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');
         loginRequest.flush({ result: { value: true } });
 
-        expect(loginService.handleLogin).toHaveBeenCalledWith(true);
+        expect((loginService as any).handleLogin).toHaveBeenCalledWith(true);
       }
     ));
 
@@ -143,7 +143,7 @@ describe('LoginService', () => {
     it('should not fetch the permissions on failed login', inject(
       [HttpClient, HttpTestingController],
       (http: HttpClient, backend: HttpTestingController) => {
-        spyOn(loginService, 'handleLogin');
+        spyOn(loginService as any, 'handleLogin').and.callThrough();
 
         loginService.login({ username: 'user', password: 'pass' }).subscribe(response => {
           expect(response).toEqual({ success: false });
@@ -152,7 +152,7 @@ describe('LoginService', () => {
         const loginRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');
         loginRequest.flush({ result: { value: false } });
 
-        expect(loginService.handleLogin).toHaveBeenCalledWith(false);
+        expect((loginService as any).handleLogin).toHaveBeenCalledWith(false);
       }
     ));
 
