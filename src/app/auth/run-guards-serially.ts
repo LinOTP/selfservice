@@ -1,4 +1,4 @@
-import { EnvironmentInjector, inject, ɵisPromise as isPromise } from "@angular/core";
+import { EnvironmentInjector, inject, ɵisPromise as isPromise, runInInjectionContext } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivateChildFn, CanActivateFn, RouterStateSnapshot } from "@angular/router";
 import { Observable, concat, from, isObservable, of } from "rxjs";
 import { first, last, switchMap, takeWhile } from "rxjs/operators";
@@ -27,7 +27,7 @@ export function runGuardsSerially(guards: CanActivateFn[] |
     const observables = guards.map(guard => {
       return of({}).pipe(
         switchMap(() => {
-          const guardResult = injector.runInContext(
+          const guardResult = runInInjectionContext(injector,
             () => guard(route, state));
           return wrapIntoObservable(guardResult).pipe(first());
         }));
