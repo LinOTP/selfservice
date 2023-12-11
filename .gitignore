@@ -39,6 +39,7 @@ linotp.de.pem
 /libpeerconnection.log
 npm-debug.log
 testem.log
+yarn-error.log
 /typings
 
 # e2e

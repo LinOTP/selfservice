@@ -1,11 +1,11 @@
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpErrorResponse, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
 
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { LoginService } from '@app/login/login.service';
-import { NotificationService, Duration } from '@common/notification.service';
+import { Duration, NotificationService } from '@common/notification.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -32,7 +32,7 @@ export class AuthInterceptor implements HttpInterceptor {
             Duration.LONG
           );
         }
-        return throwError(error);
+        return throwError(() => error);
       }));
   }
 

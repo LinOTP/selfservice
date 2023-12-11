@@ -24,7 +24,7 @@ export class TokenService {
     serialByOTP: 'getSerialByOtp',
   };
 
-  private emitTokenUpdateeSource = new Subject<null>();
+  private emitTokenUpdateeSource = new Subject<void>();
   tokenUpdateEmitted$ = this.emitTokenUpdateeSource.asObservable();
 
   constructor(
@@ -84,7 +84,7 @@ export class TokenService {
       session: this.sessionService.getSession(),
       otp,
     };
-    return this.http.get<LinOTPResponse<{ serial: string }>>(url, { params }).pipe(
+    return this.http.get<LinOTPResponse<{ serial: string; }>>(url, { params }).pipe(
       map(t => t.result.value.serial))
       .pipe(
         catchError(this.handleError('retrieving token serial failed', null))

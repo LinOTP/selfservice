@@ -64,10 +64,6 @@ describe('TokenListComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         TokenListComponent,
-        MockPipe({ 'name': 'unreadyTokens' }),
-        MockPipe({ 'name': 'inactiveTokens' }),
-        MockPipe({ 'name': 'activeTokens' }),
-        MockPipe({ 'name': 'arrayNotEmpty' }),
         MockPipe({ 'name': 'sortTokensByState' }),
         MockComponent({ 'selector': 'app-token-card', inputs: ['token'], outputs: ['tokenUpdate'] }),
         MockComponent({ 'selector': 'app-enrollment-grid' }),
@@ -76,7 +72,6 @@ describe('TokenListComponent', () => {
         InactiveTokensPipe,
         UnreadyTokensPipe,
         CapitalizePipe,
-        NgxPermissionsAllowStubDirective,
       ],
       providers: [
         {
@@ -90,7 +85,8 @@ describe('TokenListComponent', () => {
       ],
       imports: [
         MaterialModule,
-        RouterTestingModule.withRoutes([])
+        RouterTestingModule.withRoutes([]),
+        NgxPermissionsAllowStubDirective,
       ]
     })
       .compileComponents();

@@ -49,12 +49,12 @@ describe('AppComponent', () => {
       imports: [
         RouterTestingModule,
         MaterialModule,
+        NgxPermissionsAllowStubDirective,
       ],
       declarations: [
         AppComponent,
         MockComponent({ selector: 'app-language-picker' }),
         MockComponent({ selector: 'app-theme-picker' }),
-        NgxPermissionsAllowStubDirective,
       ],
       providers: [
         {

@@ -31,7 +31,6 @@ describe('HistoryComponent', () => {
       TestBed.configureTestingModule({
         declarations: [
           HistoryComponent,
-          NgxPermissionsAllowStubDirective,
           MockPipe(DatePipe),
         ],
         providers: [
@@ -42,7 +41,9 @@ describe('HistoryComponent', () => {
         ],
         imports: [
           MaterialModule,
-          ReactiveFormsModule
+          ReactiveFormsModule,
+          NgxPermissionsAllowStubDirective,
+
         ],
       }).compileComponents();
       historyService = getInjectedStub(HistoryService);
@@ -92,97 +93,97 @@ describe('HistoryComponent', () => {
   });
 
   describe("component tests", () => {
-    let historyProvider: HistoryProviderMock
-    let cut: HistoryComponent
+    let historyProvider: HistoryProviderMock;
+    let cut: HistoryComponent;
 
     beforeEach(() => {
-      historyProvider = new HistoryProviderMock()
-      cut = new HistoryComponent(historyProvider as any)
-    })
+      historyProvider = new HistoryProviderMock();
+      cut = new HistoryComponent(historyProvider as any);
+    });
 
     it("should correctly set loading and loaded states", fakeAsync(() => {
-      expect(cut.loading).toBeFalse()
-      expect(cut.loaded).toBeFalse()
-      cut.ngOnInit()
-      expect(cut.loading).toBeTrue()
-      expect(cut.loaded).toBeFalse()
-      tick(10)
-      expect(cut.loading).toBeFalse()
-      expect(cut.loaded).toBeTrue()
-    }))
+      expect(cut.loading).toBeFalse();
+      expect(cut.loaded).toBeFalse();
+      cut.ngOnInit();
+      expect(cut.loading).toBeTrue();
+      expect(cut.loaded).toBeFalse();
+      tick(10);
+      expect(cut.loading).toBeFalse();
+      expect(cut.loaded).toBeTrue();
+    }));
 
     it("should load data on page change", fakeAsync(() => {
-      expect(cut.page).toBe(0)
-      cut.ngOnInit()
-      tick(10)
-      historyProvider.options = undefined
+      expect(cut.page).toBe(0);
+      cut.ngOnInit();
+      tick(10);
+      historyProvider.options = undefined;
 
-      cut.changePage({ pageIndex: 1, pageSize: cut.pageSize })
-      tick(10)
-      expect(historyProvider.options.page).toEqual(1)
-    }))
+      cut.changePage({ pageIndex: 1, pageSize: cut.pageSize });
+      tick(10);
+      expect(historyProvider.options.page).toEqual(1);
+    }));
     it("should load data on page size change", fakeAsync(() => {
-      cut.ngOnInit()
-      tick(10)
-      expect(cut.pageSize).toBe(10)
+      cut.ngOnInit();
+      tick(10);
+      expect(cut.pageSize).toBe(10);
 
-      cut.changePage({ pageIndex: 0, pageSize: 20 })
-      tick(10)
+      cut.changePage({ pageIndex: 0, pageSize: 20 });
+      tick(10);
 
-      expect(cut.pageSize).toBe(20)
+      expect(cut.pageSize).toBe(20);
     }));
 
     it("should change page to 0 on page size change", fakeAsync(() => {
-      cut.ngOnInit()
-      tick(10)
-      expect(cut.page).toBe(0)
+      cut.ngOnInit();
+      tick(10);
+      expect(cut.page).toBe(0);
 
-      cut.changePage({ pageIndex: 1, pageSize: 20 })
-      tick(10)
+      cut.changePage({ pageIndex: 1, pageSize: 20 });
+      tick(10);
 
-      expect(cut.page).toBe(0)
-    }))
+      expect(cut.page).toBe(0);
+    }));
 
     it("should change page to 0 on sort change", fakeAsync(() => {
-      cut.ngOnInit()
-      tick(10)
-      cut.changePage({ pageIndex: 1, pageSize: 10 })
-      tick(10)
-      expect(cut.page).toBe(1)
+      cut.ngOnInit();
+      tick(10);
+      cut.changePage({ pageIndex: 1, pageSize: 10 });
+      tick(10);
+      expect(cut.page).toBe(1);
 
-      cut.changeSort({ active: "serial", direction: "asc" })
-      tick(10)
+      cut.changeSort({ active: "serial", direction: "asc" });
+      tick(10);
 
-      expect(cut.page).toBe(0)
-    }))
+      expect(cut.page).toBe(0);
+    }));
 
     it("should change to 0 on search", fakeAsync(() => {
-      cut.ngOnInit()
-      tick(10)
-      cut.changePage({ pageIndex: 1, pageSize: 10 })
-      tick(10)
-      expect(cut.page).toBe(1)
+      cut.ngOnInit();
+      tick(10);
+      cut.changePage({ pageIndex: 1, pageSize: 10 });
+      tick(10);
+      expect(cut.page).toBe(1);
 
-      cut.queryForm.get("searchTerm").patchValue("test")
-      tick(510)
+      cut.queryForm.get("searchTerm").patchValue("test");
+      tick(510);
 
-      expect(cut.page).toBe(0)
-    }))
+      expect(cut.page).toBe(0);
+    }));
 
     it("should not make request on column change if search term is empty", fakeAsync(() => {
-      cut.ngOnInit()
-      tick(10)
-      cut.changePage({ pageIndex: 1, pageSize: 10 })
-      tick(10)
-      expect(cut.page).toBe(1)
+      cut.ngOnInit();
+      tick(10);
+      cut.changePage({ pageIndex: 1, pageSize: 10 });
+      tick(10);
+      expect(cut.page).toBe(1);
 
-      spyOn(historyProvider, "getHistory")
-      cut.queryForm.get("column").patchValue("serial")
-      tick(10)
+      spyOn(historyProvider, "getHistory");
+      cut.queryForm.get("column").patchValue("serial");
+      tick(10);
 
-      expect(historyProvider.getHistory).not.toHaveBeenCalled()
-    }))
-  })
+      expect(historyProvider.getHistory).not.toHaveBeenCalled();
+    }));
+  });
 
   describe("Template tests", () => {
 
@@ -190,7 +191,6 @@ describe('HistoryComponent', () => {
       TestBed.configureTestingModule({
         declarations: [
           HistoryComponent,
-          NgxPermissionsAllowStubDirective,
           MockPipe(DatePipe),
         ],
         providers: [
@@ -199,7 +199,7 @@ describe('HistoryComponent', () => {
             useClass: HistoryProviderMock
           },
         ],
-        imports: [MaterialModule, ReactiveFormsModule],
+        imports: [MaterialModule, ReactiveFormsModule, NgxPermissionsAllowStubDirective,],
       }).compileComponents();
     });
 
@@ -209,44 +209,44 @@ describe('HistoryComponent', () => {
     });
 
     it("should show loading spinner", fakeAsync(() => {
-      fixture.detectChanges()
-      let spinner = fixture.nativeElement.querySelector("mat-spinner")
-      let table = fixture.nativeElement.querySelector("table")
-      let paginator = fixture.nativeElement.querySelector("mat-paginator")
-      expect(spinner).toBeTruthy()
-      expect(table).toBeFalsy()
-      expect(paginator).toBeFalsy()
-      tick(10)
-      fixture.detectChanges()
-      spinner = fixture.nativeElement.querySelector("mat-spinner")
-      table = fixture.nativeElement.querySelector("table")
-      paginator = fixture.nativeElement.querySelector("mat-paginator")
-      expect(spinner).toBeFalsy()
-      expect(table).toBeTruthy()
-      expect(paginator).toBeTruthy()
-    }))
+      fixture.detectChanges();
+      let spinner = fixture.nativeElement.querySelector("mat-spinner");
+      let table = fixture.nativeElement.querySelector("table");
+      let paginator = fixture.nativeElement.querySelector("mat-paginator");
+      expect(spinner).toBeTruthy();
+      expect(table).toBeFalsy();
+      expect(paginator).toBeFalsy();
+      tick(10);
+      fixture.detectChanges();
+      spinner = fixture.nativeElement.querySelector("mat-spinner");
+      table = fixture.nativeElement.querySelector("table");
+      paginator = fixture.nativeElement.querySelector("mat-paginator");
+      expect(spinner).toBeFalsy();
+      expect(table).toBeTruthy();
+      expect(paginator).toBeTruthy();
+    }));
 
     it("should show progress bar when loading more data", fakeAsync(() => {
-      fixture.detectChanges()
-      tick(10)
-      fixture.detectChanges()
-      let progressBar = fixture.nativeElement.querySelector("mat-progress-bar")
-      expect(progressBar.style.visibility).toBe("hidden")
+      fixture.detectChanges();
+      tick(10);
+      fixture.detectChanges();
+      let progressBar = fixture.nativeElement.querySelector("mat-progress-bar");
+      expect(progressBar.style.visibility).toBe("hidden");
 
-      component.loading = true
-      fixture.detectChanges()
-      progressBar = fixture.nativeElement.querySelector("mat-progress-bar")
-      expect(progressBar.style.visibility).toBe("visible")
-    }))
+      component.loading = true;
+      fixture.detectChanges();
+      progressBar = fixture.nativeElement.querySelector("mat-progress-bar");
+      expect(progressBar.style.visibility).toBe("visible");
+    }));
 
-  })
+  });
 
 });
 
 class HistoryProviderMock {
-  options: HistoryRequestOptions | undefined
+  options: HistoryRequestOptions | undefined;
   getHistory(options: HistoryRequestOptions) {
-    this.options = options
-    return of({ ...HistoryFixtures.mockPage, page: options.page }).pipe(delay(5))
+    this.options = options;
+    return of({ ...HistoryFixtures.mockPage, page: options.page }).pipe(delay(5));
   }
 }

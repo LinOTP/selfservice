@@ -1,6 +1,6 @@
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -38,7 +38,6 @@ describe('EnrollMOTPDialogComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         EnrollMOTPDialogComponent,
-        NgxPermissionsAllowStubDirective,
         MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] }),
       ],
       imports: [
@@ -47,6 +46,7 @@ describe('EnrollMOTPDialogComponent', () => {
         ReactiveFormsModule,
         MaterialModule,
         NoopAnimationsModule,
+        NgxPermissionsAllowStubDirective,
       ],
       providers: [
         {

@@ -21,10 +21,10 @@ describe('EnrollmentGridComponent', () => {
       imports: [
         MaterialModule,
         RouterTestingModule,
+        NgxPermissionsAllowStubDirective,
       ],
       declarations: [
         EnrollmentGridComponent,
-        NgxPermissionsAllowStubDirective,
         CapitalizePipe,
       ],
       providers: [
