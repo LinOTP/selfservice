@@ -1,12 +1,16 @@
 include:
   - project: "dev/ext-project-packaging/ci-includes"
     file: "node-projects/build-dist.yml"
+    ref: "8cdb2af9dee6ac774af9f4fd5f45e64a023db7e3"
   - project: "dev/ext-project-packaging/ci-includes"
     file: "node-projects/build-n-deploy-docker.yml"
+    ref: "8cdb2af9dee6ac774af9f4fd5f45e64a023db7e3"
   - project: "dev/ext-project-packaging/ci-includes"
     file: "node-projects/build-n-deploy-debian.yml"
+    ref: "8cdb2af9dee6ac774af9f4fd5f45e64a023db7e3"
   - project: "dev/ext-project-packaging/ci-includes"
     file: "node-projects/test.yml"
+    ref: "8cdb2af9dee6ac774af9f4fd5f45e64a023db7e3"
 
 variables:
   IMAGE_NAME: linotp/ng-selfservice
