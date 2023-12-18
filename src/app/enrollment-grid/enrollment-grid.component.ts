@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { TokenDisplayData } from '@api/token';
 import { TokenService } from '@api/token.service';
+import { TokenLimitsService } from '@app/token-limits.service';
 
 @Component({
   selector: 'app-enrollment-grid',
@@ -15,5 +16,6 @@ export class EnrollmentGridComponent {
 
   constructor(
     private tokenService: TokenService,
+    public tokenLimitsService: TokenLimitsService
   ) { }
 }

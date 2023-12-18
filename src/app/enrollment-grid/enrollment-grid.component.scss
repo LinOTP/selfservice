@@ -24,3 +24,27 @@ mat-card {
     }
   }
 }
+
+.enroll-info {
+  margin:0;
+  opacity: 0.6;
+  font-size: 12px;
+  text-align: right;
+  padding: 3px 5px 0 0;
+}
+
+.limit-info-container {
+  margin-top: 10px;
+  margin-bottom: 0px;
+  padding-bottom: 10px;
+
+  mat-icon {
+    vertical-align: middle;
+  }
+
+  .limit-info-title {
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+}
