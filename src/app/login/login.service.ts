@@ -12,6 +12,7 @@ import { ReplyMode, StatusDetail, TransactionDetail } from '@api/test.service';
 import { SelfserviceToken } from '@api/token';
 import { TokenService } from '@api/token.service';
 import { SessionService } from '@app/auth/session.service';
+import { SelfServiceContextService } from '@app/selfservice-context.service';
 import { SystemService, UserSystemInfo } from '@app/system.service';
 import { exponentialBackoffInterval } from '@common/exponential-backoff-interval/exponential-backoff-interval';
 import { Permission } from '@common/permissions';
@@ -61,6 +62,7 @@ export class LoginService {
     private router: Router,
     private dialogRef: MatDialog,
     private permissionsService: NgxPermissionsService,
+    private selfServiceContextService: SelfServiceContextService
   ) { }
 
   /**
@@ -193,7 +195,8 @@ export class LoginService {
         localStorage.setItem('imprint', JSON.stringify(userSystemInfo.imprint));
         localStorage.setItem('linotpVersion', JSON.stringify(userSystemInfo.version));
         localStorage.setItem('settings', JSON.stringify(userSystemInfo.settings));
-
+        localStorage.setItem("tokenLimits", JSON.stringify(userSystemInfo.settings.token_limits))
+        this.selfServiceContextService.setContext(userSystemInfo);
         this._loginChange$.next(userSystemInfo.user);
         this.loadStoredPermissions();
       }),
