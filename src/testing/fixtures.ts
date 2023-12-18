@@ -323,7 +323,11 @@ export class Fixtures {
         autoenroll: false,
         footer_text: 'footer text',
         imprint_url: 'http://imprint',
-        privacy_notice_url: 'http://privacy'
+        privacy_notice_url: 'http://privacy',
+        token_limits: {
+          all_token: null,
+          token_types: [],
+        },
       },
     };
   }
@@ -347,6 +351,10 @@ export class Fixtures {
         realm_box: false,
         mfa_3_fields: false,
         autoenroll: false,
+        token_limits: {
+          all_token: null,
+          token_types: [],
+        },
       },
     };
   }
@@ -384,6 +392,10 @@ export class Fixtures {
         realm_box: false,
         mfa_3_fields: false,
         autoenroll: false,
+        token_limits: {
+          all_token: null,
+          token_types: [],
+        },
       },
     };
   }
