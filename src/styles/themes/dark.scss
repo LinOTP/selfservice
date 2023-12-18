@@ -39,10 +39,7 @@ $theme: mat.define-dark-theme((color: (primary: $theme-app-primary,
 
 @mixin global-styles() {
   color: #fff;
-
-  app-root {
-    background: #303030;
-  }
+  background: #303030;
 
   a:not(.mat-mdc-button-base) {
     color: #f48fb1;
