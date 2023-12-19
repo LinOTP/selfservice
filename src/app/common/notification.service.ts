@@ -20,6 +20,13 @@ export class NotificationService {
     });
   }
 
+  errorMessage(message: string, duration: Duration = Duration.NORMAL) {
+    this.snackbar.open(message, $localize`dismiss`, {
+      duration: duration,
+      panelClass: "notification-error"
+    });
+  }
+
   get duration() {
     return Duration;
   }
