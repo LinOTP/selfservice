@@ -168,7 +168,7 @@ export class LoginComponent implements OnInit {
       if (!result.tokens) {
         this.finalAuthenticationHandling(result.success);
       } else if (result.tokens.length === 0) {
-        this.notificationService.message(
+        this.notificationService.errorMessage(
           $localize`Login failed: you do not have a second factor set up. Please contact an admin.`,
           Duration.LONG
         );
@@ -271,11 +271,12 @@ export class LoginComponent implements OnInit {
 
   finalAuthenticationHandling(success: boolean) {
     this.stopSubscription();
-    const message = success ? $localize`Login successful` : $localize`Login failed`;
-    this.notificationService.message(message);
+
     if (success) {
+      this.notificationService.message($localize`Login successful`);
       this.redirect();
     } else {
+      this.notificationService.errorMessage($localize`Login failed`);
       this.loginStage = LoginStage.USER_PW_INPUT;
       this.factors = [];
       this.secondFactorFormGroup.reset();

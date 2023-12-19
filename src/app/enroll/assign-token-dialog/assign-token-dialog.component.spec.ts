@@ -124,7 +124,7 @@ describe('AssignTokenDialogComponent', () => {
       tick();
 
       expect(component.stepper.selectedIndex).toEqual(0);
-      expect(notificationService.message).toHaveBeenCalledWith('Token assignment failed.');
+      expect(notificationService.errorMessage).toHaveBeenCalledWith('Token assignment failed.');
       expect(component.assignmentForm.disabled).toEqual(false);
     }));
   });

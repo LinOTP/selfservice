@@ -46,7 +46,7 @@ export class HistoryService {
 
   handleError<T>(message, result?: T) {
     return (error: any): Observable<T> => {
-      this.notificationService.message($localize`Error: ${message}. Please try again`);
+      this.notificationService.errorMessage($localize`Error: ${message}. Please try again`);
       return of(result as T);
     };
   }

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { inject, TestBed } from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing';
 
 import { TokenListFixtures } from '@testing/fixtures';
 import { getInjectedStub, spyOnClass } from '@testing/spyOnClass';
@@ -77,7 +77,7 @@ describe('TokenService', () => {
         tokenListRequest.error(new ErrorEvent('Error loading token list'));
         backend.verify();
 
-        expect(notificationService.message).toHaveBeenCalledWith('Error: getting tokens failed. Please try again or contact an administrator');
+        expect(notificationService.errorMessage).toHaveBeenCalledWith('Error: getting tokens failed. Please try again or contact an administrator');
       }
     ));
 
@@ -140,7 +140,7 @@ describe('TokenService', () => {
         tokenListRequest.error(new ErrorEvent('Error getting token serial by OTP'));
         backend.verify();
 
-        expect(notificationService.message).toHaveBeenCalledWith('Error: retrieving token serial failed. Please try again or contact an administrator');
+        expect(notificationService.errorMessage).toHaveBeenCalledWith('Error: retrieving token serial failed. Please try again or contact an administrator');
       }
     ));
   });

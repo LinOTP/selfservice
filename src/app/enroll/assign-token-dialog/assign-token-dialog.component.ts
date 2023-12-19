@@ -40,7 +40,7 @@ export class AssignTokenDialogComponent extends EnrollDialogBaseComponent implem
         this.stepper.next();
       } else {
         this.assignmentForm.enable();
-        this.notificationService.message($localize`Token assignment failed.`);
+        this.notificationService.errorMessage($localize`Token assignment failed.`);
       }
     });
   }

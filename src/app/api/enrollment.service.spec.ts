@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { inject, TestBed } from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing';
 
 import { TokenType } from '@linotp/data-models';
 
@@ -102,7 +102,7 @@ describe('EnrollmentService', () => {
       (http: HttpClient, backend: HttpTestingController) => {
 
         enrollmentService.enroll({ type: TokenType.HOTP }).subscribe(res => {
-          expect(notificationService.message).toHaveBeenCalledWith('Token registration failed: Please try again.');
+          expect(notificationService.errorMessage).toHaveBeenCalledWith('Token registration failed: Please try again.');
           expect(tokenService.updateTokenList).toHaveBeenCalledTimes(1);
         });
 
@@ -209,7 +209,7 @@ describe('EnrollmentService', () => {
         spyOn(console, 'error');
 
         enrollmentService.assign('serial', 'description').subscribe(response => {
-          expect(notificationService.message).toHaveBeenCalledWith('assign failed: Please try again.');
+          expect(notificationService.errorMessage).toHaveBeenCalledWith('assign failed: Please try again.');
           expect(response).toEqual({ success: false });
           expect(tokenService.updateTokenList).toHaveBeenCalledTimes(0);
         });
@@ -277,7 +277,7 @@ describe('EnrollmentService', () => {
 
           enrollmentService.activate('serial', 'pin').subscribe(response => {
             expect(response).toEqual(null);
-            expect(notificationService.message).toHaveBeenCalledWith('Token activation failed: Please try again.');
+            expect(notificationService.errorMessage).toHaveBeenCalledWith('Token activation failed: Please try again.');
             expect(tokenService.updateTokenList).toHaveBeenCalledTimes(1);
           });
 
@@ -339,7 +339,7 @@ describe('EnrollmentService', () => {
 
         enrollmentService.getChallengeStatus('txid', 'pin', 'serial').subscribe(response => {
           expect(response).toEqual(null);
-          expect(notificationService.message).toHaveBeenCalledWith('Challenge status request failed: Please try again.');
+          expect(notificationService.errorMessage).toHaveBeenCalledWith('Challenge status request failed: Please try again.');
         });
 
         const request = backend.expectOne((req) => req.url === '/validate/check_status' && req.method === 'POST');

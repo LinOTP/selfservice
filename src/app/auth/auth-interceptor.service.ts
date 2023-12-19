@@ -22,12 +22,12 @@ export class AuthInterceptor implements HttpInterceptor {
       catchError((error: HttpErrorResponse, caught) => {
         if (error.status === 401) {
           this.loginService.handleLogout(true);
-          this.notificationService.message(
+          this.notificationService.errorMessage(
             $localize`Your session timed out, please login again.`,
             Duration.LONG
           );
         } else if (String(error.status).startsWith('5')) {
-          this.notificationService.message(
+          this.notificationService.errorMessage(
             $localize`Server error encountered, request failed.`,
             Duration.LONG
           );

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { inject, TestBed } from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing';
 
 import { TokenType } from '@linotp/data-models';
 
@@ -126,7 +126,7 @@ describe('OperationsService', () => {
         setPinRequest.error(new ErrorEvent('Error setting token pin'));
         backend.verify();
 
-        expect(notificationService.message).toHaveBeenCalledWith('Error: Could not set token PIN. Please try again or contact an administrator');
+        expect(notificationService.errorMessage).toHaveBeenCalledWith('Error: Could not set token PIN. Please try again or contact an administrator');
       }
     ));
   });
@@ -208,7 +208,7 @@ describe('OperationsService', () => {
         setPinRequest.error(new ErrorEvent('Error setting token pin'));
         backend.verify();
 
-        expect(notificationService.message).toHaveBeenCalledWith('Error: Could not set MOTP PIN. Please try again or contact an administrator');
+        expect(notificationService.errorMessage).toHaveBeenCalledWith('Error: Could not set MOTP PIN. Please try again or contact an administrator');
       }
     ));
   });
@@ -276,7 +276,7 @@ describe('OperationsService', () => {
         deleteRequest.error(new ErrorEvent('Error deleting token'));
         backend.verify();
 
-        expect(notificationService.message).toHaveBeenCalledWith('Error: Could not delete token. Please try again or contact an administrator');
+        expect(notificationService.errorMessage).toHaveBeenCalledWith('Error: Could not delete token. Please try again or contact an administrator');
       }
     ));
   });
@@ -348,7 +348,7 @@ describe('OperationsService', () => {
         deleteRequest.error(new ErrorEvent('Error unassigning token'));
         backend.verify();
 
-        expect(notificationService.message).toHaveBeenCalledWith('Error: Could not unassign token. Please try again or contact an administrator');
+        expect(notificationService.errorMessage).toHaveBeenCalledWith('Error: Could not unassign token. Please try again or contact an administrator');
       }
     ));
   });
@@ -416,7 +416,7 @@ describe('OperationsService', () => {
         enableRequest.error(new ErrorEvent('Error enabling token'));
         backend.verify();
 
-        expect(notificationService.message).toHaveBeenCalledWith('Error: Could not enable token. Please try again or contact an administrator');
+        expect(notificationService.errorMessage).toHaveBeenCalledWith('Error: Could not enable token. Please try again or contact an administrator');
       }
     ));
   });
@@ -484,7 +484,7 @@ describe('OperationsService', () => {
         disableRequest.error(new ErrorEvent('Error disabling token'));
         backend.verify();
 
-        expect(notificationService.message).toHaveBeenCalledWith('Error: Could not disable token. Please try again or contact an administrator');
+        expect(notificationService.errorMessage).toHaveBeenCalledWith('Error: Could not disable token. Please try again or contact an administrator');
       }
     ));
   });
@@ -543,7 +543,7 @@ describe('OperationsService', () => {
         request.error(new ErrorEvent('Error resetting failcounter'));
         backend.verify();
 
-        expect(notificationService.message).toHaveBeenCalledWith('Error: Could not reset failcounter. Please try again or contact an administrator');
+        expect(notificationService.errorMessage).toHaveBeenCalledWith('Error: Could not reset failcounter. Please try again or contact an administrator');
       }
     ));
 
@@ -603,7 +603,7 @@ describe('OperationsService', () => {
         request.error(new ErrorEvent('Error resyncing token'));
         backend.verify();
 
-        expect(notificationService.message).toHaveBeenCalledWith('Error: Could not synchronize token. Please try again or contact an administrator');
+        expect(notificationService.errorMessage).toHaveBeenCalledWith('Error: Could not synchronize token. Please try again or contact an administrator');
       }
     ));
   });
@@ -662,7 +662,7 @@ describe('OperationsService', () => {
         request.error(new ErrorEvent('Error setting token description'));
         backend.verify();
 
-        expect(notificationService.message).toHaveBeenCalledWith('Error: Could not set token description. Please try again or contact an administrator');
+        expect(notificationService.errorMessage).toHaveBeenCalledWith('Error: Could not set token description. Please try again or contact an administrator');
       }
     ));
   });

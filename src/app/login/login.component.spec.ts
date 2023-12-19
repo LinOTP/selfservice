@@ -263,7 +263,7 @@ describe('LoginComponent', () => {
       component.login();
 
       expect(loginService.login).toHaveBeenCalledWith({ username: 'user', password: 'pass' });
-      expect(notificationService.message).toHaveBeenCalledWith('Login failed');
+      expect(notificationService.errorMessage).toHaveBeenCalledWith('Login failed');
       expect(component.redirect).not.toHaveBeenCalled();
     });
 
@@ -297,7 +297,7 @@ describe('LoginComponent', () => {
         expect(page.getTokenSelection()).toBeTruthy();
 
         expect(loginService.login).toHaveBeenCalledWith({ username: 'user', password: 'pass' });
-        expect(notificationService.message).not.toHaveBeenCalledWith('Login failed');
+        expect(notificationService.errorMessage).not.toHaveBeenCalledWith('Login failed');
         expect(component.redirect).not.toHaveBeenCalled();
 
         expect(component.factors).toEqual(tokens);
@@ -333,7 +333,7 @@ describe('LoginComponent', () => {
       fixture.detectChanges();
 
       expect(loginService.login).toHaveBeenCalledWith({ username: 'user', password: 'pass' });
-      expect(notificationService.message).toHaveBeenCalledWith(noTokensMessage, Duration.LONG);
+      expect(notificationService.errorMessage).toHaveBeenCalledWith(noTokensMessage, Duration.LONG);
       expect(component.redirect).not.toHaveBeenCalled();
       expect(page.getLoginForm()).toBeTruthy();
     });
