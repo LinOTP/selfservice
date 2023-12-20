@@ -3,7 +3,6 @@
 @use '../app/login/login.component.theme.scss' as login;
 @use '../app/app.component.theme.scss' as app-root;
 @use '../app/history/history.component.theme.scss' as history;
-@use '../app/token-card/token-card.component.theme.scss' as token-card;
 @use '../app/keyboard-key/keyboard-key.component.theme.scss' as keyboard-key;
 @use './themes/light.scss' as light-theme;
 @use './themes/dark.scss' as dark-theme;
@@ -20,8 +19,8 @@
 
 // custom components theming that should be applied to all light themes
 @mixin component-styles-light($theme) {
+  @include global-styles.light-theme($theme);
   @include history.light-theme($theme);
-  @include token-card.light-theme($theme);
   @include login.light-theme($theme);
   @include keyboard-key.light-theme($theme);
 }
@@ -29,7 +28,6 @@
 @mixin component-styles-dark($theme) {
   @include global-styles.dark-theme($theme);
   @include history.dark-theme($theme);
-  @include token-card.dark-theme($theme);
   @include login.dark-theme($theme);
   @include keyboard-key.dark-theme($theme);
 }
