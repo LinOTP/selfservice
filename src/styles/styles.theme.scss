@@ -19,7 +19,7 @@
 
 @mixin light-theme($theme) {
   mat-card.disabled {
-    --mdc-elevated-card-container-color: hsla(0, 0%, 94%, 1);
+    --mdc-outlined-card-container-color: hsla(0, 0%, 94%, 1);
 
     * {
       color: rgba(0, 0, 0, 0.6);
@@ -34,7 +34,7 @@
   }
 
   mat-card.disabled {
-    --mdc-elevated-card-container-color: hsla(0, 0%, 20%, 1);
+    --mdc-outlined-card-container-color: hsla(0, 0%, 20%, 1);
 
     * {
       color: rgba(255, 255, 255, 0.6);
