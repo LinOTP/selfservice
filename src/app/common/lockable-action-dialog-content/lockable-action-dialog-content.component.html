@@ -1,0 +1,20 @@
+<ng-container *ngIf="state.confirmationRequired;else standardTmp">
+  <div class="locked-status-message"
+  *ngIf="state.isLocked; else confirmActionMsgTmp">
+  <ng-container *ngTemplateOutlet="lockedMessageTmp"></ng-container>
+</div>
+
+<ng-template #confirmActionMsgTmp>
+  <div class="confirmation-message">
+    <ng-container *ngTemplateOutlet="actionConfirmationTmp"></ng-container>
+  </div>
+</ng-template>
+
+<ng-content select="mat-checkbox"></ng-content>
+</ng-container>
+
+<ng-template #standardTmp>
+  <div class="standard-message">
+    <ng-container *ngTemplateOutlet="standardMessageTmp"></ng-container>
+  </div>
+</ng-template>

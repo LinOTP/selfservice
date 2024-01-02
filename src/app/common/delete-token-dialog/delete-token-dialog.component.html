@@ -1,0 +1,35 @@
+<h3 mat-dialog-title i18n>Delete token ?</h3>
+<mat-dialog-content>
+    <ng-template #lockedMessageTmp>
+      <p i18n>You don't have any active tokens and MFA is enabled for this service. Are you sure you want to delete it ?</p>
+    </ng-template>
+
+    <ng-template #actionConfirmationTmp>
+      <p i18n>It your last active token and MFA is enabled for selfservice. If you delete it without enrolling a new one, you won't be able to login anymore.</p>
+    </ng-template>
+
+    <ng-template #standardTmp>
+      <p i18n>You won't be able to use it to authenticate yourself anymore.</p>
+    </ng-template>
+
+    <app-lockable-action-dialog-content [state]="{confirmationRequired, isLocked}"
+      [standardMessageTmp]="standardTmp"
+      [lockedMessageTmp]="lockedMessageTmp"
+      [actionConfirmationTmp]="actionConfirmationTmp">
+      <mat-checkbox [formControl]="confirmCtrl">
+        <span i18n>Yes, i am sure want to delete this token !</span>
+      </mat-checkbox>
+    </app-lockable-action-dialog-content>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button
+            [mat-dialog-close]="false"
+            i18n>cancel</button>
+    <button mat-raised-button
+            class="submit-button"
+            [disabled]="!confirmCtrl.valid"
+            [mat-dialog-close]="true"
+            color="warn" i18n>delete</button>
+</mat-dialog-actions>
+
+
