@@ -361,6 +361,7 @@ export class Fixtures {
 
   static get userSystemInfo(): UserSystemInfo {
     return {
+      actions: [],
       copyright: '',
       version: '',
       realms: {
