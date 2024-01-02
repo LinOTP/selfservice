@@ -17,6 +17,10 @@ export class SelfServiceContextService {
     distinctUntilChanged()
   );
 
+  get context() {
+    return this.store.value.context;
+  }
+
   setContext(data: UserSystemInfo) {
     this.store.next({
       ...this.store.value,
