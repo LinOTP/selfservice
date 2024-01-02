@@ -25,6 +25,7 @@ export class TokenListComponent implements OnInit, OnDestroy {
   public permissionsLoaded: boolean;
   private subscription = new Subscription();
   tokenLimitsLoaded: boolean = false
+  loaded = false
 
   constructor(
     private tokenService: TokenService,
@@ -58,6 +59,7 @@ export class TokenListComponent implements OnInit, OnDestroy {
     this.subscription.add(tokenLimitsReady$.subscribe(([tokens, limits]) => {
       this.tokenLimitsService.setTokenLimits({ tokenLimits: limits, tokens });
       this.tokenLimitsLoaded = true
+      this.loaded = true
     }))
 
   }
