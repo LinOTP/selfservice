@@ -119,7 +119,7 @@
     <button mat-raised-button
             color="primary"
             type="submit"
-            [disabled]="formGroup.invalid"
+            [disabled]="preventSubmit()"
             *ngIf="state === TestState.UNTESTED && hasOfflineMode"
             i18n>submit</button>
     <button mat-raised-button

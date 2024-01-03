@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 import { TokenType } from '@linotp/data-models';
 
 import { ReplyMode, StatusDetail, TestOptions, TestService, TransactionDetail } from '@api/test.service';
-import { tokenDisplayData, TokenDisplayData } from '@api/token';
+import { TokenDisplayData, tokenDisplayData } from '@api/token';
 
 enum TestState {
   UNTESTED = 'untested',
@@ -33,6 +33,7 @@ export class TestDialogComponent implements OnInit, OnDestroy {
   public testResult: boolean;
   public challResult: StatusDetail;
   public errorMessage: string;
+  private awaitingResponse = false;
 
   public formGroup: UntypedFormGroup;
 
@@ -107,7 +108,7 @@ export class TestDialogComponent implements OnInit, OnDestroy {
    * Submit the OTP and set the component state to success or failure depending on the response.
    */
   public submit() {
-    if (this.formGroup.valid) {
+    if (!this.preventSubmit()) {
       if (this.pollingSubscription) {
         this.pollingSubscription.unsubscribe();
       }
@@ -117,10 +118,12 @@ export class TestDialogComponent implements OnInit, OnDestroy {
         otp: controls.otp.value,
         transactionid: this.transactionDetail.transactionId,
       };
+      this.awaitingResponse = true;
       this.testService.testToken(options)
         .subscribe(result => {
           this.testResult = result === true;
           result ? this.goToSuccess() : this.goToFailure();
+          this.awaitingResponse = false;
         });
     }
   }
@@ -159,5 +162,9 @@ export class TestDialogComponent implements OnInit, OnDestroy {
 
   public showInput() {
     this.showInputField = true;
+  }
+
+  public preventSubmit() {
+    return this.formGroup.invalid || this.awaitingResponse;
   }
 }
