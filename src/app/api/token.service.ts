@@ -93,7 +93,7 @@ export class TokenService {
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-      this.notificationService.message($localize`Error: ${operation}. Please try again or contact an administrator`);
+      this.notificationService.errorMessage($localize`Error: ${operation}. Please try again or contact an administrator`);
       return of(result as T);
     };
   }

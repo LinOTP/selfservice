@@ -56,7 +56,7 @@ export class EnrollComponent implements OnInit {
       filter(hasPermission => hasPermission),
       switchMap(() => this.openDialog()),
       catchError((err, _) => {
-        this.notificationService.message($localize`Error: ${err.message}`);
+        this.notificationService.errorMessage($localize`Error: ${err.message}`);
         return of(null);
       })
     ).subscribe(() => {

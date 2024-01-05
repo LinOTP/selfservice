@@ -138,7 +138,7 @@ import { EnrollComponent } from './enroll.component';
       tick();
 
       expect(dialog.open).toHaveBeenCalledWith(tokenUnderTest.enrollmentComponent, expectedEnrollDialogConfig);
-      expect(notificationService.message).not.toHaveBeenCalled();
+      expect(notificationService.errorMessage).not.toHaveBeenCalled();
       expect(component.leave).toHaveBeenCalled();
     }));
   })
@@ -203,7 +203,7 @@ describe(`EnrollComponent on navigate to /tokens/enroll/someUnknownType`, () => 
     tick();
 
     expect(dialog.open).not.toHaveBeenCalled();
-    expect(notificationService.message).toHaveBeenCalledWith('Error: Cannot enroll token of unknown type "someUnknownType".');
+    expect(notificationService.errorMessage).toHaveBeenCalledWith('Error: Cannot enroll token of unknown type "someUnknownType".');
     expect(component.leave).toHaveBeenCalled();
   }));
 });
@@ -270,7 +270,7 @@ describe(`EnrollComponent on navigate to /tokens/enroll/yubikey`, () => {
     tick();
 
     expect(dialog.open).not.toHaveBeenCalled();
-    expect(notificationService.message).toHaveBeenCalledWith('Error: The selected token type cannot be added at the moment.');
+    expect(notificationService.errorMessage).toHaveBeenCalledWith('Error: The selected token type cannot be added at the moment.');
     expect(component.leave).toHaveBeenCalled();
   }));
 });
@@ -381,7 +381,7 @@ describe(`EnrollComponent on navigate to /tokens/enroll/yubikey`, () => {
       tick();
 
       expect(dialog.open).not.toHaveBeenCalled();
-      expect(notificationService.message).toHaveBeenCalledWith(
+      expect(notificationService.errorMessage).toHaveBeenCalledWith(
         `Error: You are not allowed to enroll tokens of type "${tokenUnderTest.type}".`
       );
       expect(component.leave).toHaveBeenCalled();

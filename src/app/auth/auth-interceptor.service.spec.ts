@@ -1,12 +1,12 @@
-import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed, inject } from '@angular/core/testing';
 
-import { spyOnClass, getInjectedStub } from '@testing/spyOnClass';
+import { getInjectedStub, spyOnClass } from '@testing/spyOnClass';
 
 import { LoginService } from '@app/login/login.service';
-import { AuthInterceptor } from './auth-interceptor.service';
 import { NotificationService } from '@common/notification.service';
+import { AuthInterceptor } from './auth-interceptor.service';
 
 describe('AuthInterceptor', () => {
 
@@ -63,7 +63,7 @@ describe('AuthInterceptor', () => {
     expect(successCallback).not.toHaveBeenCalled();
     expect(errorCallback).toHaveBeenCalled();
 
-    expect(TestBed.inject(NotificationService).message).toHaveBeenCalled();
+    expect(TestBed.inject(NotificationService).errorMessage).toHaveBeenCalled();
 
     expect(loginService.handleLogout).toHaveBeenCalledTimes(1);
   });
@@ -81,7 +81,7 @@ describe('AuthInterceptor', () => {
     expect(errorCallback).not.toHaveBeenCalled();
 
     expect(loginService.handleLogout).not.toHaveBeenCalled();
-    expect(TestBed.inject(NotificationService).message).not.toHaveBeenCalled();
+    expect(TestBed.inject(NotificationService).errorMessage).not.toHaveBeenCalled();
 
     http.verify();
   });
@@ -97,7 +97,7 @@ describe('AuthInterceptor', () => {
     expect(errorCallback).toHaveBeenCalled();
 
     expect(loginService.handleLogout).not.toHaveBeenCalled();
-    expect(TestBed.inject(NotificationService).message).toHaveBeenCalled();
+    expect(TestBed.inject(NotificationService).errorMessage).toHaveBeenCalled();
 
     http.verify();
   });
@@ -114,7 +114,7 @@ describe('AuthInterceptor', () => {
     expect(errorCallback).toHaveBeenCalled();
 
     expect(loginService.handleLogout).not.toHaveBeenCalled();
-    expect(TestBed.inject(NotificationService).message).not.toHaveBeenCalled();
+    expect(TestBed.inject(NotificationService).errorMessage).not.toHaveBeenCalled();
 
     http.verify();
   });

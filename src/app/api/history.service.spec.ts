@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { inject, TestBed } from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing';
 
 import { HistoryFixtures } from '@testing/fixtures';
 import { getInjectedStub, spyOnClass } from '@testing/spyOnClass';
@@ -75,7 +75,7 @@ describe('HistoryService', () => {
         historyRequest.error(new ErrorEvent('Error loading history'));
         backend.verify();
 
-        expect(notificationService.message).toHaveBeenCalledWith('Error: fetching history failed. Please try again');
+        expect(notificationService.errorMessage).toHaveBeenCalledWith('Error: fetching history failed. Please try again');
       }
     ));
 
