@@ -59,38 +59,38 @@ describe('EnrollmentGridComponent', () => {
     component.tokenLimitsService.setTokenLimits({
       tokenLimits: getTokenLimitsMock(),
       tokens: getTokensMock()
-    })
+    });
     component.tokenTypes = [
       {
-        name: 'hmac',
-        description: 'hmac',
-        type: 'hmac'
+        name: TokenType.HOTP,
+        description: TokenType.HOTP,
+        type: TokenType.HOTP
       } as any
-    ]
+    ];
     fixture.detectChanges();
     expect(component.tokenLimitsService.canEnrollToken(TokenType.HOTP)).toBeFalse();
     expect(fixture.nativeElement.querySelector('#maxTokenLimitExceeded')).toBeTruthy();
-  })
+  });
 
   it("should not show max token limit section when limits are not exceeded", () => {
-    const tokenLimits = getTokenLimitsMock()
-    tokenLimits.token_types[0].max_token = 2
+    const tokenLimits = getTokenLimitsMock();
+    tokenLimits.token_types[0].max_token = 2;
     component.tokenLimitsService.setTokenLimits({
       tokenLimits: tokenLimits,
       tokens: getTokensMock()
-    })
-    component
+    });
+    component;
     component.tokenTypes = [
       {
-        name: 'hmac',
-        description: 'hmac',
-        type: 'hmac'
+        name: TokenType.HOTP,
+        description: TokenType.HOTP,
+        type: TokenType.HOTP
       } as any
-    ]
+    ];
     fixture.detectChanges();
     expect(component.tokenLimitsService.canEnrollToken(TokenType.HOTP)).toBeTrue();
     expect(fixture.nativeElement.querySelector('#maxTokenLimitExceeded')).toBeFalsy();
-  })
+  });
 });
 
 
@@ -99,21 +99,21 @@ function getTokenLimitsMock() {
   const result: TokenLimitResponse = {
     all_token: 4,
     token_types: [{
-      token_type: "hmac",
+      token_type: TokenType.HOTP,
       max_token: 1
     }]
-  }
-  return result
+  };
+  return result;
 }
 
 function getTokensMock() {
   const tokens: SelfserviceToken[] = [
     {
       typeDetails: {
-        type: 'hmac'
+        type: TokenType.HOTP
       },
     },
-  ] as any
+  ] as any;
 
-  return tokens
+  return tokens;
 }

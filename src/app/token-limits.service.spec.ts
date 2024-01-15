@@ -13,7 +13,7 @@ describe("TokenLimitsService", () => {
 
     const tokenTypeLimit = cut.getLimitsForTokenType(TokenType.HOTP);
     expect(tokenTypeLimit?.maxTokens).toBe(4);
-  })
+  });
 
   it("should correctly return maxTokenLimitExceeded", () => {
     const cut = new TokenLimitsService();
@@ -31,7 +31,7 @@ describe("TokenLimitsService", () => {
     cut.setTokenLimits({ tokenLimits: getTokenLimitsMock(), tokens: getTokensMock() });
     const canEnroll = cut.canEnrollToken(TokenType.HOTP);
     expect(canEnroll).toBe(true);
-  })
+  });
 
   it("should not be able to enroll token when token type limits are exceeded", () => {
     const tokenLimits = getTokenLimitsMock();
@@ -41,7 +41,7 @@ describe("TokenLimitsService", () => {
     cut.setTokenLimits({ tokenLimits, tokens });
     const canEnroll = cut.canEnrollToken(TokenType.HOTP);
     expect(canEnroll).toBe(false);
-  })
+  });
 
   it("should handle missing token limits in response", () => {
     const cut = new TokenLimitsService();
@@ -49,7 +49,7 @@ describe("TokenLimitsService", () => {
     expect(cut.allTokensLimit).toBeUndefined();
     expect(cut.isMaxTokenLimitSet).toEqual(false);
     expect(cut.maxTokenLimitExceeded).toEqual(false);
-  })
+  });
 });
 
 function getTokenLimitsMock() {
@@ -57,7 +57,7 @@ function getTokenLimitsMock() {
     all_token: 10,
     token_types: [
       {
-        token_type: "hmac",
+        token_type: TokenType.HOTP,
         max_token: 4,
       },
     ],
@@ -69,17 +69,17 @@ function getTokensMock() {
   const tokens: SelfserviceToken[] = [
     {
       typeDetails: {
-        type: "hmac",
+        type: TokenType.HOTP,
       },
     },
     {
       typeDetails: {
-        type: "hmac",
+        type: TokenType.HOTP,
       },
     },
     {
       typeDetails: {
-        type: "hmac",
+        type: TokenType.HOTP,
       },
     },
   ] as any;

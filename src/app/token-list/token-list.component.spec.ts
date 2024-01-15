@@ -21,6 +21,8 @@ import { CapitalizePipe } from '@common/pipes/capitalize.pipe';
 import { InactiveTokensPipe } from '@common/pipes/inactive-tokens.pipe';
 import { UnreadyTokensPipe } from '@common/pipes/unready-tokens.pipe';
 
+import { TokenType } from '@linotp/data-models';
+
 import { SelfServiceContextService } from '@app/selfservice-context.service';
 import { TokenLimitResponse } from '@app/system.service';
 import { TokenLimitsService } from '@app/token-limits.service';
@@ -256,33 +258,33 @@ function getTokenLimitsMock() {
   const result: TokenLimitResponse = {
     all_token: 4,
     token_types: []
-  }
-  return result
+  };
+  return result;
 }
 
 function getTokenExceededMock() {
   const tokens: SelfserviceToken[] = [
     {
       typeDetails: {
-        type: 'hmac'
+        type: TokenType.HOTP
       },
     },
     {
       typeDetails: {
-        type: 'totp'
+        type: TokenType.TOTP
       },
     },
     {
       typeDetails: {
-        type: 'push'
+        type: TokenType.PUSH
       },
     },
     {
       typeDetails: {
-        type: 'push'
+        type: TokenType.PUSH
       },
     },
-  ] as any
+  ] as any;
 
-  return tokens
+  return tokens;
 }

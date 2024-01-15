@@ -72,8 +72,8 @@ describe('EnrollmentService', () => {
 
   describe('enrollChallenge', () => {
     [
-      { type: TokenType.TOTP, enrollmentType: 'totp' },
-      { type: TokenType.HOTP, enrollmentType: 'hmac' },
+      { type: TokenType.TOTP, enrollmentType: TokenType.TOTP },
+      { type: TokenType.HOTP, enrollmentType: TokenType.HOTP },
       { type: TokenType.PUSH, enrollmentType: null },
     ].forEach(({ type, enrollmentType }) => {
       it(`should use the enrollmentType for ${type}`, inject(
@@ -106,7 +106,7 @@ describe('EnrollmentService', () => {
           expect(tokenService.updateTokenList).toHaveBeenCalledTimes(1);
         });
 
-        const request = backend.expectOne((req) => req.body.type === 'hmac');
+        const request = backend.expectOne((req) => req.body.type === TokenType.HOTP);
         request.flush({ result: { status: false } });
 
         backend.verify();
