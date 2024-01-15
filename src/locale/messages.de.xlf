@@ -142,12 +142,13 @@
           <context context-type="linenumber">45</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="4296819932903673261" datatype="html">
-        <source><x id="INTERPOLATION" equiv-text="{{tokenLimitsService.allTokensLimit?.count }}"/> of <x id="INTERPOLATION_1" equiv-text="{{tokenLimitsService.allTokensLimit?.maxTokens }}"/> allowed tokens enrolled</source>
-        <target state="new"><x id="INTERPOLATION" equiv-text="{{tokenLimitsService.allTokensLimit?.count }}"/> von <x id="INTERPOLATION_1" equiv-text="{{tokenLimitsService.allTokensLimit?.maxTokens }}"/> erlaubten Token eingerichtet</target>
+      <trans-unit id="6658544261788045440" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{tokenLimitsService.allTokensLimit?.count}}"/> of <x id="INTERPOLATION_1" equiv-text="{{tokenLimitsService.allTokensLimit?.maxTokens}}"/> allowed
+          tokens enrolled</source>
+        <target state="new"><x id="INTERPOLATION" equiv-text="{{tokenLimitsService.allTokensLimit?.count}}"/> von <x id="INTERPOLATION_1" equiv-text="{{tokenLimitsService.allTokensLimit?.maxTokens}}"/> erlaubten Token eingerichtet</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">48,49</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6878496995398742279" datatype="html">
@@ -155,7 +156,7 @@
         <target state="translated">Richten Sie ihre erste Authentisierungsmethode ein</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">56</context>
+          <context context-type="linenumber">59</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7322562688613305864" datatype="html">
@@ -169,7 +170,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">59,62</context>
+          <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6003663429247880609" datatype="html">
@@ -177,7 +178,7 @@
         <target state="translated">Keine Aktionen verfügbar</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">69</context>
+          <context context-type="linenumber">72</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2918437642000683021" datatype="html">
@@ -187,7 +188,7 @@
         Kontaktieren Sie bitte ihren Administrator.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">70</context>
+          <context context-type="linenumber">73</context>
         </context-group>
       </trans-unit>
       <trans-unit id="158435493271081311" datatype="html">
@@ -195,19 +196,21 @@
         <target state="new">Maximale Token-Anzahl</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">79</context>
+          <context context-type="linenumber">84</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="571778967777362368" datatype="html">
-        <source><x id="INTERPOLATION" equiv-text="{{tokenLimitsService.allTokensLimit?.count }}"/> of <x id="INTERPOLATION_1" equiv-text="{{tokenLimitsService.allTokensLimit?.maxTokens }}"/> allowed tokens enrolled.
-      You have reached the maximum token limit. To register a new authentication method, please delete some of the existing tokens
+      <trans-unit id="6629820311006518717" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{tokenLimitsService.allTokensLimit?.count}}"/> of <x id="INTERPOLATION_1" equiv-text="{{tokenLimitsService.allTokensLimit?.maxTokens}}"/> allowed
+      tokens enrolled.
+      You have reached the maximum token limit. To register a new authentication method, please delete some of the
+      existing tokens
       or contact your administrator.</source>
-        <target state="new"><x id="INTERPOLATION" equiv-text="{{tokenLimitsService.allTokensLimit?.count }}"/> von <x id="INTERPOLATION_1" equiv-text="{{tokenLimitsService.allTokensLimit?.maxTokens }}"/> erlaubten Token eingerichtet.
-      Sie haben die maximale Anzahl an Token erreicht. Um eine neue Authentisierungsmethode einzurichten, löschen Sie bitte einige der bestehenden Token oder kontaktieren Sie Ihren Administrator.
-      </target>
+        <target state="new"><x id="INTERPOLATION" equiv-text="{{tokenLimitsService.allTokensLimit?.count}}"/> von <x id="INTERPOLATION_1" equiv-text="{{tokenLimitsService.allTokensLimit?.maxTokens}}"/>  erlaubten Token eingerichtet.
+          Sie haben die maximale Anzahl an Token erreicht. Um eine neue Authentisierungsmethode einzurichten, löschen Sie bitte einige der bestehenden Token oder kontaktieren Sie Ihren Administrator.
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">80,82</context>
+          <context context-type="linenumber">85,89</context>
         </context-group>
       </trans-unit>
       <trans-unit id="302027271687522215" datatype="html">
@@ -247,7 +250,7 @@
         <target state="translated">Anmeldung erfolgreich</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.ts</context>
-          <context context-type="linenumber">274</context>
+          <context context-type="linenumber">276</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8053477814844632887" datatype="html">
@@ -255,7 +258,7 @@
         <target state="translated">Anmeldung fehlgeschlagen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.ts</context>
-          <context context-type="linenumber">274</context>
+          <context context-type="linenumber">279</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3283587029472521478" datatype="html">
@@ -1780,7 +1783,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="1109306653820972432" datatype="html">
-        <source>You have reached maximum limit for this token type. <x id="INTERPOLATION" equiv-text="{{limitsInfo.count }}"/> of <x id="INTERPOLATION_1" equiv-text="{{limitsInfo.maxTokens }}"/> allowed tokens enrolled.
+        <source>You have reached maximum limit for this token type. <x id="INTERPOLATION" equiv-text="{{limitsInfo.count}}"/> of <x id="INTERPOLATION_1" equiv-text="{{limitsInfo.maxTokens}}"/> allowed tokens enrolled.
           To register a new authentication method of this type, please delete some of the existing tokens
           or contact your administrator.</source>
         <target state="new">Sie haben das Limit für diesen Tokentyp erreicht. <x id="INTERPOLATION" equiv-text="{{limitsInfo.count }}"/> von <x id="INTERPOLATION_1" equiv-text="{{limitsInfo.maxTokens }}"/> erlaubten Token sind eingerichtet.
@@ -2525,6 +2528,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/notification.service.ts</context>
           <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/notification.service.ts</context>
+          <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="856582100125379791" datatype="html">
