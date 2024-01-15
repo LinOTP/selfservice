@@ -15,25 +15,25 @@ describe("TokenLimitsService", () => {
     expect(tokenTypeLimit?.maxTokens).toBe(4);
   });
 
-  it("should correctly return maxTokenLimitExceeded", () => {
+  it("should correctly return maxTokenLimitReached", () => {
     const cut = new TokenLimitsService();
     cut.setTokenLimits({ tokenLimits: getTokenLimitsMock(), tokens: getTokensMock() });
-    expect(cut.maxTokenLimitExceeded).toBe(false);
+    expect(cut.maxTokenLimitReached).toBe(false);
 
     const tokenLimits = getTokenLimitsMock();
     tokenLimits.all_token = 3;
     cut.setTokenLimits({ tokenLimits, tokens: getTokensMock() });
-    expect(cut.maxTokenLimitExceeded).toBe(true);
+    expect(cut.maxTokenLimitReached).toBe(true);
   });
 
-  it("should be able to enroll token when token type limits are not exceeded", () => {
+  it("should be able to enroll token when token type limits are not reached", () => {
     const cut = new TokenLimitsService();
     cut.setTokenLimits({ tokenLimits: getTokenLimitsMock(), tokens: getTokensMock() });
     const canEnroll = cut.canEnrollToken(TokenType.HOTP);
     expect(canEnroll).toBe(true);
   });
 
-  it("should not be able to enroll token when token type limits are exceeded", () => {
+  it("should not be able to enroll token when token type limits are reached", () => {
     const tokenLimits = getTokenLimitsMock();
     const tokens = getTokensMock();
     tokenLimits.token_types[0].max_token = 2;
@@ -48,7 +48,7 @@ describe("TokenLimitsService", () => {
     cut.setTokenLimits({ tokenLimits: null, tokens: getTokensMock() });
     expect(cut.allTokensLimit).toBeUndefined();
     expect(cut.isMaxTokenLimitSet).toEqual(false);
-    expect(cut.maxTokenLimitExceeded).toEqual(false);
+    expect(cut.maxTokenLimitReached).toEqual(false);
   });
 });
 

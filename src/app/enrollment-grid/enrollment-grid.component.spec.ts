@@ -55,7 +55,7 @@ describe('EnrollmentGridComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it("should show max token limit section when limits are exceeded", () => {
+  it("should show max token limit section when limits are reached", () => {
     component.tokenLimitsService.setTokenLimits({
       tokenLimits: getTokenLimitsMock(),
       tokens: getTokensMock()
@@ -69,10 +69,10 @@ describe('EnrollmentGridComponent', () => {
     ];
     fixture.detectChanges();
     expect(component.tokenLimitsService.canEnrollToken(TokenType.HOTP)).toBeFalse();
-    expect(fixture.nativeElement.querySelector('#maxTokenLimitExceeded')).toBeTruthy();
+    expect(fixture.nativeElement.querySelector('#maxTokenLimitReached')).toBeTruthy();
   });
 
-  it("should not show max token limit section when limits are not exceeded", () => {
+  it("should not show max token limit section when limits are not reached", () => {
     const tokenLimits = getTokenLimitsMock();
     tokenLimits.token_types[0].max_token = 2;
     component.tokenLimitsService.setTokenLimits({
@@ -89,7 +89,7 @@ describe('EnrollmentGridComponent', () => {
     ];
     fixture.detectChanges();
     expect(component.tokenLimitsService.canEnrollToken(TokenType.HOTP)).toBeTrue();
-    expect(fixture.nativeElement.querySelector('#maxTokenLimitExceeded')).toBeFalsy();
+    expect(fixture.nativeElement.querySelector('#maxTokenLimitReached')).toBeFalsy();
   });
 });
 

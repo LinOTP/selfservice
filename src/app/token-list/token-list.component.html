@@ -39,11 +39,14 @@
 <ng-template #enrollAlternative>
   <section id="enrollAlternativeTokenSection"
            *ngxPermissionsOnly="enrollmentPermissions">
-  <ng-container *ngIf="tokenLimitsLoaded">
-    <h2 i18n>Set up a new authentication method</h2>
-      <ng-container *ngIf="!tokenLimitsService.maxTokenLimitExceeded;else tokenLimitExceededTmp">
+    <ng-container *ngIf="tokenLimitsLoaded">
+      <h2 i18n>Set up a new authentication method</h2>
+      <ng-container *ngIf="!tokenLimitsService.maxTokenLimitReached;else tokenLimitReachedTmp">
         <p i18n>The following authentication methods are available:</p>
-        <p class="total-tokens-info" *ngIf="tokenLimitsService.isMaxTokenLimitSet" i18n>{{tokenLimitsService.allTokensLimit?.count}} of {{tokenLimitsService.allTokensLimit?.maxTokens}} allowed tokens enrolled</p>
+        <p class="total-tokens-info"
+           *ngIf="tokenLimitsService.isMaxTokenLimitSet"
+           i18n>{{tokenLimitsService.allTokensLimit?.count}} of {{tokenLimitsService.allTokensLimit?.maxTokens}} allowed
+          tokens enrolled</p>
         <app-enrollment-grid></app-enrollment-grid>
       </ng-container>
     </ng-container>
@@ -55,12 +58,12 @@
            *ngxPermissionsOnly="enrollmentPermissions; else emptyState">
     <h2 i18n>Set up your first authentication method</h2>
     <ng-container *ngIf="tokenLimitsLoaded">
-      <ng-container *ngIf="!tokenLimitsService.maxTokenLimitExceeded;else tokenLimitExceededTmp">
+      <ng-container *ngIf="!tokenLimitsService.maxTokenLimitReached;else tokenLimitReachedTmp">
         <p i18n>
           You currently do not have any authentication method set up.
           Start by selecting your preferred type:
         </p>
-        <app-enrollment-grid > </app-enrollment-grid>
+        <app-enrollment-grid> </app-enrollment-grid>
       </ng-container>
     </ng-container>
   </section>
@@ -73,12 +76,16 @@
   </ng-template>
 </ng-template>
 
-<ng-template #tokenLimitExceededTmp>
-  <div class="token-limit-info-container" id="maxTokenLimitExceeded">
+<ng-template #tokenLimitReachedTmp>
+  <div class="token-limit-info-container"
+       id="maxTokenLimitReached">
     <mat-icon>error</mat-icon>
-    <p i18n class="token-limit-title">Maximum Token Limit</p>
-    <p i18n>{{tokenLimitsService.allTokensLimit?.count}} of {{tokenLimitsService.allTokensLimit?.maxTokens}} allowed tokens enrolled.
-      You have reached the maximum token limit. To register a new authentication method, please delete some of the existing tokens
+    <p i18n
+       class="token-limit-title">Maximum Token Limit</p>
+    <p i18n>{{tokenLimitsService.allTokensLimit?.count}} of {{tokenLimitsService.allTokensLimit?.maxTokens}} allowed
+      tokens enrolled.
+      You have reached the maximum token limit. To register a new authentication method, please delete some of the
+      existing tokens
       or contact your administrator.</p>
   </div>
 </ng-template>
