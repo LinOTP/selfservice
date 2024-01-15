@@ -41,6 +41,7 @@ export interface SystemInfo {
     footer_text?: string;
     imprint_url?: string;
     privacy_notice_url?: string;
+    token_limits: TokenLimitResponse
   };
 }
 
@@ -56,6 +57,22 @@ export interface UserInfo {
   surname: string;
   gender: string;
 }
+
+export type MaxTokenResponse = {
+  max_token: number;
+  token_count: number;
+}
+
+type MaxTokenTypeResponse = {
+  token_type: string
+  max_token: number;
+}
+
+export type TokenLimitResponse = {
+  all_token: number | null;
+  token_types: MaxTokenTypeResponse[];
+}
+
 
 /**
  * Interface that provides available information about the system and the user.

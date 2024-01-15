@@ -10,7 +10,7 @@ import { MockPipe } from '@testing/mock-pipe';
 import { TestingPage } from '@testing/page-helper';
 import { getInjectedStub, spyOnClass } from '@testing/spyOnClass';
 
-import { EnrollmentStatus } from '@api/token';
+import { EnrollmentStatus, SelfserviceToken } from '@api/token';
 import { TokenService } from '@api/token.service';
 import { LoginService } from '@app/login/login.service';
 import { MaterialModule } from '@app/material.module';
@@ -21,6 +21,9 @@ import { CapitalizePipe } from '@common/pipes/capitalize.pipe';
 import { InactiveTokensPipe } from '@common/pipes/inactive-tokens.pipe';
 import { UnreadyTokensPipe } from '@common/pipes/unready-tokens.pipe';
 
+import { SelfServiceContextService } from '@app/selfservice-context.service';
+import { TokenLimitResponse } from '@app/system.service';
+import { TokenLimitsService } from '@app/token-limits.service';
 import { TokenListComponent } from './token-list.component';
 
 class Page extends TestingPage<TokenListComponent> {
@@ -49,6 +52,9 @@ class Page extends TestingPage<TokenListComponent> {
     return this.query('#emptyStateSection ' + elementTag);
   }
 
+  public getMaxTokenLimitExceededElement() {
+    return this.query('#maxTokenLimitExceeded');
+  }
 }
 
 describe('TokenListComponent', () => {
@@ -59,6 +65,7 @@ describe('TokenListComponent', () => {
   let permissionLoadSubject: Subject<boolean>;
   let tokenListUpdateSubject: Subject<null>;
   let page: Page;
+  let selfServiceContextService: jasmine.SpyObj<SelfServiceContextService>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
@@ -82,6 +89,14 @@ describe('TokenListComponent', () => {
           provide: LoginService,
           useValue: spyOnClass(LoginService)
         },
+        {
+          provide: TokenLimitsService,
+          useClass: TokenLimitsService
+        },
+        {
+          provide: SelfServiceContextService,
+          useValue: spyOnClass(SelfServiceContextService)
+        }
       ],
       imports: [
         MaterialModule,
@@ -104,6 +119,9 @@ describe('TokenListComponent', () => {
     loginService = getInjectedStub(LoginService);
     permissionLoadSubject = new BehaviorSubject(true);
     (loginService as any).permissionLoad$ = permissionLoadSubject.asObservable();
+
+    selfServiceContextService = getInjectedStub(SelfServiceContextService);
+    selfServiceContextService.tokenLimits$ = of(getTokenLimitsMock());
   });
 
   it('should create', () => {
@@ -211,6 +229,60 @@ describe('TokenListComponent', () => {
     expect(page.getPendingSectionElement('p')).toBeNull();
     expect(page.getEmptyStateSectionElement('h2')).toBeNull();
     expect(page.getEmptyStateSectionElement('p')).toBeNull();
+
+  });
+
+  it('should show token limit info when limit exceeded', () => {
+    tokenService.getTokens.and.returnValue(of(getTokenExceededMock()));
+    fixture.detectChanges();
+    expect(component.tokenLimitsService.isMaxTokenLimitSet).toBe(true);
+    expect(component.tokenLimitsService.maxTokenLimitExceeded).toBe(true);
+
+    expect(page.getMaxTokenLimitExceededElement()).toBeTruthy();
+  });
+
+  it('should now show token limit info when limit not exceeded', () => {
+    tokenService.getTokens.and.returnValue(of(getTokenExceededMock().slice(0, 3)));
+    fixture.detectChanges();
+    expect(component.tokenLimitsService.isMaxTokenLimitSet).toBe(true);
+    expect(component.tokenLimitsService.maxTokenLimitExceeded).toBe(false);
+
+    expect(page.getMaxTokenLimitExceededElement()).toBeFalsy();
   });
 
 });
+
+function getTokenLimitsMock() {
+  const result: TokenLimitResponse = {
+    all_token: 4,
+    token_types: []
+  }
+  return result
+}
+
+function getTokenExceededMock() {
+  const tokens: SelfserviceToken[] = [
+    {
+      typeDetails: {
+        type: 'hmac'
+      },
+    },
+    {
+      typeDetails: {
+        type: 'totp'
+      },
+    },
+    {
+      typeDetails: {
+        type: 'push'
+      },
+    },
+    {
+      typeDetails: {
+        type: 'push'
+      },
+    },
+  ] as any
+
+  return tokens
+}
