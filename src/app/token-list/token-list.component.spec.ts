@@ -21,6 +21,8 @@ import { CapitalizePipe } from '@common/pipes/capitalize.pipe';
 import { InactiveTokensPipe } from '@common/pipes/inactive-tokens.pipe';
 import { UnreadyTokensPipe } from '@common/pipes/unready-tokens.pipe';
 
+import { TokenType } from '@linotp/data-models';
+
 import { SelfServiceContextService } from '@app/selfservice-context.service';
 import { TokenLimitResponse } from '@app/system.service';
 import { TokenLimitsService } from '@app/token-limits.service';
@@ -52,8 +54,8 @@ class Page extends TestingPage<TokenListComponent> {
     return this.query('#emptyStateSection ' + elementTag);
   }
 
-  public getMaxTokenLimitExceededElement() {
-    return this.query('#maxTokenLimitExceeded');
+  public getmaxTokenLimitReachedElement() {
+    return this.query('#maxTokenLimitReached');
   }
 }
 
@@ -232,22 +234,22 @@ describe('TokenListComponent', () => {
 
   });
 
-  it('should show token limit info when limit exceeded', () => {
-    tokenService.getTokens.and.returnValue(of(getTokenExceededMock()));
+  it('should show token limit info when limit reached', () => {
+    tokenService.getTokens.and.returnValue(of(getTokenLimitReachedMock()));
     fixture.detectChanges();
     expect(component.tokenLimitsService.isMaxTokenLimitSet).toBe(true);
-    expect(component.tokenLimitsService.maxTokenLimitExceeded).toBe(true);
+    expect(component.tokenLimitsService.maxTokenLimitReached).toBe(true);
 
-    expect(page.getMaxTokenLimitExceededElement()).toBeTruthy();
+    expect(page.getmaxTokenLimitReachedElement()).toBeTruthy();
   });
 
-  it('should now show token limit info when limit not exceeded', () => {
-    tokenService.getTokens.and.returnValue(of(getTokenExceededMock().slice(0, 3)));
+  it('should now show token limit info when limit not reached', () => {
+    tokenService.getTokens.and.returnValue(of(getTokenLimitReachedMock().slice(0, 3)));
     fixture.detectChanges();
     expect(component.tokenLimitsService.isMaxTokenLimitSet).toBe(true);
-    expect(component.tokenLimitsService.maxTokenLimitExceeded).toBe(false);
+    expect(component.tokenLimitsService.maxTokenLimitReached).toBe(false);
 
-    expect(page.getMaxTokenLimitExceededElement()).toBeFalsy();
+    expect(page.getmaxTokenLimitReachedElement()).toBeFalsy();
   });
 
 });
@@ -256,33 +258,33 @@ function getTokenLimitsMock() {
   const result: TokenLimitResponse = {
     all_token: 4,
     token_types: []
-  }
-  return result
+  };
+  return result;
 }
 
-function getTokenExceededMock() {
+function getTokenLimitReachedMock() {
   const tokens: SelfserviceToken[] = [
     {
       typeDetails: {
-        type: 'hmac'
+        type: TokenType.HOTP
       },
     },
     {
       typeDetails: {
-        type: 'totp'
+        type: TokenType.TOTP
       },
     },
     {
       typeDetails: {
-        type: 'push'
+        type: TokenType.PUSH
       },
     },
     {
       typeDetails: {
-        type: 'push'
+        type: TokenType.PUSH
       },
     },
-  ] as any
+  ] as any;
 
-  return tokens
+  return tokens;
 }

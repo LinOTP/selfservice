@@ -1,24 +1,24 @@
 {
   "version": "0.2.0",
-  "configurations": [{
-      "type": "node",
+  "configurations": [
+    {
+      "name": "Start App",
+      "type": "node-terminal",
       "request": "launch",
-      "name": "Fake backend server",
-      "program": "${workspaceFolder}/fake-backend/backend.js"
+      "command": "yarn start"
     },
     {
+      "name": "Launch Chrome",
       "type": "chrome",
       "request": "launch",
-      "name": "Frontend",
       "url": "http://localhost:4200",
       "webRoot": "${workspaceRoot}"
     }
   ],
-  "compounds": [{
-    "name": "both",
-    "configurations": [
-      "Fake backend server",
-      "Frontend"
-    ]
-  }]
+  "compounds": [
+    {
+      "name": "App & Chrome",
+      "configurations": ["Start App", "Launch Chrome"]
+    }
+  ]
 }

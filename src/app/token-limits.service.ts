@@ -7,13 +7,13 @@ import { TokenLimitResponse } from "./system.service";
 export class TokenLimitsService {
   private tokenTypeLimits: TokenTypeLimitInfo[] = [];
 
-  private _allTokensLimit: TokenLimitInfo | undefined
+  private _allTokensLimit: TokenLimitInfo | undefined;
 
   get allTokensLimit() {
     return this._allTokensLimit;
   }
 
-  get maxTokenLimitExceeded() {
+  get maxTokenLimitReached() {
     if (!this.allTokensLimit || this.allTokensLimit.maxTokens === null) return false;
     return this.allTokensLimit.count >= this.allTokensLimit.maxTokens;
   }
@@ -24,15 +24,15 @@ export class TokenLimitsService {
   }
 
   canEnrollToken(type: TokenType) {
-    return !this.maxTokenLimitExceeded && !this.isLimitForTokenTypeExceeded(type);
+    return !this.maxTokenLimitReached && !this.isLimitForTokenTypeReached(type);
   }
 
   getLimitsForTokenType(type: TokenType) {
     const result: TokenLimitInfo | undefined = this.tokenTypeLimits.find((t) => t.type === type);
-    return result
+    return result;
   }
 
-  setTokenLimits(data: { tokenLimits: TokenLimitResponse, tokens: SelfserviceToken[] }) {
+  setTokenLimits(data: { tokenLimits: TokenLimitResponse, tokens: SelfserviceToken[]; }) {
     const tokenLimits = data.tokenLimits;
     const tokens = data.tokens;
 
@@ -44,7 +44,7 @@ export class TokenLimitsService {
     }
 
     const tokenCount = tokens.length;
-    const maxTokens = tokenLimits.all_token
+    const maxTokens = tokenLimits.all_token;
     this._allTokensLimit = {
       maxTokens,
       count: tokenCount,
@@ -56,14 +56,14 @@ export class TokenLimitsService {
         type: tokenType,
         maxTokens: t.max_token,
         count: data.tokens.filter((token) => token.typeDetails.type === tokenType).length,
-      }
+      };
       return limit;
-    })
+    });
 
     this.tokenTypeLimits = tokenTypeLimits;
   }
 
-  private isLimitForTokenTypeExceeded(type: TokenType) {
+  private isLimitForTokenTypeReached(type: TokenType) {
     const limit = this.getLimitsForTokenType(type);
 
     if (!limit) return false;
@@ -75,7 +75,7 @@ type TokenTypeLimitInfo = {
   type: TokenType;
   maxTokens: number;
   count: number;
-}
+};
 
 type TokenLimitInfo = {
   maxTokens: number;
