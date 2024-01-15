@@ -1,14 +1,14 @@
 {
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
-    "source.organizeImports": true
+    "source.organizeImports": "explicit"
   },
   "search.exclude": {
-    "**/node_modules": true,
+    "**/node_modules": true
   },
   "scss.lint.ieHack": "warning",
   "scss.lint.important": "warning",
   "scss.lint.float": "warning",
   "files.trimTrailingWhitespace": true,
-  "html.format.wrapAttributes": "force-aligned",
+  "html.format.wrapAttributes": "force-aligned"
 }
