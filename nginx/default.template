@@ -7,6 +7,8 @@ server {
 
   listen ${SERVER_PORT};
 
+  root /usr/share/nginx/html;
+
   sendfile on;
 
   default_type application/octet-stream;
