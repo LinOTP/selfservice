@@ -41,7 +41,7 @@ $theme: mat.define-dark-theme((color: (primary: $theme-app-primary,
   color: #fff;
   background: #303030;
 
-  a:not(.mat-mdc-button-base) {
+  a:not(.mat-mdc-button-base, .mat-mdc-menu-item) {
     color: #f48fb1;
   }
 }
