@@ -4,6 +4,7 @@ import { take, tap } from 'rxjs/operators';
 
 import { EnrollmentStatus, SelfserviceToken, tokenDisplayData } from '@api/token';
 import { TokenService } from '@api/token.service';
+import { AuthLockedEvaluatorContextInfo, AuthLockedStatusEvaluator } from '@app/common/auth-locked-status-evaluator';
 import { LoginService } from '@app/login/login.service';
 import { SelfServiceContextService } from '@app/selfservice-context.service';
 import { TokenLimitsService } from '@app/token-limits.service';
@@ -26,6 +27,8 @@ export class TokenListComponent implements OnInit, OnDestroy {
   private subscription = new Subscription();
   tokenLimitsLoaded: boolean = false
   loaded = false
+
+  isUserLocked: boolean = false
 
   constructor(
     private tokenService: TokenService,
@@ -60,6 +63,10 @@ export class TokenListComponent implements OnInit, OnDestroy {
       this.tokenLimitsService.setTokenLimits({ tokenLimits: limits, tokens });
       this.tokenLimitsLoaded = true
       this.loaded = true
+
+      const context = new AuthLockedEvaluatorContextInfo(this.selfServiceContextService.context)
+      const rules = new AuthLockedStatusEvaluator(this.tokens, context)
+      this.isUserLocked = rules.isUsersAuthLocked()
     }))
 
   }

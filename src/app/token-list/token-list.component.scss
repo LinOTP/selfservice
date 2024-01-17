@@ -40,3 +40,20 @@ app-token-card {
     width: 50px;
   }
 }
+
+.warning-info {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  p {
+    margin: 0;
+    margin-left: 10px;
+    font-size: 15px;
+    line-height: 22px;
+  }
+  mat-icon {
+    height: 50px;
+    width: 50px;
+    font-size: 50px;
+  }
+}
