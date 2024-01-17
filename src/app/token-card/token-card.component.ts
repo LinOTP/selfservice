@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
-import { of, Subject, Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { filter, switchMap } from 'rxjs/operators';
 
 import { TokenType } from '@linotp/data-models';
@@ -9,9 +9,9 @@ import { TokenType } from '@linotp/data-models';
 import { OperationsService } from '@api/operations.service';
 import { EnrollmentStatus, SelfserviceToken } from '@api/token';
 import { ActivateDialogComponent } from '@app/activate/activate-dialog.component';
+import { LockableTokenActionsService } from '@app/common/lockable-token-dialogs.service';
 import { LoginService } from '@app/login/login.service';
 import { TestDialogComponent } from '@app/test/test-dialog.component';
-import { DialogComponent } from '@common/dialog/dialog.component';
 import { NotificationService } from '@common/notification.service';
 import { ModifyTokenPermissions, ModifyUnreadyTokenPermissions, Permission } from '@common/permissions';
 import { ResyncDialogComponent } from '@common/resync-dialog/resync-dialog.component';
@@ -22,7 +22,8 @@ import { SetPinDialogComponent } from '@common/set-pin-dialog/set-pin-dialog.com
 @Component({
   selector: 'app-token-card',
   templateUrl: './token-card.component.html',
-  styleUrls: ['./token-card.component.scss']
+  styleUrls: ['./token-card.component.scss'],
+  providers: [LockableTokenActionsService]
 })
 export class TokenCardComponent implements OnInit, OnDestroy {
 
@@ -46,6 +47,7 @@ export class TokenCardComponent implements OnInit, OnDestroy {
     private notificationService: NotificationService,
     private operationsService: OperationsService,
     private loginService: LoginService,
+    private lockableTokenActionsService: LockableTokenActionsService
   ) { }
 
   public ngOnInit() {
@@ -113,24 +115,13 @@ export class TokenCardComponent implements OnInit, OnDestroy {
   }
 
   public delete(): void {
-    const config = {
-      width: '35em',
-      data:
-      {
-        title: $localize`Delete token?`,
-        text: $localize`You won\'t be able to use it to authenticate yourself anymore.`,
-        confirmationLabel: $localize`delete`
-      }
-    };
+    const dialog$ = this.lockableTokenActionsService.getDeleteConfirmation(this.token);
 
-    this.dialog
-      .open(DialogComponent, config)
-      .afterClosed()
-      .pipe(
-        filter((confirmed: boolean) => !!confirmed),
-        switchMap(() => this.operationsService.deleteToken(this.token.serial)),
-        filter(result => !!result),
-      )
+    dialog$.pipe(
+      filter((confirmed: boolean) => !!confirmed),
+      switchMap(() => this.operationsService.deleteToken(this.token.serial)),
+      filter(result => !!result),
+    )
       .subscribe(() => {
         this.notificationService.message($localize`Token deleted`);
         this.tokenUpdate.next();
@@ -149,19 +140,7 @@ export class TokenCardComponent implements OnInit, OnDestroy {
   }
 
   public disable(): void {
-    const confirmationObservable = this.canEnable ?
-      of(true) :
-      this.dialog.open(
-        DialogComponent,
-        {
-          width: '35em',
-          data: {
-            title: $localize`Disable token?`,
-            text: $localize`You will not be able to use it to authenticate yourself anymore, as you cannot enable it on your own.`,
-            confirmationLabel: $localize`disable`
-          }
-        }
-      ).afterClosed();
+    const confirmationObservable = this.lockableTokenActionsService.getDisableConfirmation(this.token, this.canEnable);
 
     confirmationObservable.pipe(
       filter(confirmed => !!confirmed),
@@ -200,19 +179,9 @@ export class TokenCardComponent implements OnInit, OnDestroy {
   }
 
   public unassign(): void {
-    const config = {
-      width: '35em',
-      data:
-      {
-        title: $localize`Unassign token?`,
-        text: $localize`You won\'t be able to use this token to authenticate yourself anymore.`,
-        confirmationLabel: $localize`unassign`
-      }
-    };
+    const dialog$ = this.lockableTokenActionsService.getUnassignConfirmation(this.token);
 
-    this.dialog
-      .open(DialogComponent, config)
-      .afterClosed()
+    dialog$
       .pipe(
         filter((confirmed: boolean) => !!confirmed),
         switchMap(() => this.operationsService.unassignToken(this.token.serial)),

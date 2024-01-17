@@ -7,15 +7,15 @@
     [lockedMessageTmp]="null"
     [actionConfirmationTmp]="actionConfirmationTmp">
       <mat-checkbox [formControl]="confirmCtrl">
-        <span i18n>Yes, i am sure want to disable this token !</span>
+        <span i18n>Yes, I am sure I want to disable this token!</span>
       </mat-checkbox>
     </app-lockable-action-dialog-content>
 
     <ng-template #actionConfirmationTmp>
       <p *ngIf="canEnable; else nonEnableMsgTmp"
       class="standard-confirmation-message"
-      i18n>It your last active token and MFA is enabled for selfservice.
-        If you disable it without enrolling a new one or enabling token, you won't be able to login anymore.
+      i18n>This is your last active token and MFA is enabled for Selfservice.
+        If you disable it without enrolling a new token or enabling a disabled token, you won't be able to login anymore.
       </p>
       <ng-template #nonEnableMsgTmp>
         <p class="non-enable-confirmation-message"
