@@ -1,7 +1,8 @@
 <a name="1.1.1-0dev"></a>
 ## 1.1.1-0dev (unreleased)
 
-  * Set to version 1.1.1-0dev
+  ### Fixes:
+  * Language picker displays selected language correctly
 
 
 <a name="1.1"></a>
