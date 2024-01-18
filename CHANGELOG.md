@@ -1,3 +1,9 @@
+<a name="1.1.1-0dev"></a>
+## 1.1.1-0dev (unreleased)
+
+  * Set to version 1.1.1-0dev
+
+
 <a name="1.1"></a>
 ## 1.1 (2024-01-11)
 

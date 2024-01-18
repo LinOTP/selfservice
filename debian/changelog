@@ -1,3 +1,9 @@
+linotp-selfservice (1.1.1~0dev-1) buster; urgency=medium
+
+  * Set to version 1.1.1~0dev
+
+ -- LinOTP Packaging <packaging@linotp.de>  Fri, 15 Jan 2024 11:11:11 +0200
+
 linotp-selfservice (1.1-1) buster; urgency=medium
 
   Features:
