@@ -25,7 +25,6 @@ export class TokenListComponent implements OnInit, OnDestroy {
   public tokens: SelfserviceToken[];
   public permissionsLoaded: boolean;
   private subscription = new Subscription();
-  tokenLimitsLoaded: boolean = false
   loaded = false
 
   isUserLocked: boolean = false
@@ -61,7 +60,6 @@ export class TokenListComponent implements OnInit, OnDestroy {
 
     this.subscription.add(tokenLimitsReady$.subscribe(([tokens, limits]) => {
       this.tokenLimitsService.setTokenLimits({ tokenLimits: limits, tokens });
-      this.tokenLimitsLoaded = true
       this.loaded = true
 
       const context = new AuthLockedEvaluatorContextInfo(this.selfServiceContextService.context)

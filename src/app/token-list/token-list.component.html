@@ -47,7 +47,6 @@
 <ng-template #enrollAlternative>
   <section id="enrollAlternativeTokenSection"
            *ngxPermissionsOnly="enrollmentPermissions">
-    <ng-container *ngIf="tokenLimitsLoaded">
       <h2 i18n>Set up a new authentication method</h2>
       <ng-container *ngIf="!tokenLimitsService.maxTokenLimitReached;else tokenLimitReachedTmp">
         <p i18n>The following authentication methods are available:</p>
@@ -57,7 +56,6 @@
           tokens enrolled</p>
         <app-enrollment-grid></app-enrollment-grid>
       </ng-container>
-    </ng-container>
   </section>
 </ng-template>
 
@@ -65,7 +63,6 @@
   <section id="enrollFirstTokenSection"
            *ngxPermissionsOnly="enrollmentPermissions; else emptyState">
     <h2 i18n>Set up your first authentication method</h2>
-    <ng-container *ngIf="tokenLimitsLoaded">
       <ng-container *ngIf="!tokenLimitsService.maxTokenLimitReached;else tokenLimitReachedTmp">
         <p i18n>
           You currently do not have any authentication method set up.
@@ -73,7 +70,6 @@
         </p>
         <app-enrollment-grid> </app-enrollment-grid>
       </ng-container>
-    </ng-container>
   </section>
   <ng-template #emptyState>
     <section id="emptyStateSection">
