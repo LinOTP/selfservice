@@ -89,11 +89,30 @@ A multi stage [Dockerfile](Dockerfile) is provided to build the sources in the f
 
 The build container needs access to the linotp NPM repository, including a TLS trust chain. Please retrieve the required certificate via `step ca root > linotp.de.pem` in the root dir of the repository.
 
+The build container also needs a CI token to access the NPM package
+repository on `gitbox.corp.linotp.de`. This will be passed
+automatically when the container is built within the Gitlab CI
+infrastructure; for local builds, you can find this under “Settings »
+CI/CD » Variables” in the project, and pass it as a `--build-arg` to
+`docker build`.
+
 You can run the container build afterwards by executing the following command:
 
 ```bash
-docker build -t linotp-selfservice .
+docker build --build-arg NPM_CI_TOKEN=… -t linotp-selfservice .
 ```
+
+By default, the application is available under `/selfservice`. This
+can be changed by rebuilding the container with something like
+`--build-arg URL_PATH=/foo` (to have it appear under `/foo`). Specify
+`--build-arg=` (empty) to make it available on `/` inside the
+container.
+
+Also by default, the web server inside the container runs on TCP
+port 8000. This can be changed at run time by passing, e.g., `-e
+SERVER_PORT=1234` (to use TCP port 1234). You can also use the
+`--port` option of `docker run` to remap any port (within reason) on
+the outside to port 8000 inside the container.
 
 ### Debian
 
