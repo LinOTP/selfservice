@@ -1,9 +1,9 @@
-linotp-selfservice (1.1.1~0dev-1) buster; urgency=medium
+linotp-selfservice (1.1.1-1) buster; urgency=medium
 
   Fixes:
   * Language picker displays selected language correctly
 
- -- LinOTP Packaging <packaging@linotp.de>  Fri, 15 Jan 2024 11:11:11 +0200
+ -- LinOTP Packaging <packaging@linotp.de>  Thu, 18 Jan 2024 11:11:11 +0200
 
 linotp-selfservice (1.1-1) buster; urgency=medium
 

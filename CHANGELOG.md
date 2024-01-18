@@ -1,5 +1,5 @@
-<a name="1.1.1-0dev"></a>
-## 1.1.1-0dev (unreleased)
+<a name="1.1.1"></a>
+## 1.1.1 (2024-01-18)
 
   ### Fixes:
   * Language picker displays selected language correctly
