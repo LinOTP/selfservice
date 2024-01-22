@@ -4,6 +4,7 @@
 @use '../app/app.component.theme.scss' as app-root;
 @use '../app/history/history.component.theme.scss' as history;
 @use '../app/keyboard-key/keyboard-key.component.theme.scss' as keyboard-key;
+@use '../app/token-list/token-list.component.theme.scss' as token-list;
 @use './themes/light.scss' as light-theme;
 @use './themes/dark.scss' as dark-theme;
 
@@ -15,6 +16,7 @@
   @include login.theme($theme);
   @include app-root.theme($theme);
   @include history.theme($theme);
+  @include token-list.theme($theme);
 }
 
 // custom components theming that should be applied to all light themes

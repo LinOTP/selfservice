@@ -92,6 +92,7 @@ export interface UserSystemInfo extends SystemInfo {
     edit_sms?: number,
     edit_email?: number,
   };
+  actions: string[];
 }
 
 const locales = [

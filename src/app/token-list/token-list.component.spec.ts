@@ -252,6 +252,21 @@ describe('TokenListComponent', () => {
     expect(page.getmaxTokenLimitReachedElement()).toBeFalsy();
   });
 
+  it('should show warning when user is locked', () => {
+    tokenService.getTokens.and.returnValue(of(getTokenLimitReachedMock()));
+    component.isUserLocked = true;
+    fixture.detectChanges();
+    const message = fixture.nativeElement.querySelector('.warning-info');
+    expect(message).toBeTruthy();
+  })
+
+  it('should not show warning when user is not locked', () => {
+    tokenService.getTokens.and.returnValue(of(getTokenLimitReachedMock()));
+    component.isUserLocked = false;
+    fixture.detectChanges();
+    const message = fixture.nativeElement.querySelector('.warning-info');
+    expect(message).toBeFalsy();
+  })
 });
 
 function getTokenLimitsMock() {

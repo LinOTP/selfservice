@@ -78,12 +78,20 @@
           <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="6690607970102542115" datatype="html">
+        <source>You don't have any active tokens at this point and MFA is enabled for Selfservice. If you logout now, you won't be able to login anymore.</source>
+        <target state="new">Sie haben derzeit keine aktiven Tokens und die Zwei-Faktor-Authentifizierung (MFA) ist für den Selfservice aktiviert. Wenn Sie sich jetzt abmelden, können Sie sich nicht mehr anmelden.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="8468364889555062049" datatype="html">
         <source>Pending actions</source>
         <target state="translated">Ausstehende Aktionen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4946805480915739699" datatype="html">
@@ -91,7 +99,7 @@
         <target state="translated">Die folgenden Token erfordern weitere Aktionen und sind noch nicht aktiv:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3107803689151641000" datatype="html">
@@ -99,7 +107,7 @@
         <target state="translated">Aktive Authentisierungsmethoden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3411241422554668048" datatype="html">
@@ -107,7 +115,7 @@
         <target state="translated">Die folgenden Token stehen zur Authentifizierung bereit:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4260610291595924684" datatype="html">
@@ -115,7 +123,7 @@
         <target state="translated">Deaktivierte Authentisierungsmethoden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5295419025009706699" datatype="html">
@@ -123,7 +131,7 @@
         <target state="translated">Die folgenden Token sind deaktiviert und können nicht verwendet werden:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">29</context>
+          <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit>
       <trans-unit id="860629738331841971" datatype="html">
@@ -131,7 +139,7 @@
         <target state="translated">Neue Authentisierungsmethode einrichten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">43</context>
+          <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
       <trans-unit id="756843365210969611" datatype="html">
@@ -139,7 +147,7 @@
         <target state="translated">Folgende Authentisierungsmethoden sind verfügbar:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">45</context>
+          <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6658544261788045440" datatype="html">
@@ -148,7 +156,7 @@
         <target state="new"><x id="INTERPOLATION" equiv-text="{{tokenLimitsService.allTokensLimit?.count}}"/> von <x id="INTERPOLATION_1" equiv-text="{{tokenLimitsService.allTokensLimit?.maxTokens}}"/> erlaubten Token eingerichtet</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">48,49</context>
+          <context context-type="linenumber">55</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6878496995398742279" datatype="html">
@@ -156,7 +164,7 @@
         <target state="translated">Richten Sie ihre erste Authentisierungsmethode ein</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">59</context>
+          <context context-type="linenumber">65</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7322562688613305864" datatype="html">
@@ -170,7 +178,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">62</context>
+          <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6003663429247880609" datatype="html">
@@ -178,7 +186,7 @@
         <target state="translated">Keine Aktionen verfügbar</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">72</context>
+          <context context-type="linenumber">76</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2918437642000683021" datatype="html">
@@ -188,7 +196,7 @@
         Kontaktieren Sie bitte ihren Administrator.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">73</context>
+          <context context-type="linenumber">77</context>
         </context-group>
       </trans-unit>
       <trans-unit id="158435493271081311" datatype="html">
@@ -196,7 +204,7 @@
         <target state="new">Maximale Token-Anzahl</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">84</context>
+          <context context-type="linenumber">88</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6629820311006518717" datatype="html">
@@ -210,7 +218,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">85,89</context>
+          <context context-type="linenumber">89</context>
         </context-group>
       </trans-unit>
       <trans-unit id="302027271687522215" datatype="html">
@@ -624,7 +632,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">94</context>
+          <context context-type="linenumber">96</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2115592966120408375" datatype="html">
@@ -1462,31 +1470,31 @@
         <target state="translated">mOTP-PIN festgeleft</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">111</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="8722855815848907513" datatype="html">
-        <source>Delete token?</source>
-        <target state="translated">Token löschen?</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">120</context>
+          <context context-type="linenumber">113</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4708953392121513581" datatype="html">
         <source>You won't be able to use it to authenticate yourself anymore.</source>
         <target state="translated">Sie können den Token dann nicht mehr zum Authentisieren benutzen.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">121</context>
+          <context context-type="sourcefile">src/app/common/delete-token-dialog/delete-token-dialog.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3464328799417537617" datatype="html">
+        <source>Yes, I am sure I want to delete this token!</source>
+        <target state="new">Ja, ich bin sicher, dass ich dieses Token löschen möchte!</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/delete-token-dialog/delete-token-dialog.component.html</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2456043080471762298" datatype="html">
         <source>delete</source>
         <target state="translated">Löschen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">122</context>
+          <context context-type="sourcefile">src/app/common/delete-token-dialog/delete-token-dialog.component.html</context>
+          <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1866069951520401039" datatype="html">
@@ -1494,7 +1502,7 @@
         <target state="translated">Token gelöscht</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">135</context>
+          <context context-type="linenumber">126</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4008739768562434154" datatype="html">
@@ -1502,31 +1510,60 @@
         <target state="translated">Token aktiviert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">146</context>
+          <context context-type="linenumber">137</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6308551073215344882" datatype="html">
         <source>Disable token?</source>
         <target state="translated">Token deaktivieren?</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">159</context>
+          <context context-type="sourcefile">src/app/common/disable-token-dialog/disable-token-dialog.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="620800659890795168" datatype="html">
+        <source>Yes, I am sure I want to disable this token!</source>
+        <target state="new">Ja, ich bin sicher, dass ich dieses Token deaktivieren möchte!</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/disable-token-dialog/disable-token-dialog.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4002944058495459066" datatype="html">
+        <source>This is your last active token and MFA is enabled for Selfservice.
+        If you disable it without enrolling a new token or enabling a disabled token, you won't be able to login anymore.
+      </source>
+        <target state="new">Das ist Ihr letztes aktives Token und die Zwei-Faktor-Authentifizierung (MFA) ist für den Selfservice aktiviert. Wenn Sie es deaktivieren, ohne ein neues einzurichten oder ein deaktiviertes Token zu aktivieren, werden Sie sich nicht mehr anmelden können.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/disable-token-dialog/disable-token-dialog.component.html</context>
+          <context context-type="linenumber">17,19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1884416795170139071" datatype="html">
+        <source>You won't be able to enable this token it on your own. You won't have any active tokens and MFA is enabled for this service.
+          Without enrolling a new token you won't be able to login anymore. Are you sure you want to disable it ?
+        </source>
+        <target state="new">"Sie werden dieses Token nicht eigenständig aktivieren können. Sie werden keine aktiven Tokens haben und die Zwei-Faktor-Authentifizierung (MFA) ist für diesen Dienst aktiviert. Ohne ein neues Token zu registrieren, werden Sie sich nicht mehr anmelden können. Sind Sie sicher, dass Sie es deaktivieren möchten?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/disable-token-dialog/disable-token-dialog.component.html</context>
+          <context context-type="linenumber">22,24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4369510444544321374" datatype="html">
         <source>You will not be able to use it to authenticate yourself anymore, as you cannot enable it on your own.</source>
         <target state="translated">Sie können den Token dann nicht mehr zum Authentisieren benutzen, da Sie ihn selbst nicht mehr aktivieren können.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">160</context>
+          <context context-type="sourcefile">src/app/common/disable-token-dialog/disable-token-dialog.component.html</context>
+          <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8056364825023681713" datatype="html">
         <source>disable</source>
         <target state="translated">deaktivieren</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">161</context>
+          <context context-type="sourcefile">src/app/common/disable-token-dialog/disable-token-dialog.component.html</context>
+          <context context-type="linenumber">42</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8880521633761794673" datatype="html">
@@ -1534,31 +1571,55 @@
         <target state="translated">Token deaktiviert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">171</context>
+          <context context-type="linenumber">150</context>
         </context-group>
       </trans-unit>
       <trans-unit id="446006585605027355" datatype="html">
         <source>Unassign token?</source>
         <target state="translated">Tokenzuweisung aufheben?</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">207</context>
+          <context context-type="sourcefile">src/app/common/unassign-token-dialog/unassign-token-dialog.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4974834426364698247" datatype="html">
+        <source>You don't have any active tokens and MFA is enabled for this service. Are you sure you want to unassign it?</source>
+        <target state="new">>Sie haben keine aktiven Tokens und die Zwei-Faktor-Authentifizierung (MFA) ist für diesen Dienst aktiviert. Sind Sie sicher, dass Sie die Tokenzuweisung aufheben möchten?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/unassign-token-dialog/unassign-token-dialog.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1941300482648531876" datatype="html">
+        <source>This is your last active token and MFA is enabled for Selfservice. If you unassign it without enrolling a new token or enabling a disabled token, you won't be able to login anymore.</source>
+        <target state="new">Das ist Ihr letztes aktives Token und die Zwei-Faktor-Authentifizierung (MFA) ist für den Selfservice aktiviert. Wenn Sie die Tokenzuweisung aufheben, ohne ein neues einzurichten oder ein deaktiviertes Token zu aktivieren, werden Sie sich nicht mehr anmelden können.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/unassign-token-dialog/unassign-token-dialog.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="144746917207768642" datatype="html">
+        <source>Yes, I am sure I want to unassign this token!</source>
+        <target state="new">Ja, ich bin sicher, dass ich diese Tokenzuweisung aufheben möchte!</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/unassign-token-dialog/unassign-token-dialog.component.html</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8186005700224234900" datatype="html">
         <source>You won't be able to use this token to authenticate yourself anymore.</source>
         <target state="translated">Sie können diesen Token dann nicht mehr zum Authentisieren benutzen.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">208</context>
+          <context context-type="sourcefile">src/app/common/unassign-token-dialog/unassign-token-dialog.component.html</context>
+          <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2187232391313376887" datatype="html">
         <source>unassign</source>
         <target state="translated">Tokenzuweisung aufheben</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">209</context>
+          <context context-type="sourcefile">src/app/common/unassign-token-dialog/unassign-token-dialog.component.html</context>
+          <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4177408952342860105" datatype="html">
@@ -1566,7 +1627,7 @@
         <target state="translated">Tokenzuweisung aufgehoben</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">222</context>
+          <context context-type="linenumber">191</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4946413545988796244" datatype="html">
@@ -1574,7 +1635,7 @@
         <target state="translated">Fehlerzähler zurückgesetz</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">245</context>
+          <context context-type="linenumber">214</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8590151770059972300" datatype="html">
@@ -1582,7 +1643,7 @@
         <target state="translated">Token wurde synchronisiert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">262</context>
+          <context context-type="linenumber">231</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3303402949376740921" datatype="html">
@@ -1590,7 +1651,7 @@
         <target state="translated">Beschreibung wurde geändert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">279</context>
+          <context context-type="linenumber">248</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3024891378452195539" datatype="html">
@@ -1815,7 +1876,7 @@
         <target state="translated">Beim Starten des Token-Tests ist ein Problem aufgetreten.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.ts</context>
-          <context context-type="linenumber">77</context>
+          <context context-type="linenumber">78</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8056557436410153258" datatype="html">
@@ -1823,7 +1884,7 @@
         <target state="translated">Bitte warten Sie einige Zeit und versuchen Sie es später erneut, oder kontaktieren Sie einen Administrator.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.ts</context>
-          <context context-type="linenumber">78</context>
+          <context context-type="linenumber">79</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3991264252930827391" datatype="html">
@@ -1831,7 +1892,7 @@
         <target state="translated">Test fehlgeschlagen. Bitte versuchen Sie es erneut, oder kontaktieren Sie einen Administrator.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.ts</context>
-          <context context-type="linenumber">140</context>
+          <context context-type="linenumber">143</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1648472582356305138" datatype="html">
@@ -1976,8 +2037,20 @@
         <source>cancel</source>
         <target state="translated">abbrechen</target>
         <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/delete-token-dialog/delete-token-dialog.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/dialog/dialog.component.html</context>
           <context context-type="linenumber">9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/disable-token-dialog/disable-token-dialog.component.html</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/unassign-token-dialog/unassign-token-dialog.component.html</context>
+          <context context-type="linenumber">29</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
@@ -3018,6 +3091,30 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/auth/auth-interceptor.service.ts</context>
           <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8722855815848907513" datatype="html">
+        <source>Delete token?</source>
+        <target state="new">Token löschen?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/delete-token-dialog/delete-token-dialog.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1339278914437856909" datatype="html">
+        <source>You don't have any active tokens and MFA is enabled for this service. Are you sure you want to delete it?</source>
+        <target state="new">Sie haben keine aktiven Tokens und die Zwei-Faktor-Authentifizierung (MFA) ist für diesen Dienst aktiviert. Sind Sie sicher, dass Sie es löschen möchten?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/delete-token-dialog/delete-token-dialog.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6456395169710906205" datatype="html">
+        <source>This is your last active token and MFA is enabled for Selfservice. If you delete it without enrolling a new token or enabling a disabled token, you won't be able to login anymore.</source>
+        <target state="new">Das ist Ihr letztes aktives Token und die Zwei-Faktor-Authentifizierung (MFA) ist für den Selfservice aktiviert. Wenn Sie es löschen, ohne ein neues einzurichten oder ein deaktiviertes Token zu aktivieren, werden Sie sich nicht mehr anmelden können.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/delete-token-dialog/delete-token-dialog.component.html</context>
+          <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1208537117090464409" datatype="html">

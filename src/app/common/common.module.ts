@@ -24,7 +24,11 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { QRCodeComponent } from './qr-code/qr-code.component';
 
 import { ButtonWaitIndicatorComponent } from '@app/button-wait-indicator/button-wait-indicator.component';
+import { DeleteTokenDialogComponent } from './delete-token-dialog/delete-token-dialog.component';
+import { DisableTokenDialogComponent } from './disable-token-dialog/disable-token-dialog.component';
 import { FocusOnInitDirective } from './focus-on-init/focus-on-init.directive';
+import { LockableActionDialogContentComponent } from './lockable-action-dialog-content/lockable-action-dialog.content.component';
+import { UnassignTokenDialogComponent } from './unassign-token-dialog/unassign-token-dialog.component';
 
 
 @NgModule({
@@ -51,6 +55,10 @@ import { FocusOnInitDirective } from './focus-on-init/focus-on-init.directive';
     CapitalizePipe,
     FocusOnInitDirective,
     ButtonWaitIndicatorComponent,
+    DeleteTokenDialogComponent,
+    UnassignTokenDialogComponent,
+    DisableTokenDialogComponent,
+    LockableActionDialogContentComponent
   ],
   providers: [
     NotificationService,
@@ -65,6 +73,7 @@ import { FocusOnInitDirective } from './focus-on-init/focus-on-init.directive';
     CapitalizePipe,
     FocusOnInitDirective,
     ButtonWaitIndicatorComponent,
+    DeleteTokenDialogComponent
   ]
 })
 export class NgSelfServiceCommonModule { }

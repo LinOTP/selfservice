@@ -1,0 +1,14 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+@mixin theme($theme) {
+    $color-config: mat.get-color-config($theme);
+    $warn-palette: map.get($color-config, 'warn');
+
+    app-token-list {
+      .warning-info {
+        background: mat.get-color-from-palette($warn-palette, 700);
+				color:white;
+      }
+    }
+}

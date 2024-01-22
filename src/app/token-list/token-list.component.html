@@ -1,4 +1,4 @@
-<section *ngIf="!tokens; else content"
+<section *ngIf="!loaded; else content"
          class="loading"
          id="loadingTokensSection">
   <mat-spinner></mat-spinner>
@@ -6,6 +6,14 @@
 </section>
 
 <ng-template #content>
+  <ng-container *ngIf="isUserLocked">
+    <div class="warning-info">
+      <div>
+        <mat-icon>error</mat-icon>
+      </div>
+      <p i18n>You don't have any active tokens at this point and MFA is enabled for Selfservice. If you logout now, you won't be able to login anymore.</p>
+    </div>
+  </ng-container>
   <section id="pendingSection"
            *ngIf="tokens && tokens | unreadyTokens | arrayNotEmpty">
     <h2 i18n>Pending actions</h2>
@@ -39,7 +47,6 @@
 <ng-template #enrollAlternative>
   <section id="enrollAlternativeTokenSection"
            *ngxPermissionsOnly="enrollmentPermissions">
-    <ng-container *ngIf="tokenLimitsLoaded">
       <h2 i18n>Set up a new authentication method</h2>
       <ng-container *ngIf="!tokenLimitsService.maxTokenLimitReached;else tokenLimitReachedTmp">
         <p i18n>The following authentication methods are available:</p>
@@ -49,7 +56,6 @@
           tokens enrolled</p>
         <app-enrollment-grid></app-enrollment-grid>
       </ng-container>
-    </ng-container>
   </section>
 </ng-template>
 
@@ -57,7 +63,6 @@
   <section id="enrollFirstTokenSection"
            *ngxPermissionsOnly="enrollmentPermissions; else emptyState">
     <h2 i18n>Set up your first authentication method</h2>
-    <ng-container *ngIf="tokenLimitsLoaded">
       <ng-container *ngIf="!tokenLimitsService.maxTokenLimitReached;else tokenLimitReachedTmp">
         <p i18n>
           You currently do not have any authentication method set up.
@@ -65,7 +70,6 @@
         </p>
         <app-enrollment-grid> </app-enrollment-grid>
       </ng-container>
-    </ng-container>
   </section>
   <ng-template #emptyState>
     <section id="emptyStateSection">

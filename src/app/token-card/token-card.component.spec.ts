@@ -2,7 +2,7 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { of } from 'rxjs/internal/observable/of';
 
 import { Fixtures } from '@testing/fixtures';
@@ -10,12 +10,11 @@ import { TestingPage } from '@testing/page-helper';
 import { getInjectedStub, spyOnClass } from '@testing/spyOnClass';
 
 import { OperationsService } from '@api/operations.service';
-import { EnrollmentStatus } from '@api/token';
+import { EnrollmentStatus, SelfserviceToken } from '@api/token';
 import { ActivateDialogComponent } from '@app/activate/activate-dialog.component';
 import { LoginService } from '@app/login/login.service';
 import { MaterialModule } from '@app/material.module';
 import { TestDialogComponent } from '@app/test/test-dialog.component';
-import { DialogComponent } from '@common/dialog/dialog.component';
 import { NotificationService } from '@common/notification.service';
 import { ModifyTokenPermissions, Permission } from '@common/permissions';
 import { CapitalizePipe } from '@common/pipes/capitalize.pipe';
@@ -24,6 +23,7 @@ import { SetDescriptionDialogComponent } from '@common/set-description-dialog/se
 import { SetMOTPPinDialogComponent } from '@common/set-motp-pin-dialog/set-motp-pin-dialog.component';
 import { SetPinDialogComponent } from '@common/set-pin-dialog/set-pin-dialog.component';
 
+import { LockableTokenActionsService } from '@app/common/lockable-token-dialogs.service';
 import { TokenCardComponent } from './token-card.component';
 
 class Page extends TestingPage<TokenCardComponent> {
@@ -47,7 +47,6 @@ describe('TokenCardComponent', () => {
   let loginService: jasmine.SpyObj<LoginService>;
   const hasPermissionSubject = new BehaviorSubject(true);
   let tokenUpdateSpy: jasmine.Spy;
-
   let page: Page;
   let expectedDialogConfig;
 
@@ -78,9 +77,18 @@ describe('TokenCardComponent', () => {
           provide: LoginService,
           useValue: spyOnClass(LoginService),
         },
+
       ]
-    })
-      .compileComponents();
+    }).overrideComponent(TokenCardComponent, {
+      set: {
+        providers: [
+          {
+            provide: LockableTokenActionsService,
+            useValue: new LockableTokenActionsServiceStub()
+          }
+        ]
+      }
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -226,7 +234,6 @@ describe('TokenCardComponent', () => {
   describe('token deletion', () => {
 
     it('should notify user of deletion', fakeAsync(() => {
-      matDialog.open.and.returnValue({ afterClosed: () => of(true) } as MatDialogRef<DialogComponent>);
       operationsService.deleteToken.and.returnValue(of(true));
 
       component.token = Fixtures.activeHotpToken;
@@ -238,7 +245,7 @@ describe('TokenCardComponent', () => {
     }));
 
     it('should not notify user if deletion is cancelled', fakeAsync(() => {
-      matDialog.open.and.returnValue({ afterClosed: () => of(false) } as MatDialogRef<DialogComponent>);
+      getLockableTokenActionsService(component).getDeleteConfirmation = () => of(false);
 
       component.token = Fixtures.activeHotpToken;
       component.delete();
@@ -248,7 +255,6 @@ describe('TokenCardComponent', () => {
     }));
 
     it('should issue an update event after deletion', fakeAsync(() => {
-      matDialog.open.and.returnValue({ afterClosed: () => of(true) } as MatDialogRef<DialogComponent>);
       operationsService.deleteToken.and.returnValue(of(true));
 
       component.token = Fixtures.activeHotpToken;
@@ -260,23 +266,21 @@ describe('TokenCardComponent', () => {
 
 
     it('should delete the token if confirmed', fakeAsync(() => {
-      matDialog.open.and.returnValue({ afterClosed: () => of(true) } as MatDialogRef<DialogComponent>);
+      getLockableTokenActionsService(component).getDeleteConfirmation = () => of(true);
 
       component.token = Fixtures.activeHotpToken;
       component.delete();
       tick();
 
-      expect(matDialog.open).toHaveBeenCalledTimes(1);
       expect(operationsService.deleteToken).toHaveBeenCalledWith(Fixtures.activeHotpToken.serial);
     }));
 
     it('should not delete the token if confirmation is cancelled', fakeAsync(() => {
-      matDialog.open.and.returnValue({ afterClosed: () => of(false) } as MatDialogRef<DialogComponent>);
+      getLockableTokenActionsService(component).getDeleteConfirmation = () => of(false);
 
       component.delete();
       tick();
 
-      expect(matDialog.open).toHaveBeenCalledTimes(1);
       expect(operationsService.deleteToken).not.toHaveBeenCalled();
     }));
   });
@@ -334,7 +338,6 @@ describe('TokenCardComponent', () => {
 
     it('without enable permissions should disable if the user confirmed the action', fakeAsync(() => {
       hasPermissionSubject.next(false);
-      matDialog.open.and.returnValue({ afterClosed: () => of(true) } as MatDialogRef<DialogComponent>);
       operationsService.disable.and.returnValue(of(true));
       component.token = Fixtures.activeHotpToken;
       tick();
@@ -348,7 +351,7 @@ describe('TokenCardComponent', () => {
 
     it('without enable permissions should not disable if the user did not confirmed the action', fakeAsync(() => {
       hasPermissionSubject.next(false);
-      matDialog.open.and.returnValue({ afterClosed: () => of(false) } as MatDialogRef<DialogComponent>);
+      getLockableTokenActionsService(component).getDisableConfirmation = () => of(false);
       component.token = Fixtures.activeHotpToken;
       tick();
 
@@ -362,25 +365,14 @@ describe('TokenCardComponent', () => {
   });
 
   describe('unassign token', () => {
-    const config = {
-      width: '35em',
-      data:
-      {
-        title: 'Unassign token?',
-        text: 'You won\'t be able to use this token to authenticate yourself anymore.',
-        confirmationLabel: 'unassign'
-      }
-    };
-
     it('should notify user of successful unassignment', fakeAsync(() => {
-      matDialog.open.and.returnValue({ afterClosed: () => of(true) } as MatDialogRef<DialogComponent>);
+      getLockableTokenActionsService(component).getUnassignConfirmation = () => of(true);
       operationsService.unassignToken.and.returnValue(of(true));
 
       component.token = Fixtures.activeHotpToken;
       component.unassign();
       tick();
 
-      expect(matDialog.open).toHaveBeenCalledWith(DialogComponent, config);
       expect(operationsService.unassignToken).toHaveBeenCalledWith(Fixtures.activeHotpToken.serial);
       expect(notificationService.message).toHaveBeenCalledTimes(1);
       expect(notificationService.message).toHaveBeenCalledWith('Token unassigned');
@@ -388,26 +380,24 @@ describe('TokenCardComponent', () => {
     }));
 
     it('should not update token list on failed unassignment', fakeAsync(() => {
-      matDialog.open.and.returnValue({ afterClosed: () => of(true) } as MatDialogRef<DialogComponent>);
+      getLockableTokenActionsService(component).getUnassignConfirmation = () => of(true);
       operationsService.unassignToken.and.returnValue(of(false));
 
       component.token = Fixtures.activeHotpToken;
       component.unassign();
       tick();
 
-      expect(matDialog.open).toHaveBeenCalledWith(DialogComponent, config);
       expect(operationsService.unassignToken).toHaveBeenCalledWith(Fixtures.activeHotpToken.serial);
       expect(tokenUpdateSpy).toHaveBeenCalledTimes(0);
     }));
 
     it('should not notify user if unassignment is cancelled', fakeAsync(() => {
-      matDialog.open.and.returnValue({ afterClosed: () => of(false) } as MatDialogRef<DialogComponent>);
+      getLockableTokenActionsService(component).getUnassignConfirmation = () => of(false);
 
       component.token = Fixtures.activeHotpToken;
       component.unassign();
       tick();
 
-      expect(matDialog.open).toHaveBeenCalledWith(DialogComponent, config);
       expect(notificationService.message).not.toHaveBeenCalled();
       expect(tokenUpdateSpy).not.toHaveBeenCalled();
     }));
@@ -640,3 +630,24 @@ describe('TokenCardComponent', () => {
   });
 
 });
+
+
+function getLockableTokenActionsService(component: TokenCardComponent): LockableTokenActionsService {
+  return component['lockableTokenActionsService'] as LockableTokenActionsService;
+}
+
+
+class LockableTokenActionsServiceStub {
+
+  getDisableConfirmation(token: SelfserviceToken, canEnable: boolean): Observable<any> {
+    return of(true);
+  }
+
+  getDeleteConfirmation(token: SelfserviceToken): Observable<any> {
+    return of(true);
+  }
+
+  getUnassignConfirmation(token: SelfserviceToken): Observable<any> {
+    return of(true);
+  }
+}
