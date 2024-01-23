@@ -1,7 +1,18 @@
 <a name="1.2-0dev"></a>
 ## 1.2-0dev (unreleased)
 
-  * Set to version 1.2-0dev
+  ### Features:
+  * Users get warned and have to confirm their action, if that action would prevent them from logging into the Selfservice.
+  * Display number of enrolled tokens.
+  * Display the number of remaining tokens that the user is still allowed to enroll.
+  * Users are prevented from enrolling a token, if the token limit has been reached. They're informed instead.
+  * Harmonize form behaviour. E.g. all forms can now be submitted by pressing the `enter` key.
+  * Error messages and notifications have different styles
+  * Dockerfile has been improved in outlook of LinOTPs containerization
+
+  ### Dependencies
+  * Update to Angular 16
+  * Update to Node 18.18
 
 <a name="1.1.1"></a>
 ## 1.1.1 (2024-01-18)
