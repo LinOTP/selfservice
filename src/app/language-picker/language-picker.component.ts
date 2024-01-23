@@ -12,7 +12,8 @@ export class LanguagePickerComponent implements OnInit {
   public locales: { id: string, name: string, shortName: string }[];
 
   public get selectedLocale() {
-    return this.locales.find(l => l.id === this.selectedLocaleId);
+    const baseLanguageCode = this.selectedLocaleId.split('-')[0];
+    return this.locales.find(l => l.id === baseLanguageCode);
   }
 
   constructor(

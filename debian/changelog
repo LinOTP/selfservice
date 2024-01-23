@@ -4,7 +4,14 @@ linotp-selfservice (1.2~0dev-1) buster; urgency=medium
 
  -- LinOTP Packaging <packaging@linotp.de>  Thu, 16 Nov 2023 12:00:00 +0200
 
-linotp-selfservice (1.1~rc0-1) buster; urgency=medium
+linotp-selfservice (1.1.1-1) buster; urgency=medium
+
+  Fixes:
+  * Language picker displays selected language correctly
+
+ -- LinOTP Packaging <packaging@linotp.de>  Thu, 18 Jan 2024 11:11:11 +0200
+
+linotp-selfservice (1.1-1) buster; urgency=medium
 
   Features:
   * Dark-Mode based on browser/user preference.
@@ -12,14 +19,16 @@ linotp-selfservice (1.1~rc0-1) buster; urgency=medium
   * Refined interfaces.
 
   Fixes:
+  * Deep-linking to enrollment page for unauthenticated user after login
+  * Logged in users are redirected from login page to token list
   * Apache config workaround for customization no longer needed with lseappliance 3.0.2.
-  * testing a token via the tokens actions menu opens test dialog correctly.
+  * Testing a token via the tokens actions menu opens test dialog correctly.
 
   Dependencies
   * Update to Angular 15
   * Update to Node 14.21.1
 
- -- LinOTP Packaging <packaging@linotp.de>  Thu, 16 Nov 2023 12:00:00 +0200
+ -- LinOTP Packaging <packaging@linotp.de>  Fri, 12 Jan 2024 08:00:00 +0200
 
 linotp-selfservice (1.0-1) buster; urgency=medium
 

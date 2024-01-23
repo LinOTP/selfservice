@@ -3,8 +3,15 @@
 
   * Set to version 1.2-0dev
 
-<a name="1.1rc0"></a>
-## 1.1rc0 (2023-11-16)
+<a name="1.1.1"></a>
+## 1.1.1 (2024-01-18)
+
+  ### Fixes:
+  * Language picker displays selected language correctly
+
+
+<a name="1.1"></a>
+## 1.1 (2024-01-11)
 
   ### Features:
   * Dark-Mode based on browser/user preference.
@@ -12,12 +19,15 @@
   * Refined interfaces.
 
   ### Fixes:
+  * Deep-linking to enrollment page for unauthenticated user after login
+  * Logged in users are redirected from login page to token list
   * Apache config workaround for customization no longer needed with lseappliance 3.0.2.
-  * testing a token via the tokens actions menu opens test dialog correctly.
+  * Testing a token via the tokens actions menu opens test dialog correctly.
 
   ### Dependencies
   * Update to Angular 15
   * Update to Node 14.21.1
+
 
 <a name="1.0"></a>
 ## 1.0 (2021-07-01)
