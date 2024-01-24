@@ -1,10 +1,28 @@
 <a name="1.2-0dev"></a>
 ## 1.2-0dev (unreleased)
 
-  * Set to version 1.2-0dev
+  ### Features:
+  * Users get warned and have to confirm their action, if that action would prevent them from logging into the Selfservice.
+  * Display number of enrolled tokens.
+  * Display the number of remaining tokens that the user is still allowed to enroll.
+  * Users are prevented from enrolling a token, if the token limit has been reached. They're informed instead.
+  * Harmonize form behaviour. E.g. all forms can now be submitted by pressing the `enter` key.
+  * Error messages and notifications have different styles
+  * Dockerfile has been improved in outlook of LinOTPs containerization
 
-<a name="1.1rc0"></a>
-## 1.1rc0 (2023-11-16)
+  ### Dependencies
+  * Update to Angular 16
+  * Update to Node 18.18
+
+<a name="1.1.1"></a>
+## 1.1.1 (2024-01-18)
+
+  ### Fixes:
+  * Language picker displays selected language correctly
+
+
+<a name="1.1"></a>
+## 1.1 (2024-01-11)
 
   ### Features:
   * Dark-Mode based on browser/user preference.
@@ -12,12 +30,15 @@
   * Refined interfaces.
 
   ### Fixes:
+  * Deep-linking to enrollment page for unauthenticated user after login
+  * Logged in users are redirected from login page to token list
   * Apache config workaround for customization no longer needed with lseappliance 3.0.2.
-  * testing a token via the tokens actions menu opens test dialog correctly.
+  * Testing a token via the tokens actions menu opens test dialog correctly.
 
   ### Dependencies
   * Update to Angular 15
   * Update to Node 14.21.1
+
 
 <a name="1.0"></a>
 ## 1.0 (2021-07-01)
