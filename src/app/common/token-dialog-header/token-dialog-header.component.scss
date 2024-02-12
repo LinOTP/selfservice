@@ -1,0 +1,35 @@
+// Component uses ViewEncapsulation.None !
+app-token-dialog-header {
+    .mat-mdc-dialog-title {
+        margin-bottom: 0px;
+    }
+    .wrapper {
+        margin-bottom: 16px;
+        font-size: 16px;
+        padding: 0 24px;
+        font-size:14px;
+    }
+
+    .token-title {
+        font-weight: 500;
+        font-size: 16px;
+    }
+
+    .top-row {
+        display: flex;
+        align-items: center;
+    }
+
+    .token-icon {
+        margin-right: 16px;
+    }
+
+    .desc {
+        color: var(--mat-card-subtitle-text-color);
+    }
+
+    .serial-desc {
+        margin-top: 5px;
+    }
+}
+

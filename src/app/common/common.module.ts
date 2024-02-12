@@ -28,6 +28,7 @@ import { DeleteTokenDialogComponent } from './delete-token-dialog/delete-token-d
 import { DisableTokenDialogComponent } from './disable-token-dialog/disable-token-dialog.component';
 import { FocusOnInitDirective } from './focus-on-init/focus-on-init.directive';
 import { LockableActionDialogContentComponent } from './lockable-action-dialog-content/lockable-action-dialog.content.component';
+import { TokenDialogHeaderComponent } from './token-dialog-header/token-dialog-header.component';
 import { UnassignTokenDialogComponent } from './unassign-token-dialog/unassign-token-dialog.component';
 
 
@@ -58,7 +59,8 @@ import { UnassignTokenDialogComponent } from './unassign-token-dialog/unassign-t
     DeleteTokenDialogComponent,
     UnassignTokenDialogComponent,
     DisableTokenDialogComponent,
-    LockableActionDialogContentComponent
+    LockableActionDialogContentComponent,
+    TokenDialogHeaderComponent
   ],
   providers: [
     NotificationService,
@@ -73,7 +75,8 @@ import { UnassignTokenDialogComponent } from './unassign-token-dialog/unassign-t
     CapitalizePipe,
     FocusOnInitDirective,
     ButtonWaitIndicatorComponent,
-    DeleteTokenDialogComponent
+    DeleteTokenDialogComponent,
+    TokenDialogHeaderComponent
   ]
 })
 export class NgSelfServiceCommonModule { }
