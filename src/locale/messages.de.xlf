@@ -304,7 +304,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">60</context>
+          <context context-type="linenumber">63</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4420541910473083025" datatype="html">
@@ -372,7 +372,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-description-dialog/set-description-dialog.component.html</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1246872154163320950" datatype="html">
@@ -488,7 +488,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">54</context>
+          <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5009157571879213849" datatype="html">
@@ -500,7 +500,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">62</context>
+          <context context-type="linenumber">65</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1420113530219253027" datatype="html">
@@ -692,7 +692,7 @@
         <target state="translated">Token-Beschreibung</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-description-dialog/set-description-dialog.component.html</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="linenumber">10</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
@@ -794,15 +794,15 @@
         <target state="translated">Abbrechen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/activate/activate-dialog.component.html</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">38</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/activate/activate-dialog.component.html</context>
-          <context context-type="linenumber">66</context>
+          <context context-type="linenumber">69</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/activate/activate-dialog.component.html</context>
-          <context context-type="linenumber">85</context>
+          <context context-type="linenumber">88</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/get-serial-dialog/get-serial-dialog.component.html</context>
@@ -810,19 +810,19 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/resync-dialog/resync-dialog.component.html</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">32</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-description-dialog/set-description-dialog.component.html</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">22</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-motp-pin-dialog/set-motp-pin-dialog.component.html</context>
-          <context context-type="linenumber">33</context>
+          <context context-type="linenumber">35</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.html</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">32</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
@@ -1031,7 +1031,7 @@
         <target state="translated">PIN vergeben</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.html</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">37</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
@@ -1478,7 +1478,7 @@
         <target state="translated">Sie können den Token dann nicht mehr zum Authentisieren benutzen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/delete-token-dialog/delete-token-dialog.component.html</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3464328799417537617" datatype="html">
@@ -1486,7 +1486,7 @@
         <target state="new">Ja, ich bin sicher, dass ich dieses Token löschen möchte!</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/delete-token-dialog/delete-token-dialog.component.html</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2456043080471762298" datatype="html">
@@ -1494,7 +1494,7 @@
         <target state="translated">Löschen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/delete-token-dialog/delete-token-dialog.component.html</context>
-          <context context-type="linenumber">32</context>
+          <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1866069951520401039" datatype="html">
@@ -1518,7 +1518,7 @@
         <target state="translated">Token deaktivieren?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/disable-token-dialog/disable-token-dialog.component.html</context>
-          <context context-type="linenumber">1</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="620800659890795168" datatype="html">
@@ -1526,7 +1526,7 @@
         <target state="new">Ja, ich bin sicher, dass ich dieses Token deaktivieren möchte!</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/disable-token-dialog/disable-token-dialog.component.html</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4002944058495459066" datatype="html">
@@ -1536,7 +1536,7 @@
         <target state="new">Das ist Ihr letztes aktives Token und die Zwei-Faktor-Authentifizierung (MFA) ist für den Selfservice aktiviert. Wenn Sie es deaktivieren, ohne ein neues einzurichten oder ein deaktiviertes Token zu aktivieren, werden Sie sich nicht mehr anmelden können.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/disable-token-dialog/disable-token-dialog.component.html</context>
-          <context context-type="linenumber">17,19</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1884416795170139071" datatype="html">
@@ -1547,7 +1547,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/disable-token-dialog/disable-token-dialog.component.html</context>
-          <context context-type="linenumber">22,24</context>
+          <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4369510444544321374" datatype="html">
@@ -1555,7 +1555,7 @@
         <target state="translated">Sie können den Token dann nicht mehr zum Authentisieren benutzen, da Sie ihn selbst nicht mehr aktivieren können.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/disable-token-dialog/disable-token-dialog.component.html</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8056364825023681713" datatype="html">
@@ -1563,7 +1563,7 @@
         <target state="translated">deaktivieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/disable-token-dialog/disable-token-dialog.component.html</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8880521633761794673" datatype="html">
@@ -1579,7 +1579,7 @@
         <target state="translated">Tokenzuweisung aufheben?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/unassign-token-dialog/unassign-token-dialog.component.html</context>
-          <context context-type="linenumber">1</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4974834426364698247" datatype="html">
@@ -1587,7 +1587,7 @@
         <target state="new">>Sie haben keine aktiven Tokens und die Zwei-Faktor-Authentifizierung (MFA) ist für diesen Dienst aktiviert. Sind Sie sicher, dass Sie die Tokenzuweisung aufheben möchten?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/unassign-token-dialog/unassign-token-dialog.component.html</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1941300482648531876" datatype="html">
@@ -1595,7 +1595,7 @@
         <target state="new">Das ist Ihr letztes aktives Token und die Zwei-Faktor-Authentifizierung (MFA) ist für den Selfservice aktiviert. Wenn Sie die Tokenzuweisung aufheben, ohne ein neues einzurichten oder ein deaktiviertes Token zu aktivieren, werden Sie sich nicht mehr anmelden können.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/unassign-token-dialog/unassign-token-dialog.component.html</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
       <trans-unit id="144746917207768642" datatype="html">
@@ -1603,7 +1603,7 @@
         <target state="new">Ja, ich bin sicher, dass ich diese Tokenzuweisung aufheben möchte!</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/unassign-token-dialog/unassign-token-dialog.component.html</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8186005700224234900" datatype="html">
@@ -1611,7 +1611,7 @@
         <target state="translated">Sie können diesen Token dann nicht mehr zum Authentisieren benutzen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/unassign-token-dialog/unassign-token-dialog.component.html</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2187232391313376887" datatype="html">
@@ -1619,7 +1619,7 @@
         <target state="translated">Tokenzuweisung aufheben</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/unassign-token-dialog/unassign-token-dialog.component.html</context>
-          <context context-type="linenumber">34</context>
+          <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4177408952342860105" datatype="html">
@@ -1657,6 +1657,10 @@
       <trans-unit id="3024891378452195539" datatype="html">
         <source>Serial: <x id="INTERPOLATION" equiv-text="{{ token.serial }}"/></source>
         <target state="translated">Seriennummer: <x id="INTERPOLATION" equiv-text="{{ token.serial }}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/token-dialog-header/token-dialog-header.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.html</context>
           <context context-type="linenumber">19</context>
@@ -1780,7 +1784,7 @@
         <target state="translated">Synchronisieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/resync-dialog/resync-dialog.component.html</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">37</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.html</context>
@@ -1876,7 +1880,7 @@
         <target state="translated">Beim Starten des Token-Tests ist ein Problem aufgetreten.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.ts</context>
-          <context context-type="linenumber">78</context>
+          <context context-type="linenumber">82</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8056557436410153258" datatype="html">
@@ -1884,7 +1888,7 @@
         <target state="translated">Bitte warten Sie einige Zeit und versuchen Sie es später erneut, oder kontaktieren Sie einen Administrator.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.ts</context>
-          <context context-type="linenumber">79</context>
+          <context context-type="linenumber">83</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3991264252930827391" datatype="html">
@@ -1892,7 +1896,7 @@
         <target state="translated">Test fehlgeschlagen. Bitte versuchen Sie es erneut, oder kontaktieren Sie einen Administrator.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.ts</context>
-          <context context-type="linenumber">143</context>
+          <context context-type="linenumber">147</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1648472582356305138" datatype="html">
@@ -1932,7 +1936,7 @@
         <target state="translated"><x id="INTERPOLATION" equiv-text="{{ typeDetails.name }}"/> <x id="INTERPOLATION_1" equiv-text="{{ data.token.serial }}"/> testen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">6</context>
+          <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7654549295112383915" datatype="html">
@@ -1944,7 +1948,7 @@
           </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2049084266554992934" datatype="html">
@@ -1956,7 +1960,7 @@
           </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7268576778453562645" datatype="html">
@@ -1968,7 +1972,7 @@
           </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">32</context>
+          <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9055586857967972921" datatype="html">
@@ -1982,7 +1986,7 @@
           </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4401713843513862355" datatype="html">
@@ -1990,7 +1994,7 @@
         <target state="translated">Das Passwortfeld darf nicht leer sein</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">78</context>
+          <context context-type="linenumber">81</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2796561682066076383" datatype="html">
@@ -1998,7 +2002,7 @@
         <target state="translated">Das OTP-Feld darf nicht leer sein</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">80</context>
+          <context context-type="linenumber">83</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2830158497769011008" datatype="html">
@@ -2006,7 +2010,7 @@
         <target state="translated">Test erfolgreich. Sie dürfen sich mit Ihrem Token authentifizieren.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">95</context>
+          <context context-type="linenumber">98</context>
         </context-group>
       </trans-unit>
       <trans-unit id="518519257823560430" datatype="html">
@@ -2018,7 +2022,7 @@
           </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">88</context>
+          <context context-type="linenumber">91</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3518350047321747341" datatype="html">
@@ -2030,7 +2034,7 @@
           </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">92</context>
+          <context context-type="linenumber">95</context>
         </context-group>
       </trans-unit>
       <trans-unit id="503445309622982213" datatype="html">
@@ -2038,7 +2042,7 @@
         <target state="translated">abbrechen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/delete-token-dialog/delete-token-dialog.component.html</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">29</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/dialog/dialog.component.html</context>
@@ -2046,15 +2050,15 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/disable-token-dialog/disable-token-dialog.component.html</context>
-          <context context-type="linenumber">37</context>
+          <context context-type="linenumber">39</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/unassign-token-dialog/unassign-token-dialog.component.html</context>
-          <context context-type="linenumber">29</context>
+          <context context-type="linenumber">31</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">110</context>
+          <context context-type="linenumber">113</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8633952349281134557" datatype="html">
@@ -2062,7 +2066,7 @@
         <target state="translated">Test neustarten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">118</context>
+          <context context-type="linenumber">121</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9150895953971730874" datatype="html">
@@ -2070,7 +2074,7 @@
         <target state="translated">absenden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">124</context>
+          <context context-type="linenumber">127</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6608890834230007808" datatype="html">
@@ -2078,7 +2082,7 @@
         <target state="translated">abschließen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">131</context>
+          <context context-type="linenumber">134</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4651123397383097469" datatype="html">
@@ -2092,7 +2096,7 @@
       </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/activate/activate-dialog.component.html</context>
-          <context context-type="linenumber">9</context>
+          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7153621432448190031" datatype="html">
@@ -2100,7 +2104,7 @@
         <target state="translated">PIN oder Passwort</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/activate/activate-dialog.component.html</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3782032378744480682" datatype="html">
@@ -2112,7 +2116,7 @@
       </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/activate/activate-dialog.component.html</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4145836858636734888" datatype="html">
@@ -2120,7 +2124,7 @@
         <target state="translated"><x id="INTERPOLATION" equiv-text="{{ typeDetails.name }}"/> <x id="INTERPOLATION_1" equiv-text="{{ data.token.serial }}"/> aktivieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/activate/activate-dialog.component.html</context>
-          <context context-type="linenumber">2</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8794088121742735030" datatype="html">
@@ -2128,7 +2132,7 @@
         <target state="translated">Aktivierungsschritt 1 von 3</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/activate/activate-dialog.component.html</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4759723562137600498" datatype="html">
@@ -2136,7 +2140,7 @@
         <target state="translated">Aktivieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/activate/activate-dialog.component.html</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">43</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.ts</context>
@@ -2148,7 +2152,7 @@
         <target state="translated">Warte auf Bestätigung für die Test-Transaktion per Authenticator App.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/activate/activate-dialog.component.html</context>
-          <context context-type="linenumber">53</context>
+          <context context-type="linenumber">56</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7178302298930277596" datatype="html">
@@ -2156,7 +2160,7 @@
         <target state="translated">Scannen Sie den untenstehenden QR-Code mit der Authenticator App ein, um Ihr Token zu aktivieren:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/activate/activate-dialog.component.html</context>
-          <context context-type="linenumber">57</context>
+          <context context-type="linenumber">60</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8705026084450868861" datatype="html">
@@ -2164,7 +2168,7 @@
         <target state="translated">Aktivierungsschritt 2 von 3</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/activate/activate-dialog.component.html</context>
-          <context context-type="linenumber">62</context>
+          <context context-type="linenumber">65</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9056515417300890389" datatype="html">
@@ -2172,7 +2176,7 @@
         <target state="translated">Aktivierungsschritt 3 von 3</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/activate/activate-dialog.component.html</context>
-          <context context-type="linenumber">80</context>
+          <context context-type="linenumber">83</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8670178980823910890" datatype="html">
@@ -2180,7 +2184,7 @@
         <target state="translated">Aktivierung fehlgeschlagen. Bitte versuchen Sie es erneut, oder kontaktieren Sie einen Administrator. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/activate/activate-dialog.component.html</context>
-          <context context-type="linenumber">74</context>
+          <context context-type="linenumber">77</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1740975975675556540" datatype="html">
@@ -2188,7 +2192,7 @@
         <target state="translated"> Die Aktivierung war erfolgreich. Ihr Token ist betriebsbereit. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/activate/activate-dialog.component.html</context>
-          <context context-type="linenumber">76</context>
+          <context context-type="linenumber">79</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3331471394886887711" datatype="html">
@@ -2196,7 +2200,7 @@
         <target state="translated"> Aktivierung neustarten </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/activate/activate-dialog.component.html</context>
-          <context context-type="linenumber">90</context>
+          <context context-type="linenumber">93</context>
         </context-group>
       </trans-unit>
       <trans-unit id="65984904390749158" datatype="html">
@@ -2204,7 +2208,7 @@
         <target state="translated">Beenden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/activate/activate-dialog.component.html</context>
-          <context context-type="linenumber">95</context>
+          <context context-type="linenumber">98</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3721290787289107571" datatype="html">
@@ -2390,23 +2394,23 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/resync-dialog/resync-dialog.component.html</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">17</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/resync-dialog/resync-dialog.component.html</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">25</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-description-dialog/set-description-dialog.component.html</context>
-          <context context-type="linenumber">14</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/common/set-motp-pin-dialog/set-motp-pin-dialog.component.html</context>
           <context context-type="linenumber">16</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-motp-pin-dialog/set-motp-pin-dialog.component.html</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/set-motp-pin-dialog/set-motp-pin-dialog.component.html</context>
+          <context context-type="linenumber">27</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
@@ -2616,7 +2620,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.ts</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8612534928653419038" datatype="html">
@@ -2628,7 +2632,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.ts</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7576435564439636809" datatype="html">
@@ -2636,7 +2640,7 @@
         <target state="translated">Neue Token-PIN festlegen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.html</context>
-          <context context-type="linenumber">2</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3884713207892396207" datatype="html">
@@ -2644,7 +2648,7 @@
         <target state="translated">Dies stellt sicher, dass nur Sie Ihren Token verwenden können.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.html</context>
-          <context context-type="linenumber">6</context>
+          <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1968008926412620990" datatype="html">
@@ -2653,7 +2657,7 @@
         <target state="translated">Bei der Authentifizierung benötigen Sie diese PIN gegebenenfalls zusätzlich zu dem Token-OTP.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.html</context>
-          <context context-type="linenumber">7</context>
+          <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
       <trans-unit id="127382592332405183" datatype="html">
@@ -2661,11 +2665,11 @@
         <target state="translated">Die eingegebenen PINs sind nicht gleich</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-motp-pin-dialog/set-motp-pin-dialog.component.html</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">29</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.html</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6287334326586741831" datatype="html">
@@ -2673,7 +2677,7 @@
         <target state="translated">mOTP-PIN vergeben</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-motp-pin-dialog/set-motp-pin-dialog.component.html</context>
-          <context context-type="linenumber">38</context>
+          <context context-type="linenumber">40</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3720441502365232593" datatype="html">
@@ -2681,7 +2685,7 @@
         <target state="translated">Neue mOTP-PIN festlegen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-motp-pin-dialog/set-motp-pin-dialog.component.html</context>
-          <context context-type="linenumber">2</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2526169685251802541" datatype="html">
@@ -2690,7 +2694,7 @@
         <target state="translated">Diese wird verwendet, um OTPs zu erzeugen, die nur Sie kennen. Wenn Sie die PIN hier ändern, müssen Sie sie auch auf Ihrem Gerät ändern.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-motp-pin-dialog/set-motp-pin-dialog.component.html</context>
-          <context context-type="linenumber">7</context>
+          <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8342376090028380466" datatype="html">
@@ -2698,7 +2702,7 @@
         <target state="translated">Token synchronisieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/resync-dialog/resync-dialog.component.html</context>
-          <context context-type="linenumber">2</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2056107510809500647" datatype="html">
@@ -2706,7 +2710,7 @@
         <target state="translated">Generieren Sie zwei OTP-Werte und geben Sie sie unten ein:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/resync-dialog/resync-dialog.component.html</context>
-          <context context-type="linenumber">7</context>
+          <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8341846506878422470" datatype="html">
@@ -2714,7 +2718,7 @@
         <target state="translated">OTP 1</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/resync-dialog/resync-dialog.component.html</context>
-          <context context-type="linenumber">9</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2252820920279424972" datatype="html">
@@ -2722,7 +2726,7 @@
         <target state="translated">OTP 2</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/resync-dialog/resync-dialog.component.html</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8499841762185576300" datatype="html">
@@ -2730,7 +2734,7 @@
         <target state="translated">Beschreibung ändern</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-description-dialog/set-description-dialog.component.html</context>
-          <context context-type="linenumber">2</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7032768658797469569" datatype="html">
@@ -2738,7 +2742,7 @@
         <target state="translated">Vergeben Sie Ihrem Token eine neue Beschreibung:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-description-dialog/set-description-dialog.component.html</context>
-          <context context-type="linenumber">6</context>
+          <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6637240627424008984" datatype="html">
@@ -3070,7 +3074,7 @@
         <target state="translated">Fehler: <x id="PH" equiv-text="operation"/>. Bitte versuchen Sie es erneut, oder kontaktieren Sie einen Administrator</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/operations.service.ts</context>
-          <context context-type="linenumber">221</context>
+          <context context-type="linenumber">222</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.service.ts</context>
@@ -3098,7 +3102,7 @@
         <target state="new">Token löschen?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/delete-token-dialog/delete-token-dialog.component.html</context>
-          <context context-type="linenumber">1</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1339278914437856909" datatype="html">
@@ -3106,7 +3110,7 @@
         <target state="new">Sie haben keine aktiven Tokens und die Zwei-Faktor-Authentifizierung (MFA) ist für diesen Dienst aktiviert. Sind Sie sicher, dass Sie es löschen möchten?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/delete-token-dialog/delete-token-dialog.component.html</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6456395169710906205" datatype="html">
@@ -3114,7 +3118,7 @@
         <target state="new">Das ist Ihr letztes aktives Token und die Zwei-Faktor-Authentifizierung (MFA) ist für den Selfservice aktiviert. Wenn Sie es löschen, ohne ein neues einzurichten oder ein deaktiviertes Token zu aktivieren, werden Sie sich nicht mehr anmelden können.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/delete-token-dialog/delete-token-dialog.component.html</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1208537117090464409" datatype="html">
@@ -3122,7 +3126,7 @@
         <target state="translated">Token konnte nicht gelöscht werden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/operations.service.ts</context>
-          <context context-type="linenumber">52</context>
+          <context context-type="linenumber">53</context>
         </context-group>
       </trans-unit>
       <trans-unit id="670386584317518550" datatype="html">
@@ -3130,7 +3134,7 @@
         <target state="translated">Token-PIN konnte nicht festgelegt werden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/operations.service.ts</context>
-          <context context-type="linenumber">72</context>
+          <context context-type="linenumber">73</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6042965735071656061" datatype="html">
@@ -3138,7 +3142,7 @@
         <target state="translated">mOTP-PIN konnte nicht festgelegt werden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/operations.service.ts</context>
-          <context context-type="linenumber">96</context>
+          <context context-type="linenumber">97</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2746812153335654397" datatype="html">
@@ -3146,7 +3150,7 @@
         <target state="translated">Tokenaktivierung fehlgeschlagen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/operations.service.ts</context>
-          <context context-type="linenumber">115</context>
+          <context context-type="linenumber">116</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3441888096266717214" datatype="html">
@@ -3154,7 +3158,7 @@
         <target state="translated">Tokendeaktivierung fehlgeschlagen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/operations.service.ts</context>
-          <context context-type="linenumber">134</context>
+          <context context-type="linenumber">135</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2048255442982939971" datatype="html">
@@ -3162,7 +3166,7 @@
         <target state="translated">Fehlzähler konnte nicht zurückgesetzt werden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/operations.service.ts</context>
-          <context context-type="linenumber">153</context>
+          <context context-type="linenumber">154</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6030798773826845047" datatype="html">
@@ -3170,7 +3174,7 @@
         <target state="translated">Token konnte nicht synchronisiert werden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/operations.service.ts</context>
-          <context context-type="linenumber">174</context>
+          <context context-type="linenumber">175</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2767278450351234403" datatype="html">
@@ -3178,7 +3182,7 @@
         <target state="translated">Beschreibung konnte nicht geändert werden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/operations.service.ts</context>
-          <context context-type="linenumber">196</context>
+          <context context-type="linenumber">197</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4902853502096630439" datatype="html">
@@ -3186,7 +3190,7 @@
         <target state="translated">Aufhebung der Tokenzuweisung fehlgeschlagen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/operations.service.ts</context>
-          <context context-type="linenumber">215</context>
+          <context context-type="linenumber">216</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2298729618719165042" datatype="html">

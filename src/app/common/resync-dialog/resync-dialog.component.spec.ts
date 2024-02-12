@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { of } from 'rxjs';
 
@@ -11,6 +11,7 @@ import { spyOnClass } from '@testing/spyOnClass';
 import { OperationsService } from '@api/operations.service';
 import { MaterialModule } from '@app/material.module';
 
+import { MockComponent } from '@testing/mock-component';
 import { ResyncDialogComponent } from './resync-dialog.component';
 
 class Page extends TestingPage<ResyncDialogComponent> {
@@ -35,7 +36,10 @@ describe('ResyncDialogComponent', () => {
         FormsModule,
         ReactiveFormsModule,
       ],
-      declarations: [ResyncDialogComponent],
+      declarations: [
+        ResyncDialogComponent,
+        MockComponent({ selector: 'app-token-dialog-header', inputs: ['token'] }),
+      ],
       providers: [
         {
           provide: MatDialogRef,

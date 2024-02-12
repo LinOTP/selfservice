@@ -157,7 +157,7 @@ export class TokenCardComponent implements OnInit, OnDestroy {
       width: '850px',
       autoFocus: false,
       disableClose: true,
-      data: { serial: this.token.serial, type: this.token.typeDetails.type }
+      data: { serial: this.token.serial, type: this.token.typeDetails.type, token: this.token }
     };
 
     this.dialog.open(TestDialogComponent, dialogConfig)
@@ -170,7 +170,7 @@ export class TokenCardComponent implements OnInit, OnDestroy {
       width: '850px',
       autoFocus: false,
       disableClose: true,
-      data: { serial: this.token.serial, type: this.token.typeDetails.type }
+      data: { serial: this.token.serial, type: this.token.typeDetails.type, token: this.token }
     };
 
     this.dialog.open(ActivateDialogComponent, dialogConfig)

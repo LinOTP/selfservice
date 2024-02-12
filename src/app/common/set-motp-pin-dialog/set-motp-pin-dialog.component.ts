@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, ValidationErrors, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { OperationsService } from '@api/operations.service';
 import { SelfserviceToken } from '@api/token';
@@ -22,7 +22,7 @@ export class SetMOTPPinDialogComponent {
 
   constructor(
     private dialogRef: MatDialogRef<SetMOTPPinDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) private token: SelfserviceToken,
+    @Inject(MAT_DIALOG_DATA) public token: SelfserviceToken,
     private operationsService: OperationsService,
   ) {
     this.form = new UntypedFormGroup(

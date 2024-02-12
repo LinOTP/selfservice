@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 import { ReactiveFormsModule } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { MaterialModule } from "@app/material.module";
+import { MockComponent } from "@testing/mock-component";
 import { LockableActionDialogContentComponent } from "../lockable-action-dialog-content/lockable-action-dialog.content.component";
 import { DisableTokenDialogComponent } from "./disable-token-dialog.component";
 
@@ -13,7 +14,11 @@ describe('DisableTokenDialogComponent', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [CommonModule, MaterialModule, ReactiveFormsModule],
-      declarations: [DisableTokenDialogComponent, LockableActionDialogContentComponent],
+      declarations: [
+        DisableTokenDialogComponent,
+        LockableActionDialogContentComponent,
+        MockComponent({ selector: 'app-token-dialog-header', inputs: ['token'] }),
+      ],
       providers: [
         {
           provide: MatDialogRef,

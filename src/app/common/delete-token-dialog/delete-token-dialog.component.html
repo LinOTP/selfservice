@@ -1,4 +1,6 @@
-<h3 mat-dialog-title i18n>Delete token?</h3>
+<app-token-dialog-header [token]="token">
+  <h3 mat-dialog-title i18n>Delete token?</h3>
+</app-token-dialog-header>
 <mat-dialog-content>
     <ng-template #lockedMessageTmp>
       <p i18n>You don't have any active tokens and MFA is enabled for this service. Are you sure you want to delete it?</p>

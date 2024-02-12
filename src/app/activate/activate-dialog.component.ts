@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 
 import { of, Subscription } from 'rxjs';
@@ -8,7 +8,7 @@ import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { TokenType } from '@linotp/data-models';
 
 import { EnrollmentService } from '@api/enrollment.service';
-import { TokenDisplayData, tokenDisplayData } from '@api/token';
+import { SelfserviceToken, TokenDisplayData, tokenDisplayData } from '@api/token';
 
 @Component({
   selector: 'app-activate-dialog',
@@ -27,13 +27,14 @@ export class ActivateDialogComponent implements OnInit, OnDestroy {
   public pin = '';
 
   public typeDetails: TokenDisplayData;
+  public currentStep: number = 0;
 
   private pairingSubscription: Subscription;
 
   constructor(
     private enrollmentService: EnrollmentService,
     private dialogRef: MatDialogRef<ActivateDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { serial: string, type: TokenType },
+    @Inject(MAT_DIALOG_DATA) public data: { serial: string, type: TokenType, token?: SelfserviceToken },
   ) {
     if (data.type === TokenType.PUSH) {
       this.isPush = true;

@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 import { TokenType } from '@linotp/data-models';
 
 import { ReplyMode, StatusDetail, TestOptions, TestService, TransactionDetail } from '@api/test.service';
-import { TokenDisplayData, tokenDisplayData } from '@api/token';
+import { SelfserviceToken, TokenDisplayData, tokenDisplayData } from '@api/token';
 
 enum TestState {
   UNTESTED = 'untested',
@@ -48,8 +48,12 @@ export class TestDialogComponent implements OnInit, OnDestroy {
   @ViewChild('formDirective', { static: true })
   public formDirective: NgForm;
 
+  get token(): SelfserviceToken {
+    return this.data.token || null;
+  }
+
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: { serial: string, type: TokenType },
+    @Inject(MAT_DIALOG_DATA) public data: { serial: string, type: TokenType, token: SelfserviceToken | undefined },
     private testService: TestService,
     private formBuilder: UntypedFormBuilder,
   ) {

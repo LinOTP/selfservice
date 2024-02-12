@@ -1,5 +1,7 @@
-<h3 mat-dialog-title
-    i18n>Set a new token PIN</h3>
+<app-token-dialog-header [token]="token || null">
+  <h3 mat-dialog-title
+      i18n>Set a new token PIN</h3>
+</app-token-dialog-header>
 <form [formGroup]="form"
       (ngSubmit)="submit()">
   <mat-dialog-content>

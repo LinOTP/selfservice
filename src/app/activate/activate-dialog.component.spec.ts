@@ -43,6 +43,7 @@ describe('ActivateDialogComponent', () => {
       declarations: [
         ActivateDialogComponent,
         MockComponent({ selector: 'app-qr-code', inputs: ['qrUrl'] }),
+        MockComponent({ selector: 'app-token-dialog-header', inputs: ['token'] }),
       ],
       providers: [
         {
@@ -166,3 +167,4 @@ describe('ActivateDialogComponent', () => {
     expect(stepper.reset).toHaveBeenCalledTimes(1);
   });
 });
+
