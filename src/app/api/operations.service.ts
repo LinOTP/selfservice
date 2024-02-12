@@ -9,6 +9,7 @@ import { TokenType } from '@linotp/data-models';
 import { SessionService } from '@app/auth/session.service';
 import { NotificationService } from '@common/notification.service';
 
+import { EnrolledToken } from '@app/enroll/enroll-dialog-base.component';
 import { APIError, LinOTPResponse } from './api';
 import { SelfserviceToken } from './token';
 
@@ -53,7 +54,7 @@ export class OperationsService {
       );
   }
 
-  setPin(token: SelfserviceToken, pin: string): Observable<boolean> {
+  setPin(token: SelfserviceToken | EnrolledToken, pin: string): Observable<boolean> {
     const url = this.userserviceBase + this.userserviceEndpoints.setpin;
     const body = {
       userpin: pin,
