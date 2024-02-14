@@ -36,7 +36,7 @@
       <button mat-button
               (click)="close()"
               i18n>Cancel</button>
-      <button mat-button
+      <button mat-raised-button
               color="primary"
               id="goTo2"
               (click)="activateToken(stepper)"
@@ -86,13 +86,12 @@
                 (click)="close()"
                 *ngIf="restartDialog"
                 i18n>Cancel</button>
-        <button mat-button
+        <button mat-raised-button
                 color="primary"
                 (click)="resetDialogToInitial(stepper)"
                 *ngIf="restartDialog"
                 i18n> Restart activation </button>
         <button mat-button
-                color="primary"
                 (click)="close()"
                 *ngIf="!restartDialog"
                 i18n>Finish</button>
