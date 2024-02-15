@@ -1,0 +1,42 @@
+.google-play-badge {
+  width: 185px;
+  margin-top:-11px;
+  margin-bottom: -11px;
+  margin-left: -11px;
+}
+.app-store-badge {
+  width: 150px;
+}
+
+.all-platforms-container .app-store-badge {
+  margin-bottom: 10px;
+}
+
+.all-platforms-container .google-play-badge {
+  margin-bottom: 0px;
+  margin-left:0px;
+}
+
+.all-platforms-container {
+  display: flex;
+  justify-content: space-around;
+  div {
+    text-align: center;
+  }
+  padding:15px 0;
+
+  mat-card {
+    --mdc-outlined-card-container-shape: 15px;
+  }
+}
+
+.store-name {
+  margin-bottom: 10px;
+  display: block;
+}
+
+.mobile-container {
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
+}

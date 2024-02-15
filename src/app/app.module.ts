@@ -31,6 +31,7 @@ import { TestDialogComponent } from '@app/test/test-dialog.component';
 import { TokenCardComponent } from '@app/token-card/token-card.component';
 import { TokenListComponent } from '@app/token-list/token-list.component';
 import { NgSelfServiceCommonModule } from '@common/common.module';
+import { AuthenticatorLinksComponent } from './common/authenticator-links/authenticator-links.component';
 import { ThemePickerComponent } from './theme-picker/theme-picker.component';
 
 @NgModule({
@@ -68,6 +69,7 @@ import { ThemePickerComponent } from './theme-picker/theme-picker.component';
     NgSelfServiceCommonModule,
     AuthModule,
     NgxPermissionsModule.forRoot(),
+    AuthenticatorLinksComponent
   ],
   providers: [
     AppInitService,
