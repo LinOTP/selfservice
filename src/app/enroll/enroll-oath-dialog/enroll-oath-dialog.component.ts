@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { UntypedFormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 
 import { EnrollmentOptions } from '@api/token';
 import { EnrollDialogBaseComponent, EnrolledToken } from '@app/enroll/enroll-dialog-base.component';
+import { CurrentPlatform, PlatformProviderService } from '../../common/platform-provider.service';
 
 interface OATHEnrolledToken extends EnrolledToken {
   url: string;
@@ -13,7 +14,8 @@ interface OATHEnrolledToken extends EnrolledToken {
 @Component({
   selector: 'app-enroll-oath',
   templateUrl: './enroll-oath-dialog.component.html',
-  styleUrls: ['./enroll-oath-dialog.component.scss']
+  styleUrls: ['./enroll-oath-dialog.component.scss'],
+  providers: [PlatformProviderService]
 })
 export class EnrollOATHDialogComponent extends EnrollDialogBaseComponent implements OnInit {
 
@@ -23,11 +25,14 @@ export class EnrollOATHDialogComponent extends EnrollDialogBaseComponent impleme
   public enrollmentStep: UntypedFormGroup;
 
   public showDetails = false;
+  private platformProvider = inject(PlatformProviderService)
+  currentPlatform: CurrentPlatform = null
 
   public ngOnInit() {
     this.enrollmentStep = this.formBuilder.group({
       'description': [$localize`Created via SelfService`, Validators.required],
     });
+    this.currentPlatform = this.platformProvider.platform
     super.ngOnInit();
   }
 
