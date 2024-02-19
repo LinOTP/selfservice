@@ -35,6 +35,7 @@ describe('TestDialogComponent', () => {
       declarations: [
         TestDialogComponent,
         MockComponent({ selector: 'app-qr-code', inputs: ['qrUrl'] }),
+        MockComponent({ selector: 'app-token-dialog-header', inputs: ['token'] }),
       ],
       providers: [
         {

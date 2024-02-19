@@ -1,9 +1,10 @@
 import { Component, Inject } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, ValidationErrors } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { OperationsService } from '@api/operations.service';
 import { SelfserviceToken } from '@api/token';
+import { EnrolledToken } from '@app/enroll/enroll-dialog-base.component';
 import { ErrorStateRootMatcher } from '@common/form-helpers/error-state-root-matcher';
 
 @Component({
@@ -20,10 +21,18 @@ export class SetPinDialogComponent {
   public newPinPlaceholder = $localize`New PIN`;
   public confirmPinPlaceholder = $localize`Confirm your new PIN`;
 
+  get token() {
+    if (this._token instanceof SelfserviceToken) {
+      return this._token;
+    } else {
+      return null
+    }
+  }
+
   constructor(
     private dialogRef: MatDialogRef<SetPinDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) private token: SelfserviceToken,
     private operationsService: OperationsService,
+    @Inject(MAT_DIALOG_DATA) private _token: SelfserviceToken | EnrolledToken,
   ) {
     this.form = new UntypedFormGroup(
       {
@@ -55,7 +64,7 @@ export class SetPinDialogComponent {
   public submit() {
     if (!this.awaitingResponse && this.form.valid) {
       this.awaitingResponse = true;
-      this.operationsService.setPin(this.token, this.form.controls.newPin.value).subscribe((result) => {
+      this.operationsService.setPin(this._token, this.form.controls.newPin.value).subscribe((result) => {
         if (result) {
           this.dialogRef.close(true);
         } else {

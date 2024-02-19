@@ -1,0 +1,19 @@
+<ng-content></ng-content>
+<div class="wrapper" *ngIf="token">
+  <mat-card  appearance="outlined">
+    <mat-card-content>
+      <div class="top-row">
+        <div class="token-icon">
+          <mat-icon>{{token.typeDetails.icon}}</mat-icon>
+        </div>
+        <div>
+          <span class="token-title">{{token.typeDetails.name | capitalize}}</span>
+          <div class="desc">
+            <span>{{token.description}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="serial-desc" i18n>Serial: {{ token.serial }}</div>
+    </mat-card-content>
+  </mat-card>
+</div>

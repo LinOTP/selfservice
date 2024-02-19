@@ -26,6 +26,10 @@ export class DeleteTokenDialogComponent {
   }
   private _confirmationRequired: boolean = true
 
+  get token() {
+    return this.data.token
+  }
+
   constructor(
     public dialogRef: MatDialogRef<DeleteTokenDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { token: SelfserviceToken, lockingEvaluator: AuthLockedStatusEvaluator }

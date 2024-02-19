@@ -57,7 +57,8 @@ export class LockableTokenActionsService {
       injector: this.injector,
       data: {
         canEnable: canEnable,
-        confirmationRequired: willLock
+        confirmationRequired: willLock,
+        token
       }
     };
 

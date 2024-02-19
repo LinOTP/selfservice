@@ -1,6 +1,7 @@
 import { Component, Inject } from "@angular/core";
 import { FormControl, Validators } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { SelfserviceToken } from "@app/api/token";
 
 @Component({
   selector: 'app-disable-token-dialog',
@@ -27,7 +28,7 @@ export class DisableTokenDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<DisableTokenDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { canEnable: boolean, confirmationRequired: boolean }) {
+    @Inject(MAT_DIALOG_DATA) public data: { canEnable: boolean, confirmationRequired: boolean, token: SelfserviceToken }) {
     this.confirmationRequired = data.confirmationRequired
     this.canEnable = data.canEnable
   }

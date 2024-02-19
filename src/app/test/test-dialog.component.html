@@ -1,9 +1,12 @@
+
+<app-token-dialog-header [token]="token">
+  <h2 mat-dialog-title
+  i18n>Test {{ typeDetails.name }} {{ data.serial }}</h2>
+</app-token-dialog-header>
+
 <form [formGroup]="formGroup"
       (ngSubmit)="submit()"
       #formDirective="ngForm">
-
-  <h2 mat-dialog-title
-      i18n>Test {{ typeDetails.name }} {{ data.serial }}</h2>
 
 
   <mat-dialog-content>

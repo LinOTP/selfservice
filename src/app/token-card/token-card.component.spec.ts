@@ -408,6 +408,7 @@ describe('TokenCardComponent', () => {
       matDialog.open.and.returnValue({ afterClosed: () => of({}) } as MatDialogRef<ActivateDialogComponent>);
       expectedDialogConfig.data.serial = Fixtures.pairedPushToken.serial;
       expectedDialogConfig.data.type = Fixtures.pairedPushToken.typeDetails.type;
+      expectedDialogConfig.data.token = Fixtures.pairedPushToken;
 
       component.token = Fixtures.pairedPushToken;
       component.activate();
@@ -420,6 +421,7 @@ describe('TokenCardComponent', () => {
       matDialog.open.and.returnValue({ afterClosed: () => of({}) } as MatDialogRef<ActivateDialogComponent>);
       expectedDialogConfig.data.serial = Fixtures.pairedQRToken.serial;
       expectedDialogConfig.data.type = Fixtures.pairedQRToken.typeDetails.type;
+      expectedDialogConfig.data.token = Fixtures.pairedQRToken;
 
       component.token = Fixtures.pairedQRToken;
       component.activate();
@@ -545,7 +547,7 @@ describe('TokenCardComponent', () => {
         width: '850px',
         autoFocus: false,
         disableClose: true,
-        data: { serial: component.token.serial, type: component.token.typeDetails.type },
+        data: { serial: component.token.serial, type: component.token.typeDetails.type, token: component.token },
       };
 
       component.testToken();
