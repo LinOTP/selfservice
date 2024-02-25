@@ -9,6 +9,7 @@ import { spyOnClass } from '@testing/spyOnClass';
 import { TokenService } from '@api/token.service';
 import { MaterialModule } from '@app/material.module';
 
+import { MockComponent } from '@testing/mock-component';
 import { GetSerialDialogComponent } from './get-serial-dialog.component';
 
 describe('GetSerialDialogComponent', () => {
@@ -24,7 +25,10 @@ describe('GetSerialDialogComponent', () => {
         FormsModule,
         ReactiveFormsModule,
       ],
-      declarations: [GetSerialDialogComponent],
+      declarations: [
+        GetSerialDialogComponent,
+        MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] })
+      ],
       providers: [
         {
           provide: MatDialogRef,

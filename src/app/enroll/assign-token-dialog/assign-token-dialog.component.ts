@@ -48,6 +48,7 @@ export class AssignTokenDialogComponent extends EnrollDialogBaseComponent implem
   public getSerial() {
     this.dialog.open(GetSerialDialogComponent).afterClosed().subscribe(serial => {
       if (serial) {
+        this.notificationService.message($localize`Serial number retrieved.`);
         this.assignmentForm.controls.serial.setValue(serial);
         this.serialInput.nativeElement.focus();
       }

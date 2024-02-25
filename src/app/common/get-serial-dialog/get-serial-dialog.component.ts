@@ -11,7 +11,7 @@ import { TokenService } from '@api/token.service';
 })
 export class GetSerialDialogComponent {
 
-  private awaitingResponse = false;
+  awaitingResponse = false;
   public form: UntypedFormGroup;
 
 

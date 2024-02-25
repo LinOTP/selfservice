@@ -13,7 +13,7 @@ import { ErrorStateRootMatcher } from '@common/form-helpers/error-state-root-mat
 })
 export class SetMOTPPinDialogComponent {
 
-  private awaitingResponse = false;
+  awaitingResponse = false;
   public matcher = new ErrorStateRootMatcher();
   public form: UntypedFormGroup;
 

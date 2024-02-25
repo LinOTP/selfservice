@@ -33,7 +33,7 @@ export class TestDialogComponent implements OnInit, OnDestroy {
   public testResult: boolean;
   public challResult: StatusDetail;
   public errorMessage: string;
-  private awaitingResponse = false;
+  public awaitingResponse = false;
 
   public formGroup: UntypedFormGroup;
 

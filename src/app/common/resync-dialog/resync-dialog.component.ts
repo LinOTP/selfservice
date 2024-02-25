@@ -12,7 +12,7 @@ import { SelfserviceToken } from '@api/token';
 })
 export class ResyncDialogComponent {
 
-  private awaitingResponse = false;
+  awaitingResponse = false;
   public form: UntypedFormGroup;
 
   constructor(

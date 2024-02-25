@@ -123,8 +123,12 @@
             color="primary"
             type="submit"
             [disabled]="preventSubmit()"
-            *ngIf="state === TestState.UNTESTED && hasOfflineMode"
-            i18n>submit</button>
+            *ngIf="state === TestState.UNTESTED && hasOfflineMode">
+            <div class="button-content">
+              <app-button-wait-indicator [show]="awaitingResponse"></app-button-wait-indicator>
+              <span i18n>submit</span>
+            </div>
+    </button>
     <button mat-raised-button
             type="button"
             color="primary"

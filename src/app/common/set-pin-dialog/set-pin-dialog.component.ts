@@ -14,7 +14,7 @@ import { ErrorStateRootMatcher } from '@common/form-helpers/error-state-root-mat
 })
 export class SetPinDialogComponent {
 
-  private awaitingResponse = false;
+  awaitingResponse = false;
   public matcher = new ErrorStateRootMatcher();
   public form: UntypedFormGroup;
 

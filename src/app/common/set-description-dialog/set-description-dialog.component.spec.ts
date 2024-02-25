@@ -30,6 +30,7 @@ describe('SetDecriptionDialogComponent', () => {
       declarations: [
         SetDescriptionDialogComponent,
         MockComponent({ selector: 'app-token-dialog-header', inputs: ['token'] }),
+        MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] })
       ],
       providers: [
         {
