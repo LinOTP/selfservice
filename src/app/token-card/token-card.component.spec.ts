@@ -234,7 +234,7 @@ describe('TokenCardComponent', () => {
   describe('token deletion', () => {
 
     it('should notify user of deletion', fakeAsync(() => {
-      operationsService.deleteToken.and.returnValue(of(true));
+      getLockableTokenActionsService(component).getDeleteConfirmation = () => of(true);
 
       component.token = Fixtures.activeHotpToken;
       component.delete();
@@ -255,33 +255,13 @@ describe('TokenCardComponent', () => {
     }));
 
     it('should issue an update event after deletion', fakeAsync(() => {
-      operationsService.deleteToken.and.returnValue(of(true));
-
-      component.token = Fixtures.activeHotpToken;
-      component.delete();
-      tick();
-
-      expect(tokenUpdateSpy).toHaveBeenCalledTimes(1);
-    }));
-
-
-    it('should delete the token if confirmed', fakeAsync(() => {
       getLockableTokenActionsService(component).getDeleteConfirmation = () => of(true);
 
       component.token = Fixtures.activeHotpToken;
       component.delete();
       tick();
 
-      expect(operationsService.deleteToken).toHaveBeenCalledWith(Fixtures.activeHotpToken.serial);
-    }));
-
-    it('should not delete the token if confirmation is cancelled', fakeAsync(() => {
-      getLockableTokenActionsService(component).getDeleteConfirmation = () => of(false);
-
-      component.delete();
-      tick();
-
-      expect(operationsService.deleteToken).not.toHaveBeenCalled();
+      expect(tokenUpdateSpy).toHaveBeenCalledTimes(1);
     }));
   });
 
@@ -313,7 +293,7 @@ describe('TokenCardComponent', () => {
 
     it('should notify user after success and emit token list update', fakeAsync(() => {
       hasPermissionSubject.next(true);
-      operationsService.disable.and.returnValue(of(true));
+      getLockableTokenActionsService(component).getDisableConfirmation = () => of(true);
       component.token = Fixtures.activeHotpToken;
       tick();
 
@@ -326,7 +306,7 @@ describe('TokenCardComponent', () => {
 
     it('should not emit token list update after failure', fakeAsync(() => {
       hasPermissionSubject.next(true);
-      operationsService.disable.and.returnValue(of(false));
+      getLockableTokenActionsService(component).getDisableConfirmation = () => of(false);
       component.token = Fixtures.activeHotpToken;
       tick();
 
@@ -338,7 +318,7 @@ describe('TokenCardComponent', () => {
 
     it('without enable permissions should disable if the user confirmed the action', fakeAsync(() => {
       hasPermissionSubject.next(false);
-      operationsService.disable.and.returnValue(of(true));
+      getLockableTokenActionsService(component).getDisableConfirmation = () => of(true);
       component.token = Fixtures.activeHotpToken;
       tick();
 
@@ -367,27 +347,23 @@ describe('TokenCardComponent', () => {
   describe('unassign token', () => {
     it('should notify user of successful unassignment', fakeAsync(() => {
       getLockableTokenActionsService(component).getUnassignConfirmation = () => of(true);
-      operationsService.unassignToken.and.returnValue(of(true));
 
       component.token = Fixtures.activeHotpToken;
       component.unassign();
       tick();
 
-      expect(operationsService.unassignToken).toHaveBeenCalledWith(Fixtures.activeHotpToken.serial);
       expect(notificationService.message).toHaveBeenCalledTimes(1);
       expect(notificationService.message).toHaveBeenCalledWith('Token unassigned');
       expect(tokenUpdateSpy).toHaveBeenCalledTimes(1);
     }));
 
     it('should not update token list on failed unassignment', fakeAsync(() => {
-      getLockableTokenActionsService(component).getUnassignConfirmation = () => of(true);
-      operationsService.unassignToken.and.returnValue(of(false));
+      getLockableTokenActionsService(component).getUnassignConfirmation = () => of(false);
 
       component.token = Fixtures.activeHotpToken;
       component.unassign();
       tick();
 
-      expect(operationsService.unassignToken).toHaveBeenCalledWith(Fixtures.activeHotpToken.serial);
       expect(tokenUpdateSpy).toHaveBeenCalledTimes(0);
     }));
 
