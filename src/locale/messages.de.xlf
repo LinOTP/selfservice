@@ -3086,7 +3086,15 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.service.ts</context>
-          <context context-type="linenumber">96</context>
+          <context context-type="linenumber">101</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1033695665059780148" datatype="html">
+        <source>Token serial not found for given OTP</source>
+        <target state="new">Token-Seriennummer für den angegebenen OTP nicht gefunden</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.service.ts</context>
+          <context context-type="linenumber">92</context>
         </context-group>
       </trans-unit>
       <trans-unit id="292673577349231607" datatype="html">
