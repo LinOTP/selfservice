@@ -13,7 +13,7 @@ import { OperationsService } from '@api/operations.service';
 })
 export class SetDescriptionDialogComponent {
 
-  private awaitingResponse = false;
+  awaitingResponse = false;
   public form: UntypedFormGroup;
 
   constructor(

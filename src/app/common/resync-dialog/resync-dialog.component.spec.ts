@@ -39,6 +39,7 @@ describe('ResyncDialogComponent', () => {
       declarations: [
         ResyncDialogComponent,
         MockComponent({ selector: 'app-token-dialog-header', inputs: ['token'] }),
+        MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] })
       ],
       providers: [
         {

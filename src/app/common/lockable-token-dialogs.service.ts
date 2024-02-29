@@ -1,9 +1,10 @@
 import { Inject, Injectable, Injector } from "@angular/core";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+import { OperationsService } from "@app/api/operations.service";
 import { SelfserviceToken } from "@app/api/token";
 import { SelfServiceContextService } from "@app/selfservice-context.service";
 import { TokenListComponent } from "@app/token-list/token-list.component";
-import { of } from "rxjs";
+import { Observable } from "rxjs";
 import { AuthLockedEvaluatorContextInfo, AuthLockedStatusEvaluator } from "./auth-locked-status-evaluator";
 import { DeleteTokenDialogComponent } from "./delete-token-dialog/delete-token-dialog.component";
 import { DisableTokenDialogComponent } from "./disable-token-dialog/disable-token-dialog.component";
@@ -16,6 +17,7 @@ export class LockableTokenActionsService {
     private selfServiceContextService: SelfServiceContextService,
     private tokenList: TokenListComponent,
     @Inject(Injector) private injector: Injector,
+    private operationsService: OperationsService,
   ) { }
 
   getDeleteConfirmation(token: SelfserviceToken) {
@@ -43,13 +45,13 @@ export class LockableTokenActionsService {
       .afterClosed()
   }
 
-  getDisableConfirmation(token: SelfserviceToken, canEnable: boolean) {
+  getDisableConfirmation(token: SelfserviceToken, canEnable: boolean): Observable<boolean> {
     const authLockEvaluator = this.getLockingEvaluator()
     const willLock = authLockEvaluator.checkDisableWillLockAuth(token);
 
     // if enable rights and no delete confirmation required => show no dialog
     if (canEnable && !willLock) {
-      return of(true);
+      return this.operationsService.disable(token)
     }
 
     const config: MatDialogConfig = {

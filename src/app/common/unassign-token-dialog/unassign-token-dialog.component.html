@@ -31,7 +31,12 @@
             i18n>cancel</button>
     <button mat-raised-button
             class="submit-button"
-            [disabled]="!confirmCtrl.valid"
-            [mat-dialog-close]="true"
-            color="warn" i18n>unassign</button>
+            [disabled]="!confirmCtrl.valid || awaitingResponse"
+            (click)="unassignToken()"
+            color="warn">
+            <div class="button-content">
+              <app-button-wait-indicator [show]="awaitingResponse"></app-button-wait-indicator>
+              <span i18n>unassign</span>
+            </div>
+   </button>
 </mat-dialog-actions>

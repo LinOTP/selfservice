@@ -10,10 +10,11 @@ describe("LockableTokenDialogsService", () => {
         })
     })
 
-    it("should return true when user can enable token", (done: DoneFn) => {
+    it("should return operations service result when user can enable token", (done: DoneFn) => {
         const cut = getService(false);
         (cut.getDisableConfirmation({} as any, true)).subscribe((result) => {
             expect(result).toBe(true);
+            expect((cut as any).operationsService.called).toBeTrue();
             done();
         })
     })
@@ -35,10 +36,19 @@ function getService(willLock: boolean): LockableTokenActionsService {
             afterClosed: () => of(false)
         })
     } as any
-    const cut = new LockableTokenActionsService(dialog, null, [] as any, null);
+    const cut = new LockableTokenActionsService(dialog, null, [] as any, null, new OperationsServiceStub(true) as any);
     (cut as any).getLockingEvaluator = () => ({
         checkDisableWillLockAuth: () => willLock,
         isUsersAuthLocked: () => false
     });
     return cut;
+}
+
+class OperationsServiceStub {
+    called = false
+    constructor(public result: boolean) { }
+    disable(token: any) {
+        this.called = true;
+        return of(this.result);
+    }
 }

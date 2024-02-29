@@ -36,8 +36,12 @@
     <button mat-raised-button
             color="primary"
             type="submit"
-            [disabled]="preventSubmit()"
-            i18n>Set mOTP pin</button>
+            [disabled]="preventSubmit()">
+            <div class="button-content">
+              <app-button-wait-indicator [show]="awaitingResponse"></app-button-wait-indicator>
+              <span i18n>Set mOTP pin</span>
+            </div>
+    </button>
   </mat-dialog-actions>
 
 </form>

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Observable, of, Subject } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 
 import { TokenType } from '@linotp/data-models';
 
@@ -87,6 +87,11 @@ export class TokenService {
     return this.http.get<LinOTPResponse<{ serial: string; }>>(url, { params }).pipe(
       map(t => t.result.value.serial))
       .pipe(
+        tap(result => {
+          if (result === '') {
+            this.notificationService.errorMessage($localize`Token serial not found for given OTP`);
+          }
+        }),
         catchError(this.handleError('retrieving token serial failed', null))
       );
   }

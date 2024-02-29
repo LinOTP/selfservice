@@ -1,6 +1,7 @@
 import { Component, Inject } from "@angular/core";
 import { FormControl, Validators } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { OperationsService } from "@app/api/operations.service";
 import { SelfserviceToken } from "@app/api/token";
 import { AuthLockedStatusEvaluator } from "../auth-locked-status-evaluator";
 
@@ -12,6 +13,7 @@ import { AuthLockedStatusEvaluator } from "../auth-locked-status-evaluator";
 export class UnassignTokenDialogComponent {
   isLocked = false
   confirmCtrl = new FormControl(false, [Validators.requiredTrue]);
+  awaitingResponse = false
 
   get confirmationRequired() {
     return this._confirmationRequired
@@ -32,9 +34,23 @@ export class UnassignTokenDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<UnassignTokenDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { token: SelfserviceToken, lockingEvaluator: AuthLockedStatusEvaluator }
+    @Inject(MAT_DIALOG_DATA) public data: { token: SelfserviceToken, lockingEvaluator: AuthLockedStatusEvaluator },
+    private operationsService: OperationsService,
   ) {
     this.isLocked = data.lockingEvaluator.isUsersAuthLocked()
     this.confirmationRequired = data.lockingEvaluator.checkUnassignWillLockAuth(data.token) || this.isLocked
+  }
+
+
+  public unassignToken() {
+    if (this.confirmCtrl.valid) {
+      this.awaitingResponse = true;
+      this.operationsService.unassignToken(this.token.serial).subscribe(result => {
+        this.awaitingResponse = false;
+        if (result) {
+          this.dialogRef.close(true);
+        }
+      });
+    }
   }
 }

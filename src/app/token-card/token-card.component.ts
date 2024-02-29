@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { Subject, Subscription } from 'rxjs';
-import { filter, switchMap } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 
 import { TokenType } from '@linotp/data-models';
 
@@ -118,14 +118,11 @@ export class TokenCardComponent implements OnInit, OnDestroy {
     const dialog$ = this.lockableTokenActionsService.getDeleteConfirmation(this.token);
 
     dialog$.pipe(
-      filter((confirmed: boolean) => !!confirmed),
-      switchMap(() => this.operationsService.deleteToken(this.token.serial)),
       filter(result => !!result),
-    )
-      .subscribe(() => {
-        this.notificationService.message($localize`Token deleted`);
-        this.tokenUpdate.next();
-      });
+    ).subscribe(() => {
+      this.notificationService.message($localize`Token deleted`);
+      this.tokenUpdate.next();
+    });
   }
 
   public enable(): void {
@@ -143,8 +140,6 @@ export class TokenCardComponent implements OnInit, OnDestroy {
     const confirmationObservable = this.lockableTokenActionsService.getDisableConfirmation(this.token, this.canEnable);
 
     confirmationObservable.pipe(
-      filter(confirmed => !!confirmed),
-      switchMap(() => this.operationsService.disable(this.token)),
       filter(success => !!success)
     ).subscribe(() => {
       this.notificationService.message($localize`Token disabled`);
@@ -161,8 +156,6 @@ export class TokenCardComponent implements OnInit, OnDestroy {
     };
 
     this.dialog.open(TestDialogComponent, dialogConfig)
-      .afterClosed()
-      .subscribe();
   }
 
   public activate(): void {
@@ -183,8 +176,6 @@ export class TokenCardComponent implements OnInit, OnDestroy {
 
     dialog$
       .pipe(
-        filter((confirmed: boolean) => !!confirmed),
-        switchMap(() => this.operationsService.unassignToken(this.token.serial)),
         filter(result => !!result)
       )
       .subscribe(() => {
