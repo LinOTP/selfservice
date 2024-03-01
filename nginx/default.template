@@ -23,6 +23,7 @@ server {
   gzip_types        text/plain text/css application/json application/javascript application/x-javascript text/xml application/xml application/xml+rss text/javascript;
   gzip_comp_level   9;
 
+  absolute_redirect off;
   rewrite ^@URL_PATH@/$ @URL_PATH@/$accept_language permanent;
 
   location @URL_PATH@/en {
