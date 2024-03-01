@@ -24,7 +24,7 @@ server {
   gzip_comp_level   9;
 
   absolute_redirect off;
-  rewrite ^@URL_PATH@/$ @URL_PATH@/$accept_language permanent;
+  rewrite ^@URL_PATH@/$ @URL_PATH@/$accept_language/ redirect;
 
   location @URL_PATH@/en {
     alias /usr/share/nginx/html/en;
