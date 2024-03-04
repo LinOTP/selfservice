@@ -38,6 +38,7 @@ import { EnrollOATHDialogComponent } from './enroll-oath-dialog.component';
           EnrollOATHDialogComponent,
           MockComponent({ selector: 'qrcode', inputs: ['qrdata', 'width', 'errorCorrectionLevel'] }),
           MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] }),
+          MockComponent({ selector: 'app-authenticator-links', inputs: ['platform'] })
         ],
         imports: [
           RouterTestingModule,

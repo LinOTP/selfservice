@@ -1,6 +1,5 @@
 <h2 mat-dialog-title
     i18n>Add {{this.tokenDisplayData.name}}</h2>
-
 <mat-horizontal-stepper [linear]="true"
                         linear>
 
@@ -11,17 +10,11 @@
           (submit)="enrollToken()">
 
       <mat-dialog-content>
-        <p i18n>You need an OATH compatible soft-token app installed on your mobile device to use this kind of token,
-          such
-          as:</p>
-        <ul>
-          <li>FreeOTP</li>
-          <li>Google Authenticator</li>
-        </ul>
-        <p i18n>If you are not sure whether your app is compatible, you will later have
-          the possibility to test the token. Should the test fail, you can install another app and try again.</p>
+        <p i18n>You need an OATH compatible soft-token app installed on your mobile device. Please install <b>Linotp Authenticator</b> to continue:</p>
 
-        <p i18n>Once you have an app installed on your device, you can start the setup process.</p>
+         <app-authenticator-links [platform]="currentPlatform"></app-authenticator-links>
+
+        <p i18n>Once you have the app installed on your device, you can start the setup process.</p>
 
         <p i18n>Before you proceed you may set a token description, which should help you identify your token:</p>
         <mat-form-field>
