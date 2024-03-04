@@ -38,6 +38,8 @@ case "$1" in
         ln -s /etc/apache2/conf-available/linotp-selfservice.conf /etc/linotp/apache-site-includes/
       fi
     fi
+    # Reload apache2 to apply the changes. Fallback to restart if reload fails.
+    systemctl reload-or-restart apache2.service
   ;;
 
   abort-upgrade | abort-remove | abort-deconfigure)
