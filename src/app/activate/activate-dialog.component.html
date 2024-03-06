@@ -1,6 +1,6 @@
 <app-token-dialog-header [token]="(data.token && currentStep === 0) ? data.token : null">
   <h2 mat-dialog-title
-  i18n>Activate {{ typeDetails.name }} {{ data.serial }}</h2>
+      i18n>Activate {{ typeDetails.name }}</h2>
 </app-token-dialog-header>
 <mat-horizontal-stepper [linear]="true"
                         (selectedIndexChange)="currentStep = $event"
