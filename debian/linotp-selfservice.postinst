@@ -38,8 +38,14 @@ case "$1" in
         ln -s /etc/apache2/conf-available/linotp-selfservice.conf /etc/linotp/apache-site-includes/
       fi
     fi
-    # Reload apache2 to apply the changes. Fallback to restart if reload fails.
-    systemctl reload-or-restart apache2.service
+    # Restart apache2 to apply the changes.
+    # We're jumping through a bunch of flaming hoops here because we're not
+    # supposed to just say “systemctl reload-or-restart apache2” in a postinst
+    # script. Note that `deb-systemd-invoke` only does `start`, `stop`, and
+    # `restart`, so no fancy try-this-and-then-maybe-that stuff.
+    if [ -d /run/systemd/system ]; then
+	deb-systemd-invoke restart apache2 >/dev/null || true
+    fi
   ;;
 
   abort-upgrade | abort-remove | abort-deconfigure)
