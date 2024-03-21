@@ -50,6 +50,7 @@ describe('AuthInterceptor', () => {
 
   it(`should intercept unauthorized api requests`, () => {
 
+    (loginService as any).hasEverLoggedIn = false
     const successCallback = jasmine.createSpy('successCallback');
     const errorCallback = jasmine.createSpy('errorCallback');
 
@@ -61,12 +62,30 @@ describe('AuthInterceptor', () => {
     http.verify();
 
     expect(successCallback).not.toHaveBeenCalled();
-    expect(errorCallback).toHaveBeenCalled();
+    // if user was not authenticated and response code will be 401 then request observable will complete(emit EMPTY)
+    expect(errorCallback).not.toHaveBeenCalled();
 
-    expect(TestBed.inject(NotificationService).errorMessage).toHaveBeenCalled();
+    expect(TestBed.inject(NotificationService).errorMessage).not.toHaveBeenCalled();
 
     expect(loginService.handleLogout).toHaveBeenCalledTimes(1);
   });
+
+  it(`should should notification error when user previously logged in`, () => {
+
+    (loginService as any).hasEverLoggedIn = true
+    const successCallback = jasmine.createSpy('successCallback');
+    const errorCallback = jasmine.createSpy('errorCallback');
+
+    httpClient.get('/api').subscribe(successCallback, errorCallback);
+
+    http.expectOne('/api').error(new ErrorEvent('Unauthorized error'), {
+      status: 401
+    });
+    http.verify();
+
+    expect(TestBed.inject(NotificationService).errorMessage).toHaveBeenCalled();
+  });
+
 
   it(`should not intercept nor redirect successful api requests`, () => {
 

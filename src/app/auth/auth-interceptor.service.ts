@@ -1,7 +1,7 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { Observable, throwError } from 'rxjs';
+import { EMPTY, Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { LoginService } from '@app/login/login.service';
@@ -22,10 +22,13 @@ export class AuthInterceptor implements HttpInterceptor {
       catchError((error: HttpErrorResponse, caught) => {
         if (error.status === 401) {
           this.loginService.handleLogout(true);
-          this.notificationService.errorMessage(
-            $localize`Your session timed out, please login again.`,
-            Duration.LONG
-          );
+          if (this.loginService.hasEverLoggedIn) {
+            this.notificationService.errorMessage(
+              $localize`Your session timed out, please login again.`,
+              Duration.LONG
+            );
+          }
+          return EMPTY;
         } else if (String(error.status).startsWith('5')) {
           this.notificationService.errorMessage(
             $localize`Server error encountered, request failed.`,
