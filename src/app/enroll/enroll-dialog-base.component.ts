@@ -1,6 +1,6 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { UntypedFormBuilder } from '@angular/forms';
-import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { NgxPermissionsService } from 'ngx-permissions';
@@ -48,7 +48,7 @@ export abstract class EnrollDialogBaseComponent implements OnInit, OnDestroy {
     protected operationsService: OperationsService,
     protected dialog: MatDialog,
     protected loginService: LoginService,
-    @Inject(MAT_DIALOG_DATA) public data: { tokenType: TokenType },
+    @Inject(MAT_DIALOG_DATA) public data: { tokenType: TokenType; },
   ) {
     this.tokenDisplayData = tokenDisplayData.find(d => d.type === data.tokenType);
   }
@@ -86,13 +86,16 @@ export abstract class EnrollDialogBaseComponent implements OnInit, OnDestroy {
    */
   public finalizeEnrollment() {
     if (this.testAfterEnrollment) {
-      const testConfig: MatDialogConfig = {
-        width: '650px',
-        data: { serial: this.enrolledToken.serial, type: this.enrolledToken.type }
-      };
-      this.dialogRef.afterClosed().pipe(
-        switchMap(() => this.dialog.open(TestDialogComponent, testConfig).afterClosed())
-      ).subscribe();
+      this.tokenService.getToken(this.enrolledToken.serial).subscribe(token => {
+        const testConfig: MatDialogConfig = {
+          width: '650px',
+          data: { serial: this.enrolledToken.serial, type: this.enrolledToken.type, token: token }
+        };
+        this.dialogRef.afterClosed().pipe(
+          switchMap(() => this.dialog.open(TestDialogComponent, testConfig).afterClosed())
+        ).subscribe();
+      });
+
     }
     this.dialogRef.close();
   }

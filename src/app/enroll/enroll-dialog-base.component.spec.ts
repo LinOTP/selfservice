@@ -1,6 +1,6 @@
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 import { NgxPermissionsService } from 'ngx-permissions';
 import { of } from 'rxjs';
@@ -18,6 +18,7 @@ import { TestDialogComponent } from '@app/test/test-dialog.component';
 import { DialogComponent } from '@common/dialog/dialog.component';
 import { NotificationService } from '@common/notification.service';
 import { SetPinDialogComponent } from '@common/set-pin-dialog/set-pin-dialog.component';
+import { TokenListFixtures } from '@testing/fixtures';
 
 import { EnrollDialogBaseComponent } from './enroll-dialog-base.component';
 
@@ -31,6 +32,7 @@ describe('EnrollDialogBaseComponent with testing permissions', () => {
     let notificationService: jasmine.SpyObj<NotificationService>;
     let permissionsService: jasmine.SpyObj<NgxPermissionsService>;
     let loginService: jasmine.SpyObj<LoginService>;
+    let tokenService: jasmine.SpyObj<TokenService>;
 
     let dialogRef: jasmine.SpyObj<MatDialogRef<MockComponent>>;
     let dialog: jasmine.SpyObj<MatDialog>;
@@ -95,6 +97,7 @@ describe('EnrollDialogBaseComponent with testing permissions', () => {
         notificationService = getInjectedStub(NotificationService);
         permissionsService = getInjectedStub(NgxPermissionsService);
         loginService = getInjectedStub(LoginService);
+        tokenService = getInjectedStub(TokenService);
 
         dialogRef = getInjectedStub<MatDialogRef<MockComponent>>(MatDialogRef);
         dialog = getInjectedStub(MatDialog);
@@ -128,13 +131,15 @@ describe('EnrollDialogBaseComponent with testing permissions', () => {
 
             dialogRef.afterClosed.and.returnValue(of({}));
             dialog.open.and.returnValue({ afterClosed: () => of({}) } as MatDialogRef<TestDialogComponent>);
+            const token = TokenListFixtures.mockReadyEnabledToken;
+            tokenService.getToken.and.returnValue(of(token));
 
             component.finalizeEnrollment();
             expect(dialogRef.close).toHaveBeenCalledWith();
             expect(dialog.open).toHaveBeenCalledTimes(1);
             expect(dialog.open).toHaveBeenCalledOnceWith(TestDialogComponent, {
                 width: '650px',
-                data: component.enrolledToken
+                data: { ...component.enrolledToken, token: token }
             });
         });
     });

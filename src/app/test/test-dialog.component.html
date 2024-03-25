@@ -1,7 +1,6 @@
-
 <app-token-dialog-header [token]="token">
   <h2 mat-dialog-title
-  i18n>Test {{ typeDetails.name }} {{ data.serial }}</h2>
+      i18n>Test {{ typeDetails.name }}</h2>
 </app-token-dialog-header>
 
 <form [formGroup]="formGroup"
@@ -124,10 +123,10 @@
             type="submit"
             [disabled]="preventSubmit()"
             *ngIf="state === TestState.UNTESTED && hasOfflineMode">
-            <div class="button-content">
-              <app-button-wait-indicator [show]="awaitingResponse"></app-button-wait-indicator>
-              <span i18n>submit</span>
-            </div>
+      <div class="button-content">
+        <app-button-wait-indicator [show]="awaitingResponse"></app-button-wait-indicator>
+        <span i18n>submit</span>
+      </div>
     </button>
     <button mat-raised-button
             type="button"
