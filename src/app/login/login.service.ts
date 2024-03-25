@@ -51,6 +51,11 @@ export class LoginService {
     logout: 'logout',
   };
 
+  private _hasEverLoggedIn = false
+  get hasEverLoggedIn() {
+    return this._hasEverLoggedIn
+  }
+
   private _loginChange$: BehaviorSubject<UserSystemInfo['user']> = new BehaviorSubject(this.userInfo());
   private _permissionLoad$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
@@ -276,6 +281,7 @@ export class LoginService {
   private handleLogin(success: boolean): Observable<boolean> {
     localStorage.setItem('loginIsComplete', JSON.stringify(true));
     if (success) {
+      this._hasEverLoggedIn = true
       return this.refreshUserSystemInfo().pipe(map(() => true));
     } else {
       this._loginChange$.next(undefined);
