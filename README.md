@@ -65,7 +65,7 @@ The option `--module <name>` may be needed to specify the module that should pro
 
 ## Build
 
-The project is set up to compile the web distribution files with yarn and package those files automatically inside of a docker image or a debian package.
+The project is set up to compile the web distribution files with yarn and package those files automatically inside of a docker image or a Debian package.
 
 ### Sources
 
@@ -93,11 +93,9 @@ You can run the container build afterwards by executing the following command:
 docker build -t linotp-selfservice .
 ```
 
-By default, the application is available under `/selfservice`. This
-can be changed by rebuilding the container with something like
-`--build-arg URL_PATH=/foo` (to have it appear under `/foo`). Specify
-`--build-arg=` (empty) to make it available on `/` inside the
-container.
+By default, the application is available under `/selfservice`. This can be changed by
+rebuilding the container with something like `--build-arg URL_PATH=/foo`. Specify
+`--build-arg=` (empty) to make it available on `/` inside the container.
 
 Also by default, the web server inside the container runs on TCP
 port 8000. This can be changed at run time by passing, e.g., `-e
@@ -107,14 +105,9 @@ the outside to port 8000 inside the container.
 
 ### Debian
 
-A separate dockerfile ([Dockerfile.deb-build](Dockerfile.deb-build)) is provided to run an isolated debian environment to build the debian package independent from your machine.
+Debian packaging is included in this repository. See [debian/control](debian/control) for package details and [debian/rules](debian/rules) for how the npm packages are fetched during package build.
 
-The debian build process can be triggerd with the following commands from withing the project root to build the package locally:
-
-```bash
-docker build -t ngs-deb-builder -f Dockerfile.deb-build .
-docker run -it --rm -v $(pwd):/app ngs-deb-builder
-```
+The package is only built in CI/CD. The pipeline job 'build:buster' is included from our ci-includes repo. Please use a pipeline job artefact if you want to test a debian package.
 
 ## Customization
 
