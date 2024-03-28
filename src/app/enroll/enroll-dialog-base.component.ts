@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogConfig, MatDialogRef } from '@angu
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { NgxPermissionsService } from 'ngx-permissions';
-import { from, of, Subscription } from 'rxjs';
+import { forkJoin, from, of, Subscription } from 'rxjs';
 import { filter, map, switchMap, tap } from 'rxjs/operators';
 
 import { TokenType } from '@linotp/data-models';
@@ -86,16 +86,17 @@ export abstract class EnrollDialogBaseComponent implements OnInit, OnDestroy {
    */
   public finalizeEnrollment() {
     if (this.testAfterEnrollment) {
-      this.tokenService.getToken(this.enrolledToken.serial).subscribe(token => {
-        const testConfig: MatDialogConfig = {
-          width: '650px',
-          data: { serial: this.enrolledToken.serial, type: this.enrolledToken.type, token: token }
-        };
-        this.dialogRef.afterClosed().pipe(
-          switchMap(() => this.dialog.open(TestDialogComponent, testConfig).afterClosed())
-        ).subscribe();
-      });
-
+      const token$ = this.tokenService.getToken(this.enrolledToken.serial)
+      const dialogClosed$ = this.dialogRef.afterClosed()
+      forkJoin([token$, dialogClosed$]).pipe(
+        tap(([token, _]) => {
+          const testConfig: MatDialogConfig = {
+            width: '650px',
+            data: { serial: this.enrolledToken.serial, type: this.enrolledToken.type, token: token }
+          };
+          this.dialog.open(TestDialogComponent, testConfig)
+        })
+      ).subscribe()
     }
     this.dialogRef.close();
   }
