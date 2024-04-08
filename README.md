@@ -24,7 +24,7 @@ yarn start
 
 This will load a webpack develompment server that transpiles and bundles all files required. Navigate to [http://localhost:4200/](http://localhost:4200/). The app will automatically reload if you change any of the source files.
 
-The start script will load an api reverse proxy that can be configured via [[proxy.conf.json](proxy.conf.json)]. Per default it expects a LinOTP instance running on [http://localhost:5001](http://localhost:5001).
+The start script will load an api reverse proxy that can be configured via [[proxy.conf.js](proxy.conf.js)]. Per default it expects a LinOTP instance running on [http://localhost:5000](http://localhost:5000).
 
 You can run `yarn start-de` or `yarn start-en` to serve the application with a specific locale.
 
