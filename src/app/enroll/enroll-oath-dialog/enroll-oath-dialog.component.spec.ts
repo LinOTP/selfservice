@@ -28,7 +28,6 @@ import { EnrollOATHDialogComponent } from './enroll-oath-dialog.component';
   describe('The EnrollOATHDialogComponent', () => {
     let component: EnrollOATHDialogComponent;
     let fixture: ComponentFixture<EnrollOATHDialogComponent>;
-    let notificationService: jasmine.SpyObj<NotificationService>;
     let enrollmentService: jasmine.SpyObj<EnrollmentService>;
     let loginService: jasmine.SpyObj<LoginService>;
 
@@ -38,7 +37,10 @@ import { EnrollOATHDialogComponent } from './enroll-oath-dialog.component';
           EnrollOATHDialogComponent,
           MockComponent({ selector: 'qrcode', inputs: ['qrdata', 'width', 'errorCorrectionLevel'] }),
           MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] }),
-          MockComponent({ selector: 'app-authenticator-links', inputs: ['platform'] })
+          MockComponent({ selector: 'app-authenticator-links', inputs: ['platform'] }),
+          MockComponent({ selector: 'app-import-token-step', inputs: ['enrolledToken', 'verifyFlowEnabled'] }),
+          MockComponent({ selector: 'app-create-token-step', inputs: ['form'] }),
+          MockComponent({ selector: 'app-done-step', inputs: ['token'] }),
         ],
         imports: [
           RouterTestingModule,
@@ -94,12 +96,12 @@ import { EnrollOATHDialogComponent } from './enroll-oath-dialog.component';
       fixture = TestBed.createComponent(EnrollOATHDialogComponent);
       component = fixture.componentInstance;
 
-      notificationService = getInjectedStub(NotificationService);
       enrollmentService = getInjectedStub(EnrollmentService);
       loginService = getInjectedStub(LoginService);
 
       loginService.hasPermission$.and.returnValue(of(true));
-
+      const permissionsService = getInjectedStub(NgxPermissionsService);
+      permissionsService.hasPermission.and.returnValue(Promise.resolve(true));
       fixture.detectChanges();
     });
 
@@ -112,75 +114,53 @@ import { EnrollOATHDialogComponent } from './enroll-oath-dialog.component';
       spyOn(component.stepper, 'next');
 
       enrollmentService.enroll.and.returnValue(of(Fixtures.OATHEnrollmentResponse));
-      const expectedToken = { ...Fixtures.enrolledToken, type: inputType };
+      const expectedToken = { ...Fixtures.enrolledToken, type: inputType, description: 'Created via SelfService' };
 
       fixture.detectChanges();
-
       component.enrollToken();
-      tick();
+      tick(100);
 
       expect(enrollmentService.enroll).toHaveBeenCalledWith({
         type: inputType,
-        description: 'Created via SelfService'
+        description: 'Created via SelfService',
+        otppin: ''
       });
       expect(component.enrolledToken).toEqual(expectedToken);
       expect(component.stepper.next).toHaveBeenCalledTimes(1);
-      expect(component.enrollmentStep.disabled).toEqual(true);
+      expect(component.createTokenForm.disabled).toEqual(false);
     }));
 
     it('should enroll a ${inputType} token with a custom description', fakeAsync(() => {
       spyOn(component.stepper, 'next');
 
       enrollmentService.enroll.and.returnValue(of(Fixtures.OATHEnrollmentResponse));
-      const expectedToken = { ...Fixtures.enrolledToken, type: inputType };
+      const expectedToken = { ...Fixtures.enrolledToken, type: inputType, description: 'custom description' };
 
-      component.enrollmentStep.controls.description.setValue('custom description');
+      component.createTokenForm.get("description").setValue('custom description');
       fixture.detectChanges();
       component.enrollToken();
-      tick();
+      tick(100);
 
       expect(enrollmentService.enroll).toHaveBeenCalledWith({
         type: inputType,
-        description: 'custom description'
+        description: 'custom description',
+        otppin: '',
       });
       expect(component.enrolledToken).toEqual(expectedToken);
       expect(component.stepper.next).toHaveBeenCalledTimes(1);
-      expect(component.enrollmentStep.disabled).toEqual(true);
+      expect(component.createTokenForm.disabled).toEqual(false);
     }));
 
     it('should allow retrying if enrollment failed', fakeAsync(() => {
       enrollmentService.enroll.and.returnValue(of(null));
+      component.selectedStep = 1;
       fixture.detectChanges();
-      const result = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
+      tick(0);
+      const result = fixture.debugElement.query(By.css('#test-create-token-button')).nativeElement;
       result.click();
-      tick();
 
       expect(component.enrolledToken).toEqual(undefined);
-      expect(component.enrollmentStep.disabled).toEqual(false);
+      expect(component.createTokenForm.disabled).toEqual(false);
     }));
-
-    describe('copyInputMessage', () => {
-      let element: HTMLInputElement;
-
-      beforeEach(() => {
-        element = document.createElement('input');
-        element.value = 'thing to copy';
-        document.body.appendChild(element);
-      });
-
-      afterEach(() => {
-        element.remove();
-      });
-
-      it('should copy the content of the input element and notify the user', () => {
-        spyOn(document, 'execCommand');
-        component.copyInputMessage(element);
-
-        expect(document.execCommand).toHaveBeenCalledWith('copy');
-        expect(notificationService.message).toHaveBeenCalledWith('Copied');
-
-        expect(window.getSelection().toString()).toEqual('thing to copy');
-      });
-    });
   })
 );

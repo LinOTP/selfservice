@@ -1,174 +1,107 @@
 <h2 mat-dialog-title
-    i18n>Add {{this.tokenDisplayData.name}}</h2>
-<mat-horizontal-stepper [linear]="true"
-                        linear>
-
-  <mat-step [stepControl]="enrollmentStep"
-            id="stepDescription">
-
-    <form [formGroup]="enrollmentStep"
-          (submit)="enrollToken()">
-
+  i18n>Add {{this.tokenDisplayData.name}}</h2>
+  <mat-horizontal-stepper [linear]="true"
+  >
+    <mat-step [completed]="true" [editable]="false">
       <mat-dialog-content>
-        <p i18n>You need an OATH compatible soft-token app installed on your mobile device. Please install <b>Linotp Authenticator</b> to continue:</p>
+        <ng-template matStepLabel i18n>Install app</ng-template>
+        <div i18n="@@oathStepperIntroduction">
+          <p>This step-by-step guide will help you to create a new token and import it to your device.</p>
+          <p>To import token you need an OATH compatible soft-token app installed on your mobile device. Please install <b>Linotp Authenticator</b> before you proceed:</p>
+        </div>
 
-         <app-authenticator-links [platform]="currentPlatform"></app-authenticator-links>
+        <app-authenticator-links [platform]="currentPlatform"></app-authenticator-links>
 
-        <p i18n>Once you have the app installed on your device, you can start the setup process.</p>
-
-        <p i18n>Before you proceed you may set a token description, which should help you identify your token:</p>
-        <mat-form-field>
-          <mat-label i18n>Token description</mat-label>
-          <input matInput
-                 formControlName="description"
-                 appFocusOnInit>
-          <mat-hint i18n>Enter a description for your token.</mat-hint>
-          <mat-error i18n
-                     *ngIf="enrollmentStep.get('description').hasError('required')">This field is required.</mat-error>
-        </mat-form-field>
+        <p i18n="@@oathStepperAppInstalledConfirmInfo">Once you have the app installed on your device, you can start the token setup process.</p>
       </mat-dialog-content>
 
-      <mat-dialog-actions align="end">
-        <div i18n>Step 1 of 3</div>
-        <span class="spacer"></span>
+      <ng-template #installAppStepActions>
         <button mat-button
-                type="button"
-                (click)="close()"
-                i18n>Cancel</button>
+          type="button"
+          (click)="close()"
+          i18n>Cancel</button>
         <button mat-raised-button
-                color="primary"
-                type="submit"
-                id="goTo2"
-                [disabled]="enrollmentStep.invalid || enrollmentStep.disabled">
-          <app-button-wait-indicator [show]="enrollmentStep.disabled"></app-button-wait-indicator>
-          <ng-container i18n>Next</ng-container>
-        </button>
-      </mat-dialog-actions>
-    </form>
+          color="primary"
+          matStepperNext
+          >
+          <div class="button-content">
+            <ng-container i18n>Next</ng-container>
+            <mat-icon>arrow_forward</mat-icon>
+          </div>
+      </button>
+      </ng-template>
+    </mat-step>
 
-  </mat-step>
-
-  <mat-step active="false"
-            id="stepShowQR">
+  <mat-step [completed]="!!enrolledToken" [editable]="false">
+    <ng-template matStepLabel i18n>Create token</ng-template>
 
     <mat-dialog-content>
-      <div *ngIf="enrolledToken">
-        <p i18n>A token with the serial number {{enrolledToken.serial}} has been created.</p>
-        <p i18n>
-          Scan the QR code below with your soft token app or
-          <a target="_blank"
-             rel="noopener noreferrer"
-             [href]="sanitizer.bypassSecurityTrustUrl(enrolledToken.url)">follow this link</a>
-          to install it on your mobile device.
-        </p>
-
-        <qrcode [qrdata]="enrolledToken.url"
-                [width]="256"
-                [errorCorrectionLevel]="'L'"></qrcode>
-
-        <div class="toggle-details">
-          <button (click)="showDetails = !showDetails"
-                  mat-stroked-button
-                  color="primary"
-                  aria-label="Button to toggle the display of configuration details"
-                  *ngIf="showDetails">
-            <mat-icon>visibility_off</mat-icon>
-            <span i18n>hide token details</span>
-          </button>
-          <button (click)="showDetails = !showDetails"
-                  mat-stroked-button
-                  color="primary"
-                  aria-label="Button to toggle the display of configuration details"
-                  *ngIf="!showDetails">
-            <mat-icon>visibility</mat-icon>
-            <span i18n>show token details</span>
-          </button>
-        </div>
-
-        <div class="detail"
-             *ngIf="showDetails">
-          <mat-form-field appearance="outline"
-                          class="inline-no-hint">
-            <mat-label i18n>Configuration URL</mat-label>
-            <input matInput
-                   #enrollmentUrl
-                   [value]="enrolledToken.url"
-                   (focus)="$event.target.select()"
-                   readonly>
-          </mat-form-field>
-          <button mat-icon-button
-                  (click)="$event.preventDefault(); copyInputMessage(enrollmentUrl)"
-                  matTooltip="Copy"
-                  i18n-matTooltip
-                  aria-label="Button to copy the configuration URL">
-            <mat-icon>file_copy</mat-icon>
-          </button>
-        </div>
-
-        <div class="detail"
-             *ngIf="showDetails">
-          <mat-form-field appearance="outline"
-                          class="inline-no-hint">
-            <mat-label i18n>Seed</mat-label>
-            <input matInput
-                   #enrollmentSeed
-                   [value]="enrolledToken.seed"
-                   (focus)="$event.target.select()"
-                   readonly>
-          </mat-form-field>
-          <button mat-icon-button
-                  (click)="copyInputMessage(enrollmentSeed)"
-                  matTooltip="Copy"
-                  i18n-matTooltip
-                  aria-label="Button to copy the seed">
-            <mat-icon>file_copy</mat-icon>
-          </button>
-        </div>
-
-      </div>
+      <app-create-token-step [form]="createTokenForm"></app-create-token-step>
     </mat-dialog-content>
 
-    <mat-dialog-actions align="end">
-      <div i18n>Step 2 of 3</div>
-      <span class="spacer"></span>
+    <ng-template #createTokenStepActions>
       <button mat-button
-              (click)="cancel()"
-              i18n>Cancel</button>
+      type="button"
+      (click)="close()"
+      i18n>Cancel</button>
       <button mat-raised-button
-              color="primary"
-              (click)="stepper.next()"
-              i18n>Next</button>
-    </mat-dialog-actions>
+        id="test-create-token-button"
+        color="primary"
+        (click)="enrollToken()"
+        [disabled]="!createTokenForm.valid"
+        >
+        <div class="button-content">
+          <app-button-wait-indicator [show]="awaitingResponse"></app-button-wait-indicator>
+          <span i18n>Create token</span>
+          <mat-icon>arrow_forward</mat-icon>
+        </div>
+      </button>
+    </ng-template>
   </mat-step>
 
-  <mat-step active="false"
-            id="stepPIN">
+  <mat-step [completed]="tokenVerified || (enrolledToken && !verifyPolicyEnabled)">
+    <ng-template matStepLabel i18n>Import token into app</ng-template>
 
     <mat-dialog-content>
-      <p i18n>Your token is now configured.</p>
-      <ng-container *ngxPermissionsOnly="Permission.SETPIN">
-        <p i18n>You may set a PIN now to protect your token against misuse, as it ensures only you can use your token.
-          This step is optional, and you can still do it later over the token menu.</p>
-        <button mat-stroked-button
-                color="primary"
-                (click)="setPin()">
-          <mat-icon>security</mat-icon>
-          <span i18n>Set pin</span>
-        </button>
-      </ng-container>
-      <p *ngxPermissionsOnly="Permission.VERIFY"
-         class="verify"
-         i18n>Please verify with a token test whether you can successfully use the token:</p>
+      <app-import-token-step [verifyFlowEnabled]="verifyPolicyEnabled"  [enrolledToken]="enrolledToken" #importTokenStep (completed)="tokenVerified=true"></app-import-token-step>
     </mat-dialog-content>
 
-    <mat-dialog-actions align="end">
-      <div i18n>Step 3 of 3</div>
-      <span class="spacer"></span>
+    <ng-template #verifyTokenStepActions>
+      <button mat-button
+        type="button"
+        (click)="cancel()"
+        *ngxPermissionsOnly="'DELETE'"
+        i18n>Cancel</button>
       <button mat-raised-button
-              color="primary"
-              (click)="finalizeEnrollment()"> {{ closeLabel }}</button>
-    </mat-dialog-actions>
-
+        color="primary"
+        [disabled]="!tokenVerified && verifyPolicyEnabled"
+        matStepperNext
+        >
+        <div class="button-content">
+          <ng-container i18n>Next</ng-container>
+          <mat-icon>arrow_forward</mat-icon>
+        </div>
+      </button>
+    </ng-template>
   </mat-step>
 
+  <mat-step>
+    <ng-template matStepLabel i18n>Done</ng-template>
+    <mat-dialog-content>
+      <app-done-step [token]="enrolledToken"></app-done-step>
+    </mat-dialog-content>
+
+    <ng-template #doneStepActions>
+      <button mat-raised-button
+        color="primary"
+        type="button"
+        (click)="close()"
+        i18n>Close</button>
+    </ng-template>
+  </mat-step>
 </mat-horizontal-stepper>
+
+<mat-dialog-actions align="end">
+  <ng-container *ngTemplateOutlet="[installAppStepActions, createTokenStepActions, verifyTokenStepActions, doneStepActions][selectedStep]">
+  </ng-container>
+</mat-dialog-actions>
