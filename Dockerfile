@@ -56,6 +56,12 @@ RUN rm -rf /usr/share/nginx/html/*
 ## Add build artifacts
 COPY --from=builder /app/dist /usr/share/nginx/html
 
+## Add convenience symlinks for customisation.
+## (The /etc/linotp-selfservice link is for compatibility with older
+## non-container documentation.)
+RUN mkdir /usr/share/nginx/html/custom-assets && ln -s /usr/share/nginx/html/custom-assets /custom-assets
+RUN mkdir -p /etc/linotp-selfservice && ln -sf /usr/share/nginx/html/custom-assets /etc/linotp-selfservice/customization
+
 ## Substitute the environment vars in the nginx config and start the server
 CMD ["sh",\
   "-c",\
