@@ -32,6 +32,7 @@ import { TokenCardComponent } from '@app/token-card/token-card.component';
 import { TokenListComponent } from '@app/token-list/token-list.component';
 import { NgSelfServiceCommonModule } from '@common/common.module';
 import { AuthenticatorLinksComponent } from './common/authenticator-links/authenticator-links.component';
+import { OathEnrollmentModule } from './enroll/enroll-oath-dialog/oath-enrollment/oath-enrollment.module';
 import { ThemePickerComponent } from './theme-picker/theme-picker.component';
 
 @NgModule({
@@ -60,6 +61,7 @@ import { ThemePickerComponent } from './theme-picker/theme-picker.component';
   imports: [
     BrowserModule,
     FormsModule,
+    OathEnrollmentModule,
     ReactiveFormsModule,
     HttpClientModule,
     CookieModule.forRoot(),
