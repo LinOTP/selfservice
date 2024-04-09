@@ -24,6 +24,7 @@ import { SetPinDialogComponent } from '@common/set-pin-dialog/set-pin-dialog.com
 export interface EnrolledToken {
   serial: string;
   type: TokenType | 'assign';
+  description?: string;
 }
 @Component({
   template: '',
