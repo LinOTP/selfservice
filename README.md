@@ -87,19 +87,10 @@ The application needs to know the URL prefix where the project will be served fr
 
 A multi stage [Dockerfile](Dockerfile) is provided to build the sources in the first stage and to produce an nginx based container in the second step.
 
-The build container needs access to the linotp NPM repository, including a TLS trust chain. Please retrieve the required certificate via `step ca root > linotp.de.pem` in the root dir of the repository.
-
-The build container also needs a CI token to access the NPM package
-repository on `gitbox.corp.linotp.de`. This will be passed
-automatically when the container is built within the Gitlab CI
-infrastructure; for local builds, you can find this under “Settings »
-CI/CD » Variables” in the project, and pass it as a `--build-arg` to
-`docker build`.
-
 You can run the container build afterwards by executing the following command:
 
 ```bash
-docker build --build-arg NPM_CI_TOKEN=… -t linotp-selfservice .
+docker build -t linotp-selfservice .
 ```
 
 By default, the application is available under `/selfservice`. This
