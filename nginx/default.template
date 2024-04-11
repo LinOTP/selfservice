@@ -39,4 +39,9 @@ server {
     try_files $uri $uri/ /de/index.html?$args;
   }
 
+  location ~* @URL_PATH@/(en|de)/assets(.*)$ {
+    alias /usr/share/nginx/html;
+    try_files /custom-assets/$1$2 /custom-assets$2 /$1/assets$2 =404;
+  }
+
 }
