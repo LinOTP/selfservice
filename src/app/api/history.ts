@@ -1,4 +1,4 @@
-import { TokenType } from '@linotp/data-models';
+import { TokenType } from "./token";
 
 export enum HistoryField {
     NUMBER = 'number',

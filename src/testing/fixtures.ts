@@ -1,9 +1,8 @@
-import { TokenType } from '@linotp/data-models';
 
 import { EnrollmentDetail } from '@api/enrollment.service';
 import { HistoryField, HistoryPage, HistoryRequestOptions, HistoryResponse, SortOrder } from '@api/history';
 import { ReplyMode } from '@api/test.service';
-import { EnrollmentStatus, SelfserviceToken, TokenDisplayData } from '@api/token';
+import { EnrollmentStatus, SelfserviceToken, TokenDisplayData, TokenType } from '@api/token';
 import { SystemInfo, UserSystemInfo } from '@app/system.service';
 import { Permission } from '@common/permissions';
 

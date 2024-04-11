@@ -5,10 +5,9 @@ import { MatStepper } from '@angular/material/stepper';
 import { of, Subscription } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
-import { TokenType } from '@linotp/data-models';
 
 import { EnrollmentService } from '@api/enrollment.service';
-import { SelfserviceToken, TokenDisplayData, tokenDisplayData } from '@api/token';
+import { SelfserviceToken, TokenDisplayData, tokenDisplayData, TokenType } from '@api/token';
 
 @Component({
   selector: 'app-activate-dialog',

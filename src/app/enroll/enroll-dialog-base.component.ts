@@ -7,11 +7,10 @@ import { NgxPermissionsService } from 'ngx-permissions';
 import { forkJoin, from, of, Subscription } from 'rxjs';
 import { filter, map, switchMap, tap } from 'rxjs/operators';
 
-import { TokenType } from '@linotp/data-models';
 
 import { EnrollmentService } from '@api/enrollment.service';
 import { OperationsService } from '@api/operations.service';
-import { tokenDisplayData, TokenDisplayData } from '@api/token';
+import { tokenDisplayData, TokenDisplayData, TokenType } from '@api/token';
 import { TokenService } from '@api/token.service';
 import { LoginService } from '@app/login/login.service';
 import { TestDialogComponent } from '@app/test/test-dialog.component';

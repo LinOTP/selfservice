@@ -7,10 +7,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { TokenType } from '@linotp/data-models';
 
 import { ReplyMode, StatusDetail, TransactionDetail } from '@api/test.service';
-import { SelfserviceToken, TokenDisplayData } from '@api/token';
+import { SelfserviceToken, TokenDisplayData, TokenType } from '@api/token';
 import { SystemInfo, SystemService } from '@app/system.service';
 import { DialogComponent } from '@common/dialog/dialog.component';
 import { Duration, NotificationService } from '@common/notification.service';

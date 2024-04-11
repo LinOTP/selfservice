@@ -2,9 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 
-import { TokenType } from '@linotp/data-models';
-
-import { EnrollmentOptions } from '@api/token';
+import { EnrollmentOptions, TokenType } from '@api/token';
 import { EnrollDialogBaseComponent } from '@app/enroll/enroll-dialog-base.component';
 
 @Component({

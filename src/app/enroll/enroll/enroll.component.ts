@@ -5,9 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { of } from 'rxjs';
 import { catchError, filter, map, switchMap, take, tap } from 'rxjs/operators';
 
-import { TokenType } from '@linotp/data-models';
 
-import { TokenDisplayData, tokenDisplayData } from '@api/token';
+import { TokenDisplayData, TokenType, tokenDisplayData } from '@api/token';
 import { LoginService } from '@app/login/login.service';
 import { NotificationService } from '@common/notification.service';
 

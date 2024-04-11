@@ -4,14 +4,13 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
-import { TokenType } from '@linotp/data-models';
 
 import { SessionService } from '@app/auth/session.service';
 import { NotificationService } from '@common/notification.service';
 
 import { EnrolledToken } from '@app/enroll/enroll-dialog-base.component';
 import { APIError, LinOTPResponse } from './api';
-import { SelfserviceToken } from './token';
+import { SelfserviceToken, TokenType } from './token';
 
 @Injectable({
   providedIn: 'root'

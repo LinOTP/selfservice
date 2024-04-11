@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed, inject } from '@angular/core/testing';
 
-import { TokenType } from '@linotp/data-models';
 
 import { Fixtures } from '@testing/fixtures';
 import { getInjectedStub, spyOnClass } from '@testing/spyOnClass';
@@ -11,7 +10,7 @@ import { SessionService } from '@app/auth/session.service';
 import { NotificationService } from '@common/notification.service';
 
 import { EnrollmentService } from './enrollment.service';
-import { EnrollmentStatus, SelfserviceToken } from './token';
+import { EnrollmentStatus, SelfserviceToken, TokenType } from './token';
 import { TokenService } from './token.service';
 
 const session = '';

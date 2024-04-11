@@ -7,7 +7,6 @@ import { of } from 'rxjs';
 
 import { getInjectedStub, spyOnClass } from '@testing/spyOnClass';
 
-import { TokenType } from '@linotp/data-models';
 
 import { EnrollmentService } from '@api/enrollment.service';
 import { OperationsService } from '@api/operations.service';
@@ -20,6 +19,7 @@ import { NotificationService } from '@common/notification.service';
 import { SetPinDialogComponent } from '@common/set-pin-dialog/set-pin-dialog.component';
 import { TokenListFixtures } from '@testing/fixtures';
 
+import { TokenType } from '@app/api/token';
 import { EnrollDialogBaseComponent } from './enroll-dialog-base.component';
 
 class MockComponent extends EnrollDialogBaseComponent { }
