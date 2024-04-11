@@ -9,6 +9,8 @@
   * Harmonize form behaviour. E.g. all forms can now be submitted by pressing the `enter` key.
   * Error messages and notifications have different styles
   * Dockerfile has been improved in outlook of LinOTPs containerization
+  * Improved enrollment for HOTP and TOTP tokens
+  * Removed non-public dependencies. LinOTP Selfservice can now be build by everyone.
 
   ### Dependencies
   * Update to Angular 16
