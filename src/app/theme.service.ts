@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, distinctUntilKeyChanged } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +8,7 @@ import { BehaviorSubject } from 'rxjs';
 export class ThemeService {
   themes = getThemes();
   private _theme = new BehaviorSubject<Theme>(this.themes[0]);
-  theme$ = this._theme.asObservable();
+  theme$ = this._theme.asObservable().pipe(distinctUntilKeyChanged('id'));
   get theme() {
     return this._theme.value;
   }
@@ -16,6 +16,12 @@ export class ThemeService {
 
   constructor(@Inject(DOCUMENT) private document: Document) {
     this._initTheme();
+
+    // listen for system color scheme changes
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+      // reinitialize theme on changes changes
+      this._initTheme();
+    })
   }
 
   selectTheme(themeId: ThemeId) {
@@ -35,6 +41,14 @@ export class ThemeService {
     const theme =
       this._getSelectedTheme() || this._getThemeForPreferredColorScheme();
     this._theme.next(theme);
+
+    // there could potentially exist theme class when theme is reintialized
+    const classes = this.document.body.classList;
+    classes.forEach((className) => {
+      if (className.startsWith('theme-')) {
+        classes.remove(className);
+      }
+    })
     this.document.body.classList.add('theme-' + this._theme.value.id);
   }
 

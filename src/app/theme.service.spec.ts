@@ -72,4 +72,10 @@ describe('ThemeService', () => {
     expect(doc.body.classList).toContain('theme-dark');
     expect(localStorage.getItem('theme')).toBe('dark');
   });
+
+  it("it should clear classes on init", () => {
+    doc.body.classList.add('theme-dark');
+    getThemeService();
+    expect(doc.body.classList).not.toContain('theme-dark');
+  });
 });
