@@ -42,6 +42,7 @@
   @include mat.all-component-colors(light-theme.$theme);
   @include component-styles(light-theme.$theme);
   @include component-styles-light(light-theme.$theme);
+  --default-text-color: rgb(0, 0, 0)
 }
 
 .theme-dark {

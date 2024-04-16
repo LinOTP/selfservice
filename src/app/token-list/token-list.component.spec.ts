@@ -10,7 +10,7 @@ import { MockPipe } from '@testing/mock-pipe';
 import { TestingPage } from '@testing/page-helper';
 import { getInjectedStub, spyOnClass } from '@testing/spyOnClass';
 
-import { EnrollmentStatus, SelfserviceToken } from '@api/token';
+import { EnrollmentStatus, SelfserviceToken, TokenType } from '@api/token';
 import { TokenService } from '@api/token.service';
 import { LoginService } from '@app/login/login.service';
 import { MaterialModule } from '@app/material.module';
@@ -21,7 +21,6 @@ import { CapitalizePipe } from '@common/pipes/capitalize.pipe';
 import { InactiveTokensPipe } from '@common/pipes/inactive-tokens.pipe';
 import { UnreadyTokensPipe } from '@common/pipes/unready-tokens.pipe';
 
-import { TokenType } from '@linotp/data-models';
 
 import { SelfServiceContextService } from '@app/selfservice-context.service';
 import { TokenLimitResponse } from '@app/system.service';

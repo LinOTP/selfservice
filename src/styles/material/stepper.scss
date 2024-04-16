@@ -1,3 +1,9 @@
+
+// Temporary migration to steppers with headers
 .mat-horizontal-stepper-header-container {
   display: none !important;
+}
+
+app-enroll-oath .mat-horizontal-stepper-header-container {
+  display: flex !important;
 }

@@ -79,7 +79,7 @@
             <mat-error *ngIf="typeDetails.type === TokenType.PASSWORD"
                        i18n>The password field cannot be empty</mat-error>
             <mat-error *ngIf="typeDetails.type !== TokenType.PASSWORD"
-                       i18n>The OTP field cannot be empty</mat-error>
+                       i18n="@@otpRequiredInfo">The OTP field cannot be empty</mat-error>
           </mat-form-field>
         </div>
 

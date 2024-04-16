@@ -1,5 +1,4 @@
 FROM debian:stretch
-ARG NPM_CI_TOKEN
 
 RUN apt-get update
 RUN apt-get install --yes devscripts

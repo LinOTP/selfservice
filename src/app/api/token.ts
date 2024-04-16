@@ -1,6 +1,18 @@
-import { TokenType } from '@linotp/data-models';
-
 import { Permission } from '@common/permissions';
+
+export enum TokenType {
+  PASSWORD = "pw",
+  HOTP = "hmac",
+  TOTP = "totp",
+  PUSH = "push",
+  QR = "qr",
+  MOTP = "motp",
+  SMS = "sms",
+  EMAIL = "email",
+  YUBICO = "yubico",
+  YUBIKEY = "yubikey",
+  UNKNOWN = "unknown"
+}
 
 export enum EnrollmentEndpointType {
   ENROLL = 'enroll',
@@ -163,3 +175,8 @@ export const unknownTokenTypeDetail: TokenDisplayData = {
   description: $localize`Unsupported token type`,
   icon: 'apps',
 };
+
+
+export function getTokenDisplayData(type: TokenType): TokenDisplayData {
+  return tokenDisplayData.find(d => d.type === type) || unknownTokenTypeDetail;
+}

@@ -1,62 +1,21 @@
-mat-form-field {
-  width: 100%;
-  margin-bottom: 15px;
-}
-
-.testOTP {
-  width: 100%;
-
-  mat-form-field {
-    width: 10em;
-  }
-
-  button {
-    margin-left: 1em;
-  }
-}
-
-qrcode {
-  margin: 20px 0;
-  display: flex;
-  justify-content: space-around;
-}
-
-.toggle-details {
-  margin: 10px 0;
-  display: flex;
-  justify-content: space-around;
-
-  button span {
-    font-variant: small-caps;
-  }
-}
-
-.detail {
-  display: flex;
-  align-items: center;
-  margin: 10px 0;
-
-  .mat-mdc-form-field {
-    flex: 1;
-    margin-bottom: 0;
-    font-size: 75%;
-  }
-
-  .mat-icon {
-    width: 18px;
-    height: 18px;
-    font-size: 18px;
-    line-height: 1;
-  }
-
-}
-
-.verify {
-  margin-top: 1em;
-}
-
-
 app-authenticator-links {
   margin-bottom: 20px;
   display: block;
+}
+
+.button-content {
+  display: flex;
+  align-items: center;
+  mat-icon {
+    margin-left: 5px;
+  }
+}
+
+mat-dialog-content {
+  padding-top: 24px !important;
+  // height: 600px; // to make dialog fixed height
+}
+
+h2 {
+  margin-bottom: 0;
 }

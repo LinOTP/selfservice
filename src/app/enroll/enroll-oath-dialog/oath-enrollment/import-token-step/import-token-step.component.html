@@ -1,0 +1,113 @@
+<div *ngIf="enrolledToken">
+	<p i18n="@@oathStepperTokenCreatedInfo">A token with the serial number {{enrolledToken.serial}} has been created. Please add the token to LinOTP Authenticator by scanning the QR code in the app.</p>
+
+	<!-- Standard layout for enrollment with token verification -->
+	<ng-container *ngIf="verifyFlowEnabled;else noVerifyTmp">
+		<div class="verify-container">
+			<div>
+				<ng-container *ngTemplateOutlet="qrCodeTmp"></ng-container>
+			</div>
+			<div class="separator"></div>
+			<div class="verify">
+				<app-verify-token [token]="enrolledToken" [form]="form" (tokenVerified)="verified = true"></app-verify-token>
+			</div>
+		</div>
+
+		<ng-container *ngTemplateOutlet="detailButtonsTmp"></ng-container>
+	</ng-container>
+
+	<!-- Layout when verify policy is not set -->
+	<ng-template #noVerifyTmp>
+		<div class="no-verify-container">
+			<ng-container *ngTemplateOutlet="qrCodeTmp"></ng-container>
+			<ng-container *ngTemplateOutlet="detailButtonsTmp"></ng-container>
+		</div>
+	</ng-template>
+
+	<!-- Token details -->
+	<ng-container *ngIf="showDetails">
+		<mat-card appearance="outlined" class="detail-container">
+			<mat-card-content>
+				<div class="detail-info">
+					<mat-form-field appearance="outline"
+					class="inline-no-hint">
+						<mat-label i18n>Configuration URL</mat-label>
+						<input matInput
+						#enrollmentUrl
+						[value]="enrolledToken.url"
+						(focus)="$event.target.select()"
+						readonly>
+					</mat-form-field>
+					<button mat-icon-button
+					(click)="$event.preventDefault(); copyInputMessage(enrollmentUrl)"
+					matTooltip="Copy"
+					i18n-matTooltip
+					aria-label="Button to copy the configuration URL">
+						<mat-icon>file_copy</mat-icon>
+					</button>
+				</div>
+
+				<div class="detail-info">
+					<mat-form-field appearance="outline"
+					class="inline-no-hint">
+						<mat-label i18n>Seed</mat-label>
+						<input matInput
+						#enrollmentSeed
+						[value]="enrolledToken.seed"
+						(focus)="$event.target.select()"
+						readonly>
+					</mat-form-field>
+					<button mat-icon-button
+					(click)="copyInputMessage(enrollmentSeed)"
+					matTooltip="Copy"
+					i18n-matTooltip
+					aria-label="Button to copy the seed">
+						<mat-icon>file_copy</mat-icon>
+					</button>
+				</div>
+				<div i18n="@@oathStepperInstallTokenLink">You can also follow <a target="_blank"
+				rel="noopener noreferrer"
+				[href]="sanitizer.bypassSecurityTrustUrl(enrolledToken.url)">this link</a>
+				to install token.</div>
+			</mat-card-content>
+		</mat-card>
+	</ng-container>
+
+	<ng-container *ngIf="verifyFlowEnabled">
+		<div class="status-info" *ngIf="!verified" data-test="info-non-verified">
+			<mat-icon>error</mat-icon>
+			<span i18n="@@oathStepperTokenVerificationRequired">You need to verify the token to continue.</span>
+		</div>
+		<div *ngIf="verified" class="status-info" data-test="info-verified">
+			<mat-icon color="primary">check_circle</mat-icon>
+			<span i18n="@@oathStepperTokenVerificationSuccess">You have successfully verified token. You may proceed to next step.</span>
+		</div>
+	</ng-container>
+</div>
+
+<!-- Token details toggle buttons -->
+<ng-template #detailButtonsTmp>
+	<button (click)="showDetails = !showDetails"
+				mat-stroked-button
+				color="primary"
+				aria-label="Button to toggle the display of configuration details"
+				*ngIf="showDetails">
+		<mat-icon>visibility_off</mat-icon>
+		<span i18n>hide token details</span>
+	</button>
+	<button (click)="showDetails = !showDetails"
+					mat-stroked-button
+					color="primary"
+					aria-label="Button to toggle the display of configuration details"
+					*ngIf="!showDetails">
+		<mat-icon>visibility</mat-icon>
+		<span i18n>show token details</span>
+	</button>
+</ng-template>
+
+<ng-template #qrCodeTmp>
+	<qrcode [qrdata]="enrolledToken.url"
+	[width]="240"
+	[margin]="2"
+	[errorCorrectionLevel]="'L'"></qrcode>
+</ng-template>

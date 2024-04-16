@@ -4,10 +4,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { Subject, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
-import { TokenType } from '@linotp/data-models';
-
 import { OperationsService } from '@api/operations.service';
-import { EnrollmentStatus, SelfserviceToken } from '@api/token';
+import { EnrollmentStatus, SelfserviceToken, TokenType } from '@api/token';
 import { ActivateDialogComponent } from '@app/activate/activate-dialog.component';
 import { LockableTokenActionsService } from '@app/common/lockable-token-dialogs.service';
 import { LoginService } from '@app/login/login.service';

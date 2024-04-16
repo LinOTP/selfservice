@@ -4,13 +4,12 @@ import { Injectable } from '@angular/core';
 import { Observable, of, Subject } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
-import { TokenType } from '@linotp/data-models';
 
 import { SessionService } from '@app/auth/session.service';
 import { NotificationService } from '@common/notification.service';
 
 import { LinOTPResponse } from './api';
-import { SelfserviceToken, tokenDisplayData, TokenDisplayData, unknownTokenTypeDetail } from './token';
+import { SelfserviceToken, tokenDisplayData, TokenDisplayData, TokenType, unknownTokenTypeDetail } from './token';
 
 
 @Injectable({

@@ -8,8 +8,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NgxPermissionsAllowStubDirective, NgxPermissionsService } from 'ngx-permissions';
 import { of } from 'rxjs';
 
-import { TokenType } from '@linotp/data-models';
-
 import { Fixtures } from '@testing/fixtures';
 import { MockComponent } from '@testing/mock-component';
 import { getInjectedStub, spyOnClass } from '@testing/spyOnClass';
@@ -21,6 +19,7 @@ import { LoginService } from '@app/login/login.service';
 import { MaterialModule } from '@app/material.module';
 import { NotificationService } from '@common/notification.service';
 
+import { TokenType } from '@app/api/token';
 import { EnrollMOTPDialogComponent } from './enroll-motp-dialog.component';
 
 const enrolledToken = {

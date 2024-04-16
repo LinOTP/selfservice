@@ -1,5 +1,4 @@
-import { TokenType } from "@linotp/data-models";
-import { SelfserviceToken } from "./api/token";
+import { SelfserviceToken, TokenType } from "./api/token";
 import { TokenLimitResponse } from "./system.service";
 import { TokenLimitsService } from "./token-limits.service";
 

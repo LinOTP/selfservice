@@ -53,3 +53,7 @@ body {
 .mat-mdc-dialog-container mat-horizontal-stepper .mat-mdc-dialog-content {
   padding-top: 0;
 }
+
+qrcode canvas {
+  border-radius: 7px;
+}

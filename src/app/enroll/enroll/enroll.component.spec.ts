@@ -5,7 +5,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { of } from 'rxjs';
 
-import { TokenType } from '@linotp/data-models';
 
 import { getInjectedStub, spyOnClass } from '@testing/spyOnClass';
 
@@ -22,6 +21,7 @@ import { EnrollSMSDialogComponent } from '@app/enroll/enroll-sms-dialog/enroll-s
 import { EnrollYubicoDialogComponent } from '@app/enroll/enroll-yubico/enroll-yubico-dialog.component';
 import { TokenListComponent } from '@app/token-list/token-list.component';
 
+import { TokenType } from '@app/api/token';
 import { EnrollComponent } from './enroll.component';
 
 [

@@ -9,10 +9,9 @@ import { TokenService } from '@api/token.service';
 import { MaterialModule } from '@app/material.module';
 import { CapitalizePipe } from '@common/pipes/capitalize.pipe';
 
-import { SelfserviceToken } from '@app/api/token';
+import { SelfserviceToken, TokenType } from '@app/api/token';
 import { TokenLimitResponse } from '@app/system.service';
 import { TokenLimitsService } from '@app/token-limits.service';
-import { TokenType } from '@linotp/data-models';
 import { EnrollmentGridComponent } from './enrollment-grid.component';
 
 

@@ -1,7 +1,6 @@
 ### STAGE 1: Build ###
 
 FROM node:18.18-alpine3.18 as builder
-ARG NPM_CI_TOKEN
 
 ## We run the selfservice on `/selfservice` (rather than `/`)
 ## because that makes it easy to reverse-proxy selfservice requests
@@ -14,16 +13,7 @@ ARG URL_PATH=/selfservice
 WORKDIR /app
 
 ## Copy only the dependency list for enhanced caching
-COPY package.json yarn.lock .npmrc ./
-
-## Let yarn use ca-certificates
-
-## The file linotp.de.pem must be retrieved manually before
-## build. Please check README.md, section "Containers".
-COPY linotp.de.pem /usr/local/share/ca-certificates/
-
-RUN apk update && apk add ca-certificates && update-ca-certificates
-RUN yarn config set cafile /etc/ssl/certs/ca-certificates.crt
+COPY package.json yarn.lock ./
 
 ## Install all dependencies required for build
 RUN yarn --no-progress --frozen-lockfile

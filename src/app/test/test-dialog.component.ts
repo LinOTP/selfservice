@@ -4,10 +4,9 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { Subscription } from 'rxjs';
 
-import { TokenType } from '@linotp/data-models';
 
 import { ReplyMode, StatusDetail, TestOptions, TestService, TransactionDetail } from '@api/test.service';
-import { SelfserviceToken, TokenDisplayData, tokenDisplayData } from '@api/token';
+import { SelfserviceToken, TokenDisplayData, TokenType, tokenDisplayData } from '@api/token';
 
 enum TestState {
   UNTESTED = 'untested',

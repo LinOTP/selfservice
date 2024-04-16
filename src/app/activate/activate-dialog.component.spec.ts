@@ -8,7 +8,6 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Subscription } from 'rxjs';
 import { of } from 'rxjs/internal/observable/of';
 
-import { TokenType } from '@linotp/data-models';
 
 import { Fixtures } from '@testing/fixtures';
 import { MockComponent } from '@testing/mock-component';
@@ -19,6 +18,7 @@ import { TokenService } from '@api/token.service';
 import { EnrollPushQRDialogComponent } from '@app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component';
 import { MaterialModule } from '@app/material.module';
 
+import { TokenType } from '@app/api/token';
 import { ActivateDialogComponent } from './activate-dialog.component';
 
 const data = {
