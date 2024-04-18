@@ -16,6 +16,7 @@ import { ResyncDialogComponent } from '@common/resync-dialog/resync-dialog.compo
 import { SetDescriptionDialogComponent } from '@common/set-description-dialog/set-description-dialog.component';
 import { SetMOTPPinDialogComponent } from '@common/set-motp-pin-dialog/set-motp-pin-dialog.component';
 import { SetPinDialogComponent } from '@common/set-pin-dialog/set-pin-dialog.component';
+import { TokenVerifyCheckService } from '../token-list/token-verify-check.service';
 
 @Component({
   selector: 'app-token-card',
@@ -37,7 +38,6 @@ export class TokenCardComponent implements OnInit, OnDestroy {
   public isMOTP: boolean;
   public canEnable: boolean;
   public canActivate: boolean;
-
   private subscriptions: Subscription[] = [];
 
   constructor(
@@ -45,7 +45,8 @@ export class TokenCardComponent implements OnInit, OnDestroy {
     private notificationService: NotificationService,
     private operationsService: OperationsService,
     private loginService: LoginService,
-    private lockableTokenActionsService: LockableTokenActionsService
+    private lockableTokenActionsService: LockableTokenActionsService,
+    private tokenVerifyCheck: TokenVerifyCheckService
   ) { }
 
   public ngOnInit() {
@@ -145,7 +146,7 @@ export class TokenCardComponent implements OnInit, OnDestroy {
     });
   }
 
-  public testToken(): void {
+  private _openTestDialog() {
     const dialogConfig = {
       width: '850px',
       autoFocus: false,
@@ -153,7 +154,18 @@ export class TokenCardComponent implements OnInit, OnDestroy {
       data: { serial: this.token.serial, type: this.token.typeDetails.type, token: this.token }
     };
 
-    this.dialog.open(TestDialogComponent, dialogConfig)
+    return this.dialog.open(TestDialogComponent, dialogConfig)
+  }
+
+  public testToken(): void {
+    this._openTestDialog();
+  }
+
+  public verifyToken(): void {
+    // we use test dialog for verification for now
+    this._openTestDialog().afterClosed().subscribe(() => {
+      this.tokenUpdate.next();
+    });
   }
 
   public activate(): void {
@@ -183,11 +195,15 @@ export class TokenCardComponent implements OnInit, OnDestroy {
   }
 
   public pendingActions(): boolean {
-    return this.pendingActivate();
+    return this.pendingActivate() || this.verifyRequired();
   }
 
   public pendingActivate(): boolean {
     return this.canActivate && this.token.enrollmentStatus === EnrollmentStatus.PAIRING_RESPONSE_RECEIVED;
+  }
+
+  public verifyRequired(): boolean {
+    return this.tokenVerifyCheck.isVerificationRequiredForToken(this.token);
   }
 
   public isPush(): boolean {
@@ -240,3 +256,4 @@ export class TokenCardComponent implements OnInit, OnDestroy {
   }
 
 }
+

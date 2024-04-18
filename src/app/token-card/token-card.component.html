@@ -65,6 +65,12 @@
               (click)="activate()"
               *ngIf="pendingActivate()"
               i18n> Activate </button>
+      <!-- Not relevant for qr/push tokens -->
+      <button mat-button
+              color="primary"
+              (click)="verifyToken()"
+              *ngIf="verifyRequired()"
+              i18n> Verify </button>
     </mat-card-actions>
   </mat-card-footer>
 </mat-card>

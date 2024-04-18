@@ -24,6 +24,7 @@ import { SetMOTPPinDialogComponent } from '@common/set-motp-pin-dialog/set-motp-
 import { SetPinDialogComponent } from '@common/set-pin-dialog/set-pin-dialog.component';
 
 import { LockableTokenActionsService } from '@app/common/lockable-token-dialogs.service';
+import { TokenVerifyCheckService } from '@app/token-list/token-verify-check.service';
 import { TokenCardComponent } from './token-card.component';
 
 class Page extends TestingPage<TokenCardComponent> {
@@ -77,6 +78,13 @@ describe('TokenCardComponent', () => {
           provide: LoginService,
           useValue: spyOnClass(LoginService),
         },
+        {
+          provide: TokenVerifyCheckService,
+          useValue: {
+            init: () => { },
+            isVerificationRequiredForToken: () => false
+          }
+        }
 
       ]
     }).overrideComponent(TokenCardComponent, {
@@ -134,6 +142,7 @@ describe('TokenCardComponent', () => {
 
   it('should mark the token as synchronizable if it is a HOTP or TOTP token', () => {
     [Fixtures.activeHotpToken, Fixtures.activeTotpToken].forEach(token => {
+
       fixture = TestBed.createComponent(TokenCardComponent);
       component = fixture.componentInstance;
       component.token = token;
