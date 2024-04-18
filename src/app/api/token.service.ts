@@ -36,30 +36,24 @@ export class TokenService {
     this.emitTokenUpdateeSource.next();
   }
 
-  getTokens(): Observable<SelfserviceToken[]> {
-    const url = this.userserviceBase + this.userserviceEndpoints.tokens;
-    return this.http.get<LinOTPResponse<any[]>>(url, { params: { session: this.sessionService.getSession() } }).pipe(
-      map(res => res.result.value.map(t => this.mapBackendToken(t))),
+  getSelfserviceTokens(): Observable<SelfserviceToken[]> {
+    return this.getTokens().pipe(
+      map(res => {
+        return res.result.value.map(t => new SelfserviceToken(t));
+      }),
       catchError(this.handleError('getting tokens failed', []))
     );
   }
 
-  getToken(serial: string): Observable<SelfserviceToken> {
-    return this.getTokens().pipe(
-      map(tokens => tokens.find(t => t.serial === serial)),
-    );
+  getTokens() {
+    const url = this.userserviceBase + this.userserviceEndpoints.tokens;
+    return this.http.get<LinOTPResponse<any[]>>(url, { params: { session: this.sessionService.getSession() } })
   }
 
-  mapBackendToken(token: any): SelfserviceToken {
-    const t = new SelfserviceToken(
-      token['LinOtp.TokenId'],
-      token['LinOtp.TokenSerialnumber'],
-      this.getTypeDetails(token['LinOtp.TokenType']),
-      token['LinOtp.Isactive'],
-      token['LinOtp.TokenDesc']
+  getToken(serial: string): Observable<SelfserviceToken> {
+    return this.getSelfserviceTokens().pipe(
+      map(tokens => tokens.find(t => t.serial === serial)),
     );
-    t.enrollmentStatus = token['Enrollment']['status'] === 'completed' ? 'completed' : token['Enrollment']['detail'];
-    return t;
   }
 
   getTypeDetails(type: TokenType | 'assign'): TokenDisplayData {

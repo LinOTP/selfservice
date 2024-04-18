@@ -32,15 +32,48 @@ export interface TokenDisplayData {
 }
 
 export class SelfserviceToken {
-  enrollmentStatus: EnrollmentStatus;
+  private _enrollmentStatus: EnrollmentStatus;
+  get enrollmentStatus() {
+    return this._enrollmentStatus;
+  }
+  set enrollmentStatus(status: EnrollmentStatus) {
+    this._enrollmentStatus = status;
+  }
+
+  get id() {
+    return this.token['LinOtp.TokenId'];
+  }
+  get serial() {
+    return this.token['LinOtp.TokenSerialnumber'];
+  }
+
+  private _typeDetails: TokenDisplayData;
+  get typeDetails() {
+    return this._typeDetails;
+  }
+
+  get enabled() {
+    return this.token['LinOtp.Isactive'];
+  }
+  get description() {
+    return this.token['LinOtp.TokenDesc'];
+  }
+
+  get verified() {
+    // we use lastAuthSuccess as verify flag. it is only filled when token timestamps are enabled in configuration
+    return !!this.token['LinOtp.LastAuthSuccess']
+  }
+
+  get tokenType() {
+    return this.token['LinOtp.TokenType'];
+  }
 
   constructor(
-    public id: number,
-    public serial: string,
-    public typeDetails: TokenDisplayData,
-    public enabled: boolean,
-    public description?: string,
-  ) { }
+    private token: LinOtpToken
+  ) {
+    this._typeDetails = getTokenDisplayData(token['LinOtp.TokenType'].toLowerCase() as TokenType);
+    this._enrollmentStatus = token['Enrollment']['status'] === 'completed' ? 'completed' : token['Enrollment']['detail'];
+  }
 }
 
 export enum EnrollmentStatus {
@@ -180,3 +213,31 @@ export const unknownTokenTypeDetail: TokenDisplayData = {
 export function getTokenDisplayData(type: TokenType): TokenDisplayData {
   return tokenDisplayData.find(d => d.type === type) || unknownTokenTypeDetail;
 }
+
+export type LinOtpToken = {
+  'LinOtp.TokenId': number;
+  'LinOtp.TokenDesc': string;
+  'LinOtp.TokenSerialnumber': string;
+  'LinOtp.TokenType': LinOtpTokenType;
+  'LinOtp.TokenInfo': { [key: string]: string };
+  'LinOtp.IdResolver': string;
+  'LinOtp.IdResClass': string;
+  'LinOtp.Userid': string;
+  'LinOtp.OtpLen': number;
+  'LinOtp.MaxFail': number;
+  'LinOtp.Isactive': boolean;
+  'LinOtp.FailCount': number;
+  'LinOtp.Count': number;
+  'LinOtp.CountWindow': number;
+  'LinOtp.SyncWindow': number;
+  'LinOtp.CreationDate': string;
+  'LinOtp.LastAuthSuccess': string;
+  'LinOtp.LastAuthMatch': string;
+  'LinOtp.RealmNames': string[];
+  Enrollment: {
+    status: LinOtpTokenEnrollmentStatus;
+  }
+}
+
+export type LinOtpTokenEnrollmentStatus = 'completed' | 'unpaired' | 'pairing_url_sent' | 'pairing_response_received' | 'pairing_challenge_sent';
+export type LinOtpTokenType = 'pw' | 'hmac' | 'totp' | 'push' | 'qr' | 'motp' | 'sms' | 'email' | 'yubico' | 'yubikey' | 'unknown';

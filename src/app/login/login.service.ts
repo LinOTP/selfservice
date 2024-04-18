@@ -9,8 +9,7 @@ import { catchError, filter, map, mergeMap, switchMap, take, tap } from 'rxjs/op
 
 import { LinOTPResponse } from '@api/api';
 import { ReplyMode, StatusDetail, TransactionDetail } from '@api/test.service';
-import { SelfserviceToken } from '@api/token';
-import { TokenService } from '@api/token.service';
+import { LinOtpToken, SelfserviceToken } from '@api/token';
 import { SessionService } from '@app/auth/session.service';
 import { SelfServiceContextService } from '@app/selfservice-context.service';
 import { SystemService, UserSystemInfo } from '@app/system.service';
@@ -27,7 +26,7 @@ export interface LoginOptions {
 }
 
 interface LoginResponse {
-  tokenList?: SelfserviceToken[];
+  tokenList?: LinOtpToken[];
   transactionId?: string;
   transactionData?: string;
   message?: string;
@@ -63,7 +62,6 @@ export class LoginService {
     private http: HttpClient,
     private sessionService: SessionService,
     private systemService: SystemService,
-    private tokenService: TokenService,
     private router: Router,
     private dialogRef: MatDialog,
     private permissionsService: NgxPermissionsService,
@@ -122,7 +120,7 @@ export class LoginService {
           if (details.tokenList) {
             return {
               success: false,
-              tokens: details.tokenList.map(t => this.tokenService.mapBackendToken(t)),
+              tokens: details.tokenList.map(t => new SelfserviceToken(t)),
             };
           }
 
