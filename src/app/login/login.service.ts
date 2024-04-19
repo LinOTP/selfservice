@@ -202,6 +202,8 @@ export class LoginService {
         this.selfServiceContextService.setContext(userSystemInfo);
         this._loginChange$.next(userSystemInfo.user);
         this.loadStoredPermissions();
+        this._permissionLoad$.next(true);
+
       }),
       catchError(this.handleError('loadPermissions', undefined)),
     );
@@ -244,7 +246,6 @@ export class LoginService {
     const permissions = JSON.parse(localStorage.getItem('permissions'));
     if (permissions) {
       this.permissionsService.loadPermissions(permissions);
-      this._permissionLoad$.next(true);
     }
   }
 

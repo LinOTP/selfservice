@@ -317,7 +317,7 @@ describe('LoginService', () => {
       expect(subscriptionSpy).toHaveBeenCalledWith(false);
     }));
 
-    it('should push changed state on permission flush and update', fakeAsync(() => {
+    it('should push changed state on permission flush', fakeAsync(() => {
       const subscriptionSpy = jasmine.createSpy('permission subscription');
       ngxPermissionsService.hasPermission.and.returnValue(new Promise(resolve => resolve(true)));
 
@@ -330,14 +330,6 @@ describe('LoginService', () => {
       tick();
 
       expect(subscriptionSpy).toHaveBeenCalledWith(false);
-
-      subscriptionSpy.calls.reset();
-      ngxPermissionsService.hasPermission.and.returnValue(new Promise(resolve => resolve(true)));
-      spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify(Fixtures.permissionList));
-      loginService.loadStoredPermissions();
-      tick();
-
-      expect(subscriptionSpy).toHaveBeenCalledWith(true);
     }));
   });
 

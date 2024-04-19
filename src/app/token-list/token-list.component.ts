@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
-import { take, tap } from 'rxjs/operators';
+import { filter, tap } from 'rxjs/operators';
 
 import { EnrollmentStatus, SelfserviceToken, tokenDisplayData } from '@api/token';
 import { TokenService } from '@api/token.service';
@@ -36,20 +36,24 @@ export class TokenListComponent implements OnInit, OnDestroy {
     private loginService: LoginService,
     public tokenLimitsService: TokenLimitsService,
     private selfServiceContextService: SelfServiceContextService,
-    private tokenVerifyCheck: TokenVerifyCheckService
+    private tokenVerifyCheck: TokenVerifyCheckService,
   ) { }
 
   ngOnInit() {
-    this.tokenVerifyCheck.init();
 
-    this.loginService.permissionLoad$.pipe(
-      take(1),
+    const loginSub = this.loginService.permissionLoad$.pipe(
+      filter(permissionsLoaded => permissionsLoaded),
       tap(permissionsLoaded => this.permissionsLoaded = permissionsLoaded),
-    ).subscribe(() => this.loadTokens());
+    ).subscribe(() => {
+      this.loadTokens()
+      this.tokenVerifyCheck.init();
+    });
+    this.subscription.add(loginSub);
 
-    this.tokenService.tokenUpdateEmitted$.subscribe(() => {
+    const tokenUpdateSub = this.tokenService.tokenUpdateEmitted$.subscribe(() => {
       this.loadTokens();
     });
+    this.subscription.add(tokenUpdateSub);
   }
 
   ngOnDestroy() {
