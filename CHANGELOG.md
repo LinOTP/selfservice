@@ -11,6 +11,7 @@
   * Dockerfile has been improved in outlook of LinOTPs containerization
   * Improved enrollment for HOTP and TOTP tokens
   * Removed non-public dependencies. LinOTP Selfservice can now be build by everyone.
+  * Dynamically change the theme based on the device's color scheme, without requiring a browser refresh.
 
   ### Dependencies
   * Update to Angular 16
