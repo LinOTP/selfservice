@@ -9,8 +9,7 @@ import { take } from "rxjs";
 	selector: 'app-token-pin-form-layout',
 	template: `
 	<div [formGroup]="form">
-    <p i18n="@@oathStepperOtpPinInfo">During the authentication process you may need to provide this PIN together with the
-			token OTP.</p>
+    <p i18n="@@oathStepperOtpPinInfo">The PIN ensures that you can only use the token yourself. During the authentication process, you may need to enter this PIN together with an OTP of the token.</p>
 		<div class="single-row-form">
 			<mat-form-field>
 				<mat-label i18n>OTP PIN</mat-label>

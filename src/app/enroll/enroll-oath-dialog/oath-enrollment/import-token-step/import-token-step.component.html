@@ -1,5 +1,5 @@
 <div *ngIf="enrolledToken">
-	<p i18n="@@oathStepperTokenCreatedInfo">A token with the serial number {{enrolledToken.serial}} has been created. Please add the token to LinOTP Authenticator by scanning the QR code in the app.</p>
+	<p i18n="@@oathStepperTokenCreatedInfo">A token with the serial number {{enrolledToken.serial}} has been created. Please add the token by scanning the QR code in the Authenticator app.</p>
 
 	<!-- Standard layout for enrollment with token verification -->
 	<ng-container *ngIf="verifyFlowEnabled;else noVerifyTmp">
@@ -65,10 +65,10 @@
 						<mat-icon>file_copy</mat-icon>
 					</button>
 				</div>
-				<div i18n="@@oathStepperInstallTokenLink">You can also follow <a target="_blank"
+				<div i18n="@@oathStepperInstallTokenLink">If you use the Authenticator app on the same device you are seeing this, you may be able to follow <a target="_blank"
 				rel="noopener noreferrer"
 				[href]="sanitizer.bypassSecurityTrustUrl(enrolledToken.url)">this link</a>
-				to install token.</div>
+				to install the token.</div>
 			</mat-card-content>
 		</mat-card>
 	</ng-container>
