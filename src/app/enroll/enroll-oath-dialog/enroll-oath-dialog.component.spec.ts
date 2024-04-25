@@ -100,8 +100,7 @@ import { EnrollOATHDialogComponent } from './enroll-oath-dialog.component';
       loginService = getInjectedStub(LoginService);
 
       loginService.hasPermission$.and.returnValue(of(true));
-      const permissionsService = getInjectedStub(NgxPermissionsService);
-      permissionsService.hasPermission.and.returnValue(Promise.resolve(true));
+      (component as any)._getPermissions = () => of({ verify: true, setPin: true });
       fixture.detectChanges();
     });
 
@@ -135,6 +134,7 @@ import { EnrollOATHDialogComponent } from './enroll-oath-dialog.component';
 
       enrollmentService.enroll.and.returnValue(of(Fixtures.OATHEnrollmentResponse));
       const expectedToken = { ...Fixtures.enrolledToken, type: inputType, description: 'custom description' };
+      expect(component.createTokenForm.get('otpPin').enabled).toEqual(true);
 
       component.createTokenForm.get("description").setValue('custom description');
       fixture.detectChanges();
@@ -149,6 +149,23 @@ import { EnrollOATHDialogComponent } from './enroll-oath-dialog.component';
       expect(component.enrolledToken).toEqual(expectedToken);
       expect(component.stepper.next).toHaveBeenCalledTimes(1);
       expect(component.createTokenForm.disabled).toEqual(false);
+    }));
+
+    it('should enroll a ${inputType} token without otppin', fakeAsync(() => {
+      spyOn(component.stepper, 'next');
+      component.setOtpPinPolicyEnabled = false;
+      expect(component.createTokenForm.get('otpPin').enabled).toEqual(false);
+      enrollmentService.enroll.and.returnValue(of(Fixtures.OATHEnrollmentResponse));
+
+      component.createTokenForm.get("description").setValue('custom description');
+      fixture.detectChanges();
+      component.enrollToken();
+      tick(100);
+
+      expect(enrollmentService.enroll).toHaveBeenCalledWith({
+        type: inputType,
+        description: 'custom description',
+      });
     }));
 
     it('should allow retrying if enrollment failed', fakeAsync(() => {
