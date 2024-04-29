@@ -5,9 +5,8 @@
 <form [formGroup]="form"
       (ngSubmit)="submit()">
   <mat-dialog-content>
-    <p i18n>This ensures only you can use your token.</p>
-    <p i18n>During the authentication process you may need to provide this PIN together with the token
-      OTP.</p>
+    <p i18n="@@oathStepperOtpPinInfo">The PIN ensures that you can only use the token yourself. During the
+      authentication process, you may need to enter this PIN together with an OTP of the token.</p>
     <mat-form-field>
       <mat-label>{{ newPinPlaceholder }}</mat-label>
       <input matInput
@@ -34,10 +33,10 @@
             color="primary"
             type="submit"
             [disabled]="preventSubmit()">
-            <div class="button-content">
-              <app-button-wait-indicator [show]="awaitingResponse"></app-button-wait-indicator>
-              <span i18n>Set pin</span>
-            </div>
-           </button>
+      <div class="button-content">
+        <app-button-wait-indicator [show]="awaitingResponse"></app-button-wait-indicator>
+        <span i18n>Set pin</span>
+      </div>
+    </button>
   </mat-dialog-actions>
 </form>

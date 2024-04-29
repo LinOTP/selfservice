@@ -316,7 +316,7 @@
         <target state="translated">Passwort</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-password-dialog/enroll-password-dialog.component.html</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">10</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
@@ -646,11 +646,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/oath-enrollment/create-token-step.component.ts</context>
-          <context context-type="linenumber">73</context>
+          <context context-type="linenumber">49</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-password-dialog/enroll-password-dialog.component.ts</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="sourcefile">src/app/enroll/enroll-password-dialog/form.ts</context>
+          <context context-type="linenumber">10</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.ts</context>
@@ -712,11 +712,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">2</context>
+          <context context-type="linenumber">1</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-password-dialog/enroll-password-dialog.component.html</context>
-          <context context-type="linenumber">2</context>
+          <context context-type="linenumber">4</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
@@ -748,15 +748,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/oath-enrollment/create-token-step.component.ts</context>
-          <context context-type="linenumber">37</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/oath-enrollment/create-token-step.component.ts</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">13</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-password-dialog/enroll-password-dialog.component.html</context>
-          <context context-type="linenumber">41</context>
+          <context context-type="linenumber">32</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
@@ -785,10 +781,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-motp-dialog/enroll-motp-dialog.component.html</context>
           <context context-type="linenumber">45</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-password-dialog/enroll-password-dialog.component.html</context>
-          <context context-type="linenumber">44</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
@@ -840,7 +832,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.html</context>
-          <context context-type="linenumber">32</context>
+          <context context-type="linenumber">31</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
@@ -856,7 +848,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">28</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
@@ -864,11 +856,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">74</context>
+          <context context-type="linenumber">80</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-password-dialog/enroll-password-dialog.component.html</context>
-          <context context-type="linenumber">57</context>
+          <context context-type="linenumber">51</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
@@ -900,15 +892,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">31</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">81</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-password-dialog/enroll-password-dialog.component.html</context>
-          <context context-type="linenumber">64</context>
+          <context context-type="linenumber">88</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
@@ -948,29 +936,38 @@
         <target state="new">App installieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">7</context>
+          <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
       <trans-unit id="oathStepperIntroduction" datatype="html">
         <source>
-          <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p>"/>This step-by-step guide will help you to create a new token and import it to your device.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p>"/>
-          <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p>"/>To import token you need an OATH compatible soft-token app installed on your mobile device. Please install <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/>Linotp Authenticator<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/> before you proceed:<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p>"/>
-        </source>
+        <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p>"/>
+          This step-by-step guide will help you to create a new token and import
+          it onto your device.
+        <x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p>"/>
+        <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p>"/>
+          To import the token, you will need an OATH-compatible authenticator
+          app. We recommend to use <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/>LinOTP Authenticator<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/>:
+        <x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p>"/>
+      </source>
         <target state="new">
           <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p>"/>Diese schrittweise Anleitung hilft Ihnen dabei, einen neuen Token zu erstellen und auf Ihr Gerät zu importieren.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p>"/>
-          <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p>"/>Um den Token zu importieren, benötigen Sie eine OATH-kompatible Soft-Token-App auf Ihrem Mobilgerät installiert. Bitte installieren Sie zuerst den <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/>Linotp Authenticator<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/>, bevor Sie fortfahren:<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p>"/>
+          <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p>"/>Um das Token zu importieren, benötigen Sie eine OATH-kompatible Authenticator-App.. Wir empfehlen die Verwendung <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/>der LinOTP Authenticator-App<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/><x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p>"/>
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">8,11</context>
+          <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
       <trans-unit id="oathStepperAppInstalledConfirmInfo" datatype="html">
-        <source>Once you have the app installed on your device, you can start the token setup process.</source>
+        <source>
+        Once you have the app installed on your device, you can start the token
+        setup process.
+      </source>
         <target state="translated">Sobald Sie die App auf Ihrem Gerät installiert haben, können Sie den Token-Einrichtungsprozess starten.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5385408710926538560" datatype="html">
@@ -978,11 +975,19 @@
         <target state="new">Token erstellen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="linenumber">39</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="createToken" datatype="html">
+        <source>Create token</source>
+        <target state="translated">Token erstellen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">55</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/enroll-password-dialog/enroll-password-dialog.component.html</context>
+          <context context-type="linenumber">59</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6531903037078843254" datatype="html">
@@ -990,7 +995,7 @@
         <target state="translated">Token in die App importieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">63</context>
+          <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
       <trans-unit id="397098723873502323" datatype="html">
@@ -998,7 +1003,17 @@
         <target state="new">Erledigt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">89</context>
+          <context context-type="linenumber">96</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3935920932340410342" datatype="html">
+        <source>
+        Close
+      </source>
+        <target state="translated">Schließen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
+          <context context-type="linenumber">108</context>
         </context-group>
       </trans-unit>
       <trans-unit id="oathStepperCreateTokenInfo" datatype="html">
@@ -1006,43 +1021,65 @@
         <target state="new">Bitte richten Sie einen Token gemäß den Anweisungen Ihres Administrators ein.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/oath-enrollment/create-token-step.component.ts</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5156859204496679050" datatype="html">
         <source>OTP PIN</source>
         <target state="new">OTP-PIN</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/oath-enrollment/create-token-step.component.ts</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="sourcefile">src/app/enroll/enroll-password-dialog/enroll-password-dialog.component.html</context>
+          <context context-type="linenumber">39</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/oath-enrollment/create-token-step.component.ts</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="sourcefile">src/app/enroll/token-pin-form-layout/token-pin-form-layout.component.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="otpPinRecommendedInfo" datatype="html">
+        <source>Though not required, for security reasons
+					it is recommended to set a PIN for your token.</source>
+        <target state="new">Sicherheitshalber wird empfohlen, für Ihren Token eine PIN festzulegen.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/token-pin-form-layout/token-pin-form-layout.component.ts</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="oathStepperOtpPinInfo" datatype="html">
-        <source>During the authentication process you may need to provide this PIN together with the token OTP.</source>
-        <target state="translated">Während des Authentifizierungsprozesses müssen Sie möglicherweise diese PIN zusammen mit dem Token-OTP bereitstellen.</target>
+        <source>The PIN ensures that you can only use the token yourself. During the
+      authentication process, you may need to enter this PIN together with an OTP of the token.</source>
+        <target state="translated">Die PIN stellt sicher, dass Sie das Token nur selbst verwenden können. Während des Authentifizierungsprozesses müssen Sie möglicherweise diese PIN zusammen mit einem OTP des Tokens eingeben.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/oath-enrollment/create-token-step.component.ts</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/token-pin-form-layout/token-pin-form-layout.component.ts</context>
+          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5107596433013784749" datatype="html">
         <source>Confirm OTP PIN</source>
         <target state="new">OTP-PIN bestätigen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/oath-enrollment/create-token-step.component.ts</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="sourcefile">src/app/enroll/token-pin-form-layout/token-pin-form-layout.component.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pinsDoNotMatchError" datatype="html">
+        <source>Entered PINs do not match</source>
+        <target state="translated">Die eingegebenen PINs sind nicht gleich</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/token-pin-form-layout/token-pin-form-layout.component.ts</context>
+          <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
       <trans-unit id="oathStepperTokenDescriptionInfo" datatype="html">
-        <source>You may set a token description which should help you identify your token:</source>
-        <target state="translated">Sie können eine Token-Beschreibung festlegen, die Ihnen helfen soll, Ihren Token zu identifizieren:</target>
+        <source>You can enter a customized description to easily differentiate between multiple tokens:</source>
+        <target state="translated">Sie können eine individuelle Beschreibung eingeben, um zwischen mehreren Tokens leicht zu unterscheiden:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/oath-enrollment/create-token-step.component.ts</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
       <trans-unit id="oathStepperConfirmCreateInfo" datatype="html">
@@ -1050,7 +1087,7 @@
         <target state="translated">Wenn Sie bereit sind, erstellen Sie den Token, um mit dem nächsten Schritt fortzufahren.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/oath-enrollment/create-token-step.component.ts</context>
-          <context context-type="linenumber">49</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="oathStepperDoneVerifySuccess" datatype="html">
@@ -1078,8 +1115,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="oathStepperTokenCreatedInfo" datatype="html">
-        <source>A token with the serial number <x id="INTERPOLATION" equiv-text="{{enrolledToken.serial}}"/> has been created. Please add the token to LinOTP Authenticator by scanning the QR code in the app.</source>
-        <target state="translated">Ein Token mit der Seriennummer <x id="INTERPOLATION" equiv-text="{{enrolledToken.serial}}"/> wurde erstellt. Bitte fügen Sie das Token dem LinOTP Authenticator hinzu, indem Sie den QR-Code in der App scannen.</target>
+        <source>A token with the serial number <x id="INTERPOLATION" equiv-text="{{enrolledToken.serial}}"/> has been created. Please add the token by scanning the QR code in the Authenticator app.</source>
+        <target state="translated">Ein Token mit der Seriennummer <x id="INTERPOLATION" equiv-text="{{enrolledToken.serial}}"/> wurde erstellt. Bitte fügen Sie das Token hinzu, indem Sie den QR-Code in der Authenticator-App scannen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/oath-enrollment/import-token-step/import-token-step.component.html</context>
           <context context-type="linenumber">2</context>
@@ -1111,10 +1148,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-motp-dialog/enroll-motp-dialog.component.html</context>
           <context context-type="linenumber">76</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-password-dialog/enroll-password-dialog.component.html</context>
-          <context context-type="linenumber">74</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
@@ -1166,14 +1199,14 @@
         </context-group>
       </trans-unit>
       <trans-unit id="oathStepperInstallTokenLink" datatype="html">
-        <source>You can also follow <x id="START_LINK" ctype="x-a" equiv-text="&lt;a target=&quot;_blank&quot;
+        <source>If you use the Authenticator app on the same device you are seeing this, you may be able to follow <x id="START_LINK" ctype="x-a" equiv-text="&lt;a target=&quot;_blank&quot;
 				rel=&quot;noopener noreferrer&quot;
 				[href]=&quot;sanitizer.bypassSecurityTrustUrl(enrolledToken.url)&quot;>"/>this link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>
-				to install token.</source>
-        <target state="new">Sie können auch <x id="START_LINK" ctype="x-a" equiv-text="&lt;a target=&quot;_blank&quot;
+				to install the token.</source>
+        <target state="new">Wenn Sie die Authenticator-App auf demselben Gerät verwenden, auf dem Sie dies sehen, können Sie möglicherweise <x id="START_LINK" ctype="x-a" equiv-text="&lt;a target=&quot;_blank&quot;
 				rel=&quot;noopener noreferrer&quot;
 				[href]=&quot;sanitizer.bypassSecurityTrustUrl(enrolledToken.url)&quot;>"/>diesem Link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>
-				folgen, um den Token zu installieren:</target>
+				folgen, um das Token zu installieren:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/oath-enrollment/import-token-step/import-token-step.component.html</context>
           <context context-type="linenumber">68,71</context>
@@ -1200,7 +1233,7 @@
         <target state="translated">PIN vergeben</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.html</context>
-          <context context-type="linenumber">39</context>
+          <context context-type="linenumber">38</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
@@ -1213,10 +1246,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-motp-dialog/enroll-motp-dialog.component.html</context>
           <context context-type="linenumber">85</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-password-dialog/enroll-password-dialog.component.html</context>
-          <context context-type="linenumber">82</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
@@ -1295,10 +1324,6 @@
           <context context-type="linenumber">52</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-password-dialog/enroll-password-dialog.component.html</context>
-          <context context-type="linenumber">52</context>
-        </context-group>
-        <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
           <context context-type="linenumber">49</context>
         </context-group>
@@ -1317,10 +1342,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-email-dialog/enroll-email-dialog.component.html</context>
           <context context-type="linenumber">86</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-password-dialog/enroll-password-dialog.component.html</context>
-          <context context-type="linenumber">88</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-yubico/enroll-yubico-dialog.component.html</context>
@@ -1595,10 +1616,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-dialog-base.component.ts</context>
           <context context-type="linenumber">36</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">99</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
@@ -2523,10 +2540,6 @@
           <context context-type="linenumber">79</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-password-dialog/enroll-password-dialog.component.html</context>
-          <context context-type="linenumber">77</context>
-        </context-group>
-        <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
           <context context-type="linenumber">75</context>
         </context-group>
@@ -2610,19 +2623,19 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/oath-enrollment/create-token-step.component.ts</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">15</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-password-dialog/enroll-password-dialog.component.html</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">16</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-password-dialog/enroll-password-dialog.component.html</context>
-          <context context-type="linenumber">33</context>
+          <context context-type="linenumber">25</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-password-dialog/enroll-password-dialog.component.html</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">34</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
@@ -2718,15 +2731,15 @@
         <target state="translated">Erstellen Sie einen Passworttoken um sich mit einem festen Passwort authentifizieren zu können.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-password-dialog/enroll-password-dialog.component.html</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="1564426412109439746" datatype="html">
-        <source>Please enter a password:</source>
-        <target state="translated">Bitte geben Sie ein Passwort ein:</target>
+      <trans-unit id="passwordTokenEnrollmentInfo" datatype="html">
+        <source>To create token please provide password you want to use. You can enter a customized description to easily differentiate between multiple tokens:</source>
+        <target state="new">Um das Token zu erstellen, geben Sie bitte das Passwort ein, das Sie verwenden möchten. Sie können auch eine individuelle Beschreibung eingeben, um zwischen mehreren Tokens leicht zu unterscheiden:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-password-dialog/enroll-password-dialog.component.html</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5850698978356573024" datatype="html">
@@ -2734,7 +2747,23 @@
         <target state="translated">Bestätigen Sie Ihr Passwort</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-password-dialog/enroll-password-dialog.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="passwordsDoNotMatchError" datatype="html">
+        <source>Entered passwords do not match</source>
+        <target state="translated">Die eingegebenen Passwörter sind nicht gleich</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/enroll-password-dialog/enroll-password-dialog.component.html</context>
           <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7149512816040108553" datatype="html">
+        <source>Token enrolled successfully.</source>
+        <target state="new">Token erfolgreich registriert.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/enroll-password-dialog/enroll-password-dialog.component.ts</context>
+          <context context-type="linenumber">58</context>
         </context-group>
       </trans-unit>
       <trans-unit id="134839853128553565" datatype="html">
@@ -2745,20 +2774,8 @@
           <context context-type="linenumber">42</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-password-dialog/enroll-password-dialog.component.html</context>
-          <context context-type="linenumber">39</context>
-        </context-group>
-        <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-yubico/enroll-yubico-dialog.component.html</context>
           <context context-type="linenumber">25</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="523951362804011222" datatype="html">
-        <source>Entered passwords do not match</source>
-        <target state="translated">Die eingegebenen Passwörter sind nicht gleich</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-password-dialog/enroll-password-dialog.component.html</context>
-          <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4120957110513999577" datatype="html">
@@ -2827,23 +2844,6 @@
           <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="3884713207892396207" datatype="html">
-        <source>This ensures only you can use your token.</source>
-        <target state="translated">Dies stellt sicher, dass nur Sie Ihren Token verwenden können.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.html</context>
-          <context context-type="linenumber">8</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="1968008926412620990" datatype="html">
-        <source>During the authentication process you may need to provide this PIN together with the token
-      OTP.</source>
-        <target state="translated">Bei der Authentifizierung benötigen Sie diese PIN gegebenenfalls zusätzlich zu dem Token-OTP.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.html</context>
-          <context context-type="linenumber">9</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="127382592332405183" datatype="html">
         <source>Entered PINs do not match</source>
         <target state="translated">Die eingegebenen PINs sind nicht gleich</target>
@@ -2853,11 +2853,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.html</context>
-          <context context-type="linenumber">25</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/oath-enrollment/create-token-step.component.ts</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6287334326586741831" datatype="html">

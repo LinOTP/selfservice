@@ -22,6 +22,7 @@ import { MaterialModule } from '@app/material.module';
 import { NotificationService } from '@common/notification.service';
 
 import { TokenType } from '@app/api/token';
+import { TokenPinFormLayoutComponent } from '../token-pin-form-layout/token-pin-form-layout.component';
 import { EnrollPasswordDialogComponent } from './enroll-password-dialog.component';
 
 
@@ -48,6 +49,7 @@ describe('The EnrollPasswordDialogComponent', () => {
         MaterialModule,
         NoopAnimationsModule,
         NgxPermissionsAllowStubDirective,
+        TokenPinFormLayoutComponent
       ],
       providers: [
         {
@@ -102,6 +104,7 @@ describe('The EnrollPasswordDialogComponent', () => {
     dialog = getInjectedStub(MatDialog);
 
     loginService.hasPermission$.and.returnValue(of(true));
+    (component as any)._getPermissions = () => of(false);
 
     fixture.detectChanges();
   });
@@ -127,7 +130,6 @@ describe('The EnrollPasswordDialogComponent', () => {
 
   describe('enrollToken', () => {
     it('should enroll a password token with a default description', fakeAsync(() => {
-      spyOn(component.stepper, 'next');
 
       enrollmentService.enroll.and.returnValue(of(Fixtures.PasswordEnrollmentResponse));
       const serial = Fixtures.PasswordEnrollmentResponse.serial;
@@ -135,6 +137,8 @@ describe('The EnrollPasswordDialogComponent', () => {
       component.data.tokenType = TokenType.PASSWORD;
       component.enrollmentStep.controls.password.setValue('111111');
       component.enrollmentStep.controls.confirmation.setValue('111111');
+      expect(component.enrollmentStep.controls.otpPin.enabled).toEqual(false);
+
 
       fixture.detectChanges();
       component.enrollToken();
@@ -147,13 +151,34 @@ describe('The EnrollPasswordDialogComponent', () => {
       });
 
       expect(component.enrolledToken.serial).toEqual(serial);
-      expect(component.stepper.next).toHaveBeenCalledTimes(1);
       expect(component.enrollmentStep.disabled).toEqual(true);
     }));
 
-    it('should enroll a password token with a custom description', fakeAsync(() => {
-      spyOn(component.stepper, 'next');
+    it('should enroll a password token with otppin', fakeAsync(() => {
+      (component as any).setOtpPinPolicyEnabled = true;
+      enrollmentService.enroll.and.returnValue(of(Fixtures.PasswordEnrollmentResponse));
 
+      component.data.tokenType = TokenType.PASSWORD;
+      component.enrollmentStep.controls.password.setValue('111111');
+      component.enrollmentStep.controls.confirmation.setValue('111111');
+      component.enrollmentStep.controls.otpPin.get('pin').setValue('1234');
+      component.enrollmentStep.controls.otpPin.get('confirmPin').setValue('1234');
+
+      expect(component.enrollmentStep.controls.otpPin.enabled).toEqual(true);
+
+      fixture.detectChanges();
+      component.enrollToken();
+      tick();
+
+      expect(enrollmentService.enroll).toHaveBeenCalledWith({
+        type: TokenType.PASSWORD,
+        description: 'Created via SelfService',
+        otpkey: '111111',
+        otppin: '1234'
+      });
+    }));
+
+    it('should enroll a password token with a custom description', fakeAsync(() => {
       enrollmentService.enroll.and.returnValue(of(Fixtures.PasswordEnrollmentResponse));
       const serial = Fixtures.PasswordEnrollmentResponse.serial;
 
@@ -173,7 +198,6 @@ describe('The EnrollPasswordDialogComponent', () => {
       });
 
       expect(component.enrolledToken.serial).toEqual(serial);
-      expect(component.stepper.next).toHaveBeenCalledTimes(1);
       expect(component.enrollmentStep.disabled).toEqual(true);
     }));
 

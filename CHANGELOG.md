@@ -13,6 +13,7 @@
   * Removed non-public dependencies. LinOTP Selfservice can now be build by everyone.
   * Dynamically change the theme based on the device's color scheme, without requiring a browser refresh.
   * Display warnings about not verified tokens
+  * Improved enrollment for password tokens
 
   ### Dependencies
   * Update to Angular 16

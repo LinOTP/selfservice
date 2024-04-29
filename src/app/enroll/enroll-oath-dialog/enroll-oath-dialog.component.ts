@@ -4,6 +4,7 @@ import { MatStepper } from '@angular/material/stepper';
 import { EnrollmentOptions } from '@api/token';
 import { Permission } from '@app/common/permissions';
 import { EnrollDialogBaseComponent, EnrolledToken } from '@app/enroll/enroll-dialog-base.component';
+import { from, map } from 'rxjs';
 import { CurrentPlatform, PlatformProviderService } from '../../common/platform-provider.service';
 import { getCreateTokenStepForm } from './oath-enrollment/create-token-step.component';
 
@@ -41,12 +42,27 @@ export class EnrollOATHDialogComponent extends EnrollDialogBaseComponent impleme
   currentPlatform: CurrentPlatform = null
   selectedStep = 0
   awaitingResponse = false
-  verifyPolicyEnabled = false
+  verifyPolicyEnabled = true
+
+  public get setOtpPinPolicyEnabled() {
+    return this._setOtpPinPolicyEnabled;
+  }
+  public set setOtpPinPolicyEnabled(value) {
+    this._setOtpPinPolicyEnabled = value;
+    if (!value) {
+      this.createTokenForm.get('otpPin').disable();
+    } else {
+      this.createTokenForm.get('otpPin').enable();
+    }
+  }
+  private _setOtpPinPolicyEnabled = false;
 
   public ngOnInit() {
-    this.permissionsService.hasPermission(Permission.VERIFY).then((hasPermission) => {
-      this.verifyPolicyEnabled = hasPermission;
-    });
+    this._getPermissions().subscribe((hasPermissions) => {
+      this.verifyPolicyEnabled = hasPermissions.verify;
+      this.setOtpPinPolicyEnabled = hasPermissions.setPin;
+    })
+
     this.currentPlatform = this.platformProvider.platform
     this.subscriptions.push(this.stepper.selectionChange.subscribe((step) => {
       this.selectedStep = step.selectedIndex;
@@ -61,8 +77,11 @@ export class EnrollOATHDialogComponent extends EnrollDialogBaseComponent impleme
     const body: EnrollmentOptions = {
       type: this.tokenDisplayData.type,
       description: this.createTokenForm.get('description').value,
-      otppin: this.createTokenForm.get('pin').value,
     };
+    if (this.setOtpPinPolicyEnabled) {
+      body.otppin = this.createTokenForm.get('otpPin').get('pin').value;
+    }
+
     this.createTokenForm.disable();
 
     this.awaitingResponse = true;
@@ -85,5 +104,13 @@ export class EnrollOATHDialogComponent extends EnrollDialogBaseComponent impleme
         }, 100)
       }
     });
+  }
+
+  private _getPermissions() {
+    const verify = this.permissionsService.hasPermission(Permission.VERIFY)
+    const setPin = this.permissionsService.hasPermission(Permission.SETPIN)
+    return from(Promise.all([verify, setPin])).pipe(
+      map(([verify, setPin]) => ({ verify, setPin }))
+    )
   }
 }
