@@ -2,7 +2,7 @@
 import { EnrollmentDetail } from '@api/enrollment.service';
 import { HistoryField, HistoryPage, HistoryRequestOptions, HistoryResponse, SortOrder } from '@api/history';
 import { ReplyMode } from '@api/test.service';
-import { EnrollmentStatus, SelfserviceToken, TokenDisplayData, TokenType } from '@api/token';
+import { EnrollmentStatus, LinOtpToken, SelfserviceToken, TokenDisplayData, TokenType } from '@api/token';
 import { SystemInfo, UserSystemInfo } from '@app/system.service';
 import { Permission } from '@common/permissions';
 
@@ -105,95 +105,95 @@ export class Fixtures {
   }
 
   static get activeHotpToken(): SelfserviceToken {
-    return new SelfserviceToken(1, 'Active-Hotp-Token-Serial', this.tokenDisplayData[TokenType.HOTP], true, 'Description');
+    return getSelfserviceTokenFixture(1, 'Active-Hotp-Token-Serial', this.tokenDisplayData[TokenType.HOTP], true, 'Description');
   }
 
   static get activeTotpToken(): SelfserviceToken {
-    return new SelfserviceToken(1, 'Active-Totp-Token-Serial', this.tokenDisplayData[TokenType.TOTP], true, 'Description');
+    return getSelfserviceTokenFixture(1, 'Active-Totp-Token-Serial', this.tokenDisplayData[TokenType.TOTP], true, 'Description');
   }
 
   static get activePushToken(): SelfserviceToken {
-    return new SelfserviceToken(2, 'Active-PushToken-Serial', this.tokenDisplayData[TokenType.PUSH], true, 'Description');
+    return getSelfserviceTokenFixture(2, 'Active-PushToken-Serial', this.tokenDisplayData[TokenType.PUSH], true, 'Description');
   }
 
   static get activeQRToken(): SelfserviceToken {
-    return new SelfserviceToken(2, 'Active-QRToken-Serial', this.tokenDisplayData[TokenType.QR], true, 'Description');
+    return getSelfserviceTokenFixture(2, 'Active-QRToken-Serial', this.tokenDisplayData[TokenType.QR], true, 'Description');
   }
 
   static get inactiveHotpToken(): SelfserviceToken {
-    return new SelfserviceToken(3, 'Inactive-Hotp-Token-Serial', this.tokenDisplayData[TokenType.HOTP], false, 'Description');
+    return getSelfserviceTokenFixture(3, 'Inactive-Hotp-Token-Serial', this.tokenDisplayData[TokenType.HOTP], false, 'Description');
   }
 
   static get inactivePushToken(): SelfserviceToken {
-    return new SelfserviceToken(2, 'Inactive-PushToken-Serial', this.tokenDisplayData[TokenType.PUSH], false, 'Description');
+    return getSelfserviceTokenFixture(2, 'Inactive-PushToken-Serial', this.tokenDisplayData[TokenType.PUSH], false, 'Description');
   }
 
   static get inactiveQRToken(): SelfserviceToken {
-    return new SelfserviceToken(2, 'Inactive-QRToken-Serial', this.tokenDisplayData[TokenType.QR], false, 'QR token Description');
+    return getSelfserviceTokenFixture(2, 'Inactive-QRToken-Serial', this.tokenDisplayData[TokenType.QR], false, 'QR token Description');
   }
 
   static get unpairedPushToken(): SelfserviceToken {
-    const token = new SelfserviceToken(5, 'Paired-PushToken-Serial', this.tokenDisplayData[TokenType.PUSH], true, 'Description');
+    const token = getSelfserviceTokenFixture(5, 'Paired-PushToken-Serial', this.tokenDisplayData[TokenType.PUSH], true, 'Description');
     token.enrollmentStatus = EnrollmentStatus.UNPAIRED;
     return token;
   }
 
   static get pairedPushToken(): SelfserviceToken {
-    const token = new SelfserviceToken(5, 'Paired-PushToken-Serial', this.tokenDisplayData[TokenType.PUSH], true, 'Description');
+    const token = getSelfserviceTokenFixture(5, 'Paired-PushToken-Serial', this.tokenDisplayData[TokenType.PUSH], true, 'Description');
     token.enrollmentStatus = EnrollmentStatus.PAIRING_RESPONSE_RECEIVED;
     return token;
   }
 
   static get pairedQRToken(): SelfserviceToken {
-    const token = new SelfserviceToken(5, 'Paired-QRToken-Serial', this.tokenDisplayData[TokenType.QR], true, 'QR token Description');
+    const token = getSelfserviceTokenFixture(5, 'Paired-QRToken-Serial', this.tokenDisplayData[TokenType.QR], true, 'QR token Description');
     token.enrollmentStatus = EnrollmentStatus.PAIRING_RESPONSE_RECEIVED;
     return token;
   }
 
   static get unpairedQRToken(): SelfserviceToken {
-    const token = new SelfserviceToken(5, 'Unpaired-QRToken-Serial', this.tokenDisplayData[TokenType.QR], true, 'QR token Description');
+    const token = getSelfserviceTokenFixture(5, 'Unpaired-QRToken-Serial', this.tokenDisplayData[TokenType.QR], true, 'QR token Description');
     token.enrollmentStatus = EnrollmentStatus.UNPAIRED;
     return token;
   }
 
   static get completedPushToken(): SelfserviceToken {
-    const token = new SelfserviceToken(5, 'Paired-PushToken-Serial', this.tokenDisplayData[TokenType.PUSH], true, 'Description');
+    const token = getSelfserviceTokenFixture(5, 'Paired-PushToken-Serial', this.tokenDisplayData[TokenType.PUSH], true, 'Description');
     token.enrollmentStatus = EnrollmentStatus.COMPLETED;
     return token;
   }
 
   static get unknownToken(): SelfserviceToken {
-    return new SelfserviceToken(5, 'Unknown-Serial', this.tokenDisplayData[TokenType.UNKNOWN], true, 'Description');
+    return getSelfserviceTokenFixture(5, 'Unknown-Serial', this.tokenDisplayData[TokenType.UNKNOWN], true, 'Description');
   }
 
   static get completedQRToken(): SelfserviceToken {
-    const token = new SelfserviceToken(5, 'Paired-QRToken-Serial', this.tokenDisplayData[TokenType.QR], true, 'QR token Description');
+    const token = getSelfserviceTokenFixture(5, 'Paired-QRToken-Serial', this.tokenDisplayData[TokenType.QR], true, 'QR token Description');
     token.enrollmentStatus = EnrollmentStatus.COMPLETED;
     return token;
   }
 
   static get activeMotpToken(): SelfserviceToken {
-    return new SelfserviceToken(1, 'Active-mOTP-Token-Serial', this.tokenDisplayData[TokenType.MOTP], true, 'Description');
+    return getSelfserviceTokenFixture(1, 'Active-mOTP-Token-Serial', this.tokenDisplayData[TokenType.MOTP], true, 'Description');
   }
 
   static get activeSMSToken(): SelfserviceToken {
-    return new SelfserviceToken(1, 'Active-SMS-Token-Serial', this.tokenDisplayData[TokenType.SMS], true, 'Description');
+    return getSelfserviceTokenFixture(1, 'Active-SMS-Token-Serial', this.tokenDisplayData[TokenType.SMS], true, 'Description');
   }
 
   static get activeEmailToken(): SelfserviceToken {
-    return new SelfserviceToken(1, 'Active-Email-Token-Serial', this.tokenDisplayData[TokenType.EMAIL], true, 'Description');
+    return getSelfserviceTokenFixture(1, 'Active-Email-Token-Serial', this.tokenDisplayData[TokenType.EMAIL], true, 'Description');
   }
 
   static get activePasswordToken(): SelfserviceToken {
-    return new SelfserviceToken(1, 'Active-Password-Token-Serial', this.tokenDisplayData[TokenType.PASSWORD], true, 'Description');
+    return getSelfserviceTokenFixture(1, 'Active-Password-Token-Serial', this.tokenDisplayData[TokenType.PASSWORD], true, 'Description');
   }
 
   static get activeYubicoToken(): SelfserviceToken {
-    return new SelfserviceToken(1, 'Active-Yubico-Token-Serial', this.tokenDisplayData[TokenType.YUBICO], true, 'Description');
+    return getSelfserviceTokenFixture(1, 'Active-Yubico-Token-Serial', this.tokenDisplayData[TokenType.YUBICO], true, 'Description');
   }
 
   static get activeYubikeyToken(): SelfserviceToken {
-    return new SelfserviceToken(1, 'Active-Yubico-Token-Serial', this.tokenDisplayData[TokenType.YUBICO], true, 'Description');
+    return getSelfserviceTokenFixture(1, 'Active-Yubico-Token-Serial', this.tokenDisplayData[TokenType.YUBICO], true, 'Description');
   }
 
 
@@ -392,6 +392,7 @@ export class Fixtures {
         realm_box: false,
         mfa_3_fields: false,
         autoenroll: false,
+        last_access: false,
         token_limits: {
           all_token: null,
           token_types: [],
@@ -479,22 +480,41 @@ export class ExampleAPIResponses {
   }
 }
 
+
+export function getSelfserviceTokenFixture(id: number, serial: string, typeDetails: TokenDisplayData, enabled: boolean, description: string) {
+  const linOtpToken: Partial<LinOtpToken> = {
+    'LinOtp.TokenId': id,
+    'LinOtp.Isactive': enabled,
+    'LinOtp.TokenSerialnumber': serial,
+    'LinOtp.TokenDesc': description,
+    "LinOtp.TokenType": typeDetails.type.toLowerCase() as TokenType,
+    "Enrollment": {
+      "status": "completed"
+    }
+  }
+  const token = new SelfserviceToken(linOtpToken as LinOtpToken);
+  (token as any)._typeDetails = typeDetails
+
+  return token
+}
+
 export class TokenListFixtures {
 
   static get mockReadyEnabledToken() {
-    const token = new SelfserviceToken(1, 'serial', Fixtures.tokenDisplayData[TokenType.UNKNOWN], true, 'desc');
+
+    const token = getSelfserviceTokenFixture(1, 'serial', Fixtures.tokenDisplayData[TokenType.UNKNOWN], true, 'desc');
     token.enrollmentStatus = EnrollmentStatus.COMPLETED;
     return token;
   }
 
   static get mockReadyDisabledToken() {
-    const token = new SelfserviceToken(2, 'serial2', Fixtures.tokenDisplayData[TokenType.UNKNOWN], false, 'desc');
+    const token = getSelfserviceTokenFixture(2, 'serial2', Fixtures.tokenDisplayData[TokenType.UNKNOWN], false, 'desc');
     token.enrollmentStatus = EnrollmentStatus.COMPLETED;
     return token;
   }
 
   static get mockUnreadyDisabledToken() {
-    const token = new SelfserviceToken(3, 'serial3', Fixtures.tokenDisplayData[TokenType.UNKNOWN], false, 'desc');
+    const token = getSelfserviceTokenFixture(3, 'serial3', Fixtures.tokenDisplayData[TokenType.UNKNOWN], false, 'desc');
     token.enrollmentStatus = EnrollmentStatus.UNPAIRED;
     return token;
   }

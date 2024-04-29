@@ -26,6 +26,7 @@ import { SelfServiceContextService } from '@app/selfservice-context.service';
 import { TokenLimitResponse } from '@app/system.service';
 import { TokenLimitsService } from '@app/token-limits.service';
 import { TokenListComponent } from './token-list.component';
+import { TokenVerifyCheckService } from './token-verify-check.service';
 
 class Page extends TestingPage<TokenListComponent> {
 
@@ -97,15 +98,24 @@ describe('TokenListComponent', () => {
         {
           provide: SelfServiceContextService,
           useValue: spyOnClass(SelfServiceContextService)
-        }
+        },
+
       ],
       imports: [
         MaterialModule,
         RouterTestingModule.withRoutes([]),
         NgxPermissionsAllowStubDirective,
       ]
-    })
-      .compileComponents();
+    }).overrideComponent(TokenListComponent, {
+      set: {
+        providers: [
+          {
+            provide: TokenVerifyCheckService,
+            useValue: spyOnClass(TokenVerifyCheckService)
+          }
+        ]
+      }
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -126,13 +136,13 @@ describe('TokenListComponent', () => {
   });
 
   it('should create', () => {
-    tokenService.getTokens.and.returnValue(of([]));
+    tokenService.getSelfserviceTokens.and.returnValue(of([]));
     fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 
   it('should render expected title and text for first token enrollment section', () => {
-    tokenService.getTokens.and.returnValue(of([]));
+    tokenService.getSelfserviceTokens.and.returnValue(of([]));
     fixture.detectChanges();
 
     expect(page.getEnrollFirstTokenSectionElement('h2').textContent).toEqual('Set up your first authentication method');
@@ -151,7 +161,7 @@ describe('TokenListComponent', () => {
     const hotpToken = Fixtures.activeHotpToken;
     hotpToken.enrollmentStatus = EnrollmentStatus.COMPLETED;
 
-    tokenService.getTokens.and.returnValue(of([hotpToken]));
+    tokenService.getSelfserviceTokens.and.returnValue(of([hotpToken]));
     fixture.detectChanges();
 
     expect(page.getActiveAuthSectionElement('h2').textContent).toEqual('Active authentication methods');
@@ -171,7 +181,7 @@ describe('TokenListComponent', () => {
     const hotpToken = Fixtures.activeHotpToken;
     hotpToken.enrollmentStatus = EnrollmentStatus.UNPAIRED;
 
-    tokenService.getTokens.and.returnValue(of([hotpToken]));
+    tokenService.getSelfserviceTokens.and.returnValue(of([hotpToken]));
     fixture.detectChanges();
 
     expect(page.getPendingSectionElement('h2').textContent).toEqual('Pending actions');
@@ -189,9 +199,9 @@ describe('TokenListComponent', () => {
   });
 
   it('should load tokens from the server on init', () => {
-    tokenService.getTokens.and.returnValue(of([]));
+    tokenService.getSelfserviceTokens.and.returnValue(of([]));
     fixture.detectChanges();
-    expect(tokenService.getTokens).toHaveBeenCalled();
+    expect(tokenService.getSelfserviceTokens).toHaveBeenCalled();
   });
 
   it('should load enrollment permissions', () => {
@@ -214,7 +224,7 @@ describe('TokenListComponent', () => {
   });
 
   it('should render no title nor text, save for the loading spinning indicator before the tokens loaded', () => {
-    tokenService.getTokens.and.returnValue(of(undefined));
+    tokenService.getSelfserviceTokens.and.returnValue(of(undefined));
     fixture.detectChanges();
 
     expect(page.getLoadingTokensElement('mat-spinner')).toBeTruthy();
@@ -234,7 +244,7 @@ describe('TokenListComponent', () => {
   });
 
   it('should show token limit info when limit reached', () => {
-    tokenService.getTokens.and.returnValue(of(getTokenLimitReachedMock()));
+    tokenService.getSelfserviceTokens.and.returnValue(of(getTokenLimitReachedMock()));
     fixture.detectChanges();
     expect(component.tokenLimitsService.isMaxTokenLimitSet).toBe(true);
     expect(component.tokenLimitsService.maxTokenLimitReached).toBe(true);
@@ -243,7 +253,7 @@ describe('TokenListComponent', () => {
   });
 
   it('should now show token limit info when limit not reached', () => {
-    tokenService.getTokens.and.returnValue(of(getTokenLimitReachedMock().slice(0, 3)));
+    tokenService.getSelfserviceTokens.and.returnValue(of(getTokenLimitReachedMock().slice(0, 3)));
     fixture.detectChanges();
     expect(component.tokenLimitsService.isMaxTokenLimitSet).toBe(true);
     expect(component.tokenLimitsService.maxTokenLimitReached).toBe(false);
@@ -252,7 +262,7 @@ describe('TokenListComponent', () => {
   });
 
   it('should show warning when user is locked', () => {
-    tokenService.getTokens.and.returnValue(of(getTokenLimitReachedMock()));
+    tokenService.getSelfserviceTokens.and.returnValue(of(getTokenLimitReachedMock()));
     component.isUserLocked = true;
     fixture.detectChanges();
     const message = fixture.nativeElement.querySelector('.warning-info');
@@ -260,7 +270,7 @@ describe('TokenListComponent', () => {
   })
 
   it('should not show warning when user is not locked', () => {
-    tokenService.getTokens.and.returnValue(of(getTokenLimitReachedMock()));
+    tokenService.getSelfserviceTokens.and.returnValue(of(getTokenLimitReachedMock()));
     component.isUserLocked = false;
     fixture.detectChanges();
     const message = fixture.nativeElement.querySelector('.warning-info');

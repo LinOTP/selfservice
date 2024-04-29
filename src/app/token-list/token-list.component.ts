@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
-import { take, tap } from 'rxjs/operators';
+import { filter, tap } from 'rxjs/operators';
 
 import { EnrollmentStatus, SelfserviceToken, tokenDisplayData } from '@api/token';
 import { TokenService } from '@api/token.service';
@@ -10,12 +10,13 @@ import { SelfServiceContextService } from '@app/selfservice-context.service';
 import { TokenLimitsService } from '@app/token-limits.service';
 import { Permission } from '@common/permissions';
 import { Subscription, combineLatest } from 'rxjs';
+import { TokenVerifyCheckService } from './token-verify-check.service';
 
 @Component({
   selector: 'app-token-list',
   templateUrl: './token-list.component.html',
   styleUrls: ['./token-list.component.scss'],
-  providers: [TokenLimitsService]
+  providers: [TokenLimitsService, TokenVerifyCheckService]
 })
 
 export class TokenListComponent implements OnInit, OnDestroy {
@@ -28,23 +29,31 @@ export class TokenListComponent implements OnInit, OnDestroy {
   loaded = false
 
   isUserLocked: boolean = false
+  warnTokensNotVerified = false
 
   constructor(
     private tokenService: TokenService,
     private loginService: LoginService,
     public tokenLimitsService: TokenLimitsService,
     private selfServiceContextService: SelfServiceContextService,
+    private tokenVerifyCheck: TokenVerifyCheckService,
   ) { }
 
   ngOnInit() {
-    this.loginService.permissionLoad$.pipe(
-      take(1),
-      tap(permissionsLoaded => this.permissionsLoaded = permissionsLoaded),
-    ).subscribe(() => this.loadTokens());
 
-    this.tokenService.tokenUpdateEmitted$.subscribe(() => {
+    const loginSub = this.loginService.permissionLoad$.pipe(
+      filter(permissionsLoaded => permissionsLoaded),
+      tap(permissionsLoaded => this.permissionsLoaded = permissionsLoaded),
+    ).subscribe(() => {
+      this.loadTokens()
+      this.tokenVerifyCheck.init();
+    });
+    this.subscription.add(loginSub);
+
+    const tokenUpdateSub = this.tokenService.tokenUpdateEmitted$.subscribe(() => {
       this.loadTokens();
     });
+    this.subscription.add(tokenUpdateSub);
   }
 
   ngOnDestroy() {
@@ -52,7 +61,7 @@ export class TokenListComponent implements OnInit, OnDestroy {
   }
 
   loadTokens() {
-    const tokens$ = this.tokenService.getTokens().pipe(tap(tokens => {
+    const tokens$ = this.tokenService.getSelfserviceTokens().pipe(tap(tokens => {
       this.tokens = tokens;
     }));
 
@@ -65,8 +74,7 @@ export class TokenListComponent implements OnInit, OnDestroy {
       const context = new AuthLockedEvaluatorContextInfo(this.selfServiceContextService.context)
       const rules = new AuthLockedStatusEvaluator(this.tokens, context)
       this.isUserLocked = rules.isUsersAuthLocked()
+      this.warnTokensNotVerified = this.tokenVerifyCheck.shouldWarnAboutNotVerifiedTokens(this.tokens)
     }))
-
   }
-
 }

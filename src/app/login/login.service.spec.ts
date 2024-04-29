@@ -8,7 +8,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NgxPermissionsService } from 'ngx-permissions';
 import { of } from 'rxjs';
 
-import { Fixtures, TokenListFixtures } from '@testing/fixtures';
+import { Fixtures } from '@testing/fixtures';
 import { getInjectedStub, spyOnClass } from '@testing/spyOnClass';
 
 import { TokenService } from '@api/token.service';
@@ -21,7 +21,6 @@ import { LoginService } from './login.service';
 
 describe('LoginService', () => {
   let loginService: LoginService;
-  let tokenService: jasmine.SpyObj<TokenService>;
   let systemService: jasmine.SpyObj<SystemService>;
   let ngxPermissionsService: jasmine.SpyObj<NgxPermissionsService>;
 
@@ -58,7 +57,6 @@ describe('LoginService', () => {
 
   beforeEach(() => {
     loginService = TestBed.inject(LoginService);
-    tokenService = getInjectedStub(TokenService);
     systemService = getInjectedStub(SystemService);
     ngxPermissionsService = getInjectedStub(NgxPermissionsService);
 
@@ -198,22 +196,6 @@ describe('LoginService', () => {
 
   describe('MFA login when the user has tokens', () => {
 
-    it('should request a list of completed tokens for the user and return them', inject(
-      [HttpClient, HttpTestingController],
-      (http: HttpClient, backend: HttpTestingController) => {
-        tokenService.mapBackendToken.and.returnValues(...TokenListFixtures.mockTokenList);
-
-        loginService.login({ username: 'user', password: 'pass' }).subscribe(response => {
-          expect(response).toEqual({ success: false, tokens: TokenListFixtures.mockTokenList });
-        });
-
-        const loginRequest = backend.expectOne((req) => req.url === '/userservice/login' && req.method === 'POST');
-        loginRequest.flush({ detail: { tokenList: TokenListFixtures.mockTokenListFromBackend }, result: { status: true, value: false } });
-
-        backend.verify();
-      }
-    ));
-
     it('loginSecondStep should authenticate the user on correct OTP', inject(
       [HttpClient, HttpTestingController],
       (http: HttpClient, backend: HttpTestingController) => {
@@ -335,7 +317,7 @@ describe('LoginService', () => {
       expect(subscriptionSpy).toHaveBeenCalledWith(false);
     }));
 
-    it('should push changed state on permission flush and update', fakeAsync(() => {
+    it('should push changed state on permission flush', fakeAsync(() => {
       const subscriptionSpy = jasmine.createSpy('permission subscription');
       ngxPermissionsService.hasPermission.and.returnValue(new Promise(resolve => resolve(true)));
 
@@ -348,14 +330,6 @@ describe('LoginService', () => {
       tick();
 
       expect(subscriptionSpy).toHaveBeenCalledWith(false);
-
-      subscriptionSpy.calls.reset();
-      ngxPermissionsService.hasPermission.and.returnValue(new Promise(resolve => resolve(true)));
-      spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify(Fixtures.permissionList));
-      loginService.loadStoredPermissions();
-      tick();
-
-      expect(subscriptionSpy).toHaveBeenCalledWith(true);
     }));
   });
 

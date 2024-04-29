@@ -91,6 +91,7 @@ export interface UserSystemInfo extends SystemInfo {
   settings: SystemInfo['settings'] & {
     edit_sms?: number,
     edit_email?: number,
+    last_access?: boolean;
   };
   actions: string[];
 }

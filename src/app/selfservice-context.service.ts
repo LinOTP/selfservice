@@ -21,6 +21,10 @@ export class SelfServiceContextService {
     return this.store.value.context;
   }
 
+  get tokenTimestampsEnabled() {
+    return this.context?.settings.last_access || false;
+  }
+
   setContext(data: UserSystemInfo) {
     this.store.next({
       ...this.store.value,

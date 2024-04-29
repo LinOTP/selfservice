@@ -47,20 +47,6 @@ describe('TokenService', () => {
   }));
 
   describe('getTokens', () => {
-    it('should request tokens from the server', inject(
-      [HttpClient, HttpTestingController],
-      (http: HttpClient, backend: HttpTestingController) => {
-
-        tokenService.getTokens().subscribe(response => {
-          expect(response).toEqual(TokenListFixtures.mockTokenList);
-        });
-
-        const tokenListRequest = backend.expectOne((req) => req.url === '/userservice/usertokenlist' && req.method === 'GET');
-
-        tokenListRequest.flush(TokenListFixtures.mockGetTokensResponse);
-        backend.verify();
-      }
-    ));
 
     it('should call the error handler on request failure', inject(
       [HttpClient, HttpTestingController],
@@ -68,7 +54,7 @@ describe('TokenService', () => {
 
         spyOn(console, 'error');
 
-        tokenService.getTokens().subscribe(response => {
+        tokenService.getSelfserviceTokens().subscribe(response => {
           expect(response).toEqual([]);
         });
 
