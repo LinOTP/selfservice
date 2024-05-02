@@ -97,11 +97,11 @@ By default, the application is available under `/selfservice`. This can be chang
 rebuilding the container with something like `--build-arg URL_PATH=/foo`. Specify
 `--build-arg=` (empty) to make it available on `/` inside the container.
 
-Also by default, the web server inside the container runs on TCP
-port 8000. This can be changed at run time by passing, e.g., `-e
-SERVER_PORT=1234` (to use TCP port 1234). You can also use the
-`--port` option of `docker run` to remap any port (within reason) on
-the outside to port 8000 inside the container.
+Also by default, the web server inside the container runs on TCP port 8000.
+You can also use the `--port` option of `docker run` to remap any port (within reason)
+on the outside to port 8000 inside the container.
+You can also change it when building the image by passing, e.g.,
+`--build-arg SERVER_PORT=1234` (to use TCP port 1234).
 
 ### Debian
 
