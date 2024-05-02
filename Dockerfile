@@ -29,12 +29,11 @@ RUN yarn build-with-prefix
 ### STAGE 2: Setup ###
 
 FROM nginx:alpine as prod
-ARG URL_PATH=/selfservice
-ENV URL_PATH=$URL_PATH
+ENV URL_PATH=/selfservice
 ENV SERVER_PORT=8000
 
 HEALTHCHECK --interval=10s --timeout=5s --retries=3 --start-period=30s \
-    CMD curl -sfL http://localhost:${SERVER_PORT}${URL_PATH}/  || exit 1
+  CMD curl -sfL http://localhost:${SERVER_PORT}${URL_PATH}/  || exit 1
 
 ## Copy our default nginx config
 COPY nginx/default.template /etc/nginx/conf.d/
