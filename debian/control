@@ -8,8 +8,8 @@ Homepage: http://linotp.org
 
 Package: linotp-selfservice
 Architecture: all
-Depends: ${misc:Depends}
-Recommends: apache2, ${misc:Recommends}
+Depends: apache2, ${misc:Depends}
+Recommends: ${misc:Recommends}
 Suggests: linotp
 Description: Frontend interface for LinOTP (next generation)
  This package provides the new generation LinOTP selfservice frontend.
