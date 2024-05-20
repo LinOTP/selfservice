@@ -32,11 +32,11 @@ import { EnrolledToken } from "@app/enroll/enroll-dialog-base.component";
 				font-size:16px;
 				margin-top:13px;
 			}
-			h3 {
+			:is(h3) {
 				margin-bottom: 0;
 				font-weight: 500;
 			}
-			mat-icon {
+			:is(mat-icon) {
 				font-size: 70px;
 				width:70px;
 				height: 70px;
