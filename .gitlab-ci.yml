@@ -1,11 +1,15 @@
 include:
   - project: "dev/ext-project-packaging/ci-includes"
+    ref: feature/frontend-container-upload-ci
     file: "node-projects/build-dist.yml"
   - project: "dev/ext-project-packaging/ci-includes"
+    ref: feature/frontend-container-upload-ci
     file: "node-projects/build-n-deploy-docker.yml"
   - project: "dev/ext-project-packaging/ci-includes"
+    ref: feature/frontend-container-upload-ci
     file: "node-projects/build-n-deploy-debian.yml"
   - project: "dev/ext-project-packaging/ci-includes"
+    ref: feature/frontend-container-upload-ci
     file: "node-projects/test.yml"
 
 variables:
