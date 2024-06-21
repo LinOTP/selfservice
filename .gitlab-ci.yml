@@ -12,6 +12,7 @@ variables:
   IMAGE_NAME: linotp/ng-selfservice
   LANG: C.UTF-8
   EMAIL: "LinOTP Packaging <packaging@linotp.de>"
+  DOCKER_RELEASE_IMAGE: $CI_REGISTRY_IMAGE/selfservice
   # Variables for upload-debs
   REPOSITORY: linotp3
   COMPONENT: linotp
