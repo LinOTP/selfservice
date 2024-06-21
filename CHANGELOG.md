@@ -1,5 +1,5 @@
-<a name="1.2-0dev"></a>
-## 1.2-0dev (unreleased)
+<a name="1.2"></a>
+## 1.2 (2024-06-25)
 
   ### Features:
   * Users get warned and have to confirm their action, if that action would prevent them from logging into the Selfservice.
@@ -9,11 +9,16 @@
   * Harmonize form behaviour. E.g. all forms can now be submitted by pressing the `enter` key.
   * Error messages and notifications have different styles
   * Dockerfile has been improved in outlook of LinOTPs containerization
+  * Display info about selected token in action dialogs
+  * Show links and recommend the usage of LinOTP Authenticator app for OATH Tokens
   * Improved enrollment for HOTP and TOTP tokens
   * Removed non-public dependencies. LinOTP Selfservice can now be build by everyone.
   * Dynamically change the theme based on the device's color scheme, without requiring a browser refresh.
   * Display warnings about not verified tokens
   * Improved enrollment for password tokens
+
+  ### Fixes:
+  * Show correct error messages after session timeout
 
   ### Dependencies
   * Update to Angular 16
