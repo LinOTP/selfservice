@@ -1,3 +1,9 @@
+<a name="1.2.1-0dev"></a>
+## 1.2.1-0dev (unreleased)
+
+  * dummy changelog entry for 1.2.1~0dev
+
+
 <a name="1.2"></a>
 ## 1.2 (2024-06-25)
 
