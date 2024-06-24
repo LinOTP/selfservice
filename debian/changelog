@@ -1,3 +1,9 @@
+linotp-selfservice (1.3~0dev-1) UNRELEASED; urgency=low
+
+  * dummy changelog entry for 1.3~0dev
+
+ -- LinOTP Packaging <packaging@linotp.de>  Fri, 26 Jun 2024 12:00:00 +0200
+
 linotp-selfservice (1.2-1) buster; urgency=low
 
   Features:
