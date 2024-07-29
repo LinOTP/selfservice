@@ -18,6 +18,8 @@ import { HistoryField, HistoryRequestOptions, SortOrder } from '@api/history';
 import { HistoryService } from '@api/history.service';
 import { MaterialModule } from '@app/material.module';
 
+import { HasContentForSlotMockDirective } from '@app/custom-content/has-content-for-slot.directive.spec';
+import { MockComponent } from '@testing/mock-component';
 import { delay } from 'rxjs/operators';
 import { HistoryComponent } from './history.component';
 
@@ -32,6 +34,7 @@ describe('HistoryComponent', () => {
         declarations: [
           HistoryComponent,
           MockPipe(DatePipe),
+          MockComponent({ selector: 'app-custom-content-slot', inputs: ['slotId'] }),
         ],
         providers: [
           {
@@ -43,7 +46,7 @@ describe('HistoryComponent', () => {
           MaterialModule,
           ReactiveFormsModule,
           NgxPermissionsAllowStubDirective,
-
+          HasContentForSlotMockDirective
         ],
       }).compileComponents();
       historyService = getInjectedStub(HistoryService);
@@ -191,6 +194,7 @@ describe('HistoryComponent', () => {
       TestBed.configureTestingModule({
         declarations: [
           HistoryComponent,
+          MockComponent({ selector: 'app-custom-content-slot', inputs: ['slotId'] }),
           MockPipe(DatePipe),
         ],
         providers: [
@@ -199,7 +203,9 @@ describe('HistoryComponent', () => {
             useClass: HistoryProviderMock
           },
         ],
-        imports: [MaterialModule, ReactiveFormsModule, NgxPermissionsAllowStubDirective,],
+        imports: [MaterialModule, ReactiveFormsModule, NgxPermissionsAllowStubDirective,
+          HasContentForSlotMockDirective
+        ],
       }).compileComponents();
     });
 

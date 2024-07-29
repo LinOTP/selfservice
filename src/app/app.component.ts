@@ -4,6 +4,7 @@ import { LoginService } from '@app/login/login.service';
 import { SystemService, UserSystemInfo } from '@app/system.service';
 import { NotificationService } from '@common/notification.service';
 import { Permission } from '@common/permissions';
+import { CustomContentService } from './custom-content/custom-content.service';
 import { ThemeService } from './theme.service';
 
 @Component({
@@ -31,6 +32,7 @@ export class AppComponent implements OnInit {
     private notificationService: NotificationService,
     private systemService: SystemService,
     public themeService: ThemeService,
+    private customContentService: CustomContentService
   ) { }
 
   ngOnInit() {
@@ -43,6 +45,8 @@ export class AppComponent implements OnInit {
       this.imprintUrl = systemInfo.settings.imprint_url;
       this.privacyNoticeUrl = systemInfo.settings.privacy_notice_url;
     });
+
+    this.customContentService.loadContent();
   }
 
   logout() {

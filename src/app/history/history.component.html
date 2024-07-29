@@ -1,5 +1,8 @@
-<h2 i18n>History</h2>
 <ng-container *ngIf="loaded;else spinnerTmp">
+  <div class="custom-content-slot custom-content-slot-history-top" *appHasContentForSlot="'history-top'">
+    <app-custom-content-slot slotId="history-top"></app-custom-content-slot>
+  </div>
+  <h2 i18n>History</h2>
   <mat-card class="search-card"
             appearance="outlined">
     <mat-card-content>
