@@ -20,6 +20,7 @@ describe('ThemeService', () => {
 
   afterEach(() => {
     doc.body.className = '';
+    localStorage.clear();
   });
 
   it('should be created', () => {
