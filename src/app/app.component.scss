@@ -101,3 +101,8 @@ footer {
 app-theme-picker {
   margin-right: 12px;
 }
+
+nav {
+  border-left: 2px var(--mat-toolbar-container-text-color) solid;
+  padding: 0 0 0 1em;
+}
