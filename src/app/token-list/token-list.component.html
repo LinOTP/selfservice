@@ -22,6 +22,11 @@
       <p i18n="@@unverifiedTokensWarning">None of your active tokens have been verified. Before logging out, please verify at least one token to ensure it is working properly.</p>
     </div>
   </ng-container>
+
+  <div class="custom-content-slot custom-content-slot-tokenlist-top" *appHasContentForSlot="'tokenlist-top'">
+    <app-custom-content-slot slotId="tokenlist-top"></app-custom-content-slot>
+  </div>
+
   <section id="pendingSection"
            *ngIf="tokens && tokens | unreadyTokens | arrayNotEmpty">
     <h2 i18n>Pending actions</h2>

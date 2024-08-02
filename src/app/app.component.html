@@ -11,6 +11,7 @@
     <ng-container *ngFor="let link of navLinks">
       <a mat-button
          *ngxPermissionsOnly="link.permission"
+         routerLinkActive="active-link"
          [routerLink]="link.path">{{ link.label }}</a>
     </ng-container>
   </nav>

@@ -1,0 +1,14 @@
+# This file allows to add custom content in form of markdown to certain parts of the application.
+
+# Content will be displayed at the top of the login page.
+- slotId: "login-top"
+  content:
+
+# Content will be displayed at the top of the token list page.
+- slotId: "tokenlist-top"
+  content:
+
+# Content will be displayed at the top of the history page.
+- slotId: "history-top"
+  content:
+

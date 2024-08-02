@@ -18,6 +18,7 @@ import { SystemService } from '@app/system.service';
 import { DialogComponent } from '@common/dialog/dialog.component';
 import { Duration, NotificationService } from '@common/notification.service';
 
+import { HasContentForSlotMockDirective } from '@app/custom-content/has-content-for-slot.directive.spec';
 import { LoginComponent, LoginStage } from './login.component';
 import { LoginService } from './login.service';
 
@@ -74,6 +75,7 @@ describe('LoginComponent', () => {
         ReactiveFormsModule,
         MaterialModule,
         RouterTestingModule,
+        HasContentForSlotMockDirective
       ],
       declarations: [
         LoginComponent,
@@ -81,6 +83,8 @@ describe('LoginComponent', () => {
         MockComponent({ selector: 'app-keyboard-key', inputs: ['icon', 'symbol'] }),
         MockComponent({ selector: 'app-qr-code', inputs: ['qrUrl'] }),
         MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] }),
+        MockComponent({ selector: 'app-custom-content-slot', inputs: ['slotId'] }),
+
       ],
       providers: [
         {

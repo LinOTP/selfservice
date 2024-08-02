@@ -57,3 +57,12 @@ body {
 qrcode canvas {
   border-radius: 7px;
 }
+
+.custom-content-slot {
+  margin: 1.8rem 0;
+}
+
+nav .active-link {
+  font-weight: bold;
+  background: #f5f5f521;
+}

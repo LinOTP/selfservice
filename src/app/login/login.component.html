@@ -1,3 +1,7 @@
+<div class="custom-content-slot custom-content-slot-login-top" *appHasContentForSlot="'login-top'">
+  <app-custom-content-slot slotId="login-top"></app-custom-content-slot>
+</div>
+
 <form [formGroup]="loginFormGroup"
       (ngSubmit)="login()"
       id="loginFormStage1"

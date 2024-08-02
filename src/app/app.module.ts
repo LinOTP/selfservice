@@ -31,7 +31,9 @@ import { TestDialogComponent } from '@app/test/test-dialog.component';
 import { TokenCardComponent } from '@app/token-card/token-card.component';
 import { TokenListComponent } from '@app/token-list/token-list.component';
 import { NgSelfServiceCommonModule } from '@common/common.module';
+import { MarkdownModule } from 'ngx-markdown';
 import { AuthenticatorLinksComponent } from './common/authenticator-links/authenticator-links.component';
+import { CustomContentModule } from './custom-content/custom-content.module';
 import { OathEnrollmentModule } from './enroll/enroll-oath-dialog/oath-enrollment/oath-enrollment.module';
 import { TokenPinFormLayoutComponent } from './enroll/token-pin-form-layout/token-pin-form-layout.component';
 import { ThemePickerComponent } from './theme-picker/theme-picker.component';
@@ -73,7 +75,9 @@ import { ThemePickerComponent } from './theme-picker/theme-picker.component';
     NgSelfServiceCommonModule,
     AuthModule,
     NgxPermissionsModule.forRoot(),
-    AuthenticatorLinksComponent
+    AuthenticatorLinksComponent,
+    MarkdownModule.forRoot(),
+    CustomContentModule
   ],
   providers: [
     AppInitService,

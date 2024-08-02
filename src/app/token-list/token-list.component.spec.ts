@@ -22,6 +22,7 @@ import { InactiveTokensPipe } from '@common/pipes/inactive-tokens.pipe';
 import { UnreadyTokensPipe } from '@common/pipes/unready-tokens.pipe';
 
 
+import { HasContentForSlotMockDirective } from '@app/custom-content/has-content-for-slot.directive.spec';
 import { SelfServiceContextService } from '@app/selfservice-context.service';
 import { TokenLimitResponse } from '@app/system.service';
 import { TokenLimitsService } from '@app/token-limits.service';
@@ -76,6 +77,7 @@ describe('TokenListComponent', () => {
         MockPipe({ 'name': 'sortTokensByState' }),
         MockComponent({ 'selector': 'app-token-card', inputs: ['token'], outputs: ['tokenUpdate'] }),
         MockComponent({ 'selector': 'app-enrollment-grid' }),
+        MockComponent({ selector: 'app-custom-content-slot', inputs: ['slotId'] }),
         ArrayNotEmptyPipe,
         ActiveTokensPipe,
         InactiveTokensPipe,
@@ -105,6 +107,7 @@ describe('TokenListComponent', () => {
         MaterialModule,
         RouterTestingModule.withRoutes([]),
         NgxPermissionsAllowStubDirective,
+        HasContentForSlotMockDirective
       ]
     }).overrideComponent(TokenListComponent, {
       set: {

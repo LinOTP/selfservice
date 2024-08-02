@@ -1,0 +1,12 @@
+# Der Inhalt wird oben auf der Anmeldeseite angezeigt.
+- slotId: "login-top"
+  content:
+
+# Der Inhalt wird oben auf der "Meine Token" Seite angezeigt.
+- slotId: "tokenlist-top"
+  content:
+
+# Der Inhalt wird oben auf der Chronikseite angezeigt.
+- slotId: "history-top"
+  content:
+

@@ -1,4 +1,5 @@
 import { Component, Inject, LOCALE_ID, OnInit } from '@angular/core';
+import { localeToLanguage } from '@app/common/locale-utils';
 
 import { SystemService } from '@app/system.service';
 
@@ -12,7 +13,7 @@ export class LanguagePickerComponent implements OnInit {
   public locales: { id: string, name: string, shortName: string }[];
 
   public get selectedLocale() {
-    const baseLanguageCode = this.selectedLocaleId.split('-')[0];
+    const baseLanguageCode = localeToLanguage(this.selectedLocaleId);
     return this.locales.find(l => l.id === baseLanguageCode);
   }
 
