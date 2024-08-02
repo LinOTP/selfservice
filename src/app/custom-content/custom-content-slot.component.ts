@@ -1,6 +1,6 @@
 import { Attribute, Component } from "@angular/core";
 import { filter, switchMap, take, tap } from "rxjs";
-import { CustomContentService } from "./custom-content.service";
+import { CustomContentService, SlotId } from "./custom-content.service";
 
 @Component({
   selector: 'app-custom-content-slot',
@@ -11,14 +11,14 @@ import { CustomContentService } from "./custom-content.service";
 export class CustomContentSlotComponent {
   text?:string | undefined
 
-  constructor(@Attribute("slotId") private slotId,  private customContentSlotsService:CustomContentService) {
+  constructor(@Attribute("slotId") private slotId:SlotId,  private customContentService:CustomContentService) {
     this._getCustomContent()
   }
 
   private _getCustomContent() {
-    this.customContentSlotsService.contentLoaded$.pipe(
+    this.customContentService.customContentLoaded$.pipe(
       filter(loaded => loaded),
-      switchMap(() => this.customContentSlotsService.contents$),
+      switchMap(() => this.customContentService.customContent$),
       tap(contents => {
           const contentForSlot = contents.find(c => c.slotId === this.slotId);
           if(contentForSlot) {

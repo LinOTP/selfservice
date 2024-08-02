@@ -1,27 +1,27 @@
 import { NgIf } from "@angular/common";
 import { Directive, Input, OnDestroy, inject } from "@angular/core";
 import { Subscription, tap } from "rxjs";
-import { CustomContentService } from "./custom-content.service";
+import { CustomContentService, SlotId } from "./custom-content.service";
 
 @Directive({
-  selector: '[appHasContentForSlot]',
+  selector: '[appHasCustomContent]',
   hostDirectives: [{
      directive: NgIf,
-     inputs: ['ngIfElse: appHasContentForSlotElse'] },
+     inputs: ['ngIfElse: appHasCustomContentElse'] },
   ],
   standalone: true,
 })
-export class HasContentForSlotDirective implements OnDestroy {
-  @Input("appHasContentForSlot")
-  public set slotId(value: string) {
+export class HasCustomContentDirective implements OnDestroy {
+  @Input("appHasCustomContent")
+  public set slotId(value: SlotId) {
     this._slotId = value;
     this.subscription?.unsubscribe();
     this.subscribeToCustomContentChanges();
   }
-  public get slotId(): string {
+  public get slotId(): SlotId {
     return this._slotId;
   }
-  private  _slotId: string;
+  private  _slotId: SlotId
   private ngIfDirective = inject(NgIf);
   private subscription?: Subscription
 
@@ -30,7 +30,7 @@ export class HasContentForSlotDirective implements OnDestroy {
   }
 
   private subscribeToCustomContentChanges() {
-    this.subscription = this.contentsService.contents$.pipe(
+    this.subscription = this.contentsService.customContent$.pipe(
       tap(contents => {
           const content = contents.find(c => c.slotId === this.slotId);
           this.ngIfDirective.ngIf = !!content && content.content
