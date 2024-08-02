@@ -18,7 +18,7 @@ import { SystemService } from '@app/system.service';
 import { DialogComponent } from '@common/dialog/dialog.component';
 import { Duration, NotificationService } from '@common/notification.service';
 
-import { HasContentForSlotMockDirective } from '@app/custom-content/has-content-for-slot.directive.spec';
+import { HasCustomContentMockDirective } from '@app/custom-content/has-custom-content.directive.mock';
 import { LoginComponent, LoginStage } from './login.component';
 import { LoginService } from './login.service';
 
@@ -75,7 +75,7 @@ describe('LoginComponent', () => {
         ReactiveFormsModule,
         MaterialModule,
         RouterTestingModule,
-        HasContentForSlotMockDirective
+        HasCustomContentMockDirective
       ],
       declarations: [
         LoginComponent,

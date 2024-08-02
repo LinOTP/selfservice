@@ -22,7 +22,7 @@ import { InactiveTokensPipe } from '@common/pipes/inactive-tokens.pipe';
 import { UnreadyTokensPipe } from '@common/pipes/unready-tokens.pipe';
 
 
-import { HasContentForSlotMockDirective } from '@app/custom-content/has-content-for-slot.directive.spec';
+import { HasCustomContentMockDirective } from '@app/custom-content/has-custom-content.directive.mock';
 import { SelfServiceContextService } from '@app/selfservice-context.service';
 import { TokenLimitResponse } from '@app/system.service';
 import { TokenLimitsService } from '@app/token-limits.service';
@@ -107,7 +107,7 @@ describe('TokenListComponent', () => {
         MaterialModule,
         RouterTestingModule.withRoutes([]),
         NgxPermissionsAllowStubDirective,
-        HasContentForSlotMockDirective
+        HasCustomContentMockDirective
       ]
     }).overrideComponent(TokenListComponent, {
       set: {
