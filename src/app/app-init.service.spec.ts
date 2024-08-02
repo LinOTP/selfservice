@@ -8,6 +8,7 @@ import { SessionService } from '@app/auth/session.service';
 import { LoginService } from '@app/login/login.service';
 
 import { AppInitService } from './app-init.service';
+import { CustomContentService } from './custom-content/custom-content.service';
 
 describe('AppInitService', () => {
   let appInitService: AppInitService;
@@ -24,6 +25,10 @@ describe('AppInitService', () => {
         {
           provide: SessionService,
           useValue: spyOnClass(SessionService)
+        },
+        {
+          provide: CustomContentService,
+          useClass: CustomContentServiceStub
         }
       ],
     });
@@ -60,3 +65,10 @@ describe('AppInitService', () => {
     expect(loginService.refreshUserSystemInfo).not.toHaveBeenCalled();
   }));
 });
+
+class CustomContentServiceStub {
+  customContentLoaded$ = of(true);
+  page$ = of({ route: 'test-route' });
+
+  loadContent() {}
+}
