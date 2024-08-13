@@ -18,7 +18,7 @@ import { HistoryField, HistoryRequestOptions, SortOrder } from '@api/history';
 import { HistoryService } from '@api/history.service';
 import { MaterialModule } from '@app/material.module';
 
-import { HasContentForSlotMockDirective } from '@app/custom-content/has-content-for-slot.directive.spec';
+import { HasCustomContentMockDirective } from '@app/custom-content/has-custom-content.directive.mock';
 import { MockComponent } from '@testing/mock-component';
 import { delay } from 'rxjs/operators';
 import { HistoryComponent } from './history.component';
@@ -46,7 +46,7 @@ describe('HistoryComponent', () => {
           MaterialModule,
           ReactiveFormsModule,
           NgxPermissionsAllowStubDirective,
-          HasContentForSlotMockDirective
+          HasCustomContentMockDirective
         ],
       }).compileComponents();
       historyService = getInjectedStub(HistoryService);
@@ -204,7 +204,7 @@ describe('HistoryComponent', () => {
           },
         ],
         imports: [MaterialModule, ReactiveFormsModule, NgxPermissionsAllowStubDirective,
-          HasContentForSlotMockDirective
+          HasCustomContentMockDirective
         ],
       }).compileComponents();
     });

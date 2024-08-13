@@ -2,20 +2,26 @@ import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { MarkdownModule } from "ngx-markdown";
 import { CustomContentSlotComponent } from "./custom-content-slot.component";
-import { HasContentForSlotDirective } from "./has-content-for-slot.directive";
+import { CustomPageLinkComponent } from "./custom-page-link.component";
+import { CustomPageComponent } from "./custom-page.component";
+import { HasCustomContentDirective } from "./has-custom-content.directive";
 
 @NgModule({
   declarations: [
-    CustomContentSlotComponent
+    CustomContentSlotComponent,
+    CustomPageComponent
   ],
   imports: [
     CommonModule,
     MarkdownModule.forChild(),
-    HasContentForSlotDirective,
+    HasCustomContentDirective,
+    CustomPageLinkComponent
   ],
   exports: [
     CustomContentSlotComponent,
-    HasContentForSlotDirective,
+    HasCustomContentDirective,
+    CustomPageComponent,
+    CustomPageLinkComponent
   ]
 })
 export class CustomContentModule {}

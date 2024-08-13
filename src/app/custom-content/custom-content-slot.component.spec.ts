@@ -1,6 +1,6 @@
 import { BehaviorSubject, of } from "rxjs";
 import { CustomContentSlotComponent } from "./custom-content-slot.component";
-import { CustomContent } from "./custom-content.service";
+import { SlotContent } from "./custom-content.service";
 
 describe("CustomContentSlotComponent",() => {
   it("should set text for slot if content found",() => {
@@ -18,12 +18,12 @@ describe("CustomContentSlotComponent",() => {
 })
 
 
-class CustomContentServiceStub {
+class CustomContentServiceStub  {
   private _contents$ = new BehaviorSubject([]);
-  contents$ = this._contents$.asObservable();
-  contentLoaded$ = of(true);
+  customContent$ = this._contents$.asObservable();
+  customContentLoaded$ = of(true);
 
-  setContent(c: CustomContent[]) {
+  setContent(c: SlotContent[]) {
     this._contents$.next(c);
   }
 }

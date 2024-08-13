@@ -1,7 +1,8 @@
 <a name="1.3-0dev"></a>
 ## 1.3-0dev (unreleased)
 
-  * dummy changelog entry for 1.3-0dev
+  * Added support for custom content placement in specific app sections
+  * Introduced the ability to add custom page
 
 
 <a name="1.2"></a>

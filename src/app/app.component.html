@@ -7,14 +7,29 @@
          i18n-alt>
     <h1 id="app-name">{{ title }}</h1>
   </div>
-  <nav *ngIf="userData">
+  <nav *ngIf="userData;else notLoggedNav">
     <ng-container *ngFor="let link of navLinks">
       <a mat-button
          *ngxPermissionsOnly="link.permission"
          routerLinkActive="active-link"
          [routerLink]="link.path">{{ link.label }}</a>
     </ng-container>
+    <ng-container *appHasCustomContent="'custom-page'">
+         <app-custom-page-link></app-custom-page-link>
+    </ng-container>
   </nav>
+
+  <ng-template #notLoggedNav>
+
+    <nav *appHasCustomContent="'custom-page'">
+      <a mat-button
+      routerLinkActive="active-link"
+      routerLink="/login">Login</a>
+      <app-custom-page-link></app-custom-page-link>
+    </nav>
+
+  </ng-template>
+
   <div class="user-info"
        *ngIf="userData">
     <mat-icon [matTooltip]="userData.username">person</mat-icon>

@@ -15,7 +15,7 @@ import { NotificationService } from '@common/notification.service';
 import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
 
 import { AppComponent } from './app.component';
-import { CustomContentService } from './custom-content/custom-content.service';
+import { HasCustomContentMockDirective } from './custom-content/has-custom-content.directive.mock';
 
 class Page extends TestingPage<AppComponent> {
   public getToolbar() {
@@ -51,6 +51,7 @@ describe('AppComponent', () => {
         RouterTestingModule,
         MaterialModule,
         NgxPermissionsAllowStubDirective,
+        HasCustomContentMockDirective
       ],
       declarations: [
         AppComponent,
@@ -69,12 +70,6 @@ describe('AppComponent', () => {
         {
           provide: SystemService,
           useValue: spyOnClass(SystemService),
-        },
-        {
-          provide:CustomContentService,
-          useValue: {
-            loadContent: () => {}
-          }
         }
       ]
     }).compileComponents();
