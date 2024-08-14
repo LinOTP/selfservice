@@ -95,6 +95,12 @@ export class Fixtures {
         enrollmentPermission: Permission.ASSIGN,
         enrollmentActionLabel: 'Assign',
       },
+      forward: {
+        type: TokenType.FORWARD,
+        name: 'forward token',
+        description: 'Forward the authentication request to another token',
+        icon: 'shortcut',
+      },
       unknown: {
         type: TokenType.UNKNOWN,
         name: 'Unknown Token',
