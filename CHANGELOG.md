@@ -1,8 +1,12 @@
 <a name="1.3-0dev"></a>
 ## 1.3-0dev (unreleased)
 
+  ### Features:
   * Added support for custom content placement in specific app sections
   * Introduced the ability to add custom page
+
+  ### Fixes:
+  * Show an error message when the permissions can not be loaded
 
 
 <a name="1.2"></a>

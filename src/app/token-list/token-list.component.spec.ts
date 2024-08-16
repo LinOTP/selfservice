@@ -66,6 +66,7 @@ describe('TokenListComponent', () => {
   let tokenService: jasmine.SpyObj<TokenService>;
   let loginService: jasmine.SpyObj<LoginService>;
   let permissionLoadSubject: Subject<boolean>;
+  let permissionLoadErrorSubject: Subject<boolean>;
   let tokenListUpdateSubject: Subject<null>;
   let page: Page;
   let selfServiceContextService: jasmine.SpyObj<SelfServiceContextService>;
@@ -133,6 +134,9 @@ describe('TokenListComponent', () => {
     loginService = getInjectedStub(LoginService);
     permissionLoadSubject = new BehaviorSubject(true);
     (loginService as any).permissionLoad$ = permissionLoadSubject.asObservable();
+    permissionLoadErrorSubject = new BehaviorSubject(false);
+    (loginService as any).permissionLoadError$ = permissionLoadErrorSubject.asObservable();
+
 
     selfServiceContextService = getInjectedStub(SelfServiceContextService);
     selfServiceContextService.tokenLimits$ = of(getTokenLimitsMock());

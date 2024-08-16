@@ -56,7 +56,9 @@ export class LoginService {
   }
 
   private _loginChange$: BehaviorSubject<UserSystemInfo['user']> = new BehaviorSubject(this.userInfo());
-  private _permissionLoad$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  private _permissionLoad$: BehaviorSubject<boolean> = new BehaviorSubject(false); 
+  private _permissionLoadError$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  
 
   constructor(
     private http: HttpClient,
@@ -205,7 +207,11 @@ export class LoginService {
         this._permissionLoad$.next(true);
 
       }),
-      catchError(this.handleError('loadPermissions', undefined)),
+      catchError((err => {
+        this._permissionLoadError$.next(true);
+        return this.handleError('loadPermissions', undefined)(err)
+      }))
+
     );
   }
 
@@ -236,7 +242,17 @@ export class LoginService {
   get permissionLoad$(): Observable<boolean> {
     return this._permissionLoad$.asObservable();
   }
-
+  /**
+   * Getter for the load permission error observable, which issues events when
+   * permissions are loaded and fail
+   *
+   * @readonly
+   * @type {Observable<boolean>} observable of permission load error event
+   * @memberof LoginService
+   */
+  get permissionLoadError$(): Observable<boolean> {
+    return this._permissionLoadError$.asObservable();
+  }
   /**
    * bootstraps permissions stored in localStorage.
    *
@@ -280,7 +296,7 @@ export class LoginService {
   private handleLogin(success: boolean): Observable<boolean> {
     localStorage.setItem('loginIsComplete', JSON.stringify(true));
     if (success) {
-      this._hasEverLoggedIn = true
+      this._hasEverLoggedIn = true;
       return this.refreshUserSystemInfo().pipe(map(() => true));
     } else {
       this._loginChange$.next(undefined);
