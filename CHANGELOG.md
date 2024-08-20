@@ -3,12 +3,12 @@
 
   ### Features:
   * Added support for custom content placement in specific app sections
+  * Added a token card for the forwarding token
   * Introduced the ability to add custom page
 
   ### Fixes:
   * Show an error message when the permissions can not be loaded
-
-
+ 
 <a name="1.2"></a>
 ## 1.2 (2024-06-25)
 

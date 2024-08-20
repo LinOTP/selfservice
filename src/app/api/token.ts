@@ -11,6 +11,7 @@ export enum TokenType {
   EMAIL = "email",
   YUBICO = "yubico",
   YUBIKEY = "yubikey",
+  FORWARD = "forward",
   UNKNOWN = "unknown"
 }
 
@@ -193,6 +194,13 @@ export const tokenDisplayData: TokenDisplayData[] = [
     authenticationPrompt: $localize`Authenticate using your Yubikey token`,
   },
   {
+    type: TokenType.FORWARD,
+    name: $localize`forwarding token`,
+    description: $localize`Forward the authentication request to another token.`,
+    icon: 'shortcut',
+    authenticationPrompt: $localize`Authenticate using your forwarded token`,
+  },
+  {
     type: 'assign',
     name: $localize`Assign token`,
     description: $localize`Claim an existing token and link it to your user account`,
@@ -240,4 +248,4 @@ export type LinOtpToken = {
 }
 
 export type LinOtpTokenEnrollmentStatus = 'completed' | 'unpaired' | 'pairing_url_sent' | 'pairing_response_received' | 'pairing_challenge_sent';
-export type LinOtpTokenType = 'pw' | 'hmac' | 'totp' | 'push' | 'qr' | 'motp' | 'sms' | 'email' | 'yubico' | 'yubikey' | 'unknown';
+export type LinOtpTokenType = 'pw'| 'forward' | 'hmac' | 'totp' | 'push' | 'qr' | 'motp' | 'sms' | 'email' | 'yubico' | 'yubikey' | 'unknown'; 
