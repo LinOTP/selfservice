@@ -1,3 +1,9 @@
+<a name="1.4-0dev"></a>
+## 1.4-0dev (unreleased)
+
+  * dummy changelog entry for 1.4-0dev
+
+
 <a name="1.3rc0"></a>
 ## 1.3rc0 (unreleased)
 
@@ -8,6 +14,7 @@
 
   ### Fixes:
   * Show an error message when the permissions can not be loaded
+
 
 <a name="1.2"></a>
 ## 1.2 (2024-06-25)
