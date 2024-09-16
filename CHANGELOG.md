@@ -1,5 +1,5 @@
-<a name="1.3rc0"></a>
-## 1.3rc0 (unreleased)
+<a name="1.3"></a>
+## 1.3 (2024-09-16)
 
   ### Features:
   * Added support for custom content placement in specific app sections
