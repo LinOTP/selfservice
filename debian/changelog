@@ -4,7 +4,7 @@ linotp-selfservice (1.4~0dev-1) UNRELEASED; urgency=low
 
  -- LinOTP Packaging <packaging@linotp.de>  Wed, 21 Aug 2024 12:34:56 +0200
 
-linotp-selfservice (1.3~rc0-1) UNRELEASED; urgency=low
+linotp-selfservice (1.3-1) buster; urgency=low
 
   Features:
   * Added support for custom content placement in specific app sections
@@ -14,7 +14,7 @@ linotp-selfservice (1.3~rc0-1) UNRELEASED; urgency=low
   Fixes:
   * Show an error message when the permissions can not be loaded
 
- -- LinOTP Packaging <packaging@linotp.de>  Fri, 26 Jun 2024 12:00:00 +0200
+ -- LinOTP Packaging <packaging@linotp.de>  Mon, 16 Sep 2024 12:00:00 +0200
 
 linotp-selfservice (1.2-1) buster; urgency=low
 
