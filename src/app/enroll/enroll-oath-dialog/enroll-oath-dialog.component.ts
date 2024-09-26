@@ -34,6 +34,7 @@ export class EnrollOATHDialogComponent extends EnrollDialogBaseComponent impleme
     if (value && this.selectedStep === 2 && this.verifyPolicyEnabled) {
       setTimeout(() => {
         this.stepper.next();
+        this.tokenService.updateTokenList();
       }, 100)
     }
   }
