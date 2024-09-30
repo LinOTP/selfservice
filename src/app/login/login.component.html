@@ -1,4 +1,5 @@
-<div class="custom-content-slot custom-content-slot-login-top" *appHasCustomContent="'login-top'">
+<div class="custom-content-slot custom-content-slot-login-top"
+     *appHasCustomContent="'login-top'">
   <app-custom-content-slot slotId="login-top"></app-custom-content-slot>
 </div>
 
@@ -137,8 +138,8 @@
           {{ selectedToken.typeDetails.name }} with serial {{ selectedToken.serial }}
         </span>
       </p>
-      <ng-container *ngIf="!hasOnlineMode">
 
+      <ng-container *ngIf="!hasOnlineMode">
         <ng-container [ngSwitch]="selectedToken.typeDetails.type">
           <p *ngSwitchCase="TokenType.PASSWORD"
              i18n>Please enter the password of the selected token:</p>

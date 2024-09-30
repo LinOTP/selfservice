@@ -497,11 +497,11 @@ export function getSelfserviceTokenFixture(id: number, serial: string, typeDetai
     "Enrollment": {
       "status": "completed"
     }
-  }
+  };
   const token = new SelfserviceToken(linOtpToken as LinOtpToken);
-  (token as any)._typeDetails = typeDetails
+  (token as any)._typeDetails = typeDetails;
 
-  return token
+  return token;
 }
 
 export class TokenListFixtures {

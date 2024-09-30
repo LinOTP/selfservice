@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
   systemInfo: SystemInfo;
 
   factors: SelfserviceToken[] = [];
-  selectedToken: { serial: string; typeDetails: TokenDisplayData };
+  selectedToken: { serial: string; typeDetails: TokenDisplayData; };
 
   loginStage = LoginStage.USER_PW_INPUT;
 

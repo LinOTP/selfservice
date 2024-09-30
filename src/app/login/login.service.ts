@@ -50,15 +50,15 @@ export class LoginService {
     logout: 'logout',
   };
 
-  private _hasEverLoggedIn = false
+  private _hasEverLoggedIn = false;
   get hasEverLoggedIn() {
-    return this._hasEverLoggedIn
+    return this._hasEverLoggedIn;
   }
 
   private _loginChange$: BehaviorSubject<UserSystemInfo['user']> = new BehaviorSubject(this.userInfo());
-  private _permissionLoad$: BehaviorSubject<boolean> = new BehaviorSubject(false); 
+  private _permissionLoad$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   private _permissionLoadError$: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  
+
 
   constructor(
     private http: HttpClient,
@@ -200,7 +200,7 @@ export class LoginService {
         localStorage.setItem('imprint', JSON.stringify(userSystemInfo.imprint));
         localStorage.setItem('linotpVersion', JSON.stringify(userSystemInfo.version));
         localStorage.setItem('settings', JSON.stringify(userSystemInfo.settings));
-        localStorage.setItem("tokenLimits", JSON.stringify(userSystemInfo.settings.token_limits))
+        localStorage.setItem("tokenLimits", JSON.stringify(userSystemInfo.settings.token_limits));
         this.selfServiceContextService.setContext(userSystemInfo);
         this._loginChange$.next(userSystemInfo.user);
         this.loadStoredPermissions();
@@ -209,7 +209,7 @@ export class LoginService {
       }),
       catchError((err => {
         this._permissionLoadError$.next(true);
-        return this.handleError('loadPermissions', undefined)(err)
+        return this.handleError('loadPermissions', undefined)(err);
       }))
 
     );
