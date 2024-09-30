@@ -407,11 +407,11 @@ export class Fixtures {
     };
   }
 
-  static get transactionDetail() {
+  static get transactionDetailOffline() {
     return {
       replyMode: [ReplyMode.OFFLINE],
       transactionId: 'txid',
-      transactionData: 'txdata',
+      // transactionData: 'txdata',
       message: 'message'
     };
   }
