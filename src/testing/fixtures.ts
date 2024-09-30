@@ -182,6 +182,10 @@ export class Fixtures {
     return getSelfserviceTokenFixture(1, 'Active-mOTP-Token-Serial', this.tokenDisplayData[TokenType.MOTP], true, 'Description');
   }
 
+  static get activeForwardToken(): SelfserviceToken {
+    return getSelfserviceTokenFixture(1, 'Active-forward-Token-Serial', this.tokenDisplayData[TokenType.FORWARD], true, 'Description');
+  }
+
   static get activeSMSToken(): SelfserviceToken {
     return getSelfserviceTokenFixture(1, 'Active-SMS-Token-Serial', this.tokenDisplayData[TokenType.SMS], true, 'Description');
   }
@@ -416,11 +420,20 @@ export class Fixtures {
     };
   }
 
-  static get transactionDetailOnline() {
+  static get transactionDetailOnlineQR() {
     return {
       replyMode: [ReplyMode.ONLINE],
       transactionId: 'txid',
       transactionData: 'txdata',
+      message: 'message'
+    };
+  }
+
+  static get transactionDetailOnlinePush() {
+    return {
+      replyMode: [ReplyMode.ONLINE],
+      transactionId: 'txid',
+      // transactionData: 'txdata',
       message: 'message'
     };
   }

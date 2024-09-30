@@ -522,6 +522,55 @@ describe('LoginComponent', () => {
       });
     });
 
+    it('should have token-appropriate message for forward tokens targeting offline-only OTP tokens', () => {
+      component.loginStage = LoginStage.OTP_INPUT;
+      component.transactionDetail = Fixtures.transactionDetailOffline;
+      component.selectedToken = Fixtures.activeForwardToken;
+      [
+        Fixtures.activeTotpToken,
+        Fixtures.activeHotpToken,
+        Fixtures.activeMotpToken,
+        Fixtures.activeSMSToken,
+        Fixtures.activeEmailToken
+      ].forEach(token => {
+        component.handledTokenType = <TokenType>token.tokenType;
+        fixture.detectChanges();
+        expect(page.getOTPForm().textContent).toContain('Please enter the current OTP for the selected token:');
+      });
+    });
+
+    it('should have token-appropriate message for forward tokens targeting password tokens', () => {
+      component.loginStage = LoginStage.OTP_INPUT;
+      component.transactionDetail = Fixtures.transactionDetailOffline;
+      component.selectedToken = Fixtures.activeForwardToken;
+      component.handledTokenType = <TokenType>Fixtures.activePasswordToken.tokenType;
+      fixture.detectChanges();
+      expect(page.getOTPForm().textContent).toContain('Please enter the password of the selected token:');
+      expect(page.getOTPForm().textContent).not.toContain('Scan the QR code with your LinOTP Authenticator app:');
+    });
+
+    it('should have token-appropriate message for forward tokens targeting QR tokens', () => {
+      component.loginStage = LoginStage.OTP_INPUT;
+      component.transactionDetail = Fixtures.transactionDetailOnlineQR;
+      component.selectedToken = Fixtures.activeForwardToken;
+      component.handledTokenType = <TokenType>Fixtures.activeQRToken.tokenType;
+      fixture.detectChanges();
+      expect(page.getOTPForm().textContent).toContain('Scan the QR code with your LinOTP Authenticator app:');
+      expect(page.getOTPForm().textContent).not.toContain('Please enter the password of the selected token:');
+    });
+
+
+    it('should have token-appropriate message for forward tokens targeting Push tokens', () => {
+      component.loginStage = LoginStage.OTP_INPUT;
+      component.transactionDetail = Fixtures.transactionDetailOnlinePush;
+      component.selectedToken = Fixtures.activeForwardToken;
+      component.handledTokenType = <TokenType>Fixtures.activePushToken.tokenType;
+      fixture.detectChanges();
+      expect(page.getOTPForm().textContent).toContain('Waiting for confirmation of transaction');
+      expect(page.getOTPForm().textContent).not.toContain('Scan the QR code with your LinOTP Authenticator app:');
+      expect(page.getOTPForm().textContent).not.toContain('Please enter the password of the selected token:');
+    });
+
   });
 
 
@@ -587,7 +636,7 @@ describe('LoginComponent', () => {
 
     expect(component['pollingSubscription']).toBeFalsy();
 
-    component.transactionDetail = Fixtures.transactionDetailOnline;
+    component.transactionDetail = Fixtures.transactionDetailOnlineQR;
     component.checkTransactionState();
 
     expect(component['pollingSubscription']).toBeTruthy();
