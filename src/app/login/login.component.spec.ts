@@ -12,7 +12,7 @@ import { MockPipe } from '@testing/mock-pipe';
 import { TestingPage } from '@testing/page-helper';
 import { getInjectedStub, spyOnClass } from '@testing/spyOnClass';
 
-import { SelfserviceToken } from '@api/token';
+import { SelfserviceToken, TokenType } from '@api/token';
 import { MaterialModule } from '@app/material.module';
 import { SystemService } from '@app/system.service';
 import { DialogComponent } from '@common/dialog/dialog.component';
@@ -470,6 +470,7 @@ describe('LoginComponent', () => {
     it('should have token-appropriate message for Yubico tokens', () => {
       component.loginStage = LoginStage.OTP_INPUT;
       component.selectedToken = Fixtures.activeYubicoToken;
+      component.handledTokenType = <TokenType>Fixtures.activeYubicoToken.tokenType;
       component.transactionDetail = Fixtures.transactionDetail;
 
       fixture.detectChanges();
@@ -480,6 +481,7 @@ describe('LoginComponent', () => {
     it('should have token-appropriate message for Yubikey tokens', () => {
       component.loginStage = LoginStage.OTP_INPUT;
       component.selectedToken = Fixtures.activeYubikeyToken;
+      component.handledTokenType = <TokenType>Fixtures.activeYubikeyToken.tokenType;
       component.transactionDetail = Fixtures.transactionDetail;
 
       fixture.detectChanges();
@@ -490,6 +492,7 @@ describe('LoginComponent', () => {
     it('should have token-appropriate message for Password tokens', () => {
       component.loginStage = LoginStage.OTP_INPUT;
       component.selectedToken = Fixtures.activePasswordToken;
+      component.handledTokenType = <TokenType>Fixtures.activePasswordToken.tokenType;
       component.transactionDetail = Fixtures.transactionDetail;
 
       fixture.detectChanges();
@@ -509,6 +512,7 @@ describe('LoginComponent', () => {
         Fixtures.activeEmailToken
       ].forEach(token => {
         component.selectedToken = token;
+        component.handledTokenType = <TokenType>token.tokenType;
         fixture.detectChanges();
         expect(page.getOTPForm().textContent).toContain('Please enter the current OTP for the selected token:');
       });
