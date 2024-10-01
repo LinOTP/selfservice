@@ -9,7 +9,7 @@ import { catchError, filter, map, mergeMap, switchMap, take, tap } from 'rxjs/op
 
 import { LinOTPResponse } from '@api/api';
 import { ReplyMode, StatusDetail, TransactionDetail } from '@api/test.service';
-import { LinOtpToken, SelfserviceToken } from '@api/token';
+import { LinOtpToken, SelfserviceToken, TokenType } from '@api/token';
 import { SessionService } from '@app/auth/session.service';
 import { SelfServiceContextService } from '@app/selfservice-context.service';
 import { SystemService, UserSystemInfo } from '@app/system.service';
@@ -31,12 +31,20 @@ interface LoginResponse {
   transactionData?: string;
   message?: string;
   replyMode?: ReplyMode[];
+  linotp_forward_tokenserial?: string;
+  linotp_forward_tokendescription?: string;
+  linotp_forward_tokentype?: string;
 }
 
 interface LoginResult {
   success: boolean;
   tokens?: SelfserviceToken[];
   challengedata?: TransactionDetail;
+  targetToken?: {
+    serial: string;
+    type: TokenType;
+    description: string;
+  };
 }
 
 @Injectable({
@@ -50,15 +58,15 @@ export class LoginService {
     logout: 'logout',
   };
 
-  private _hasEverLoggedIn = false
+  private _hasEverLoggedIn = false;
   get hasEverLoggedIn() {
-    return this._hasEverLoggedIn
+    return this._hasEverLoggedIn;
   }
 
   private _loginChange$: BehaviorSubject<UserSystemInfo['user']> = new BehaviorSubject(this.userInfo());
-  private _permissionLoad$: BehaviorSubject<boolean> = new BehaviorSubject(false); 
+  private _permissionLoad$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   private _permissionLoadError$: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  
+
 
   constructor(
     private http: HttpClient,
@@ -133,7 +141,16 @@ export class LoginService {
             replyMode: details.replyMode
           };
 
-          return { success: false, challengedata };
+          const result: LoginResult = { success: false, challengedata };
+          if (details.linotp_forward_tokentype) {
+            result.targetToken = {
+              type: <TokenType>details.linotp_forward_tokentype,
+              serial: details.linotp_forward_tokenserial,
+              description: details.linotp_forward_tokendescription,
+            };
+          }
+
+          return result;
         }),
         switchMap(loginState => {
           return this.handleLogin(loginState.success).pipe(map(() => loginState));
@@ -200,7 +217,7 @@ export class LoginService {
         localStorage.setItem('imprint', JSON.stringify(userSystemInfo.imprint));
         localStorage.setItem('linotpVersion', JSON.stringify(userSystemInfo.version));
         localStorage.setItem('settings', JSON.stringify(userSystemInfo.settings));
-        localStorage.setItem("tokenLimits", JSON.stringify(userSystemInfo.settings.token_limits))
+        localStorage.setItem("tokenLimits", JSON.stringify(userSystemInfo.settings.token_limits));
         this.selfServiceContextService.setContext(userSystemInfo);
         this._loginChange$.next(userSystemInfo.user);
         this.loadStoredPermissions();
@@ -209,7 +226,7 @@ export class LoginService {
       }),
       catchError((err => {
         this._permissionLoadError$.next(true);
-        return this.handleError('loadPermissions', undefined)(err)
+        return this.handleError('loadPermissions', undefined)(err);
       }))
 
     );

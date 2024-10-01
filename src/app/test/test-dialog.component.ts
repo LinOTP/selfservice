@@ -24,6 +24,11 @@ export class TestDialogComponent implements OnInit, OnDestroy {
 
   public TokenType = TokenType;
   public typeDetails: TokenDisplayData = undefined;
+  public TargetToken: {
+    serial: string;
+    type: TokenType;
+    description: string;
+  };
 
   public TestState = TestState;
   public ReplyMode = ReplyMode;
@@ -52,7 +57,7 @@ export class TestDialogComponent implements OnInit, OnDestroy {
   }
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: { serial: string, type: TokenType, token: SelfserviceToken | undefined },
+    @Inject(MAT_DIALOG_DATA) public data: { serial: string, type: TokenType, token: SelfserviceToken | undefined; },
     private testService: TestService,
     private formBuilder: UntypedFormBuilder,
   ) {
@@ -84,9 +89,19 @@ export class TestDialogComponent implements OnInit, OnDestroy {
         this.state = TestState.FAILURE;
       } else {
         this.transactionDetail = response;
+
         if (response.transactionId) {
           this.shortTransactionId = response.transactionId.toString().slice(0, 6);
         }
+
+        if (response.linotp_forward_tokentype) {
+          this.TargetToken = {
+            type: <TokenType>response.linotp_forward_tokentype,
+            serial: response.linotp_forward_tokenserial,
+            description: response.linotp_forward_tokendescription,
+          };
+        };
+
         this.state = TestState.UNTESTED;
         if (this.hasOnlineMode) {
           this.checkTransactionState();
