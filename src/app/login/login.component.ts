@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
   systemInfo: SystemInfo;
 
   factors: SelfserviceToken[] = [];
-  selectedToken: { serial: string; typeDetails: TokenDisplayData };
+  selectedToken: { serial: string; typeDetails: TokenDisplayData; };
 
   loginStage = LoginStage.USER_PW_INPUT;
 
@@ -54,6 +54,7 @@ export class LoginComponent implements OnInit {
   public challengeResult: StatusDetail;
   public showInputField = false;
   private pollingSubscription: Subscription;
+  public handledTokenType: TokenDisplayData["type"];
 
   @ViewChildren('tokenListItem', { read: ElementRef }) tokenChoiceItems: QueryList<ElementRef>;
   showKeyboardTip: boolean;
@@ -218,6 +219,12 @@ export class LoginComponent implements OnInit {
     this.loginService.login({ serial: token.serial })
       .subscribe(result => {
         this.awaitingResponse = false;
+
+        this.handledTokenType = this.selectedToken.typeDetails.type;
+        if (result.targetToken) {
+          this.handledTokenType = <TokenType>result.targetToken.type;
+        }
+
         if (result.challengedata) {
           this.transactionDetail = result.challengedata;
           this.checkTransactionState();

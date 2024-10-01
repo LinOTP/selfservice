@@ -19,6 +19,9 @@ export interface TransactionDetail {
   transactionId?: string;
   transactionData?: string; // content of QR code
   message?: string; // user facing message
+  linotp_forward_tokenserial?: string;
+  linotp_forward_tokendescription?: string;
+  linotp_forward_tokentype?: string;
 }
 
 export interface StatusDetail {
@@ -67,7 +70,7 @@ export class TestService {
    */
   testToken(options: TestOptions): Observable<boolean | TransactionDetail> {
     const url = this.userserviceBase + this.userserviceEndpoints.verify;
-    const body: TestOptions & { session: string } = {
+    const body: TestOptions & { session: string; } = {
       session: this.sessionService.getSession(),
       serial: options.serial,
     };

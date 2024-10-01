@@ -182,6 +182,10 @@ export class Fixtures {
     return getSelfserviceTokenFixture(1, 'Active-mOTP-Token-Serial', this.tokenDisplayData[TokenType.MOTP], true, 'Description');
   }
 
+  static get activeForwardToken(): SelfserviceToken {
+    return getSelfserviceTokenFixture(1, 'Active-forward-Token-Serial', this.tokenDisplayData[TokenType.FORWARD], true, 'Description');
+  }
+
   static get activeSMSToken(): SelfserviceToken {
     return getSelfserviceTokenFixture(1, 'Active-SMS-Token-Serial', this.tokenDisplayData[TokenType.SMS], true, 'Description');
   }
@@ -407,20 +411,29 @@ export class Fixtures {
     };
   }
 
-  static get transactionDetail() {
+  static get transactionDetailOffline() {
     return {
       replyMode: [ReplyMode.OFFLINE],
+      transactionId: 'txid',
+      // transactionData: 'txdata',
+      message: 'message'
+    };
+  }
+
+  static get transactionDetailOnlineQR() {
+    return {
+      replyMode: [ReplyMode.ONLINE],
       transactionId: 'txid',
       transactionData: 'txdata',
       message: 'message'
     };
   }
 
-  static get transactionDetailOnline() {
+  static get transactionDetailOnlinePush() {
     return {
       replyMode: [ReplyMode.ONLINE],
       transactionId: 'txid',
-      transactionData: 'txdata',
+      // transactionData: 'txdata',
       message: 'message'
     };
   }
@@ -497,11 +510,11 @@ export function getSelfserviceTokenFixture(id: number, serial: string, typeDetai
     "Enrollment": {
       "status": "completed"
     }
-  }
+  };
   const token = new SelfserviceToken(linOtpToken as LinOtpToken);
-  (token as any)._typeDetails = typeDetails
+  (token as any)._typeDetails = typeDetails;
 
-  return token
+  return token;
 }
 
 export class TokenListFixtures {

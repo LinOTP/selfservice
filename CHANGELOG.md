@@ -1,3 +1,11 @@
+<a name="1.3.1rc0"></a>
+## 1.3.1rc0 (unreleased)
+
+  ### Fixes:
+  * verify warning is removed when a token is enrolled with successful verification
+  * users can login with, test and verify forwarding tokens targeting any common token
+
+
 <a name="1.3"></a>
 ## 1.3 (2024-09-16)
 
@@ -8,6 +16,7 @@
 
   ### Fixes:
   * Show an error message when the permissions can not be loaded
+
 
 <a name="1.2"></a>
 ## 1.2 (2024-06-25)

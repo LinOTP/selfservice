@@ -12,7 +12,7 @@ import { MockPipe } from '@testing/mock-pipe';
 import { TestingPage } from '@testing/page-helper';
 import { getInjectedStub, spyOnClass } from '@testing/spyOnClass';
 
-import { SelfserviceToken } from '@api/token';
+import { SelfserviceToken, TokenType } from '@api/token';
 import { MaterialModule } from '@app/material.module';
 import { SystemService } from '@app/system.service';
 import { DialogComponent } from '@common/dialog/dialog.component';
@@ -281,7 +281,7 @@ describe('LoginComponent', () => {
         const tokens = [Fixtures.completedPushToken, Fixtures.completedQRToken];
         loginService.login.and.returnValues(
           of({ success: false, tokens: tokens }),
-          of({ success: false, challengedata: Fixtures.transactionDetail })
+          of({ success: false, challengedata: Fixtures.transactionDetailOffline })
         );
         spyOn(component, 'redirect');
         spyOn(component, 'chooseSecondFactor').and.callThrough();
@@ -356,7 +356,7 @@ describe('LoginComponent', () => {
       const token = Fixtures.activeHotpToken;
 
       component.loginStage = LoginStage.TOKEN_CHOICE;
-      component.transactionDetail = Fixtures.transactionDetail;
+      component.transactionDetail = Fixtures.transactionDetailOffline;
       component.selectedToken = token;
       fixture.detectChanges();
 
@@ -470,36 +470,42 @@ describe('LoginComponent', () => {
     it('should have token-appropriate message for Yubico tokens', () => {
       component.loginStage = LoginStage.OTP_INPUT;
       component.selectedToken = Fixtures.activeYubicoToken;
-      component.transactionDetail = Fixtures.transactionDetail;
+      component.handledTokenType = <TokenType>Fixtures.activeYubicoToken.tokenType;
+      component.transactionDetail = Fixtures.transactionDetailOffline;
 
       fixture.detectChanges();
 
       expect(page.getOTPForm().textContent).toContain('Please connect your Yubikey and press its button.');
+      expect(page.getOTPForm().textContent).not.toContain('Scan the QR code with your LinOTP Authenticator app:');
     });
 
     it('should have token-appropriate message for Yubikey tokens', () => {
       component.loginStage = LoginStage.OTP_INPUT;
       component.selectedToken = Fixtures.activeYubikeyToken;
-      component.transactionDetail = Fixtures.transactionDetail;
+      component.handledTokenType = <TokenType>Fixtures.activeYubikeyToken.tokenType;
+      component.transactionDetail = Fixtures.transactionDetailOffline;
 
       fixture.detectChanges();
 
       expect(page.getOTPForm().textContent).toContain('Please connect your Yubikey and press its button.');
+      expect(page.getOTPForm().textContent).not.toContain('Scan the QR code with your LinOTP Authenticator app:');
     });
 
     it('should have token-appropriate message for Password tokens', () => {
       component.loginStage = LoginStage.OTP_INPUT;
       component.selectedToken = Fixtures.activePasswordToken;
-      component.transactionDetail = Fixtures.transactionDetail;
+      component.handledTokenType = <TokenType>Fixtures.activePasswordToken.tokenType;
+      component.transactionDetail = Fixtures.transactionDetailOffline;
 
       fixture.detectChanges();
 
       expect(page.getOTPForm().textContent).toContain('Please enter the password of the selected token:');
+      expect(page.getOTPForm().textContent).not.toContain('Scan the QR code with your LinOTP Authenticator app:');
     });
 
     it('should have token-appropriate message for remaining offline-only OTP tokens', () => {
       component.loginStage = LoginStage.OTP_INPUT;
-      component.transactionDetail = Fixtures.transactionDetail;
+      component.transactionDetail = Fixtures.transactionDetailOffline;
 
       [
         Fixtures.activeTotpToken,
@@ -509,9 +515,60 @@ describe('LoginComponent', () => {
         Fixtures.activeEmailToken
       ].forEach(token => {
         component.selectedToken = token;
+        component.handledTokenType = <TokenType>token.tokenType;
+        fixture.detectChanges();
+        expect(page.getOTPForm().textContent).toContain('Please enter the current OTP for the selected token:');
+        expect(page.getOTPForm().textContent).not.toContain('Scan the QR code with your LinOTP Authenticator app:');
+      });
+    });
+
+    it('should have token-appropriate message for forward tokens targeting offline-only OTP tokens', () => {
+      component.loginStage = LoginStage.OTP_INPUT;
+      component.transactionDetail = Fixtures.transactionDetailOffline;
+      component.selectedToken = Fixtures.activeForwardToken;
+      [
+        Fixtures.activeTotpToken,
+        Fixtures.activeHotpToken,
+        Fixtures.activeMotpToken,
+        Fixtures.activeSMSToken,
+        Fixtures.activeEmailToken
+      ].forEach(token => {
+        component.handledTokenType = <TokenType>token.tokenType;
         fixture.detectChanges();
         expect(page.getOTPForm().textContent).toContain('Please enter the current OTP for the selected token:');
       });
+    });
+
+    it('should have token-appropriate message for forward tokens targeting password tokens', () => {
+      component.loginStage = LoginStage.OTP_INPUT;
+      component.transactionDetail = Fixtures.transactionDetailOffline;
+      component.selectedToken = Fixtures.activeForwardToken;
+      component.handledTokenType = <TokenType>Fixtures.activePasswordToken.tokenType;
+      fixture.detectChanges();
+      expect(page.getOTPForm().textContent).toContain('Please enter the password of the selected token:');
+      expect(page.getOTPForm().textContent).not.toContain('Scan the QR code with your LinOTP Authenticator app:');
+    });
+
+    it('should have token-appropriate message for forward tokens targeting QR tokens', () => {
+      component.loginStage = LoginStage.OTP_INPUT;
+      component.transactionDetail = Fixtures.transactionDetailOnlineQR;
+      component.selectedToken = Fixtures.activeForwardToken;
+      component.handledTokenType = <TokenType>Fixtures.activeQRToken.tokenType;
+      fixture.detectChanges();
+      expect(page.getOTPForm().textContent).toContain('Scan the QR code with your LinOTP Authenticator app:');
+      expect(page.getOTPForm().textContent).not.toContain('Please enter the password of the selected token:');
+    });
+
+
+    it('should have token-appropriate message for forward tokens targeting Push tokens', () => {
+      component.loginStage = LoginStage.OTP_INPUT;
+      component.transactionDetail = Fixtures.transactionDetailOnlinePush;
+      component.selectedToken = Fixtures.activeForwardToken;
+      component.handledTokenType = <TokenType>Fixtures.activePushToken.tokenType;
+      fixture.detectChanges();
+      expect(page.getOTPForm().textContent).toContain('Waiting for confirmation of transaction');
+      expect(page.getOTPForm().textContent).not.toContain('Scan the QR code with your LinOTP Authenticator app:');
+      expect(page.getOTPForm().textContent).not.toContain('Please enter the password of the selected token:');
     });
 
   });
@@ -555,7 +612,7 @@ describe('LoginComponent', () => {
       component.loginFormGroup.value.password = 'pass';
       component.secondFactorFormGroup.value.otp = 'otp';
       component.loginStage = LoginStage.OTP_INPUT;
-      component.transactionDetail = Fixtures.transactionDetail;
+      component.transactionDetail = Fixtures.transactionDetailOffline;
 
       fixture.detectChanges();
 
@@ -579,7 +636,7 @@ describe('LoginComponent', () => {
 
     expect(component['pollingSubscription']).toBeFalsy();
 
-    component.transactionDetail = Fixtures.transactionDetailOnline;
+    component.transactionDetail = Fixtures.transactionDetailOnlineQR;
     component.checkTransactionState();
 
     expect(component['pollingSubscription']).toBeTruthy();

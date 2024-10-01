@@ -1,4 +1,5 @@
-<div class="custom-content-slot custom-content-slot-login-top" *appHasCustomContent="'login-top'">
+<div class="custom-content-slot custom-content-slot-login-top"
+     *appHasCustomContent="'login-top'">
   <app-custom-content-slot slotId="login-top"></app-custom-content-slot>
 </div>
 
@@ -137,9 +138,9 @@
           {{ selectedToken.typeDetails.name }} with serial {{ selectedToken.serial }}
         </span>
       </p>
-      <ng-container *ngIf="!hasOnlineMode">
 
-        <ng-container [ngSwitch]="selectedToken.typeDetails.type">
+      <ng-container *ngIf="!hasOnlineMode">
+        <ng-container [ngSwitch]="handledTokenType">
           <p *ngSwitchCase="TokenType.PASSWORD"
              i18n>Please enter the password of the selected token:</p>
           <p *ngSwitchCase="TokenType.YUBICO || TokenType.YUBIKEY"
@@ -176,7 +177,7 @@
                 i18n>Manually enter OTP</button>
       </div>
       <ng-container *ngIf="!transactionDetail || !hasOnlineMode || showInputField">
-        <mat-form-field *ngIf="selectedToken.typeDetails.type === TokenType.PASSWORD; else  standardTokenTypeTmp">
+        <mat-form-field *ngIf="handledTokenType === TokenType.PASSWORD; else standardTokenTypeTmp">
           <mat-label i18n>Password</mat-label>
           <input matInput
                  type="password"
