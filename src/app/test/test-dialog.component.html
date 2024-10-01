@@ -19,7 +19,7 @@
 
         <div class="instruction"
              *ngIf="!hasOnlineMode">
-          <ng-container *ngIf="typeDetails.type === TokenType.PASSWORD; else otpInputMessage"
+          <ng-container *ngIf="typeDetails.type === TokenType.PASSWORD || TargetToken?.type === TokenType.PASSWORD ; else otpInputMessage"
                         i18n>
             Please enter the password of the selected token:
           </ng-container>
