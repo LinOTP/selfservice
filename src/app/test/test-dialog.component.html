@@ -57,30 +57,34 @@
         </div>
 
         <div [ngClass]="{'center-content': hasOnlineMode && hasOfflineMode}">
-          <mat-form-field *ngIf="!hasOnlineMode || showInputField">
-            <mat-label *ngIf="typeDetails.type === TokenType.PASSWORD"
-                       i18n>Password</mat-label>
-            <mat-label *ngIf="typeDetails.type !== TokenType.PASSWORD"
-                       i18n>OTP value</mat-label>
-            <input matInput
-                   *ngIf="typeDetails.type === TokenType.PASSWORD"
-                   type="password"
-                   formControlName="otp"
-                   name="otp"
-                   autocomplete="current-password"
-                   appFocusOnInit>
-            <input matInput
-                   *ngIf="typeDetails.type !== TokenType.PASSWORD"
-                   type="text"
-                   formControlName="otp"
-                   name="otp"
-                   autocomplete="one-time-code"
-                   appFocusOnInit>
-            <mat-error *ngIf="typeDetails.type === TokenType.PASSWORD"
-                       i18n>The password field cannot be empty</mat-error>
-            <mat-error *ngIf="typeDetails.type !== TokenType.PASSWORD"
-                       i18n="@@otpRequiredInfo">The OTP field cannot be empty</mat-error>
-          </mat-form-field>
+          <ng-container *ngIf="!hasOnlineMode || showInputField">
+            <ng-container
+                          *ngIf="typeDetails.type === TokenType.PASSWORD || TargetToken?.type === TokenType.PASSWORD ; else otpInputField">
+              <mat-form-field>
+                <mat-label i18n>Password</mat-label>
+                <input matInput
+                       type="password"
+                       formControlName="otp"
+                       name="otp"
+                       autocomplete="current-password"
+                       appFocusOnInit>
+                <mat-error i18n>The password field cannot be empty</mat-error>
+              </mat-form-field>
+            </ng-container>
+
+            <ng-template #otpInputField>
+              <mat-form-field>
+                <mat-label i18n>OTP value</mat-label>
+                <input matInput
+                       type="text"
+                       formControlName="otp"
+                       name="otp"
+                       autocomplete="one-time-code"
+                       appFocusOnInit>
+                <mat-error i18n="@@otpRequiredInfo">The OTP field cannot be empty</mat-error>
+              </mat-form-field>
+            </ng-template>
+          </ng-container>
         </div>
 
       </ng-container>
