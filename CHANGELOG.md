@@ -4,6 +4,14 @@
   * dummy changelog entry for 1.4-0dev
 
 
+<a name="1.3.1"></a>
+## 1.3.1 (2024-11-14)
+
+  ### Fixes:
+  * verify warning is removed when a token is enrolled with successful verification
+  * users can login with, test and verify forwarding tokens targeting any common token
+
+
 <a name="1.3"></a>
 ## 1.3 (2024-09-16)
 

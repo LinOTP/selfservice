@@ -4,6 +4,14 @@ linotp-selfservice (1.4~0dev-1) UNRELEASED; urgency=low
 
  -- LinOTP Packaging <packaging@linotp.de>  Wed, 21 Aug 2024 12:34:56 +0200
 
+linotp-selfservice (1.3.1-1) buster; urgency=low
+
+  Fixes:
+  * verify warning is removed when a token is enrolled with successful verification
+  * users can login with, test and verify forwarding tokens targeting any common token
+
+ -- LinOTP Packaging <packaging@linotp.de>  Thu, 14 Nov 2024 12:34:56 +0200
+
 linotp-selfservice (1.3-1) buster; urgency=low
 
   Features:
