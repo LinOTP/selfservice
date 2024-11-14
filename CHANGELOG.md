@@ -1,5 +1,5 @@
-<a name="1.3.1rc0"></a>
-## 1.3.1rc0 (unreleased)
+<a name="1.3.1"></a>
+## 1.3.1 (2024-11-14)
 
   ### Fixes:
   * verify warning is removed when a token is enrolled with successful verification
