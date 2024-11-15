@@ -1,6 +1,7 @@
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { By } from '@angular/platform-browser';
 
 import { Observable, Observer, of } from 'rxjs';
 
@@ -18,6 +19,13 @@ import { TestDialogComponent } from './test-dialog.component';
 const challengeOnlyDetail: TransactionDetail = { replyMode: [ReplyMode.OFFLINE] };
 const successfulOfflineDetail: TransactionDetail = { transactionId: 'id', replyMode: [ReplyMode.OFFLINE] };
 const successfulOnlineDetail: TransactionDetail = { transactionId: 'id', replyMode: [ReplyMode.ONLINE] };
+const successfulOfflineDetailForwardToPW: TransactionDetail = {
+  transactionId: 'id',
+  replyMode: [ReplyMode.OFFLINE],
+  linotp_forward_tokentype: TokenType.PASSWORD,
+  linotp_forward_tokenserial: "123",
+  linotp_forward_tokendescription: "some description",
+};
 
 describe('TestDialogComponent', () => {
   let component: TestDialogComponent;
@@ -98,6 +106,21 @@ describe('TestDialogComponent', () => {
     expect(component).toBeTruthy();
     const options = { serial: enrolledToken.serial };
     expect(testService.testToken).toHaveBeenCalledWith(options);
+  });
+
+
+  it('should show password field when testing a forwarding token targets PW token', () => {
+    testService.testToken.and.returnValue(of(successfulOfflineDetailForwardToPW));
+
+    fixture = TestBed.createComponent(TestDialogComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+
+
+    const passwordField = fixture.debugElement.query(By.css('input[type="password"]'));
+    expect(passwordField).toBeTruthy();  // Password field should be displayed
+    const otpField = fixture.debugElement.query(By.css('input[type="text"]'));
+    expect(otpField).toBeFalsy();  // OTP field should not be displayed
   });
 
   describe('checkTransactionState', () => {
