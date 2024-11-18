@@ -1,7 +1,8 @@
 <a name="1.4-0dev"></a>
 ## 1.4-0dev (unreleased)
 
-  * dummy changelog entry for 1.4-0dev
+  ### Fixes:
+  * Tokens don't show a token action menu if they don't have an available action.
 
 
 <a name="1.3.1"></a>

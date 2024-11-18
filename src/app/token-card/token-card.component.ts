@@ -1,8 +1,8 @@
-import { Component, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
-import { Subject, Subscription } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { map, Observable, of, Subject, Subscription } from 'rxjs';
+import { filter, startWith } from 'rxjs/operators';
 
 import { OperationsService } from '@api/operations.service';
 import { EnrollmentStatus, SelfserviceToken, TokenType } from '@api/token';
@@ -17,6 +17,7 @@ import { SetDescriptionDialogComponent } from '@common/set-description-dialog/se
 import { SetMOTPPinDialogComponent } from '@common/set-motp-pin-dialog/set-motp-pin-dialog.component';
 import { SetPinDialogComponent } from '@common/set-pin-dialog/set-pin-dialog.component';
 import { TokenVerifyCheckService } from '../token-list/token-verify-check.service';
+import { MatMenuItem } from "@angular/material/menu";
 
 @Component({
   selector: 'app-token-card',
@@ -38,7 +39,19 @@ export class TokenCardComponent implements OnInit, OnDestroy {
   public isMOTP: boolean;
   public canEnable: boolean;
   public canActivate: boolean;
+  public menuHasItems: Observable<boolean> = of(false);
   private subscriptions: Subscription[] = [];
+
+  @ViewChildren(MatMenuItem) set menuItems(menuItems: QueryList<MatMenuItem>) {
+    if (!menuItems) return;
+    setTimeout(() => {
+      this.menuHasItems = menuItems.changes.pipe(
+          startWith(menuItems),
+          map((items: QueryList<MatMenuItem>) => items.length > 0)
+      )
+    })
+  }
+
 
   constructor(
     private dialog: MatDialog,

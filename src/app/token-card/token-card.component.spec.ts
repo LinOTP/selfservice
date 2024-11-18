@@ -1,4 +1,4 @@
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
@@ -26,6 +26,8 @@ import { SetPinDialogComponent } from '@common/set-pin-dialog/set-pin-dialog.com
 import { LockableTokenActionsService } from '@app/common/lockable-token-dialogs.service';
 import { TokenVerifyCheckService } from '@app/token-list/token-verify-check.service';
 import { TokenCardComponent } from './token-card.component';
+import { QueryList } from "@angular/core";
+import { MatMenuItem } from "@angular/material/menu";
 
 class Page extends TestingPage<TokenCardComponent> {
 
@@ -178,6 +180,24 @@ describe('TokenCardComponent', () => {
     expect(page.header.innerText).toEqual(capitalizePipe.transform(component.token.typeDetails.name));
     expect(page.subheader.innerText).toEqual(component.token.description);
   });
+
+  it('menuHasItems should emit true when menu items are present and false when no menu items are present', fakeAsync(() => {
+    const filledList: QueryList<MatMenuItem> = new QueryList();
+    filledList.reset([{} as any]);
+    const emptyList: QueryList<MatMenuItem> = new QueryList();
+    emptyList.reset([]);
+    component.menuItems = filledList;
+    tick(0);
+    component.menuHasItems.subscribe(hasItems => {
+      expect(hasItems).toBe(true);
+    });
+    component.menuItems = emptyList;
+    tick(0);
+    component.menuHasItems.subscribe(hasItems => {
+      expect(hasItems).toBe(false);
+    });
+    flush()
+  }));
 
   it('should load permissions', () => {
     expect(component.Permission).toBe(Permission);
