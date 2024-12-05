@@ -1,9 +1,10 @@
-
+// TODO Check necessity
 // Temporary migration to steppers with headers
 .mat-horizontal-stepper-header-container {
   display: none !important;
 }
 
-app-enroll-oath .mat-horizontal-stepper-header-container {
+app-enroll-oath .mat-horizontal-stepper-header-container,
+app-enroll-email .mat-horizontal-stepper-header-container {
   display: flex !important;
 }

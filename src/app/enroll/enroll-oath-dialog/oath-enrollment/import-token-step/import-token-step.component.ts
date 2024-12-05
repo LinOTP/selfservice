@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from "@angular/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { DomSanitizer } from "@angular/platform-browser";
 import { NotificationService } from "@app/common/notification.service";
 import { OATHEnrolledToken } from "../../enroll-oath-dialog.component";
@@ -28,7 +27,6 @@ export class ImportTokenStepComponent {
     this._enrolledToken = value;
   }
   private _enrolledToken: OATHEnrolledToken;
-  form = getVerifyForm();
   public showDetails = false;
   @ViewChild(VerifyTokenComponent) verifyTokenComponent: VerifyTokenComponent;
   @Output() completed = new EventEmitter<void>();
@@ -56,13 +54,4 @@ export class ImportTokenStepComponent {
   public verifyToken() {
     this.verifyTokenComponent.verifyToken();
   }
-}
-
-
-export function getVerifyForm() {
-  const form = new FormGroup({
-    otp: new FormControl('', [Validators.required, Validators.pattern("^[0-9]*$")]),
-  })
-
-  return form;
 }

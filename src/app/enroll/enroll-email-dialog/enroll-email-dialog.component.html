@@ -1,27 +1,20 @@
-<h2 mat-dialog-title
-    i18n>Add {{this.tokenDisplayData.name}}</h2>
-
-<mat-horizontal-stepper [linear]="true"
-                        linear>
-
-  <mat-step [stepControl]="enrollmentStep"
-            id="stepDescription">
-
-    <form [formGroup]="enrollmentStep"
-          (submit)="enrollToken()">
-
-      <mat-dialog-content>
-        <p i18n>Create a new token that is paired with your email address to receive OTP values for authentication.</p>
-
-        <p *ngIf="!canEditEmail && userEmail"
-           i18n>The token will use your user email address: <b>{{userEmail}}</b></p>
+<h2 mat-dialog-title i18n>Add {{ this.tokenDisplayData.name }}</h2>
+<mat-horizontal-stepper [linear]="true">
+  <mat-step [completed]="false" [editable]="false">
+    <mat-dialog-content>
+      <ng-template matStepLabel i18n>Create token</ng-template>
+      <div i18n="@@emailStepperIntroduction">
+        <p>Create a new token that is paired with your email address to receive OTP values for authentication.</p>
+        <p *ngIf="!canEditEmail && userEmail">The token will use your user email address: <b>{{ userEmail }}</b></p>
         <p *ngIf="!canEditEmail && !userEmail"
-           class="warning"
-           i18n>
+           class="warning">
           You have no email address assigned to your user account and the token will therefore not work after creation.
           You may need to contact your administrator for help.
         </p>
-        <p i18n>You may set the following token details before creation:</p>
+        <p>You may set the following token details before creation:</p>
+      </div>
+      <form [formGroup]="enrollmentStep"
+            (submit)="enrollToken()">
         <mat-form-field *ngIf="canEditEmail">
           <mat-label i18n>Email address</mat-label>
           <input matInput
@@ -29,67 +22,77 @@
                  appFocusOnInit>
           <mat-hint i18n>Set the email address to use for your token</mat-hint>
           <mat-error i18n
-                     *ngIf="enrollmentStep.get('emailAddress').hasError('required')">This field is required.</mat-error>
+                     *ngIf="enrollmentStep.get('emailAddress').hasError('required')">This field is required.
+          </mat-error>
         </mat-form-field>
-        <mat-form-field>
-          <mat-label i18n>Token description</mat-label>
-          <input matInput
-                 formControlName="description">
-          <mat-hint i18n>Enter a description for your token.</mat-hint>
-          <mat-error i18n
-                     *ngIf="enrollmentStep.get('description').hasError('required')">This field is required.</mat-error>
-        </mat-form-field>
-      </mat-dialog-content>
-
-      <mat-dialog-actions align="end">
-        <div i18n>Step 1 of 2</div>
-        <span class="spacer"></span>
-        <button mat-button
-                type="button"
-                (click)="close()"
-                i18n>Cancel</button>
-        <button mat-raised-button
-                color="primary"
-                type="submit"
-                id="goTo2"
-                [disabled]="enrollmentStep.invalid || enrollmentStep.disabled">
-          <app-button-wait-indicator [show]="enrollmentStep.disabled"></app-button-wait-indicator>
-          <ng-container i18n>Next</ng-container>
-        </button>
-      </mat-dialog-actions>
-    </form>
-
+        <app-create-token-step [form]="enrollmentStep"></app-create-token-step>
+        <mat-dialog-actions align="end">
+          <button mat-button
+                  type="button"
+                  (click)="close()"
+                  i18n>Cancel
+          </button>
+          <button mat-raised-button
+                  color="primary"
+                  type="submit"
+                  [disabled]="enrollmentStep.invalid || enrollmentStep.disabled">
+            <div class="button-content">
+              <ng-container i18n>Next</ng-container>
+              <mat-icon>arrow_forward</mat-icon>
+            </div>
+          </button>
+        </mat-dialog-actions>
+      </form>
+    </mat-dialog-content>
   </mat-step>
 
-  <mat-step active="false"
-            id="stepPIN">
-
+  <mat-step *ngIf="verifyPolicyEnabled" [completed]="isTokenVerified">
+    <ng-template matStepLabel i18n>Verify</ng-template>
     <mat-dialog-content>
       <p *ngIf="enrolledToken"
          i18n>A token with the serial number {{ enrolledToken.serial }} has been created.</p>
-      <ng-container *ngxPermissionsOnly="Permission.SETPIN">
-        <p i18n>You may set a PIN now to protect your token against misuse, as it ensures only you can use your token.
-          This step is optional, and you can still do it later over the token menu.</p>
-        <button mat-stroked-button
-                color="primary"
-                (click)="setPin()">
-          <mat-icon>security</mat-icon>
-          <span i18n>Set pin</span>
-        </button>
-      </ng-container>
-      <p *ngxPermissionsOnly="Permission.VERIFY"
-         class="verify"
+      <ng-container *ngxPermissionsOnly="Permission.VERIFY">
+        <p class="verify"
          i18n>Please verify with a token test whether you can successfully use the token:</p>
+        <app-verify-token [token]="enrolledToken" (tokenVerified)="isTokenVerified = true"></app-verify-token>
+      </ng-container>
     </mat-dialog-content>
 
     <mat-dialog-actions align="end">
-      <div i18n>Step 2 of 2</div>
-      <span class="spacer"></span>
+      <button mat-button
+              type="button"
+              (click)="close()"
+              i18n>Cancel
+      </button>
       <button mat-raised-button
               color="primary"
-              (click)="finalizeEnrollment()"> {{ closeLabel }}</button>
+              [disabled]="!isTokenVerified"
+              (click)="stepper.next()">
+        <div class="button-content">
+          <ng-container i18n>Next</ng-container>
+          <mat-icon>arrow_forward</mat-icon>
+        </div>
+      </button>
     </mat-dialog-actions>
 
   </mat-step>
 
+
+  <mat-step>
+    <ng-template matStepLabel i18n>Done</ng-template>
+    <mat-dialog-content>
+      <app-done-step [token]="enrolledToken"></app-done-step>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button
+        mat-raised-button
+        color="primary"
+        type="button"
+        (click)="close()"
+        i18n
+      >
+        Close
+      </button>
+    </mat-dialog-actions>
+  </mat-step>
 </mat-horizontal-stepper>
