@@ -13,7 +13,7 @@
         </p>
         <p>You may set the following token details before creation:</p>
       </div>
-      <form [formGroup]="enrollmentStep"
+      <form [formGroup]="createTokenForm"
             (submit)="enrollToken()">
         <mat-form-field *ngIf="canEditEmail">
           <mat-label i18n>Email address</mat-label>
@@ -22,10 +22,10 @@
                  appFocusOnInit>
           <mat-hint i18n>Set the email address to use for your token</mat-hint>
           <mat-error i18n
-                     *ngIf="enrollmentStep.get('emailAddress').hasError('required')">This field is required.
+                     *ngIf="createTokenForm.get('emailAddress').hasError('required')">This field is required.
           </mat-error>
         </mat-form-field>
-        <app-create-token-step [form]="enrollmentStep"></app-create-token-step>
+        <app-create-token-step [form]="createTokenForm"></app-create-token-step>
         <mat-dialog-actions align="end">
           <button mat-button
                   type="button"
@@ -35,7 +35,7 @@
           <button mat-raised-button
                   color="primary"
                   type="submit"
-                  [disabled]="enrollmentStep.invalid || enrollmentStep.disabled">
+                  [disabled]="createTokenForm.invalid || createTokenForm.disabled">
             <div class="button-content">
               <ng-container i18n>Next</ng-container>
               <mat-icon>arrow_forward</mat-icon>

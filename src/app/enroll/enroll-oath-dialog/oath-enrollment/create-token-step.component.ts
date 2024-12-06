@@ -1,5 +1,5 @@
 import { Component, Input } from "@angular/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormControl, FormGroup, UntypedFormGroup, Validators } from "@angular/forms";
 import { ErrorStateRootMatcher } from "@app/common/form-helpers/error-state-root-matcher";
 import { getOtpPinForm } from "@app/enroll/token-pin-form-layout/token-pin-form-layout.component";
 
@@ -53,7 +53,7 @@ export class CreateTokenStepComponent {
 }
 
 
-export function getCreateTokenStepForm() {
+export function getCreateTokenStepForm(): UntypedFormGroup {
 	const form = new FormGroup({
 		otpPin: getOtpPinForm(),
 		description: new FormControl($localize`Created via SelfService`, Validators.required),
