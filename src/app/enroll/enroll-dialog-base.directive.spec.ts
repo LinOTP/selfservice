@@ -20,11 +20,10 @@ import { SetPinDialogComponent } from '@common/set-pin-dialog/set-pin-dialog.com
 import { TokenListFixtures } from '@testing/fixtures';
 
 import { TokenType } from '@app/api/token';
-import { EnrollDialogBaseComponent } from './enroll-dialog-base.component';
+import { EnrollDialogBase } from './enroll-dialog-base.directive';
+import { Component } from "@angular/core";
 
-class MockComponent extends EnrollDialogBaseComponent { }
-
-describe('EnrollDialogBaseComponent with testing permissions', () => {
+describe('EnrollDialogBase with testing permissions', () => {
     let component: MockComponent;
     let fixture: ComponentFixture<MockComponent>;
 
@@ -40,7 +39,6 @@ describe('EnrollDialogBaseComponent with testing permissions', () => {
     beforeEach(async () => {
         TestBed.configureTestingModule({
             declarations: [
-                EnrollDialogBaseComponent,
                 MockComponent,
             ],
             imports: [
@@ -246,7 +244,7 @@ describe('EnrollDialogBaseComponent with testing permissions', () => {
 
 });
 
-describe('EnrollDialogBaseComponent without testing permissions', () => {
+describe('EnrollDialogBase without testing permissions', () => {
     let component: MockComponent;
     let fixture: ComponentFixture<MockComponent>;
 
@@ -258,7 +256,6 @@ describe('EnrollDialogBaseComponent without testing permissions', () => {
     beforeEach(async () => {
         TestBed.configureTestingModule({
             declarations: [
-                EnrollDialogBaseComponent,
                 MockComponent,
             ],
             imports: [
@@ -342,3 +339,9 @@ describe('EnrollDialogBaseComponent without testing permissions', () => {
         });
     });
 });
+
+@Component({
+  template: '',
+})
+export class MockComponent extends EnrollDialogBase {
+}

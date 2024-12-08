@@ -2,7 +2,7 @@ import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { MatStepper } from '@angular/material/stepper';
 
 import { EnrollmentOptions } from '@api/token';
-import { EnrollDialogBaseComponent, EnrolledToken } from '@app/enroll/enroll-dialog-base.component';
+import { EnrollDialogBase, EnrolledToken } from '@app/enroll/enroll-dialog-base.directive';
 import { CurrentPlatform, PlatformProviderService } from '../../common/platform-provider.service';
 
 export interface OATHEnrolledToken extends EnrolledToken {
@@ -16,7 +16,7 @@ export interface OATHEnrolledToken extends EnrolledToken {
   styleUrls: ['./enroll-oath-dialog.component.scss'],
   providers: [PlatformProviderService]
 })
-export class EnrollOATHDialogComponent extends EnrollDialogBaseComponent implements OnInit {
+export class EnrollOATHDialogComponent extends EnrollDialogBase implements OnInit {
 
   public enrolledToken: OATHEnrolledToken;
 

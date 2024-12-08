@@ -1,16 +1,15 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { TestOptions, TestService, TransactionDetail } from "@app/api/test.service";
 import { NotificationService } from "@app/common/notification.service";
-import { EnrolledToken } from "@app/enroll/enroll-dialog-base.component";
-import { $localize } from "@angular/localize/init";
+import { EnrolledToken } from "@app/enroll/enroll-dialog-base.directive";
 
 @Component({
 	selector: 'app-verify-token',
 	templateUrl: './verify-token.component.html',
 	styleUrls: ['./verify-token.component.scss']
 })
-export class VerifyTokenComponent implements OnInit {
+export class VerifyTokenComponent {
 	@Output() tokenVerified = new EventEmitter<boolean>();
 	@Input()
 	public get token(): EnrolledToken {
@@ -21,7 +20,9 @@ export class VerifyTokenComponent implements OnInit {
 		this.startVerifyProcess();
 	}
 	private _token: EnrolledToken;
-  protected form: FormGroup;
+  form: FormGroup = this.formBuilder.group({
+    otp: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
+  });
 
   public awaitingResponse = false;
 	public verifyStarted = false
@@ -33,10 +34,10 @@ export class VerifyTokenComponent implements OnInit {
     return this.token?.serial;
 	}
 
-	constructor(private testService: TestService, private notificationsService: NotificationService) { }
-
-  ngOnInit(): void {
-    this.form = this.getVerifyForm;
+  constructor(
+    private testService: TestService,
+    private notificationsService: NotificationService,
+    private formBuilder: FormBuilder) {
   }
 
   startVerifyProcess() {
@@ -81,13 +82,7 @@ export class VerifyTokenComponent implements OnInit {
 	}
 
 	public preventSubmit() {
-    return this.awaitingResponse;
-  }
-
-  get getVerifyForm(): FormGroup {
-    return new FormGroup({
-      otp: new FormControl(null, [Validators.required, Validators.pattern("^[0-9]*$")]),
-    });
+    return this.form.invalid || this.awaitingResponse;
   }
 }
 

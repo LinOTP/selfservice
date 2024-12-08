@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { OperationsService } from '@api/operations.service';
 import { SelfserviceToken } from '@api/token';
-import { EnrolledToken } from '@app/enroll/enroll-dialog-base.component';
+import { EnrolledToken } from '@app/enroll/enroll-dialog-base.directive';
 import { ErrorStateRootMatcher } from '@common/form-helpers/error-state-root-matcher';
 
 @Component({

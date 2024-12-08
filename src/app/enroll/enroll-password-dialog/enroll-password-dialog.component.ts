@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroupDirective, NgForm, UntypedFormControl } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { EnrollmentOptions, TokenType } from '@api/token';
-import { EnrollDialogBaseComponent } from '@app/enroll/enroll-dialog-base.component';
+import { EnrollDialogBase } from '@app/enroll/enroll-dialog-base.directive';
 import { getCreatePasswordTokenForm } from './form';
 
 @Component({
@@ -10,22 +10,22 @@ import { getCreatePasswordTokenForm } from './form';
   templateUrl: './enroll-password-dialog.component.html',
   styleUrls: ['./enroll-password-dialog.component.scss']
 })
-export class EnrollPasswordDialogComponent extends EnrollDialogBaseComponent {
+export class EnrollPasswordDialogComponent extends EnrollDialogBase {
   public matcher = new ConfirmPasswordErrorStateMatcher();
-  public enrollmentStep = getCreatePasswordTokenForm();
+  public createTokenForm = getCreatePasswordTokenForm();
 
   public enrollToken() {
-    if (this.enrollmentStep.invalid) return
+    if (this.createTokenForm.invalid) return
 
-    this.enrollmentStep.disable();
+    this.createTokenForm.disable();
     const body: EnrollmentOptions = {
       type: this.tokenDisplayData.type,
-      description: this.enrollmentStep.get('description').value,
-      otpkey: this.enrollmentStep.get('password').value,
+      description: this.createTokenForm.get('description').value,
+      otpkey: this.createTokenForm.get('password').value,
     };
 
     if (this.setOtpPinPolicyEnabled) {
-      body.otppin = this.enrollmentStep.get('otpPin').get('pin').value
+      body.otppin = this.createTokenForm.get('otpPin').get('pin').value
     }
 
     this.enrollmentService.enroll(body).subscribe(token => {
@@ -34,7 +34,7 @@ export class EnrollPasswordDialogComponent extends EnrollDialogBaseComponent {
         this.finalizeEnrollment();
         this.notificationService.message($localize`Token enrolled successfully.`);
       } else {
-        this.enrollmentStep.enable();
+        this.createTokenForm.enable();
       }
     });
   }

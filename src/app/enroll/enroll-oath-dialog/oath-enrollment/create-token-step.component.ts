@@ -6,13 +6,14 @@ import { getOtpPinForm } from "@app/enroll/token-pin-form-layout/token-pin-form-
 @Component({
 	selector: 'app-create-token-step',
 	template: `
-     <p i18n="@@oathStepperCreateTokenInfo">Please set up a token according to your administrator's instructions.</p>
-	 <p i18n="@@oathStepperTokenDescriptionInfo">You can enter a customized description to easily differentiate between multiple tokens:</p>
 	 <div *ngIf="form" [formGroup]="form">
 		<mat-form-field>
 			<mat-label i18n>Token description</mat-label>
 			<input matInput formControlName="description">
-			<mat-error i18n *ngIf="form.get('description').hasError('required')">This field is required.</mat-error>
+      <mat-hint i18n="@@oathStepperTokenDescriptionInfo">Set a customized description to easily differentiate
+        between multiple tokens
+      </mat-hint>
+      <mat-error i18n *ngIf="form.get('description').hasError('required')">This field is required.</mat-error>
 		</mat-form-field>
         <mat-card appearance="outlined" *ngxPermissionsOnly="'SETPIN'" class="pin-card">
 			<mat-card-header>
@@ -23,7 +24,6 @@ import { getOtpPinForm } from "@app/enroll/token-pin-form-layout/token-pin-form-
 			</mat-card-content>
 		</mat-card>
 </div>
-			<p class="ready-info" i18n="@@oathStepperConfirmCreateInfo">When you are ready, create the token to proceed to next step.</p>
     `,
 	styles: [`
 		mat-form-field {

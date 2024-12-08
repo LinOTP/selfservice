@@ -22,6 +22,10 @@ import { NotificationService } from '@common/notification.service';
 
 import { TokenType } from '@app/api/token';
 import { EnrollSMSDialogComponent } from './enroll-sms-dialog.component';
+import { DoneStepComponent } from "@app/enroll/enroll-oath-dialog/oath-enrollment/done-step.component";
+import { CreateTokenStepComponent } from "@app/enroll/enroll-oath-dialog/oath-enrollment/create-token-step.component";
+import { TokenInfoComponent } from "@app/enroll/enroll-oath-dialog/oath-enrollment/token-info.component";
+import { TokenPinFormLayoutComponent } from "@app/enroll/token-pin-form-layout/token-pin-form-layout.component";
 
 describe('The EnrollSMSDialogComponent', () => {
   let component: EnrollSMSDialogComponent;
@@ -35,6 +39,9 @@ describe('The EnrollSMSDialogComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         EnrollSMSDialogComponent,
+        CreateTokenStepComponent,
+        DoneStepComponent,
+        TokenInfoComponent,
         MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] }),
       ],
       imports: [
@@ -44,6 +51,7 @@ describe('The EnrollSMSDialogComponent', () => {
         MaterialModule,
         NoopAnimationsModule,
         NgxPermissionsAllowStubDirective,
+        TokenPinFormLayoutComponent
       ],
       providers: [
         {
@@ -85,7 +93,7 @@ describe('The EnrollSMSDialogComponent', () => {
         },
       ],
     })
-      .compileComponents();
+    .compileComponents();
   });
 
   beforeEach(() => {
@@ -125,7 +133,7 @@ describe('The EnrollSMSDialogComponent', () => {
     });
     expect(component.enrolledToken.serial).toEqual(Fixtures.smsEnrollmentResponse.serial);
     expect(component.stepper.next).toHaveBeenCalledTimes(1);
-    expect(component.enrollmentStep.disabled).toEqual(true);
+    expect(component.createTokenForm.disabled).toEqual(true);
   }));
 
   it('should enroll an sms token with a custom description', fakeAsync(() => {
@@ -135,7 +143,7 @@ describe('The EnrollSMSDialogComponent', () => {
     enrollmentService.enroll.and.returnValue(of(Fixtures.smsEnrollmentResponse));
 
     component.data.tokenType = TokenType.SMS;
-    component.enrollmentStep.controls.description.setValue('custom description');
+    component.createTokenForm.controls.description.setValue('custom description');
     fixture.detectChanges();
     component.enrollToken();
     tick();
@@ -147,7 +155,7 @@ describe('The EnrollSMSDialogComponent', () => {
     });
     expect(component.enrolledToken.serial).toEqual(Fixtures.smsEnrollmentResponse.serial);
     expect(component.stepper.next).toHaveBeenCalledTimes(1);
-    expect(component.enrollmentStep.disabled).toEqual(true);
+    expect(component.createTokenForm.disabled).toEqual(true);
   }));
 
   describe('edit_sms policy', () => {
@@ -156,19 +164,19 @@ describe('The EnrollSMSDialogComponent', () => {
         description: 'should have an phone number input if edit_sms is enabled',
         setting: 1,
         canEditPhone: true,
-        formItems: ['description', 'phoneNumber']
+        formItems: ['otpPin', 'description', 'phoneNumber']
       },
       {
         description: 'should have an phone number input if edit_sms is not set',
         setting: undefined,
         canEditPhone: true,
-        formItems: ['description', 'phoneNumber']
+        formItems: ['otpPin', 'description', 'phoneNumber']
       },
       {
         description: 'should not allow to change the token phone number if edit_sms is disabled',
         setting: 0,
         canEditPhone: false,
-        formItems: ['description']
+        formItems: ['otpPin', 'description']
       }
     ].forEach(params => {
       it(params.description, fakeAsync(() => {
@@ -185,7 +193,7 @@ describe('The EnrollSMSDialogComponent', () => {
         fixture.detectChanges();
 
         expect(component.canEditPhone).toBe(params.canEditPhone);
-        expect(Object.keys(component.enrollmentStep.controls)).toEqual(params.formItems);
+        expect(Object.keys(component.createTokenForm.controls)).toEqual(params.formItems);
 
         component.enrollToken();
         tick();
@@ -195,7 +203,7 @@ describe('The EnrollSMSDialogComponent', () => {
           description: `Created via SelfService - ${Fixtures.userSystemInfo.user.mobile}`,
           phone: Fixtures.userSystemInfo.user.mobile,
         });
-        expect(component.enrollmentStep.disabled).toEqual(true);
+        expect(component.createTokenForm.disabled).toEqual(true);
       }));
     });
   });
@@ -209,6 +217,6 @@ describe('The EnrollSMSDialogComponent', () => {
     tick();
 
     expect(component.enrolledToken).toEqual(undefined);
-    expect(component.enrollmentStep.disabled).toEqual(false);
+    expect(component.createTokenForm.disabled).toEqual(false);
   }));
 });

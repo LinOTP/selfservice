@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Directive, Inject, OnDestroy, OnInit } from '@angular/core';
 import { UntypedFormBuilder } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -26,10 +26,9 @@ export interface EnrolledToken {
   type: TokenType | 'assign';
   description?: string;
 }
-@Component({
-  template: '',
-})
-export abstract class EnrollDialogBaseComponent implements OnInit, OnDestroy {
+
+@Directive()
+export abstract class EnrollDialogBase implements OnInit, OnDestroy {
   protected subscriptions: Subscription[] = [];
   public enrolledToken: EnrolledToken;
   public testAfterEnrollment = false;
@@ -38,12 +37,12 @@ export abstract class EnrollDialogBaseComponent implements OnInit, OnDestroy {
   public tokenDisplayData: TokenDisplayData;
   public Permission = Permission;
   private _verifyPolicyEnabled: boolean;
-  private _setOtpPinPolicyEnabled: boolean;
-  protected createTokenForm = getCreateTokenStepForm();
+  private _setOtpPinPolicyEnabled: boolean = false;
+  createTokenForm = getCreateTokenStepForm();
   protected isTokenVerified: boolean = false;
 
   constructor(
-    protected dialogRef: MatDialogRef<EnrollDialogBaseComponent>,
+    protected dialogRef: MatDialogRef<EnrollDialogBase>,
     protected sanitizer: DomSanitizer,
     protected permissionsService: NgxPermissionsService,
     protected enrollmentService: EnrollmentService,

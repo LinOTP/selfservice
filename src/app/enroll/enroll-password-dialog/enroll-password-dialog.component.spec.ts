@@ -117,14 +117,14 @@ describe('The EnrollPasswordDialogComponent', () => {
   it('should not allow enrollment if the passwords differ', fakeAsync(() => {
     const button: MatButton = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
     component.data.tokenType = TokenType.PASSWORD;
-    component.enrollmentStep.controls.password.setValue('111111');
-    component.enrollmentStep.controls.confirmation.setValue('222222');
+    component.createTokenForm.controls.password.setValue('111111');
+    component.createTokenForm.controls.confirmation.setValue('222222');
 
     fixture.detectChanges();
 
     tick();
     expect(button.disabled).toEqual(true);
-    expect(component.enrollmentStep.disabled).toEqual(false);
+    expect(component.createTokenForm.disabled).toEqual(false);
 
   }));
 
@@ -135,9 +135,10 @@ describe('The EnrollPasswordDialogComponent', () => {
       const serial = Fixtures.PasswordEnrollmentResponse.serial;
 
       component.data.tokenType = TokenType.PASSWORD;
-      component.enrollmentStep.controls.password.setValue('111111');
-      component.enrollmentStep.controls.confirmation.setValue('111111');
-      expect(component.enrollmentStep.controls.otpPin.enabled).toEqual(false);
+      component.createTokenForm.controls.password.setValue('111111');
+      component.createTokenForm.controls.confirmation.setValue('111111');
+      component.setOtpPinPolicyEnabled = false;
+      expect(component.createTokenForm.controls.otpPin.enabled).toEqual(false);
 
 
       fixture.detectChanges();
@@ -151,7 +152,7 @@ describe('The EnrollPasswordDialogComponent', () => {
       });
 
       expect(component.enrolledToken.serial).toEqual(serial);
-      expect(component.enrollmentStep.disabled).toEqual(true);
+      expect(component.createTokenForm.disabled).toEqual(true);
     }));
 
     it('should enroll a password token with otppin', fakeAsync(() => {
@@ -159,12 +160,12 @@ describe('The EnrollPasswordDialogComponent', () => {
       enrollmentService.enroll.and.returnValue(of(Fixtures.PasswordEnrollmentResponse));
 
       component.data.tokenType = TokenType.PASSWORD;
-      component.enrollmentStep.controls.password.setValue('111111');
-      component.enrollmentStep.controls.confirmation.setValue('111111');
-      component.enrollmentStep.controls.otpPin.get('pin').setValue('1234');
-      component.enrollmentStep.controls.otpPin.get('confirmPin').setValue('1234');
+      component.createTokenForm.controls.password.setValue('111111');
+      component.createTokenForm.controls.confirmation.setValue('111111');
+      component.createTokenForm.controls.otpPin.get('pin').setValue('1234');
+      component.createTokenForm.controls.otpPin.get('confirmPin').setValue('1234');
 
-      expect(component.enrollmentStep.controls.otpPin.enabled).toEqual(true);
+      expect(component.createTokenForm.controls.otpPin.enabled).toEqual(true);
 
       fixture.detectChanges();
       component.enrollToken();
@@ -183,9 +184,9 @@ describe('The EnrollPasswordDialogComponent', () => {
       const serial = Fixtures.PasswordEnrollmentResponse.serial;
 
       component.data.tokenType = TokenType.PASSWORD;
-      component.enrollmentStep.controls.description.setValue('custom description');
-      component.enrollmentStep.controls.password.setValue('111111');
-      component.enrollmentStep.controls.confirmation.setValue('111111');
+      component.createTokenForm.controls.description.setValue('custom description');
+      component.createTokenForm.controls.password.setValue('111111');
+      component.createTokenForm.controls.confirmation.setValue('111111');
 
       fixture.detectChanges();
       component.enrollToken();
@@ -198,12 +199,12 @@ describe('The EnrollPasswordDialogComponent', () => {
       });
 
       expect(component.enrolledToken.serial).toEqual(serial);
-      expect(component.enrollmentStep.disabled).toEqual(true);
+      expect(component.createTokenForm.disabled).toEqual(true);
     }));
 
     it('should allow retrying if enrollment failed', fakeAsync(() => {
       component.data.tokenType = TokenType.PASSWORD;
-      component.enrollmentStep.controls.password.setValue('111111');
+      component.createTokenForm.controls.password.setValue('111111');
 
       enrollmentService.enroll.and.returnValue(of(null));
 
@@ -212,7 +213,7 @@ describe('The EnrollPasswordDialogComponent', () => {
       tick();
 
       expect(component.enrolledToken).toEqual(undefined);
-      expect(component.enrollmentStep.disabled).toEqual(false);
+      expect(component.createTokenForm.disabled).toEqual(false);
     }));
   });
 

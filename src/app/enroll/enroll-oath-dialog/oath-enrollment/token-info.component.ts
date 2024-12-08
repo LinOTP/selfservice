@@ -1,6 +1,6 @@
 import { Component, Input } from "@angular/core";
-import { TokenDisplayData, TokenType, getTokenDisplayData } from "@app/api/token";
-import { EnrolledToken } from "@app/enroll/enroll-dialog-base.component";
+import { getTokenDisplayData, TokenDisplayData, TokenType } from "@app/api/token";
+import { EnrolledToken } from "@app/enroll/enroll-dialog-base.directive";
 
 
 @Component({

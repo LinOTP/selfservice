@@ -8,7 +8,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { SessionService } from '@app/auth/session.service';
 import { NotificationService } from '@common/notification.service';
 
-import { EnrolledToken } from '@app/enroll/enroll-dialog-base.component';
+import { EnrolledToken } from '@app/enroll/enroll-dialog-base.directive';
 import { APIError, LinOTPResponse } from './api';
 import { SelfserviceToken, TokenType } from './token';
 

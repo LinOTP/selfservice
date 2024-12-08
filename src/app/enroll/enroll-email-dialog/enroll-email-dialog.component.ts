@@ -3,7 +3,7 @@ import { Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 
 import { EnrollmentOptions, TokenType } from '@api/token';
-import { EnrollDialogBaseComponent } from '@app/enroll/enroll-dialog-base.component';
+import { EnrollDialogBase } from '@app/enroll/enroll-dialog-base.directive';
 import { UserInfo, UserSystemInfo } from '@app/system.service';
 
 
@@ -12,7 +12,7 @@ import { UserInfo, UserSystemInfo } from '@app/system.service';
   templateUrl: './enroll-email-dialog.component.html',
   styleUrls: ['./enroll-email-dialog.component.scss']
 })
-export class EnrollEmailDialogComponent extends EnrollDialogBaseComponent implements OnInit {
+export class EnrollEmailDialogComponent extends EnrollDialogBase implements OnInit {
   @ViewChild(MatStepper, { static: true }) public stepper: MatStepper;
   public canEditEmail: boolean;
   public userEmail: string;
