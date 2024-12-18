@@ -3,14 +3,14 @@ import { UntypedFormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 
 import { EnrollmentOptions, TokenType } from '@api/token';
-import { EnrollDialogBaseComponent } from '@app/enroll/enroll-dialog-base.component';
+import { EnrollDialogBase } from '@app/enroll/enroll-dialog-base.directive';
 
 @Component({
   selector: 'app-enroll-motp',
   templateUrl: './enroll-motp-dialog.component.html',
   styleUrls: ['./enroll-motp-dialog.component.scss']
 })
-export class EnrollMOTPDialogComponent extends EnrollDialogBaseComponent implements OnInit {
+export class EnrollMOTPDialogComponent extends EnrollDialogBase implements OnInit {
 
   @ViewChild(MatStepper, { static: true }) public stepper: MatStepper;
   public enrollmentStep: UntypedFormGroup;

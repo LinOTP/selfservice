@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
-import { FormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { TestOptions, TestService, TransactionDetail } from "@app/api/test.service";
 import { NotificationService } from "@app/common/notification.service";
-import { EnrolledToken } from "@app/enroll/enroll-dialog-base.component";
+import { EnrolledToken } from "@app/enroll/enroll-dialog-base.directive";
 
 @Component({
 	selector: 'app-verify-token',
@@ -11,8 +11,6 @@ import { EnrolledToken } from "@app/enroll/enroll-dialog-base.component";
 })
 export class VerifyTokenComponent {
 	@Output() tokenVerified = new EventEmitter<boolean>();
-	@Input() form: FormGroup;
-
 	@Input()
 	public get token(): EnrolledToken {
 		return this._token;
@@ -22,21 +20,29 @@ export class VerifyTokenComponent {
 		this.startVerifyProcess();
 	}
 	private _token: EnrolledToken;
+  form: FormGroup = this.formBuilder.group({
+    otp: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
+  });
 
-	public awaitingResponse = false;
+  public awaitingResponse = false;
 	public verifyStarted = false
 
 	public transactionDetail: TransactionDetail;
 	public verifyResult: 'FAILURE' | 'SUCCESS' | null = null;
 
 	get serial() {
-		return this.token.serial;
+    return this.token?.serial;
 	}
 
-	constructor(private testService: TestService, private notificationsService: NotificationService) { }
+  constructor(
+    private testService: TestService,
+    private notificationsService: NotificationService,
+    private formBuilder: FormBuilder) {
+  }
 
-	startVerifyProcess() {
-		this.testService.testToken({ serial: this.serial }).subscribe(response => {
+  startVerifyProcess() {
+    if (!this.serial) return;
+    this.testService.testToken({ serial: this.serial }).subscribe(response => {
 			if (response === null || typeof response !== 'object') {
 				const message1 = $localize`There was a problem starting your token test.`;
 				const message2 = $localize`Please wait some time and try again later, or contact an administrator.`;
@@ -76,7 +82,7 @@ export class VerifyTokenComponent {
 	}
 
 	public preventSubmit() {
-		return this.form.invalid || this.awaitingResponse;
-	}
+    return this.form.invalid || this.awaitingResponse;
+  }
 }
 

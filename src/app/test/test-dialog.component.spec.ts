@@ -10,7 +10,7 @@ import { MockComponent } from '@testing/mock-component';
 import { getInjectedStub, spyOnClass } from '@testing/spyOnClass';
 
 import { ReplyMode, TestOptions, TestService, TransactionDetail } from '@api/test.service';
-import { EnrolledToken } from '@app/enroll/enroll-dialog-base.component';
+import { EnrolledToken } from '@app/enroll/enroll-dialog-base.directive';
 import { MaterialModule } from '@app/material.module';
 
 import { TokenType } from '@app/api/token';

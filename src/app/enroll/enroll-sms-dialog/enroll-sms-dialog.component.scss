@@ -18,3 +18,12 @@ mat-form-field {
 .verify {
   margin-top: 1em;
 }
+
+.button-content {
+  display: flex;
+  align-items: center;
+
+  mat-icon {
+    margin-left: 5px;
+  }
+}

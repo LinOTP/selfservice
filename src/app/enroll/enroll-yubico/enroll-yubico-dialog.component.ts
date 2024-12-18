@@ -2,14 +2,14 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { TokenType } from '@app/api/token';
-import { EnrollDialogBaseComponent } from '@app/enroll/enroll-dialog-base.component';
+import { EnrollDialogBase } from '@app/enroll/enroll-dialog-base.directive';
 
 @Component({
   selector: 'app-enroll-yubico',
   templateUrl: './enroll-yubico-dialog.component.html',
   styleUrls: ['./enroll-yubico-dialog.component.scss']
 })
-export class EnrollYubicoDialogComponent extends EnrollDialogBaseComponent implements OnInit {
+export class EnrollYubicoDialogComponent extends EnrollDialogBase implements OnInit {
 
   public registrationForm: UntypedFormGroup;
   @ViewChild(MatStepper) public stepper: MatStepper;

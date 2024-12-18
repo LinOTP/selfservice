@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 
-import { EnrollDialogBaseComponent } from '@app/enroll/enroll-dialog-base.component';
+import { EnrollDialogBase } from '@app/enroll/enroll-dialog-base.directive';
 import { GetSerialDialogComponent } from '@common/get-serial-dialog/get-serial-dialog.component';
 
 
@@ -11,7 +11,7 @@ import { GetSerialDialogComponent } from '@common/get-serial-dialog/get-serial-d
   templateUrl: './assign-token-dialog.component.html',
   styleUrls: ['./assign-token-dialog.component.scss']
 })
-export class AssignTokenDialogComponent extends EnrollDialogBaseComponent implements OnInit {
+export class AssignTokenDialogComponent extends EnrollDialogBase implements OnInit {
 
   public assignmentForm: UntypedFormGroup;
   @ViewChild(MatStepper) public stepper: MatStepper;

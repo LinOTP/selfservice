@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Directive, Inject, OnDestroy, OnInit } from '@angular/core';
 import { UntypedFormBuilder } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -18,6 +18,7 @@ import { DialogComponent } from '@common/dialog/dialog.component';
 import { NotificationService } from '@common/notification.service';
 import { Permission } from '@common/permissions';
 import { SetPinDialogComponent } from '@common/set-pin-dialog/set-pin-dialog.component';
+import { getCreateTokenStepForm } from "@app/enroll/enroll-oath-dialog/oath-enrollment/create-token-step.component";
 
 
 export interface EnrolledToken {
@@ -25,10 +26,9 @@ export interface EnrolledToken {
   type: TokenType | 'assign';
   description?: string;
 }
-@Component({
-  template: '',
-})
-export abstract class EnrollDialogBaseComponent implements OnInit, OnDestroy {
+
+@Directive()
+export abstract class EnrollDialogBase implements OnInit, OnDestroy {
   protected subscriptions: Subscription[] = [];
   public enrolledToken: EnrolledToken;
   public testAfterEnrollment = false;
@@ -36,9 +36,13 @@ export abstract class EnrollDialogBaseComponent implements OnInit, OnDestroy {
   public closeLabel = $localize`Close`;
   public tokenDisplayData: TokenDisplayData;
   public Permission = Permission;
+  private _verifyPolicyEnabled: boolean;
+  private _setOtpPinPolicyEnabled: boolean = false;
+  createTokenForm = getCreateTokenStepForm();
+  protected isTokenVerified: boolean = false;
 
   constructor(
-    protected dialogRef: MatDialogRef<EnrollDialogBaseComponent>,
+    protected dialogRef: MatDialogRef<EnrollDialogBase>,
     protected sanitizer: DomSanitizer,
     protected permissionsService: NgxPermissionsService,
     protected enrollmentService: EnrollmentService,
@@ -64,6 +68,10 @@ export abstract class EnrollDialogBaseComponent implements OnInit, OnDestroy {
           }
         })
     );
+    this._getPermissions().subscribe((hasPermissions) => {
+      this._verifyPolicyEnabled = hasPermissions.verify;
+      this._setOtpPinPolicyEnabled = hasPermissions.setPin;
+    })
   }
 
   public ngOnDestroy() {
@@ -163,6 +171,31 @@ export abstract class EnrollDialogBaseComponent implements OnInit, OnDestroy {
           this.notificationService.message($localize`PIN set`);
         }
       });
+  }
+
+  public set setOtpPinPolicyEnabled(value) {
+    this._setOtpPinPolicyEnabled = value;
+    if (!value) {
+      this.createTokenForm.get('otpPin').disable();
+    } else {
+      this.createTokenForm.get('otpPin').enable();
+    }
+  }
+
+  get setOtpPinPolicyEnabled() {
+    return this._setOtpPinPolicyEnabled;
+  }
+
+  get verifyPolicyEnabled() {
+    return this._verifyPolicyEnabled;
+  }
+
+  private _getPermissions() {
+    const verify = this.permissionsService.hasPermission(Permission.VERIFY)
+    const setPin = this.permissionsService.hasPermission(Permission.SETPIN)
+    return from(Promise.all([verify, setPin])).pipe(
+      map(([verify, setPin]) => ({ verify, setPin }))
+    )
   }
 
 }

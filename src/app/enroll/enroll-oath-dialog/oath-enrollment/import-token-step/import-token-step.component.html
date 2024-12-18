@@ -8,8 +8,8 @@
 				<ng-container *ngTemplateOutlet="qrCodeTmp"></ng-container>
 			</div>
 			<div class="separator"></div>
-			<div class="verify">
-				<app-verify-token [token]="enrolledToken" [form]="form" (tokenVerified)="verified = true"></app-verify-token>
+      <div class="verify">
+        <app-verify-token [token]="enrolledToken" (tokenVerified)="verified = true"></app-verify-token>
 			</div>
 		</div>
 

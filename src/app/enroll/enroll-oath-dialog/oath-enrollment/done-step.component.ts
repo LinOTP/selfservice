@@ -1,5 +1,5 @@
 import { Component, Input } from "@angular/core";
-import { EnrolledToken } from "@app/enroll/enroll-dialog-base.component";
+import { EnrolledToken } from "@app/enroll/enroll-dialog-base.directive";
 
 @Component({
 	selector: 'app-done-step',

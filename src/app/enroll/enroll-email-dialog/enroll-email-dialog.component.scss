@@ -18,3 +18,16 @@ mat-form-field {
 .verify {
   margin-top: 1em;
 }
+
+mat-dialog-content {
+  padding-top: 24px !important;
+}
+
+.button-content {
+  display: flex;
+  align-items: center;
+
+  mat-icon {
+    margin-left: 5px;
+  }
+}

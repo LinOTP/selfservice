@@ -6,7 +6,7 @@ import { MatStepper } from '@angular/material/stepper';
 import { switchMap } from 'rxjs/operators';
 
 import { ActivateDialogComponent } from '@app/activate/activate-dialog.component';
-import { EnrollDialogBaseComponent, EnrolledToken } from '@app/enroll/enroll-dialog-base.component';
+import { EnrollDialogBase, EnrolledToken } from '@app/enroll/enroll-dialog-base.directive';
 import { TextResources } from '@common/static-resources';
 
 
@@ -18,7 +18,7 @@ interface PushQrEnrolledToken extends EnrolledToken {
   templateUrl: './enroll-push-qr-dialog.component.html',
   styleUrls: ['./enroll-push-qr-dialog.component.scss']
 })
-export class EnrollPushQRDialogComponent extends EnrollDialogBaseComponent implements OnInit {
+export class EnrollPushQRDialogComponent extends EnrollDialogBase implements OnInit {
 
   public TextResources = TextResources;
   public enrolledToken: PushQrEnrolledToken;

@@ -23,6 +23,10 @@ import { NotificationService } from '@common/notification.service';
 
 import { TokenType } from '@app/api/token';
 import { EnrollEmailDialogComponent } from './enroll-email-dialog.component';
+import { DoneStepComponent } from "@app/enroll/enroll-oath-dialog/oath-enrollment/done-step.component";
+import { TokenInfoComponent } from "@app/enroll/enroll-oath-dialog/oath-enrollment/token-info.component";
+import { CreateTokenStepComponent } from "@app/enroll/enroll-oath-dialog/oath-enrollment/create-token-step.component";
+import { TokenPinFormLayoutComponent } from "@app/enroll/token-pin-form-layout/token-pin-form-layout.component";
 
 describe('The EnrollEmailDialogComponent', () => {
   let component: EnrollEmailDialogComponent;
@@ -35,6 +39,9 @@ describe('The EnrollEmailDialogComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         EnrollEmailDialogComponent,
+        CreateTokenStepComponent,
+        DoneStepComponent,
+        TokenInfoComponent,
         MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] }),
       ],
       imports: [
@@ -44,6 +51,7 @@ describe('The EnrollEmailDialogComponent', () => {
         MaterialModule,
         NoopAnimationsModule,
         NgxPermissionsAllowStubDirective,
+        TokenPinFormLayoutComponent
       ],
       providers: [
         {
@@ -124,7 +132,7 @@ describe('The EnrollEmailDialogComponent', () => {
     });
     expect(component.enrolledToken.serial).toEqual(Fixtures.emailEnrollmentResponse.serial);
     expect(component.stepper.next).toHaveBeenCalledTimes(1);
-    expect(component.enrollmentStep.disabled).toEqual(true);
+    expect(component.createTokenForm.disabled).toEqual(true);
   }));
 
   it('should enroll an email token with a custom description', fakeAsync(() => {
@@ -134,7 +142,7 @@ describe('The EnrollEmailDialogComponent', () => {
     enrollmentService.enroll.and.returnValue(of(Fixtures.emailEnrollmentResponse));
 
     component.data.tokenType = TokenType.EMAIL;
-    component.enrollmentStep.controls.description.setValue('custom description');
+    component.createTokenForm.controls.description.setValue('custom description');
     fixture.detectChanges();
     component.enrollToken();
     tick();
@@ -146,7 +154,7 @@ describe('The EnrollEmailDialogComponent', () => {
     });
     expect(component.enrolledToken.serial).toEqual(Fixtures.emailEnrollmentResponse.serial);
     expect(component.stepper.next).toHaveBeenCalledTimes(1);
-    expect(component.enrollmentStep.disabled).toEqual(true);
+    expect(component.createTokenForm.disabled).toEqual(true);
   }));
 
   describe('edit_email policy', () => {
@@ -155,19 +163,19 @@ describe('The EnrollEmailDialogComponent', () => {
         description: 'should have an email address input if edit_email is enabled',
         setting: 1,
         canEditEmail: true,
-        formItems: ['description', 'emailAddress']
+        formItems: ['otpPin', 'description', 'emailAddress']
       },
       {
         description: 'should have an email address input if edit_email is not set',
         setting: undefined,
         canEditEmail: true,
-        formItems: ['description', 'emailAddress']
+        formItems: ['otpPin', 'description', 'emailAddress']
       },
       {
         description: 'should not allow to change the token email address if edit_email is disabled',
         setting: 0,
         canEditEmail: false,
-        formItems: ['description']
+        formItems: ['otpPin', 'description']
       }
     ].forEach(params => {
       it(params.description, fakeAsync(() => {
@@ -184,7 +192,7 @@ describe('The EnrollEmailDialogComponent', () => {
         fixture.detectChanges();
 
         expect(component.canEditEmail).toBe(params.canEditEmail);
-        expect(Object.keys(component.enrollmentStep.controls)).toEqual(params.formItems);
+        expect(Object.keys(component.createTokenForm.controls)).toEqual(params.formItems);
 
         component.enrollToken();
         tick();
@@ -194,7 +202,7 @@ describe('The EnrollEmailDialogComponent', () => {
           description: `Created via SelfService - ${Fixtures.userSystemInfo.user.email}`,
           email_address: Fixtures.userSystemInfo.user.email,
         });
-        expect(component.enrollmentStep.disabled).toEqual(true);
+        expect(component.createTokenForm.disabled).toEqual(true);
       }));
     });
   });
@@ -207,6 +215,6 @@ describe('The EnrollEmailDialogComponent', () => {
     tick();
 
     expect(component.enrolledToken).toEqual(undefined);
-    expect(component.enrollmentStep.disabled).toEqual(false);
+    expect(component.createTokenForm.disabled).toEqual(false);
   }));
 });

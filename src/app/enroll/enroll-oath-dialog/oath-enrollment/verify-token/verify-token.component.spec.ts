@@ -1,16 +1,24 @@
 import { fakeAsync, tick } from "@angular/core/testing";
 import { delay, of } from "rxjs";
-import { getVerifyForm } from "../import-token-step/import-token-step.component";
 import { VerifyTokenComponent } from "./verify-token.component";
+import { FormBuilder } from "@angular/forms";
 
 describe("VerifyTokenComponent", () => {
+  let fb: FormBuilder;
+  let testService: TestServiceMock;
+  let notificationsService: NotificationServiceMock;
+
+  beforeEach(() => {
+    fb = new FormBuilder();
+    testService = new TestServiceMock();
+    notificationsService = new NotificationServiceMock();
+  });
+
   describe("Component tests", () => {
     it("should start verify process", () => {
-      const testService = new TestServiceMock();
-      const notificationsService = new NotificationServiceMock();
       testService.response = { transactionId: "test-transaction-id" };
 
-      const component = new VerifyTokenComponent(testService as any, notificationsService as any);
+      const component = new VerifyTokenComponent(testService as any, notificationsService as any, fb);
       expect(component.verifyStarted).toEqual(false);
 
       component.token = { serial: "test-serial" } as any;
@@ -19,11 +27,8 @@ describe("VerifyTokenComponent", () => {
     })
 
     it("should show error message when start of 'token test' fails", () => {
-      const testService = new TestServiceMock();
-      const notificationsService = new NotificationServiceMock();
       testService.response = null;
-
-      const component = new VerifyTokenComponent(testService as any, notificationsService as any);
+      const component = new VerifyTokenComponent(testService as any, notificationsService as any, fb);
       expect(component.verifyStarted).toEqual(false);
 
       component.token = { serial: "test-serial" } as any;
@@ -32,13 +37,10 @@ describe("VerifyTokenComponent", () => {
     })
 
     it("should verify token if form valid", () => {
-      const testService = new TestServiceMock();
-      const notificationsService = new NotificationServiceMock();
       testService.response = { transactionId: "test-transaction-id" };
 
-      const component = new VerifyTokenComponent(testService as any, notificationsService as any);
+      const component = new VerifyTokenComponent(testService as any, notificationsService as any, fb);
       component.token = { serial: "test-serial" } as any;
-      component.form = getVerifyForm();
       testService.calledParams = null;
 
       component.verifyToken();
@@ -56,9 +58,8 @@ describe("VerifyTokenComponent", () => {
       const notificationsService = new NotificationServiceMock();
       testService.response = { transactionId: "test-transaction-id" };
 
-      const component = new VerifyTokenComponent(testService as any, notificationsService as any);
+      const component = new VerifyTokenComponent(testService as any, notificationsService as any, fb);
       component.token = { serial: "test-serial" } as any;
-      component.form = getVerifyForm();
       testService.calledParams = null;
 
       component.form.get("otp").setValue("1234");
@@ -72,13 +73,10 @@ describe("VerifyTokenComponent", () => {
     })
 
     it("should correctly handle successful token verification", fakeAsync(() => {
-      const testService = new TestServiceMock();
-      const notificationsService = new NotificationServiceMock();
       testService.response = { transactionId: "test-transaction-id" };
 
-      const component = new VerifyTokenComponent(testService as any, notificationsService as any);
+      const component = new VerifyTokenComponent(testService as any, notificationsService as any, fb);
       component.token = { serial: "test-serial" } as any;
-      component.form = getVerifyForm();
       component.form.get("otp").setValue("1234");
       testService.async = true;
 
@@ -104,9 +102,8 @@ describe("VerifyTokenComponent", () => {
       const notificationsService = new NotificationServiceMock();
       testService.response = { transactionId: "test-transaction-id" };
 
-      const component = new VerifyTokenComponent(testService as any, notificationsService as any);
+      const component = new VerifyTokenComponent(testService as any, notificationsService as any, fb);
       component.token = { serial: "test-serial" } as any;
-      component.form = getVerifyForm();
       component.form.get("otp").setValue("1234");
       testService.async = true;
       testService.response = false;
