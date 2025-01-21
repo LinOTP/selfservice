@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 
-import { EnrollmentOptions, TokenType } from '@api/token';
+import { EnrollmentOptions } from '@api/token';
 import { EnrollDialogBase } from '@app/enroll/enroll-dialog-base.directive';
 import { UserInfo, UserSystemInfo } from '@app/system.service';
 
@@ -28,8 +28,7 @@ export class EnrollEmailDialogComponent extends EnrollDialogBase implements OnIn
     super.ngOnInit();
   }
 
-  public enrollToken() {
-    this.createTokenForm.disable();
+  public enrollEmailToken() {
     const description = this.createTokenForm.get('description').value;
     const emailAddress = this.canEditEmail ? this.createTokenForm.get('emailAddress').value : this.userEmail;
     const body: EnrollmentOptions = {
@@ -37,15 +36,6 @@ export class EnrollEmailDialogComponent extends EnrollDialogBase implements OnIn
       description: `${description} - ${emailAddress}`,
       email_address: emailAddress,
     };
-
-    this.enrollmentService.enroll(body).subscribe(token => {
-      if (token?.serial) {
-        this.enrolledToken = { serial: token.serial, type: TokenType.EMAIL };
-        this.stepper.steps.get(0).completed = true;
-        this.stepper.next();
-      } else {
-        this.createTokenForm.enable();
-      }
-    });
+    this.enrollToken(body, this.stepper)
   }
 }

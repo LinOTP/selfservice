@@ -15,7 +15,7 @@
         </p>
         <p i18n>You may set the following token details before creation:</p>
       <form [formGroup]="createTokenForm"
-            (submit)="enrollToken()">
+            (submit)="enrollSMSToken()">
         <mat-form-field *ngIf="canEditPhone">
           <mat-label i18n>Mobile phone number</mat-label>
           <input matInput

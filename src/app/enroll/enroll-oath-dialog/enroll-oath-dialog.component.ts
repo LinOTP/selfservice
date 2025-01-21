@@ -38,7 +38,6 @@ export class EnrollOATHDialogComponent extends EnrollDialogBase implements OnIni
   private platformProvider = inject(PlatformProviderService)
   currentPlatform: CurrentPlatform = null
   selectedStep = 0
-  awaitingResponse = false
 
   public ngOnInit() {
     this.currentPlatform = this.platformProvider.platform

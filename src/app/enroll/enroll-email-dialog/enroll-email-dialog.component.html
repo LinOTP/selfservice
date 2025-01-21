@@ -11,7 +11,7 @@
         You may need to contact your administrator for help.
       </p>
       <form [formGroup]="createTokenForm"
-            (submit)="enrollToken()">
+            (submit)="enrollEmailToken()">
         <mat-form-field *ngIf="canEditEmail">
           <mat-label i18n>Email address</mat-label>
           <input matInput

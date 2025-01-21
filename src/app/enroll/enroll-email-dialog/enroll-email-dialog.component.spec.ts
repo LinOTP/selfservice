@@ -122,8 +122,8 @@ describe('The EnrollEmailDialogComponent', () => {
 
     fixture.detectChanges();
 
-    component.enrollToken();
-    tick();
+    component.enrollEmailToken();
+    tick(100);
 
     expect(enrollmentService.enroll).toHaveBeenCalledWith({
       type: TokenType.EMAIL,
@@ -132,7 +132,6 @@ describe('The EnrollEmailDialogComponent', () => {
     });
     expect(component.enrolledToken.serial).toEqual(Fixtures.emailEnrollmentResponse.serial);
     expect(component.stepper.next).toHaveBeenCalledTimes(1);
-    expect(component.createTokenForm.disabled).toEqual(true);
   }));
 
   it('should enroll an email token with a custom description', fakeAsync(() => {
@@ -144,8 +143,8 @@ describe('The EnrollEmailDialogComponent', () => {
     component.data.tokenType = TokenType.EMAIL;
     component.createTokenForm.controls.description.setValue('custom description');
     fixture.detectChanges();
-    component.enrollToken();
-    tick();
+    component.enrollEmailToken();
+    tick(100);
 
     expect(enrollmentService.enroll).toHaveBeenCalledWith({
       type: TokenType.EMAIL,
@@ -154,7 +153,6 @@ describe('The EnrollEmailDialogComponent', () => {
     });
     expect(component.enrolledToken.serial).toEqual(Fixtures.emailEnrollmentResponse.serial);
     expect(component.stepper.next).toHaveBeenCalledTimes(1);
-    expect(component.createTokenForm.disabled).toEqual(true);
   }));
 
   describe('edit_email policy', () => {
@@ -194,15 +192,14 @@ describe('The EnrollEmailDialogComponent', () => {
         expect(component.canEditEmail).toBe(params.canEditEmail);
         expect(Object.keys(component.createTokenForm.controls)).toEqual(params.formItems);
 
-        component.enrollToken();
-        tick();
+        component.enrollEmailToken();
+        tick(100);
 
         expect(enrollmentService.enroll).toHaveBeenCalledWith({
           type: TokenType.EMAIL,
           description: `Created via SelfService - ${Fixtures.userSystemInfo.user.email}`,
           email_address: Fixtures.userSystemInfo.user.email,
         });
-        expect(component.createTokenForm.disabled).toEqual(true);
       }));
     });
   });
@@ -212,9 +209,8 @@ describe('The EnrollEmailDialogComponent', () => {
     fixture.detectChanges();
     const result = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
     result.click();
-    tick();
+    tick(100);
 
     expect(component.enrolledToken).toEqual(undefined);
-    expect(component.createTokenForm.disabled).toEqual(false);
   }));
 });

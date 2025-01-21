@@ -123,9 +123,8 @@ describe('The EnrollSMSDialogComponent', () => {
 
     fixture.detectChanges();
 
-    component.enrollToken();
-    tick();
-
+    component.enrollSMSToken();
+    tick(100);
     expect(enrollmentService.enroll).toHaveBeenCalledWith({
       type: TokenType.SMS,
       description: `Created via SelfService - ${Fixtures.userSystemInfo.user.mobile}`,
@@ -133,7 +132,6 @@ describe('The EnrollSMSDialogComponent', () => {
     });
     expect(component.enrolledToken.serial).toEqual(Fixtures.smsEnrollmentResponse.serial);
     expect(component.stepper.next).toHaveBeenCalledTimes(1);
-    expect(component.createTokenForm.disabled).toEqual(true);
   }));
 
   it('should enroll an sms token with a custom description', fakeAsync(() => {
@@ -145,8 +143,8 @@ describe('The EnrollSMSDialogComponent', () => {
     component.data.tokenType = TokenType.SMS;
     component.createTokenForm.controls.description.setValue('custom description');
     fixture.detectChanges();
-    component.enrollToken();
-    tick();
+    component.enrollSMSToken();
+    tick(100);
 
     expect(enrollmentService.enroll).toHaveBeenCalledWith({
       type: TokenType.SMS,
@@ -155,7 +153,6 @@ describe('The EnrollSMSDialogComponent', () => {
     });
     expect(component.enrolledToken.serial).toEqual(Fixtures.smsEnrollmentResponse.serial);
     expect(component.stepper.next).toHaveBeenCalledTimes(1);
-    expect(component.createTokenForm.disabled).toEqual(true);
   }));
 
   describe('edit_sms policy', () => {
@@ -194,16 +191,15 @@ describe('The EnrollSMSDialogComponent', () => {
 
         expect(component.canEditPhone).toBe(params.canEditPhone);
         expect(Object.keys(component.createTokenForm.controls)).toEqual(params.formItems);
-
-        component.enrollToken();
-        tick();
+        expect(component.createTokenForm.valid).toBeTrue()
+        component.enrollSMSToken();
+        tick(100);
 
         expect(enrollmentService.enroll).toHaveBeenCalledWith({
           type: TokenType.SMS,
           description: `Created via SelfService - ${Fixtures.userSystemInfo.user.mobile}`,
           phone: Fixtures.userSystemInfo.user.mobile,
         });
-        expect(component.createTokenForm.disabled).toEqual(true);
       }));
     });
   });
@@ -214,9 +210,8 @@ describe('The EnrollSMSDialogComponent', () => {
     fixture.detectChanges();
     const result = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
     result.click();
-    tick();
+    tick(100);
 
     expect(component.enrolledToken).toEqual(undefined);
-    expect(component.createTokenForm.disabled).toEqual(false);
   }));
 });
