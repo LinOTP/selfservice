@@ -10,7 +10,7 @@ import { filter, map, switchMap, tap } from 'rxjs/operators';
 
 import { EnrollmentService } from '@api/enrollment.service';
 import { OperationsService } from '@api/operations.service';
-import { tokenDisplayData, TokenDisplayData, TokenType } from '@api/token';
+import { EnrollmentOptions, tokenDisplayData, TokenDisplayData, TokenType } from '@api/token';
 import { TokenService } from '@api/token.service';
 import { LoginService } from '@app/login/login.service';
 import { TestDialogComponent } from '@app/test/test-dialog.component';
@@ -19,6 +19,7 @@ import { NotificationService } from '@common/notification.service';
 import { Permission } from '@common/permissions';
 import { SetPinDialogComponent } from '@common/set-pin-dialog/set-pin-dialog.component';
 import { getCreateTokenStepForm } from "@app/enroll/enroll-oath-dialog/oath-enrollment/create-token-step.component";
+import { MatStepper } from "@angular/material/stepper";
 
 
 export interface EnrolledToken {
@@ -40,6 +41,7 @@ export abstract class EnrollDialogBase implements OnInit, OnDestroy {
   private _setOtpPinPolicyEnabled: boolean = false;
   createTokenForm = getCreateTokenStepForm();
   protected isTokenVerified: boolean = false;
+  awaitingResponse = false
 
   constructor(
     protected dialogRef: MatDialogRef<EnrollDialogBase>,
@@ -85,6 +87,27 @@ export abstract class EnrollDialogBase implements OnInit, OnDestroy {
    */
   public close() {
     this.dialogRef.close();
+  }
+
+  public enrollToken(enrollmentOptions: EnrollmentOptions, stepper: MatStepper) {
+    if (this.setOtpPinPolicyEnabled) {
+      enrollmentOptions.otppin = this.createTokenForm.get('otpPin').get('pin').value
+    }
+    this.awaitingResponse = true;
+    this.enrollmentService.enroll(enrollmentOptions).subscribe(token => {
+      this.awaitingResponse = false;
+      if (token?.serial) {
+        this.enrolledToken = { serial: token.serial, type: enrollmentOptions.type, description: enrollmentOptions.description };
+        this.notificationService.message($localize`Token enrolled successfully.`);
+
+        // need to wait for the step complete state to be updated and then move to the next step
+        // using 100 ms make animation smoother
+        setTimeout(() => {
+          stepper.steps.get(0).completed = true
+          stepper.next();
+        }, 100)
+      }
+    });
   }
 
   /**
