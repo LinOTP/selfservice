@@ -1,9 +1,10 @@
-import { Directive, ElementRef, OnInit } from '@angular/core';
+import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 
 @Directive({
   selector: '[appFocusOnInit]'
 })
 export class FocusOnInitDirective implements OnInit {
+  @Input() focusDelay: number = 0;
 
   constructor(
     private el: ElementRef,
@@ -15,7 +16,7 @@ export class FocusOnInitDirective implements OnInit {
     } else {
       window.setTimeout(() => {
         this.el.nativeElement.focus();
-      });
+      }, this.focusDelay);
     }
   }
 }

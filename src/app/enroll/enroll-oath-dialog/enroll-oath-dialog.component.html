@@ -26,7 +26,7 @@
 
     <ng-template #installAppStepActions>
       <button mat-button type="button" (click)="close()" i18n>Cancel</button>
-      <button mat-raised-button color="primary" matStepperNext>
+      <button appFocusOnInit mat-raised-button color="primary" matStepperNext>
         <div class="button-content">
           <ng-container i18n>Next</ng-container>
           <mat-icon>arrow_forward</mat-icon>
@@ -37,11 +37,12 @@
 
   <mat-step [completed]="!!enrolledToken" [editable]="false">
     <ng-template matStepLabel i18n>Create token</ng-template>
-
+    <ng-template matStepContent>
     <mat-dialog-content>
-      <app-create-token-step [form]="createTokenForm"></app-create-token-step>
+      <app-create-token-step [form]="createTokenForm"
+                             (keydown.enter)="enrollToken()" setAutoFokus="true"></app-create-token-step>
     </mat-dialog-content>
-
+    </ng-template>
     <ng-template #createTokenStepActions>
       <button mat-button type="button" (click)="close()" i18n>Cancel</button>
       <button
@@ -66,7 +67,7 @@
     [completed]="tokenVerified || (enrolledToken && !verifyPolicyEnabled)"
   >
     <ng-template matStepLabel i18n>Import token into app</ng-template>
-
+    <ng-template matStepContent>
     <mat-dialog-content>
       <app-import-token-step
         [verifyFlowEnabled]="verifyPolicyEnabled"
@@ -75,10 +76,12 @@
         (completed)="tokenVerified = true"
       ></app-import-token-step>
     </mat-dialog-content>
+    </ng-template>
 
     <ng-template #verifyTokenStepActions>
       <button mat-button type="button" (click)="cancel()" i18n>Cancel</button>
       <button
+        appFocusOnInit
         mat-raised-button
         color="primary"
         [disabled]="!tokenVerified && verifyPolicyEnabled"
@@ -94,12 +97,15 @@
 
   <mat-step>
     <ng-template matStepLabel i18n>Done</ng-template>
+    <ng-template matStepContent>
     <mat-dialog-content>
       <app-done-step [token]="enrolledToken"></app-done-step>
     </mat-dialog-content>
+    </ng-template>
 
     <ng-template #doneStepActions>
       <button
+        appFocusOnInit
         mat-raised-button
         color="primary"
         type="button"
