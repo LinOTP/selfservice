@@ -44,7 +44,7 @@
     </mat-dialog-content>
   </mat-step>
 
-  <mat-step *ngIf="verifyPolicyEnabled" [completed]="isTokenVerified">
+  <mat-step *ngIf="verifyPolicyEnabled">
     <ng-template matStepLabel i18n>Verify</ng-template>
     <mat-dialog-content>
       <p *ngIf="enrolledToken"
@@ -52,7 +52,7 @@
       <ng-container *ngxPermissionsOnly="Permission.VERIFY">
         <p class="verify"
          i18n>Please verify with a token test whether you can successfully use the token:</p>
-        <app-verify-token [token]="enrolledToken" (tokenVerified)="isTokenVerified = true"></app-verify-token>
+        <app-verify-token [token]="enrolledToken" (tokenVerified)="isTokenVerified = true; stepper.next()"></app-verify-token>
       </ng-container>
     </mat-dialog-content>
 
@@ -78,11 +78,14 @@
 
   <mat-step>
     <ng-template matStepLabel i18n>Done</ng-template>
+    <ng-template matStepContent>
     <mat-dialog-content>
       <app-done-step [token]="enrolledToken"></app-done-step>
     </mat-dialog-content>
     <mat-dialog-actions align="end">
       <button
+        appFocusOnInit
+        focusDelay="500"
         mat-raised-button
         color="primary"
         type="button"
@@ -92,5 +95,6 @@
         Close
       </button>
     </mat-dialog-actions>
+    </ng-template>
   </mat-step>
 </mat-horizontal-stepper>

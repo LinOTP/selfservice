@@ -6,10 +6,15 @@ import { getOtpPinForm } from "@app/enroll/token-pin-form-layout/token-pin-form-
 @Component({
 	selector: 'app-create-token-step',
 	template: `
-	 <div *ngIf="form" [formGroup]="form">
+    <div *ngIf="form" [formGroup]="form">
 		<mat-form-field>
 			<mat-label i18n>Token description</mat-label>
-			<input matInput formControlName="description">
+      <ng-container *ngIf="setAutoFokus; else regularInput">
+        <input appFocusOnInit focusDelay="500" matInput formControlName="description"/>
+      </ng-container>
+      <ng-template #regularInput>
+        <input matInput formControlName="description"/>
+      </ng-template>
       <mat-hint i18n="@@oathStepperTokenDescriptionInfo">Set a customized description to easily differentiate
         between multiple tokens
       </mat-hint>
@@ -49,7 +54,9 @@ import { getOtpPinForm } from "@app/enroll/token-pin-form-layout/token-pin-form-
 })
 export class CreateTokenStepComponent {
 	@Input() form: FormGroup;
-	public matcher = new ErrorStateRootMatcher();
+  @Input() setAutoFokus: boolean = false;
+
+  public matcher = new ErrorStateRootMatcher();
 }
 
 
