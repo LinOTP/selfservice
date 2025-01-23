@@ -3,9 +3,12 @@ import { Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 
 import { EnrollmentOptions } from '@api/token';
-import { EnrollDialogBase } from '@app/enroll/enroll-dialog-base.directive';
+import { EnrollDialogBase, EnrolledToken } from '@app/enroll/enroll-dialog-base.directive';
 import { UserInfo, UserSystemInfo } from '@app/system.service';
 
+interface SMSEnrolledToken extends EnrolledToken {
+  phone: string;
+}
 @Component({
   selector: 'app-enroll-sms',
   templateUrl: './enroll-sms-dialog.component.html',
@@ -17,6 +20,7 @@ export class EnrollSMSDialogComponent extends EnrollDialogBase implements OnInit
 
   public canEditPhone: boolean;
   public userPhone: string;
+  public enrolledToken: SMSEnrolledToken;
 
   public ngOnInit() {
     const userData: UserInfo = JSON.parse(localStorage.getItem('user'));
@@ -37,6 +41,8 @@ export class EnrollSMSDialogComponent extends EnrollDialogBase implements OnInit
       description: `${description} - ${phoneNumber}`,
       phone: phoneNumber,
     };
-    this.enrollToken(body, this.stepper)
+    this.enrollToken(body, this.stepper).subscribe((token: EnrolledToken) => {
+      this.enrolledToken = { ...token, phone: body.phone };
+    })
   }
 }

@@ -47,7 +47,7 @@ export class EnrollOATHDialogComponent extends EnrollDialogBase implements OnIni
     super.ngOnInit();
   }
 
-  public enrollToken() {
+  public enrollOATHToken() {
     if (this.createTokenForm.invalid) {
       return;
     }

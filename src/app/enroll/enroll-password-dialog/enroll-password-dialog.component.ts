@@ -14,7 +14,7 @@ export class EnrollPasswordDialogComponent extends EnrollDialogBase {
   public matcher = new ConfirmPasswordErrorStateMatcher();
   public createTokenForm = getCreatePasswordTokenForm();
 
-  public enrollToken() {
+  public enrollPWToken() {
     if (this.createTokenForm.invalid) return
 
     this.createTokenForm.disable();
