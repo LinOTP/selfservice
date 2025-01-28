@@ -48,7 +48,7 @@
     <ng-template matStepLabel i18n>Verify</ng-template>
     <mat-dialog-content>
       <p class="verify" *ngIf="enrolledToken" i18n>
-        An email token with the serial number {{ enrolledToken.serial }} has been created for <u>{{ enrolledToken.email }}.</u>
+        An email token with the serial number {{ enrolledToken.serial }} has been created for <span class="underline">{{ enrolledToken.email }}.</span>
         Please check your email inbox for the first one-time password.
       </p>
       <ng-container *ngxPermissionsOnly="Permission.VERIFY">

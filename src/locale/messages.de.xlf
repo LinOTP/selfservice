@@ -1606,15 +1606,15 @@
           <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="7270987968948048828" datatype="html">
+      <trans-unit id="7746287439103575233" datatype="html">
         <source>
-          An SMS token with the serial number <x id="INTERPOLATION" equiv-text="{{ enrolledToken.serial }}"/> has been created for the phone number <x id="START_UNDERLINED_TEXT" ctype="x-u" equiv-text="&lt;u>"/><x id="INTERPOLATION_1" equiv-text="{{ enrolledToken.phone }}"/><x id="CLOSE_UNDERLINED_TEXT" ctype="x-u" equiv-text="&lt;/u>"/>.
-          Please check your SMS messages for the first one-time password.
-        </source>
+        An SMS token with the serial number <x id="INTERPOLATION" equiv-text="{{ enrolledToken.serial }}"/> has been created for the phone number <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;underline&quot;>"/><x id="INTERPOLATION_1" equiv-text="{{ enrolledToken.phone }}"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span>"/>.
+        Please check your SMS messages for the first one-time password.
+      </source>
         <target state="new">
-          Ein SMS-Token mit der Seriennummer <x id="INTERPOLATION" equiv-text="{{ enrolledToken.serial }}"/> wurde für die Telefonnummer <x id="START_UNDERLINED_TEXT" ctype="x-u" equiv-text="&lt;u>"/><x id="INTERPOLATION_1" equiv-text="{{ enrolledToken.phone }}"/><x id="CLOSE_UNDERLINED_TEXT" ctype="x-u" equiv-text="&lt;/u>"/> erstellt.
-          Bitte prüfen Sie Ihre SMS-Nachrichten auf das erste Einmalpasswort.
-        </target>
+        Ein SMS-Token mit der Seriennummer <x id="INTERPOLATION" equiv-text="{{ enrolledToken.serial }}"/> wurde für die Telefonnummer <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;underline&quot;>"/><x id="INTERPOLATION_1" equiv-text="{{ enrolledToken.phone }}"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span>"/> erstellt.
+        Bitte prüfen Sie Ihre SMS-Nachrichten auf das erste Einmalpasswort.
+      </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
           <context context-type="linenumber">55,58</context>
@@ -2383,15 +2383,15 @@
           <context context-type="linenumber">53</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="3675574073442633611" datatype="html">
+      <trans-unit id="8499058536915134902" datatype="html">
         <source>
-          An email token with the serial number <x id="INTERPOLATION" equiv-text="{{ enrolledToken.serial }}"/> has been created for <x id="START_UNDERLINED_TEXT" ctype="x-u" equiv-text="&lt;u>"/><x id="INTERPOLATION_1" equiv-text="{{ enrolledToken.email }}"/>.<x id="CLOSE_UNDERLINED_TEXT" ctype="x-u" equiv-text="&lt;/u>"/>
-          Please check your email inbox for the first one-time password.
-        </source>
+        An email token with the serial number <x id="INTERPOLATION" equiv-text="{{ enrolledToken.serial }}"/> has been created for <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;underline&quot;>"/><x id="INTERPOLATION_1" equiv-text="{{ enrolledToken.email }}"/>.<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span>"/>
+        Please check your email inbox for the first one-time password.
+      </source>
         <target state="new">
-          Ein E-Mail-Token mit der Seriennummer <x id="INTERPOLATION" equiv-text="{{ enrolledToken.serial }}"/> wurde für <x id="START_UNDERLINED_TEXT" ctype="x-u" equiv-text="&lt;u>"/><x id="INTERPOLATION_1" equiv-text="{{ enrolledToken.email }}"/>.<x id="CLOSE_UNDERLINED_TEXT" ctype="x-u" equiv-text="&lt;/u>"/> erstellt.
-          Bitte prüfen Sie Ihr E-Mail-Postfach auf das erste Einmalpasswort.
-        </target>
+        Ein E-Mail-Token mit der Seriennummer <x id="INTERPOLATION" equiv-text="{{ enrolledToken.serial }}"/> wurde für <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;underline&quot;>"/><x id="INTERPOLATION_1" equiv-text="{{ enrolledToken.email }}"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span>"/> erstellt.
+        Bitte prüfen Sie Ihr E-Mail-Postfach auf das erste Einmalpasswort.
+      </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-email-dialog/enroll-email-dialog.component.html</context>
           <context context-type="linenumber">50,53</context>
