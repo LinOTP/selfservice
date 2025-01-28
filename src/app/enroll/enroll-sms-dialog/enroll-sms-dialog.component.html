@@ -52,11 +52,11 @@
   <mat-step *ngIf="verifyPolicyEnabled">
     <ng-template matStepLabel i18n>Verify</ng-template>
     <mat-dialog-content>
-      <p *ngIf="enrolledToken"
-         i18n>A token with the serial number {{enrolledToken. serial}} has been created.</p>
+      <p class="verify" *ngIf="enrolledToken" i18n>
+        An SMS token with the serial number {{ enrolledToken.serial }} has been created for the phone number <span class="underline">{{ enrolledToken.phone }}</span>.
+        Please check your SMS messages for the first one-time password.
+      </p>
       <ng-container *ngxPermissionsOnly="Permission.VERIFY">
-        <p class="verify"
-           i18n>Please verify with a token test whether you can successfully use the token:</p>
         <app-verify-token [token]="enrolledToken" (tokenVerified)="isTokenVerified = true; stepper.next()"></app-verify-token>
       </ng-container>
     </mat-dialog-content>

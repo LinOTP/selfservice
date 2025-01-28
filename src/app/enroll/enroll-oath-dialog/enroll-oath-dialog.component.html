@@ -40,7 +40,7 @@
     <ng-template matStepContent>
     <mat-dialog-content>
       <app-create-token-step [form]="createTokenForm"
-                             (keydown.enter)="enrollToken()" setAutoFokus="true"></app-create-token-step>
+                             (keydown.enter)="enrollOATHToken()" setAutoFokus="true"></app-create-token-step>
     </mat-dialog-content>
     </ng-template>
     <ng-template #createTokenStepActions>
@@ -49,7 +49,7 @@
         mat-raised-button
         id="test-create-token-button"
         color="primary"
-        (click)="enrollToken()"
+        (click)="enrollOATHToken()"
         [disabled]="!createTokenForm.valid"
       >
         <div class="button-content">

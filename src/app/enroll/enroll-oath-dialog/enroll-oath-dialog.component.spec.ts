@@ -116,7 +116,7 @@ import { EnrollOATHDialogComponent } from './enroll-oath-dialog.component';
       const expectedToken = { ...Fixtures.enrolledToken, type: inputType, description: 'Created via SelfService' };
 
       fixture.detectChanges();
-      component.enrollToken();
+      component.enrollOATHToken();
       tick(100);
 
       expect(enrollmentService.enroll).toHaveBeenCalledWith({
@@ -138,7 +138,7 @@ import { EnrollOATHDialogComponent } from './enroll-oath-dialog.component';
 
       component.createTokenForm.get("description").setValue('custom description');
       fixture.detectChanges();
-      component.enrollToken();
+      component.enrollOATHToken();
       tick(100);
 
       expect(enrollmentService.enroll).toHaveBeenCalledWith({
@@ -159,7 +159,7 @@ import { EnrollOATHDialogComponent } from './enroll-oath-dialog.component';
 
       component.createTokenForm.get("description").setValue('custom description');
       fixture.detectChanges();
-      component.enrollToken();
+      component.enrollOATHToken();
       tick(100);
 
       expect(enrollmentService.enroll).toHaveBeenCalledWith({

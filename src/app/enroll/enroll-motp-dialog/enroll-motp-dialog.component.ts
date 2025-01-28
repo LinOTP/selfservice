@@ -24,7 +24,7 @@ export class EnrollMOTPDialogComponent extends EnrollDialogBase implements OnIni
     super.ngOnInit();
   }
 
-  public enrollToken() {
+  public enrollMOTPToken() {
     this.enrollmentStep.disable();
     const description = this.enrollmentStep.get('description').value;
     const password = this.enrollmentStep.get('password').value;

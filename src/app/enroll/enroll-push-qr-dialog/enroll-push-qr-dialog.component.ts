@@ -39,7 +39,7 @@ export class EnrollPushQRDialogComponent extends EnrollDialogBase implements OnI
   /**
    * Enroll the token and proceed to the next step
    */
-  enrollToken() {
+  enrollQRToken() {
     this.enrollmentStep.disable();
     this.enrollmentService.enroll(this.enrollmentStep.value).subscribe(token => {
       if (token) {

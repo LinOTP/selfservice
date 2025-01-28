@@ -7,7 +7,7 @@
   <mat-step [stepControl]="enrollmentStep"
             id="stepDescription">
     <form [formGroup]="enrollmentStep"
-          (submit)="enrollToken()">
+          (submit)="enrollQRToken()">
 
       <mat-dialog-content>
         <p i18n>You need the Authenticator app installed on your mobile device to
@@ -22,7 +22,7 @@
           <li><a [href]="TextResources.AUTHENTICATOR_APPLE_APP_STORE_URL"
                target="_blank"
                rel="noopener noreferrer">
-              Apple App Store</ a>
+            Apple App Store</a>
           </li>
         </ul>
         <p i18n>Once you have the Authenticator installed on your device, you can set a description for your new token

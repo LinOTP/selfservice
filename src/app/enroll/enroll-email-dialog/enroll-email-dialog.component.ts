@@ -3,9 +3,12 @@ import { Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 
 import { EnrollmentOptions } from '@api/token';
-import { EnrollDialogBase } from '@app/enroll/enroll-dialog-base.directive';
+import { EnrollDialogBase, EnrolledToken } from '@app/enroll/enroll-dialog-base.directive';
 import { UserInfo, UserSystemInfo } from '@app/system.service';
 
+interface EmailEnrolledToken extends EnrolledToken {
+  email: string;
+}
 
 @Component({
   selector: 'app-enroll-email',
@@ -16,7 +19,7 @@ export class EnrollEmailDialogComponent extends EnrollDialogBase implements OnIn
   @ViewChild(MatStepper, { static: true }) public stepper: MatStepper;
   public canEditEmail: boolean;
   public userEmail: string;
-
+  public enrolledToken: EmailEnrolledToken;
   public ngOnInit() {
     const userData: UserInfo = JSON.parse(localStorage.getItem('user'));
     const settings: UserSystemInfo['settings'] = JSON.parse(localStorage.getItem('settings'));
@@ -36,6 +39,8 @@ export class EnrollEmailDialogComponent extends EnrollDialogBase implements OnIn
       description: `${description} - ${emailAddress}`,
       email_address: emailAddress,
     };
-    this.enrollToken(body, this.stepper)
+    this.enrollToken(body, this.stepper).subscribe((token: EnrolledToken) => {
+      this.enrolledToken = { ...token, email: body.email_address };
+    })
   }
 }

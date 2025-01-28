@@ -3,9 +3,7 @@
   <file source-language="en" datatype="plaintext" original="ng2.template" target-language="de">
     <body>
       <trans-unit id="7411707293150975401" datatype="html">
-        <source>Activate
-          <x id="INTERPOLATION" equiv-text="{{ typeDetails.name }}"/>
-        </source>
+        <source>Activate <x id="INTERPOLATION" equiv-text="{{ typeDetails.name }}"/></source>
         <target state="new">
           <x id="INTERPOLATION" equiv-text="{{ typeDetails.name }}"/>
           aktivieren
@@ -118,10 +116,9 @@
       </trans-unit>
       <trans-unit id="8927435537987347254" datatype="html">
         <source>
-          We could not check your permissions due to an error in permission management, most likely due to a faulty policy.
-          <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br>"/>
-          Please contact your administrator.
-        </source>
+        We could not check your permissions due to an error in permission management, most likely due to a faulty policy. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br>"/>
+        Please contact your administrator.
+      </source>
         <target state="translated"> Wir konnten nicht feststellen ob sie die Rechte haben diese
           Seite zu verwenden, wahrscheinlich durch eine fehlerhafte Richtlinie
           <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br>"/>
@@ -219,13 +216,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="6658544261788045440" datatype="html">
-        <source>
-          <x id="INTERPOLATION" equiv-text="{{tokenLimitsService.allTokensLimit?.count}}"/>
-          of
-          <x id="INTERPOLATION_1" equiv-text="{{tokenLimitsService.allTokensLimit?.maxTokens}}"/>
-          allowed
-          tokens enrolled
-        </source>
+        <source><x id="INTERPOLATION" equiv-text="{{tokenLimitsService.allTokensLimit?.count}}"/> of <x id="INTERPOLATION_1" equiv-text="{{tokenLimitsService.allTokensLimit?.maxTokens}}"/> allowed
+          tokens enrolled</source>
         <target state="new">
           <x id="INTERPOLATION" equiv-text="{{tokenLimitsService.allTokensLimit?.count}}"/>
           von
@@ -269,8 +261,7 @@
       </trans-unit>
       <trans-unit id="2918437642000683021" datatype="html">
         <source>You currently do not own any tokens, nor can you set up a token yourself.
-          Please contact your administrator.
-        </source>
+        Please contact your administrator.</source>
         <target state="translated">Sie besitzen aktuell keine Token und können selbstständig auch
           keine weiteren Token einrichten.
           Kontaktieren Sie bitte ihren Administrator.</target>
@@ -288,16 +279,11 @@
         </context-group>
       </trans-unit>
       <trans-unit id="6629820311006518717" datatype="html">
-        <source>
-          <x id="INTERPOLATION" equiv-text="{{tokenLimitsService.allTokensLimit?.count}}"/>
-          of
-          <x id="INTERPOLATION_1" equiv-text="{{tokenLimitsService.allTokensLimit?.maxTokens}}"/>
-          allowed
-          tokens enrolled.
-          You have reached the maximum token limit. To register a new authentication method, please delete some of the
-          existing tokens
-          or contact your administrator.
-        </source>
+        <source><x id="INTERPOLATION" equiv-text="{{tokenLimitsService.allTokensLimit?.count}}"/> of <x id="INTERPOLATION_1" equiv-text="{{tokenLimitsService.allTokensLimit?.maxTokens}}"/> allowed
+      tokens enrolled.
+      You have reached the maximum token limit. To register a new authentication method, please delete some of the
+      existing tokens
+      or contact your administrator.</source>
         <target state="new">
           <x id="INTERPOLATION" equiv-text="{{tokenLimitsService.allTokensLimit?.count}}"/>
           von
@@ -362,9 +348,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="1519229157723508507" datatype="html">
-        <source>Test
-          <x id="INTERPOLATION" equiv-text="{{ typeDetails.name }}"/>
-        </source>
+        <source>Test <x id="INTERPOLATION" equiv-text="{{ typeDetails.name }}"/></source>
         <target state="new">
           <x id="INTERPOLATION" equiv-text="{{ typeDetails.name }}"/>
           testen
@@ -453,9 +437,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="2876956681251125515" datatype="html">
-        <source><x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/>Please choose an authentication method to verify that it is you logging in:
-          <x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/>
-        </source>
+        <source><x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/>Please choose an authentication method to verify that it is you logging in:<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/></source>
         <target state="translated"><x id="START_BOLD_TEXT" equiv-text="&lt;b>"/>Mit diesem
           zusätzlichen Schritt bestätigen Sie Ihre Identität bei der Anmeldung:
           <x id="CLOSE_BOLD_TEXT" equiv-text="&lt;/b>"/>
@@ -495,15 +477,10 @@
       </trans-unit>
       <trans-unit id="381259115054568778" datatype="html">
         <source>
-          <x id="START_TAG_APP_KEYBOARD_KEY" ctype="x-app_keyboard_key" equiv-text="&lt;app-keyboard-key icon=&quot;keyboard_arrow_up&quot;>"/>
-          <x id="CLOSE_TAG_APP_KEYBOARD_KEY" ctype="x-app_keyboard_key" equiv-text="&lt;/app-keyboard-key>"/>
-          +
-          <x id="START_TAG_APP_KEYBOARD_KEY_1" ctype="x-app_keyboard_key_1" equiv-text="&lt;app-keyboard-key icon=&quot;keyboard_arrow_down&quot;>"/>
-          <x id="CLOSE_TAG_APP_KEYBOARD_KEY" ctype="x-app_keyboard_key" equiv-text="&lt;/app-keyboard-key>"/>
-          and
-          <x id="START_TAG_APP_KEYBOARD_KEY_2" ctype="x-app_keyboard_key_2" equiv-text="&lt;app-keyboard-key icon=&quot;keyboard_return&quot;>"/>
-          <x id="CLOSE_TAG_APP_KEYBOARD_KEY" ctype="x-app_keyboard_key" equiv-text="&lt;/app-keyboard-key>"/>
-        </source>
+            <x id="START_TAG_APP_KEYBOARD_KEY" ctype="x-app_keyboard_key" equiv-text="&lt;app-keyboard-key icon=&quot;keyboard_arrow_up&quot;>"/><x id="CLOSE_TAG_APP_KEYBOARD_KEY" ctype="x-app_keyboard_key" equiv-text="&lt;/app-keyboard-key>"/> +
+            <x id="START_TAG_APP_KEYBOARD_KEY_1" ctype="x-app_keyboard_key_1" equiv-text="&lt;app-keyboard-key icon=&quot;keyboard_arrow_down&quot;>"/><x id="CLOSE_TAG_APP_KEYBOARD_KEY" ctype="x-app_keyboard_key" equiv-text="&lt;/app-keyboard-key>"/> and
+            <x id="START_TAG_APP_KEYBOARD_KEY_2" ctype="x-app_keyboard_key_2" equiv-text="&lt;app-keyboard-key icon=&quot;keyboard_return&quot;>"/><x id="CLOSE_TAG_APP_KEYBOARD_KEY" ctype="x-app_keyboard_key" equiv-text="&lt;/app-keyboard-key>"/>
+          </source>
         <target state="translated">
           <x id="START_TAG_APP_KEYBOARD_KEY" equiv-text="&lt;app-keyboard-key icon=&quot;keyboard_arrow_up&quot;>&lt;/app-keyboard-key>"/>
           <x id="CLOSE_TAG_APP_KEYBOARD_KEY" equiv-text="&lt;/app-keyboard-key>           "/>
@@ -521,8 +498,7 @@
       </trans-unit>
       <trans-unit id="6373389076357367988" datatype="html">
         <source>You do not own any valid tokens or there was a problem retrieving them from the server.
-          Please contact an administrator.
-        </source>
+        Please contact an administrator.</source>
         <target state="translated">Sie besitzen keine gültige Token oder es ist ein Problem
           aufgetreten. Kontaktieren Sie bitte einen Administrator.</target>
         <context-group purpose="location">
@@ -532,12 +508,10 @@
       </trans-unit>
       <trans-unit id="6386462717867426221" datatype="html">
         <source>Selected authentication method:
-          <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;selectedToken&quot;>"/>
-          <x id="INTERPOLATION" equiv-text="{{ selectedToken.typeDetails.name }}"/>
-          with serial
-          <x id="INTERPOLATION_1" equiv-text="{{ selectedToken.serial }}"/>
-          <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span>"/>
-        </source>
+        <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;selectedToken&quot;>"/>
+          <x id="INTERPOLATION" equiv-text="{{ selectedToken.typeDetails.name }}"/> with serial <x id="INTERPOLATION_1" equiv-text="{{ selectedToken.serial }}"/>
+        <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span>"/>
+      </source>
         <target state="translated">Ausgewählte Authentifizierungsmethode:
           <x id="START_TAG_SPAN" equiv-text="&lt;span class=&quot;selectedToken&quot;>           "/>
           <x id="INTERPOLATION" equiv-text="Token.typeDetails.name }} with seria"/>
@@ -599,12 +573,7 @@
       <trans-unit id="4593276974210440916" datatype="html">
         <source>
           Waiting for confirmation of transaction
-          <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/>
-          <x id="START_TAG_CODE" ctype="x-code" equiv-text="&lt;code>"/>
-          <x id="INTERPOLATION" equiv-text="{{ shortTransactionId }}"/>
-          <x id="CLOSE_TAG_CODE" ctype="x-code" equiv-text="&lt;/code>"/>
-          <x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/>
-          via your LinOTP Authenticator app.
+          <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/><x id="START_TAG_CODE" ctype="x-code" equiv-text="&lt;code>"/><x id="INTERPOLATION" equiv-text="{{ shortTransactionId }}"/><x id="CLOSE_TAG_CODE" ctype="x-code" equiv-text="&lt;/code>"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/> via your LinOTP Authenticator app.
         </source>
         <target state="translated">Warte auf Bestätigung der Transaktion
           <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/>
@@ -769,7 +738,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/oath-enrollment/create-token-step.component.ts</context>
-          <context context-type="linenumber">59</context>
+          <context context-type="linenumber">66</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-password-dialog/form.ts</context>
@@ -796,7 +765,7 @@
         <target state="translated">PIN festgelegt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-dialog-base.directive.ts</context>
-          <context context-type="linenumber">171</context>
+          <context context-type="linenumber">194</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
@@ -822,9 +791,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="1260099573097287890" datatype="html">
-        <source>Add
-          <x id="INTERPOLATION" equiv-text="{{ this.tokenDisplayData.name }}"/>
-        </source>
+        <source>Add <x id="INTERPOLATION" equiv-text="{{ this.tokenDisplayData.name }}"/></source>
         <target state="translated">
           <x id="INTERPOLATION" equiv-text="{{this.tokenDisplayData.name}}"/>
           einrichten</target>
@@ -958,11 +925,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">47</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">80</context>
+          <context context-type="linenumber">82</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-password-dialog/enroll-password-dialog.component.html</context>
@@ -1002,7 +969,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">88</context>
+          <context context-type="linenumber">91</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
@@ -1010,11 +977,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">43</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
-          <context context-type="linenumber">76</context>
+          <context context-type="linenumber">75</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7816013473763186412" datatype="html">
@@ -1047,15 +1014,15 @@
       </trans-unit>
       <trans-unit id="oathStepperIntroduction" datatype="html">
         <source>
-          <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p>"/>
+        <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p>"/>
           This step-by-step guide will help you to create a new token and import
           it onto your device.
-          <x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p>"/>
-          <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p>"/>
+        <x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p>"/>
+        <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p>"/>
           To import the token, you will need an OATH-compatible authenticator
-          app. We recommend to use<x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/>LinOTP Authenticator<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/>:
-          <x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p>"/>
-        </source>
+          app. We recommend to use <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/>LinOTP Authenticator<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/>:
+        <x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p>"/>
+      </source>
         <target state="new">
           <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p>"/>Diese schrittweise Anleitung
           hilft Ihnen dabei, einen neuen Token zu erstellen und auf Ihr Gerät zu importieren.
@@ -1072,9 +1039,9 @@
       </trans-unit>
       <trans-unit id="oathStepperAppInstalledConfirmInfo" datatype="html">
         <source>
-          Once you have the app installed on your device, you can start the token
-          setup process.
-        </source>
+        Once you have the app installed on your device, you can start the token
+        setup process.
+      </source>
         <target state="translated">Sobald Sie die App auf Ihrem Gerät installiert haben, können Sie
           den Token-Einrichtungsprozess starten.</target>
         <context-group purpose="location">
@@ -1111,7 +1078,7 @@
         <target state="translated">Token erstellen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">58</context>
+          <context context-type="linenumber">59</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-password-dialog/enroll-password-dialog.component.html</context>
@@ -1123,7 +1090,7 @@
         <target state="translated">Token in die App importieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="linenumber">69</context>
         </context-group>
       </trans-unit>
       <trans-unit id="397098723873502323" datatype="html">
@@ -1135,29 +1102,29 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">96</context>
+          <context context-type="linenumber">99</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
-          <context context-type="linenumber">84</context>
+          <context context-type="linenumber">83</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3935920932340410342" datatype="html">
         <source>
-          Close
-        </source>
+        Close
+      </source>
         <target state="translated">Schließen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-email-dialog/enroll-email-dialog.component.html</context>
-          <context context-type="linenumber">91</context>
+          <context context-type="linenumber">94</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/enroll-oath-dialog.component.html</context>
-          <context context-type="linenumber">108</context>
+          <context context-type="linenumber">114</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
-          <context context-type="linenumber">95</context>
+          <context context-type="linenumber">97</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5156859204496679050" datatype="html">
@@ -1165,7 +1132,7 @@
         <target state="new">OTP-PIN</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/oath-enrollment/create-token-step.component.ts</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">25</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-password-dialog/enroll-password-dialog.component.html</context>
@@ -1178,8 +1145,7 @@
       </trans-unit>
       <trans-unit id="otpPinRecommendedInfo" datatype="html">
         <source>Though not required, for security reasons
-          it is recommended to set a PIN for your token.
-        </source>
+					it is recommended to set a PIN for your token.</source>
         <target state="new">Sicherheitshalber wird empfohlen, für Ihren Token eine PIN festzulegen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/token-pin-form-layout/token-pin-form-layout.component.ts</context>
@@ -1188,8 +1154,7 @@
       </trans-unit>
       <trans-unit id="oathStepperOtpPinInfo" datatype="html">
         <source>The PIN ensures that you can only use the token yourself. During the
-          authentication process, you may need to enter this PIN together with an OTP of the token.
-        </source>
+      authentication process, you may need to enter this PIN together with an OTP of the token.</source>
         <target state="translated">Die PIN stellt sicher, dass Sie das Token nur selbst verwenden
           können. Während des Authentifizierungsprozesses müssen Sie möglicherweise diese PIN
           zusammen mit einem OTP des Tokens eingeben.</target>
@@ -1220,13 +1185,13 @@
       </trans-unit>
       <trans-unit id="oathStepperTokenDescriptionInfo" datatype="html">
         <source>Set a customized description to easily differentiate
-          between multiple tokens
-        </source>
+        between multiple tokens
+      </source>
         <target state="translated">Sie können eine individuelle Beschreibung eingeben, um zwischen
           mehreren Tokens leicht zu unterscheiden:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/oath-enrollment/create-token-step.component.ts</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="oathStepperDoneVerifySuccess" datatype="html">
@@ -1254,10 +1219,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="oathStepperTokenCreatedInfo" datatype="html">
-        <source>A token with the serial number
-          <x id="INTERPOLATION" equiv-text="{{enrolledToken.serial}}"/>
-          has been created. Please add the token by scanning the QR code in the Authenticator app.
-        </source>
+        <source>A token with the serial number <x id="INTERPOLATION" equiv-text="{{enrolledToken.serial}}"/> has been created. Please add the token by scanning the QR code in the Authenticator app.</source>
         <target state="translated">Ein Token mit der Seriennummer
           <x id="INTERPOLATION" equiv-text="{{enrolledToken.serial}}"/>
           wurde erstellt. Bitte fügen Sie das Token
@@ -1284,30 +1246,19 @@
         </context-group>
       </trans-unit>
       <trans-unit id="7302693902035391340" datatype="html">
-        <source>A token with the serial number
-          <x id="INTERPOLATION" equiv-text="{{ enrolledToken.serial }}"/>
-          has been created.
-        </source>
+        <source>A token with the serial number <x id="INTERPOLATION" equiv-text="{{ enrolledToken.serial }}"/> has been created.</source>
         <target state="translated">Ein Token mit der Seriennummer
           <x id="INTERPOLATION" equiv-text="{{enrolledToken.serial}}"/>
           wurde eingerichtet.
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-email-dialog/enroll-email-dialog.component.html</context>
-          <context context-type="linenumber">51</context>
-        </context-group>
-        <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-motp-dialog/enroll-motp-dialog.component.html</context>
           <context context-type="linenumber">76</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
-          <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3221970894381533554" datatype="html">
         <source>Cancel
-        </source>
+      </source>
         <target state="translated">Abbrechen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-email-dialog/enroll-email-dialog.component.html</context>
@@ -1315,7 +1266,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
-          <context context-type="linenumber">69</context>
+          <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3694047789818869519" datatype="html">
@@ -1363,12 +1314,10 @@
         </context-group>
       </trans-unit>
       <trans-unit id="oathStepperInstallTokenLink" datatype="html">
-        <source>If you use the Authenticator app on the same device you are seeing this, you may be able to follow<x id="START_LINK" ctype="x-a" equiv-text="&lt;a target=&quot;_blank&quot;
+        <source>If you use the Authenticator app on the same device you are seeing this, you may be able to follow <x id="START_LINK" ctype="x-a" equiv-text="&lt;a target=&quot;_blank&quot;
 				rel=&quot;noopener noreferrer&quot;
-				[href]=&quot;sanitizer.bypassSecurityTrustUrl(enrolledToken.url)&quot;>"/>this link
-          <x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>
-          to install the token.
-        </source>
+				[href]=&quot;sanitizer.bypassSecurityTrustUrl(enrolledToken.url)&quot;>"/>this link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>
+				to install the token.</source>
         <target state="new">Wenn Sie die Authenticator-App auf demselben Gerät verwenden, auf dem
           Sie dies sehen, können Sie möglicherweise<x id="START_LINK" ctype="x-a" equiv-text="&lt;a target=&quot;_blank&quot;
 				rel=&quot;noopener noreferrer&quot;
@@ -1432,16 +1381,8 @@
           <context context-type="linenumber">88</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-email-dialog/enroll-email-dialog.component.html</context>
-          <context context-type="linenumber">54</context>
-        </context-group>
-        <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-motp-dialog/enroll-motp-dialog.component.html</context>
           <context context-type="linenumber">90</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
-          <context context-type="linenumber">60</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-yubico/enroll-yubico-dialog.component.html</context>
@@ -1458,7 +1399,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8676540958141900081" datatype="html">
@@ -1490,11 +1431,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="801679254629334714" datatype="html">
-        <source>The token will use your user email address:
-          <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/>
-          <x id="INTERPOLATION" equiv-text="{{ userEmail }}"/>
-          <x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/>
-        </source>
+        <source>The token will use your user email address: <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/><x id="INTERPOLATION" equiv-text="{{ userEmail }}"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/></source>
         <target state="translated">Der Token wird ihre Nutzer E-Mail-Adresse verwenden:
           <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/>
           <x id="INTERPOLATION" equiv-text="{{userEmail}}"/>
@@ -1507,9 +1444,9 @@
       </trans-unit>
       <trans-unit id="5595345487329173651" datatype="html">
         <source>
-          You have no email address assigned to your user account and the token will therefore not work after creation.
-          You may need to contact your administrator for help.
-        </source>
+        You have no email address assigned to your user account and the token will therefore not work after creation.
+        You may need to contact your administrator for help.
+      </source>
         <target state="new">
           You have no email address assigned to your user account and the token will therefore not work after creation.
           You may need to contact your administrator for help.
@@ -1538,32 +1475,32 @@
       </trans-unit>
       <trans-unit id="1589298959759353986" datatype="html">
         <source>This field is required.
-        </source>
+          </source>
         <target state="translated">Dieses Feld ist erforderlich.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-email-dialog/enroll-email-dialog.component.html</context>
-          <context context-type="linenumber">22,23</context>
+          <context context-type="linenumber">22</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-password-dialog/enroll-password-dialog.component.html</context>
-          <context context-type="linenumber">16,17</context>
+          <context context-type="linenumber">16</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
-          <context context-type="linenumber">28,29</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2456430172328008206" datatype="html">
         <source>Cancel
-        </source>
+          </source>
         <target state="translated">Abbrechen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-email-dialog/enroll-email-dialog.component.html</context>
-          <context context-type="linenumber">30,31</context>
+          <context context-type="linenumber">30</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
-          <context context-type="linenumber">36,37</context>
+          <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6018603129977323304" datatype="html">
@@ -1584,8 +1521,7 @@
       </trans-unit>
       <trans-unit id="1286533558050418692" datatype="html">
         <source>Please enter exactly 16 characters. Allowed are digits (0-9) and the letters A to F (lowercase
-          or uppercase).
-        </source>
+            or uppercase).</source>
         <target state="translated">Bitte geben Sie genau 16 Zeichen ein. Erlaubt sind Ziffern (0-9)
           und die Buchstaben A bis F (Kleinbuchstaben
           oder Großbuchstaben).</target>
@@ -1627,17 +1563,13 @@
         </context-group>
       </trans-unit>
       <trans-unit id="5018516673567615179" datatype="html">
-        <source>The token will use your user mobile number:
-          <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/>
-          <x id="INTERPOLATION" equiv-text="{{userPhone}}"/>
-          <x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/>
-        </source>
+        <source>The token will use your user mobile number: <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/><x id="INTERPOLATION" equiv-text="{{userPhone}}"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/></source>
         <target state="translated">Der Token wird ihre Nutzer Mobilnummer verwenden:<x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/>{{userPhonel}}
           <x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/>
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
-          <context context-type="linenumber">9</context>
+          <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
       <trans-unit id="728206514832036393" datatype="html">
@@ -1654,7 +1586,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6923810992073497395" datatype="html">
@@ -1662,7 +1594,7 @@
         <target state="translated">Handynummer</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9142305080930343627" datatype="html">
@@ -1671,7 +1603,21 @@
           möchten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7746287439103575233" datatype="html">
+        <source>
+        An SMS token with the serial number <x id="INTERPOLATION" equiv-text="{{ enrolledToken.serial }}"/> has been created for the phone number <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;underline&quot;>"/><x id="INTERPOLATION_1" equiv-text="{{ enrolledToken.phone }}"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span>"/>.
+        Please check your SMS messages for the first one-time password.
+      </source>
+        <target state="new">
+        Ein SMS-Token mit der Seriennummer <x id="INTERPOLATION" equiv-text="{{ enrolledToken.serial }}"/> wurde für die Telefonnummer <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;underline&quot;>"/><x id="INTERPOLATION_1" equiv-text="{{ enrolledToken.phone }}"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span>"/> erstellt.
+        Bitte prüfen Sie Ihre SMS-Nachrichten auf das erste Einmalpasswort.
+      </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
+          <context context-type="linenumber">55,58</context>
         </context-group>
       </trans-unit>
       <trans-unit id="83515123170705566" datatype="html">
@@ -1679,7 +1625,7 @@
         <target state="translated">Der noch nicht aktivierte Token wird gelöscht.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-dialog-base.directive.ts</context>
-          <context context-type="linenumber">119</context>
+          <context context-type="linenumber">142</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1552149428703580410" datatype="html">
@@ -1687,7 +1633,7 @@
         <target state="translated">Der unvollständig eingerichtete Token wird nicht benutzbar sein.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-dialog-base.directive.ts</context>
-          <context context-type="linenumber">120</context>
+          <context context-type="linenumber">143</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8866362071254927692" datatype="html">
@@ -1696,7 +1642,7 @@
           Token benutzen zu können.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-dialog-base.directive.ts</context>
-          <context context-type="linenumber">121</context>
+          <context context-type="linenumber">144</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1500753035555458197" datatype="html">
@@ -1704,7 +1650,7 @@
         <target state="translated">Tokeneinrichtung abbrechen?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-dialog-base.directive.ts</context>
-          <context context-type="linenumber">133</context>
+          <context context-type="linenumber">156</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9178182467454450952" datatype="html">
@@ -1712,7 +1658,7 @@
         <target state="translated">Bestätigen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-dialog-base.directive.ts</context>
-          <context context-type="linenumber">135</context>
+          <context context-type="linenumber">158</context>
         </context-group>
       </trans-unit>
       <trans-unit id="154514244524342578" datatype="html">
@@ -1720,7 +1666,7 @@
         <target state="translated">Der unvollständig eingerichtete Token wurde gelöscht</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-dialog-base.directive.ts</context>
-          <context context-type="linenumber">146</context>
+          <context context-type="linenumber">169</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2999727617066479407" datatype="html">
@@ -1733,9 +1679,8 @@
       </trans-unit>
       <trans-unit id="211337964495365791" datatype="html">
         <source>The token description should help you identify the token at a later point. It could, for
-          example,
-          refer to its usage scenario.
-        </source>
+            example,
+            refer to its usage scenario.</source>
         <target state="translated">Die Token-Beschreibung soll Ihnen helfen, den Token zu einem
           späteren Zeitpunkt zu identifizieren. Sie könnte zum Beispiel
           auf sein Verwendungszweck verweisen.</target>
@@ -1746,9 +1691,7 @@
       </trans-unit>
       <trans-unit id="3076529443213395545" datatype="html">
         <source>
-          A token with the serial number
-          <x id="INTERPOLATION" equiv-text="{{enrolledToken.serial}}"/>
-          (description:
+          A token with the serial number <x id="INTERPOLATION" equiv-text="{{enrolledToken.serial}}"/> (description:
           <x id="INTERPOLATION_1" equiv-text="{{ enrollmentStep.get('description').value }}"/>) has been created.
         </source>
         <target state="translated">Ein Token mit der Seriennummer
@@ -1798,8 +1741,8 @@
       </trans-unit>
       <trans-unit id="7568019210301893747" datatype="html">
         <source>
-          You do not have the required permission to activate the token on your own.
-        </source>
+        You do not have the required permission to activate the token on your own.
+      </source>
         <target state="translated">
           Sie haben nicht die benötigte Berechtigung um den Token selbst zu aktivieren.
         </target>
@@ -1813,7 +1756,7 @@
         <target state="translated">Schließen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-dialog-base.directive.ts</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="linenumber">37</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
@@ -1902,8 +1845,8 @@
       </trans-unit>
       <trans-unit id="4002944058495459066" datatype="html">
         <source>This is your last active token and MFA is enabled for Selfservice.
-          If you disable it without enrolling a new token or enabling a disabled token, you won't be able to login anymore.
-        </source>
+        If you disable it without enrolling a new token or enabling a disabled token, you won't be able to login anymore.
+      </source>
         <target state="new">Das ist Ihr letztes aktives Token und die Zwei-Faktor-Authentifizierung
           (MFA) ist für den Selfservice aktiviert. Wenn Sie es deaktivieren, ohne ein neues
           einzurichten oder ein deaktiviertes Token zu aktivieren, werden Sie sich nicht mehr
@@ -2039,9 +1982,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="3024891378452195539" datatype="html">
-        <source>Serial:
-          <x id="INTERPOLATION" equiv-text="{{ token.serial }}"/>
-        </source>
+        <source>Serial: <x id="INTERPOLATION" equiv-text="{{ token.serial }}"/></source>
         <target state="translated">Seriennummer:
           <x id="INTERPOLATION" equiv-text="{{ token.serial }}"/>
         </target>
@@ -2060,8 +2001,8 @@
       </trans-unit>
       <trans-unit id="6740117255402996998" datatype="html">
         <source>
-          You need a QR code to proceed with the token activation in the LinOTP Authenticator app.
-        </source>
+        You need a QR code to proceed with the token activation in the LinOTP Authenticator app.
+      </source>
         <target state="translated">
           Sie benötigen einen QR-Code um mit der Token-Aktivierung in der LinOTP
           Authenticator App fortfahren zu können.
@@ -2087,9 +2028,9 @@
       </trans-unit>
       <trans-unit id="7324405693112109164" datatype="html">
         <source>
-          If you have created the token yourself and are not able to reuse the QR code,
-          you have to restart with a new token.
-        </source>
+            If you have created the token yourself and are not able to reuse the QR code,
+            you have to restart with a new token.
+          </source>
         <target state="translated">
           Wenn Sie den Token selbst erstellt haben und den QR-Code
           nicht wiederverwenden können, müssen Sie mit einem neuen Token starten.
@@ -2101,9 +2042,9 @@
       </trans-unit>
       <trans-unit id="4312393457478390073" datatype="html">
         <source>
-          If you have created the token yourself and are not able to reuse the QR code,
-          you have to delete this token and restart with a new token.
-        </source>
+            If you have created the token yourself and are not able to reuse the QR code,
+            you have to delete this token and restart with a new token.
+          </source>
         <target state="translated">
           Wenn Sie den Token selbst erstellt haben und den QR-Code
           nicht wiederverwenden können, müssen Sie diesen Token löschen und mit einem neuen
@@ -2115,7 +2056,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="4196987526031682259" datatype="html">
-        <source>This token is paired with your mobile. It needs to be activated now to finish the setup.</source>
+        <source> This token is paired with your mobile. It needs to be activated now to finish the setup. </source>
         <target state="translated"> Dieser Token ist mit Ihrem Smartphone verknüpft. Er muss nun
           aktiviert werden um die Einrichtung abzuschließen. </target>
         <context-group purpose="location">
@@ -2125,8 +2066,7 @@
       </trans-unit>
       <trans-unit id="3809552006381484114" datatype="html">
         <source> An activation challenge has been generated.
-          The challenge is only valid for a short amount of time.
-        </source>
+        The challenge is only valid for a short amount of time. </source>
         <target state="translated">Die Aktivierung wurde bereits gestartet und ist nur für einen
           kurzen Zeitraum gültig.</target>
         <context-group purpose="location">
@@ -2239,7 +2179,7 @@
         <target state="translated">Testen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-dialog-base.directive.ts</context>
-          <context context-type="linenumber">66</context>
+          <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3322230564700665416" datatype="html">
@@ -2252,14 +2192,9 @@
         </context-group>
       </trans-unit>
       <trans-unit id="1109306653820972432" datatype="html">
-        <source>You have reached maximum limit for this token type.
-          <x id="INTERPOLATION" equiv-text="{{limitsInfo.count}}"/>
-          of
-          <x id="INTERPOLATION_1" equiv-text="{{limitsInfo.maxTokens}}"/>
-          allowed tokens enrolled.
+        <source>You have reached maximum limit for this token type. <x id="INTERPOLATION" equiv-text="{{limitsInfo.count}}"/> of <x id="INTERPOLATION_1" equiv-text="{{limitsInfo.maxTokens}}"/> allowed tokens enrolled.
           To register a new authentication method of this type, please delete some of the existing tokens
-          or contact your administrator.
-        </source>
+          or contact your administrator.</source>
         <target state="new">Sie haben das Limit für diesen Tokentyp erreicht.
           <x id="INTERPOLATION" equiv-text="{{limitsInfo.count }}"/>
           von
@@ -2273,10 +2208,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="1791455849928207309" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon>"/>error
-          <x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon>"/>
-          Token type limit
-        </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon>"/>error<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon>"/> Token type limit</source>
         <target state="new">
           <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon>"/>
           error
@@ -2375,8 +2307,8 @@
       </trans-unit>
       <trans-unit id="7654549295112383915" datatype="html">
         <source>
-          Please enter the password of the selected token:
-        </source>
+            Please enter the password of the selected token:
+          </source>
         <target state="translated">
           Bitte geben Sie das Passwort des ausgewählten Token ein:
         </target>
@@ -2387,8 +2319,8 @@
       </trans-unit>
       <trans-unit id="2049084266554992934" datatype="html">
         <source>
-          Please enter the next OTP for the selected token:
-        </source>
+            Please enter the next OTP for the selected token:
+          </source>
         <target state="translated">
           Bitte geben Sie den nächsten OTP für den ausgewählten Token ein:
         </target>
@@ -2399,8 +2331,8 @@
       </trans-unit>
       <trans-unit id="7268576778453562645" datatype="html">
         <source>
-          Scan the QR code with your LinOTP Authenticator app:
-        </source>
+            Scan the QR code with your LinOTP Authenticator app:
+          </source>
         <target state="translated">
           Scannen Sie bitte den QR-Code mit Ihrer LinOTP Authenticator App:
         </target>
@@ -2411,14 +2343,9 @@
       </trans-unit>
       <trans-unit id="9055586857967972921" datatype="html">
         <source>
-          Waiting for confirmation of transaction
-          <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/>
-          <x id="START_TAG_CODE" ctype="x-code" equiv-text="&lt;code>"/>
-          <x id="INTERPOLATION" equiv-text="{{ shortTransactionId }}"/>
-          <x id="CLOSE_TAG_CODE" ctype="x-code" equiv-text="&lt;/code>"/>
-          <x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/>
-          via your LinOTP Authenticator app.
-        </source>
+            Waiting for confirmation of transaction
+            <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/><x id="START_TAG_CODE" ctype="x-code" equiv-text="&lt;code>"/><x id="INTERPOLATION" equiv-text="{{ shortTransactionId }}"/><x id="CLOSE_TAG_CODE" ctype="x-code" equiv-text="&lt;/code>"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/> via your LinOTP Authenticator app.
+          </source>
         <target state="translated">Warte auf Bestätigung der Transaktion
           <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/>
           <x id="START_TAG_CODE" ctype="x-code" equiv-text="&lt;code>"/>
@@ -2453,7 +2380,21 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
-          <context context-type="linenumber">54</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8499058536915134902" datatype="html">
+        <source>
+        An email token with the serial number <x id="INTERPOLATION" equiv-text="{{ enrolledToken.serial }}"/> has been created for <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;underline&quot;>"/><x id="INTERPOLATION_1" equiv-text="{{ enrolledToken.email }}"/>.<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span>"/>
+        Please check your email inbox for the first one-time password.
+      </source>
+        <target state="new">
+        Ein E-Mail-Token mit der Seriennummer <x id="INTERPOLATION" equiv-text="{{ enrolledToken.serial }}"/> wurde für <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;underline&quot;>"/><x id="INTERPOLATION_1" equiv-text="{{ enrolledToken.email }}"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span>"/> erstellt.
+        Bitte prüfen Sie Ihr E-Mail-Postfach auf das erste Einmalpasswort.
+      </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/enroll-email-dialog/enroll-email-dialog.component.html</context>
+          <context context-type="linenumber">50,53</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2830158497769011008" datatype="html">
@@ -2539,9 +2480,9 @@
       </trans-unit>
       <trans-unit id="4651123397383097469" datatype="html">
         <source>
-          Enter your token PIN or password if you have set a PIN or you are
-          required to enter your password for OTP authentication:
-        </source>
+        Enter your token PIN or password if you have set a PIN or you are
+        required to enter your password for OTP authentication:
+      </source>
         <target state="translated">
           Geben Sie Ihre PIN oder Ihr Passwort ein, falls Sie eine PIN vergeben haben,
           oder für die Authentifizierung ein Passwort erforderlich ist:
@@ -2745,8 +2686,7 @@
       </trans-unit>
       <trans-unit id="562543559978062316" datatype="html">
         <source>If you do not have the token serial at hand, you can use a generated OTP value to determine the
-          serial of your token.
-        </source>
+            serial of your token.</source>
         <target state="translated">Wenn Sie die Seriennummer des Tokens nicht zur Hand haben, können
           Sie einen OTP-Wert generieren, um die
           Seriennummer zu ermitteln.</target>
@@ -2863,7 +2803,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/oath-enrollment/create-token-step.component.ts</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">21</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-password-dialog/enroll-password-dialog.component.html</context>
@@ -2928,8 +2868,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="6428207120403142021" datatype="html">
-        <source>Cannot enroll token of unknown type "<x id="PH" equiv-text="type"/>".
-        </source>
+        <source>Cannot enroll token of unknown type "<x id="PH" equiv-text="type"/>".</source>
         <target state="translated">Token von unbekanntem Typ "<x id="PH" equiv-text="type"/>" kann
           nicht erstellt werden.</target>
         <context-group purpose="location">
@@ -2938,8 +2877,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="1460878502616749162" datatype="html">
-        <source>You are not allowed to enroll tokens of type "<x id="PH" equiv-text="this.displayData.type"/>".
-        </source>
+        <source>You are not allowed to enroll tokens of type "<x id="PH" equiv-text="this.displayData.type"/>".</source>
         <target state="translated">Sie sind nicht berechtigt, Tokens vom Typ "<x id="PH" equiv-text="this.displayData.type"/>" zu erstellen.
         </target>
         <context-group purpose="location">
@@ -2948,9 +2886,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="6652424493490915459" datatype="html">
-        <source>Error:
-          <x id="PH" equiv-text="err.message"/>
-        </source>
+        <source>Error: <x id="PH" equiv-text="err.message"/></source>
         <target state="translated">Fehler:
           <x id="PH" equiv-text="err.message"/>
         </target>
@@ -3006,6 +2942,10 @@
       <trans-unit id="7149512816040108553" datatype="html">
         <source>Token enrolled successfully.</source>
         <target state="new">Token erfolgreich registriert.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/enroll-dialog-base.directive.ts</context>
+          <context context-type="linenumber">103</context>
+        </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-password-dialog/enroll-password-dialog.component.ts</context>
           <context context-type="linenumber">35</context>
@@ -3122,8 +3062,7 @@
       </trans-unit>
       <trans-unit id="2526169685251802541" datatype="html">
         <source>This is used to generate OTPs which are only known to you. If you change the PIN here, you will also need to
-          change it on your device.
-        </source>
+      change it on your device.</source>
         <target state="translated">Diese wird verwendet, um OTPs zu erzeugen, die nur Sie kennen.
           Wenn Sie die PIN hier ändern, müssen Sie sie auch auf Ihrem Gerät ändern.</target>
         <context-group purpose="location">
@@ -3573,8 +3512,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="1871596733160586812" datatype="html">
-        <source>Error:<x id="PH" equiv-text="operation"/>. Please try again or contact an administrator
-        </source>
+        <source>Error: <x id="PH" equiv-text="operation"/>. Please try again or contact an administrator</source>
         <target state="translated">Fehler:<x id="PH" equiv-text="operation"/>. Bitte versuchen Sie
           es erneut, oder kontaktieren Sie einen Administrator</target>
         <context-group purpose="location">
@@ -3769,10 +3707,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="3537482308577662516" datatype="html">
-        <source>
-          <x id="PH" equiv-text="operation"/>
-          failed: Please try again.
-        </source>
+        <source><x id="PH" equiv-text="operation"/> failed: Please try again.</source>
         <target state="translated">
           <x id="PH" equiv-text="operation"/>
           fehlgeschlagen: Bitte
@@ -3783,10 +3718,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="4972370163984978038" datatype="html">
-        <source>
-          <x id="PH" equiv-text="operation"/>
-          failed: You have reached the maximum number of tokens for your account.
-        </source>
+        <source><x id="PH" equiv-text="operation"/> failed: You have reached the maximum number of tokens for your account.</source>
         <target state="translated">
           <x id="PH" equiv-text="operation"/>
           fehlgeschlagen: Sie haben
@@ -3797,10 +3729,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="4001846779762798502" datatype="html">
-        <source>
-          <x id="PH" equiv-text="operation"/>
-          failed: You have reached the maximum number of tokens of this type.
-        </source>
+        <source><x id="PH" equiv-text="operation"/> failed: You have reached the maximum number of tokens of this type.</source>
         <target state="translated">
           <x id="PH" equiv-text="operation"/>
           fehlgeschlagen: Sie haben
@@ -3811,10 +3740,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="471673605810896911" datatype="html">
-        <source>
-          <x id="PH" equiv-text="operation"/>
-          failed: You can not register a new token because your realm has reached the maximum token capacity.
-        </source>
+        <source><x id="PH" equiv-text="operation"/> failed: You can not register a new token because your realm has reached the maximum token capacity.</source>
         <target state="translated">
           <x id="PH" equiv-text="operation"/>
           fehlgeschlagen: Sie dürfen
@@ -3833,8 +3759,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="8130809600677497545" datatype="html">
-        <source>Error:<x id="PH" equiv-text="message"/>. Please try again
-        </source>
+        <source>Error: <x id="PH" equiv-text="message"/>. Please try again</source>
         <target state="translated">Fehler:<x id="PH" equiv-text="message"/>. Versuchen Sie es
           bitte erneut</target>
         <context-group purpose="location">

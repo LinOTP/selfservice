@@ -128,7 +128,7 @@ describe('The EnrollPasswordDialogComponent', () => {
 
   }));
 
-  describe('enrollToken', () => {
+  describe('enrollPWToken', () => {
     it('should enroll a password token with a default description', fakeAsync(() => {
 
       enrollmentService.enroll.and.returnValue(of(Fixtures.PasswordEnrollmentResponse));
@@ -142,7 +142,7 @@ describe('The EnrollPasswordDialogComponent', () => {
 
 
       fixture.detectChanges();
-      component.enrollToken();
+      component.enrollPWToken();
       tick();
 
       expect(enrollmentService.enroll).toHaveBeenCalledWith({
@@ -168,7 +168,7 @@ describe('The EnrollPasswordDialogComponent', () => {
       expect(component.createTokenForm.controls.otpPin.enabled).toEqual(true);
 
       fixture.detectChanges();
-      component.enrollToken();
+      component.enrollPWToken();
       tick();
 
       expect(enrollmentService.enroll).toHaveBeenCalledWith({
@@ -189,7 +189,7 @@ describe('The EnrollPasswordDialogComponent', () => {
       component.createTokenForm.controls.confirmation.setValue('111111');
 
       fixture.detectChanges();
-      component.enrollToken();
+      component.enrollPWToken();
       tick();
 
       expect(enrollmentService.enroll).toHaveBeenCalledWith({
@@ -209,7 +209,7 @@ describe('The EnrollPasswordDialogComponent', () => {
       enrollmentService.enroll.and.returnValue(of(null));
 
       fixture.detectChanges();
-      component.enrollToken();
+      component.enrollPWToken();
       tick();
 
       expect(component.enrolledToken).toEqual(undefined);

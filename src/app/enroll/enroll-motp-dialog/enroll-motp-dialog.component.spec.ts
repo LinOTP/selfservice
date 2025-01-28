@@ -106,7 +106,7 @@ describe('EnrollMOTPDialogComponent', () => {
     expect(component.data.tokenType).toEqual(TokenType.MOTP);
   });
 
-  describe('enrollToken', () => {
+  describe('enrollMOTPToken', () => {
     it('should enroll an mOTP token with a default description', fakeAsync(() => {
       spyOn(component.stepper, 'next');
 
@@ -117,7 +117,7 @@ describe('EnrollMOTPDialogComponent', () => {
 
       fixture.detectChanges();
 
-      component.enrollToken();
+      component.enrollMOTPToken();
       tick();
 
       expect(enrollmentService.enroll).toHaveBeenCalledWith({
@@ -141,7 +141,7 @@ describe('EnrollMOTPDialogComponent', () => {
       component.enrollmentStep.controls.description.setValue('custom description');
 
       fixture.detectChanges();
-      component.enrollToken();
+      component.enrollMOTPToken();
       tick();
 
       expect(enrollmentService.enroll).toHaveBeenCalledWith({
@@ -160,7 +160,7 @@ describe('EnrollMOTPDialogComponent', () => {
       enrollmentService.enroll.and.returnValue(of(null));
       fixture.detectChanges();
 
-      component.enrollToken();
+      component.enrollMOTPToken();
       tick();
 
       expect(component.enrolledToken).toEqual(undefined);

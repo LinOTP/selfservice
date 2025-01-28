@@ -4,8 +4,8 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogConfig, MatDialogRef } from '@angu
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { NgxPermissionsService } from 'ngx-permissions';
-import { forkJoin, from, of, Subscription } from 'rxjs';
-import { filter, map, switchMap, tap } from 'rxjs/operators';
+import { forkJoin, from, Observable, of, Subscription } from 'rxjs';
+import { filter, finalize, map, switchMap, tap } from 'rxjs/operators';
 
 
 import { EnrollmentService } from '@api/enrollment.service';
@@ -89,25 +89,25 @@ export abstract class EnrollDialogBase implements OnInit, OnDestroy {
     this.dialogRef.close();
   }
 
-  public enrollToken(enrollmentOptions: EnrollmentOptions, stepper: MatStepper) {
-    if (this.setOtpPinPolicyEnabled) {
-      enrollmentOptions.otppin = this.createTokenForm.get('otpPin').get('pin').value
-    }
-    this.awaitingResponse = true;
-    this.enrollmentService.enroll(enrollmentOptions).subscribe(token => {
-      this.awaitingResponse = false;
-      if (token?.serial) {
-        this.enrolledToken = { serial: token.serial, type: enrollmentOptions.type, description: enrollmentOptions.description };
-        this.notificationService.message($localize`Token enrolled successfully.`);
 
-        // need to wait for the step complete state to be updated and then move to the next step
-        // using 100 ms make animation smoother
+  public enrollToken(enrollmentOptions: EnrollmentOptions, stepper: MatStepper): Observable<EnrolledToken> {
+    this.awaitingResponse = true;
+    return this.enrollmentService.enroll(enrollmentOptions).pipe(
+      filter(token => token?.serial !== undefined && token?.serial != null),
+      map(token => ({
+        serial: token.serial,
+        type: enrollmentOptions.type,
+        description: enrollmentOptions.description,
+      })),
+      tap(() => {
+        this.notificationService.message($localize`Token enrolled successfully.`);
         setTimeout(() => {
-          stepper.steps.get(0).completed = true
+          stepper.steps.get(0).completed = true;
           stepper.next();
-        }, 100)
-      }
-    });
+        }, 100);
+      }),
+      finalize(() => this.awaitingResponse = false)
+    );
   }
 
   /**
