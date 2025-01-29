@@ -12,6 +12,8 @@ import { NotificationService } from '@common/notification.service';
 import { APIError, LinOTPResponse } from './api';
 import { EnrollmentOptions, EnrollmentStatus } from './token';
 import { TokenService } from './token.service';
+import { NgxPermissionsService } from "ngx-permissions";
+import { Permission } from "@common/permissions";
 
 export interface EnrollmentDetail {
   serial: string;
@@ -57,9 +59,14 @@ export class EnrollmentService {
     private sessionService: SessionService,
     private tokenService: TokenService,
     private notificationService: NotificationService,
+    private permissionsService: NgxPermissionsService
   ) { }
 
   enroll(token: EnrollmentOptions): Observable<EnrollmentDetail> {
+    if (!this.permissionsService.hasPermission(Permission.SETPIN)) {
+      //do not include the parameter in the payload
+      delete token.otppin;
+    }
     const body: { session: string, type: string, description?: string, otplen?: number, 'yubico.tokenid'?: string } = {
       ...token,
       session: this.sessionService.getSession(),
