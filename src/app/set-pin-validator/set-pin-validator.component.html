@@ -1,0 +1,39 @@
+<div i18n="@@pinValidationListPreText" *ngIf="setOTPPoliciesActive()">The PIN must be set according to the following rules:</div>
+<ul>
+  <li *ngIf="maxLength !== undefined"
+      [ngStyle]="{'color': getColorForValidationError('minlengthOrMaxlength')}" i18n="@@pinLengthError"> <!--internally also checks for maxlength-->
+    between {{ minLength }} and {{ maxLength }} characters long
+  </li>
+  <li *ngIf="minLength > 0 && maxLength === undefined" [ngStyle]="{'color': getColorForValidationError('minlength')}" i18n="@@minLengthError">
+    at least {{ minLength }} characters long
+  </li>
+  <ng-container *ngIf="setOTPPoliciesActive()">
+    <ng-container *ngIf="!otpPinContents.startsWith('+') && !otpPinContents.startsWith('-')">
+      <li *ngIf="requiresLetter()" [ngStyle]="{'color': getColorForValidationError('missingLetter')}" i18n="noPrefixLetterForPin">
+        at least one letter
+      </li>
+      <li *ngIf="requiresDigit()" [ngStyle]="{'color': getColorForValidationError('missingDigit')}" i18n="noPrefixDigitForPin">
+        at least one digit
+      </li>
+      <li *ngIf="requiresSpecial()" [ngStyle]="{'color': getColorForValidationError('missingSpecial')}" i18n="noPrefixSpecialCharacterForPin">
+        at least one special character from ({{ SPECIAL_CHARACTERS }})
+      </li>
+      <li *ngIf="requiresOtherSpecial()" [ngStyle]="{'color': getColorForValidationError('missingOtherSpecial')}" i18n="noPrefixOtherSpecialCharacterForPin">
+        at least one special character
+        <!--otherwise the user might be confused about why common special characters are not accepted-->
+        <ng-container *ngIf="!requiresSpecial()">not in ({{ SPECIAL_CHARACTERS }})</ng-container>
+        e.g. {{ " Æäöüß" }}
+      </li>
+    </ng-container>
+    <ng-container *ngIf="otpPinContents.startsWith('+') && !allOTPContentRulesActive()"><!--Edgecase: +CNSO would cause any character to be accepted so we dont need to show a validation rule-->
+      <li i18n="@@pinValidationPlusPrefix" [ngStyle]="{'color': getColorForValidationError('notContainingCharactersFromAnyGroup')}">
+        at least {{ getTextForPrefixRule('+') }} (any other character is disallowed)
+      </li>
+    </ng-container>
+    <ng-container *ngIf="otpPinContents.startsWith('-')">
+      <li i18n="@@pinValidationMinusPrefix" [ngStyle]="{'color': getColorForValidationError('notContainingCharactersFromEveryGroup')}">
+        at least {{ getTextForPrefixRule('-') }} (any other character is disallowed)
+      </li>
+    </ng-container>
+  </ng-container>
+</ul>

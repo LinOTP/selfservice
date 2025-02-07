@@ -10,7 +10,7 @@ import { exponentialBackoffInterval } from '@common/exponential-backoff-interval
 import { NotificationService } from '@common/notification.service';
 
 import { APIError, LinOTPResponse } from './api';
-import { EnrollmentOptions, EnrollmentStatus } from './token';
+import { EnrollmentOptions, EnrollmentStatus, TokenType } from './token';
 import { TokenService } from './token.service';
 import { NgxPermissionsService } from "ngx-permissions";
 import { Permission } from "@common/permissions";
@@ -63,8 +63,9 @@ export class EnrollmentService {
   ) { }
 
   enroll(token: EnrollmentOptions): Observable<EnrollmentDetail> {
-    if (!this.permissionsService.hasPermission(Permission.SETPIN)) {
-      //do not include the parameter in the payload
+    if (!this.permissionsService.hasPermission(Permission.SETPIN) && token.type !== TokenType.MOTP) {
+      //Do not include the parameter in the payload, however currently the otp parameter is used for the motp pin.
+      //TODO to be fixed in LINOTP-2263
       delete token.otppin;
     }
     const body: { session: string, type: string, description?: string, otplen?: number, 'yubico.tokenid'?: string } = {

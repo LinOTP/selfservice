@@ -41,6 +41,9 @@ export interface SystemInfo {
     footer_text?: string;
     imprint_url?: string;
     privacy_notice_url?: string;
+    otp_pin_minlength?: number;
+    otp_pin_maxlength?: number;
+    otp_pin_contents?: string;
     token_limits: TokenLimitResponse
   };
 }

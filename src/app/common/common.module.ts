@@ -30,6 +30,7 @@ import { FocusOnInitDirective } from './focus-on-init/focus-on-init.directive';
 import { LockableActionDialogContentComponent } from './lockable-action-dialog-content/lockable-action-dialog.content.component';
 import { TokenDialogHeaderComponent } from './token-dialog-header/token-dialog-header.component';
 import { UnassignTokenDialogComponent } from './unassign-token-dialog/unassign-token-dialog.component';
+import { SetPinValidatorComponent } from "@app/set-pin-validator/set-pin-validator.component";
 
 
 @NgModule({
@@ -60,7 +61,8 @@ import { UnassignTokenDialogComponent } from './unassign-token-dialog/unassign-t
     UnassignTokenDialogComponent,
     DisableTokenDialogComponent,
     LockableActionDialogContentComponent,
-    TokenDialogHeaderComponent
+    TokenDialogHeaderComponent,
+    SetPinValidatorComponent,
   ],
   providers: [
     NotificationService,
@@ -76,7 +78,8 @@ import { UnassignTokenDialogComponent } from './unassign-token-dialog/unassign-t
     FocusOnInitDirective,
     ButtonWaitIndicatorComponent,
     DeleteTokenDialogComponent,
-    TokenDialogHeaderComponent
+    TokenDialogHeaderComponent,
+    SetPinValidatorComponent
   ]
 })
 export class NgSelfServiceCommonModule { }
