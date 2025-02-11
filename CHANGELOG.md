@@ -1,6 +1,10 @@
 <a name="1.4-0dev"></a>
 ## 1.4-0dev (unreleased)
 
+  ### Features:
+  * Added OTP PIN enforcement during enrollment. The OTP PIN is now required if `setOTPPIN` and at least one `otp_pin_*` policy is set.
+  * Implemented validation rules for `otp_pin_minlength`, `otp_pin_maxlength`, and `otp_pin_contents`.
+
   ### Fixes:
   * Tokens don't show a token action menu if they don't have an available action.
 
