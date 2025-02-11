@@ -347,6 +347,176 @@
           <context context-type="linenumber">285</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="pinValidationListPreText" datatype="html">
+        <source>The PIN must be set according to the following rules:</source>
+        <target state="new">Die PIN muss folgende Bedingungen erfüllen:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/set-pin-validator/set-pin-validator.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pinLengthError" datatype="html">
+        <source> 
+    between <x id="INTERPOLATION" equiv-text="{{ minLength }}"/> and <x id="INTERPOLATION_1" equiv-text="{{ maxLength }}"/> characters long
+  </source>
+        <target state="new">
+    zwischen <x id="INTERPOLATION" equiv-text="{{ minLength }}"/> und <x id="INTERPOLATION_1" equiv-text="{{ maxLength }}"/> Zeichen lang
+  </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/set-pin-validator/set-pin-validator.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="minLengthError" datatype="html">
+        <source>
+    at least <x id="INTERPOLATION" equiv-text="{{ minLength }}"/> characters long
+  </source>
+        <target state="new">
+    mind. <x id="INTERPOLATION" equiv-text="{{ minLength }}"/> Zeichen lang
+  </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/set-pin-validator/set-pin-validator.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8133021105688854213" datatype="html">
+        <source>
+        at least one letter
+      </source>
+        <target state="new">
+        mind. ein Buchstabe
+      </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/set-pin-validator/set-pin-validator.component.html</context>
+          <context context-type="linenumber">12,14</context>
+        </context-group>
+        <note priority="1" from="description">noPrefixLetterForPin</note>
+      </trans-unit>
+      <trans-unit id="8897637289654037091" datatype="html">
+        <source>
+        at least one digit
+      </source>
+        <target state="new">
+        mind. eine Ziffer
+      </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/set-pin-validator/set-pin-validator.component.html</context>
+          <context context-type="linenumber">15,17</context>
+        </context-group>
+        <note priority="1" from="description">noPrefixDigitForPin</note>
+      </trans-unit>
+      <trans-unit id="1263253676591970830" datatype="html">
+        <source>
+        at least one special character from (<x id="INTERPOLATION" equiv-text="{{ SPECIAL_CHARACTERS }}"/>)
+      </source>
+        <target state="new">
+        mind. ein Sonderzeichen aus (<x id="INTERPOLATION" equiv-text="{{ SPECIAL_CHARACTERS }}"/>)
+      </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/set-pin-validator/set-pin-validator.component.html</context>
+          <context context-type="linenumber">18,20</context>
+        </context-group>
+        <note priority="1" from="description">noPrefixSpecialCharacterForPin</note>
+      </trans-unit>
+      <trans-unit id="2924314795002027569" datatype="html">
+        <source>
+        at least one special character
+        
+        <x id="START_TAG_NG_CONTAINER" ctype="x-ng_container" equiv-text="&lt;ng-container *ngIf=&quot;!requiresSpecial()&quot;>"/>not in (<x id="INTERPOLATION" equiv-text="{{ SPECIAL_CHARACTERS }}"/>)<x id="CLOSE_TAG_NG_CONTAINER" ctype="x-ng_container" equiv-text="&lt;/ng-container>"/>
+        e.g. <x id="INTERPOLATION_1" equiv-text="{{ &quot; Æäöüß&quot; }}"/>
+      </source>
+        <target state="new">
+        mind. ein Sonderzeichen
+
+        <x id="START_TAG_NG_CONTAINER" ctype="x-ng_container" equiv-text="&lt;ng-container *ngIf=&quot;!requiresSpecial()&quot;>"/>nicht aus (<x id="INTERPOLATION" equiv-text="{{ SPECIAL_CHARACTERS }}"/>)<x id="CLOSE_TAG_NG_CONTAINER" ctype="x-ng_container" equiv-text="&lt;/ng-container>"/>
+        z. B. <x id="INTERPOLATION_1" equiv-text="{{ &quot; Æäöüß&quot; }}"/>
+      </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/set-pin-validator/set-pin-validator.component.html</context>
+          <context context-type="linenumber">21,26</context>
+        </context-group>
+        <note priority="1" from="description">noPrefixOtherSpecialCharacterForPin</note>
+      </trans-unit>
+      <trans-unit id="pinValidationPlusPrefix" datatype="html">
+        <source>
+        at least <x id="INTERPOLATION" equiv-text="{{ getTextForPrefixRule('+') }}"/> (any other character is disallowed)
+      </source>
+        <target state="new">
+        mind. <x id="INTERPOLATION" equiv-text="{{ getTextForPrefixRule('+') }}"/> (andere Zeichen sind nicht erlaubt)
+      </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/set-pin-validator/set-pin-validator.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pinValidationMinusPrefix" datatype="html">
+        <source>
+        at least <x id="INTERPOLATION" equiv-text="{{ getTextForPrefixRule('-') }}"/> (any other character is disallowed)
+      </source>
+        <target state="translated">
+        mind. <x id="INTERPOLATION" equiv-text="{{ getTextForPrefixRule('+') }}"/> (andere Zeichen sind nicht erlaubt)
+      </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/set-pin-validator/set-pin-validator.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pinLetter" datatype="html">
+        <source>a letter</source>
+        <target state="new"> ein Buchstabe </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/set-pin-validator/set-pin-validator.component.ts</context>
+          <context context-type="linenumber">117</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pinDigit" datatype="html">
+        <source>a digit</source>
+        <target state="new"> eine Ziffer </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/set-pin-validator/set-pin-validator.component.ts</context>
+          <context context-type="linenumber">118</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pinSpecial" datatype="html">
+        <source>a special character from (.:,;-_&lt;>+*!/()=?$§%&amp;#~^)</source>
+        <target state="new"> ein Sonderzeichen aus (.:,;-_&lt;>+*!/()=?$§%&amp;#~^) </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/set-pin-validator/set-pin-validator.component.ts</context>
+          <context context-type="linenumber">119</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pinOtherSpecial" datatype="html">
+        <source>a special character e.g. " Æäöüß</source>
+        <target state="new"> ein Sonderzeichen z.B. " Æäöüß" </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/set-pin-validator/set-pin-validator.component.ts</context>
+          <context context-type="linenumber">122</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pinOtherSpecialWithoutCommonSpecial" datatype="html">
+        <source>a special character not in (<x id="PH" equiv-text="SPECIAL_CHARACTERS"/>) e.g. " Æäöüß"</source>
+        <target state="new">ein Sonderzeichen nicht aus (<x id="PH" equiv-text="SPECIAL_CHARACTERS"/>) z. B. " Æäöüß"</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/set-pin-validator/set-pin-validator.component.ts</context>
+          <context context-type="linenumber">125</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="or" datatype="html">
+        <source> or </source>
+        <target state="new"> oder </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/set-pin-validator/set-pin-validator.component.ts</context>
+          <context context-type="linenumber">129</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="and" datatype="html">
+        <source> and </source>
+        <target state="new"> und </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/set-pin-validator/set-pin-validator.component.ts</context>
+          <context context-type="linenumber">129</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="1519229157723508507" datatype="html">
         <source>Test <x id="INTERPOLATION" equiv-text="{{ typeDetails.name }}"/></source>
         <target state="new">
@@ -765,7 +935,7 @@
         <target state="translated">PIN festgelegt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-dialog-base.directive.ts</context>
-          <context context-type="linenumber">194</context>
+          <context context-type="linenumber">197</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
@@ -909,7 +1079,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.html</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">32</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
@@ -1140,7 +1310,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/token-pin-form-layout/token-pin-form-layout.component.ts</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="otpPinRecommendedInfo" datatype="html">
@@ -1149,7 +1319,7 @@
         <target state="new">Sicherheitshalber wird empfohlen, für Ihren Token eine PIN festzulegen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/token-pin-form-layout/token-pin-form-layout.component.ts</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="oathStepperOtpPinInfo" datatype="html">
@@ -1164,7 +1334,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/token-pin-form-layout/token-pin-form-layout.component.ts</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5107596433013784749" datatype="html">
@@ -1172,7 +1342,7 @@
         <target state="new">OTP-PIN bestätigen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/token-pin-form-layout/token-pin-form-layout.component.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="pinsDoNotMatchError" datatype="html">
@@ -1180,7 +1350,7 @@
         <target state="translated">Die eingegebenen PINs sind nicht gleich</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/token-pin-form-layout/token-pin-form-layout.component.ts</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
       <trans-unit id="oathStepperTokenDescriptionInfo" datatype="html">
@@ -1353,7 +1523,7 @@
         <target state="translated">PIN vergeben</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.html</context>
-          <context context-type="linenumber">38</context>
+          <context context-type="linenumber">39</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
@@ -1625,7 +1795,7 @@
         <target state="translated">Der noch nicht aktivierte Token wird gelöscht.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-dialog-base.directive.ts</context>
-          <context context-type="linenumber">142</context>
+          <context context-type="linenumber">145</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1552149428703580410" datatype="html">
@@ -1633,7 +1803,7 @@
         <target state="translated">Der unvollständig eingerichtete Token wird nicht benutzbar sein.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-dialog-base.directive.ts</context>
-          <context context-type="linenumber">143</context>
+          <context context-type="linenumber">146</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8866362071254927692" datatype="html">
@@ -1642,7 +1812,7 @@
           Token benutzen zu können.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-dialog-base.directive.ts</context>
-          <context context-type="linenumber">144</context>
+          <context context-type="linenumber">147</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1500753035555458197" datatype="html">
@@ -1650,7 +1820,7 @@
         <target state="translated">Tokeneinrichtung abbrechen?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-dialog-base.directive.ts</context>
-          <context context-type="linenumber">156</context>
+          <context context-type="linenumber">159</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9178182467454450952" datatype="html">
@@ -1658,7 +1828,7 @@
         <target state="translated">Bestätigen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-dialog-base.directive.ts</context>
-          <context context-type="linenumber">158</context>
+          <context context-type="linenumber">161</context>
         </context-group>
       </trans-unit>
       <trans-unit id="154514244524342578" datatype="html">
@@ -1666,7 +1836,7 @@
         <target state="translated">Der unvollständig eingerichtete Token wurde gelöscht</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-dialog-base.directive.ts</context>
-          <context context-type="linenumber">169</context>
+          <context context-type="linenumber">172</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2999727617066479407" datatype="html">
@@ -2944,7 +3114,7 @@
         <target state="new">Token erfolgreich registriert.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-dialog-base.directive.ts</context>
-          <context context-type="linenumber">103</context>
+          <context context-type="linenumber">106</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-password-dialog/enroll-password-dialog.component.ts</context>
@@ -3041,7 +3211,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/set-pin-dialog/set-pin-dialog.component.html</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6287334326586741831" datatype="html">
@@ -3652,7 +3822,7 @@
         <target state="translated">Token-Registrierung</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/enrollment.service.ts</context>
-          <context context-type="linenumber">86</context>
+          <context context-type="linenumber">94</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5990826891101915633" datatype="html">
@@ -3660,7 +3830,7 @@
         <target state="translated">Token-Aktivierung</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/enrollment.service.ts</context>
-          <context context-type="linenumber">119</context>
+          <context context-type="linenumber">127</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5779804871819153372" datatype="html">
@@ -3668,7 +3838,7 @@
         <target state="translated">Abruf des Challenge-Status</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/enrollment.service.ts</context>
-          <context context-type="linenumber">133</context>
+          <context context-type="linenumber">141</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3468623393069422824" datatype="html">
@@ -3677,7 +3847,7 @@
           Administrator.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/enrollment.service.ts</context>
-          <context context-type="linenumber">160</context>
+          <context context-type="linenumber">168</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2642975071204583875" datatype="html">
@@ -3686,7 +3856,7 @@
           zugewiesen. Kontaktieren Sie bitte einen Administrator.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/enrollment.service.ts</context>
-          <context context-type="linenumber">179</context>
+          <context context-type="linenumber">187</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7484742645971454280" datatype="html">
@@ -3695,7 +3865,7 @@
           Realm). Kontaktieren Sie bitte einen Administrator.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/enrollment.service.ts</context>
-          <context context-type="linenumber">182</context>
+          <context context-type="linenumber">190</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9140733115483222131" datatype="html">
@@ -3703,7 +3873,7 @@
         <target state="translated">Ein API-Abruf</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/enrollment.service.ts</context>
-          <context context-type="linenumber">197</context>
+          <context context-type="linenumber">205</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3537482308577662516" datatype="html">
@@ -3714,7 +3884,7 @@
           versuchen Sie es erneut.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/enrollment.service.ts</context>
-          <context context-type="linenumber">199</context>
+          <context context-type="linenumber">207</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4972370163984978038" datatype="html">
@@ -3725,7 +3895,7 @@
           die maximale Anzahl an Token für Ihr Konto erreicht.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/enrollment.service.ts</context>
-          <context context-type="linenumber">201</context>
+          <context context-type="linenumber">209</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4001846779762798502" datatype="html">
@@ -3736,7 +3906,7 @@
           die maximale Anzahl an Token dieses Tokentyps.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/enrollment.service.ts</context>
-          <context context-type="linenumber">202</context>
+          <context context-type="linenumber">210</context>
         </context-group>
       </trans-unit>
       <trans-unit id="471673605810896911" datatype="html">
@@ -3747,7 +3917,7 @@
           keinen neuen Token mehr registrieren, da Ihr Realm die maximale Tokenanzahl erreicht hat.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/enrollment.service.ts</context>
-          <context context-type="linenumber">203</context>
+          <context context-type="linenumber">211</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4582025863876888028" datatype="html">
