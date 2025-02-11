@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { TestBed, inject } from '@angular/core/testing';
+import { inject, TestBed } from '@angular/core/testing';
 
 
 import { Fixtures, getSelfserviceTokenFixture } from '@testing/fixtures';
@@ -12,6 +12,7 @@ import { NotificationService } from '@common/notification.service';
 import { EnrollmentService } from './enrollment.service';
 import { EnrollmentStatus, TokenType } from './token';
 import { TokenService } from './token.service';
+import { NgxPermissionsService } from "ngx-permissions";
 
 const session = '';
 
@@ -35,6 +36,10 @@ describe('EnrollmentService', () => {
       imports: [HttpClientTestingModule],
       providers: [
         EnrollmentService,
+        {
+          provide: NgxPermissionsService,
+          useValue: spyOnClass(NgxPermissionsService),
+        },
         {
           provide: SessionService,
           useValue: {

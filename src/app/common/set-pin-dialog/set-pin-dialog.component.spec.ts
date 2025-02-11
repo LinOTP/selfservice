@@ -13,6 +13,7 @@ import { MaterialModule } from '@app/material.module';
 
 import { MockComponent } from '@testing/mock-component';
 import { SetPinDialogComponent } from './set-pin-dialog.component';
+import { SetPinValidatorComponent } from "@app/set-pin-validator/set-pin-validator.component";
 
 class Page extends TestingPage<SetPinDialogComponent> {
 
@@ -38,6 +39,7 @@ describe('SetPinDialogComponent', () => {
       ],
       declarations: [
         SetPinDialogComponent,
+        SetPinValidatorComponent,
         MockComponent({ selector: 'app-token-dialog-header', inputs: ['token'] }),
         MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] })
       ],
@@ -62,6 +64,7 @@ describe('SetPinDialogComponent', () => {
     operationsService = TestBed.inject(OperationsService);
     matDialogRef = TestBed.inject(MatDialogRef);
 
+    spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify({ otp_pin_minlength: 1 }));
     fixture = TestBed.createComponent(SetPinDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -156,6 +156,7 @@ describe('The EnrollPasswordDialogComponent', () => {
     }));
 
     it('should enroll a password token with otppin', fakeAsync(() => {
+      spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify({ otp_pin_minlength: 1 }));
       (component as any).setOtpPinPolicyEnabled = true;
       enrollmentService.enroll.and.returnValue(of(Fixtures.PasswordEnrollmentResponse));
 
@@ -178,6 +179,7 @@ describe('The EnrollPasswordDialogComponent', () => {
         otppin: '1234'
       });
     }));
+
 
     it('should enroll a password token with a custom description', fakeAsync(() => {
       enrollmentService.enroll.and.returnValue(of(Fixtures.PasswordEnrollmentResponse));
