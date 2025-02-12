@@ -66,6 +66,6 @@ export class EnrollPushQRDialogComponent extends EnrollDialogBase implements OnI
     this.dialogRef.afterClosed().pipe(
       switchMap(() => this.dialog.open(ActivateDialogComponent, testConfig).afterClosed())
     ).subscribe();
-    this.dialogRef.close();
+    this.close();
   }
 }

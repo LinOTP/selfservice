@@ -227,9 +227,9 @@ describe('The EnrollPasswordDialogComponent', () => {
       component.enrolledToken = { serial: 'serial', type: TokenType.PASSWORD };
       fixture.detectChanges();
 
-      component.finalizeEnrollment();
+      component.close();
       expect(dialog.open).not.toHaveBeenCalled();
-      expect(dialogRef.close).toHaveBeenCalledWith(true);
+      expect(dialogRef.close).toHaveBeenCalled();
     });
   });
 });

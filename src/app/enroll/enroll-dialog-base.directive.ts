@@ -83,9 +83,13 @@ export abstract class EnrollDialogBase implements OnInit, OnDestroy {
   }
 
   /**
-   * Close the enrollment dialog without further action.
+   * If a token has been created successfully, update the token list.
+   * Close the enrollment dialog.
    */
   public close() {
+    if (this.isTokenCreated()) {
+      this.tokenService.updateTokenList();
+    }
     this.dialogRef.close();
   }
 
@@ -132,7 +136,7 @@ export abstract class EnrollDialogBase implements OnInit, OnDestroy {
         })
       ).subscribe()
     }
-    this.dialogRef.close();
+    this.close();
   }
 
   /**
@@ -180,7 +184,7 @@ export abstract class EnrollDialogBase implements OnInit, OnDestroy {
       }),
       filter(confirmed => confirmed),
     ).subscribe(() => {
-      this.dialogRef.close();
+      this.close();
     });
   }
 
@@ -222,6 +226,10 @@ export abstract class EnrollDialogBase implements OnInit, OnDestroy {
     return from(Promise.all([verify, setPin])).pipe(
       map(([verify, setPin]) => ({ verify, setPin }))
     )
+  }
+
+  private isTokenCreated(): boolean {
+    return this.enrolledToken?.serial?.length > 0;
   }
 
 }

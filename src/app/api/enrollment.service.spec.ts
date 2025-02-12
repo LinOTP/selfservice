@@ -87,7 +87,6 @@ describe('EnrollmentService', () => {
             type: type,
           }).subscribe(response => {
             expect(response).toEqual(null);
-            expect(tokenService.updateTokenList).toHaveBeenCalledTimes(1);
           });
 
           const expectedType = enrollmentType ? enrollmentType : type;
@@ -107,7 +106,6 @@ describe('EnrollmentService', () => {
 
         enrollmentService.enroll({ type: TokenType.HOTP }).subscribe(res => {
           expect(notificationService.errorMessage).toHaveBeenCalledWith('Token registration failed: Please try again.');
-          expect(tokenService.updateTokenList).toHaveBeenCalledTimes(1);
         });
 
         const request = backend.expectOne((req) => req.body.type === TokenType.HOTP);
@@ -124,7 +122,6 @@ describe('EnrollmentService', () => {
 
         enrollmentService.assign('serial', 'description').subscribe(response => {
           expect(response).toEqual({ success: true });
-          expect(tokenService.updateTokenList).toHaveBeenCalledTimes(1);
         });
 
         const request = backend.expectOne((req) => req.url === '/userservice/assign' && req.method === 'POST');
@@ -141,7 +138,6 @@ describe('EnrollmentService', () => {
 
         enrollmentService.assign('serial', 'description').subscribe(response => {
           expect(response).toEqual({ success: false, message: returnedMessage });
-          expect(tokenService.updateTokenList).toHaveBeenCalledTimes(0);
         });
 
         const request = backend.expectOne((req) => req.url === '/userservice/assign' && req.method === 'POST');
@@ -160,7 +156,6 @@ describe('EnrollmentService', () => {
 
         enrollmentService.assign('serial', 'description').subscribe(response => {
           expect(response).toEqual({ success: false, message: returnedMessage });
-          expect(tokenService.updateTokenList).toHaveBeenCalledTimes(0);
         });
 
         const request = backend.expectOne((req) => req.url === '/userservice/assign' && req.method === 'POST');
@@ -178,7 +173,6 @@ describe('EnrollmentService', () => {
 
         enrollmentService.assign('serial', 'description').subscribe(response => {
           expect(response).toEqual({ success: false, message: returnedMessage });
-          expect(tokenService.updateTokenList).toHaveBeenCalledTimes(0);
         });
 
         const request = backend.expectOne((req) => req.url === '/userservice/assign' && req.method === 'POST');
@@ -196,7 +190,6 @@ describe('EnrollmentService', () => {
 
         enrollmentService.assign('serial', 'description').subscribe(response => {
           expect(response).toEqual({ success: false, message: returnedMessage });
-          expect(tokenService.updateTokenList).toHaveBeenCalledTimes(0);
         });
 
         const request = backend.expectOne((req) => req.url === '/userservice/assign' && req.method === 'POST');
@@ -215,7 +208,6 @@ describe('EnrollmentService', () => {
         enrollmentService.assign('serial', 'description').subscribe(response => {
           expect(notificationService.errorMessage).toHaveBeenCalledWith('assign failed: Please try again.');
           expect(response).toEqual({ success: false });
-          expect(tokenService.updateTokenList).toHaveBeenCalledTimes(0);
         });
 
         const request = backend.expectOne((req) => req.url === '/userservice/assign' && req.method === 'POST');
@@ -249,7 +241,6 @@ describe('EnrollmentService', () => {
 
           enrollmentService.activate('serial', 'pin').subscribe(response => {
             expect(response).toEqual(serverResponse.detail);
-            expect(tokenService.updateTokenList).toHaveBeenCalledTimes(1);
           });
 
           const request = backend.expectOne((req) =>
