@@ -31,7 +31,7 @@ export class EnrollPasswordDialogComponent extends EnrollDialogBase {
     this.enrollmentService.enroll(body).subscribe(token => {
       if (token?.serial) {
         this.enrolledToken = { serial: token.serial, type: TokenType.PASSWORD };
-        this.finalizeEnrollment();
+        this.close();
         this.notificationService.message($localize`Token enrolled successfully.`);
       } else {
         this.createTokenForm.enable();
@@ -39,9 +39,6 @@ export class EnrollPasswordDialogComponent extends EnrollDialogBase {
     });
   }
 
-  public finalizeEnrollment() {
-    this.dialogRef.close(true);
-  }
 }
 
 class ConfirmPasswordErrorStateMatcher implements ErrorStateMatcher {

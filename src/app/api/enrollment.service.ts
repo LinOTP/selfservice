@@ -82,7 +82,6 @@ export class EnrollmentService {
 
     return this.http.post<LinOTPResponse<boolean, EnrollmentDetail>>(enrollEndpoint, body)
       .pipe(
-        tap(() => this.tokenService.updateTokenList()), //TODO: move to back of pipe once tests support it
         tap(response => {
           if (!response?.result?.status
             || !response?.result?.value

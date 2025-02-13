@@ -9,7 +9,7 @@ import { LoginService } from '@app/login/login.service';
 import { SelfServiceContextService } from '@app/selfservice-context.service';
 import { TokenLimitsService } from '@app/token-limits.service';
 import { Permission } from '@common/permissions';
-import { Subscription, combineLatest } from 'rxjs';
+import { combineLatest, Subscription } from 'rxjs';
 import { TokenVerifyCheckService } from './token-verify-check.service';
 
 @Component({
@@ -45,7 +45,7 @@ export class TokenListComponent implements OnInit, OnDestroy {
       filter(err => err),
     ).subscribe( () => {
       this.criticalError = true;
-     }); 
+    });
     this.subscription.add(permissionLoadFailureSub);
 
     const loginSub = this.loginService.permissionLoad$.pipe(
@@ -56,8 +56,8 @@ export class TokenListComponent implements OnInit, OnDestroy {
     });
 
     this.subscription.add(loginSub);
- 
-    const tokenUpdateSub = this.tokenService.tokenUpdateEmitted$.subscribe( () => { 
+
+    const tokenUpdateSub = this.tokenService.tokenUpdateEmitted$.subscribe(() => {
         this.loadTokens();
       });
     this.subscription.add(tokenUpdateSub);
@@ -67,19 +67,20 @@ export class TokenListComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  loadTokens() { 
+  loadTokens() {
+    this.loaded = false;
     const tokens$ = this.tokenService.getSelfserviceTokens().pipe(tap(tokens => {
       this.tokens = tokens;
     }));
     const tokenLimitsReady$ = combineLatest([tokens$, this.selfServiceContextService.tokenLimits$])
     this.subscription.add(tokenLimitsReady$.subscribe(([tokens, limits]) => {
-    this.tokenLimitsService.setTokenLimits({ tokenLimits: limits, tokens });
+      this.tokenLimitsService.setTokenLimits({ tokenLimits: limits, tokens });
       this.loaded = true
       const context = new AuthLockedEvaluatorContextInfo(this.selfServiceContextService.context)
       const rules = new AuthLockedStatusEvaluator(this.tokens, context)
       this.isUserLocked = rules.isUsersAuthLocked()
       this.warnTokensNotVerified = this.tokenVerifyCheck.shouldWarnAboutNotVerifiedTokens(this.tokens)
     }))
-    
+
   }
 }
