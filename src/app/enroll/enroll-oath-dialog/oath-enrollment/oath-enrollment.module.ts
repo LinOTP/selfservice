@@ -7,12 +7,12 @@ import { TokenPinFormLayoutComponent } from "@app/enroll/token-pin-form-layout/t
 import { MaterialModule } from "@app/material.module";
 import { QRCodeModule } from "angularx-qrcode";
 import { NgxPermissionsModule } from "ngx-permissions";
-import { CreateTokenStepComponent } from "./create-token-step.component";
-import { DoneStepComponent } from "./done-step.component";
+import { CreateTokenStepComponent } from "../../create-token-step/create-token-step.component";
+import { DoneStepComponent } from "../../done-step/done-step.component";
 import { FocusOnStepperChangeDirective } from "./focus-on-stepper-change.directive";
 import { ImportTokenStepComponent } from "./import-token-step/import-token-step.component";
 import { TokenInfoComponent } from "./token-info.component";
-import { VerifyTokenComponent } from "./verify-token/verify-token.component";
+import { VerifyTokenComponent } from "@app/enroll/verify-token/verify-token.component";
 
 @NgModule({
     declarations: [CreateTokenStepComponent, FocusOnStepperChangeDirective, ImportTokenStepComponent, VerifyTokenComponent, DoneStepComponent, TokenInfoComponent],
