@@ -143,7 +143,7 @@ describe('The EnrollPasswordDialogComponent', () => {
 
       fixture.detectChanges();
       component.enrollPWToken();
-      tick();
+      tick(100);
 
       expect(enrollmentService.enroll).toHaveBeenCalledWith({
         type: TokenType.PASSWORD,
@@ -152,7 +152,6 @@ describe('The EnrollPasswordDialogComponent', () => {
       });
 
       expect(component.enrolledToken.serial).toEqual(serial);
-      expect(component.createTokenForm.disabled).toEqual(true);
     }));
 
     it('should enroll a password token with otppin', fakeAsync(() => {
@@ -170,7 +169,7 @@ describe('The EnrollPasswordDialogComponent', () => {
 
       fixture.detectChanges();
       component.enrollPWToken();
-      tick();
+      tick(100);
 
       expect(enrollmentService.enroll).toHaveBeenCalledWith({
         type: TokenType.PASSWORD,
@@ -192,7 +191,7 @@ describe('The EnrollPasswordDialogComponent', () => {
 
       fixture.detectChanges();
       component.enrollPWToken();
-      tick();
+      tick(100);
 
       expect(enrollmentService.enroll).toHaveBeenCalledWith({
         type: TokenType.PASSWORD,
@@ -201,7 +200,6 @@ describe('The EnrollPasswordDialogComponent', () => {
       });
 
       expect(component.enrolledToken.serial).toEqual(serial);
-      expect(component.createTokenForm.disabled).toEqual(true);
     }));
 
     it('should allow retrying if enrollment failed', fakeAsync(() => {

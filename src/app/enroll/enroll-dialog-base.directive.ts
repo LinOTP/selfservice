@@ -18,7 +18,7 @@ import { DialogComponent } from '@common/dialog/dialog.component';
 import { NotificationService } from '@common/notification.service';
 import { Permission } from '@common/permissions';
 import { SetPinDialogComponent } from '@common/set-pin-dialog/set-pin-dialog.component';
-import { getCreateTokenStepForm } from "@app/enroll/enroll-oath-dialog/oath-enrollment/create-token-step.component";
+import { getCreateTokenStepForm } from "@app/enroll/create-token-step/create-token-step.component";
 import { MatStepper } from "@angular/material/stepper";
 
 
@@ -109,7 +109,7 @@ export abstract class EnrollDialogBase implements OnInit, OnDestroy {
       tap(() => {
         this.notificationService.message($localize`Token enrolled successfully.`);
         setTimeout(() => {
-          stepper.steps.get(0).completed = true;
+          stepper.steps.get(stepper.selectedIndex).completed = true;
           stepper.next();
         }, 100);
       }),
