@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { StepActionsComponent } from './step-actions.component';
+import { NgSelfServiceCommonModule } from "@common/common.module";
 
 describe('CreateTokenActionsComponent', () => {
   let component: StepActionsComponent;
@@ -8,7 +9,8 @@ describe('CreateTokenActionsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [StepActionsComponent]
+      declarations: [StepActionsComponent],
+      imports: [NgSelfServiceCommonModule]
     });
     fixture = TestBed.createComponent(StepActionsComponent);
     component = fixture.componentInstance;

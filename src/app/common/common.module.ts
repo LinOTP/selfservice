@@ -32,6 +32,10 @@ import { TokenDialogHeaderComponent } from './token-dialog-header/token-dialog-h
 import { UnassignTokenDialogComponent } from './unassign-token-dialog/unassign-token-dialog.component';
 import { SetPinValidatorComponent } from "@app/set-pin-validator/set-pin-validator.component";
 import { StepActionsComponent } from "@app/enroll/step-actions/step-actions.component";
+import { FocusOnStepperChangeDirective } from "@app/enroll/enroll-oath-dialog/oath-enrollment/focus-on-stepper-change.directive";
+import { A11yModule } from "@angular/cdk/a11y";
+import { NgxPermissionsModule } from "ngx-permissions";
+import { TokenInfoComponent } from "@app/enroll/enroll-oath-dialog/oath-enrollment/token-info.component";
 
 
 @NgModule({
@@ -41,6 +45,8 @@ import { StepActionsComponent } from "@app/enroll/step-actions/step-actions.comp
     FormsModule,
     ReactiveFormsModule,
     QRCodeModule,
+    A11yModule,
+    NgxPermissionsModule.forChild()
   ],
   declarations: [
     QRCodeComponent,
@@ -65,6 +71,8 @@ import { StepActionsComponent } from "@app/enroll/step-actions/step-actions.comp
     TokenDialogHeaderComponent,
     SetPinValidatorComponent,
     StepActionsComponent,
+    FocusOnStepperChangeDirective,
+    TokenInfoComponent,
   ],
   providers: [
     NotificationService,
@@ -82,7 +90,9 @@ import { StepActionsComponent } from "@app/enroll/step-actions/step-actions.comp
     DeleteTokenDialogComponent,
     TokenDialogHeaderComponent,
     SetPinValidatorComponent,
-    StepActionsComponent
+    StepActionsComponent,
+    FocusOnStepperChangeDirective,
+    TokenInfoComponent,
   ]
 })
 export class NgSelfServiceCommonModule { }

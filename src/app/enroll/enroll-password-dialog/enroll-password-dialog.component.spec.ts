@@ -1,12 +1,10 @@
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { NgxPermissionsAllowStubDirective, NgxPermissionsService } from 'ngx-permissions';
+import { NgxPermissionsService } from 'ngx-permissions';
 import { of } from 'rxjs';
 
 
@@ -22,8 +20,8 @@ import { MaterialModule } from '@app/material.module';
 import { NotificationService } from '@common/notification.service';
 
 import { TokenType } from '@app/api/token';
-import { TokenPinFormLayoutComponent } from '../token-pin-form-layout/token-pin-form-layout.component';
 import { EnrollPasswordDialogComponent } from './enroll-password-dialog.component';
+import { AppModule } from "@app/app.module";
 
 
 describe('The EnrollPasswordDialogComponent', () => {
@@ -48,8 +46,7 @@ describe('The EnrollPasswordDialogComponent', () => {
         ReactiveFormsModule,
         MaterialModule,
         NoopAnimationsModule,
-        NgxPermissionsAllowStubDirective,
-        TokenPinFormLayoutComponent
+        AppModule
       ],
       providers: [
         {
@@ -115,7 +112,6 @@ describe('The EnrollPasswordDialogComponent', () => {
   });
 
   it('should not allow enrollment if the passwords differ', fakeAsync(() => {
-    const button: MatButton = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
     component.data.tokenType = TokenType.PASSWORD;
     component.createTokenForm.controls.password.setValue('111111');
     component.createTokenForm.controls.confirmation.setValue('222222');
@@ -123,7 +119,7 @@ describe('The EnrollPasswordDialogComponent', () => {
     fixture.detectChanges();
 
     tick();
-    expect(button.disabled).toEqual(true);
+    expect(component.createTokenForm.invalid).toEqual(true);
     expect(component.createTokenForm.disabled).toEqual(false);
 
   }));

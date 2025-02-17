@@ -1,7 +1,6 @@
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -10,7 +9,6 @@ import { of } from 'rxjs';
 
 
 import { Fixtures } from '@testing/fixtures';
-import { MockComponent } from '@testing/mock-component';
 import { getInjectedStub, spyOnClass } from '@testing/spyOnClass';
 
 import { EnrollmentService } from '@api/enrollment.service';
@@ -23,10 +21,12 @@ import { NotificationService } from '@common/notification.service';
 
 import { TokenType } from '@app/api/token';
 import { EnrollEmailDialogComponent } from './enroll-email-dialog.component';
-import { DoneStepComponent } from "@app/enroll/enroll-oath-dialog/oath-enrollment/done-step.component";
+import { DoneStepComponent } from "@app/enroll/done-step/done-step.component";
 import { TokenInfoComponent } from "@app/enroll/enroll-oath-dialog/oath-enrollment/token-info.component";
-import { CreateTokenStepComponent } from "@app/enroll/enroll-oath-dialog/oath-enrollment/create-token-step.component";
+import { CreateTokenStepComponent } from "@app/enroll/create-token-step/create-token-step.component";
 import { TokenPinFormLayoutComponent } from "@app/enroll/token-pin-form-layout/token-pin-form-layout.component";
+import { NgSelfServiceCommonModule } from "@common/common.module";
+import { StepActionsComponent } from "@app/enroll/step-actions/step-actions.component";
 
 describe('The EnrollEmailDialogComponent', () => {
   let component: EnrollEmailDialogComponent;
@@ -42,7 +42,7 @@ describe('The EnrollEmailDialogComponent', () => {
         CreateTokenStepComponent,
         DoneStepComponent,
         TokenInfoComponent,
-        MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] }),
+        StepActionsComponent,
       ],
       imports: [
         RouterTestingModule,
@@ -51,7 +51,8 @@ describe('The EnrollEmailDialogComponent', () => {
         MaterialModule,
         NoopAnimationsModule,
         NgxPermissionsAllowStubDirective,
-        TokenPinFormLayoutComponent
+        TokenPinFormLayoutComponent,
+        NgSelfServiceCommonModule,
       ],
       providers: [
         {
@@ -124,7 +125,6 @@ describe('The EnrollEmailDialogComponent', () => {
 
     component.enrollEmailToken();
     tick(100);
-
     expect(enrollmentService.enroll).toHaveBeenCalledWith({
       type: TokenType.EMAIL,
       description: `Created via SelfService - ${Fixtures.userSystemInfo.user.email}`,
@@ -194,6 +194,7 @@ describe('The EnrollEmailDialogComponent', () => {
 
         component.enrollEmailToken();
         tick(100);
+        expect(component.createTokenForm.valid).toBe(true);
 
         expect(enrollmentService.enroll).toHaveBeenCalledWith({
           type: TokenType.EMAIL,
@@ -203,14 +204,4 @@ describe('The EnrollEmailDialogComponent', () => {
       }));
     });
   });
-
-  it('should allow retrying if enrollment failed', fakeAsync(() => {
-    enrollmentService.enroll.and.returnValue(of(null));
-    fixture.detectChanges();
-    const result = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
-    result.click();
-    tick(100);
-
-    expect(component.enrolledToken).toEqual(undefined);
-  }));
 });

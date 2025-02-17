@@ -1,4 +1,3 @@
-
 import { EnrollmentDetail } from '@api/enrollment.service';
 import { HistoryField, HistoryPage, HistoryRequestOptions, HistoryResponse, SortOrder } from '@api/history';
 import { ReplyMode } from '@api/test.service';
@@ -389,7 +388,7 @@ export class Fixtures {
         description: 'description',
         phone: 'phone',
         mobile: 'mobile',
-        email: 'email',
+        email: 'test@email.com',
         givenname: 'givenname',
         surname: 'surname',
         gender: 'gender',

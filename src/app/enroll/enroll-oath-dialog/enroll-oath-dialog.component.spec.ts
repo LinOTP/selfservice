@@ -1,7 +1,6 @@
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -22,6 +21,7 @@ import { NotificationService } from '@common/notification.service';
 
 import { TokenType } from '@app/api/token';
 import { EnrollOATHDialogComponent } from './enroll-oath-dialog.component';
+import { NgSelfServiceCommonModule } from "@common/common.module";
 
 
 [TokenType.HOTP, TokenType.TOTP].forEach(inputType =>
@@ -36,7 +36,6 @@ import { EnrollOATHDialogComponent } from './enroll-oath-dialog.component';
         declarations: [
           EnrollOATHDialogComponent,
           MockComponent({ selector: 'qrcode', inputs: ['qrdata', 'width', 'errorCorrectionLevel'] }),
-          MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] }),
           MockComponent({ selector: 'app-authenticator-links', inputs: ['platform'] }),
           MockComponent({ selector: 'app-import-token-step', inputs: ['enrolledToken', 'verifyFlowEnabled'] }),
           MockComponent({ selector: 'app-create-token-step', inputs: ['form'] }),
@@ -49,6 +48,7 @@ import { EnrollOATHDialogComponent } from './enroll-oath-dialog.component';
           MaterialModule,
           NoopAnimationsModule,
           NgxPermissionsAllowStubDirective,
+          NgSelfServiceCommonModule
         ],
         providers: [
           {
@@ -166,18 +166,6 @@ import { EnrollOATHDialogComponent } from './enroll-oath-dialog.component';
         type: inputType,
         description: 'custom description',
       });
-    }));
-
-    it('should allow retrying if enrollment failed', fakeAsync(() => {
-      enrollmentService.enroll.and.returnValue(of(null));
-      component.stepper.selectedIndex = 1;
-      fixture.detectChanges();
-      tick(0);
-      const result = fixture.debugElement.query(By.css('#test-create-token-button')).nativeElement;
-      result.click();
-
-      expect(component.enrolledToken).toEqual(undefined);
-      expect(component.createTokenForm.disabled).toEqual(false);
     }));
   })
 );

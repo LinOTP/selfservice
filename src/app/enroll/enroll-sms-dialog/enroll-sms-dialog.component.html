@@ -26,8 +26,8 @@
     <app-step-actions
       [awaitingResponse]="awaitingResponse"
       [disableSubmit]="createTokenForm.invalid"
-      (onCancel)="close()"
-      (onSubmit)="enrollSMSToken()"
+      (cancelled)="close()"
+      (submitted)="enrollSMSToken()"
     >
     </app-step-actions>
   </ng-template>
@@ -47,8 +47,8 @@
     <app-step-actions
       [awaitingResponse]="undefined"
       [disableSubmit]="!isTokenVerified"
-      (onCancel)="cancel()"
-      (onSubmit)="stepper.next()"
+      (cancelled)="cancel()"
+      (submitted)="stepper.next()"
     >
     </app-step-actions>
   </ng-template>
@@ -63,7 +63,7 @@
   </mat-step>
 
   <ng-template #doneStepActions>
-    <app-step-actions [disableSubmit]="false" [isDoneStep]="true" (onSubmit)="close()"></app-step-actions>
+    <app-step-actions [disableSubmit]="false" [isDoneStep]="true" (submitted)="close()"></app-step-actions>
   </ng-template>
 </mat-horizontal-stepper>
 
