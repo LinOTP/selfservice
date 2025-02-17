@@ -1,0 +1,35 @@
+<ng-container *ngIf="!isDoneStep; else doneStepActions">
+  <button mat-button
+          type="button"
+          (click)="cancelled.emit()"
+          i18n>Cancel
+  </button>
+  <button mat-raised-button
+          color="primary"
+          type="submit"
+          (click)="submitted.emit()"
+          appFocusOnInit
+          [disabled]="disableSubmit">
+    <div class="button-content">
+      <app-button-wait-indicator
+        [show]="awaitingResponse"
+      ></app-button-wait-indicator>
+      <ng-container i18n>Next</ng-container>
+      <mat-icon>arrow_forward</mat-icon>
+    </div>
+  </button>
+</ng-container>
+
+
+<ng-template #doneStepActions>
+  <button
+    appFocusOnInit
+    mat-raised-button
+    color="primary"
+    type="button"
+    (click)="submitted.emit()"
+    i18n
+  >
+    Close
+  </button>
+</ng-template>

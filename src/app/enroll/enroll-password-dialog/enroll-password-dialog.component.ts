@@ -24,9 +24,6 @@ export class EnrollPasswordDialogComponent extends EnrollDialogBase {
       description: this.createTokenForm.get('description').value,
       otpkey: this.createTokenForm.get('password').value,
     };
-    if (this.setOtpPinPolicyEnabled) {
-      body.otppin = this.createTokenForm.get('otpPin').get('pin').value
-    }
     this.enrollToken(body, this.stepper).subscribe((token: EnrolledToken) => {
       this.enrolledToken = token;
     })

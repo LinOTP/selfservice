@@ -31,6 +31,7 @@ import { LockableActionDialogContentComponent } from './lockable-action-dialog-c
 import { TokenDialogHeaderComponent } from './token-dialog-header/token-dialog-header.component';
 import { UnassignTokenDialogComponent } from './unassign-token-dialog/unassign-token-dialog.component';
 import { SetPinValidatorComponent } from "@app/set-pin-validator/set-pin-validator.component";
+import { StepActionsComponent } from "@app/enroll/step-actions/step-actions.component";
 
 
 @NgModule({
@@ -63,6 +64,7 @@ import { SetPinValidatorComponent } from "@app/set-pin-validator/set-pin-validat
     LockableActionDialogContentComponent,
     TokenDialogHeaderComponent,
     SetPinValidatorComponent,
+    StepActionsComponent,
   ],
   providers: [
     NotificationService,
@@ -79,7 +81,8 @@ import { SetPinValidatorComponent } from "@app/set-pin-validator/set-pin-validat
     ButtonWaitIndicatorComponent,
     DeleteTokenDialogComponent,
     TokenDialogHeaderComponent,
-    SetPinValidatorComponent
+    SetPinValidatorComponent,
+    StepActionsComponent
   ]
 })
 export class NgSelfServiceCommonModule { }

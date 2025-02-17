@@ -27,7 +27,7 @@ export class EnrollOATHDialogComponent extends EnrollDialogBase implements OnIni
   public set tokenVerified(value) {
     this._tokenVerified = value;
 
-    if (value && this.selectedStep === 2 && this.verifyPolicyEnabled) {
+    if (value && this.stepper.selectedIndex === 2 && this.verifyPolicyEnabled) {
       setTimeout(() => {
         this.stepper.next();
       }, 100)
@@ -36,13 +36,9 @@ export class EnrollOATHDialogComponent extends EnrollDialogBase implements OnIni
   private _tokenVerified = false;
   private platformProvider = inject(PlatformProviderService)
   currentPlatform: CurrentPlatform = null
-  selectedStep = 0
 
   public ngOnInit() {
     this.currentPlatform = this.platformProvider.platform
-    this.subscriptions.push(this.stepper.selectionChange.subscribe((step) => {
-      this.selectedStep = step.selectedIndex;
-    }));
     super.ngOnInit();
   }
 

@@ -1,53 +1,38 @@
 <h2 mat-dialog-title i18n>Add {{ this.tokenDisplayData.name }}</h2>
 <mat-horizontal-stepper [linear]="true">
   <mat-step [completed]="false" [editable]="false">
+    <ng-template matStepLabel i18n>Create token</ng-template>
     <mat-dialog-content>
-      <ng-template matStepLabel i18n>Create token</ng-template>
       <p i18n="@@smsStepperCreateInstruction">Pair a new token with your mobile phone number to receive OTPs for authentication.</p>
-      <p *ngIf="!canEditPhone && userPhone"
-           i18n>The token will use your user mobile number: <b>{{userPhone}}</b></p>
-        <p *ngIf="!canEditPhone && !userPhone"
-           class="warning"
-           i18n>
+      <p *ngIf="!canEditPhone && userPhone" i18n>The token will use your user mobile number: <b>{{ userPhone }}</b></p>
+      <p *ngIf="!canEditPhone && !userPhone" class="warning" i18n>
           You have no mobile number assigned to your user account and the token will therefore not work after creation.
-          You
-          may need to contact your administrator for help.
+        You may need to contact your administrator for help.
         </p>
         <p i18n>You may set the following token details before creation:</p>
-      <form [formGroup]="createTokenForm"
-            (submit)="enrollSMSToken()">
+      <form [formGroup]="createTokenForm" (keydown.enter)="enrollSMSToken()">
         <mat-form-field *ngIf="canEditPhone">
           <mat-label i18n>Mobile phone number</mat-label>
-          <input matInput
-                 formControlName="phoneNumber"
-                 appFocusOnInit>
-          <mat-hint *ngIf="canEditPhone"
-                    i18n>Set the mobile phone number to use for your token</mat-hint>
-          <mat-error i18n
-                     *ngIf="createTokenForm.get('phoneNumber').hasError('required')">This field is required.
+          <input matInput formControlName="phoneNumber" appFocusOnInit>
+          <mat-hint *ngIf="canEditPhone" i18n>Set the mobile phone number to use for your token</mat-hint>
+          <mat-error i18n *ngIf="createTokenForm.get('phoneNumber').hasError('required')">
+            This field is required.
           </mat-error>
         </mat-form-field>
         <app-create-token-step [form]="createTokenForm"></app-create-token-step>
-        <mat-dialog-actions align="end">
-          <button mat-button
-                  type="button"
-                  (click)="close()"
-                  i18n>Cancel
-          </button>
-          <button mat-raised-button
-                  color="primary"
-                  type="submit"
-                  id="goTo2"
-                  [disabled]="createTokenForm.invalid || createTokenForm.disabled">
-            <div class="button-content">
-              <ng-container i18n>Next</ng-container>
-              <mat-icon>arrow_forward</mat-icon>
-            </div>
-          </button>
-        </mat-dialog-actions>
       </form>
     </mat-dialog-content>
   </mat-step>
+  <ng-template #createTokenStepActions>
+    <app-step-actions
+      [awaitingResponse]="awaitingResponse"
+      [disableSubmit]="createTokenForm.invalid"
+      (onCancel)="close()"
+      (onSubmit)="enrollSMSToken()"
+    >
+    </app-step-actions>
+  </ng-template>
+
 
   <mat-step *ngIf="verifyPolicyEnabled">
     <ng-template matStepLabel i18n>Verify</ng-template>
@@ -56,49 +41,42 @@
         An SMS token with the serial number {{ enrolledToken.serial }} has been created for the phone number <span class="underline">{{ enrolledToken.phone }}</span>.
         Please check your SMS messages for the first one-time password.
       </p>
-      <ng-container *ngxPermissionsOnly="Permission.VERIFY">
-        <app-verify-token [token]="enrolledToken" (tokenVerified)="isTokenVerified = true; stepper.next()"></app-verify-token>
-      </ng-container>
+      <app-verify-token [token]="enrolledToken" (tokenVerified)="isTokenVerified = true; stepper.next()"></app-verify-token>
     </mat-dialog-content>
-
-    <mat-dialog-actions align="end">
-      <button mat-button
-              type="button"
-              (click)="cancel()"
-              i18n>Cancel
-      </button>
-      <button mat-raised-button
-              color="primary"
-              [disabled]="!isTokenVerified"
-              (click)="stepper.next()">
-        <div class="button-content">
-          <ng-container i18n>Next</ng-container>
-          <mat-icon>arrow_forward</mat-icon>
-        </div>
-      </button>
-    </mat-dialog-actions>
   </mat-step>
+  <ng-template #verifyTokenStepActions>
+    <app-step-actions
+      [awaitingResponse]="undefined"
+      [disableSubmit]="!isTokenVerified"
+      (onCancel)="cancel()"
+      (onSubmit)="stepper.next()"
+    >
+    </app-step-actions>
+  </ng-template>
 
   <mat-step>
     <ng-template matStepLabel i18n>Done</ng-template>
     <ng-template matStepContent>
-    <mat-dialog-content>
-      <app-done-step [token]="enrolledToken"></app-done-step>
-    </mat-dialog-content>
-    <mat-dialog-actions align="end">
-      <button
-        appFocusOnInit
-        focusDelay="500"
-        mat-raised-button
-        color="primary"
-        type="button"
-        (click)="close()"
-        i18n
-      >
-        Close
-      </button>
-    </mat-dialog-actions>
+      <mat-dialog-content>
+        <app-done-step [token]="enrolledToken"></app-done-step>
+      </mat-dialog-content>
     </ng-template>
   </mat-step>
 
+  <ng-template #doneStepActions>
+    <app-step-actions [disableSubmit]="false" [isDoneStep]="true" (onSubmit)="close()"></app-step-actions>
+  </ng-template>
 </mat-horizontal-stepper>
+
+<mat-dialog-actions align="end">
+  <ng-container
+    *ngTemplateOutlet="
+      [
+        createTokenStepActions,
+        verifyTokenStepActions,
+        doneStepActions
+      ][stepper.selectedIndex]
+    "
+  >
+  </ng-container>
+</mat-dialog-actions>

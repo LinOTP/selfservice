@@ -170,7 +170,7 @@ import { EnrollOATHDialogComponent } from './enroll-oath-dialog.component';
 
     it('should allow retrying if enrollment failed', fakeAsync(() => {
       enrollmentService.enroll.and.returnValue(of(null));
-      component.selectedStep = 1;
+      component.stepper.selectedIndex = 1;
       fixture.detectChanges();
       tick(0);
       const result = fixture.debugElement.query(By.css('#test-create-token-button')).nativeElement;

@@ -13,11 +13,9 @@
           app. We recommend to use <b>LinOTP Authenticator</b>:
         </p>
       </div>
-
       <app-authenticator-links
         [platform]="currentPlatform"
       ></app-authenticator-links>
-
       <p i18n="@@oathStepperAppInstalledConfirmInfo">
         Once you have the app installed on your device, you can start the token
         setup process.
@@ -25,41 +23,31 @@
     </mat-dialog-content>
 
     <ng-template #installAppStepActions>
-      <button mat-button type="button" (click)="close()" i18n>Cancel</button>
-      <button appFocusOnInit mat-raised-button color="primary" matStepperNext>
-        <div class="button-content">
-          <ng-container i18n>Next</ng-container>
-          <mat-icon>arrow_forward</mat-icon>
-        </div>
-      </button>
+      <app-step-actions
+        [awaitingResponse]="awaitingResponse"
+        [disableSubmit]="createTokenForm.invalid"
+        (onCancel)="close()"
+        (onSubmit)="stepper.next()"
+      >
+      </app-step-actions>
     </ng-template>
   </mat-step>
 
   <mat-step [completed]="!!enrolledToken" [editable]="false">
     <ng-template matStepLabel i18n>Create token</ng-template>
     <ng-template matStepContent>
-    <mat-dialog-content>
-      <app-create-token-step [form]="createTokenForm"
-                             (keydown.enter)="enrollOATHToken()" setAutoFokus="true"></app-create-token-step>
-    </mat-dialog-content>
+      <mat-dialog-content>
+        <app-create-token-step [form]="createTokenForm"
+                               (keydown.enter)="enrollOATHToken()" setAutoFokus="true"></app-create-token-step>
+      </mat-dialog-content>
     </ng-template>
     <ng-template #createTokenStepActions>
-      <button mat-button type="button" (click)="close()" i18n>Cancel</button>
-      <button
-        mat-raised-button
-        id="test-create-token-button"
-        color="primary"
-        (click)="enrollOATHToken()"
-        [disabled]="!createTokenForm.valid"
-      >
-        <div class="button-content">
-          <app-button-wait-indicator
-            [show]="awaitingResponse"
-          ></app-button-wait-indicator>
-          <span i18n="@@createToken">Create token</span>
-          <mat-icon>arrow_forward</mat-icon>
-        </div>
-      </button>
+      <app-step-actions
+        [awaitingResponse]="awaitingResponse"
+        [disableSubmit]="createTokenForm.invalid"
+        (onCancel)="close()"
+        (onSubmit)="enrollOATHToken()">
+      </app-step-actions>
     </ng-template>
   </mat-step>
 
@@ -68,52 +56,36 @@
   >
     <ng-template matStepLabel i18n>Import token into app</ng-template>
     <ng-template matStepContent>
-    <mat-dialog-content>
-      <app-import-token-step
-        [verifyFlowEnabled]="verifyPolicyEnabled"
-        [enrolledToken]="enrolledToken"
-        #importTokenStep
-        (completed)="tokenVerified = true"
-      ></app-import-token-step>
-    </mat-dialog-content>
+      <mat-dialog-content>
+        <app-import-token-step
+          [verifyFlowEnabled]="verifyPolicyEnabled"
+          [enrolledToken]="enrolledToken"
+          #importTokenStep
+          (completed)="tokenVerified = true"
+        ></app-import-token-step>
+      </mat-dialog-content>
     </ng-template>
 
     <ng-template #verifyTokenStepActions>
-      <button mat-button type="button" (click)="cancel()" i18n>Cancel</button>
-      <button
-        appFocusOnInit
-        mat-raised-button
-        color="primary"
-        [disabled]="!tokenVerified && verifyPolicyEnabled"
-        matStepperNext
-      >
-        <div class="button-content">
-          <ng-container i18n>Next</ng-container>
-          <mat-icon>arrow_forward</mat-icon>
-        </div>
-      </button>
+      <app-step-actions
+        [awaitingResponse]="undefined"
+        [disableSubmit]="!tokenVerified && verifyPolicyEnabled"
+        (onCancel)="cancel()"
+        (onSubmit)="stepper.next()"
+      ></app-step-actions>
     </ng-template>
   </mat-step>
 
   <mat-step>
     <ng-template matStepLabel i18n>Done</ng-template>
     <ng-template matStepContent>
-    <mat-dialog-content>
-      <app-done-step [token]="enrolledToken"></app-done-step>
-    </mat-dialog-content>
+      <mat-dialog-content>
+        <app-done-step [token]="enrolledToken"></app-done-step>
+      </mat-dialog-content>
     </ng-template>
 
     <ng-template #doneStepActions>
-      <button
-        appFocusOnInit
-        mat-raised-button
-        color="primary"
-        type="button"
-        (click)="close()"
-        i18n
-      >
-        Close
-      </button>
+      <app-step-actions [disableSubmit]="false" [isDoneStep]="true" (onSubmit)="close()"></app-step-actions>
     </ng-template>
   </mat-step>
 </mat-horizontal-stepper>
@@ -126,7 +98,7 @@
         createTokenStepActions,
         verifyTokenStepActions,
         doneStepActions
-      ][selectedStep]
+      ][stepper.selectedIndex]
     "
   >
   </ng-container>
