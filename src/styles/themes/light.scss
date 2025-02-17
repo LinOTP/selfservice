@@ -100,3 +100,7 @@ $theme: mat.define-light-theme((color: (primary: $theme-app-primary,
       typography: mat.define-typography-config(),
       density: 0,
     ));
+
+.mat-mdc-raised-button.mat-primary .mat-mdc-progress-spinner {
+  --mdc-circular-progress-active-indicator-color: white;
+}

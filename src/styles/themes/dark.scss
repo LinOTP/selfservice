@@ -45,4 +45,7 @@ $theme: mat.define-dark-theme((color: (primary: $theme-app-primary,
   a:not(.mat-mdc-button-base, .mat-mdc-menu-item) {
     color: #f48fb1;
   }
+  .mat-mdc-raised-button.mat-primary .mat-mdc-progress-spinner {
+    --mdc-circular-progress-active-indicator-color: black;
+  }
 }
