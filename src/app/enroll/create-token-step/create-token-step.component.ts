@@ -20,7 +20,7 @@ import { getOtpPinForm } from "@app/enroll/token-pin-form-layout/token-pin-form-
         </mat-hint>
         <mat-error i18n *ngIf="form.get('description').hasError('required')">This field is required.</mat-error>
       </mat-form-field>
-      <app-token-pin-form-layout *ngxPermissionsOnly="'SETPIN'" [form]="form.get('otpPin')"></app-token-pin-form-layout>
+      <app-token-pin-form-layout class="token-pin-form-layout" *ngxPermissionsOnly="'SETPIN'" [form]="form.get('otpPin')"></app-token-pin-form-layout>
     </div>
   `,
   styles: [`
@@ -29,6 +29,11 @@ import { getOtpPinForm } from "@app/enroll/token-pin-form-layout/token-pin-form-
     }
     mat-form-field:last-child {
       margin-bottom: 0;
+    }
+
+    .token-pin-form-layout {
+      display: block;
+      margin-top: 22px;
     }
   `]
 })
