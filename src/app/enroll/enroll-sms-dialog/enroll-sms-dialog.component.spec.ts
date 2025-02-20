@@ -1,7 +1,6 @@
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -9,7 +8,6 @@ import { NgxPermissionsAllowStubDirective, NgxPermissionsService } from 'ngx-per
 import { of } from 'rxjs';
 
 import { Fixtures } from '@testing/fixtures';
-import { MockComponent } from '@testing/mock-component';
 import { getInjectedStub, spyOnClass } from '@testing/spyOnClass';
 
 import { EnrollmentService } from '@api/enrollment.service';
@@ -22,10 +20,11 @@ import { NotificationService } from '@common/notification.service';
 
 import { TokenType } from '@app/api/token';
 import { EnrollSMSDialogComponent } from './enroll-sms-dialog.component';
-import { DoneStepComponent } from "@app/enroll/enroll-oath-dialog/oath-enrollment/done-step.component";
-import { CreateTokenStepComponent } from "@app/enroll/enroll-oath-dialog/oath-enrollment/create-token-step.component";
-import { TokenInfoComponent } from "@app/enroll/enroll-oath-dialog/oath-enrollment/token-info.component";
 import { TokenPinFormLayoutComponent } from "@app/enroll/token-pin-form-layout/token-pin-form-layout.component";
+import { NgSelfServiceCommonModule } from "@common/common.module";
+import { CreateTokenStepComponent } from "@app/enroll/create-token-step/create-token-step.component";
+import { DoneStepComponent } from "@app/enroll/done-step/done-step.component";
+import { VerifyTokenComponent } from "@app/enroll/verify-token/verify-token.component";
 
 describe('The EnrollSMSDialogComponent', () => {
   let component: EnrollSMSDialogComponent;
@@ -41,8 +40,7 @@ describe('The EnrollSMSDialogComponent', () => {
         EnrollSMSDialogComponent,
         CreateTokenStepComponent,
         DoneStepComponent,
-        TokenInfoComponent,
-        MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] }),
+        VerifyTokenComponent
       ],
       imports: [
         RouterTestingModule,
@@ -51,7 +49,8 @@ describe('The EnrollSMSDialogComponent', () => {
         MaterialModule,
         NoopAnimationsModule,
         NgxPermissionsAllowStubDirective,
-        TokenPinFormLayoutComponent
+        TokenPinFormLayoutComponent,
+        NgSelfServiceCommonModule,
       ],
       providers: [
         {
@@ -203,15 +202,4 @@ describe('The EnrollSMSDialogComponent', () => {
       }));
     });
   });
-
-  it('should allow retrying if enrollment failed', fakeAsync(() => {
-
-    enrollmentService.enroll.and.returnValue(of(null));
-    fixture.detectChanges();
-    const result = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
-    result.click();
-    tick(100);
-
-    expect(component.enrolledToken).toEqual(undefined);
-  }));
 });

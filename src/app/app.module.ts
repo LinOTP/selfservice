@@ -34,9 +34,12 @@ import { NgSelfServiceCommonModule } from '@common/common.module';
 import { MarkdownModule } from 'ngx-markdown';
 import { AuthenticatorLinksComponent } from './common/authenticator-links/authenticator-links.component';
 import { CustomContentModule } from './custom-content/custom-content.module';
-import { OathEnrollmentModule } from './enroll/enroll-oath-dialog/oath-enrollment/oath-enrollment.module';
 import { TokenPinFormLayoutComponent } from './enroll/token-pin-form-layout/token-pin-form-layout.component';
 import { ThemePickerComponent } from './theme-picker/theme-picker.component';
+import { CreateTokenStepComponent } from "@app/enroll/create-token-step/create-token-step.component";
+import { VerifyTokenComponent } from "@app/enroll/verify-token/verify-token.component";
+import { DoneStepComponent } from "@app/enroll/done-step/done-step.component";
+import { ImportTokenStepComponent } from "@app/enroll/enroll-oath-dialog/oath-enrollment/import-token-step/import-token-step.component";
 
 @NgModule({
   declarations: [
@@ -60,11 +63,14 @@ import { ThemePickerComponent } from './theme-picker/theme-picker.component';
     LanguagePickerComponent,
     KeyboardKeyComponent,
     ThemePickerComponent,
+    CreateTokenStepComponent,
+    VerifyTokenComponent,
+    DoneStepComponent,
+    ImportTokenStepComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    OathEnrollmentModule,
     TokenPinFormLayoutComponent,
     ReactiveFormsModule,
     HttpClientModule,

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { TestOptions, TestService, TransactionDetail } from "@app/api/test.service";
-import { NotificationService } from "@app/common/notification.service";
+import { TestOptions, TestService, TransactionDetail } from "@api/test.service";
+import { NotificationService } from "@common/notification.service";
 import { EnrolledToken } from "@app/enroll/enroll-dialog-base.directive";
 
 @Component({

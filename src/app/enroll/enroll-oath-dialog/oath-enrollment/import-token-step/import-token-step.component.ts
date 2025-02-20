@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output, ViewChild } from "@angular/core
 import { DomSanitizer } from "@angular/platform-browser";
 import { NotificationService } from "@app/common/notification.service";
 import { OATHEnrolledToken } from "../../enroll-oath-dialog.component";
-import { VerifyTokenComponent } from "../verify-token/verify-token.component";
+import { VerifyTokenComponent } from "@app/enroll/verify-token/verify-token.component";
 
 @Component({
   selector: "app-import-token-step",

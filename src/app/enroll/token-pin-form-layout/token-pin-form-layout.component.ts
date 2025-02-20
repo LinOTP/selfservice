@@ -11,7 +11,7 @@ import { NgSelfServiceCommonModule } from "@common/common.module";
 	selector: 'app-token-pin-form-layout',
 	template: `
 	<div [formGroup]="form">
-    <p i18n="@@oathStepperOtpPinInfo">The PIN ensures that you can only use the token yourself. During the authentication process, you may need to enter this PIN together with an OTP of the token.</p>
+    <p i18n="@@oathStepperOtpPinInfo">The OTP PIN ensures that you can only use the token yourself. During the authentication process, you may need to enter this PIN together with an OTP of the token.</p>
     <app-set-pin-validator [form]="form" [pinControlName]="'pin'"></app-set-pin-validator>
     <div class="single-row-form">
 			<mat-form-field>

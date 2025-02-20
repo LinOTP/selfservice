@@ -10,39 +10,29 @@
         You have no email address assigned to your user account and the token will therefore not work after creation.
         You may need to contact your administrator for help.
       </p>
-      <form [formGroup]="createTokenForm"
-            (submit)="enrollEmailToken()">
+      <form [formGroup]="createTokenForm" (keydown.enter)="enrollEmailToken()">
         <mat-form-field *ngIf="canEditEmail">
           <mat-label i18n>Email address</mat-label>
-          <input matInput
-                 formControlName="emailAddress"
-                 appFocusOnInit>
+          <input matInput formControlName="emailAddress" appFocusOnInit>
           <mat-hint i18n>Set the email address to use for your token</mat-hint>
-          <mat-error i18n
-                     *ngIf="createTokenForm.get('emailAddress').hasError('required')">This field is required.
+          <mat-error i18n *ngIf="createTokenForm.get('emailAddress').hasError('required')">
+            This field is required.
           </mat-error>
         </mat-form-field>
         <app-create-token-step [form]="createTokenForm"></app-create-token-step>
-        <mat-dialog-actions align="end">
-          <button mat-button
-                  type="button"
-                  (click)="close()"
-                  i18n>Cancel
-          </button>
-          <button mat-raised-button
-                  color="primary"
-                  type="submit"
-                  id="goTo2"
-                  [disabled]="createTokenForm.invalid || createTokenForm.disabled">
-            <div class="button-content">
-              <ng-container i18n>Next</ng-container>
-              <mat-icon>arrow_forward</mat-icon>
-            </div>
-          </button>
-        </mat-dialog-actions>
       </form>
     </mat-dialog-content>
   </mat-step>
+
+  <ng-template #createTokenStepActions>
+    <app-step-actions
+      [awaitingResponse]="awaitingResponse"
+      [disableSubmit]="createTokenForm.invalid"
+      (cancelled)="close()"
+      (submitted)="enrollEmailToken()"
+    >
+    </app-step-actions>
+  </ng-template>
 
   <mat-step *ngIf="verifyPolicyEnabled">
     <ng-template matStepLabel i18n>Verify</ng-template>
@@ -51,50 +41,39 @@
         An email token with the serial number {{ enrolledToken.serial }} has been created for <span class="underline">{{ enrolledToken.email }}.</span>
         Please check your email inbox for the first one-time password.
       </p>
-      <ng-container *ngxPermissionsOnly="Permission.VERIFY">
-        <app-verify-token [token]="enrolledToken" (tokenVerified)="isTokenVerified = true; stepper.next()"></app-verify-token>
-      </ng-container>
+      <app-verify-token [token]="enrolledToken" (tokenVerified)="isTokenVerified = true; stepper.next()"></app-verify-token>
     </mat-dialog-content>
-
-    <mat-dialog-actions align="end">
-      <button mat-button
-              type="button"
-              (click)="cancel()"
-              i18n>Cancel
-      </button>
-      <button mat-raised-button
-              color="primary"
-              [disabled]="!isTokenVerified"
-              (click)="stepper.next()">
-        <div class="button-content">
-          <ng-container i18n>Next</ng-container>
-          <mat-icon>arrow_forward</mat-icon>
-        </div>
-      </button>
-    </mat-dialog-actions>
-
   </mat-step>
 
-
+  <ng-template #verifyTokenStepActions>
+    <app-step-actions
+      [awaitingResponse]="undefined"
+      [disableSubmit]="!isTokenVerified"
+      (cancelled)="cancel()"
+      (submitted)="stepper.next()"
+    >
+    </app-step-actions>
+  </ng-template>
   <mat-step>
     <ng-template matStepLabel i18n>Done</ng-template>
-    <ng-template matStepContent>
     <mat-dialog-content>
       <app-done-step [token]="enrolledToken"></app-done-step>
     </mat-dialog-content>
-    <mat-dialog-actions align="end">
-      <button
-        appFocusOnInit
-        focusDelay="500"
-        mat-raised-button
-        color="primary"
-        type="button"
-        (click)="close()"
-        i18n
-      >
-        Close
-      </button>
-    </mat-dialog-actions>
+    <ng-template #doneStepActions>
+      <app-step-actions [disableSubmit]="false" [isDoneStep]="true" (submitted)="close()"></app-step-actions>
     </ng-template>
   </mat-step>
 </mat-horizontal-stepper>
+
+<mat-dialog-actions align="end">
+  <ng-container
+    *ngTemplateOutlet="
+      [
+        createTokenStepActions,
+        verifyTokenStepActions,
+        doneStepActions
+      ][stepper.selectedIndex]
+    "
+  >
+  </ng-container>
+</mat-dialog-actions>

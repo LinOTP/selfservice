@@ -31,6 +31,11 @@ import { LockableActionDialogContentComponent } from './lockable-action-dialog-c
 import { TokenDialogHeaderComponent } from './token-dialog-header/token-dialog-header.component';
 import { UnassignTokenDialogComponent } from './unassign-token-dialog/unassign-token-dialog.component';
 import { SetPinValidatorComponent } from "@app/set-pin-validator/set-pin-validator.component";
+import { StepActionsComponent } from "@app/enroll/step-actions/step-actions.component";
+import { FocusOnStepperChangeDirective } from "@app/enroll/enroll-oath-dialog/oath-enrollment/focus-on-stepper-change.directive";
+import { A11yModule } from "@angular/cdk/a11y";
+import { NgxPermissionsModule } from "ngx-permissions";
+import { TokenInfoComponent } from "@app/enroll/enroll-oath-dialog/oath-enrollment/token-info.component";
 
 
 @NgModule({
@@ -40,6 +45,8 @@ import { SetPinValidatorComponent } from "@app/set-pin-validator/set-pin-validat
     FormsModule,
     ReactiveFormsModule,
     QRCodeModule,
+    A11yModule,
+    NgxPermissionsModule.forChild()
   ],
   declarations: [
     QRCodeComponent,
@@ -63,6 +70,9 @@ import { SetPinValidatorComponent } from "@app/set-pin-validator/set-pin-validat
     LockableActionDialogContentComponent,
     TokenDialogHeaderComponent,
     SetPinValidatorComponent,
+    StepActionsComponent,
+    FocusOnStepperChangeDirective,
+    TokenInfoComponent,
   ],
   providers: [
     NotificationService,
@@ -79,7 +89,10 @@ import { SetPinValidatorComponent } from "@app/set-pin-validator/set-pin-validat
     ButtonWaitIndicatorComponent,
     DeleteTokenDialogComponent,
     TokenDialogHeaderComponent,
-    SetPinValidatorComponent
+    SetPinValidatorComponent,
+    StepActionsComponent,
+    FocusOnStepperChangeDirective,
+    TokenInfoComponent,
   ]
 })
 export class NgSelfServiceCommonModule { }
