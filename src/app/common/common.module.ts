@@ -36,6 +36,7 @@ import { FocusOnStepperChangeDirective } from "@app/enroll/enroll-oath-dialog/oa
 import { A11yModule } from "@angular/cdk/a11y";
 import { NgxPermissionsModule } from "ngx-permissions";
 import { TokenInfoComponent } from "@app/enroll/enroll-oath-dialog/oath-enrollment/token-info.component";
+import { AlertComponent } from '@common/alert/alert.component';
 
 
 @NgModule({
@@ -73,6 +74,7 @@ import { TokenInfoComponent } from "@app/enroll/enroll-oath-dialog/oath-enrollme
     StepActionsComponent,
     FocusOnStepperChangeDirective,
     TokenInfoComponent,
+    AlertComponent
   ],
   providers: [
     NotificationService,
@@ -93,6 +95,7 @@ import { TokenInfoComponent } from "@app/enroll/enroll-oath-dialog/oath-enrollme
     StepActionsComponent,
     FocusOnStepperChangeDirective,
     TokenInfoComponent,
+    AlertComponent
   ]
 })
 export class NgSelfServiceCommonModule { }
