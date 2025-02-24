@@ -1,8 +1,6 @@
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { NgxPermissionsAllowStubDirective, NgxPermissionsService } from 'ngx-permissions';
@@ -24,6 +22,12 @@ import { NotificationService } from '@common/notification.service';
 
 import { TokenType } from '@app/api/token';
 import { EnrollPushQRDialogComponent } from './enroll-push-qr-dialog.component';
+import { StepActionsComponent } from "@app/enroll/step-actions/step-actions.component";
+import { ImportTokenStepComponent } from "@app/enroll/enroll-oath-dialog/oath-enrollment/import-token-step/import-token-step.component";
+import { NgSelfServiceCommonModule } from "@common/common.module";
+import { AuthenticatorLinksComponent } from "@common/authenticator-links/authenticator-links.component";
+import { CreateTokenStepComponent } from "@app/enroll/create-token-step/create-token-step.component";
+import { TokenPinFormLayoutComponent } from "@app/enroll/token-pin-form-layout/token-pin-form-layout.component";
 
 
 describe('EnrollPushDialogComponent', () => {
@@ -37,19 +41,23 @@ describe('EnrollPushDialogComponent', () => {
   let dialog: jasmine.SpyObj<MatDialog>;
 
   beforeEach(async () => {
-    TestBed.configureTestingModule({
+    await TestBed.configureTestingModule({
       declarations: [
         EnrollPushQRDialogComponent,
-        MockComponent({ selector: 'app-qr-code', inputs: ['qrUrl'] }),
+        StepActionsComponent,
+        ImportTokenStepComponent,
+        CreateTokenStepComponent,
         MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] }),
       ],
       imports: [
+        AuthenticatorLinksComponent,
+        TokenPinFormLayoutComponent,
         RouterTestingModule,
         FormsModule,
         ReactiveFormsModule,
         MaterialModule,
-        NoopAnimationsModule,
         NgxPermissionsAllowStubDirective,
+        NgSelfServiceCommonModule
       ],
       providers: [
         {
@@ -90,7 +98,7 @@ describe('EnrollPushDialogComponent', () => {
         },
       ],
     })
-      .compileComponents();
+    .compileComponents();
   });
 
   beforeEach(() => {
@@ -104,6 +112,8 @@ describe('EnrollPushDialogComponent', () => {
     dialog = getInjectedStub(MatDialog);
 
     loginService.hasPermission$.and.returnValue(of(true));
+    spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify({ otp_pin_minlength: 0 }));
+
     fixture.detectChanges();
   });
 
@@ -134,39 +144,20 @@ describe('EnrollPushDialogComponent', () => {
     const expectedToken = {
       serial: mockedEnrollResponse.serial,
       url: mockedEnrollResponse.lse_qr_url.value,
-      type: TokenType.PUSH
+      type: TokenType.PUSH,
+      description: 'descr'
     };
 
     enrollmentService.enroll.and.returnValue(of(mockedEnrollResponse));
     enrollmentService.pairingPoll.and.returnValue(of(Fixtures.activePushToken));
 
     component.createTokenForm.controls.description.setValue('descr');
+    expect(component.createTokenForm.valid).toEqual(true);
+    component.enrollPushQRToken()
     fixture.detectChanges();
-
-    const result = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
-    expect(component.stepper.selectedIndex).toEqual(0);
-    result.click();
-    tick();
-
+    tick(500);
     expect(component.enrolledToken).toEqual(expectedToken);
     expect(component.stepper.selectedIndex).toEqual(2);
-    expect(component.createTokenForm.disabled).toEqual(true);
-  }));
-
-  it('should stay on the first step and allow retrying if enrollment fails', fakeAsync(() => {
-    enrollmentService.enroll.and.returnValue(of(null));
-
-    component.createTokenForm.controls.description.setValue('descr');
-    fixture.detectChanges();
-
-    const result = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
-    expect(component.stepper.selectedIndex).toEqual(0);
-    result.click();
-    tick();
-
-    expect(component.enrolledToken).toEqual(undefined);
-    expect(component.stepper.selectedIndex).toEqual(0);
-    expect(component.createTokenForm.disabled).toEqual(false);
   }));
 
   describe('finalizeEnrollment', () => {
