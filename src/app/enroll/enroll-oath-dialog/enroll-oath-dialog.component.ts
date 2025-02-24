@@ -1,11 +1,14 @@
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { MatStepper } from '@angular/material/stepper';
 
-import { EnrollmentOptions } from '@api/token';
-import { EnrollDialogBase, EnrolledToken } from '@app/enroll/enroll-dialog-base.directive';
-import { CurrentPlatform, PlatformProviderService } from '../../common/platform-provider.service';
+import { EnrollmentOptions, TokenType } from '@api/token';
+import { EnrollDialogBase } from '@app/enroll/enroll-dialog-base.directive';
+import { PlatformProviderService } from "@common/platform-provider.service";
 
-export interface OATHEnrolledToken extends EnrolledToken {
+export interface OATHEnrolledToken {
+  serial: string
+  type: TokenType | 'assign';
+  description: string;
   url: string;
   seed: string;
 }
@@ -34,47 +37,21 @@ export class EnrollOATHDialogComponent extends EnrollDialogBase implements OnIni
     }
   }
   private _tokenVerified = false;
-  private platformProvider = inject(PlatformProviderService)
-  currentPlatform: CurrentPlatform = null
-
-  public ngOnInit() {
-    this.currentPlatform = this.platformProvider.platform
-    super.ngOnInit();
-  }
+  protected platformProvider = inject(PlatformProviderService)
 
   public enrollOATHToken() {
-    if (this.createTokenForm.invalid) {
-      return;
-    }
     const body: EnrollmentOptions = {
       type: this.tokenDisplayData.type,
       description: this.createTokenForm.get('description').value,
     };
-    if (this.setOtpPinPolicyEnabled) {
-      body.otppin = this.createTokenForm.get('otpPin').get('pin').value;
-    }
-
-    this.createTokenForm.disable();
-
-    this.awaitingResponse = true;
-    this.enrollmentService.enroll(body).subscribe(token => {
-      this.awaitingResponse = false;
-      this.createTokenForm.enable();
-      if (token) {
-        this.enrolledToken = {
+    this.enrollToken(body, this.stepper).subscribe(token => {
+      this.enrolledToken = {
           url: token.googleurl.value,
           serial: token.serial,
           seed: token.otpkey.value,
           type: this.tokenDisplayData.type,
           description: body.description,
         };
-
-        // need to wait for the step complete state to be updated and then move to the next step
-        // using 100 ms make animation smoother
-        setTimeout(() => {
-          this.stepper.next();
-        }, 100)
-      }
     });
   }
 }

@@ -14,7 +14,7 @@
         </p>
       </div>
       <app-authenticator-links
-        [platform]="currentPlatform"
+        [platform]="platformProvider.platform"
       ></app-authenticator-links>
       <p i18n="@@oathStepperAppInstalledConfirmInfo">
         Once you have the app installed on your device, you can start the token
@@ -33,7 +33,7 @@
     </ng-template>
   </mat-step>
 
-  <mat-step [completed]="!!enrolledToken" [editable]="false">
+  <mat-step [completed]="false" [editable]="false">
     <ng-template matStepLabel i18n>Create token</ng-template>
     <ng-template matStepContent>
       <mat-dialog-content>
