@@ -1,0 +1,30 @@
+<div class="header">
+  <mat-icon color="primary">check_circle</mat-icon>
+  <div class="header-text">
+    <ng-container *ngIf="(token?.type === TokenType.QR || token?.type === TokenType.PUSH);else defaultTemplate">
+      <span i18n="@@pushQRSuccessMessage">You have successfully enrolled and paired your token.</span>
+      <p>
+        In order to use it, you must activate it first.
+      </p>
+    </ng-container>
+    <ng-template #defaultTemplate>
+      <p>
+        <span *ngxPermissionsOnly="'VERIFY';else stdMsgTmp"
+              i18n="@@oathStepperDoneVerifySuccess">You have successfully enrolled and verified your token.</span>
+        <ng-template #stdMsgTmp>
+          <span i18n="@@oathStepperDoneNonVerifySuccess">You have successfully enrolled your token.</span>
+        </ng-template>
+        <br><span i18n="@@oathStepperDoneReadyToUse">You can now use it for authentication.</span>
+      </p>
+    </ng-template>
+  </div>
+</div>
+<div class="wrapper">
+  <app-token-info [token]="token"></app-token-info>
+  <app-warning class="wrapper" *ngIf="isQRAndNoActivatePerm() || isPushAndNoActivatePerm()" [msgTmpl]="warningMsgTmpl"></app-warning>
+</div>
+
+<ng-template #warningMsgTmpl i18n="@@noActivatePermWarning">
+  You do not have the required permission to activate the token it on your own.
+  Contact your administrator to resolve this issue.
+</ng-template>

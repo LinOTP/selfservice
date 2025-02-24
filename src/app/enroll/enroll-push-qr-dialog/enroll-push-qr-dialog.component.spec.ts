@@ -140,7 +140,7 @@ describe('EnrollPushDialogComponent', () => {
     enrollmentService.enroll.and.returnValue(of(mockedEnrollResponse));
     enrollmentService.pairingPoll.and.returnValue(of(Fixtures.activePushToken));
 
-    component.enrollmentStep.controls.description.setValue('descr');
+    component.createTokenForm.controls.description.setValue('descr');
     fixture.detectChanges();
 
     const result = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
@@ -150,13 +150,13 @@ describe('EnrollPushDialogComponent', () => {
 
     expect(component.enrolledToken).toEqual(expectedToken);
     expect(component.stepper.selectedIndex).toEqual(2);
-    expect(component.enrollmentStep.disabled).toEqual(true);
+    expect(component.createTokenForm.disabled).toEqual(true);
   }));
 
   it('should stay on the first step and allow retrying if enrollment fails', fakeAsync(() => {
     enrollmentService.enroll.and.returnValue(of(null));
 
-    component.enrollmentStep.controls.description.setValue('descr');
+    component.createTokenForm.controls.description.setValue('descr');
     fixture.detectChanges();
 
     const result = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
@@ -166,7 +166,7 @@ describe('EnrollPushDialogComponent', () => {
 
     expect(component.enrolledToken).toEqual(undefined);
     expect(component.stepper.selectedIndex).toEqual(0);
-    expect(component.enrollmentStep.disabled).toEqual(false);
+    expect(component.createTokenForm.disabled).toEqual(false);
   }));
 
   describe('finalizeEnrollment', () => {

@@ -99,7 +99,6 @@ export class EnrollmentService {
       mergeMap(() => this.tokenService.getToken(serial)),
       filter(token => token.enrollmentStatus === EnrollmentStatus.PAIRING_RESPONSE_RECEIVED),
       take(1),
-      tap(() => this.tokenService.updateTokenList())
     );
   }
 

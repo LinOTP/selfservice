@@ -1,62 +1,61 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormGroup, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, inject, OnInit, ViewChild } from '@angular/core';
 import { MatDialogConfig } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 
-import { switchMap } from 'rxjs/operators';
+import { concatMap, switchMap, tap } from 'rxjs/operators';
 
+import { EnrollmentOptions, TokenType } from "@api/token";
 import { ActivateDialogComponent } from '@app/activate/activate-dialog.component';
-import { EnrollDialogBase, EnrolledToken } from '@app/enroll/enroll-dialog-base.directive';
-import { TextResources } from '@common/static-resources';
+import { EnrollDialogBase } from '@app/enroll/enroll-dialog-base.directive';
+import { PlatformProviderService } from "@common/platform-provider.service";
 
 
-interface PushQrEnrolledToken extends EnrolledToken {
+interface PushQrEnrolledToken {
+  serial: string;
+  type: TokenType | 'assign';
+  description?: string;
   url: string;
 }
 @Component({
   selector: 'app-enroll-push',
   templateUrl: './enroll-push-qr-dialog.component.html',
-  styleUrls: ['./enroll-push-qr-dialog.component.scss']
+  styleUrls: ['./enroll-push-qr-dialog.component.scss'],
+  providers: [PlatformProviderService],
+  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class EnrollPushQRDialogComponent extends EnrollDialogBase implements OnInit {
-
-  public TextResources = TextResources;
   public enrolledToken: PushQrEnrolledToken;
-
-  public closeLabel = $localize`Activate`;
-
   @ViewChild(MatStepper, { static: true }) public stepper: MatStepper;
-  public enrollmentStep: UntypedFormGroup;
-
-  public ngOnInit() {
-    this.enrollmentStep = this.formBuilder.group({
-      'description': [$localize`Created via SelfService`, Validators.required],
-      'type': this.tokenDisplayData.type,
-    });
-    super.ngOnInit();
-  }
+  protected platformProvider = inject(PlatformProviderService);
 
   /**
-   * Enroll the token and proceed to the next step
+   * Enroll the Push or QR token and proceed to the next step
    */
-  enrollQRToken() {
-    this.enrollmentStep.disable();
-    this.enrollmentService.enroll(this.enrollmentStep.value).subscribe(token => {
-      if (token) {
+  enrollPushQRToken() {
+    const body: EnrollmentOptions = {
+      type: this.tokenDisplayData.type,
+      description: this.createTokenForm.get('description').value,
+    };
+    const enrollment$ = this.enrollToken(body, this.stepper).pipe(
+      tap(token => {
         this.enrolledToken = {
           url: token.lse_qr_url.value,
           serial: token.serial,
-          type: this.tokenDisplayData.type
+          type: this.tokenDisplayData.type,
+          description: body.description,
         };
-        this.subscriptions.push(this.enrollmentService.pairingPoll(this.enrolledToken.serial).subscribe(() => {
-          this.stepper.next();
-        }));
+      }),
+      concatMap(token => this.enrollmentService.pairingPoll(token.serial))
+    );
+    this.subscriptions.push(
+      enrollment$.subscribe(() => {
+        this.stepper.steps.get(this.stepper.selectedIndex).completed = true;
         this.stepper.next();
-      } else {
-        this.enrollmentStep.enable();
-      }
-    });
+      })
+    );
   }
+
 
   public finalizeEnrollment() {
     const testConfig: MatDialogConfig = {

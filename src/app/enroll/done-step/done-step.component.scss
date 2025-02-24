@@ -1,0 +1,33 @@
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 0;
+  flex-direction: column;
+
+  .header-text {
+    text-align: center;
+    font-size: 16px;
+    margin-top: 13px;
+  }
+
+  :is(h3) {
+    margin-bottom: 0;
+    font-weight: 500;
+  }
+
+  :is(mat-icon) {
+    font-size: 70px;
+    width: 70px;
+    height: 70px;
+    margin-right: 7px;
+  }
+}
+
+.mat-mdc-dialog-title {
+  margin-bottom: 0px;
+}
+
+.wrapper {
+  padding: 0 24px;
+}
