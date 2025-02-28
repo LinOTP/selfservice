@@ -3,7 +3,7 @@
   <div class="header-text">
     <ng-container *ngIf="(token?.type === TokenType.QR || token?.type === TokenType.PUSH);else defaultTemplate">
       <span i18n="@@pushQRSuccessMessage">You have successfully enrolled and paired your token.</span>
-      <p>
+      <p i18n="@@pushQRActivateMessage">
         In order to use it, you must activate it first.
       </p>
     </ng-container>
@@ -25,6 +25,6 @@
 </div>
 
 <ng-template #warningMsgTmpl i18n="@@noActivatePermWarning">
-  You do not have the required permission to activate the token it on your own.
+  You do not have the required permission to activate the token on your own.
   Contact your administrator to resolve this issue.
 </ng-template>

@@ -12,7 +12,7 @@ import { NgxPermissionsService } from "ngx-permissions";
 export class DoneStepComponent {
 	@Input() token: EnrolledToken
 
-  constructor(public permissionService: NgxPermissionsService) {
+  constructor(private permissionService: NgxPermissionsService) {
   }
 
   isQRAndNoActivatePerm() {

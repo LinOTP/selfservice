@@ -9,8 +9,7 @@
           it onto your device.
         </p>
         <p>
-          To import the token, you will need an Push/QR compatible authenticator
-          app. We recommend to use <b>LinOTP Authenticator</b>:
+          To import the token you must use the <b>LinOTP Authenticator</b>:
         </p>
       </div>
       <app-authenticator-links [platform]="platformProvider.platform"></app-authenticator-links>
@@ -47,7 +46,7 @@
   </mat-step>
 
   <mat-step [completed]="false" [editable]="false">
-    <ng-template matStepLabel i18n>Scan QR Code</ng-template>
+    <ng-template matStepLabel i18n="@@QRStepTitle">Scan QR Code</ng-template>
     <mat-dialog-content>
       <div *ngIf="enrolledToken">
         <p i18n>
