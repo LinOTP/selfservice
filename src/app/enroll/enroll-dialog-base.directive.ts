@@ -24,6 +24,11 @@ import { MatStepper } from "@angular/material/stepper";
 
 export interface EnrolledToken {
   serial: string;
+  lse_qr_url?: {
+    value: string;
+  };
+  otpkey?: { value: string };
+  googleurl?: { value: string };
   type: TokenType | 'assign';
   description?: string;
 }
@@ -103,10 +108,10 @@ export abstract class EnrollDialogBase implements OnInit, OnDestroy {
     return this.enrollmentService.enroll(enrollmentOptions).pipe(
       filter(token => token?.serial !== undefined && token?.serial != null),
       map(token => ({
-        serial: token.serial,
+        ...token,
         type: enrollmentOptions.type,
         description: enrollmentOptions.description,
-      })),
+      }) as EnrolledToken),
       tap(() => {
         this.notificationService.message($localize`Token enrolled successfully.`);
         setTimeout(() => {

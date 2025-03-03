@@ -104,3 +104,18 @@ $theme: mat.define-light-theme((color: (primary: $theme-app-primary,
 .mat-mdc-raised-button.mat-primary .mat-mdc-progress-spinner {
   --mdc-circular-progress-active-indicator-color: white;
 }
+
+.alert.warning {
+  color: #856404 !important;
+  background: mat.get-color-from-palette($theme-app-accent, 100);
+}
+
+.alert.error {
+  color: white;
+  background: mat.get-color-from-palette($theme-app-warn, 700);
+}
+
+.alert.info {
+  color: white;
+  background: mat.get-color-from-palette($theme-app-primary, A100);
+}

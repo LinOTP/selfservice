@@ -1,0 +1,8 @@
+<div class="{{'alert ' + type}}">
+  <ng-container [ngSwitch]="type">
+    <mat-icon *ngSwitchCase="'error'">error</mat-icon>
+    <mat-icon *ngSwitchCase="'info'">info</mat-icon>
+    <mat-icon *ngSwitchDefault>warning</mat-icon>
+  </ng-container>
+  <ng-container *ngTemplateOutlet="msgTmpl"></ng-container>
+</div>

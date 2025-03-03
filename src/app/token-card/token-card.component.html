@@ -52,8 +52,8 @@
       </ng-container>
       <ng-container *ngSwitchCase="EnrollmentStatus.PAIRING_RESPONSE_RECEIVED">
         <p i18n> This token is paired with your mobile. It needs to be activated now to finish the setup. </p>
-        <p *ngIf="!canActivate"
-           class="warning"> You do not have the required permission to activate the token on your own. </p>
+        <p *ngIf="!canActivate" i18n="@@noActivatePermWarning"
+           class="warning"> You do not have the required permission to activate the token on your own. Contact your administrator to resolve this issue. </p>
       </ng-container>
       <p *ngSwitchCase="EnrollmentStatus.PAIRING_CHALLENGE_SENT"
          i18n> An activation challenge has been generated.
