@@ -102,7 +102,7 @@ export abstract class EnrollDialogBase implements OnInit, OnDestroy {
   public enrollToken(enrollmentOptions: EnrollmentOptions, stepper: MatStepper): Observable<EnrolledToken> {
     if (this.createTokenForm.invalid) return of(undefined);
     if (this.setOtpPinPolicyEnabled) {
-      enrollmentOptions.otppin = this.createTokenForm.get('otpPin').get('pin').value
+      enrollmentOptions.pin = this.createTokenForm.get('otpPin').get('pin').value
     }
     this.awaitingResponse = true;
     return this.enrollmentService.enroll(enrollmentOptions).pipe(

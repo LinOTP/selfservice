@@ -95,7 +95,8 @@ export interface EnrollmentOptions {
   email_address?: string;
   phone?: string;
   otpkey?: string;
-  otppin?: string;
+  pin?: string; // the general token pin
+  otppin?: string // currently used for motppin - to be changed soon
   otplen?: number;
   'yubico.tokenid'?: string;
 }
@@ -248,4 +249,4 @@ export type LinOtpToken = {
 }
 
 export type LinOtpTokenEnrollmentStatus = 'completed' | 'unpaired' | 'pairing_url_sent' | 'pairing_response_received' | 'pairing_challenge_sent';
-export type LinOtpTokenType = 'pw'| 'forward' | 'hmac' | 'totp' | 'push' | 'qr' | 'motp' | 'sms' | 'email' | 'yubico' | 'yubikey' | 'unknown'; 
+export type LinOtpTokenType = 'pw' | 'forward' | 'hmac' | 'totp' | 'push' | 'qr' | 'motp' | 'sms' | 'email' | 'yubico' | 'yubikey' | 'unknown';

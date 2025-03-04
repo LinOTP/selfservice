@@ -122,7 +122,7 @@ import { NgSelfServiceCommonModule } from "@common/common.module";
       expect(enrollmentService.enroll).toHaveBeenCalledWith({
         type: inputType,
         description: 'Created via SelfService',
-        otppin: ''
+        pin: ''
       });
       expect(component.enrolledToken).toEqual(expectedToken);
       expect(component.stepper.next).toHaveBeenCalledTimes(1);
@@ -144,7 +144,7 @@ import { NgSelfServiceCommonModule } from "@common/common.module";
       expect(enrollmentService.enroll).toHaveBeenCalledWith({
         type: inputType,
         description: 'custom description',
-        otppin: '',
+        pin: '',
       });
       expect(component.enrolledToken).toEqual(expectedToken);
       expect(component.stepper.next).toHaveBeenCalledTimes(1);

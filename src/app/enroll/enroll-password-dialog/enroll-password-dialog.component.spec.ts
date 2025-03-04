@@ -171,7 +171,7 @@ describe('The EnrollPasswordDialogComponent', () => {
         type: TokenType.PASSWORD,
         description: 'Created via SelfService',
         otpkey: '111111',
-        otppin: '1234'
+        pin: '1234'
       });
     }));
 
