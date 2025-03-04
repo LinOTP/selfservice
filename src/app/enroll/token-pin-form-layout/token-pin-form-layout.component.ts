@@ -78,8 +78,12 @@ export class TokenPinFormLayoutComponent {
   }
 }
 
-
-export function getOtpPinForm() {
+/**
+ * To be used if setOTPPin policy is enabled.
+ * Returns a form containing PIN and confirm PIN fields
+ * with a custom validator ensuring they match.
+ */
+export function getPinForm(): FormGroup {
   const form = new FormGroup({
     pin: new FormControl(''),
     confirmPin: new FormControl(''),

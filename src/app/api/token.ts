@@ -96,7 +96,7 @@ export interface EnrollmentOptions {
   phone?: string;
   otpkey?: string;
   pin?: string; // the general token pin
-  otppin?: string // currently used for motppin - to be changed soon
+  otppin?: string // motppin of mOTP-Token
   otplen?: number;
   'yubico.tokenid'?: string;
 }
