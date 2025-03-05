@@ -122,7 +122,7 @@ import { NgSelfServiceCommonModule } from "@common/common.module";
       expect(enrollmentService.enroll).toHaveBeenCalledWith({
         type: inputType,
         description: 'Created via SelfService',
-        otppin: ''
+        pin: ''
       });
       expect(component.enrolledToken).toEqual(expectedToken);
       expect(component.stepper.next).toHaveBeenCalledTimes(1);
@@ -134,7 +134,7 @@ import { NgSelfServiceCommonModule } from "@common/common.module";
 
       enrollmentService.enroll.and.returnValue(of(Fixtures.OATHEnrollmentResponse));
       const expectedToken = { ...Fixtures.enrolledToken, type: inputType, description: 'custom description' };
-      expect(component.createTokenForm.get('otpPin').enabled).toEqual(true);
+      expect(component.createTokenForm.get('pinForm').enabled).toEqual(true);
 
       component.createTokenForm.get("description").setValue('custom description');
       fixture.detectChanges();
@@ -144,17 +144,17 @@ import { NgSelfServiceCommonModule } from "@common/common.module";
       expect(enrollmentService.enroll).toHaveBeenCalledWith({
         type: inputType,
         description: 'custom description',
-        otppin: '',
+        pin: '',
       });
       expect(component.enrolledToken).toEqual(expectedToken);
       expect(component.stepper.next).toHaveBeenCalledTimes(1);
       expect(component.createTokenForm.disabled).toEqual(false);
     }));
 
-    it('should enroll a ${inputType} token without otppin', fakeAsync(() => {
+    it('should enroll a ${inputType} token without pin', fakeAsync(() => {
       spyOn(component.stepper, 'next');
       component.setOtpPinPolicyEnabled = false;
-      expect(component.createTokenForm.get('otpPin').enabled).toEqual(false);
+      expect(component.createTokenForm.get('pinForm').enabled).toEqual(false);
       enrollmentService.enroll.and.returnValue(of(Fixtures.OATHEnrollmentResponse));
 
       component.createTokenForm.get("description").setValue('custom description');

@@ -160,19 +160,19 @@ describe('The EnrollSMSDialogComponent', () => {
         description: 'should have an phone number input if edit_sms is enabled',
         setting: 1,
         canEditPhone: true,
-        formItems: ['otpPin', 'description', 'phoneNumber']
+        formItems: ['pinForm', 'description', 'phoneNumber']
       },
       {
         description: 'should have an phone number input if edit_sms is not set',
         setting: undefined,
         canEditPhone: true,
-        formItems: ['otpPin', 'description', 'phoneNumber']
+        formItems: ['pinForm', 'description', 'phoneNumber']
       },
       {
         description: 'should not allow to change the token phone number if edit_sms is disabled',
         setting: 0,
         canEditPhone: false,
-        formItems: ['otpPin', 'description']
+        formItems: ['pinForm', 'description']
       }
     ].forEach(params => {
       it(params.description, fakeAsync(() => {

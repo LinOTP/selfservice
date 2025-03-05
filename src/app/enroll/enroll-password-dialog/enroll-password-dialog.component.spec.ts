@@ -134,7 +134,7 @@ describe('The EnrollPasswordDialogComponent', () => {
       component.createTokenForm.controls.password.setValue('111111');
       component.createTokenForm.controls.confirmation.setValue('111111');
       component.setOtpPinPolicyEnabled = false;
-      expect(component.createTokenForm.controls.otpPin.enabled).toEqual(false);
+      expect(component.createTokenForm.controls.pinForm.enabled).toEqual(false);
 
 
       fixture.detectChanges();
@@ -150,7 +150,7 @@ describe('The EnrollPasswordDialogComponent', () => {
       expect(component.enrolledToken.serial).toEqual(serial);
     }));
 
-    it('should enroll a password token with otppin', fakeAsync(() => {
+    it('should enroll a password token with pin', fakeAsync(() => {
       spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify({ otp_pin_minlength: 1 }));
       (component as any).setOtpPinPolicyEnabled = true;
       enrollmentService.enroll.and.returnValue(of(Fixtures.PasswordEnrollmentResponse));
@@ -158,10 +158,10 @@ describe('The EnrollPasswordDialogComponent', () => {
       component.data.tokenType = TokenType.PASSWORD;
       component.createTokenForm.controls.password.setValue('111111');
       component.createTokenForm.controls.confirmation.setValue('111111');
-      component.createTokenForm.controls.otpPin.get('pin').setValue('1234');
-      component.createTokenForm.controls.otpPin.get('confirmPin').setValue('1234');
+      component.createTokenForm.controls.pinForm.get('pin').setValue('1234');
+      component.createTokenForm.controls.pinForm.get('confirmPin').setValue('1234');
 
-      expect(component.createTokenForm.controls.otpPin.enabled).toEqual(true);
+      expect(component.createTokenForm.controls.pinForm.enabled).toEqual(true);
 
       fixture.detectChanges();
       component.enrollPWToken();
@@ -171,7 +171,7 @@ describe('The EnrollPasswordDialogComponent', () => {
         type: TokenType.PASSWORD,
         description: 'Created via SelfService',
         otpkey: '111111',
-        otppin: '1234'
+        pin: '1234'
       });
     }));
 

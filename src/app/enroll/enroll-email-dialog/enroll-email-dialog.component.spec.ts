@@ -161,19 +161,19 @@ describe('The EnrollEmailDialogComponent', () => {
         description: 'should have an email address input if edit_email is enabled',
         setting: 1,
         canEditEmail: true,
-        formItems: ['otpPin', 'description', 'emailAddress']
+        formItems: ['pinForm', 'description', 'emailAddress']
       },
       {
         description: 'should have an email address input if edit_email is not set',
         setting: undefined,
         canEditEmail: true,
-        formItems: ['otpPin', 'description', 'emailAddress']
+        formItems: ['pinForm', 'description', 'emailAddress']
       },
       {
         description: 'should not allow to change the token email address if edit_email is disabled',
         setting: 0,
         canEditEmail: false,
-        formItems: ['otpPin', 'description']
+        formItems: ['pinForm', 'description']
       }
     ].forEach(params => {
       it(params.description, fakeAsync(() => {

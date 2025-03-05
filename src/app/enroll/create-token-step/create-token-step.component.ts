@@ -1,7 +1,7 @@
 import { Component, Input } from "@angular/core";
 import { FormControl, FormGroup, UntypedFormGroup, Validators } from "@angular/forms";
 import { ErrorStateRootMatcher } from "@common/form-helpers/error-state-root-matcher";
-import { getOtpPinForm } from "@app/enroll/token-pin-form-layout/token-pin-form-layout.component";
+import { getPinForm } from "@app/enroll/token-pin-form-layout/token-pin-form-layout.component";
 
 @Component({
   selector: 'app-create-token-step',
@@ -20,7 +20,7 @@ import { getOtpPinForm } from "@app/enroll/token-pin-form-layout/token-pin-form-
         </mat-hint>
         <mat-error i18n *ngIf="form.get('description').hasError('required')">This field is required.</mat-error>
       </mat-form-field>
-      <app-token-pin-form-layout class="token-pin-form-layout" *ngxPermissionsOnly="'SETPIN'" [form]="form.get('otpPin')"></app-token-pin-form-layout>
+      <app-token-pin-form-layout class="token-pin-form-layout" *ngxPermissionsOnly="'SETPIN'" [form]="form.get('pinForm')"></app-token-pin-form-layout>
     </div>
   `,
   styles: [`
@@ -47,7 +47,7 @@ export class CreateTokenStepComponent {
 
 export function getCreateTokenStepForm(): UntypedFormGroup {
   const form = new FormGroup({
-    otpPin: getOtpPinForm(),
+    pinForm: getPinForm(),
     description: new FormControl($localize`Created via SelfService`, Validators.required),
   })
   return form;

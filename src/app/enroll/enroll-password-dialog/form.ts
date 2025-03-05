@@ -1,12 +1,12 @@
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from "@angular/forms";
-import { getOtpPinForm } from "../token-pin-form-layout/token-pin-form-layout.component";
+import { getPinForm } from "../token-pin-form-layout/token-pin-form-layout.component";
 
 
 export function getCreatePasswordTokenForm() {
   const form = new FormGroup({
     password: new FormControl('', [Validators.required]),
     confirmation: new FormControl('', [Validators.required]),
-    otpPin: getOtpPinForm(),
+    pinForm: getPinForm(),
     description: new FormControl($localize`Created via SelfService`, Validators.required),
   }, sameValuesConfirmationValidator)
 
