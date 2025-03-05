@@ -4,9 +4,17 @@
   ### Features:
   * Added OTP PIN enforcement during enrollment. The OTP PIN is now required if `setOTPPIN` and at least one `otp_pin_*` policy is set.
   * Implemented validation rules for `otp_pin_minlength`, `otp_pin_maxlength`, and `otp_pin_contents`.
+  * Revamped the enrollment process for the following tokens: Password, Push, QR, SMS, Email.
+  * During the verification step, the phone number is shown for SMS token and the email for email token.
+  * Added appropriate autofocus to every step of the enrollment process.
 
   ### Fixes:
   * Tokens don't show a token action menu if they don't have an available action.
+  * In revamped enrollment processes, the token list now updates in the final step rather than after token creation, preventing the premature display of warnings above the token list.
+  * Added the token description to the token overview in the final step of enrollment.
+  * Removed redundant text and adjusted the layout of certain enrollment steps.
+  * The new Self Service now correctly uses the intended parameter "pin" instead of "otppin", which was previously incorrectly defined as the default parameter for the token PIN.
+
 
 
 <a name="1.3.1"></a>
