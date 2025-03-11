@@ -1,7 +1,6 @@
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -21,10 +20,16 @@ import { NotificationService } from '@common/notification.service';
 
 import { TokenType } from '@app/api/token';
 import { EnrollMOTPDialogComponent } from './enroll-motp-dialog.component';
+import { CreateTokenStepComponent } from "@app/enroll/create-token-step/create-token-step.component";
+import { DoneStepComponent } from "@app/enroll/done-step/done-step.component";
+import { VerifyTokenComponent } from "@app/enroll/verify-token/verify-token.component";
+import { TokenPinFormLayoutComponent } from "@app/enroll/token-pin-form-layout/token-pin-form-layout.component";
+import { NgSelfServiceCommonModule } from "@common/common.module";
 
 const enrolledToken = {
   serial: Fixtures.mOTPEnrollmentResponse.serial,
-  type: TokenType.MOTP
+  type: TokenType.MOTP,
+  description: 'Created via SelfService'
 };
 
 describe('EnrollMOTPDialogComponent', () => {
@@ -37,6 +42,9 @@ describe('EnrollMOTPDialogComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         EnrollMOTPDialogComponent,
+        CreateTokenStepComponent,
+        DoneStepComponent,
+        VerifyTokenComponent,
         MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] }),
       ],
       imports: [
@@ -46,6 +54,8 @@ describe('EnrollMOTPDialogComponent', () => {
         MaterialModule,
         NoopAnimationsModule,
         NgxPermissionsAllowStubDirective,
+        TokenPinFormLayoutComponent,
+        NgSelfServiceCommonModule,
       ],
       providers: [
         {
@@ -97,6 +107,7 @@ describe('EnrollMOTPDialogComponent', () => {
     loginService = getInjectedStub(LoginService);
 
     loginService.hasPermission$.and.returnValue(of(true));
+    spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify({ otp_pin_minlength: 0 }));
 
     fixture.detectChanges();
   });
@@ -112,13 +123,16 @@ describe('EnrollMOTPDialogComponent', () => {
 
       enrollmentService.enroll.and.returnValue(of(Fixtures.mOTPEnrollmentResponse));
       const expectedToken = enrolledToken;
-      component.enrollmentStep.controls.password.setValue('0123456789ABCDEF');
-      component.enrollmentStep.controls.mOTPPin.setValue('1234');
-
+      component.ngOnInit()
       fixture.detectChanges();
 
+      component.createTokenForm.controls.password.setValue('0123456789ABCDEF');
+      component.createTokenForm.controls.mOTPPin.setValue('1234');
+
+      fixture.detectChanges();
+      expect(component.createTokenForm.valid).toBeTrue()
       component.enrollMOTPToken();
-      tick();
+      tick(500);
 
       expect(enrollmentService.enroll).toHaveBeenCalledWith({
         type: TokenType.MOTP,
@@ -128,7 +142,6 @@ describe('EnrollMOTPDialogComponent', () => {
       });
       expect(component.enrolledToken).toEqual(expectedToken);
       expect(component.stepper.next).toHaveBeenCalledTimes(1);
-      expect(component.enrollmentStep.disabled).toEqual(true);
     }));
 
     it('should enroll an mOTP token with a custom description', fakeAsync(() => {
@@ -136,13 +149,14 @@ describe('EnrollMOTPDialogComponent', () => {
 
       const expectedToken = enrolledToken;
       enrollmentService.enroll.and.returnValue(of(Fixtures.mOTPEnrollmentResponse));
-      component.enrollmentStep.controls.password.setValue('0123456789ABCDEF');
-      component.enrollmentStep.controls.mOTPPin.setValue('1234');
-      component.enrollmentStep.controls.description.setValue('custom description');
+      component.createTokenForm.controls.password.setValue('0123456789ABCDEF');
+      component.createTokenForm.controls.mOTPPin.setValue('1234');
+      component.createTokenForm.controls.description.setValue('custom description');
 
       fixture.detectChanges();
+      expect(component.createTokenForm.valid).toBeTrue()
       component.enrollMOTPToken();
-      tick();
+      tick(500);
 
       expect(enrollmentService.enroll).toHaveBeenCalledWith({
         type: TokenType.MOTP,
@@ -150,9 +164,9 @@ describe('EnrollMOTPDialogComponent', () => {
         otppin: '1234',
         description: `custom description`,
       });
-      expect(component.enrolledToken).toEqual(expectedToken);
+
+      expect(component.enrolledToken).toEqual({ ...expectedToken, description: "custom description" });
       expect(component.stepper.next).toHaveBeenCalledTimes(1);
-      expect(component.enrollmentStep.disabled).toEqual(true);
     }));
 
     it('should allow retrying if enrollment failed', fakeAsync(() => {
@@ -164,48 +178,47 @@ describe('EnrollMOTPDialogComponent', () => {
       tick();
 
       expect(component.enrolledToken).toEqual(undefined);
-      expect(component.enrollmentStep.disabled).toEqual(false);
+      expect(component.createTokenForm.disabled).toEqual(false);
     }));
 
-    it('should not be called on button click if form is invalid', fakeAsync(() => {
+    it('should not be called if form is invalid', fakeAsync(() => {
       spyOn(component.stepper, 'next');
 
-      const nextButton = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
-
       enrollmentService.enroll.and.returnValue(of(Fixtures.mOTPEnrollmentResponse));
-      component.enrollmentStep.controls.password.setValue('J');
-      component.enrollmentStep.controls.mOTPPin.setValue('1234');
+      // digits and A-F allowed
+      component.createTokenForm.controls.password.setValue('J');
+      component.createTokenForm.controls.mOTPPin.setValue('1234');
+      fixture.detectChanges();
+      tick();
+      component.enrollMOTPToken();
+
+      expect(enrollmentService.enroll).not.toHaveBeenCalled();
+      expect(component.stepper.next).not.toHaveBeenCalled();
+
+      // < 12 characters
+      component.createTokenForm.controls.password.setValue('ABCDEF');
+      component.createTokenForm.controls.mOTPPin.setValue('1234');
 
       fixture.detectChanges();
 
-      nextButton.click();
+      component.enrollMOTPToken();
       tick();
 
       expect(enrollmentService.enroll).not.toHaveBeenCalled();
       expect(component.stepper.next).not.toHaveBeenCalled();
 
-      component.enrollmentStep.controls.password.setValue('ABCDEF');
-      component.enrollmentStep.controls.mOTPPin.setValue('1234');
+      //motppin empty
+      component.createTokenForm.controls.password.setValue('0123456789ABCDEF');
+      component.createTokenForm.controls.mOTPPin.setValue('');
 
       fixture.detectChanges();
 
-      nextButton.click();
+      component.enrollMOTPToken();
       tick();
 
       expect(enrollmentService.enroll).not.toHaveBeenCalled();
       expect(component.stepper.next).not.toHaveBeenCalled();
-
-      component.enrollmentStep.controls.password.setValue('0123456789ABCDEF');
-      component.enrollmentStep.controls.mOTPPin.setValue('');
-
-      fixture.detectChanges();
-
-      nextButton.click();
-      tick();
-
-      expect(enrollmentService.enroll).not.toHaveBeenCalled();
-      expect(component.stepper.next).not.toHaveBeenCalled();
-      expect(component.enrollmentStep.disabled).toEqual(false);
+      expect(component.createTokenForm.disabled).toEqual(false);
     }));
 
   });
