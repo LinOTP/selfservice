@@ -11,6 +11,16 @@ import { EnrolledToken } from "@app/enroll/enroll-dialog-base.directive";
 })
 export class VerifyTokenComponent {
 	@Output() tokenVerified = new EventEmitter<boolean>();
+  private _mustContainDigitsOnly = true;
+  @Input()
+  set mustContainDigitsOnly(value: boolean) {
+    this._mustContainDigitsOnly = value;
+    this.updateOtpValidators();
+  }
+
+  get mustContainDigitsOnly(): boolean {
+    return this._mustContainDigitsOnly;
+  }
 	@Input()
 	public get token(): EnrolledToken {
 		return this._token;
@@ -21,7 +31,7 @@ export class VerifyTokenComponent {
 	}
 	private _token: EnrolledToken;
   form: FormGroup = this.formBuilder.group({
-    otp: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
+    otp: ['', Validators.required],
   });
 
   public awaitingResponse = false;
@@ -38,6 +48,20 @@ export class VerifyTokenComponent {
     private testService: TestService,
     private notificationsService: NotificationService,
     private formBuilder: FormBuilder) {
+    this.updateOtpValidators();
+  }
+
+  private updateOtpValidators(): void {
+    if (!this.form) return;
+    if (this.mustContainDigitsOnly) {
+      this.form.get("otp").setValidators([
+        Validators.required,
+        Validators.pattern("^[0-9]*$")
+      ]);
+    } else {
+      this.form.get("otp").setValidators([Validators.required]);
+    }
+    this.form.updateValueAndValidity();
   }
 
   startVerifyProcess() {
