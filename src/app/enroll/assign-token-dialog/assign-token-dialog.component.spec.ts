@@ -105,19 +105,18 @@ describe('AssignTokenDialogComponent', () => {
       enrollmentService.assign.and.returnValue(of({ success: true }));
 
       component.stepper.selectedIndex = 0;
-      component.assignmentForm.setValue({ serial: 'abc123', description: 'my new token' });
+      component.createTokenForm.patchValue({ serial: 'abc123', description: 'my new token' });
       fixture.detectChanges();
 
       component.assignToken();
       expect(component.stepper.selectedIndex).toEqual(1);
-      expect(component.assignmentForm.disabled).toEqual(true);
     });
 
     it('should fail when assignment request returns and display an error message on failure', fakeAsync(() => {
       enrollmentService.assign.and.returnValue(of({ success: false, message: 'an error occurred' }));
 
       component.stepper.selectedIndex = 0;
-      component.assignmentForm.setValue({ serial: 'abc123', description: 'my new token' });
+      component.createTokenForm.patchValue({ serial: 'abc123', description: 'my new token' });
       fixture.detectChanges();
 
       component.assignToken();
@@ -125,7 +124,6 @@ describe('AssignTokenDialogComponent', () => {
 
       expect(component.stepper.selectedIndex).toEqual(0);
       expect(notificationService.errorMessage).toHaveBeenCalledWith('Token assignment failed.');
-      expect(component.assignmentForm.disabled).toEqual(false);
     }));
   });
 
@@ -134,26 +132,26 @@ describe('AssignTokenDialogComponent', () => {
 
       dialog.open.and.returnValue({ afterClosed: () => of('serial') } as MatDialogRef<GetSerialDialogComponent>);
 
-      expect(component.assignmentForm.controls.serial.value).toEqual('');
+      expect(component.createTokenForm.controls.serial.value).toEqual('');
 
       component.getSerial();
       fixture.detectChanges();
 
       expect(dialog.open).toHaveBeenCalledWith(GetSerialDialogComponent);
-      expect(component.assignmentForm.controls.serial.value).toEqual('serial');
+      expect(component.createTokenForm.controls.serial.value).toEqual('serial');
     });
 
     it('should open the getSerial dialog and keep the serial unchanged if the return value is not truthy', () => {
 
       dialog.open.and.returnValue({ afterClosed: () => of(false) } as MatDialogRef<GetSerialDialogComponent>);
 
-      component.assignmentForm.controls.serial.setValue('some value');
+      component.createTokenForm.controls.serial.setValue('some value');
 
       component.getSerial();
       fixture.detectChanges();
 
       expect(dialog.open).toHaveBeenCalledWith(GetSerialDialogComponent);
-      expect(component.assignmentForm.controls.serial.value).toEqual('some value');
+      expect(component.createTokenForm.controls.serial.value).toEqual('some value');
     });
 
   });

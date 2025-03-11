@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormGroup, Validators } from '@angular/forms';
+import { Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 
 import { EnrollDialogBase } from '@app/enroll/enroll-dialog-base.directive';
@@ -13,15 +13,11 @@ import { GetSerialDialogComponent } from '@common/get-serial-dialog/get-serial-d
 })
 export class AssignTokenDialogComponent extends EnrollDialogBase implements OnInit {
 
-  public assignmentForm: UntypedFormGroup;
-  @ViewChild(MatStepper) public stepper: MatStepper;
+  @ViewChild(MatStepper, { static: true }) public stepper: MatStepper;
   @ViewChild('serialInput') public serialInput: ElementRef;
 
   ngOnInit() {
-    this.assignmentForm = this.formBuilder.group({
-      'serial': ['', Validators.required],
-      'description': [$localize`Assigned via SelfService`, Validators.required],
-    });
+    this.createTokenForm.addControl('serial', this.formBuilder.control('', Validators.required));
     super.ngOnInit();
   }
 
@@ -31,28 +27,32 @@ export class AssignTokenDialogComponent extends EnrollDialogBase implements OnIn
    * to retry the assignment process without leaving the dialog.
    */
   public assignToken() {
-    this.assignmentForm.disable();
-    const serial = this.assignmentForm.get('serial').value;
-    const description = this.assignmentForm.get('description').value;
-    this.enrollmentService.assign(serial, description).subscribe(result => {
+    const serial = this.createTokenForm.get('serial').value;
+    const description = this.createTokenForm.get('description').value;
+    let pin = '';
+    if (this.setOtpPinPolicyEnabled) {
+      pin = this.createTokenForm.get('pinForm').get('pin').value
+    }
+    this.enrollmentService.assign(serial, description, pin).subscribe(result => {
       if (result.success) {
-        this.enrolledToken = { serial: serial, type: 'assign' }; // TODO: retrieve real token type
+        this.enrolledToken = { serial: serial, type: 'assign', description: description };
+        this.stepper.steps.get(this.stepper.selectedIndex).completed = true;
         this.stepper.next();
       } else {
-        this.assignmentForm.enable();
         this.notificationService.errorMessage($localize`Token assignment failed.`);
       }
     });
   }
 
   public getSerial() {
-    this.dialog.open(GetSerialDialogComponent).afterClosed().subscribe(serial => {
-      if (serial) {
+    this.subscriptions.push(
+      this.dialog.open(GetSerialDialogComponent).afterClosed().subscribe(serial => {
+        if (!serial) return;
         this.notificationService.message($localize`Serial number retrieved.`);
-        this.assignmentForm.controls.serial.setValue(serial);
+        this.createTokenForm.controls.serial.setValue(serial);
         this.serialInput.nativeElement.focus();
-      }
-    });
+      })
+    )
   }
 
 }
