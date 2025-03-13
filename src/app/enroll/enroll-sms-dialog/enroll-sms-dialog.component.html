@@ -36,10 +36,6 @@
   <mat-step *ngIf="verifyPolicyEnabled">
     <ng-template matStepLabel i18n>Verify</ng-template>
     <mat-dialog-content>
-      <p class="verify" *ngIf="enrolledToken" i18n>
-        An SMS token with the serial number {{ enrolledToken.serial }} has been created for the phone number <span class="underline">{{ enrolledToken.phone }}</span>.
-        Please check your SMS messages for the first one-time password.
-      </p>
       <app-verify-token [token]="enrolledToken" (tokenVerified)="isTokenVerified = true; stepper.next()"></app-verify-token>
     </mat-dialog-content>
   </mat-step>

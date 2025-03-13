@@ -11,6 +11,7 @@ import { NgxPermissionsService } from "ngx-permissions";
 })
 export class DoneStepComponent {
 	@Input() token: EnrolledToken
+  @Input() isAssignProcess: boolean = false;
 
   constructor(private permissionService: NgxPermissionsService) {
   }

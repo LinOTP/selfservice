@@ -1,6 +1,4 @@
 <div *ngIf="enrolledToken">
-	<p i18n="@@oathStepperTokenCreatedInfo">A token with the serial number {{enrolledToken.serial}} has been created. Please add the token by scanning the QR code in the Authenticator app.</p>
-
 	<!-- Standard layout for enrollment with token verification -->
 	<ng-container *ngIf="verifyFlowEnabled;else noVerifyTmp">
 		<div class="verify-container">

@@ -1,5 +1,6 @@
 <form [formGroup]="form" *ngIf="form && token">
-    <p i18n="@@oathStepperVerifyInstruction">Enter your first OTP (one-time password) to verify the correct installation:</p>
+  <p [innerHTML]="verificationMessage()"></p>
+  <p i18n="@@oathStepperVerifyInstruction">Enter your first OTP (one-time password) to verify the correct installation:</p>
 
     <div class="input-container">
       <mat-form-field>
