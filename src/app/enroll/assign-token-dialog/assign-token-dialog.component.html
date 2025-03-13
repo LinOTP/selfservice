@@ -48,12 +48,26 @@
 
   <mat-step *ngIf="verifyPolicyEnabled">
     <ng-template matStepLabel i18n>Verify</ng-template>
+    <ng-template matStepContent>
     <mat-dialog-content>
-      <p class="verify" *ngIf="enrolledToken" i18n="@@assignVerifyInstruction">
-        The token with the serial number {{ enrolledToken.serial }} was successfully linked to your user account.
-      </p>
-      <app-verify-token [token]="enrolledToken" [mustContainDigitsOnly]="false" (tokenVerified)="isTokenVerified = true; stepper.next()"></app-verify-token>
+      <ng-container *ngIf="enrolledToken.type === TokenType.PUSH || enrolledToken.type === TokenType.QR; else def">
+        <p class="verify" *ngIf="enrolledToken" i18n="@@assignVerifyInstruction">
+          The token with the serial number {{ enrolledToken.serial }} was successfully linked to your user account.
+        </p>
+        <div i18n>
+          Scan the QR code with your LinOTP Authenticator app:
+        </div>
+        <app-qr-code [qrUrl]="transactionData"></app-qr-code>
+      </ng-container>
+      <ng-template #def>
+        <app-verify-token [token]="enrolledToken"
+                          [mustContainDigitsOnly]="enrolledToken.type !== TokenType.MOTP"
+                          [isAssignProcess]="true"
+                          (tokenVerified)="isTokenVerified = true; stepper.next()"
+        ></app-verify-token>
+      </ng-template>
     </mat-dialog-content>
+    </ng-template>
   </mat-step>
   <ng-template #verifyTokenStepActions>
     <app-step-actions
@@ -69,7 +83,7 @@
     <ng-template matStepLabel i18n>Done</ng-template>
     <ng-template matStepContent>
       <mat-dialog-content>
-        <app-done-step [token]="enrolledToken"></app-done-step>
+        <app-done-step [token]="enrolledToken" [isAssignProcess]="true"></app-done-step>
       </mat-dialog-content>
     </ng-template>
 

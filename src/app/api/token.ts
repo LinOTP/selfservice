@@ -69,6 +69,14 @@ export class SelfserviceToken {
     return this.token['LinOtp.TokenType'];
   }
 
+  get phone() {
+    return this.token['LinOtp.TokenInfo'].phone;
+  }
+
+  get email() {
+    return this.token['LinOtp.TokenInfo'].email_address;
+  }
+
   constructor(
     private token: LinOtpToken
   ) {
