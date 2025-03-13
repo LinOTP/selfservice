@@ -178,7 +178,6 @@ export class EnrollmentService {
       .pipe(
         map(response => {
           if (response?.result?.value) {
-            this.tokenService.updateTokenList()
             return { success: response.result.value['assign token'] === true };
           } else if (response?.result?.error?.message) {
             let message = '';

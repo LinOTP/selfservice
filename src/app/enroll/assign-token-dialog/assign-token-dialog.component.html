@@ -59,7 +59,7 @@
     <app-step-actions
       [awaitingResponse]="undefined"
       [disableSubmit]="!isTokenVerified"
-      (cancelled)="cancel()"
+      (cancelled)="close()"
       (submitted)="stepper.next()"
     >
     </app-step-actions>
