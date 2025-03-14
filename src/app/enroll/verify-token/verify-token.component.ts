@@ -120,7 +120,14 @@ export class VerifyTokenComponent {
     if (!this.token) return '';
     const createdText = $localize`:@@createdText:created`;
     const assignedText = $localize`:@@assignedText:assigned`;
-    const action = this.isAssignProcess ? assignedText : createdText;
+    const registeredText = $localize`:@@registeredText:registered`;
+    let action: string = createdText;
+    if (this.token.type == TokenType.YUBIKEY) {
+      action = registeredText;
+    }
+    if (this.isAssignProcess) {
+      action = assignedText;
+    }
     switch (this.token.type) {
       case TokenType.EMAIL: {
         const t = this.token as EmailEnrolledToken;
@@ -131,12 +138,14 @@ export class VerifyTokenComponent {
         return $localize`:@@oathVerifyInstruction:A token with the serial number ${this.token.serial} has been ${action}. Please add the token by scanning the QR code in the Authenticator app.`;
       case TokenType.MOTP:
         return $localize`:@@motpVerifyInstruction:An MOTP token with the serial number ${this.token.serial} has been ${action}. Please check your mobile device for the first one-time password.`;
+      case TokenType.YUBICO:
+        return $localize`:@@yubikeyVerifyInstruction:A yubikey with the serial number ${this.token.serial} has been ${action}. Please press its button to enter your one-time password.`;
       case TokenType.SMS: {
         const t = this.token as SMSEnrolledToken;
         return $localize`:@@smsVerifyInstruction:An SMS token with the serial number ${this.token.serial} has been ${action} for the phone number ${t.phone}. Please check your SMS messages for the first one-time password.`;
       }
       default:
-        return $localize`:@@assignVerifyInstruction:The token with the serial number ${this.token.serial} was successfully assigned to your user account.`;
+        return $localize`:@@assignVerifyInstruction:A token with the serial number ${this.token.serial} was successfully assigned to your user account.`;
     }
   }
 

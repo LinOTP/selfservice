@@ -51,8 +51,8 @@
     <ng-template matStepContent>
     <mat-dialog-content>
       <ng-container *ngIf="isTokenPushQR(); else def">
-        <p class="verify" *ngIf="enrolledToken" i18n="@@assignVerifyInstruction">
-          The token with the serial number {{ enrolledToken.serial }} was successfully linked to your user account.
+        <p class="verify" *ngIf="enrolledToken" i18n="@@assignVerifyInstructionQRPush">
+          A token with the serial number {{ enrolledToken.serial }} was successfully assigned to your user account.
         </p>
         <app-qr-code-input [transactionDetail]="transactionDetail" (otpValueChanged)="setOfflineOtpValue($event)"></app-qr-code-input>
       </ng-container>
