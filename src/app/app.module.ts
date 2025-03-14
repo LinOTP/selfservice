@@ -40,6 +40,7 @@ import { CreateTokenStepComponent } from "@app/enroll/create-token-step/create-t
 import { VerifyTokenComponent } from "@app/enroll/verify-token/verify-token.component";
 import { DoneStepComponent } from "@app/enroll/done-step/done-step.component";
 import { ImportTokenStepComponent } from "@app/enroll/enroll-oath-dialog/oath-enrollment/import-token-step/import-token-step.component";
+import { QrCodeInputComponent } from '@app/qr-code-input/qr-code-input.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { ImportTokenStepComponent } from "@app/enroll/enroll-oath-dialog/oath-en
     CreateTokenStepComponent,
     VerifyTokenComponent,
     DoneStepComponent,
-    ImportTokenStepComponent
+    ImportTokenStepComponent,
+    QrCodeInputComponent
   ],
   imports: [
     BrowserModule,

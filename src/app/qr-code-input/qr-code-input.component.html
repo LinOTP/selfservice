@@ -1,0 +1,33 @@
+<ng-container *ngIf="qrCodeData">
+  <div class="instruction"
+       i18n>
+    Scan the QR code with your LinOTP Authenticator app:
+  </div>
+  <app-qr-code [qrUrl]="qrCodeData"></app-qr-code>
+</ng-container>
+
+<ng-container *ngIf="!hasOfflineMode">
+  <mat-spinner class="polling"></mat-spinner>
+  <div class="instruction"
+       i18n>
+    Waiting for confirmation of transaction
+    <b><code>{{ transactionDetail?.transactionId.toString().slice(0, 6) }}</code></b> via your LinOTP Authenticator app.
+  </div>
+</ng-container>
+
+<div class="instruction otpInput">
+  <button mat-button
+          (click)="showInputField = true"
+          *ngIf="hasOnlineMode && hasOfflineMode && !showInputField"
+          i18n>Manually enter OTP</button>
+
+  <mat-form-field *ngIf="!hasOnlineMode || showInputField">
+    <mat-label i18n>OTP value</mat-label>
+    <input matInput
+           type="text"
+           (input)="onOtpChange($event)"
+           autocomplete="one-time-code"
+           appFocusOnInit>
+    <mat-error i18n="@@otpRequiredInfo">The OTP field cannot be empty</mat-error>
+  </mat-form-field>
+</div>
