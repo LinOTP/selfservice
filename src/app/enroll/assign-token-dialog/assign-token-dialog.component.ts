@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 
@@ -6,8 +6,8 @@ import { EnrollDialogBase, EnrolledToken } from '@app/enroll/enroll-dialog-base.
 import { GetSerialDialogComponent } from '@common/get-serial-dialog/get-serial-dialog.component';
 import { SelfserviceToken, TokenType } from "@api/token";
 import { concatMap, EMPTY, of } from "rxjs";
-import { TestService } from "@api/test.service";
-import { map } from "rxjs/operators";
+import { TestOptions, TestService, TransactionDetail } from "@api/test.service";
+import { finalize, map } from "rxjs/operators";
 import { SMSEnrolledToken } from "@app/enroll/enroll-sms-dialog/enroll-sms-dialog.component";
 import { EmailEnrolledToken } from "@app/enroll/enroll-email-dialog/enroll-email-dialog.component";
 
@@ -22,10 +22,13 @@ export class AssignTokenDialogComponent extends EnrollDialogBase implements OnIn
   @ViewChild(MatStepper, { static: true }) public stepper: MatStepper;
   @ViewChild('serialInput') public serialInput: ElementRef;
   private testService = inject(TestService);
+  offlineOtpValue: string;
+  cdr = inject(ChangeDetectorRef);
+
   /**
    * needed for the QR Code in case Push or QR was assigned
    */
-  protected transactionData: string;
+  protected transactionDetail: TransactionDetail;
 
 
   ngOnInit() {
@@ -45,6 +48,7 @@ export class AssignTokenDialogComponent extends EnrollDialogBase implements OnIn
     if (this.setOtpPinPolicyEnabled) {
       pin = this.createTokenForm.get('pinForm').get('pin').value
     }
+    this.awaitingResponse = true;
     this.subscriptions.push(
       this.enrollmentService.assign(serial, description, pin).pipe(
         concatMap(res => {
@@ -54,28 +58,21 @@ export class AssignTokenDialogComponent extends EnrollDialogBase implements OnIn
           return EMPTY;
         }),
         concatMap(token => {
-          if (token.tokenType !== TokenType.PUSH && token.tokenType !== TokenType.QR) {
+          if ((token.tokenType !== TokenType.PUSH && token.tokenType !== TokenType.QR) || !this.verifyPolicyEnabled) {
             return of({ token, transactionDetail: undefined });
           }
           return this.testService.testToken({ serial: token.serial }).pipe(
             map(transactionDetail => ({ token, transactionDetail }))
           );
         }),
+        finalize(() => this.awaitingResponse = false),
       ).subscribe(({ token, transactionDetail }) => {
         if (!token) {
           this.showError();
         } else {
           this.enrolledToken = this.getTokenData(token);
-          if (token.tokenType === TokenType.QR || token.tokenType === TokenType.PUSH) {
-            this.transactionData = transactionDetail?.transactionData;
-            this.subscriptions.push(this.testService.statusPoll(transactionDetail.transactionId).subscribe(data => {
-              if (data.accept || data.reject || data.valid_tan) {
-                this.proceedToNextStep();
-              } else {
-                this.showError();
-              }
-            }));
-          }
+          this.transactionDetail = transactionDetail;
+          this.startPolling();
           this.proceedToNextStep();
         }
       })
@@ -91,6 +88,46 @@ export class AssignTokenDialogComponent extends EnrollDialogBase implements OnIn
         this.serialInput.nativeElement.focus();
       })
     )
+  }
+
+  endVerifyStep() {
+    if (this.isTokenPushQR() && this.offlineOtpValue) {
+      let body: TestOptions = { serial: this.enrolledToken.serial, otp: this.offlineOtpValue, transactionid: this.transactionDetail.transactionId };
+      this.subscriptions.push(
+        this.testService.testToken(body)
+        .subscribe(result => {
+          result === true ? this.stepper.next() : this.showError();
+        })
+      )
+    } else {
+      this.stepper.next();
+    }
+  }
+
+  disableVerifySubmit() {
+    if (this.isTokenPushQR() && this.offlineOtpValue) return this.offlineOtpValue.length === 0;
+    return true;
+  }
+
+
+  setOfflineOtpValue(val: string) {
+    this.offlineOtpValue = val
+    this.cdr.detectChanges();
+  }
+
+  isTokenPushQR() {
+    return this.enrolledToken?.type === TokenType.QR || this.enrolledToken?.type === TokenType.PUSH;
+  }
+
+  private startPolling() {
+    if (!this.isTokenPushQR() || !this.transactionDetail?.transactionId) return;
+    this.subscriptions.push(this.testService.statusPoll(this.transactionDetail.transactionId).subscribe(data => {
+      if (data.accept || data.reject || data.valid_tan) {
+        this.proceedToNextStep();
+      } else {
+        this.showError();
+      }
+    }));
   }
 
   private proceedToNextStep() {

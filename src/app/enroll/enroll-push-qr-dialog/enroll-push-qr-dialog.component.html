@@ -38,7 +38,7 @@
     </ng-template>
     <ng-template #createTokenStepActions>
       <app-step-actions [awaitingResponse]="awaitingResponse"
-                        [disableSubmit]="createTokenForm.invalid"
+                        [disableSubmit]="createTokenForm.invalid || awaitingResponse"
                         (cancelled)="close()"
                         (submitted)="enrollPushQRToken()">
       </app-step-actions>

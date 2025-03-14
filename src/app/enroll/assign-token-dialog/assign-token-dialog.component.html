@@ -39,7 +39,7 @@
     <ng-template #createTokenStepActions>
       <app-step-actions
         [awaitingResponse]="awaitingResponse"
-        [disableSubmit]="createTokenForm.invalid"
+        [disableSubmit]="createTokenForm.invalid || awaitingResponse"
         (cancelled)="close()"
         (submitted)="assignToken()">
       </app-step-actions>
@@ -50,18 +50,15 @@
     <ng-template matStepLabel i18n>Verify</ng-template>
     <ng-template matStepContent>
     <mat-dialog-content>
-      <ng-container *ngIf="enrolledToken.type === TokenType.PUSH || enrolledToken.type === TokenType.QR; else def">
+      <ng-container *ngIf="isTokenPushQR(); else def">
         <p class="verify" *ngIf="enrolledToken" i18n="@@assignVerifyInstruction">
           The token with the serial number {{ enrolledToken.serial }} was successfully linked to your user account.
         </p>
-        <div i18n>
-          Scan the QR code with your LinOTP Authenticator app:
-        </div>
-        <app-qr-code [qrUrl]="transactionData"></app-qr-code>
+        <app-qr-code-input [transactionDetail]="transactionDetail" (otpValueChanged)="setOfflineOtpValue($event)"></app-qr-code-input>
       </ng-container>
       <ng-template #def>
         <app-verify-token [token]="enrolledToken"
-                          [mustContainDigitsOnly]="enrolledToken.type !== TokenType.MOTP"
+                          [mustContainDigitsOnly]="enrolledToken.type.toLowerCase() !== TokenType.MOTP"
                           [isAssignProcess]="true"
                           (tokenVerified)="isTokenVerified = true; stepper.next()"
         ></app-verify-token>
@@ -72,9 +69,9 @@
   <ng-template #verifyTokenStepActions>
     <app-step-actions
       [awaitingResponse]="undefined"
-      [disableSubmit]="!isTokenVerified"
+      [disableSubmit]="disableVerifySubmit()"
       (cancelled)="close()"
-      (submitted)="stepper.next()"
+      (submitted)="endVerifyStep()"
     >
     </app-step-actions>
   </ng-template>
@@ -94,14 +91,10 @@
 </mat-horizontal-stepper>
 
 <mat-dialog-actions align="end">
-  <ng-container
-    *ngTemplateOutlet="
-      [
-        createTokenStepActions,
-        verifyTokenStepActions,
-        doneStepActions
-      ][stepper.selectedIndex]
-    "
-  >
-  </ng-container>
+  <ng-container *ngTemplateOutlet="
+        (verifyPolicyEnabled ?
+        [createTokenStepActions, verifyTokenStepActions, doneStepActions] :
+        [createTokenStepActions, doneStepActions])
+        [stepper.selectedIndex]"
+  ></ng-container>
 </mat-dialog-actions>

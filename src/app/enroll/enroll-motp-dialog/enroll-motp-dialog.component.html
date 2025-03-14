@@ -39,7 +39,7 @@
     <ng-template #createTokenStepActions>
       <app-step-actions
         [awaitingResponse]="awaitingResponse"
-        [disableSubmit]="createTokenForm.invalid"
+        [disableSubmit]="createTokenForm.invalid || awaitingResponse"
         (cancelled)="close()"
         (submitted)="enrollMOTPToken()">
       </app-step-actions>
@@ -77,16 +77,12 @@
 </mat-horizontal-stepper>
 
 <mat-dialog-actions align="end">
-  <ng-container
-    *ngTemplateOutlet="
-      [
-        createTokenStepActions,
-        verifyTokenStepActions,
-        doneStepActions
-      ][stepper.selectedIndex]
-    "
-  >
-  </ng-container>
+  <ng-container *ngTemplateOutlet="
+        (verifyPolicyEnabled ?
+        [createTokenStepActions, verifyTokenStepActions, doneStepActions] :
+        [createTokenStepActions, doneStepActions])
+        [stepper.selectedIndex]"
+  ></ng-container>
 </mat-dialog-actions>
 
 <!-- TODO Implement this step as soon as the LinOTP Authenticator is capable of generating the QR Code and LINSELF-90 was implemented
@@ -111,7 +107,7 @@
 <ng-template #installAppStepActions>
 <app-step-actions
   [awaitingResponse]="awaitingResponse"
-  [disableSubmit]="createTokenForm.invalid"
+        [disableSubmit]="createTokenForm.invalid || awaitingResponse"
   (cancelled)="close()"
   (submitted)="stepper.next()"
 >

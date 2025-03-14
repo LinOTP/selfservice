@@ -27,7 +27,7 @@
   <ng-template #createTokenStepActions>
     <app-step-actions
       [awaitingResponse]="awaitingResponse"
-      [disableSubmit]="createTokenForm.invalid"
+      [disableSubmit]="createTokenForm.invalid || awaitingResponse"
       (cancelled)="close()"
       (submitted)="enrollEmailToken()"
     >
@@ -62,14 +62,10 @@
 </mat-horizontal-stepper>
 
 <mat-dialog-actions align="end">
-  <ng-container
-    *ngTemplateOutlet="
-      [
-        createTokenStepActions,
-        verifyTokenStepActions,
-        doneStepActions
-      ][stepper.selectedIndex]
-    "
-  >
-  </ng-container>
+  <ng-container *ngTemplateOutlet="
+        (verifyPolicyEnabled ?
+        [createTokenStepActions, verifyTokenStepActions, doneStepActions] :
+        [createTokenStepActions, doneStepActions])
+        [stepper.selectedIndex]"
+  ></ng-container>
 </mat-dialog-actions>

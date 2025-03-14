@@ -163,7 +163,7 @@ export class EnrollmentService {
 
   assign(tokenSerial: string, description: string, pin?: string): Observable<{ success: boolean, message?: string }> {
     const tryAgainMessage = $localize`Please try again or contact an administrator.`;
-    let bodyAssign: any = {
+    let bodyAssign: { serial: string, description: string, session: string, pin?: string } = {
       serial: tokenSerial,
       description: description,
       session: this.sessionService.getSession()

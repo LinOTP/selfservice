@@ -116,7 +116,7 @@ export class VerifyTokenComponent {
     return this.form.invalid || this.awaitingResponse;
   }
 
-  public verificationMessage(): string {
+  get verificationMessage(): string {
     if (!this.token) return '';
     const createdText = $localize`:@@createdText:created`;
     const assignedText = $localize`:@@assignedText:assigned`;

@@ -228,7 +228,7 @@ export const unknownTokenTypeDetail: TokenDisplayData = {
 
 
 export function getTokenDisplayData(type: TokenType): TokenDisplayData {
-  return tokenDisplayData.find(d => d.type === type) || unknownTokenTypeDetail;
+  return tokenDisplayData.find(d => d.type.toLowerCase() === type.toLowerCase()) || unknownTokenTypeDetail;
 }
 
 export type LinOtpToken = {
