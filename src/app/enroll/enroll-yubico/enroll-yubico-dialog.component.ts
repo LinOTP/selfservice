@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormGroup, Validators } from '@angular/forms';
+import { Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { TokenType } from '@app/api/token';
 import { EnrollDialogBase } from '@app/enroll/enroll-dialog-base.directive';
@@ -10,15 +10,12 @@ import { EnrollDialogBase } from '@app/enroll/enroll-dialog-base.directive';
   styleUrls: ['./enroll-yubico-dialog.component.scss']
 })
 export class EnrollYubicoDialogComponent extends EnrollDialogBase implements OnInit {
-
-  public registrationForm: UntypedFormGroup;
-  @ViewChild(MatStepper) public stepper: MatStepper;
+  @ViewChild(MatStepper, { static: true }) public stepper: MatStepper;
 
   ngOnInit() {
-    this.registrationForm = this.formBuilder.group({
-      'publicId': ['', Validators.required],
-      'description': [$localize`Registered via SelfService`, Validators.required],
-    });
+    this.createTokenForm.addControl('publicId',
+        this.formBuilder.control('', [Validators.required/*, Validators.minLength(12), Validators.maxLength(12)*/])
+    );
     super.ngOnInit();
   }
 
@@ -28,20 +25,16 @@ export class EnrollYubicoDialogComponent extends EnrollDialogBase implements OnI
    * on the same step.
    */
   public registerToken() {
-    this.registrationForm.disable();
     const body = {
       type: TokenType.YUBICO,
-      'yubico.tokenid': this.registrationForm.get('publicId').value,
-      description: this.registrationForm.get('description').value,
+      'yubico.tokenid': this.createTokenForm.get('publicId').value,
+      description: this.createTokenForm.get('description').value,
       otplen: 44,
     };
-    this.enrollmentService.enroll(body).subscribe(token => {
-      if (token?.serial) {
-        this.enrolledToken = { serial: token.serial, type: TokenType.YUBICO };
-        this.stepper.next();
-      } else {
-        this.registrationForm.enable();
-      }
-    });
+    this.subscriptions.push(
+        this.enrollToken(body, this.stepper).subscribe(token => {
+          this.enrolledToken = { serial: token.serial, type: TokenType.YUBICO, description: token.description };
+        })
+    )
   }
 }

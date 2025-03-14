@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
@@ -17,6 +17,12 @@ import { LoginService } from '@app/login/login.service';
 import { NotificationService } from '@common/notification.service';
 
 import { EnrollYubicoDialogComponent } from './enroll-yubico-dialog.component';
+import { CreateTokenStepComponent } from "@app/enroll/create-token-step/create-token-step.component";
+import { DoneStepComponent } from "@app/enroll/done-step/done-step.component";
+import { TokenInfoComponent } from "@app/enroll/enroll-oath-dialog/oath-enrollment/token-info.component";
+import { StepActionsComponent } from "@app/enroll/step-actions/step-actions.component";
+import { NgSelfServiceCommonModule } from "@common/common.module";
+import { TokenPinFormLayoutComponent } from "@app/enroll/token-pin-form-layout/token-pin-form-layout.component";
 
 describe('EnrollYubicoDialogComponent', () => {
   let component: EnrollYubicoDialogComponent;
@@ -29,6 +35,10 @@ describe('EnrollYubicoDialogComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         EnrollYubicoDialogComponent,
+        CreateTokenStepComponent,
+        DoneStepComponent,
+        TokenInfoComponent,
+        StepActionsComponent,
         MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] }),
       ],
       imports: [
@@ -36,6 +46,8 @@ describe('EnrollYubicoDialogComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         NgxPermissionsAllowStubDirective,
+        TokenPinFormLayoutComponent,
+        NgSelfServiceCommonModule,
       ],
       providers: [
         {
@@ -83,6 +95,8 @@ describe('EnrollYubicoDialogComponent', () => {
     loginService = getInjectedStub(LoginService);
 
     loginService.hasPermission$.and.returnValue(of(true));
+    spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify({ otp_pin_minlength: 0 }));
+
     fixture.detectChanges();
   });
 
@@ -92,28 +106,28 @@ describe('EnrollYubicoDialogComponent', () => {
 
   describe('registerToken', () => {
 
-    it('should be successful when registration is successful', () => {
+    it('should be successful when registration is successful', fakeAsync(() => {
       enrollmentService.enroll.and.returnValue(of({ serial: 'serial' }));
 
       component.stepper.selectedIndex = 0;
-      component.registrationForm.setValue({ publicId: 'abc123', description: 'my new token' });
+      component.createTokenForm.patchValue({ publicId: 'abc123', description: 'my new token' });
       fixture.detectChanges();
 
       component.registerToken();
+
+      tick(500)
       expect(component.stepper.selectedIndex).toEqual(1);
-      expect(component.registrationForm.disabled).toEqual(true);
-    });
+    }));
 
     it('should fail when registration request returns and stay on the same step', () => {
       enrollmentService.enroll.and.returnValue(of(null));
 
       component.stepper.selectedIndex = 0;
-      component.registrationForm.setValue({ publicId: 'abc123', description: 'my new token' });
+      component.createTokenForm.patchValue({ publicId: 'abc123', description: 'my new token' });
       fixture.detectChanges();
 
       component.registerToken();
       expect(component.stepper.selectedIndex).toEqual(0);
-      expect(component.registrationForm.disabled).toEqual(false);
     });
   });
 });
