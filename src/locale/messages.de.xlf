@@ -356,7 +356,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="pinLengthError" datatype="html">
-        <source> 
+        <source>
     between <x id="INTERPOLATION" equiv-text="{{ minLength }}"/> and <x id="INTERPOLATION_1" equiv-text="{{ maxLength }}"/> characters long
   </source>
         <target state="new">
@@ -421,7 +421,7 @@
       <trans-unit id="2924314795002027569" datatype="html">
         <source>
         at least one special character
-        
+
         <x id="START_TAG_NG_CONTAINER" ctype="x-ng_container" equiv-text="&lt;ng-container *ngIf=&quot;!requiresSpecial()&quot;>"/>not in (<x id="INTERPOLATION" equiv-text="{{ SPECIAL_CHARACTERS }}"/>)<x id="CLOSE_TAG_NG_CONTAINER" ctype="x-ng_container" equiv-text="&lt;/ng-container>"/>
         e.g. <x id="INTERPOLATION_1" equiv-text="{{ &quot; Æäöüß&quot; }}"/>
       </source>
@@ -1006,10 +1006,6 @@
           <context context-type="sourcefile">src/app/enroll/create-token-step/create-token-step.component.ts</context>
           <context context-type="linenumber">11</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-yubico/enroll-yubico-dialog.component.html</context>
-          <context context-type="linenumber">27</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="1844538710408139232" datatype="html">
         <source>Enter a description for your token.</source>
@@ -1017,10 +1013,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
           <context context-type="linenumber">47</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-yubico/enroll-yubico-dialog.component.html</context>
-          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2159130950882492111" datatype="html">
@@ -1061,10 +1053,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
           <context context-type="linenumber">59</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-yubico/enroll-yubico-dialog.component.html</context>
-          <context context-type="linenumber">41</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3885497195825665706" datatype="html">
@@ -1198,6 +1186,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
           <context context-type="linenumber">57</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/enroll-yubico/enroll-yubico-dialog.component.html</context>
+          <context context-type="linenumber">54</context>
         </context-group>
       </trans-unit>
       <trans-unit id="motpStepperCreateInstruction" datatype="html">
@@ -1509,10 +1501,6 @@
           <context context-type="sourcefile">src/app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
           <context context-type="linenumber">82</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-yubico/enroll-yubico-dialog.component.html</context>
-          <context context-type="linenumber">64</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="7034645605656512531" datatype="html">
         <source>Please verify with a token test whether you can successfully use the token:</source>
@@ -1522,10 +1510,6 @@
           <context context-type="sourcefile">src/app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
           <context context-type="linenumber">88</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-yubico/enroll-yubico-dialog.component.html</context>
-          <context context-type="linenumber">69</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="8676540958141900081" datatype="html">
         <source>Step 1 of 2</source>
@@ -1534,10 +1518,6 @@
           <context context-type="sourcefile">src/app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
           <context context-type="linenumber">54</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-yubico/enroll-yubico-dialog.component.html</context>
-          <context context-type="linenumber">36</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="3041434564705272931" datatype="html">
         <source>Step 2 of 2</source>
@@ -1545,10 +1525,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
           <context context-type="linenumber">92</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-yubico/enroll-yubico-dialog.component.html</context>
-          <context context-type="linenumber">73</context>
         </context-group>
       </trans-unit>
       <trans-unit id="801679254629334714" datatype="html">
@@ -2444,6 +2420,10 @@
           <context context-type="linenumber">37</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/enroll-yubico/enroll-yubico-dialog.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/verify-token/verify-token.component.html</context>
           <context context-type="linenumber">23</context>
         </context-group>
@@ -2771,10 +2751,6 @@
           <context context-type="sourcefile">src/app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
           <context context-type="linenumber">73</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-yubico/enroll-yubico-dialog.component.html</context>
-          <context context-type="linenumber">55</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="7890711041766610816" datatype="html">
         <source>You may set a PIN now to protect your token against misuse, as it ensures only you can use your token.
@@ -2787,25 +2763,13 @@
           <context context-type="sourcefile">src/app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
           <context context-type="linenumber">76</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-yubico/enroll-yubico-dialog.component.html</context>
-          <context context-type="linenumber">58</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="6971651301805388528" datatype="html">
-        <source>Registered via SelfService</source>
-        <target state="translated">Registriert via SelfService</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-yubico/enroll-yubico-dialog.component.ts</context>
-          <context context-type="linenumber">20</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="1918520446062026084" datatype="html">
         <source>Register YubiCloud token</source>
         <target state="translated">YubiCloud-Token registrieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-yubico/enroll-yubico-dialog.component.html</context>
-          <context context-type="linenumber">2</context>
+          <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
       <trans-unit id="51582723068730838" datatype="html">
@@ -2816,7 +2780,7 @@
           Alternativ, kann die Public ID manuell eingegeben werden.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-yubico/enroll-yubico-dialog.component.html</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5130360054905226089" datatype="html">
@@ -2824,7 +2788,7 @@
         <target state="translated">OTP oder Public ID</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-yubico/enroll-yubico-dialog.component.html</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1417693714872528491" datatype="html">
@@ -2864,7 +2828,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-yubico/enroll-yubico-dialog.component.html</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">15</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
@@ -2888,7 +2852,19 @@
         <target state="translated">Generieren Sie ein OTP mit Ihrem Yubikey.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-yubico/enroll-yubico-dialog.component.html</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="yubikeyVerifyText" datatype="html">
+        <source>
+        A yubikey with the serial number <x id="INTERPOLATION" equiv-text="{{ enrolledToken.serial }}"/> has been registered.
+      </source>
+        <target state="translated">
+          Ein YubiKey mit der Seriennummer <x id="INTERPOLATION" equiv-text="{{ enrolledToken.serial }}"/> wurde registriert.
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/enroll-yubico/enroll-yubico-dialog.component.html</context>
+          <context context-type="linenumber">36,38</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5853887791314451628" datatype="html">
@@ -2901,15 +2877,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-yubico/enroll-yubico-dialog.component.html</context>
-          <context context-type="linenumber">12</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="683523848298302449" datatype="html">
-        <source>The token description is required.</source>
-        <target state="translated">Die Token-Beschreibung ist erforderlich.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-yubico/enroll-yubico-dialog.component.html</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2357624403257747551" datatype="html">
@@ -2917,7 +2885,7 @@
         <target state="translated">Token registrieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-yubico/enroll-yubico-dialog.component.html</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6428207120403142021" datatype="html">
@@ -2998,10 +2966,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
           <context context-type="linenumber">42</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-yubico/enroll-yubico-dialog.component.html</context>
-          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1330646976582013113" datatype="html">

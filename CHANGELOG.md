@@ -4,7 +4,7 @@
   ### Features:
   * Added OTP PIN enforcement during enrollment. The OTP PIN is now required if `setOTPPIN` and at least one `otp_pin_*` policy is set.
   * Implemented validation rules for `otp_pin_minlength`, `otp_pin_maxlength`, and `otp_pin_contents`.
-  * Revamped the enrollment process for the following tokens: Password, Push, QR, SMS, Email, MOTP.
+  * Revamped the enrollment process for the following tokens: Password, Push, QR, SMS, Email, MOTP, YubiCloud.
   * During the verification step, the phone number is shown for SMS token and the email for email token.
   * Added appropriate autofocus to every step of the enrollment process.
 
