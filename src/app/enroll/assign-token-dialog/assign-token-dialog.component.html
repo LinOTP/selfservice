@@ -1,24 +1,18 @@
-<h2 mat-dialog-title
-    i18n>Assign Token</h2>
-<mat-horizontal-stepper [linear]="true"
-                        linear
-                        #stepper>
-
-  <mat-step [stepControl]="assignmentForm">
-
-    <form [formGroup]="assignmentForm"
-          (submit)="assignToken()">
-
+<h2 mat-dialog-title i18n>Assign Token</h2>
+<mat-horizontal-stepper [linear]="true">
+  <mat-step [completed]="false" [editable]="false">
+    <ng-template matStepLabel i18n>Assign token</ng-template>
+    <ng-template matStepContent>
       <mat-dialog-content>
         <p>
           <ng-container i18n>Claim an existing token and link it to your user account.</ng-container>
-          <ng-container *ngxPermissionsExcept="Permission.GETSERIAL"
-                        i18n>You need to know its serial number in advance.</ng-container>
+          <ng-container *ngxPermissionsExcept="Permission.GETSERIAL" i18n>You need to know its serial number in advance.</ng-container>
         </p>
-        <div class="get-serial-layout"
-             *ngxPermissionsOnly="Permission.GETSERIAL">
-          <p i18n>If you do not have the token serial at hand, you can use a generated OTP value to determine the
-            serial of your token.</p>
+        <div class="get-serial-layout" *ngxPermissionsOnly="Permission.GETSERIAL">
+          <p i18n>
+            If you do not have the token serial at hand, you can use a generated OTP value to determine the
+            serial of your token.
+          </p>
           <button mat-stroked-button
                   color="primary"
                   type="button"
@@ -27,7 +21,7 @@
             <span i18n>Determine serial</span>
           </button>
         </div>
-
+        <form [formGroup]="createTokenForm" (keydown.enter)="assignToken()">
         <mat-form-field>
           <mat-label i18n>Token serial</mat-label>
           <input matInput
@@ -37,63 +31,70 @@
           <mat-error i18n>The token serial is required.</mat-error>
           <mat-hint i18n>Enter the serial number of the token you want to link to your user account.</mat-hint>
         </mat-form-field>
-
-        <p class="formSectionIntro"
-           i18n>You may set a token description, which should help you identify your token:</p>
-        <mat-form-field>
-          <mat-label i18n>Token description</mat-label>
-          <input matInput
-                 formControlName="description">
-          <mat-hint i18n>Enter a description for your token.</mat-hint>
-          <mat-error i18n
-                     *ngIf="assignmentForm.get('description').hasError('required')">This field is required.</mat-error>
-        </mat-form-field>
+          <app-create-token-step [form]="createTokenForm"></app-create-token-step>
+        </form>
       </mat-dialog-content>
+    </ng-template>
 
-      <mat-dialog-actions align="end">
-        <div i18n>Step 1 of 2</div>
-        <span class="spacer"></span>
-        <button mat-button
-                type="button"
-                (click)="close()"
-                i18n>Cancel</button>
-        <button mat-raised-button
-                color="primary"
-                type="submit"
-                [disabled]="assignmentForm.invalid || assignmentForm.disabled">
-          <app-button-wait-indicator [show]="assignmentForm.disabled"></app-button-wait-indicator>
-          <ng-container i18n>Assign token</ng-container>
-        </button>
-      </mat-dialog-actions>
-    </form>
+    <ng-template #createTokenStepActions>
+      <app-step-actions
+        [awaitingResponse]="awaitingResponse"
+        [disableSubmit]="createTokenForm.invalid || awaitingResponse"
+        (cancelled)="close()"
+        (submitted)="assignToken()">
+      </app-step-actions>
+    </ng-template>
   </mat-step>
+
+  <mat-step *ngIf="verifyPolicyEnabled">
+    <ng-template matStepLabel i18n>Verify</ng-template>
+    <ng-template matStepContent>
+    <mat-dialog-content>
+      <ng-container *ngIf="isTokenPushQR(); else def">
+        <p class="verify" *ngIf="enrolledToken" i18n="@@assignVerifyInstructionQRPush">
+          A token with the serial number {{ enrolledToken.serial }} was successfully assigned to your user account.
+        </p>
+        <app-qr-code-input [transactionDetail]="transactionDetail" (otpValueChanged)="setOfflineOtpValue($event)"></app-qr-code-input>
+      </ng-container>
+      <ng-template #def>
+        <app-verify-token [token]="enrolledToken"
+                          [mustContainDigitsOnly]="enrolledToken.type.toLowerCase() !== TokenType.MOTP"
+                          [isAssignProcess]="true"
+                          (tokenVerified)="isTokenVerified = true; stepper.next()"
+        ></app-verify-token>
+      </ng-template>
+    </mat-dialog-content>
+    </ng-template>
+  </mat-step>
+  <ng-template #verifyTokenStepActions>
+    <app-step-actions
+      [awaitingResponse]="undefined"
+      [disableSubmit]="disableVerifySubmit()"
+      (cancelled)="close()"
+      (submitted)="endVerifyStep()"
+    >
+    </app-step-actions>
+  </ng-template>
 
   <mat-step>
-    <mat-dialog-actions>
-      <p i18n>The token was successfully linked to your user account.</p>
+    <ng-template matStepLabel i18n>Done</ng-template>
+    <ng-template matStepContent>
+      <mat-dialog-content>
+        <app-done-step [token]="enrolledToken" [isAssignProcess]="true"></app-done-step>
+      </mat-dialog-content>
+    </ng-template>
 
-      <ng-container *ngxPermissionsOnly="Permission.SETPIN">
-        <p i18n>You may set a PIN now to protect your token against misuse, as it ensures only you can use your token.
-          This step is optional, and you can still do it later over the token menu.</p>
-        <button mat-stroked-button
-                color="primary"
-                (click)="setPin()">
-          <mat-icon>security</mat-icon>
-          <span i18n>Set pin</span>
-        </button>
-      </ng-container>
-
-      <p *ngxPermissionsOnly="Permission.VERIFY"
-         class="verify"
-         i18n>Please verify with a token test whether you can successfully use the token:</p>
-    </mat-dialog-actions>
-
-    <mat-dialog-actions align="end">
-      <div i18n>Step 2 of 2</div>
-      <span class="spacer"></span>
-      <button mat-raised-button
-              (click)="finalizeEnrollment()"
-              color="primary">{{ closeLabel }}</button>
-    </mat-dialog-actions>
+    <ng-template #doneStepActions>
+      <app-step-actions [disableSubmit]="false" [isDoneStep]="true" (submitted)="close()"></app-step-actions>
+    </ng-template>
   </mat-step>
 </mat-horizontal-stepper>
+
+<mat-dialog-actions align="end">
+  <ng-container *ngTemplateOutlet="
+        (verifyPolicyEnabled ?
+        [createTokenStepActions, verifyTokenStepActions, doneStepActions] :
+        [createTokenStepActions, doneStepActions])
+        [stepper.selectedIndex]"
+  ></ng-container>
+</mat-dialog-actions>

@@ -6,7 +6,7 @@ import { EnrollmentOptions } from '@api/token';
 import { EnrollDialogBase, EnrolledToken } from '@app/enroll/enroll-dialog-base.directive';
 import { UserInfo, UserSystemInfo } from '@app/system.service';
 
-interface SMSEnrolledToken extends EnrolledToken {
+export interface SMSEnrolledToken extends EnrolledToken {
   phone: string;
 }
 @Component({

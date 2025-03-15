@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 
 
 import { ReplyMode, StatusDetail, TestOptions, TestService, TransactionDetail } from '@api/test.service';
-import { SelfserviceToken, TokenDisplayData, TokenType, tokenDisplayData } from '@api/token';
+import { SelfserviceToken, TokenDisplayData, tokenDisplayData, TokenType } from '@api/token';
 
 enum TestState {
   UNTESTED = 'untested',
@@ -46,7 +46,7 @@ export class TestDialogComponent implements OnInit, OnDestroy {
   public shortTransactionId: string;
 
   public showInputField = false;
-
+  public offlineOtpValue: string = "";
   private pollingSubscription: Subscription;
 
   @ViewChild('formDirective', { static: true })
@@ -140,7 +140,7 @@ export class TestDialogComponent implements OnInit, OnDestroy {
       this.testService.testToken(options)
         .subscribe(result => {
           this.testResult = result === true;
-          result ? this.goToSuccess() : this.goToFailure();
+          this.testResult ? this.goToSuccess() : this.goToFailure();
           this.awaitingResponse = false;
         });
     }
@@ -174,15 +174,12 @@ export class TestDialogComponent implements OnInit, OnDestroy {
     return this.transactionDetail.replyMode.includes(ReplyMode.OFFLINE);
   }
 
-  public get qrCodeData(): string {
-    return this.transactionDetail.transactionData;
-  }
 
   public showInput() {
     this.showInputField = true;
   }
 
   public preventSubmit() {
-    return this.formGroup.invalid || this.awaitingResponse;
+    return (this.formGroup.invalid || this.awaitingResponse) && this.offlineOtpValue.length === 0;
   }
 }

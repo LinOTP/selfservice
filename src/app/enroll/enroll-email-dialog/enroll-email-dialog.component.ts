@@ -6,7 +6,7 @@ import { EnrollmentOptions } from '@api/token';
 import { EnrollDialogBase, EnrolledToken } from '@app/enroll/enroll-dialog-base.directive';
 import { UserInfo, UserSystemInfo } from '@app/system.service';
 
-interface EmailEnrolledToken extends EnrolledToken {
+export interface EmailEnrolledToken extends EnrolledToken {
   email: string;
 }
 

@@ -1,7 +1,6 @@
 import { Directive, Inject, OnDestroy, OnInit } from '@angular/core';
 import { UntypedFormBuilder } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
-import { DomSanitizer } from '@angular/platform-browser';
 
 import { NgxPermissionsService } from 'ngx-permissions';
 import { forkJoin, from, Observable, of, Subscription } from 'rxjs';
@@ -29,7 +28,7 @@ export interface EnrolledToken {
   };
   otpkey?: { value: string };
   googleurl?: { value: string };
-  type: TokenType | 'assign';
+  type: TokenType;
   description?: string;
 }
 
@@ -50,7 +49,6 @@ export abstract class EnrollDialogBase implements OnInit, OnDestroy {
 
   constructor(
     protected dialogRef: MatDialogRef<EnrollDialogBase>,
-    protected sanitizer: DomSanitizer,
     protected permissionsService: NgxPermissionsService,
     protected enrollmentService: EnrollmentService,
     protected tokenService: TokenService,

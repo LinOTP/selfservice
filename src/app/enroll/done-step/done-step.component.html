@@ -1,7 +1,7 @@
 <div class="header">
   <mat-icon color="primary">check_circle</mat-icon>
   <div class="header-text">
-    <ng-container *ngIf="(token?.type === TokenType.QR || token?.type === TokenType.PUSH);else defaultTemplate">
+    <ng-container *ngIf="(token?.type === TokenType.QR || token?.type === TokenType.PUSH) && isAssignProcess === false; else defaultTemplate">
       <span i18n="@@pushQRSuccessMessage">You have successfully enrolled and paired your token.</span>
       <p i18n="@@pushQRActivateMessage">
         In order to use it, you must activate it first.

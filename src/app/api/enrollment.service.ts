@@ -161,20 +161,23 @@ export class EnrollmentService {
     );
   }
 
-  assign(tokenSerial: string, description: string): Observable<{ success: boolean, message?: string }> {
+  assign(tokenSerial: string, description: string, pin?: string): Observable<{ success: boolean, message?: string }> {
     const tryAgainMessage = $localize`Please try again or contact an administrator.`;
-    const bodyAssign = {
+    let bodyAssign: { serial: string, description: string, session: string, pin?: string } = {
       serial: tokenSerial,
       description: description,
       session: this.sessionService.getSession()
     };
+
+    if (this.permissionsService.getPermission(Permission.SETPIN)) {
+      bodyAssign.pin = pin;
+    }
     const url = this.userserviceBase + this.userserviceEndpoints.assign;
 
     return this.http.post<LinOTPResponse<{ 'assign token': boolean }>>(url, bodyAssign)
       .pipe(
         map(response => {
           if (response?.result?.value) {
-            this.tokenService.updateTokenList()
             return { success: response.result.value['assign token'] === true };
           } else if (response?.result?.error?.message) {
             let message = '';

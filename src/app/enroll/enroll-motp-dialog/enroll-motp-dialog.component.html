@@ -39,7 +39,7 @@
     <ng-template #createTokenStepActions>
       <app-step-actions
         [awaitingResponse]="awaitingResponse"
-        [disableSubmit]="createTokenForm.invalid"
+        [disableSubmit]="createTokenForm.invalid || awaitingResponse"
         (cancelled)="close()"
         (submitted)="enrollMOTPToken()">
       </app-step-actions>
@@ -49,10 +49,6 @@
   <mat-step *ngIf="verifyPolicyEnabled">
     <ng-template matStepLabel i18n>Verify</ng-template>
     <mat-dialog-content>
-      <p class="verify" *ngIf="enrolledToken" i18n="@@motpVerifyInstruction">
-        An MOTP token with the serial number {{ enrolledToken.serial }} has been created.
-        Please check your mobile device for the first one-time password.
-      </p>
       <app-verify-token [token]="enrolledToken" [mustContainDigitsOnly]="false" (tokenVerified)="isTokenVerified = true; stepper.next()"></app-verify-token>
     </mat-dialog-content>
   </mat-step>
@@ -81,16 +77,12 @@
 </mat-horizontal-stepper>
 
 <mat-dialog-actions align="end">
-  <ng-container
-    *ngTemplateOutlet="
-      [
-        createTokenStepActions,
-        verifyTokenStepActions,
-        doneStepActions
-      ][stepper.selectedIndex]
-    "
-  >
-  </ng-container>
+  <ng-container *ngTemplateOutlet="
+        (verifyPolicyEnabled ?
+        [createTokenStepActions, verifyTokenStepActions, doneStepActions] :
+        [createTokenStepActions, doneStepActions])
+        [stepper.selectedIndex]"
+  ></ng-container>
 </mat-dialog-actions>
 
 <!-- TODO Implement this step as soon as the LinOTP Authenticator is capable of generating the QR Code and LINSELF-90 was implemented
@@ -115,7 +107,7 @@
 <ng-template #installAppStepActions>
 <app-step-actions
   [awaitingResponse]="awaitingResponse"
-  [disableSubmit]="createTokenForm.invalid"
+        [disableSubmit]="createTokenForm.invalid || awaitingResponse"
   (cancelled)="close()"
   (submitted)="stepper.next()"
 >

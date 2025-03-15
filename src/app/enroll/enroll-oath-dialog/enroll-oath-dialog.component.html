@@ -44,7 +44,7 @@
     <ng-template #createTokenStepActions>
       <app-step-actions
         [awaitingResponse]="awaitingResponse"
-        [disableSubmit]="createTokenForm.invalid"
+        [disableSubmit]="createTokenForm.invalid || awaitingResponse"
         (cancelled)="close()"
         (submitted)="enrollOATHToken()">
       </app-step-actions>

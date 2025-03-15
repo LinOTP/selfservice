@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { TestOptions, TestService, TransactionDetail } from "@api/test.service";
 import { NotificationService } from "@common/notification.service";
 import { EnrolledToken } from "@app/enroll/enroll-dialog-base.directive";
+import { TokenType } from "@api/token";
+import { EmailEnrolledToken } from "@app/enroll/enroll-email-dialog/enroll-email-dialog.component";
+import { SMSEnrolledToken } from "@app/enroll/enroll-sms-dialog/enroll-sms-dialog.component";
 
 @Component({
 	selector: 'app-verify-token',
@@ -11,6 +14,10 @@ import { EnrolledToken } from "@app/enroll/enroll-dialog-base.directive";
 })
 export class VerifyTokenComponent {
 	@Output() tokenVerified = new EventEmitter<boolean>();
+  /**
+   * In case this component is used for the assign token process, we need to alter text accordingly.
+   */
+  @Input() isAssignProcess = false;
   private _mustContainDigitsOnly = true;
   @Input()
   set mustContainDigitsOnly(value: boolean) {
@@ -108,5 +115,40 @@ export class VerifyTokenComponent {
 	public preventSubmit() {
     return this.form.invalid || this.awaitingResponse;
   }
+
+  get verificationMessage(): string {
+    if (!this.token) return '';
+    const createdText = $localize`:@@createdText:created`;
+    const assignedText = $localize`:@@assignedText:assigned`;
+    const registeredText = $localize`:@@registeredText:registered`;
+    let action: string = createdText;
+    if (this.token.type == TokenType.YUBIKEY) {
+      action = registeredText;
+    }
+    if (this.isAssignProcess) {
+      action = assignedText;
+    }
+    switch (this.token.type) {
+      case TokenType.EMAIL: {
+        const t = this.token as EmailEnrolledToken;
+        return $localize`:@@emailVerifyInstruction:An email token with the serial number ${this.token.serial} has been ${action} for ${t.email}. Please check your email inbox for the first one-time password.`;
+      }
+      case TokenType.HOTP:
+      case TokenType.TOTP:
+        return $localize`:@@oathVerifyInstruction:A token with the serial number ${this.token.serial} has been ${action}. Please add the token by scanning the QR code in the Authenticator app.`;
+      case TokenType.MOTP:
+        return $localize`:@@motpVerifyInstruction:An MOTP token with the serial number ${this.token.serial} has been ${action}. Please check your mobile device for the first one-time password.`;
+      case TokenType.YUBICO:
+        return $localize`:@@yubikeyVerifyInstruction:A yubikey with the serial number ${this.token.serial} has been ${action}. Please press its button to enter your one-time password.`;
+      case TokenType.SMS: {
+        const t = this.token as SMSEnrolledToken;
+        return $localize`:@@smsVerifyInstruction:An SMS token with the serial number ${this.token.serial} has been ${action} for the phone number ${t.phone}. Please check your SMS messages for the first one-time password.`;
+      }
+      default:
+        return $localize`:@@assignVerifyInstruction:A token with the serial number ${this.token.serial} was successfully assigned to your user account.`;
+    }
+  }
+
+
 }
 

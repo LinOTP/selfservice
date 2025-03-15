@@ -12,7 +12,7 @@ import { PlatformProviderService } from "@common/platform-provider.service";
 
 interface PushQrEnrolledToken {
   serial: string;
-  type: TokenType | 'assign';
+  type: TokenType;
   description?: string;
   url: string;
 }
@@ -42,7 +42,7 @@ export class EnrollPushQRDialogComponent extends EnrollDialogBase implements OnI
         this.enrolledToken = {
           url: token.lse_qr_url.value,
           serial: token.serial,
-          type: this.tokenDisplayData.type,
+          type: token.type,
           description: body.description,
         };
       }),

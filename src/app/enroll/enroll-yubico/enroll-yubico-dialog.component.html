@@ -33,9 +33,6 @@
   <mat-step *ngIf="verifyPolicyEnabled">
     <ng-template matStepLabel i18n>Verify</ng-template>
     <mat-dialog-content>
-      <p class="verify" *ngIf="enrolledToken" i18n="@@yubikeyVerifyText">
-        A yubikey with the serial number {{ enrolledToken.serial }} has been registered.
-      </p>
       <app-verify-token [token]="enrolledToken" [mustContainDigitsOnly]="false" (tokenVerified)="isTokenVerified = true; stepper.next()"></app-verify-token>
     </mat-dialog-content>
   </mat-step>

@@ -27,7 +27,7 @@
   <ng-template #createTokenStepActions>
     <app-step-actions
       [awaitingResponse]="awaitingResponse"
-      [disableSubmit]="createTokenForm.invalid"
+      [disableSubmit]="createTokenForm.invalid || awaitingResponse"
       (cancelled)="close()"
       (submitted)="enrollEmailToken()"
     >
@@ -37,10 +37,6 @@
   <mat-step *ngIf="verifyPolicyEnabled">
     <ng-template matStepLabel i18n>Verify</ng-template>
     <mat-dialog-content>
-      <p class="verify" *ngIf="enrolledToken" i18n>
-        An email token with the serial number {{ enrolledToken.serial }} has been created for <span class="underline">{{ enrolledToken.email }}.</span>
-        Please check your email inbox for the first one-time password.
-      </p>
       <app-verify-token [token]="enrolledToken" (tokenVerified)="isTokenVerified = true; stepper.next()"></app-verify-token>
     </mat-dialog-content>
   </mat-step>
@@ -66,14 +62,10 @@
 </mat-horizontal-stepper>
 
 <mat-dialog-actions align="end">
-  <ng-container
-    *ngTemplateOutlet="
-      [
-        createTokenStepActions,
-        verifyTokenStepActions,
-        doneStepActions
-      ][stepper.selectedIndex]
-    "
-  >
-  </ng-container>
+  <ng-container *ngTemplateOutlet="
+        (verifyPolicyEnabled ?
+        [createTokenStepActions, verifyTokenStepActions, doneStepActions] :
+        [createTokenStepActions, doneStepActions])
+        [stepper.selectedIndex]"
+  ></ng-container>
 </mat-dialog-actions>

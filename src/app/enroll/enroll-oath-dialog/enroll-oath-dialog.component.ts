@@ -7,7 +7,7 @@ import { PlatformProviderService } from "@common/platform-provider.service";
 
 export interface OATHEnrolledToken {
   serial: string
-  type: TokenType | 'assign';
+  type: TokenType;
   description: string;
   url: string;
   seed: string;
@@ -46,11 +46,11 @@ export class EnrollOATHDialogComponent extends EnrollDialogBase implements OnIni
     };
     this.enrollToken(body, this.stepper).subscribe(token => {
       this.enrolledToken = {
-          url: token.googleurl.value,
-          serial: token.serial,
-          seed: token.otpkey.value,
-          type: this.tokenDisplayData.type,
-          description: body.description,
+        url: token.googleurl.value,
+        serial: token.serial,
+        seed: token.otpkey.value,
+        type: token.type,
+        description: body.description,
         };
     });
   }
