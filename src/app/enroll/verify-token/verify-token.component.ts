@@ -122,7 +122,7 @@ export class VerifyTokenComponent {
     const assignedText = $localize`:@@assignedText:assigned`;
     const registeredText = $localize`:@@registeredText:registered`;
     let action: string = createdText;
-    if (this.token.type == TokenType.YUBIKEY) {
+    if (this.token.type == TokenType.YUBICO) {
       action = registeredText;
     }
     if (this.isAssignProcess) {
