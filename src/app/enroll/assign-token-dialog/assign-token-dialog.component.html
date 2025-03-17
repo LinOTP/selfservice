@@ -58,7 +58,7 @@
       </ng-container>
       <ng-template #def>
         <app-verify-token [token]="enrolledToken"
-                          [mustContainDigitsOnly]="enrolledToken.type.toLowerCase() !== TokenType.MOTP"
+                          [mustContainDigitsOnly]="enrolledToken.type.toLowerCase() !== TokenType.MOTP && enrolledToken.type.toLowerCase() !== TokenType.YUBICO"
                           [isAssignProcess]="true"
                           (tokenVerified)="isTokenVerified = true; stepper.next()"
         ></app-verify-token>
