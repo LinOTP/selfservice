@@ -1,3 +1,8 @@
+<a name="1.5-0dev"></a>
+## 1.5-0dev (unreleased)
+
+* dummy changelog entry for 1.5-0dev
+
 <a name="1.4rc0"></a>
 ## 1.4rc0 (unreleased)
 

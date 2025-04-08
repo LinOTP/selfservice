@@ -1,3 +1,9 @@
+linotp-selfservice (1.5~0dev-1) UNRELEASED; urgency=low
+
+  * dummy changelog entry for 1.5~0dev
+
+ -- LinOTP Packaging <packaging@linotp.de>  Tue, 08 Apr 2025 12:00:00 +0200
+
 linotp-selfservice (1.4~rc0-1) buster; urgency=low
 
   Features:
@@ -15,7 +21,7 @@ linotp-selfservice (1.4~rc0-1) buster; urgency=low
   * Removed redundant text and adjusted the layout of certain enrollment steps.
   * The new Self-Service now correctly uses the intended parameter "pin" instead of "otppin", which was previously incorrectly defined as the default parameter for the token PIN.
 
- -- LinOTP Packaging <packaging@linotp.de>  Mon, 08 Apr 2025 12:00:00 +0200
+ -- LinOTP Packaging <packaging@linotp.de>  Tue, 08 Apr 2025 12:00:00 +0200
 
 linotp-selfservice (1.3.1-1) buster; urgency=low
 
