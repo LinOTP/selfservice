@@ -1,5 +1,5 @@
-<a name="1.4-0dev"></a>
-## 1.4-0dev (unreleased)
+<a name="1.4rc0"></a>
+## 1.4rc0 (unreleased)
 
   ### Features:
   * Added OTP PIN enforcement during enrollment. The OTP PIN is now required if `setOTPPIN` and at least one `otp_pin_*` policy is set.

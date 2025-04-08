@@ -1,6 +1,6 @@
 {
   "name": "self-service",
-  "version": "1.4-0dev",
+  "version": "1.4-rc0",
   "license": "GPL-3.0-only",
   "scripts": {
     "ng": "ng",
