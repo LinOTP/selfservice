@@ -365,8 +365,8 @@
     <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/><x id="START_TAG_CODE" ctype="x-code" equiv-text="&lt;code>"/><x id="INTERPOLATION" equiv-text="{{ transactionDetail?.transactionId.toString().slice(0, 6) }}"/><x id="CLOSE_TAG_CODE" ctype="x-code" equiv-text="&lt;/code>"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/> via your LinOTP Authenticator app.
   </source>
         <target state="new">
-    Waiting for confirmation of transaction
-    <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/><x id="START_TAG_CODE" ctype="x-code" equiv-text="&lt;code>"/><x id="INTERPOLATION" equiv-text="{{ transactionDetail?.transactionId.toString().slice(0, 6) }}"/><x id="CLOSE_TAG_CODE" ctype="x-code" equiv-text="&lt;/code>"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/> via your LinOTP Authenticator app.
+    Warten auf Bestätigung der Transaktion
+    <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/><x id="START_TAG_CODE" ctype="x-code" equiv-text="&lt;code>"/><x id="INTERPOLATION" equiv-text="{{ transactionDetail?.transactionId.toString().slice(0, 6) }}"/><x id="CLOSE_TAG_CODE" ctype="x-code" equiv-text="&lt;/code>"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/> mithilfe ihrer LinOTP Authenticator App.
   </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/qr-code-input/qr-code-input.component.html</context>
@@ -844,7 +844,7 @@
       </trans-unit>
       <trans-unit id="onlyNumericValuesControlError" datatype="html">
         <source>Only numeric values are allowed</source>
-        <target state="new">Only numeric values are allowed</target>
+        <target state="new">Es sind nur Ziffern erlaubt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/verify-token/verify-token.component.html</context>
           <context context-type="linenumber">14</context>
@@ -936,7 +936,7 @@
       </trans-unit>
       <trans-unit id="8470311110519302542" datatype="html">
         <source>No data</source>
-        <target state="new">No data</target>
+        <target state="new">Keine Daten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/history/history.component.html</context>
           <context context-type="linenumber">62</context>
@@ -1526,10 +1526,9 @@
         You have no email address assigned to your user account and the token will therefore not work after creation.
         You may need to contact your administrator for help.
       </source>
-        <target state="new">
-          You have no email address assigned to your user account and the token will therefore not work after creation.
-          You may need to contact your administrator for help.
-        </target>
+      <target state="new">
+        Ihrem Benutzerkonto ist keine E-Mail-Adresse zugewiesen und das Token wird daher nach der Erstellung nicht funktionieren.
+      </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-email-dialog/enroll-email-dialog.component.html</context>
           <context context-type="linenumber">9,12</context>
@@ -1659,8 +1658,7 @@
         You may need to contact your administrator for help.
         </source>
         <target state="new">
-          You have no mobile number assigned to your user account and the token will therefore not work after creation.
-        You may need to contact your administrator for help.
+          Ihrem Benutzerkonto ist keine Mobilnummer zugewiesen und das Token wird daher nach der Erstellung nicht funktionieren.
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
@@ -2261,7 +2259,7 @@
       </trans-unit>
       <trans-unit id="5355030088706615634" datatype="html">
         <source>Token verification failed. Please try again or contact an administrator.</source>
-        <target state="new">Token verification failed. Please try again or contact an administrator.</target>
+        <target state="new">Token-Verifizierung fehlgeschlagen. Bitte versuchen Sie es erneut oder kontaktieren Sie einen Administrator.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/verify-token/verify-token.component.ts</context>
           <context context-type="linenumber">107</context>
