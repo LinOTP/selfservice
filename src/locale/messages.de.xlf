@@ -1109,7 +1109,7 @@
           hilft Ihnen dabei, einen neuen Token zu erstellen und auf Ihr Gerät zu importieren.
           <x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p>"/>
           <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p>"/>Um das Token zu importieren, benötigen Sie eine
-          OATH-kompatible Authenticator-App. Wir empfehlen die Verwendung<x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/>der LinOTP Authenticator-App
+          OATH-kompatible Authenticator-App. Wir empfehlen die Verwendung der <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/> LinOTP Authenticator-App
           <x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/>
           <x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p>"/>
         </target>
