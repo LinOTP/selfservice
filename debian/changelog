@@ -1,4 +1,4 @@
-linotp-selfservice (1.4-1) buster; urgency=low
+linotp-selfservice (1.4.0-1) buster; urgency=low
 
   Features:
   * Added OTP PIN enforcement during enrollment. The OTP PIN is now required if `setOTPPIN` and at least one `otp_pin_*` policy is set.
