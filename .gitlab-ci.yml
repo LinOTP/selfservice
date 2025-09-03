@@ -1,27 +1,12 @@
 include:
   - project: "dev/ext-project-packaging/ci-includes"
-    file: "node-projects/build-dist.yml"
-  - project: "dev/ext-project-packaging/ci-includes"
     file: "linotp-container-ci.yml"
-  - project: "dev/ext-project-packaging/ci-includes"
-    file: "node-projects/build-n-deploy-debian.yml"
   - project: "dev/ext-project-packaging/ci-includes"
     file: "node-projects/test.yml"
 
 variables:
   LANG: C.UTF-8
-  EMAIL: "LinOTP Packaging <packaging@linotp.de>"
-  # Variables for upload-debs
-  REPOSITORY: linotp3
-  COMPONENT: linotp
-  # Variables for upload-image
   REGISTRY_IMAGE_NAME: linotp/selfservice
-
-.debian-releases:
-  parallel:
-    matrix:
-      - DEBIAN_RELEASE_NAME:
-          - buster
 
 cache:
   paths:
@@ -31,9 +16,8 @@ stages:
   - test
   - build
   - upload
-  - deploy
-  - iso
 
+# Overwrite docker build job
 build-image:
   script:
     - apk add jq
@@ -47,34 +31,3 @@ build-image:
       --label de.linotp.version="$IMAGE_VERSION"
       -t "$BUILD_IMAGE_TAG"  .
     - docker push "$BUILD_IMAGE_TAG"
-
-# Build and upload are being handled by dev/linotp/sva2/build-isos
-.build-and-upload-iso:
-  stage: iso
-  trigger:
-    project: dev/linotp/sva2/build-isos
-    strategy: depend
-
-build-and-upload-iso:
-  extends: .build-and-upload-iso
-  variables:
-    UPLOAD: "yes"
-  rules:
-    - if: '$CI_COMMIT_TAG =~ /^dev\//' # Release candidate for QA
-      variables:
-        BUILD: golden
-    - if: "$CI_COMMIT_TAG =~ /^release/" # Release version
-      variables:
-        BUILD: release
-
-build-iso:
-  extends: .build-and-upload-iso
-  when: manual
-  allow_failure: true
-  variables:
-    DEB_ARTIFACTS_URL: $DEB_ARTIFACTS_URL
-    BUILD: commit
-    UPLOAD: "no"
-  rules:
-    - if: $CI_PIPELINE_SOURCE == 'schedule' # Nightly/Scheduled pipeline
-    - if: $CI_MERGE_REQUEST_REF_PATH # Commit on branch
