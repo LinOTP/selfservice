@@ -3,8 +3,8 @@
 
 * dummy changelog entry for 1.5-0dev
 
-<a name="1.4rc0"></a>
-## 1.4rc0 (unreleased)
+<a name="1.4"></a>
+## 1.4 (2025-06-16)
 
   ### Features:
   * Added OTP PIN enforcement during enrollment. The OTP PIN is now required if `setOTPPIN` and at least one `otp_pin_*` policy is set.
