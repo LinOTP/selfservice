@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy } from '@angular/core';
+import { Component, Inject, OnDestroy, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 
@@ -6,16 +6,20 @@ import { of, Subscription } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
 
-import { EnrollmentService } from '@api/enrollment.service';
-import { SelfserviceToken, TokenDisplayData, tokenDisplayData, TokenType } from '@api/token';
+import { ActivationDetail, EnrollmentService } from '@api/enrollment.service';
+import { SelfserviceToken, TokenType } from '@api/token';
+import { PlatformProviderService } from '@app/common/platform-provider.service';
+
 
 @Component({
   selector: 'app-activate-dialog',
   templateUrl: './activate-dialog.component.html',
-  styleUrls: ['./activate-dialog.component.scss']
+  styleUrls: ['./activate-dialog.component.scss'],
+  providers: [PlatformProviderService]
 })
 export class ActivateDialogComponent implements OnDestroy {
-  public waitingForResponse: boolean;
+  @ViewChild(MatStepper, { static: true }) public stepper: MatStepper;
+  public awaitingActivationInitResp = false;
   public restartDialog = false;
 
   public isQR = false;
@@ -25,49 +29,39 @@ export class ActivateDialogComponent implements OnDestroy {
   public tokenQRUrl: string = null;
   public pin = '';
 
-  public typeDetails: TokenDisplayData;
-  public currentStep: number = 0;
-
   private pairingSubscription: Subscription;
 
   constructor(
+    protected platformProvider: PlatformProviderService,
     private enrollmentService: EnrollmentService,
     private dialogRef: MatDialogRef<ActivateDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { serial: string, type: TokenType, token?: SelfserviceToken },
+    @Inject(MAT_DIALOG_DATA) public data: { token: SelfserviceToken },
   ) {
-    this.isPush = data.type === TokenType.PUSH;
-    this.isQR = data.type === TokenType.QR;
-    this.typeDetails = tokenDisplayData.find((d) => d.type === data.type);
+    this.isPush = data.token.tokenType === TokenType.PUSH;
+    this.isQR = data.token.tokenType === TokenType.QR;
   }
 
-  public activateToken(stepper: MatStepper): void {
-    this.waitingForResponse = true;
-
-    stepper.next();
-
-    this.pairingSubscription = this.enrollmentService.activate(this.data.serial, this.pin).pipe(
-      tap(detail => {
-        if (!detail || !(detail.transactionid)) {
-          throw new Error();
-        }
+  public activateToken(): void {
+    this.awaitingActivationInitResp = true;
+    this.pairingSubscription = this.enrollmentService.activate(this.data.token.serial).pipe(
+      tap((details: ActivationDetail) => {
+        this.transactionId = details.transactionid.toString().slice(0, 6);
+        if (this.isQR) this.tokenQRUrl = details.message;
       }),
-      tap(detail => {
-        this.transactionId = detail.transactionid.toString().slice(0, 6);
-        if (this.data.type === TokenType.QR) {
-          if (!(detail.message)) {
-            throw new Error();
-
-          }
-          this.tokenQRUrl = detail.message;
-        }
+      switchMap((details: ActivationDetail) => {
+        this.awaitingActivationInitResp = false;
+        this.stepper.next();
+        return this.enrollmentService.challengePoll(details.transactionid);
       }),
-      switchMap(detail => this.enrollmentService.challengePoll(detail.transactionid, this.pin, this.data.serial)),
       map((res: { accept?: boolean, reject?: boolean, valid_tan?: boolean }) => {
         return res?.accept === true || res?.reject === true || res?.valid_tan === true;
       }),
-      catchError(() => of(false)),
+      catchError(() => {
+        this.awaitingActivationInitResp = false;
+        return of(false)}
+      ),
     ).subscribe(success => {
-      this.waitingForResponse = false;
+      if(success) this.stepper.next()
       this.restartDialog = !success;
     });
   }
@@ -76,12 +70,9 @@ export class ActivateDialogComponent implements OnDestroy {
     this.dialogRef.close();
   }
 
-  /**
-   * Resets the dialog to the initial state and
-   * alows to restart the activation process
-   */
-  public resetDialogToInitial(stepper: MatStepper) {
-    stepper.reset();
+  public goPrevious(){
+    this.stepper.steps.get(this.stepper.selectedIndex).completed = false
+    this.stepper.previous()
   }
 
   public ngOnDestroy() {
