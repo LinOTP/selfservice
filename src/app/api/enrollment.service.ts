@@ -103,7 +103,6 @@ export class EnrollmentService {
         { serial: serial, session: this.sessionService.getSession() }
       )
       .pipe(
-        tap(() => this.tokenService.updateTokenList()), //TODO: move to back of pipe once tests support it
         tap(response => {
           if (
             !response?.result.status ||
@@ -146,7 +145,6 @@ export class EnrollmentService {
       map(res => res.detail.transactions[transactionId]),
       catchError(() => of(null)),
       take(1),
-      tap(() => this.tokenService.updateTokenList()),
     );
   }
 

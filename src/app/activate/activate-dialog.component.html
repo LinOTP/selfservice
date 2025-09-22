@@ -1,6 +1,6 @@
 <h2 mat-dialog-title
       i18n>Activate {{ data.token.typeDetails.name }}</h2>
-<mat-horizontal-stepper [linear]="true">
+<mat-horizontal-stepper [linear]="true" (selectionChange)="stepperChanged = true">
   <mat-step [completed]="true">
     <ng-template matStepLabel i18n>Start the activation</ng-template>
     <mat-dialog-content>
