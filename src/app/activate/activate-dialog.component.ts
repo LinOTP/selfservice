@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 
@@ -14,9 +14,9 @@ import { SelfserviceToken, TokenDisplayData, tokenDisplayData, TokenType } from 
   templateUrl: './activate-dialog.component.html',
   styleUrls: ['./activate-dialog.component.scss']
 })
-export class ActivateDialogComponent implements OnInit, OnDestroy {
+export class ActivateDialogComponent implements OnDestroy {
   public waitingForResponse: boolean;
-  public restartDialog: boolean;
+  public restartDialog = false;
 
   public isQR = false;
   public isPush = false;
@@ -35,28 +35,12 @@ export class ActivateDialogComponent implements OnInit, OnDestroy {
     private dialogRef: MatDialogRef<ActivateDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { serial: string, type: TokenType, token?: SelfserviceToken },
   ) {
-    if (data.type === TokenType.PUSH) {
-      this.isPush = true;
-    }
-    if (data.type === TokenType.QR) {
-      this.isQR = true;
-    }
-    this.typeDetails = tokenDisplayData.find(d => d.type === data.type);
-  }
-
-  public ngOnInit() {
-    this.waitingForResponse = false;
-  }
-
-  public ngOnDestroy() {
-    if (this.pairingSubscription) {
-      this.pairingSubscription.unsubscribe();
-    }
+    this.isPush = data.type === TokenType.PUSH;
+    this.isQR = data.type === TokenType.QR;
+    this.typeDetails = tokenDisplayData.find((d) => d.type === data.type);
   }
 
   public activateToken(stepper: MatStepper): void {
-
-    this.restartDialog = false;
     this.waitingForResponse = true;
 
     stepper.next();
@@ -98,6 +82,12 @@ export class ActivateDialogComponent implements OnInit, OnDestroy {
    */
   public resetDialogToInitial(stepper: MatStepper) {
     stepper.reset();
+  }
+
+  public ngOnDestroy() {
+    if (this.pairingSubscription) {
+      this.pairingSubscription.unsubscribe();
+    }
   }
 
 }
