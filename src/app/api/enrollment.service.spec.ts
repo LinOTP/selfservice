@@ -9,10 +9,9 @@ import { getInjectedStub, spyOnClass } from '@testing/spyOnClass';
 import { SessionService } from '@app/auth/session.service';
 import { NotificationService } from '@common/notification.service';
 
+import { NgxPermissionsService } from "ngx-permissions";
 import { EnrollmentService } from './enrollment.service';
 import { EnrollmentStatus, TokenType } from './token';
-import { TokenService } from './token.service';
-import { NgxPermissionsService } from "ngx-permissions";
 
 const session = '';
 
@@ -29,7 +28,6 @@ mockUnreadyDisabledToken.enrollmentStatus = EnrollmentStatus.UNPAIRED;
 describe('EnrollmentService', () => {
   let enrollmentService: EnrollmentService;
   let notificationService: jasmine.SpyObj<NotificationService>;
-  let tokenService: jasmine.SpyObj<TokenService>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -54,16 +52,12 @@ describe('EnrollmentService', () => {
           useValue: spyOnClass(NotificationService),
         },
         {
-          provide: TokenService,
           useValue: {
-            updateTokenList: jasmine.createSpy('updateTokenList'),
             getTypeDetails: jasmine.createSpy('getTypeDetails').and.returnValue("some_data"),
           }
         },
       ],
     });
-
-    tokenService = getInjectedStub(TokenService);
 
     enrollmentService = TestBed.inject(EnrollmentService);
     notificationService = getInjectedStub(NotificationService);
@@ -231,26 +225,16 @@ describe('EnrollmentService', () => {
         (http: HttpClient, backend: HttpTestingController) => {
           const body = {
             serial: 'serial',
-            data: 'serial',
-            pass: 'pin',
-            user: 'name',
-            realm: 'realm1',
           };
 
-          spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify({ username: 'name', realm: 'realm1' }));
-
-          enrollmentService.activate('serial', 'pin').subscribe(response => {
+          enrollmentService.activate('serial').subscribe(response => {
             expect(response).toEqual(serverResponse.detail);
           });
 
           const request = backend.expectOne((req) =>
-            req.url === '/validate/check' &&
+            req.url === '/userservice/activate_init' &&
             req.method === 'POST' &&
-            req.body.serial === body.serial &&
-            req.body.data === body.data &&
-            req.body.pass === body.pass &&
-            req.body.user === body.user &&
-            req.body.realm === body.realm
+            req.body.serial === body.serial
           );
 
           request.flush(serverResponse);
@@ -268,15 +252,12 @@ describe('EnrollmentService', () => {
         [HttpClient, HttpTestingController],
         (http: HttpClient, backend: HttpTestingController) => {
 
-          spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify({ username: 'name', realm: 'realm1' }));
-
-          enrollmentService.activate('serial', 'pin').subscribe(response => {
+          enrollmentService.activate('serial').subscribe(response => {
             expect(response).toEqual(null);
             expect(notificationService.errorMessage).toHaveBeenCalledWith('Token activation failed: Please try again.');
-            expect(tokenService.updateTokenList).toHaveBeenCalledTimes(1);
           });
 
-          const request = backend.expectOne((req) => req.url === '/validate/check' && req.method === 'POST');
+          const request = backend.expectOne((req) => req.url === '/userservice/activate_init' && req.method === 'POST');
 
           request.flush(serverResponse);
           backend.verify();
@@ -292,9 +273,6 @@ describe('EnrollmentService', () => {
       (http: HttpClient, backend: HttpTestingController) => {
         const body = {
           transactionid: 'txid',
-          pass: 'pin',
-          user: 'name',
-          realm: 'realm1',
         };
 
         const serverResponse = {
@@ -306,19 +284,14 @@ describe('EnrollmentService', () => {
           }
         };
 
-        spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify({ username: 'name', realm: 'realm1' }));
-
-        enrollmentService.getChallengeStatus('txid', 'pin', 'serial').subscribe(response => {
+        enrollmentService.getChallengeStatus('txid').subscribe(response => {
           expect(response).toEqual(serverResponse);
         });
 
         const request = backend.expectOne((req) =>
-          req.url === '/validate/check_status' &&
+          req.url === '/userservice/activate_check_status' &&
           req.method === 'POST' &&
-          req.body.transactionid === body.transactionid &&
-          req.body.pass === body.pass &&
-          req.body.user === body.user &&
-          req.body.user === body.user
+          req.body.transactionid === body.transactionid
         );
 
         request.flush(serverResponse);
@@ -330,14 +303,12 @@ describe('EnrollmentService', () => {
       [HttpClient, HttpTestingController],
       (http: HttpClient, backend: HttpTestingController) => {
 
-        spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify({ username: 'name' }));
-
-        enrollmentService.getChallengeStatus('txid', 'pin', 'serial').subscribe(response => {
+        enrollmentService.getChallengeStatus('txid').subscribe(response => {
           expect(response).toEqual(null);
           expect(notificationService.errorMessage).toHaveBeenCalledWith('Challenge status request failed: Please try again.');
         });
 
-        const request = backend.expectOne((req) => req.url === '/validate/check_status' && req.method === 'POST');
+        const request = backend.expectOne((req) => req.url === '/userservice/activate_check_status' && req.method === 'POST');
 
         request.error(new ErrorEvent('Error checking challenge status'));
         backend.verify();

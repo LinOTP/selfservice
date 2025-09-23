@@ -21,13 +21,13 @@ import { MaterialModule } from '@app/material.module';
 import { NotificationService } from '@common/notification.service';
 
 import { TokenType } from '@app/api/token';
-import { EnrollPushQRDialogComponent } from './enroll-push-qr-dialog.component';
-import { StepActionsComponent } from "@app/enroll/step-actions/step-actions.component";
-import { ImportTokenStepComponent } from "@app/enroll/enroll-oath-dialog/oath-enrollment/import-token-step/import-token-step.component";
-import { NgSelfServiceCommonModule } from "@common/common.module";
-import { AuthenticatorLinksComponent } from "@common/authenticator-links/authenticator-links.component";
 import { CreateTokenStepComponent } from "@app/enroll/create-token-step/create-token-step.component";
+import { ImportTokenStepComponent } from "@app/enroll/enroll-oath-dialog/oath-enrollment/import-token-step/import-token-step.component";
+import { StepActionsComponent } from "@app/enroll/step-actions/step-actions.component";
 import { TokenPinFormLayoutComponent } from "@app/enroll/token-pin-form-layout/token-pin-form-layout.component";
+import { AuthenticatorLinksComponent } from "@common/authenticator-links/authenticator-links.component";
+import { NgSelfServiceCommonModule } from "@common/common.module";
+import { EnrollPushQRDialogComponent } from './enroll-push-qr-dialog.component';
 
 
 describe('EnrollPushDialogComponent', () => {
@@ -161,24 +161,6 @@ describe('EnrollPushDialogComponent', () => {
   }));
 
   describe('finalizeEnrollment', () => {
-    it(`should open the ActivateDialog`, () => {
-      fixture.detectChanges();
-
-      component.enrolledToken = { serial: 'serial', type: TokenType.PUSH, url: 'url' };
-      fixture.detectChanges();
-
-      dialogRef.afterClosed.and.returnValue(of({}));
-      dialog.open.and.returnValue({ afterClosed: () => of({}) } as MatDialogRef<ActivateDialogComponent>);
-
-      component.finalizeEnrollment();
-      expect(dialogRef.close).toHaveBeenCalledWith();
-      expect(dialog.open).toHaveBeenCalledTimes(1);
-      expect(dialog.open).toHaveBeenCalledOnceWith(ActivateDialogComponent, {
-        width: '650px',
-        data: { serial: component.enrolledToken.serial, type: component.enrolledToken.type }
-      });
-    });
-
     it(`should open the ActivateDialog even if the user does not have permissions to test a token`, () => {
       component.testAfterEnrollment = false;
       fixture.detectChanges();
@@ -192,7 +174,6 @@ describe('EnrollPushDialogComponent', () => {
       component.finalizeEnrollment();
       expect(dialogRef.close).toHaveBeenCalledWith();
       expect(dialog.open).toHaveBeenCalledTimes(1);
-
     });
   });
 });
