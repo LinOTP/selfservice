@@ -69,7 +69,10 @@
     <ng-template matStepLabel i18n>Done</ng-template>
     <ng-template matStepContent>
       <mat-dialog-content>
-        <app-done-step [token]="{serial: data.token.serial, description: data.token.description, type: data.token.tokenType}"></app-done-step>
+        <app-done-step
+          [isQRPushActivationProcess]="true"
+          [token]="{serial: data.token.serial, description: data.token.description, type: data.token.tokenType}">
+        </app-done-step>
       </mat-dialog-content>
     </ng-template>
 
