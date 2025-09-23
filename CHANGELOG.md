@@ -1,7 +1,8 @@
 <a name="1.5-0dev"></a>
 ## 1.5-0dev (unreleased)
 
-* dummy changelog entry for 1.5-0dev
+  ### Features:
+  * Revamped QR / Push activation
 
 <a name="1.4"></a>
 ## 1.4 (2025-06-16)
