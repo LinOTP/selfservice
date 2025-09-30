@@ -9,14 +9,12 @@ import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { ActivationDetail, EnrollmentService } from '@api/enrollment.service';
 import { SelfserviceToken, TokenType } from '@api/token';
 import { TokenService } from '@app/api/token.service';
-import { PlatformProviderService } from '@app/common/platform-provider.service';
 
 
 @Component({
   selector: 'app-activate-dialog',
   templateUrl: './activate-dialog.component.html',
   styleUrls: ['./activate-dialog.component.scss'],
-  providers: [PlatformProviderService]
 })
 export class ActivateDialogComponent implements OnDestroy {
   @ViewChild(MatStepper, { static: true }) public stepper: MatStepper;
@@ -35,7 +33,6 @@ export class ActivateDialogComponent implements OnDestroy {
   private pairingSubscription: Subscription;
 
   constructor(
-    protected platformProvider: PlatformProviderService,
     private tokenService: TokenService,
     private enrollmentService: EnrollmentService,
     private dialogRef: MatDialogRef<ActivateDialogComponent>,
