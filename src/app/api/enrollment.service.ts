@@ -5,15 +5,14 @@ import { Observable, of } from 'rxjs';
 import { catchError, filter, map, mergeMap, take, tap } from 'rxjs/operators';
 
 import { SessionService } from '@app/auth/session.service';
-import { UserInfo } from '@app/system.service';
 import { exponentialBackoffInterval } from '@common/exponential-backoff-interval/exponential-backoff-interval';
 import { NotificationService } from '@common/notification.service';
 
+import { Permission } from "@common/permissions";
+import { NgxPermissionsService } from "ngx-permissions";
 import { APIError, LinOTPResponse } from './api';
 import { EnrollmentOptions, EnrollmentStatus } from './token';
 import { TokenService } from './token.service';
-import { NgxPermissionsService } from "ngx-permissions";
-import { Permission } from "@common/permissions";
 
 export interface EnrollmentDetail {
   serial: string;
@@ -24,7 +23,7 @@ export interface EnrollmentDetail {
   googleurl?: { value: string };
 }
 
-interface ActivationDetail {
+export interface ActivationDetail {
   transactionid: string;
   message?: string;
 }
@@ -40,7 +39,6 @@ interface ChallengeStatusDetail {
   };
 }
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -50,9 +48,6 @@ export class EnrollmentService {
     enroll: 'enroll',
     assign: 'assign',
   };
-
-  private validateCheck = '/validate/check'; // generate a challenge with a given serial
-  private validateCheckStatus = '/validate/check_status'; // view challenge status
 
   constructor(
     private http: HttpClient,
@@ -101,22 +96,18 @@ export class EnrollmentService {
     );
   }
 
-  activate(serial: string, pin: string): Observable<ActivationDetail> {
-    const userInfo: UserInfo = JSON.parse(localStorage.getItem('user'));
-    const body = {
-      serial: serial,
-      data: serial,
-      pass: pin,
-      user: userInfo.username,
-      realm: userInfo.realm,
-    };
-    return this.http.post<LinOTPResponse<boolean, ActivationDetail>>(this.validateCheck, body)
+  activate(serial: string): Observable<ActivationDetail> {
+    return this.http
+      .post<LinOTPResponse<boolean, ActivationDetail>>(
+        "/userservice/activate_init",
+        { serial: serial, session: this.sessionService.getSession() }
+      )
       .pipe(
-        tap(() => this.tokenService.updateTokenList()), //TODO: move to back of pipe once tests support it
         tap(response => {
-          if (!response?.result?.status
-            || !response?.detail
-            || !response.detail.transactionid) {
+          if (
+            !response?.result.status ||
+            !response.detail?.transactionid
+          ) {
             throw new APIError(response);
           }
         }),
@@ -125,15 +116,12 @@ export class EnrollmentService {
       );
   }
 
-  getChallengeStatus(transactionId: string, pin: string, serial: string): Observable<LinOTPResponse<boolean, ChallengeStatusDetail>> {
-    const userInfo: UserInfo = JSON.parse(localStorage.getItem('user'));
-    const body = {
-      transactionid: transactionId,
-      pass: pin,
-      user: userInfo.username,
-      realm: userInfo.realm,
-    };
-    return this.http.post<LinOTPResponse<boolean, ChallengeStatusDetail>>(this.validateCheckStatus, body)
+  getChallengeStatus(transactionId: string): Observable<LinOTPResponse<boolean, ChallengeStatusDetail>> {
+    return this.http
+      .post<LinOTPResponse<boolean, ChallengeStatusDetail>>(
+        "/userservice/activate_check_status",
+        { transactionid: transactionId, session: this.sessionService.getSession() }
+      )
       .pipe(
         catchError(this.handleError($localize`Challenge status request`, null))
       );
@@ -149,15 +137,14 @@ export class EnrollmentService {
    * @returns a string-to-boolean mapping, representing whether the transaction was accepted or rejected in case of the Push token,
    *          or whether the TAN was valid, in case of a QR token.
    */
-  challengePoll(transactionId: string, pin: string, serial: string):
+  challengePoll(transactionId: string):
     Observable<{ accept?: boolean, reject?: boolean, valid_tan?: boolean, status: string }> {
     return exponentialBackoffInterval(2000, 90000, 2).pipe(
-      mergeMap(() => this.getChallengeStatus(transactionId, pin, serial)),
+      mergeMap(() => this.getChallengeStatus(transactionId)),
       filter(res => res.detail.transactions[transactionId].status !== 'open'),
       map(res => res.detail.transactions[transactionId]),
       catchError(() => of(null)),
       take(1),
-      tap(() => this.tokenService.updateTokenList()),
     );
   }
 

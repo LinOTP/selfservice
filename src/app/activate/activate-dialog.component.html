@@ -1,102 +1,96 @@
-<app-token-dialog-header [token]="(data.token && currentStep === 0) ? data.token : null">
-  <h2 mat-dialog-title
-      i18n>Activate {{ typeDetails.name }}</h2>
-</app-token-dialog-header>
-<mat-horizontal-stepper [linear]="true"
-                        (selectedIndexChange)="currentStep = $event"
-                        linear
-                        #stepper>
-  <mat-step>
+<h2 mat-dialog-title
+      i18n>Activate {{ data.token.typeDetails.name }}</h2>
+<mat-horizontal-stepper [linear]="true" (selectionChange)="stepperChanged = true">
+  <mat-step [completed]="true">
+    <ng-template matStepLabel i18n>Start the activation</ng-template>
     <mat-dialog-content>
-
-      <p i18n>
-        Enter your token PIN or password if you have set a PIN or you are
-        required to enter your password for OTP authentication:
-      </p>
-      <mat-form-field>
-        <mat-label i18n>PIN or password</mat-label>
-        <input matInput
-               type="password"
-               autocomplete="current-password"
-               [(ngModel)]="pin"
-               autofocus>
-      </mat-form-field>
-
-      <ng-container *ngIf="isPush">
-        <p i18n
-           class="info-if-push">
-          In the next step your Authenticator app will be verified by the authentication server.
+      <div i18n="@@oathStepperIntroduction">
+        <p>
+          To use your {{isPush ? 'Push' : 'QR'}} token, it must first be activated with the <b>LinOTP Authenticator</b>
+          app you used during enrollment. Please open the app and proceed to the next step to begin the activation.
         </p>
-      </ng-container>
+      </div>
+      <app-authenticator-links
+        [platform]="platformProvider.platform"
+      ></app-authenticator-links>
     </mat-dialog-content>
 
-    <mat-dialog-actions align="end">
-      <div i18n>Activation step 1 of 3</div>
-      <span class="spacer"></span>
-      <button mat-button
-              (click)="close()"
-              i18n>Cancel</button>
-      <button mat-raised-button
-              color="primary"
-              id="goTo2"
-              (click)="activateToken(stepper)"
-              i18n>Activate</button>
-    </mat-dialog-actions>
+    <ng-template #installAppStepActions>
+      <app-step-actions
+        [disableSubmit]="false"
+        (cancelled)="close()"
+        (submitted)="activateToken();"
+        [awaitingResponse]="awaitingActivationInitResp"
+      >
+      </app-step-actions>
+    </ng-template>
   </mat-step>
 
   <mat-step>
-    <ng-container *ngIf="waitingForResponse; then waitingBlock else challengeResponseBlock"></ng-container>
+    <ng-template matStepLabel i18n>Activation challenge</ng-template>
+    <mat-dialog-content>
+      <app-token-dialog-header [token]="data.token"></app-token-dialog-header>
+      <section class="response">
+        <ng-container *ngIf="!restartDialog;">
+          <p i18n>
+            The activation has started. Find the token in the <b>LinOTP Authenticator</b> app that matches the serial number above.
+            <span *ngIf="isPush">Tap it to confirm the activation.</span>
+            <span *ngIf="isQR">Tap it to scan the QR code and complete the activation.</span>
+          </p>
+          <mat-spinner *ngIf="isPush"></mat-spinner>
+          <app-qr-code *ngIf="isQR" [qrUrl]="tokenQRUrl"></app-qr-code>
+        </ng-container>
+        <ng-container *ngIf="restartDialog">
+          <p class="activation-failed-text">Activation failed. Please try again, or contact an administrator.</p>
+          <button
+            appFocusOnInit
+            mat-raised-button
+            color="primary"
+            type="button"
+            (click)="goPrevious()"
+            i18n
+          >
+            Retry
+          </button>
+        </ng-container>
+      </section>
+    </mat-dialog-content>
 
-    <ng-template #waitingBlock>
+    <ng-template #activateTokenStepActions>
+      <app-step-actions
+        [isDoneStep]="false"
+        (cancelled)="close()"
+      >
+      </app-step-actions>
+    </ng-template>
+  </mat-step>
+
+    <mat-step>
+    <ng-template matStepLabel i18n>Done</ng-template>
+    <ng-template matStepContent>
       <mat-dialog-content>
-        <section class="response"
-                 *ngIf="isPush">
-          <mat-spinner></mat-spinner>
-          <p div
-             i18n>Waiting for confirmation for test transaction via Authenticator app.</p>
-        </section>
-        <section class="response"
-                 *ngIf="isQR">
-          <p i18n>Scan the QR code below with the Authenticator app to activate your token:</p>
-          <app-qr-code [qrUrl]="tokenQRUrl"></app-qr-code>
-        </section>
+        <app-done-step
+          [isQRPushActivationProcess]="true"
+          [token]="{serial: data.token.serial, description: data.token.description, type: data.token.tokenType}">
+        </app-done-step>
       </mat-dialog-content>
-      <mat-dialog-actions align="end">
-        <div i18n>Activation step 2 of 3</div>
-        <span class="spacer"></span>
-        <button mat-button
-                i18n
-                (click)="close()">Cancel</button>
-      </mat-dialog-actions>
     </ng-template>
 
-    <ng-template #challengeResponseBlock>
-      <mat-dialog-content>
-        <section class="response">
-          <p i18n
-             *ngIf="restartDialog">Activation failed. Please try again, or contact an administrator.</p>
-          <p i18n
-             *ngIf="!restartDialog">The activation was successful. Your token is ready to be used.</p>
-        </section>
-      </mat-dialog-content>
-      <mat-dialog-actions align="end">
-        <div i18n>Activation step 3 of 3</div>
-        <span class="spacer"></span>
-        <button mat-button
-                (click)="close()"
-                *ngIf="restartDialog"
-                i18n>Cancel</button>
-        <button mat-raised-button
-                color="primary"
-                (click)="resetDialogToInitial(stepper)"
-                *ngIf="restartDialog"
-                i18n> Restart activation </button>
-        <button mat-button
-                (click)="close()"
-                *ngIf="!restartDialog"
-                i18n>Finish</button>
-      </mat-dialog-actions>
+    <ng-template #doneStepActions>
+      <app-step-actions [disableSubmit]="false" [isDoneStep]="true" (submitted)="close()"></app-step-actions>
     </ng-template>
-
   </mat-step>
 </mat-horizontal-stepper>
+
+<mat-dialog-actions align="end">
+  <ng-container
+    *ngTemplateOutlet="
+      [
+        installAppStepActions,
+        activateTokenStepActions,
+        doneStepActions
+      ][stepper.selectedIndex]
+    "
+  >
+  </ng-container>
+</mat-dialog-actions>

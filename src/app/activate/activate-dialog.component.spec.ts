@@ -2,7 +2,6 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 import { FormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
-import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { Subscription } from 'rxjs';
@@ -18,12 +17,13 @@ import { TokenService } from '@api/token.service';
 import { EnrollPushQRDialogComponent } from '@app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component';
 import { MaterialModule } from '@app/material.module';
 
-import { TokenType } from '@app/api/token';
+import { SelfserviceToken, TokenType } from '@app/api/token';
+import { AppModule } from '@app/app.module';
+import { DoneStepComponent } from '@app/enroll/done-step/done-step.component';
 import { ActivateDialogComponent } from './activate-dialog.component';
 
 const data = {
-  serial: 'serialpush',
-  type: TokenType.PUSH
+  token: {serial: 'serialpush', tokenType: TokenType.PUSH, typeDetails: {name: "Push-Token"}}
 };
 
 describe('ActivateDialogComponent', () => {
@@ -31,7 +31,6 @@ describe('ActivateDialogComponent', () => {
   let fixture: ComponentFixture<ActivateDialogComponent>;
   let enrollmentService: jasmine.SpyObj<EnrollmentService>;
   let dialogRef: jasmine.SpyObj<MatDialogRef<EnrollPushQRDialogComponent>>;
-  let stepper: jasmine.SpyObj<MatStepper>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
@@ -39,11 +38,12 @@ describe('ActivateDialogComponent', () => {
         MaterialModule,
         NoopAnimationsModule,
         FormsModule,
+        AppModule
       ],
       declarations: [
         ActivateDialogComponent,
+        DoneStepComponent,
         MockComponent({ selector: 'app-qr-code', inputs: ['qrUrl'] }),
-        MockComponent({ selector: 'app-token-dialog-header', inputs: ['token'] }),
       ],
       providers: [
         {
@@ -65,7 +65,6 @@ describe('ActivateDialogComponent', () => {
   beforeEach(() => {
     enrollmentService = getInjectedStub(EnrollmentService);
     dialogRef = getInjectedStub<MatDialogRef<EnrollPushQRDialogComponent>>(MatDialogRef);
-    stepper = getInjectedStub(MatStepper);
 
     fixture = TestBed.createComponent(ActivateDialogComponent);
     component = fixture.componentInstance;
@@ -92,11 +91,10 @@ describe('ActivateDialogComponent', () => {
 
       fixture.detectChanges();
 
-      const nextButton = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
-      nextButton.click();
+      component.stepper.next()
       tick();
 
-      expect(component.waitingForResponse).toEqual(false);
+      expect(component.awaitingActivationInitResp).toEqual(false);
       expect(component.restartDialog).toEqual(false);
     }));
 
@@ -106,11 +104,10 @@ describe('ActivateDialogComponent', () => {
 
       fixture.detectChanges();
 
-      const nextButton = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
-      nextButton.click();
+      component.stepper.next()
       tick();
 
-      expect(component.waitingForResponse).toEqual(false);
+      expect(component.awaitingActivationInitResp).toEqual(false);
       expect(component.restartDialog).toEqual(false);
     }));
 
@@ -120,25 +117,11 @@ describe('ActivateDialogComponent', () => {
 
       fixture.detectChanges();
 
-      const nextButton = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
-      nextButton.click();
+      component.stepper.next();
       tick();
 
-      expect(component.waitingForResponse).toEqual(false);
+      expect(component.awaitingActivationInitResp).toEqual(false);
       expect(component.restartDialog).toEqual(false);
-    }));
-
-    it('should display failure message on negative response of token activation', fakeAsync(() => {
-      enrollmentService.activate.and.returnValue(of(null));
-
-      fixture.detectChanges();
-
-      const nextButton = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
-      nextButton.click();
-      tick();
-
-      expect(component.waitingForResponse).toEqual(false);
-      expect(component.restartDialog).toEqual(true);
     }));
 
     it('should display failure message on negative response of challenge polling', fakeAsync(() => {
@@ -146,12 +129,13 @@ describe('ActivateDialogComponent', () => {
       enrollmentService.challengePoll.and.returnValue(of(null));
 
       fixture.detectChanges();
+      component.data = { token: { serial: "123" } as SelfserviceToken }
 
-      const nextButton = fixture.debugElement.query(By.css('#goTo2')).nativeElement;
-      nextButton.click();
-      tick();
+      component.activateToken();
+      component.stepper.next()
+      tick(0);
 
-      expect(component.waitingForResponse).toEqual(false);
+      expect(component.awaitingActivationInitResp).toEqual(false);
       expect(component.restartDialog).toEqual(true);
     }));
   });
@@ -160,11 +144,6 @@ describe('ActivateDialogComponent', () => {
     component.close();
     expect(dialogRef.close).toHaveBeenCalledTimes(1);
     expect(dialogRef.close).toHaveBeenCalledWith();
-  });
-
-  it('should let the user retry a failed test', () => {
-    component.resetDialogToInitial(stepper);
-    expect(stepper.reset).toHaveBeenCalledTimes(1);
   });
 });
 

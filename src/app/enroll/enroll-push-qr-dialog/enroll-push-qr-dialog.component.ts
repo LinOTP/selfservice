@@ -4,7 +4,7 @@ import { MatStepper } from '@angular/material/stepper';
 
 import { concatMap, switchMap, tap } from 'rxjs/operators';
 
-import { EnrollmentOptions, TokenType } from "@api/token";
+import { EnrollmentOptions, SelfserviceToken, TokenType } from "@api/token";
 import { ActivateDialogComponent } from '@app/activate/activate-dialog.component';
 import { EnrollDialogBase } from '@app/enroll/enroll-dialog-base.directive';
 import { PlatformProviderService } from "@common/platform-provider.service";
@@ -56,11 +56,18 @@ export class EnrollPushQRDialogComponent extends EnrollDialogBase implements OnI
     );
   }
 
-
+  //To be deleted when working on LINSELF-220
   public finalizeEnrollment() {
     const testConfig: MatDialogConfig = {
-      width: '650px',
-      data: { serial: this.enrolledToken.serial, type: this.enrolledToken.type }
+      width: '850px',
+      data: {
+        token: {
+          serial: this.enrolledToken.serial,
+          description: this.enrolledToken.description,
+          tokenType: this.enrolledToken.type,
+          typeDetails: this.tokenDisplayData
+        } as SelfserviceToken
+      }
     };
     this.dialogRef.afterClosed().pipe(
       switchMap(() => this.dialog.open(ActivateDialogComponent, testConfig).afterClosed())
