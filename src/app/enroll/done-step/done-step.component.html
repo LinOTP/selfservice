@@ -9,29 +9,44 @@
       </ng-container>
 
       <ng-container *ngSwitchCase="CompletionState.ASSIGN_SUCCESS">
-        <span i18n="@@assignSuccessMessage">You have successfully assigned your token.</span>
+        <span i18n="@@assignSuccessMessage"
+          >You have successfully assigned your token.</span
+        >
       </ng-container>
 
       <!-- TODO LINSELF-220 - delete PUSH_QR_NEEDS_ACTIVATION when activation is integrated in enroll -->
       <ng-container *ngSwitchCase="CompletionState.PUSH_QR_NEEDS_ACTIVATION">
-        <span i18n="@@pushQRSuccessMessage">You have successfully enrolled and paired your token. In order to use it, you must activate it first.</span>
+        <span i18n="@@pushQRSuccessMessage"
+          >You have successfully enrolled and paired your token. In order to use
+          it, you must activate it first.</span
+        >
       </ng-container>
 
-      <ng-container *ngSwitchCase="CompletionState.PUSH_QR_NO_ACTIVATE_PERMISSION">
-        <span i18n="@@pushQRSuccessMessage">You have successfully enrolled and paired your token. In order to use it, you must activate it first.</span>
+      <ng-container
+        *ngSwitchCase="CompletionState.PUSH_QR_NO_ACTIVATE_PERMISSION"
+      >
+        <span i18n="@@pushQRSuccessMessage"
+          >You have successfully enrolled and paired your token. In order to use
+          it, you must activate it first.</span
+        >
       </ng-container>
 
       <ng-container *ngSwitchDefault>
         <span i18n="@@enrollSuccess">
-          You have successfully enrolled <span *ngxPermissionsOnly="'VERIFY'">and verified</span> your token.
+          You have successfully enrolled
+          <span *ngxPermissionsOnly="'VERIFY'">and verified</span> your token.
         </span>
-        <br>
+        <br />
       </ng-container>
     </ng-container>
 
-    <span *ngIf="completionState === CompletionState.ACTIVATION_SUCCESS ||
-            completionState === CompletionState.ENROLLMENT_SUCCESS"
-      i18n="@@usableForAuth">
+    <span
+      *ngIf="
+        completionState === CompletionState.ACTIVATION_SUCCESS ||
+        completionState === CompletionState.ENROLLMENT_SUCCESS
+      "
+      i18n="@@usableForAuth"
+    >
       It can now be used for authentication.
     </span>
   </div>
@@ -42,7 +57,8 @@
   <app-warning
     class="wrapper"
     *ngIf="completionState === CompletionState.PUSH_QR_NO_ACTIVATE_PERMISSION"
-    [msgTmpl]="warningMsgTmpl">
+    [msgTmpl]="warningMsgTmpl"
+  >
   </app-warning>
 </div>
 
