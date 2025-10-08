@@ -23,3 +23,18 @@ qrcode {
 .noactivate {
   margin-top: 1em;
 }
+
+.activation-failed-text {
+  color: #f44336;
+  font-weight: 500;
+  margin-bottom: 1em;
+}
+
+.response {
+  margin-top: 1em;
+
+  mat-spinner {
+    margin: 1em auto;
+    display: block;
+  }
+}

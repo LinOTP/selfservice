@@ -18,15 +18,6 @@
         setup process.
       </p>
     </mat-dialog-content>
-    <ng-template #installAppStepActions>
-      <app-step-actions
-        [awaitingResponse]="awaitingResponse"
-        [disableSubmit]="createTokenForm.invalid"
-        (cancelled)="close()"
-        (submitted)="stepper.next()"
-      >
-      </app-step-actions>
-    </ng-template>
   </mat-step>
 
   <mat-step [completed]="false" [editable]="false">
@@ -39,15 +30,6 @@
           setAutoFokus="true"
         ></app-create-token-step>
       </mat-dialog-content>
-    </ng-template>
-    <ng-template #createTokenStepActions>
-      <app-step-actions
-        [awaitingResponse]="awaitingResponse"
-        [disableSubmit]="createTokenForm.invalid || awaitingResponse"
-        (cancelled)="close()"
-        (submitted)="enrollPushQRToken()"
-      >
-      </app-step-actions>
     </ng-template>
   </mat-step>
 
@@ -66,48 +48,130 @@
         <app-qr-code [qrUrl]="enrolledToken.url"></app-qr-code>
       </div>
     </mat-dialog-content>
+  </mat-step>
 
-    <!--switch to next step will only happen as soon as pairing was successful-->
-    <ng-template #scanQRActions>
-      <app-step-actions
-        [disableSubmit]="true"
-        (cancelled)="cancel()"
-      ></app-step-actions>
-    </ng-template>
+  <!-- Activation challenge step - only shown if user has activation permission -->
+  <mat-step
+    *ngIf="shouldShowActivationStep"
+    [completed]="false"
+    [editable]="false"
+  >
+    <ng-template matStepLabel i18n>Activation</ng-template>
+    <mat-dialog-content>
+      <div *ngIf="enrolledToken">
+        <p i18n>
+          Token Serial: <strong>{{ enrolledToken.serial }}</strong>
+        </p>
+
+        <ng-container [ngSwitch]="activationState">
+          <div *ngSwitchCase="ActivationFlowState.PREPARING">
+            <p i18n>Preparing activation...</p>
+            <div class="response">
+              <mat-spinner></mat-spinner>
+            </div>
+          </div>
+
+          <div *ngSwitchCase="ActivationFlowState.WAITING_FOR_USER">
+            <p i18n>
+              The activation has started. Find the token in the
+              <b>LinOTP Authenticator</b> app that matches the serial number
+              above.
+              <span *ngIf="isPush()">Tap it to confirm the activation.</span>
+              <span *ngIf="isQR()"
+                >Tap it to scan the QR code and complete the activation.</span
+              >
+            </p>
+            <div class="response" *ngIf="isPush()">
+              <mat-spinner></mat-spinner>
+            </div>
+            <app-qr-code *ngIf="isQR()" [qrUrl]="tokenQRUrl"></app-qr-code>
+          </div>
+
+          <div *ngSwitchCase="ActivationFlowState.FAILED">
+            <p class="activation-failed-text" i18n>
+              Activation failed. Please try again, or contact an administrator.
+            </p>
+          </div>
+        </ng-container>
+      </div>
+    </mat-dialog-content>
   </mat-step>
 
   <mat-step>
     <ng-template matStepLabel i18n>Done</ng-template>
     <ng-template matStepContent>
-      <app-done-step [token]="enrolledToken"></app-done-step>
-    </ng-template>
-
-    <ng-template #doneStepActions>
-      <button mat-button appFocusOnInit (click)="close()" i18n>Close</button>
-      <button
-        mat-raised-button
-        appFocusOnInit
-        *ngxPermissionsOnly="this.tokenDisplayData.activationPermission"
-        color="primary"
-        (click)="finalizeEnrollment()"
-        i18n
-      >
-        Activate Token
-      </button>
+      <app-done-step
+        [token]="enrolledToken"
+        [isQRPushActivationProcess]="hasActivationPermission"
+      ></app-done-step>
     </ng-template>
   </mat-step>
 </mat-horizontal-stepper>
 
 <mat-dialog-actions align="end">
-  <ng-container
-    *ngTemplateOutlet="
-      [
-        installAppStepActions,
-        createTokenStepActions,
-        scanQRActions,
-        doneStepActions
-      ][stepper.selectedIndex]
-    "
-  >
+  <ng-container [ngSwitch]="currentStepType">
+    <!-- Install app step actions -->
+    <app-step-actions
+      *ngSwitchCase="'install'"
+      [disableSubmit]="false"
+      (cancelled)="close()"
+      (submitted)="stepper.next()"
+    >
+    </app-step-actions>
+
+    <!-- Create token step actions -->
+    <app-step-actions
+      *ngSwitchCase="'create'"
+      [awaitingResponse]="awaitingResponse"
+      [disableSubmit]="createTokenForm.invalid || awaitingResponse"
+      (cancelled)="close()"
+      (submitted)="enrollPushQRToken()"
+    >
+    </app-step-actions>
+
+    <!-- Scan QR code step actions -->
+    <app-step-actions
+      *ngSwitchCase="'scan'"
+      [disableSubmit]="true"
+      (cancelled)="cancel()"
+    >
+    </app-step-actions>
+
+    <!-- Activation step actions -->
+    <ng-container *ngSwitchCase="'activate'">
+      <!-- Show retry button when activation failed -->
+      <ng-container
+        *ngIf="
+          activationState === ActivationFlowState.FAILED;
+          else normalActions
+        "
+      >
+        <button mat-button type="button" (click)="cancel()" i18n>Cancel</button>
+        <button
+          mat-raised-button
+          color="primary"
+          type="button"
+          (click)="retryActivation()"
+          appFocusOnInit
+          i18n
+        >
+          Retry
+        </button>
+      </ng-container>
+
+      <!-- Normal actions when activation is in progress -->
+      <ng-template #normalActions>
+        <app-step-actions [disableSubmit]="true" (cancelled)="cancel()">
+        </app-step-actions>
+      </ng-template>
+    </ng-container>
+
+    <!-- Done step actions -->
+    <app-step-actions
+      *ngSwitchCase="'done'"
+      [isDoneStep]="true"
+      (submitted)="close()"
+    >
+    </app-step-actions>
   </ng-container>
 </mat-dialog-actions>

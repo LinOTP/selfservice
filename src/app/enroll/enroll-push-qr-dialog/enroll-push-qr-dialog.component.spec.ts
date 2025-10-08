@@ -16,7 +16,7 @@ import {
   NgxPermissionsAllowStubDirective,
   NgxPermissionsService,
 } from "ngx-permissions";
-import { Subscription } from "rxjs";
+import { Subscription, throwError } from "rxjs";
 import { of } from "rxjs/internal/observable/of";
 
 import { Fixtures } from "@testing/fixtures";
@@ -38,6 +38,7 @@ import { StepActionsComponent } from "@app/enroll/step-actions/step-actions.comp
 import { TokenPinFormLayoutComponent } from "@app/enroll/token-pin-form-layout/token-pin-form-layout.component";
 import { AuthenticatorLinksComponent } from "@common/authenticator-links/authenticator-links.component";
 import { NgSelfServiceCommonModule } from "@common/common.module";
+import { Permission } from "@common/permissions";
 import { EnrollPushQRDialogComponent } from "./enroll-push-qr-dialog.component";
 
 describe("EnrollPushDialogComponent", () => {
@@ -124,6 +125,17 @@ describe("EnrollPushDialogComponent", () => {
       getInjectedStub<MatDialogRef<EnrollPushQRDialogComponent>>(MatDialogRef);
     dialog = getInjectedStub(MatDialog);
 
+    // Set up default dialog.open mock
+    dialog.open.and.returnValue({
+      afterClosed: () => of(false),
+    } as any);
+
+    // Mock permissions service
+    const permissionsService = TestBed.inject(
+      NgxPermissionsService
+    ) as jasmine.SpyObj<NgxPermissionsService>;
+    permissionsService.hasPermission.and.returnValue(Promise.resolve(false));
+
     loginService.hasPermission$.and.returnValue(of(true));
     spyOn(localStorage, "getItem").and.returnValue(
       JSON.stringify({ otp_pin_minlength: 0 })
@@ -195,6 +207,150 @@ describe("EnrollPushDialogComponent", () => {
       component.finalizeEnrollment();
       expect(dialogRef.close).toHaveBeenCalledWith();
       expect(dialog.open).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe("activation integration", () => {
+    beforeEach(() => {
+      component.enrolledToken = {
+        serial: "test-serial",
+        type: TokenType.PUSH,
+        url: "test-url",
+      };
+    });
+
+    it("should check for activation permission on init", fakeAsync(() => {
+      const permissionsService = TestBed.inject(
+        NgxPermissionsService
+      ) as jasmine.SpyObj<NgxPermissionsService>;
+      permissionsService.hasPermission.and.returnValue(Promise.resolve(true));
+
+      component.ngOnInit();
+      tick();
+
+      expect(permissionsService.hasPermission).toHaveBeenCalledWith(
+        Permission.ACTIVATEPUSH
+      );
+      expect(component.hasActivationPermission).toBe(true);
+    }));
+
+    it("should start activation process when activateToken is called", fakeAsync(() => {
+      const mockActivationDetail = {
+        transactionid: "tx123",
+        message: "test-message",
+      };
+      enrollmentService.activate.and.returnValue(of(mockActivationDetail));
+      enrollmentService.challengePoll.and.returnValue(
+        of({ accept: true, status: "closed" })
+      );
+
+      component.activateToken();
+      tick();
+
+      expect(enrollmentService.activate).toHaveBeenCalledWith("test-serial");
+      expect(component.transactionId).toBe("tx123");
+      // After successful completion, state should be COMPLETED
+      expect(component.activationState).toBe(
+        component.ActivationFlowState.COMPLETED
+      );
+    }));
+
+    it("should handle activation failure and show retry option", fakeAsync(() => {
+      enrollmentService.activate.and.returnValue(
+        throwError("activation failed")
+      );
+
+      component.activateToken();
+      tick();
+
+      expect(component.activationState).toBe(
+        component.ActivationFlowState.FAILED
+      );
+    }));
+
+    it("should cancel activation subscription when dialog is cancelled", () => {
+      component.activationSubscription = new Subscription();
+      const unsubscribeSpy = spyOn(
+        component.activationSubscription,
+        "unsubscribe"
+      );
+
+      component.cancel();
+
+      expect(unsubscribeSpy).toHaveBeenCalled();
+      expect(component.activationSubscription).toBeNull();
+    });
+
+    it("should identify push token correctly", () => {
+      component.tokenDisplayData = { type: TokenType.PUSH } as any;
+      expect(component.isPush()).toBe(true);
+      expect(component.isQR()).toBe(false);
+    });
+
+    it("should identify QR token correctly", () => {
+      component.tokenDisplayData = { type: TokenType.QR } as any;
+      expect(component.isPush()).toBe(false);
+      expect(component.isQR()).toBe(true);
+    });
+
+    it("should return correct step type based on stepper index and activation permission", () => {
+      component.hasActivationPermission = true;
+
+      // Mock stepper selectedIndex
+      Object.defineProperty(component.stepper, "selectedIndex", {
+        value: 0,
+        writable: true,
+      });
+      expect(component.currentStepType).toBe("install");
+
+      Object.defineProperty(component.stepper, "selectedIndex", {
+        value: 1,
+        writable: true,
+      });
+      expect(component.currentStepType).toBe("create");
+
+      Object.defineProperty(component.stepper, "selectedIndex", {
+        value: 2,
+        writable: true,
+      });
+      expect(component.currentStepType).toBe("scan");
+
+      Object.defineProperty(component.stepper, "selectedIndex", {
+        value: 3,
+        writable: true,
+      });
+      expect(component.currentStepType).toBe("activate");
+
+      Object.defineProperty(component.stepper, "selectedIndex", {
+        value: 4,
+        writable: true,
+      });
+      expect(component.currentStepType).toBe("done");
+    });
+
+    it("should return done step type when no activation permission", () => {
+      component.hasActivationPermission = false;
+
+      Object.defineProperty(component.stepper, "selectedIndex", {
+        value: 3,
+        writable: true,
+      });
+      expect(component.currentStepType).toBe("done");
+    });
+
+    it("should reset activation state when retrying", () => {
+      component.activationState = component.ActivationFlowState.FAILED;
+      component.enrolledToken = { serial: "test-serial" } as any;
+
+      // Mock the activate call to prevent errors
+      spyOn(component, "activateToken");
+
+      component.retryActivation();
+
+      expect(component.activationState).toBe(
+        component.ActivationFlowState.NOT_STARTED
+      );
+      expect(component.activateToken).toHaveBeenCalled();
     });
   });
 });

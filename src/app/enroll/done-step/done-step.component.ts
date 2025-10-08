@@ -9,7 +9,6 @@ enum CompletionState {
   ENROLLMENT_SUCCESS = "ENROLLMENT_SUCCESS",
   ACTIVATION_SUCCESS = "ACTIVATION_SUCCESS",
   ASSIGN_SUCCESS = "ASSIGN_SUCCESS",
-  PUSH_QR_NEEDS_ACTIVATION = "PUSH_QR_NEEDS_ACTIVATION",
   PUSH_QR_NO_ACTIVATE_PERMISSION = "PUSH_QR_NO_ACTIVATE_PERMISSION",
 }
 
@@ -50,11 +49,6 @@ export class DoneStepComponent implements OnInit {
 
       case (isQR && !hasActivateQRPerm) || (isPush && !hasActivatePushPerm):
         return CompletionState.PUSH_QR_NO_ACTIVATE_PERMISSION;
-
-      // TODO LINSELF-220 - delete this when activation is integrated in enroll
-      case (isQR && hasActivateQRPerm !== undefined) ||
-        (isPush && hasActivatePushPerm !== undefined):
-        return CompletionState.PUSH_QR_NEEDS_ACTIVATION;
 
       default:
         return CompletionState.ENROLLMENT_SUCCESS;

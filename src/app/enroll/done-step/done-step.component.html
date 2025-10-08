@@ -14,14 +14,6 @@
         >
       </ng-container>
 
-      <!-- TODO LINSELF-220 - delete PUSH_QR_NEEDS_ACTIVATION when activation is integrated in enroll -->
-      <ng-container *ngSwitchCase="CompletionState.PUSH_QR_NEEDS_ACTIVATION">
-        <span i18n="@@pushQRSuccessMessage"
-          >You have successfully enrolled and paired your token. In order to use
-          it, you must activate it first.</span
-        >
-      </ng-container>
-
       <ng-container
         *ngSwitchCase="CompletionState.PUSH_QR_NO_ACTIVATE_PERMISSION"
       >
