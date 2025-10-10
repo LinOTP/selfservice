@@ -4,7 +4,7 @@ The Self Service is a frontend for end users of LinOTP that allows them to manag
 
 ## Development
 
-This project is built with [Angular CLI](https://github.com/angular/angular-cli). It was originally generated using version *1.6.1*.
+This project is built with [Angular CLI](https://github.com/angular/angular-cli). It was originally generated using version _1.6.1_.
 
 To install all production and dev dependencies to start with development, execute the following command in the root directory of this project:
 
@@ -31,6 +31,12 @@ You can run `yarn start-de` or `yarn start-en` to serve the application with a s
 ### Translations
 
 The script `yarn extract-i18n` will collect strings from the html templates and typescript files. The extracted strings will be stored in the file [src/locale/messages.xlf](src/locale/messages.xlf). The language specific translation files in the same folder will be updated. New strings will be added and marked with state _new_ and redundant strings are removed. The default translation file _en_ is already complete and translations are marked with state _final_.
+
+To translate them, please use [Poedit](https://poedit.net/):
+
+```bash
+poedit src/locale/messages.de.xlf
+```
 
 The new translations need to be done per language and checked into the repository. `yarn build` and `yarn start` commands will automatically use the new translations.
 

@@ -2,6 +2,8 @@ linotp-selfservice (1.5~0dev-1) UNRELEASED; urgency=low
 
   Features:
   * Revamped QR / Push activation
+  * Push and QR token enrollment will have an extra activation step
+    if the user has the permission `activate_PushToken` or `activate_QRToken`.
 
  -- LinOTP Packaging <packaging@linotp.de>  Tue, 08 Apr 2025 12:00:00 +0200
 
