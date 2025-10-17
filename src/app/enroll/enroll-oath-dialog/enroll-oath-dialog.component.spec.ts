@@ -113,7 +113,7 @@ import { NgSelfServiceCommonModule } from "@common/common.module";
       spyOn(component.stepper, 'next');
 
       enrollmentService.enroll.and.returnValue(of(Fixtures.OATHEnrollmentResponse));
-      const expectedToken = { ...Fixtures.enrolledToken, type: inputType, description: 'Created via SelfService' };
+      const expectedToken = { ...Fixtures.enrolledToken, type: inputType, description: 'Created via self-service' };
 
       fixture.detectChanges();
       component.enrollOATHToken();
@@ -121,7 +121,7 @@ import { NgSelfServiceCommonModule } from "@common/common.module";
 
       expect(enrollmentService.enroll).toHaveBeenCalledWith({
         type: inputType,
-        description: 'Created via SelfService',
+        description: 'Created via self-service',
         pin: ''
       });
       expect(component.enrolledToken).toEqual(expectedToken);

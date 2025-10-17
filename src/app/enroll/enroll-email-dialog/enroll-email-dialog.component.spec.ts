@@ -127,7 +127,7 @@ describe('The EnrollEmailDialogComponent', () => {
     tick(100);
     expect(enrollmentService.enroll).toHaveBeenCalledWith({
       type: TokenType.EMAIL,
-      description: `Created via SelfService - ${Fixtures.userSystemInfo.user.email}`,
+      description: `Created via self-service - ${Fixtures.userSystemInfo.user.email}`,
       email_address: Fixtures.userSystemInfo.user.email,
     });
     expect(component.enrolledToken.serial).toEqual(Fixtures.emailEnrollmentResponse.serial);
@@ -198,7 +198,7 @@ describe('The EnrollEmailDialogComponent', () => {
 
         expect(enrollmentService.enroll).toHaveBeenCalledWith({
           type: TokenType.EMAIL,
-          description: `Created via SelfService - ${Fixtures.userSystemInfo.user.email}`,
+          description: `Created via self-service - ${Fixtures.userSystemInfo.user.email}`,
           email_address: Fixtures.userSystemInfo.user.email,
         });
       }));

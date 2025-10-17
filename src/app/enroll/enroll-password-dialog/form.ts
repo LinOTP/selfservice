@@ -7,7 +7,7 @@ export function getCreatePasswordTokenForm() {
     password: new FormControl('', [Validators.required]),
     confirmation: new FormControl('', [Validators.required]),
     pinForm: getPinForm(),
-    description: new FormControl($localize`Created via SelfService`, Validators.required),
+    description: new FormControl($localize`Created via self-service`, Validators.required),
   }, sameValuesConfirmationValidator)
 
   return form

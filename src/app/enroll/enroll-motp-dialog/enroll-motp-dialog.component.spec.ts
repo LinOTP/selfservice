@@ -29,7 +29,7 @@ import { NgSelfServiceCommonModule } from "@common/common.module";
 const enrolledToken = {
   serial: Fixtures.mOTPEnrollmentResponse.serial,
   type: TokenType.MOTP,
-  description: 'Created via SelfService'
+  description: 'Created via self-service'
 };
 
 describe('EnrollMOTPDialogComponent', () => {
@@ -138,7 +138,7 @@ describe('EnrollMOTPDialogComponent', () => {
         type: TokenType.MOTP,
         otpkey: '0123456789ABCDEF',
         otppin: '1234',
-        description: `Created via SelfService`,
+        description: `Created via self-service`,
       });
       expect(component.enrolledToken).toEqual(expectedToken);
       expect(component.stepper.next).toHaveBeenCalledTimes(1);
