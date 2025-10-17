@@ -6,6 +6,9 @@
   * Push and QR Token enrollment will have an extra activation step
     if the user has the permission `activate_PushToken` or `activate_QRToken`.
 
+  ### Fixes:
+  * Default token description for assign and enroll.
+
 <a name="1.4"></a>
 ## 1.4 (2025-06-16)
 

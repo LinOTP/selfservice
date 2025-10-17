@@ -143,7 +143,7 @@ describe('The EnrollPasswordDialogComponent', () => {
 
       expect(enrollmentService.enroll).toHaveBeenCalledWith({
         type: TokenType.PASSWORD,
-        description: 'Created via SelfService',
+        description: 'Created via self-service',
         otpkey: '111111'
       });
 
@@ -169,7 +169,7 @@ describe('The EnrollPasswordDialogComponent', () => {
 
       expect(enrollmentService.enroll).toHaveBeenCalledWith({
         type: TokenType.PASSWORD,
-        description: 'Created via SelfService',
+        description: 'Created via self-service',
         otpkey: '111111',
         pin: '1234'
       });

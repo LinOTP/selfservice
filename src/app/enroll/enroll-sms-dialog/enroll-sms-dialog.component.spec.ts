@@ -126,7 +126,7 @@ describe('The EnrollSMSDialogComponent', () => {
     tick(100);
     expect(enrollmentService.enroll).toHaveBeenCalledWith({
       type: TokenType.SMS,
-      description: `Created via SelfService - ${Fixtures.userSystemInfo.user.mobile}`,
+      description: `Created via self-service - ${Fixtures.userSystemInfo.user.mobile}`,
       phone: Fixtures.userSystemInfo.user.mobile,
     });
     expect(component.enrolledToken.serial).toEqual(Fixtures.smsEnrollmentResponse.serial);
@@ -196,7 +196,7 @@ describe('The EnrollSMSDialogComponent', () => {
 
         expect(enrollmentService.enroll).toHaveBeenCalledWith({
           type: TokenType.SMS,
-          description: `Created via SelfService - ${Fixtures.userSystemInfo.user.mobile}`,
+          description: `Created via self-service - ${Fixtures.userSystemInfo.user.mobile}`,
           phone: Fixtures.userSystemInfo.user.mobile,
         });
       }));

@@ -48,7 +48,7 @@ export class CreateTokenStepComponent {
 export function getCreateTokenStepForm(): UntypedFormGroup {
   const form = new FormGroup({
     pinForm: getPinForm(),
-    description: new FormControl($localize`Created via SelfService`, Validators.required),
+    description: new FormControl($localize`Created via self-service`, Validators.required),
   })
   return form;
 }

@@ -930,18 +930,6 @@
           <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="3012199703865433135" datatype="html">
-        <source>Created via SelfService</source>
-        <target state="translated">Erstellt via SelfService</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/create-token-step/create-token-step.component.ts</context>
-          <context context-type="linenumber">51</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-password-dialog/form.ts</context>
-          <context context-type="linenumber">10</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="activationSuccessMessage" datatype="html">
         <source>
           You have successfully activated your token.
@@ -1237,7 +1225,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
-          <context context-type="linenumber">80</context>
+          <context context-type="linenumber">82</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-email-dialog/enroll-email-dialog.component.html</context>
@@ -1496,6 +1484,18 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/create-token-step/create-token-step.component.ts</context>
           <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2420683451503196502" datatype="html">
+        <source>Created via self-service</source>
+        <target state="translated">Erstellt via Selfservice</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/create-token-step/create-token-step.component.ts</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/enroll-password-dialog/form.ts</context>
+          <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
       <trans-unit id="noActivatePermWarning" datatype="html">
@@ -2515,6 +2515,14 @@
           <context context-type="linenumber">54,56</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="3790675828857496295" datatype="html">
+        <source>Assigned via self-service</source>
+        <target state="translated">Zugewiesen via Selfservice</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/assign-token-dialog/assign-token-dialog.component.ts</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="2830158497769011008" datatype="html">
         <source>Test successful. You may use your token for authentication.</source>
         <target state="translated">Test erfolgreich. Sie dürfen sich mit Ihrem Token
@@ -2601,7 +2609,7 @@
         <target state="translated">Token-Zuweisung fehlgeschlagen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/assign-token-dialog/assign-token-dialog.component.ts</context>
-          <context context-type="linenumber">139</context>
+          <context context-type="linenumber">141</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2764439807935885802" datatype="html">
@@ -2609,7 +2617,7 @@
         <target state="translated">Seriennummer abgerufen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/assign-token-dialog/assign-token-dialog.component.ts</context>
-          <context context-type="linenumber">86</context>
+          <context context-type="linenumber">88</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5611789394889455858" datatype="html">

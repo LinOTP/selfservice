@@ -33,6 +33,8 @@ export class AssignTokenDialogComponent extends EnrollDialogBase implements OnIn
 
   ngOnInit() {
     this.createTokenForm.addControl('serial', this.formBuilder.control('', Validators.required));
+    // Set specific description for assign token
+    this.createTokenForm.get('description').setValue($localize`Assigned via self-service`);
     super.ngOnInit();
   }
 
