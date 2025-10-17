@@ -118,6 +118,10 @@ describe('AssignTokenDialogComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should set description to "Assigned via self-service" on initialization', () => {
+    expect(component.createTokenForm.get('description').value).toBe('Assigned via self-service');
+  });
+
   describe('assignToken', () => {
 
     it('should be successful when assignment is successful', fakeAsync(() => {
