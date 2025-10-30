@@ -8,6 +8,7 @@
 
   ### Fixes:
   * Default token description for assign and enroll.
+  * Verify step of an assigned password token did not hide the password.
 
 <a name="1.4"></a>
 ## 1.4 (2025-06-16)

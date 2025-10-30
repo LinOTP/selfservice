@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { TestOptions, TestService, TransactionDetail } from "@api/test.service";
-import { NotificationService } from "@common/notification.service";
-import { EnrolledToken } from "@app/enroll/enroll-dialog-base.directive";
 import { TokenType } from "@api/token";
+import { EnrolledToken } from "@app/enroll/enroll-dialog-base.directive";
 import { EmailEnrolledToken } from "@app/enroll/enroll-email-dialog/enroll-email-dialog.component";
 import { SMSEnrolledToken } from "@app/enroll/enroll-sms-dialog/enroll-sms-dialog.component";
+import { NotificationService } from "@common/notification.service";
 
 @Component({
 	selector: 'app-verify-token',
@@ -46,6 +46,8 @@ export class VerifyTokenComponent {
 
 	public transactionDetail: TransactionDetail;
 	public verifyResult: 'FAILURE' | 'SUCCESS' | null = null;
+
+  protected readonly TokenType = TokenType
 
 	get serial() {
     return this.token?.serial;

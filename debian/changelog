@@ -7,6 +7,7 @@ linotp-selfservice (1.5~0dev-1) UNRELEASED; urgency=low
 
   Fixes:
   * Default token description for assign and enroll.
+  * Verify step of an assigned password token did not hide the password.
 
  -- LinOTP Packaging <packaging@linotp.de>  Tue, 08 Apr 2025 12:00:00 +0200
 
