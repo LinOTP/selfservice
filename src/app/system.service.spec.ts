@@ -49,8 +49,6 @@ describe('SystemService', () => {
             jasmine.objectContaining({
               default: false,
               realmname: 'exampleRealm',
-              useridresolver: ['example-resolver'],
-              entry: ''
             })
           );
         });
@@ -79,8 +77,6 @@ describe('SystemService', () => {
             jasmine.objectContaining({
               default: false,
               realmname: 'exampleRealm',
-              useridresolver: ['example-resolver'],
-              entry: ''
             })
           );
         });

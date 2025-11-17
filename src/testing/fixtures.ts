@@ -318,8 +318,6 @@ export class Fixtures {
         ExampleRealm: {
           default: false,
           realmname: 'exampleRealm',
-          entry: '',
-          useridresolver: ['example-resolver']
         }
       },
       settings: {
@@ -348,8 +346,6 @@ export class Fixtures {
         ExampleRealm: {
           default: false,
           realmname: 'exampleRealm',
-          entry: '',
-          useridresolver: ['example-resolver']
         }
       },
       settings: {
@@ -376,8 +372,6 @@ export class Fixtures {
         ExampleRealm: {
           default: false,
           realmname: 'exampleRealm',
-          entry: '',
-          useridresolver: ['example-resolver']
         }
       },
       permissions: this.permissionList,
@@ -452,8 +446,6 @@ export class ExampleAPIResponses {
           ExampleRealm: {
             default: false,
             realmname: 'exampleRealm',
-            entry: '',
-            useridresolver: ['example-resolver']
           }
         },
         settings: {
@@ -480,8 +472,6 @@ export class ExampleAPIResponses {
           ExampleRealm: {
             default: false,
             realmname: 'exampleRealm',
-            entry: '',
-            useridresolver: ['example-resolver']
           }
         },
         settings: {

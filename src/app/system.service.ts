@@ -25,10 +25,8 @@ export interface SystemInfo {
   version: string;
   realms: {
     [realmName: string]: {
-      default: boolean,
       realmname: string,
-      useridresolver: string[],
-      entry: string,
+      default: boolean,
     }
   };
   settings: {
