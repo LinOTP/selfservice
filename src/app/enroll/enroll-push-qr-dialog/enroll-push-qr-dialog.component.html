@@ -8,9 +8,11 @@
           This step-by-step guide will help you to create a new token and import
           it onto your device.
         </p>
-        <p>To import the token you must use the <b>LinOTP Authenticator</b>:</p>
+        <p>
+          To use this token, you need an authenticator app that supports it:
+        </p>
       </div>
-      <app-authenticator-links></app-authenticator-links>
+      <app-authenticator-links [tokenType]="tokenDisplayData.type"></app-authenticator-links>
       <p i18n="@@oathStepperAppInstalledConfirmInfo">
         Once you have the app installed on your device, you can start the token
         setup process.

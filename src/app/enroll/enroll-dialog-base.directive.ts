@@ -7,18 +7,18 @@ import { forkJoin, from, Observable, of, Subscription } from 'rxjs';
 import { filter, finalize, map, switchMap, tap } from 'rxjs/operators';
 
 
+import { MatStepper } from "@angular/material/stepper";
 import { EnrollmentService } from '@api/enrollment.service';
 import { OperationsService } from '@api/operations.service';
 import { EnrollmentOptions, tokenDisplayData, TokenDisplayData, TokenType } from '@api/token';
 import { TokenService } from '@api/token.service';
+import { getCreateTokenStepForm } from "@app/enroll/create-token-step/create-token-step.component";
 import { LoginService } from '@app/login/login.service';
 import { TestDialogComponent } from '@app/test/test-dialog.component';
 import { DialogComponent } from '@common/dialog/dialog.component';
 import { NotificationService } from '@common/notification.service';
 import { Permission } from '@common/permissions';
 import { SetPinDialogComponent } from '@common/set-pin-dialog/set-pin-dialog.component';
-import { getCreateTokenStepForm } from "@app/enroll/create-token-step/create-token-step.component";
-import { MatStepper } from "@angular/material/stepper";
 
 
 export interface EnrolledToken {
@@ -73,11 +73,13 @@ export abstract class EnrollDialogBase implements OnInit, OnDestroy {
           }
         })
     );
-    this._getPermissions().subscribe((hasPermissions) => {
-      this._verifyPolicyEnabled = hasPermissions.verify;
-      this._setOtpPinPolicyEnabled = hasPermissions.setPin;
-    })
-  }
+    this.subscriptions.push(
+      this._getPermissions().subscribe((hasPermissions) => {
+        this._verifyPolicyEnabled = hasPermissions.verify;
+        this._setOtpPinPolicyEnabled = hasPermissions.setPin;
+      })
+    )
+    }
 
   public ngOnDestroy() {
     while (this.subscriptions.length) {

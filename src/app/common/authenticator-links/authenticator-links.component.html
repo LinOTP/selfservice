@@ -25,27 +25,33 @@
 
 <ng-template #detailsTmp>
   <div class="all-platforms-container">
-    <div>
+    <div *ngIf="appRec?.ios">
       <span class="store-name">iOS</span>
         <mat-card appearance="outlined">
           <mat-card-content>
-            <a [href]="iosUrl" target="_blank" rel="noopener noreferrer"><img src="assets/app-store.svg" alt="FreeOTP" class="app-store-badge"></a>
-            <qrcode [qrdata]="iosUrl"
-            [width]="180"
-            [margin]="2"
-            [errorCorrectionLevel]="'L'"></qrcode>
+            <span class="store-name">{{appRec.ios?.name}}</span>
+            <ng-container *ngIf="appRec.ios?.url">
+              <a [href]="appRec.ios.url" target="_blank" rel="noopener noreferrer"><img src="assets/app-store.svg" alt="FreeOTP" class="app-store-badge"></a>
+              <qrcode [qrdata]="appRec.ios.url"
+              [width]="180"
+              [margin]="2"
+              [errorCorrectionLevel]="'L'"></qrcode>
+            </ng-container>
           </mat-card-content>
         </mat-card>
       </div>
-    <div>
+    <div *ngIf="appRec?.android">
       <span class="store-name">Android</span>
       <mat-card appearance="outlined">
         <mat-card-content>
-            <a [href]="androidUrl" target="_blank" rel="noopener noreferrer"><img src="assets/google-play.png" alt="Google Authenticator" class="google-play-badge"></a>
-            <qrcode [qrdata]="androidUrl"
-            [width]="180"
-            [margin]="2"
-            [errorCorrectionLevel]="'L'"></qrcode>
+            <span class="store-name">{{appRec.android?.name}}</span>
+            <ng-container *ngIf="appRec.android?.url">
+              <a [href]="appRec.android.url" target="_blank" rel="noopener noreferrer"><img src="assets/google-play.png" alt="Google Authenticator" class="google-play-badge"></a>
+              <qrcode [qrdata]="appRec.android.url"
+              [width]="180"
+              [margin]="2"
+              [errorCorrectionLevel]="'L'"></qrcode>
+            </ng-container>
           </mat-card-content>
       </mat-card>
     </div>
