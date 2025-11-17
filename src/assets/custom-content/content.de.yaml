@@ -1,12 +1,45 @@
 # Der Inhalt wird oben auf der Anmeldeseite angezeigt.
-- slotId: "login-top"
-  content:
+slots:
+  - slotId: "login-top"
+    content:
 
-# Der Inhalt wird oben auf der "Meine Token" Seite angezeigt.
-- slotId: "tokenlist-top"
-  content:
+  # Der Inhalt wird oben auf der "Meine Token" Seite angezeigt.
+  - slotId: "tokenlist-top"
+    content:
 
-# Der Inhalt wird oben auf der Chronikseite angezeigt.
-- slotId: "history-top"
-  content:
+  # Der Inhalt wird oben auf der Chronikseite angezeigt.
+  - slotId: "history-top"
+    content:
 
+enrollment_app_recommendations:
+  - type: totp
+    android:
+      name: LinOTP Authenticator
+      url: https://play.google.com/store/apps/details?id=de.linotp.authenticator
+    ios:
+      name: LinOTP Authenticator
+      url: https://apps.apple.com/de/app/linotp-authenticator/id6450118468
+
+  - type: hmac
+    android:
+      name: LinOTP Authenticator
+      url: https://play.google.com/store/apps/details?id=de.linotp.authenticator
+    ios:
+      name: LinOTP Authenticator
+      url: https://apps.apple.com/de/app/linotp-authenticator/id6450118468
+
+  - type: qr
+    android:
+      name: LinOTP Authenticator
+      url: https://play.google.com/store/apps/details?id=de.linotp.authenticator
+    ios:
+      name: LinOTP Authenticator
+      url: https://apps.apple.com/de/app/linotp-authenticator/id6450118468
+
+  - type: push
+    android:
+      name: LinOTP Authenticator
+      url: https://play.google.com/store/apps/details?id=de.linotp.authenticator
+    ios:
+      name: LinOTP Authenticator
+      url: https://apps.apple.com/de/app/linotp-authenticator/id6450118468
