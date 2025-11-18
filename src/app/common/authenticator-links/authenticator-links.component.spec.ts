@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { MockComponent } from "@testing/mock-component";
+import { PlatformProviderService } from "../platform-provider.service";
 import { AuthenticatorLinksComponent } from "./authenticator-links.component";
 
 describe("AuthenticatorLinksComponent", () => {
@@ -8,6 +9,7 @@ describe("AuthenticatorLinksComponent", () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
+			providers: [PlatformProviderService],
 			imports: [AuthenticatorLinksComponent],
 			declarations: [
 				MockComponent({ selector: "qrcode", inputs: ["qrdata", "width", "errorCorrectionLevel", "margin"] }),

@@ -1,10 +1,10 @@
 import { CommonModule } from "@angular/common";
-import { Component, Input } from "@angular/core";
+import { Component } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
 import { QRCodeModule } from "angularx-qrcode";
-import { CurrentPlatform } from "../platform-provider.service";
+import { PlatformProviderService } from "../platform-provider.service";
 
 @Component({
   selector: 'app-authenticator-links',
@@ -14,11 +14,15 @@ import { CurrentPlatform } from "../platform-provider.service";
   imports: [CommonModule, MatButtonModule, MatIconModule, QRCodeModule, MatCardModule]
 })
 export class AuthenticatorLinksComponent {
-  @Input() platform: CurrentPlatform
+  platform: string
   readonly iosUrl = "https://apps.apple.com/de/app/linotp-authenticator/id6450118468"
-  readonly androidUrl = "https://play.google.com/store/apps/details?id=de.linotp.authenticator" // TODO is it correct app - in others views we have links to keyidentity
+  readonly androidUrl = "https://play.google.com/store/apps/details?id=de.linotp.authenticator"
   get platformUrl() {
     return this.platform === 'ios' ? this.iosUrl : this.androidUrl
   }
   showDetails = false
+
+  constructor(platformProvider: PlatformProviderService){
+    this.platform = platformProvider.platform;
+  }
 }
