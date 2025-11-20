@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { AppRecommendationService } from "@app/custom-content/app-recommendation/app-recommendation.service";
 import { MockComponent } from "@testing/mock-component";
 import { PlatformProviderService } from "../platform-provider.service";
 import { AuthenticatorLinksComponent } from "./authenticator-links.component";
@@ -6,18 +7,15 @@ import { AuthenticatorLinksComponent } from "./authenticator-links.component";
 describe("AuthenticatorLinksComponent", () => {
 	let component: AuthenticatorLinksComponent;
 	let fixture: ComponentFixture<AuthenticatorLinksComponent>;
-
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			providers: [PlatformProviderService],
+			providers: [PlatformProviderService, AppRecommendationService],
 			imports: [AuthenticatorLinksComponent],
 			declarations: [
 				MockComponent({ selector: "qrcode", inputs: ["qrdata", "width", "errorCorrectionLevel", "margin"] }),
-			]
+			],
 		}).compileComponents();
-	})
 
-	beforeEach(() => {
 		fixture = TestBed.createComponent(AuthenticatorLinksComponent);
 		component = fixture.componentInstance;
 	})
