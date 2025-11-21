@@ -2,6 +2,7 @@
 ## 1.5-0dev (unreleased)
 
   ### Features:
+  * Custom app recommendations for hmac, totp, push and qr token.
   * Revamped QR / Push activation
   * Push and QR Token enrollment will have an extra activation step
     if the user has the permission `activate_PushToken` or `activate_QRToken`.
