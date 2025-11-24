@@ -10,12 +10,10 @@
         </p>
         <p>
           To import the token, you will need an OATH-compatible authenticator
-          app. We recommend to use <b>LinOTP Authenticator</b>:
+          app:
         </p>
       </div>
-      <app-authenticator-links
-        [platform]="platformProvider.platform"
-      ></app-authenticator-links>
+      <app-authenticator-links [tokenType]="tokenDisplayData.type"></app-authenticator-links>
       <p i18n="@@oathStepperAppInstalledConfirmInfo">
         Once you have the app installed on your device, you can start the token
         setup process.

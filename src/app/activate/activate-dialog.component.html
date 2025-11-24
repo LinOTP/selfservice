@@ -4,9 +4,9 @@
   <mat-step [completed]="true">
     <ng-template matStepLabel i18n>Start the activation</ng-template>
     <mat-dialog-content>
-      <div i18n="@@oathStepperIntroduction">
+      <div i18n="@@activationStepperIntroduction">
         <p>
-          To use your {{isPush ? 'Push' : 'QR'}} token, it must first be activated with the <b>LinOTP Authenticator</b>
+          To use your {{isPush ? 'Push' : 'QR'}} token, it must first be activated with the authenticator app
           app you used during enrollment. Please open the app and proceed to the next step to begin the activation.
         </p>
       </div>

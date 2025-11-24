@@ -1,4 +1,5 @@
 import { of } from 'rxjs';
+import { AppRecommendationService } from './app-recommendation/app-recommendation.service';
 import { CustomAssetsService } from './custom-assets.service';
 import { CustomContentService, YamlParserService } from './custom-content.service';
 import { CustomPageFrontMatter, CustomPageFrontMatterParser } from './frontmatter-parser';
@@ -6,33 +7,56 @@ import { CustomPageFrontMatter, CustomPageFrontMatterParser } from './frontmatte
 describe('CustomContentService', () => {
   let service: CustomContentService;
   let customAssetsServiceSpy: jasmine.SpyObj<CustomAssetsService>;
-  let yamlParserService: YamlParserService;
+  let appRecServiceSpy: jasmine.SpyObj<AppRecommendationService>;
   let frontMatterParser: CustomPageFrontMatterParser
+let yamlParserServiceSpy: jasmine.SpyObj<YamlParserService>;
 
   beforeEach(() => {
     customAssetsServiceSpy = jasmine.createSpyObj('CustomAssetsService', ['getCustomContentForViewsFile', 'getCustomPageFile']);
-    yamlParserService = new YamlParserService();
+    appRecServiceSpy = jasmine.createSpyObj('AppRecommendationService', ['setAppRecommendations', 'getAppRecommendations']);
+
+    yamlParserServiceSpy = jasmine.createSpyObj('YamlParserService', ['loadYaml']); // <---
+
     frontMatterParser = new CustomPageFrontMatterParser();
 
-    service = new CustomContentService(customAssetsServiceSpy);
-    (service as any).yamlParser = yamlParserService;
+    service = new CustomContentService(customAssetsServiceSpy, appRecServiceSpy);
+    (service as any).yamlParser = yamlParserServiceSpy; // Use the spy object!
     (service as any).frontMatterParser = frontMatterParser;
   });
 
   it('should load content successfully', () => {
     const mockFileContent = 'mock yaml content';
-    const mockParsedContent = [{ slotId: '1', content: 'Test Content' }];
+    const mockParsedContent = {
+      slots: [
+        { slotId: 'login-top', content: 'Test Content' },
+        { slotId: 'tokenlist-top', content: '' },
+        { slotId: 'history-top', content: '' }
+      ],
+      enrollment_app_recommendations: [
+        {
+          type: 'totp',
+          android: {
+            name: 'LinOTP Authenticator',
+            url: 'https://play.google.com/store/apps/details?id=de.linotp.authenticator'
+          },
+          ios: {
+            name: 'LinOTP Authenticator',
+            url: 'https://apps.apple.com/de/app/linotp-authenticator/id6450118468'
+          }
+        }
+      ]
+    };
 
     customAssetsServiceSpy.getCustomContentForViewsFile.and.returnValue(of(mockFileContent));
     customAssetsServiceSpy.getCustomPageFile.and.returnValue(of(""));
-    spyOn(yamlParserService, 'loadYaml').and.returnValue(mockParsedContent);
+    yamlParserServiceSpy.loadYaml.and.returnValue(mockParsedContent);
     spyOn(frontMatterParser, 'parse').and.returnValue({ frontmatter: {}, content: "" } as any);
 
     service.loadContent();
 
     expect(customAssetsServiceSpy.getCustomContentForViewsFile).toHaveBeenCalled();
-    expect(yamlParserService.loadYaml).toHaveBeenCalledWith(mockFileContent);
-    expect(service.viewsContent).toEqual(mockParsedContent);
+    expect(yamlParserServiceSpy.loadYaml).toHaveBeenCalledWith(mockFileContent);
+    expect(service.viewsContent).toEqual(mockParsedContent.slots);
     expect(service.viewsContentLoaded).toBeTrue();
   });
 
@@ -40,22 +64,18 @@ describe('CustomContentService', () => {
     const mockFileContent = 'mock yaml content';
     const mockParsedContent = {};
     // to avoid console.error output
-    const consoleErrorSpy = spyOn(console, 'error');
 
     customAssetsServiceSpy.getCustomContentForViewsFile.and.returnValue(of(mockFileContent));
     customAssetsServiceSpy.getCustomPageFile.and.returnValue(of(""));
-    spyOn(yamlParserService, 'loadYaml').and.returnValue(mockParsedContent);
+    yamlParserServiceSpy.loadYaml.and.returnValue(mockParsedContent);
     spyOn(frontMatterParser, 'parse').and.returnValue({ frontmatter: {}, content: "" } as any);
 
     service.loadContent();
 
     expect(customAssetsServiceSpy.getCustomContentForViewsFile).toHaveBeenCalled();
-    expect(yamlParserService.loadYaml).toHaveBeenCalledWith(mockFileContent);
+    expect(yamlParserServiceSpy.loadYaml).toHaveBeenCalledWith(mockFileContent);
     expect(service.viewsContent).toEqual([]);
     expect(service.viewsContentLoaded).toBeTrue();
-    expect(consoleErrorSpy).toHaveBeenCalled();
-
-    consoleErrorSpy.calls.reset();
   });
 
   it('should handle yaml parsing error', () => {
@@ -64,13 +84,13 @@ describe('CustomContentService', () => {
 
     customAssetsServiceSpy.getCustomContentForViewsFile.and.returnValue(of(mockFileContent));
     customAssetsServiceSpy.getCustomPageFile.and.returnValue(of(""));
-    spyOn(yamlParserService, 'loadYaml').and.throwError('Parsing error');
+    yamlParserServiceSpy.loadYaml.and.throwError('Parsing error');
     spyOn(frontMatterParser, 'parse').and.returnValue({ frontmatter: {}, content: "" } as any);
 
     service.loadContent();
 
     expect(customAssetsServiceSpy.getCustomContentForViewsFile).toHaveBeenCalled();
-    expect(yamlParserService.loadYaml).toHaveBeenCalledWith(mockFileContent);
+    expect(yamlParserServiceSpy.loadYaml).toHaveBeenCalledWith(mockFileContent);
     expect(service.viewsContent).toEqual([]);
     expect(service.viewsContentLoaded).toBeTrue();
     expect(consoleErrorSpy).toHaveBeenCalled();
@@ -93,7 +113,7 @@ describe('CustomContentService', () => {
 
     customAssetsServiceSpy.getCustomContentForViewsFile.and.returnValue(of(mockFileContent));
     customAssetsServiceSpy.getCustomPageFile.and.returnValue(of(mockPageContent));
-    spyOn(yamlParserService, 'loadYaml').and.returnValue([]);
+    yamlParserServiceSpy.loadYaml.and.returnValue([]);
     spyOn(frontMatterParser, 'parse').and.returnValue(mockParsedPageContent);
 
     service.loadContent();
@@ -117,7 +137,7 @@ describe('CustomContentService', () => {
     customAssetsServiceSpy.getCustomContentForViewsFile.and.returnValue(of(mockFileContent));
     customAssetsServiceSpy.getCustomPageFile.and.returnValue(of(mockPageContent));
     spyOn(frontMatterParser, 'parse').and.throwError('Parsing error');
-    spyOn(yamlParserService, 'loadYaml').and.returnValue([]);
+    yamlParserServiceSpy.loadYaml.and.returnValue([]);
 
 
     service.loadContent();
@@ -146,7 +166,7 @@ describe('CustomContentService', () => {
     customAssetsServiceSpy.getCustomContentForViewsFile.and.returnValue(of(mockFileContent));
     customAssetsServiceSpy.getCustomPageFile.and.returnValue(of(mockPageContent));
     spyOn(frontMatterParser, 'parse').and.returnValue(mockParsedPageContent);
-    spyOn(yamlParserService, 'loadYaml').and.returnValue([]);
+    yamlParserServiceSpy.loadYaml.and.returnValue([]);
 
     service.loadContent();
 

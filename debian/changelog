@@ -1,6 +1,7 @@
 linotp-selfservice (1.5~0dev-1) UNRELEASED; urgency=low
 
   Features:
+  * Custom app recommendations for hmac, totp, push and qr token.
   * Revamped QR / Push activation
   * Push and QR token enrollment will have an extra activation step
     if the user has the permission `activate_PushToken` or `activate_QRToken`.

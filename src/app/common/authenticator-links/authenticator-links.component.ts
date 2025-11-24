@@ -1,24 +1,37 @@
-import { CommonModule } from "@angular/common";
-import { Component, Input } from "@angular/core";
+import { CommonModule, NgIf } from "@angular/common";
+import { Component, Input, OnInit } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
+import { TokenType } from "@app/api/token";
+import {
+    AppRecommendation,
+    AppRecommendationService
+} from "@app/custom-content/app-recommendation/app-recommendation.service";
 import { QRCodeModule } from "angularx-qrcode";
-import { CurrentPlatform } from "../platform-provider.service";
+import { PlatformProviderService } from "../platform-provider.service";
 
 @Component({
   selector: 'app-authenticator-links',
   templateUrl: './authenticator-links.component.html',
   styleUrls: ['./authenticator-links.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatIconModule, QRCodeModule, MatCardModule]
+  imports: [CommonModule, MatButtonModule, MatIconModule, QRCodeModule, MatCardModule, NgIf]
 })
-export class AuthenticatorLinksComponent {
-  @Input() platform: CurrentPlatform
-  readonly iosUrl = "https://apps.apple.com/de/app/linotp-authenticator/id6450118468"
-  readonly androidUrl = "https://play.google.com/store/apps/details?id=de.linotp.authenticator" // TODO is it correct app - in others views we have links to keyidentity
+export class AuthenticatorLinksComponent implements OnInit {
+  @Input({required: true}) tokenType: TokenType
+  platform: string
+  appRec: AppRecommendation
   get platformUrl() {
-    return this.platform === 'ios' ? this.iosUrl : this.androidUrl
+    return this.platform === 'ios' ? this.appRec.ios.url : this.appRec.android.url
   }
   showDetails = false
+
+  constructor(platformProvider: PlatformProviderService, private appRecService: AppRecommendationService){
+    this.platform = platformProvider.platform;
+  }
+
+  ngOnInit(): void {
+    this.appRec = this.appRecService.getAppRecommendationFor(this.tokenType);
+  }
 }

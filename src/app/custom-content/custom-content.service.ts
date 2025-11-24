@@ -1,8 +1,10 @@
 import { Injectable } from "@angular/core";
 import * as yaml from 'js-yaml';
-import { BehaviorSubject, EMPTY, Observable, catchError, distinctUntilChanged, finalize, map, tap } from "rxjs";
+import { BehaviorSubject, catchError, distinctUntilChanged, EMPTY, finalize, map, Observable, tap } from "rxjs";
+import { AppRecommendationService } from "./app-recommendation/app-recommendation.service";
 import { CustomAssetsService } from "./custom-assets.service";
 import { CustomPageFrontMatterParser } from "./frontmatter-parser";
+
 @Injectable(
   {providedIn: 'root'}
 )
@@ -74,7 +76,7 @@ export class CustomContentService {
   private yamlParser = new YamlParserService();
   private frontMatterParser = new CustomPageFrontMatterParser()
 
-  constructor(private customAssetsService:CustomAssetsService) { }
+  constructor(private customAssetsService:CustomAssetsService, private appRecService: AppRecommendationService) { }
 
   loadContent() {
     this.customAssetsService.getCustomContentForViewsFile().pipe(
@@ -84,12 +86,12 @@ export class CustomContentService {
       tap((file) => {
         try {
           const result = this.yamlParser.loadYaml(file);
-          if(!Array.isArray(result)) {
-            throw new Error("Invalid yaml file")
+          if (result.enrollment_app_recommendations) {
+            this.appRecService.setAppRecommendations(result.enrollment_app_recommendations);
           }
           this._store.next({
             ...this._store.value,
-            viewsContent: result,
+            viewsContent: result.slots ?? [],
           });
         } catch (e) {
           console.error("Error parsing yaml file", e);
@@ -147,7 +149,7 @@ export type SlotContent = {
 export type CustomPage = {
   slotId: "custom-page"
   title: string
-  route:string
+  route: string
   content: string
 }
 
@@ -164,6 +166,13 @@ type CustomContentServiceState = {
 
 export class YamlParserService {
   loadYaml(content: string): any {
-    return yaml.load(content);
+    if (!content) {
+      throw new Error("Invalid parameter");
+    }
+    const result = yaml.load(content);
+    if (!result || Object.keys(result).length <= 0) {
+      throw new Error("Invalid yaml file");
+    }
+    return result;
   }
 }

@@ -157,6 +157,7 @@ describe("EnrollPushDialogComponent", () => {
   });
 
   it("should not attempt to unsubscribe from polling on destroy if there was no subscription", () => {
+    component["subscriptions"] = [];
     spyOn(Subscription.prototype, "unsubscribe");
     component.ngOnDestroy();
     expect(Subscription.prototype.unsubscribe).not.toHaveBeenCalled();
