@@ -23,7 +23,8 @@ build-image:
     - apk add jq
     - IMAGE_VERSION=$(jq --raw-output '."version"' <package.json | tr -d A-Za-z | tr -- -_ .)
     - DATE=$(date +"%Y%m%d")
-    - docker build
+    - docker buildx build
+      --provenance false
       --build-arg=NPM_CI_TOKEN=$NPM_CI_TOKEN
       --label de.linotp.commit-ref="$CI_COMMIT_REF_NAME"
       --label de.linotp.commit-hash="$CI_COMMIT_SHORT_SHA"
