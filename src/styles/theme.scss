@@ -39,6 +39,7 @@
 @include mat.all-component-densities(light-theme.$theme);
 
 .theme-light {
+  @include mat.all-component-bases(light-theme.$theme);
   @include mat.all-component-colors(light-theme.$theme);
   @include component-styles(light-theme.$theme);
   @include component-styles-light(light-theme.$theme);
@@ -46,6 +47,7 @@
 }
 
 .theme-dark {
+  @include mat.all-component-bases(light-theme.$theme);
   @include mat.all-component-colors(dark-theme.$theme);
   @include component-styles(dark-theme.$theme);
   @include component-styles-dark(dark-theme.$theme);
