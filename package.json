@@ -38,7 +38,7 @@
     "@angular/router": "^17.3.12",
     "@fontsource/material-icons": "^5.0.11",
     "@fontsource/roboto": "^5.0.8",
-    "angularx-qrcode": "^16.0.2",
+    "angularx-qrcode": "18.0.2",
     "core-js": "^2.4.1",
     "js-yaml": "^4.1.0",
     "marked": "^12.0.0",
