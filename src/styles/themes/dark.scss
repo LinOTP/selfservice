@@ -1,6 +1,6 @@
 @use "@angular/material" as mat;
 
-$theme-app-primary: mat.define-palette((50: #fcefe6,
+$theme-app-primary: mat.m2-define-palette((50: #fcefe6,
       100: #f8d7bf,
       200: #f3bc95,
       300: #eea16b,
@@ -31,9 +31,9 @@ $theme-app-primary: mat.define-palette((50: #fcefe6,
       ),
     ));
 
-$theme: mat.define-dark-theme((color: (primary: $theme-app-primary,
-        accent: mat.define-palette(mat.$blue-grey-palette),
-        warn: mat.define-palette(mat.$red-palette),
+$theme: mat.m2-define-dark-theme((color: (primary: $theme-app-primary,
+        accent: mat.m2-define-palette(mat.$m2-blue-grey-palette),
+        warn: mat.m2-define-palette(mat.$m2-red-palette),
       ),
     ));
 
@@ -54,7 +54,7 @@ $theme: mat.define-dark-theme((color: (primary: $theme-app-primary,
     background-color: #87854826;
   }
   .alert.error {
-    background: mat.get-color-from-palette($theme-app-primary, 900);
+    background: mat.m2-get-color-from-palette($theme-app-primary, 900);
     color: white;
   }
   .alert.info {
