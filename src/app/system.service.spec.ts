@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { inject, TestBed } from '@angular/core/testing';
 
 import { ExampleAPIResponses, Fixtures } from '@testing/fixtures';
@@ -12,14 +12,14 @@ describe('SystemService', () => {
   let service: SystemService;
 
   beforeEach(() => TestBed.configureTestingModule({
-    imports: [
-      HttpClientTestingModule,
-    ],
+    imports: [],
     providers: [
-      SystemService,
-      { provide: SessionService, useValue: spyOnClass(SessionService) },
+        SystemService,
+        { provide: SessionService, useValue: spyOnClass(SessionService) },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
     ]
-  }));
+}));
 
   beforeEach(() => {
     service = TestBed.inject(SystemService);

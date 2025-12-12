@@ -1,5 +1,5 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpClient, HttpErrorResponse, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { inject, TestBed } from '@angular/core/testing';
 
 import { SessionService } from '@app/auth/session.service';
@@ -13,20 +13,22 @@ describe('TestService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [
+    imports: [],
+    providers: [
         TestService,
         {
-          provide: SessionService,
-          useValue: {
-            isLoggedIn: jasmine.createSpy('isLoggedIn'),
-            login: jasmine.createSpy('login'),
-            logout: jasmine.createSpy('logout'),
-            getSession: jasmine.createSpy('getSession').and.returnValue(session),
-          }
+            provide: SessionService,
+            useValue: {
+                isLoggedIn: jasmine.createSpy('isLoggedIn'),
+                login: jasmine.createSpy('login'),
+                logout: jasmine.createSpy('logout'),
+                getSession: jasmine.createSpy('getSession').and.returnValue(session),
+            }
         },
-      ],
-    });
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+});
 
     testService = TestBed.inject(TestService);
   });

@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed, inject } from '@angular/core/testing';
 
 import { HistoryFixtures } from '@testing/fixtures';
@@ -18,21 +18,23 @@ describe('HistoryService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [
+    imports: [],
+    providers: [
         HistoryService,
         {
-          provide: SessionService,
-          useValue: {
-            getSession: jasmine.createSpy('getSession').and.returnValue(session),
-          }
+            provide: SessionService,
+            useValue: {
+                getSession: jasmine.createSpy('getSession').and.returnValue(session),
+            }
         },
         {
-          provide: NotificationService,
-          useValue: spyOnClass(NotificationService),
-        }
-      ],
-    });
+            provide: NotificationService,
+            useValue: spyOnClass(NotificationService),
+        },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+});
 
     historyService = TestBed.inject(HistoryService);
     notificationService = getInjectedStub(NotificationService);

@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { CookieService } from 'ngx-cookie';
@@ -7,6 +7,7 @@ import { CookieService } from 'ngx-cookie';
 import { getInjectedStub, spyOnClass } from '@testing/spyOnClass';
 
 import { SessionService } from './session.service';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('SessionService', () => {
   let sessionService: SessionService;
@@ -14,18 +15,17 @@ describe('SessionService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        RouterTestingModule,
-      ],
-      providers: [
+    imports: [RouterTestingModule],
+    providers: [
         SessionService,
         {
-          provide: CookieService,
-          useValue: spyOnClass(CookieService),
+            provide: CookieService,
+            useValue: spyOnClass(CookieService),
         },
-      ],
-    });
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+});
   });
 
   beforeEach(() => {

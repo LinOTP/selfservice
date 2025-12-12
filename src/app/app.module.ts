@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -42,60 +42,54 @@ import { DoneStepComponent } from "@app/enroll/done-step/done-step.component";
 import { ImportTokenStepComponent } from "@app/enroll/enroll-oath-dialog/oath-enrollment/import-token-step/import-token-step.component";
 import { QrCodeInputComponent } from '@app/qr-code-input/qr-code-input.component';
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    TokenListComponent,
-    HistoryComponent,
-    LoginComponent,
-    TokenCardComponent,
-    EnrollmentGridComponent,
-    EnrollComponent,
-    EnrollOATHDialogComponent,
-    EnrollPasswordDialogComponent,
-    EnrollEmailDialogComponent,
-    EnrollSMSDialogComponent,
-    EnrollMOTPDialogComponent,
-    EnrollPushQRDialogComponent,
-    EnrollYubicoDialogComponent,
-    AssignTokenDialogComponent,
-    TestDialogComponent,
-    ActivateDialogComponent,
-    LanguagePickerComponent,
-    KeyboardKeyComponent,
-    ThemePickerComponent,
-    CreateTokenStepComponent,
-    VerifyTokenComponent,
-    DoneStepComponent,
-    ImportTokenStepComponent,
-    QrCodeInputComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    TokenPinFormLayoutComponent,
-    ReactiveFormsModule,
-    HttpClientModule,
-    CookieModule.forRoot(),
-    QRCodeModule,
-    AppRoutingModule,
-    MaterialModule,
-    NgSelfServiceCommonModule,
-    AuthModule,
-    NgxPermissionsModule.forRoot(),
-    AuthenticatorLinksComponent,
-    MarkdownModule.forRoot(),
-    CustomContentModule
-  ],
-  providers: [
-    AppInitService,
-    {
-      provide: APP_INITIALIZER,
-      useFactory: (appInit: AppInitService) => () => appInit.init(),
-      deps: [AppInitService],
-      multi: true
-    },
-  ],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        TokenListComponent,
+        HistoryComponent,
+        LoginComponent,
+        TokenCardComponent,
+        EnrollmentGridComponent,
+        EnrollComponent,
+        EnrollOATHDialogComponent,
+        EnrollPasswordDialogComponent,
+        EnrollEmailDialogComponent,
+        EnrollSMSDialogComponent,
+        EnrollMOTPDialogComponent,
+        EnrollPushQRDialogComponent,
+        EnrollYubicoDialogComponent,
+        AssignTokenDialogComponent,
+        TestDialogComponent,
+        ActivateDialogComponent,
+        LanguagePickerComponent,
+        KeyboardKeyComponent,
+        ThemePickerComponent,
+        CreateTokenStepComponent,
+        VerifyTokenComponent,
+        DoneStepComponent,
+        ImportTokenStepComponent,
+        QrCodeInputComponent
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        FormsModule,
+        TokenPinFormLayoutComponent,
+        ReactiveFormsModule,
+        CookieModule.forRoot(),
+        QRCodeModule,
+        AppRoutingModule,
+        MaterialModule,
+        NgSelfServiceCommonModule,
+        AuthModule,
+        NgxPermissionsModule.forRoot(),
+        AuthenticatorLinksComponent,
+        MarkdownModule.forRoot(),
+        CustomContentModule], providers: [
+        AppInitService,
+        {
+            provide: APP_INITIALIZER,
+            useFactory: (appInit: AppInitService) => () => appInit.init(),
+            deps: [AppInitService],
+            multi: true
+        },
+        provideHttpClient(withInterceptorsFromDi()),
+    ] })
 export class AppModule { }
