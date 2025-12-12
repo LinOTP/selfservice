@@ -40,14 +40,17 @@
 @include mat.all-component-densities(light-theme.$theme);
 
 .theme-light {
+  --default-text-color: rgb(0, 0, 0);
   @include mat.all-component-bases(light-theme.$theme);
   @include mat.all-component-colors(light-theme.$theme);
   @include component-styles(light-theme.$theme);
   @include component-styles-light(light-theme.$theme);
-  --default-text-color: rgb(0, 0, 0)
 }
 
 .theme-dark {
+  --default-text-color: #fff;
+  color: var(--default-text-color);
+  background: #303030;
   @include mat.all-component-bases(light-theme.$theme);
   @include mat.all-component-colors(dark-theme.$theme);
   @include component-styles(dark-theme.$theme);

@@ -38,10 +38,6 @@ $theme: mat.m2-define-dark-theme((color: (primary: $theme-app-primary,
     ));
 
 @mixin global-styles() {
-  --default-text-color: #fff;
-  color: var(--default-text-color);
-  background: #303030;
-
   a:not(.mat-mdc-button-base, .mat-mdc-menu-item) {
     color: #f48fb1;
   }
