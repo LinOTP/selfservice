@@ -38,12 +38,12 @@ describe('ActivateDialogComponent', () => {
         MaterialModule,
         NoopAnimationsModule,
         FormsModule,
-        AppModule
+        AppModule,
+        MockComponent({ selector: 'app-qr-code', inputs: ['qrUrl'] })
       ],
       declarations: [
         ActivateDialogComponent,
         DoneStepComponent,
-        MockComponent({ selector: 'app-qr-code', inputs: ['qrUrl'] }),
       ],
       providers: [
         {

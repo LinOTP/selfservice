@@ -16,12 +16,13 @@ describe('DisableTokenDialogComponent', () => {
 
     beforeEach(async () => {
       TestBed.configureTestingModule({
-        imports: [CommonModule, MaterialModule, ReactiveFormsModule],
-        declarations: [
-          DisableTokenDialogComponent,
-          LockableActionDialogContentComponent,
+        imports: [CommonModule, MaterialModule, ReactiveFormsModule,
           MockComponent({ selector: 'app-token-dialog-header', inputs: ['token'] }),
           MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] })
+        ],
+        declarations: [
+          DisableTokenDialogComponent,
+          LockableActionDialogContentComponent
         ],
         providers: [
           {

@@ -26,11 +26,11 @@ describe('SetDecriptionDialogComponent', () => {
         MaterialModule,
         FormsModule,
         ReactiveFormsModule,
+        MockComponent({ selector: 'app-token-dialog-header', inputs: ['token'] }),
+        MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] })
       ],
       declarations: [
         SetDescriptionDialogComponent,
-        MockComponent({ selector: 'app-token-dialog-header', inputs: ['token'] }),
-        MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] })
       ],
       providers: [
         {

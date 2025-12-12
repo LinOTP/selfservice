@@ -51,12 +51,12 @@ describe('AppComponent', () => {
         RouterTestingModule,
         MaterialModule,
         NgxPermissionsAllowStubDirective,
-        HasCustomContentMockDirective
+        HasCustomContentMockDirective,
+        MockComponent({ selector: 'app-language-picker' }),
+        MockComponent({ selector: 'app-theme-picker' }),
       ],
       declarations: [
         AppComponent,
-        MockComponent({ selector: 'app-language-picker' }),
-        MockComponent({ selector: 'app-theme-picker' }),
       ],
       providers: [
         {

@@ -16,10 +16,10 @@ describe('QRCodeComponent', () => {
       imports: [
         MaterialModule,
         NoopAnimationsModule,
+        MockComponent({ selector: 'qrcode', inputs: ['qrdata', 'width', 'errorCorrectionLevel'] }),
       ],
       declarations: [
         QRCodeComponent,
-        MockComponent({ selector: 'qrcode', inputs: ['qrdata', 'width', 'errorCorrectionLevel'] }),
       ]
     })
       .compileComponents();

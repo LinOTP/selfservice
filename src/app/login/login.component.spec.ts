@@ -75,16 +75,15 @@ describe('LoginComponent', () => {
         ReactiveFormsModule,
         MaterialModule,
         RouterTestingModule,
-        HasCustomContentMockDirective
-      ],
-      declarations: [
-        LoginComponent,
-        MockPipe({ 'name': 'capitalize' }),
+        HasCustomContentMockDirective,
         MockComponent({ selector: 'app-keyboard-key', inputs: ['icon', 'symbol'] }),
         MockComponent({ selector: 'app-qr-code', inputs: ['qrUrl'] }),
         MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] }),
         MockComponent({ selector: 'app-custom-content-slot', inputs: ['slotId'] }),
-
+        MockPipe({ 'name': 'capitalize' }),
+      ],
+      declarations: [
+        LoginComponent,
       ],
       providers: [
         {

@@ -10,10 +10,10 @@ describe("AuthenticatorLinksComponent", () => {
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
 			providers: [PlatformProviderService, AppRecommendationService],
-			imports: [AuthenticatorLinksComponent],
-			declarations: [
-				MockComponent({ selector: "qrcode", inputs: ["qrdata", "width", "errorCorrectionLevel", "margin"] }),
+			imports: [AuthenticatorLinksComponent,
+				MockComponent({ selector: "qrcode", inputs: ["qrdata", "width", "errorCorrectionLevel", "margin"] })
 			],
+			declarations: [],
 		}).compileComponents();
 
 		fixture = TestBed.createComponent(AuthenticatorLinksComponent);

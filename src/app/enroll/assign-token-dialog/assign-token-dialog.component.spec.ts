@@ -43,7 +43,6 @@ describe('AssignTokenDialogComponent', () => {
         CreateTokenStepComponent,
         DoneStepComponent,
         VerifyTokenComponent,
-        MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] }),
       ],
       imports: [
         MaterialModule,
@@ -52,6 +51,7 @@ describe('AssignTokenDialogComponent', () => {
         TokenPinFormLayoutComponent,
         NgxPermissionsAllowStubDirective,
         NgSelfServiceCommonModule,
+        MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] }),
       ],
       providers: [
         {

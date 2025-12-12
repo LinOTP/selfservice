@@ -45,7 +45,6 @@ describe('EnrollMOTPDialogComponent', () => {
         CreateTokenStepComponent,
         DoneStepComponent,
         VerifyTokenComponent,
-        MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] }),
       ],
       imports: [
         RouterTestingModule,
@@ -56,6 +55,7 @@ describe('EnrollMOTPDialogComponent', () => {
         NgxPermissionsAllowStubDirective,
         TokenPinFormLayoutComponent,
         NgSelfServiceCommonModule,
+        MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] }),
       ],
       providers: [
         {
