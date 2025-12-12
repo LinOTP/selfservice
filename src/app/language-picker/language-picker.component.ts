@@ -4,9 +4,10 @@ import { localeToLanguage } from '@app/common/locale-utils';
 import { SystemService } from '@app/system.service';
 
 @Component({
-  selector: 'app-language-picker',
-  templateUrl: './language-picker.component.html',
-  styleUrls: ['./language-picker.component.scss']
+    selector: 'app-language-picker',
+    templateUrl: './language-picker.component.html',
+    styleUrls: ['./language-picker.component.scss'],
+    standalone: false
 })
 export class LanguagePickerComponent implements OnInit {
 

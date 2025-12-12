@@ -12,9 +12,10 @@ export const REGEXP_DIGITS = new RegExp(`[${DIGITS}]`);
 export const REGEXP_SPECIAL_CHARACTERS = new RegExp(`[${SPECIAL_CHARACTERS}]`);
 export const REGEXP_OTHER_SPECIAL_CHARACTERS = new RegExp(`[${OTHER_SPECIAL_CHARACTERS}]`);
 @Component({
-  selector: 'app-set-pin-validator',
-  templateUrl: './set-pin-validator.component.html',
-  styleUrls: ['./set-pin-validator.component.scss']
+    selector: 'app-set-pin-validator',
+    templateUrl: './set-pin-validator.component.html',
+    styleUrls: ['./set-pin-validator.component.scss'],
+    standalone: false
 })
 export class SetPinValidatorComponent implements OnInit {
   @Input({ required: true }) form: FormGroup;

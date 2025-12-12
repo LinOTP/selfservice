@@ -27,10 +27,11 @@ enum ActivationFlowState {
   FAILED = "FAILED",
 }
 @Component({
-  selector: "app-enroll-push",
-  templateUrl: "./enroll-push-qr-dialog.component.html",
-  styleUrls: ["./enroll-push-qr-dialog.component.scss"],
-  providers: [PlatformProviderService],
+    selector: "app-enroll-push",
+    templateUrl: "./enroll-push-qr-dialog.component.html",
+    styleUrls: ["./enroll-push-qr-dialog.component.scss"],
+    providers: [PlatformProviderService],
+    standalone: false
 })
 export class EnrollPushQRDialogComponent
   extends EnrollDialogBase

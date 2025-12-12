@@ -5,9 +5,10 @@ import { TokenType } from '@app/api/token';
 import { EnrollDialogBase } from '@app/enroll/enroll-dialog-base.directive';
 
 @Component({
-  selector: 'app-enroll-yubico',
-  templateUrl: './enroll-yubico-dialog.component.html',
-  styleUrls: ['./enroll-yubico-dialog.component.scss']
+    selector: 'app-enroll-yubico',
+    templateUrl: './enroll-yubico-dialog.component.html',
+    styleUrls: ['./enroll-yubico-dialog.component.scss'],
+    standalone: false
 })
 export class EnrollYubicoDialogComponent extends EnrollDialogBase implements OnInit {
   @ViewChild(MatStepper, { static: true }) public stepper: MatStepper;

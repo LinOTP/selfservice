@@ -16,9 +16,10 @@ enum TestState {
 }
 
 @Component({
-  selector: 'app-test-dialog',
-  templateUrl: './test-dialog.component.html',
-  styleUrls: ['./test-dialog.component.scss']
+    selector: 'app-test-dialog',
+    templateUrl: './test-dialog.component.html',
+    styleUrls: ['./test-dialog.component.scss'],
+    standalone: false
 })
 export class TestDialogComponent implements OnInit, OnDestroy {
 

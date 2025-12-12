@@ -12,11 +12,10 @@ import { QRCodeModule } from "angularx-qrcode";
 import { PlatformProviderService } from "../platform-provider.service";
 
 @Component({
-  selector: 'app-authenticator-links',
-  templateUrl: './authenticator-links.component.html',
-  styleUrls: ['./authenticator-links.component.scss'],
-  standalone: true,
-  imports: [CommonModule, MatButtonModule, MatIconModule, QRCodeModule, MatCardModule, NgIf]
+    selector: 'app-authenticator-links',
+    templateUrl: './authenticator-links.component.html',
+    styleUrls: ['./authenticator-links.component.scss'],
+    imports: [CommonModule, MatButtonModule, MatIconModule, QRCodeModule, MatCardModule, NgIf]
 })
 export class AuthenticatorLinksComponent implements OnInit {
   @Input({required: true}) tokenType: TokenType

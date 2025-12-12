@@ -1,5 +1,5 @@
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { NgModule, inject, provideAppInitializer } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -84,12 +84,10 @@ import { QrCodeInputComponent } from '@app/qr-code-input/qr-code-input.component
         MarkdownModule.forRoot(),
         CustomContentModule], providers: [
         AppInitService,
-        {
-            provide: APP_INITIALIZER,
-            useFactory: (appInit: AppInitService) => () => appInit.init(),
-            deps: [AppInitService],
-            multi: true
-        },
+        provideAppInitializer(() => {
+        const initializerFn = ((appInit: AppInitService) => () => appInit.init())(inject(AppInitService));
+        return initializerFn();
+      }),
         provideHttpClient(withInterceptorsFromDi()),
     ] })
 export class AppModule { }

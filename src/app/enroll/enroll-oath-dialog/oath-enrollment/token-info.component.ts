@@ -4,8 +4,8 @@ import { EnrolledToken } from "@app/enroll/enroll-dialog-base.directive";
 
 
 @Component({
-	selector: 'app-token-info',
-	template: `
+    selector: 'app-token-info',
+    template: `
     <mat-card  appearance="outlined" *ngIf="token">
 			<mat-card-content>
 				<div class="top-row">
@@ -23,7 +23,7 @@ import { EnrolledToken } from "@app/enroll/enroll-dialog-base.directive";
 			</mat-card-content>
   	</mat-card>
     `,
-	styles: [`
+    styles: [`
     mat-card {
 			font-size:14px;
 			letter-spacing: 0.25px;
@@ -50,7 +50,8 @@ import { EnrolledToken } from "@app/enroll/enroll-dialog-base.directive";
 		.serial-desc {
 			margin-top: 5px;
 		}
-  `]
+  `],
+    standalone: false
 })
 export class TokenInfoComponent {
 	tokenDisplayData: TokenDisplayData;

@@ -5,9 +5,10 @@ import { OperationsService } from "@app/api/operations.service";
 import { SelfserviceToken } from "@app/api/token";
 
 @Component({
-  selector: 'app-disable-token-dialog',
-  templateUrl: './disable-token-dialog.component.html',
-  styleUrls: ['./disable-token-dialog.component.scss']
+    selector: 'app-disable-token-dialog',
+    templateUrl: './disable-token-dialog.component.html',
+    styleUrls: ['./disable-token-dialog.component.scss'],
+    standalone: false
 })
 export class DisableTokenDialogComponent {
   confirmCtrl = new FormControl(false, [Validators.requiredTrue]);

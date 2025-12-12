@@ -13,10 +13,11 @@ import { combineLatest, Subscription } from 'rxjs';
 import { TokenVerifyCheckService } from './token-verify-check.service';
 
 @Component({
-  selector: 'app-token-list',
-  templateUrl: './token-list.component.html',
-  styleUrls: ['./token-list.component.scss'],
-  providers: [TokenLimitsService, TokenVerifyCheckService]
+    selector: 'app-token-list',
+    templateUrl: './token-list.component.html',
+    styleUrls: ['./token-list.component.scss'],
+    providers: [TokenLimitsService, TokenVerifyCheckService],
+    standalone: false
 })
 
 export class TokenListComponent implements OnInit, OnDestroy {

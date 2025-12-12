@@ -11,9 +11,10 @@ export interface EmailEnrolledToken extends EnrolledToken {
 }
 
 @Component({
-  selector: 'app-enroll-email',
-  templateUrl: './enroll-email-dialog.component.html',
-  styleUrls: ['./enroll-email-dialog.component.scss']
+    selector: 'app-enroll-email',
+    templateUrl: './enroll-email-dialog.component.html',
+    styleUrls: ['./enroll-email-dialog.component.scss'],
+    standalone: false
 })
 export class EnrollEmailDialogComponent extends EnrollDialogBase implements OnInit {
   @ViewChild(MatStepper, { static: true }) public stepper: MatStepper;

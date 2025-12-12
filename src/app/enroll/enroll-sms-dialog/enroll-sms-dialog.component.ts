@@ -10,9 +10,10 @@ export interface SMSEnrolledToken extends EnrolledToken {
   phone: string;
 }
 @Component({
-  selector: 'app-enroll-sms',
-  templateUrl: './enroll-sms-dialog.component.html',
-  styleUrls: ['./enroll-sms-dialog.component.scss']
+    selector: 'app-enroll-sms',
+    templateUrl: './enroll-sms-dialog.component.html',
+    styleUrls: ['./enroll-sms-dialog.component.scss'],
+    standalone: false
 })
 export class EnrollSMSDialogComponent extends EnrollDialogBase implements OnInit {
 

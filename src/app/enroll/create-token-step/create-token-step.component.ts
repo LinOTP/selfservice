@@ -4,8 +4,8 @@ import { ErrorStateRootMatcher } from "@common/form-helpers/error-state-root-mat
 import { getPinForm } from "@app/enroll/token-pin-form-layout/token-pin-form-layout.component";
 
 @Component({
-  selector: 'app-create-token-step',
-  template: `
+    selector: 'app-create-token-step',
+    template: `
     <div *ngIf="form" [formGroup]="form">
       <mat-form-field>
         <mat-label i18n>Token description</mat-label>
@@ -23,7 +23,7 @@ import { getPinForm } from "@app/enroll/token-pin-form-layout/token-pin-form-lay
       <app-token-pin-form-layout class="token-pin-form-layout" *ngxPermissionsOnly="'SETPIN'" [form]="form.get('pinForm')"></app-token-pin-form-layout>
     </div>
   `,
-  styles: [`
+    styles: [`
     mat-form-field {
       width: 100%;
     }
@@ -35,7 +35,8 @@ import { getPinForm } from "@app/enroll/token-pin-form-layout/token-pin-form-lay
       display: block;
       margin-top: 22px;
     }
-  `]
+  `],
+    standalone: false
 })
 export class CreateTokenStepComponent {
   @Input() form: FormGroup;

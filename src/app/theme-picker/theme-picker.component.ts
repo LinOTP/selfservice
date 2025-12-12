@@ -2,9 +2,10 @@ import { Component } from "@angular/core";
 import { ThemeService, getThemes } from "@app/theme.service";
 
 @Component({
-  selector: "app-theme-picker",
-  templateUrl: "./theme-picker.component.html",
-  styleUrls: ["./theme-picker.component.scss"]
+    selector: "app-theme-picker",
+    templateUrl: "./theme-picker.component.html",
+    styleUrls: ["./theme-picker.component.scss"],
+    standalone: false
 })
 export class ThemePickerComponent {
   themes = getThemes();

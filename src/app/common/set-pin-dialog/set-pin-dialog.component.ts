@@ -8,9 +8,10 @@ import { EnrolledToken } from '@app/enroll/enroll-dialog-base.directive';
 import { ErrorStateRootMatcher } from '@common/form-helpers/error-state-root-matcher';
 
 @Component({
-  selector: 'app-set-pin-dialog',
-  templateUrl: './set-pin-dialog.component.html',
-  styleUrls: ['./set-pin-dialog.component.scss']
+    selector: 'app-set-pin-dialog',
+    templateUrl: './set-pin-dialog.component.html',
+    styleUrls: ['./set-pin-dialog.component.scss'],
+    standalone: false
 })
 export class SetPinDialogComponent {
 

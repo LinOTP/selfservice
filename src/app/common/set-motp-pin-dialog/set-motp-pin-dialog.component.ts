@@ -7,9 +7,10 @@ import { SelfserviceToken } from '@api/token';
 import { ErrorStateRootMatcher } from '@common/form-helpers/error-state-root-matcher';
 
 @Component({
-  selector: 'app-set-motp-pin-dialog',
-  templateUrl: './set-motp-pin-dialog.component.html',
-  styleUrls: ['./set-motp-pin-dialog.component.scss']
+    selector: 'app-set-motp-pin-dialog',
+    templateUrl: './set-motp-pin-dialog.component.html',
+    styleUrls: ['./set-motp-pin-dialog.component.scss'],
+    standalone: false
 })
 export class SetMOTPPinDialogComponent {
 

@@ -3,7 +3,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { EnrollmentStatus, SelfserviceToken } from '@api/token';
 
 @Pipe({
-  name: 'sortTokensByState'
+    name: 'sortTokensByState',
+    standalone: false
 })
 export class SortTokensByStatePipe implements PipeTransform {
 

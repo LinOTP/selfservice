@@ -3,6 +3,7 @@ import { Component, Input, TemplateRef } from "@angular/core";
 @Component({
     selector: "app-lockable-action-dialog-content",
     templateUrl: "./lockable-action-dialog-content.component.html",
+    standalone: false
 })
 export class LockableActionDialogContentComponent {
     @Input() standardMessageTmp: TemplateRef<any>;

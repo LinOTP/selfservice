@@ -7,9 +7,10 @@ import { getCreatePasswordTokenForm } from './form';
 import { MatStepper } from "@angular/material/stepper";
 
 @Component({
-  selector: 'app-enroll-password',
-  templateUrl: './enroll-password-dialog.component.html',
-  styleUrls: ['./enroll-password-dialog.component.scss']
+    selector: 'app-enroll-password',
+    templateUrl: './enroll-password-dialog.component.html',
+    styleUrls: ['./enroll-password-dialog.component.scss'],
+    standalone: false
 })
 export class EnrollPasswordDialogComponent extends EnrollDialogBase {
   @ViewChild(MatStepper, { static: true }) public stepper: MatStepper;

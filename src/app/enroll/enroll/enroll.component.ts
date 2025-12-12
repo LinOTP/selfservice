@@ -20,8 +20,9 @@ import { EnrollSMSDialogComponent } from '@app/enroll/enroll-sms-dialog/enroll-s
 import { EnrollYubicoDialogComponent } from '@app/enroll/enroll-yubico/enroll-yubico-dialog.component';
 
 @Component({
-  selector: 'app-enroll',
-  template: ''
+    selector: 'app-enroll',
+    template: '',
+    standalone: false
 })
 export class EnrollComponent implements OnInit {
 

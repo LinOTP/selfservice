@@ -13,9 +13,10 @@ enum CompletionState {
 }
 
 @Component({
-  selector: "app-done-step",
-  templateUrl: "./done-step.component.html",
-  styleUrls: ["done-step.component.scss"],
+    selector: "app-done-step",
+    templateUrl: "./done-step.component.html",
+    styleUrls: ["done-step.component.scss"],
+    standalone: false
 })
 export class DoneStepComponent implements OnInit {
   @Input({ required: true }) token: EnrolledToken;

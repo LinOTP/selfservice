@@ -1,9 +1,10 @@
 import { Component, Input, TemplateRef } from '@angular/core';
 
 @Component({
-  selector: 'app-warning',
-  templateUrl: './alert.component.html',
-  styleUrls: ['./alert.component.scss']
+    selector: 'app-warning',
+    templateUrl: './alert.component.html',
+    styleUrls: ['./alert.component.scss'],
+    standalone: false
 })
 export class AlertComponent {
   @Input() msgTmpl: TemplateRef<any>;

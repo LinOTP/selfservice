@@ -38,7 +38,8 @@ describe("HasCustomContentDirective", () => {
 
 
 @Component({
-  template: `<div *appHasCustomContent="'test-slot'" class="test-content">Test Element</div>`
+    template: `<div *appHasCustomContent="'test-slot'" class="test-content">Test Element</div>`,
+    standalone: false
 })
 class TestHostComponent {}
 

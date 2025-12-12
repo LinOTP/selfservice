@@ -6,9 +6,10 @@ import { SelfserviceToken } from "@app/api/token";
 import { AuthLockedStatusEvaluator } from "../auth-locked-status-evaluator";
 
 @Component({
-  selector: 'app-unassign-token-dialog',
-  templateUrl: './unassign-token-dialog.component.html',
-  styleUrls: ['./unassign-token-dialog.component.scss']
+    selector: 'app-unassign-token-dialog',
+    templateUrl: './unassign-token-dialog.component.html',
+    styleUrls: ['./unassign-token-dialog.component.scss'],
+    standalone: false
 })
 export class UnassignTokenDialogComponent {
   isLocked = false

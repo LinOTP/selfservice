@@ -6,16 +6,15 @@ import { Subscription } from "rxjs";
 import { CustomContentService, CustomPage } from "./custom-content.service";
 
 @Component({
-  selector: 'app-custom-page-link',
-  template: `<a mat-button
+    selector: 'app-custom-page-link',
+    template: `<a mat-button
   routerLinkActive="active-link"
   [routerLink]="'/'+ page.route" *ngIf="page">{{page.title}}</a>`,
-  standalone: true,
-  imports:[
-    CommonModule,
-    MatButtonModule,
-    RouterModule
-  ]
+    imports: [
+        CommonModule,
+        MatButtonModule,
+        RouterModule
+    ]
 })
 export class CustomPageLinkComponent implements OnInit, OnDestroy {
   page?:CustomPage
