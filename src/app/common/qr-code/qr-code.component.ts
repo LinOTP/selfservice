@@ -6,7 +6,7 @@ import { Component, Input } from '@angular/core';
     styleUrls: ['./qr-code.component.scss'],
     standalone: false
 })
-export class QRCodeComponent {
+export class CustomQRCodeComponent {
   @Input() public qrUrl: string;
 
   constructor() { }

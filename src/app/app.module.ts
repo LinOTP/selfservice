@@ -3,7 +3,7 @@ import { NgModule, inject, provideAppInitializer } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { QRCodeModule } from 'angularx-qrcode';
+import { QRCodeComponent } from 'angularx-qrcode';
 import { CookieModule } from 'ngx-cookie';
 import { NgxPermissionsModule } from 'ngx-permissions';
 
@@ -74,7 +74,7 @@ import { QrCodeInputComponent } from '@app/qr-code-input/qr-code-input.component
         TokenPinFormLayoutComponent,
         ReactiveFormsModule,
         CookieModule.forRoot(),
-        QRCodeModule,
+        QRCodeComponent,
         AppRoutingModule,
         MaterialModule,
         NgSelfServiceCommonModule,
