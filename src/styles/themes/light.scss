@@ -1,6 +1,6 @@
 @use '@angular/material' as mat;
 
-$theme-app-primary: mat.define-palette((50: #e4e4e6,
+$theme-app-primary: mat.m2-define-palette((50: #e4e4e6,
       100: #bcbcc0,
       200: #8f9096,
       300: #62646c,
@@ -31,7 +31,7 @@ $theme-app-primary: mat.define-palette((50: #e4e4e6,
       ),
     ));
 
-$theme-app-accent: mat.define-palette((50: #fdf9ea,
+$theme-app-accent: mat.m2-define-palette((50: #fdf9ea,
       100: #f9efca,
       200: #f6e5a7,
       300: #f2db84,
@@ -62,7 +62,7 @@ $theme-app-accent: mat.define-palette((50: #fdf9ea,
       ),
     ));
 
-$theme-app-warn: mat.define-palette((50: #ffebee,
+$theme-app-warn: mat.m2-define-palette((50: #ffebee,
       100: #ffcdd2,
       200: #ef9a9a,
       300: #e57373,
@@ -93,11 +93,11 @@ $theme-app-warn: mat.define-palette((50: #ffebee,
       ),
     ));
 
-$theme: mat.define-light-theme((color: (primary: $theme-app-primary,
+$theme: mat.m2-define-light-theme((color: (primary: $theme-app-primary,
         accent: $theme-app-accent,
         warn: $theme-app-warn,
       ),
-      typography: mat.define-typography-config(),
+      typography: mat.m2-define-typography-config(),
       density: 0,
     ));
 
@@ -107,15 +107,15 @@ $theme: mat.define-light-theme((color: (primary: $theme-app-primary,
 
 .alert.warning {
   color: #856404 !important;
-  background: mat.get-color-from-palette($theme-app-accent, 100);
+  background: mat.m2-get-color-from-palette($theme-app-accent, 100);
 }
 
 .alert.error {
   color: white;
-  background: mat.get-color-from-palette($theme-app-warn, 700);
+  background: mat.m2-get-color-from-palette($theme-app-warn, 700);
 }
 
 .alert.info {
   color: white;
-  background: mat.get-color-from-palette($theme-app-primary, A100);
+  background: mat.m2-get-color-from-palette($theme-app-primary, A100);
 }

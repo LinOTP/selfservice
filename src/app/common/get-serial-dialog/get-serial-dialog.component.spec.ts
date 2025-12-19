@@ -24,10 +24,10 @@ describe('GetSerialDialogComponent', () => {
         MaterialModule,
         FormsModule,
         ReactiveFormsModule,
+        MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] })
       ],
       declarations: [
-        GetSerialDialogComponent,
-        MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] })
+        GetSerialDialogComponent
       ],
       providers: [
         {

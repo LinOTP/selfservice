@@ -13,9 +13,10 @@ import { EmailEnrolledToken } from "@app/enroll/enroll-email-dialog/enroll-email
 
 
 @Component({
-  selector: 'app-assign-token-dialog',
-  templateUrl: './assign-token-dialog.component.html',
-  styleUrls: ['./assign-token-dialog.component.scss']
+    selector: 'app-assign-token-dialog',
+    templateUrl: './assign-token-dialog.component.html',
+    styleUrls: ['./assign-token-dialog.component.scss'],
+    standalone: false
 })
 export class AssignTokenDialogComponent extends EnrollDialogBase implements OnInit {
 

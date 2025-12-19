@@ -6,9 +6,10 @@ import { SelfserviceToken } from "@app/api/token";
 import { AuthLockedStatusEvaluator } from "../auth-locked-status-evaluator";
 
 @Component({
-  selector: 'app-delete-token-dialog',
-  templateUrl: './delete-token-dialog.component.html',
-  styleUrls: ['./delete-token-dialog.component.scss']
+    selector: 'app-delete-token-dialog',
+    templateUrl: './delete-token-dialog.component.html',
+    styleUrls: ['./delete-token-dialog.component.scss'],
+    standalone: false
 })
 export class DeleteTokenDialogComponent {
   isLocked = false

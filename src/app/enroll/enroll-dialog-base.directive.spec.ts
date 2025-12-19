@@ -341,7 +341,8 @@ describe('EnrollDialogBase without testing permissions', () => {
 });
 
 @Component({
-  template: '',
+    template: '',
+    standalone: false
 })
 export class MockComponent extends EnrollDialogBase {
 }

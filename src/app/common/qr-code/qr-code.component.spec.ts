@@ -5,28 +5,28 @@ import { MockComponent } from '@testing/mock-component';
 
 import { MaterialModule } from '@app/material.module';
 
-import { QRCodeComponent } from './qr-code.component';
+import { CustomQRCodeComponent } from './qr-code.component';
 
 describe('QRCodeComponent', () => {
-  let component: QRCodeComponent;
-  let fixture: ComponentFixture<QRCodeComponent>;
+  let component: CustomQRCodeComponent;
+  let fixture: ComponentFixture<CustomQRCodeComponent>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
         MaterialModule,
         NoopAnimationsModule,
+        MockComponent({ selector: 'qrcode', inputs: ['qrdata', 'width', 'errorCorrectionLevel'] }),
       ],
       declarations: [
-        QRCodeComponent,
-        MockComponent({ selector: 'qrcode', inputs: ['qrdata', 'width', 'errorCorrectionLevel'] }),
+        CustomQRCodeComponent,
       ]
     })
       .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(QRCodeComponent);
+    fixture = TestBed.createComponent(CustomQRCodeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

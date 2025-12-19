@@ -5,9 +5,10 @@ import { OATHEnrolledToken } from "../../enroll-oath-dialog.component";
 import { VerifyTokenComponent } from "@app/enroll/verify-token/verify-token.component";
 
 @Component({
-  selector: "app-import-token-step",
-  templateUrl: "./import-token-step.component.html",
-  styleUrls: ["./import-token-step.component.scss"],
+    selector: "app-import-token-step",
+    templateUrl: "./import-token-step.component.html",
+    styleUrls: ["./import-token-step.component.scss"],
+    standalone: false
 })
 export class ImportTokenStepComponent {
   @Input()

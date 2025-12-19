@@ -1,6 +1,6 @@
 ### STAGE 1: Build ###
 
-FROM node:18.18-alpine3.18 as builder
+FROM node:18.19.1-alpine3.19 as builder
 
 ## We run the selfservice on `/selfservice` (rather than `/`)
 ## because that makes it easy to reverse-proxy selfservice requests

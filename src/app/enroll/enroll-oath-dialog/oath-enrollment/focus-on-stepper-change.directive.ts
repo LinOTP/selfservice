@@ -2,7 +2,8 @@ import { Directive, ElementRef, Input } from "@angular/core";
 import { MatStepper } from "@angular/material/stepper";
 
 @Directive({
-	selector: '[appFocusOnStepperChange]'
+    selector: '[appFocusOnStepperChange]',
+    standalone: false
 })
 export class FocusOnStepperChangeDirective {
 	@Input('appFocusOnStepperChange') stepNumber: number

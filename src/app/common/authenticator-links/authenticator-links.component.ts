@@ -5,18 +5,17 @@ import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
 import { TokenType } from "@app/api/token";
 import {
-    AppRecommendation,
-    AppRecommendationService
+  AppRecommendation,
+  AppRecommendationService
 } from "@app/custom-content/app-recommendation/app-recommendation.service";
-import { QRCodeModule } from "angularx-qrcode";
+import { QRCodeComponent } from "angularx-qrcode";
 import { PlatformProviderService } from "../platform-provider.service";
 
 @Component({
-  selector: 'app-authenticator-links',
-  templateUrl: './authenticator-links.component.html',
-  styleUrls: ['./authenticator-links.component.scss'],
-  standalone: true,
-  imports: [CommonModule, MatButtonModule, MatIconModule, QRCodeModule, MatCardModule, NgIf]
+    selector: 'app-authenticator-links',
+    templateUrl: './authenticator-links.component.html',
+    styleUrls: ['./authenticator-links.component.scss'],
+    imports: [CommonModule, MatButtonModule, MatIconModule, QRCodeComponent, MatCardModule, NgIf]
 })
 export class AuthenticatorLinksComponent implements OnInit {
   @Input({required: true}) tokenType: TokenType

@@ -1,5 +1,5 @@
-import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed, inject } from '@angular/core/testing';
 
 import { getInjectedStub, spyOnClass } from '@testing/spyOnClass';
@@ -16,26 +16,26 @@ describe('AuthInterceptor', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-      ],
-      providers: [
+    imports: [],
+    providers: [
         AuthInterceptor,
         {
-          provide: HTTP_INTERCEPTORS,
-          useClass: AuthInterceptor,
-          multi: true
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true
         },
         {
-          provide: LoginService,
-          useValue: spyOnClass(LoginService)
+            provide: LoginService,
+            useValue: spyOnClass(LoginService)
         },
         {
-          provide: NotificationService,
-          useValue: spyOnClass(NotificationService)
+            provide: NotificationService,
+            useValue: spyOnClass(NotificationService)
         },
-      ],
-    });
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+});
   });
 
   beforeEach(() => {

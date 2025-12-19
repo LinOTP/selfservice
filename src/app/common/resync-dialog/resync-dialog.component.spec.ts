@@ -35,11 +35,11 @@ describe('ResyncDialogComponent', () => {
         MaterialModule,
         FormsModule,
         ReactiveFormsModule,
+        MockComponent({ selector: 'app-token-dialog-header', inputs: ['token'] }),
+        MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] })
       ],
       declarations: [
         ResyncDialogComponent,
-        MockComponent({ selector: 'app-token-dialog-header', inputs: ['token'] }),
-        MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] })
       ],
       providers: [
         {

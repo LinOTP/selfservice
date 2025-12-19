@@ -5,9 +5,10 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { TokenService } from '@api/token.service';
 
 @Component({
-  selector: 'app-get-serial-dialog',
-  templateUrl: './get-serial-dialog.component.html',
-  styleUrls: ['./get-serial-dialog.component.scss']
+    selector: 'app-get-serial-dialog',
+    templateUrl: './get-serial-dialog.component.html',
+    styleUrls: ['./get-serial-dialog.component.scss'],
+    standalone: false
 })
 export class GetSerialDialogComponent {
 

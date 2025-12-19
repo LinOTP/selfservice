@@ -38,7 +38,6 @@ describe('The EnrollPasswordDialogComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         EnrollPasswordDialogComponent,
-        MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] }),
       ],
       imports: [
         RouterTestingModule,
@@ -46,7 +45,8 @@ describe('The EnrollPasswordDialogComponent', () => {
         ReactiveFormsModule,
         MaterialModule,
         NoopAnimationsModule,
-        AppModule
+        AppModule,
+        MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] }),
       ],
       providers: [
         {

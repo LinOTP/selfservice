@@ -3,10 +3,11 @@ import { filter, switchMap, take, tap } from "rxjs";
 import { CustomContentService, SlotId } from "./custom-content.service";
 
 @Component({
-  selector: 'app-custom-content-slot',
-  template: `<markdown
+    selector: 'app-custom-content-slot',
+    template: `<markdown
   [data]="text">
-</markdown>`
+</markdown>`,
+    standalone: false
 })
 export class CustomContentSlotComponent {
   text?:string | undefined

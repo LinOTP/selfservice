@@ -33,8 +33,6 @@ describe('HistoryComponent', () => {
       TestBed.configureTestingModule({
         declarations: [
           HistoryComponent,
-          MockPipe(DatePipe),
-          MockComponent({ selector: 'app-custom-content-slot', inputs: ['slotId'] }),
         ],
         providers: [
           {
@@ -46,7 +44,9 @@ describe('HistoryComponent', () => {
           MaterialModule,
           ReactiveFormsModule,
           NgxPermissionsAllowStubDirective,
-          HasCustomContentMockDirective
+          HasCustomContentMockDirective,
+          MockComponent({ selector: 'app-custom-content-slot', inputs: ['slotId'] }),
+          MockPipe(DatePipe),
         ],
       }).compileComponents();
       historyService = getInjectedStub(HistoryService);
@@ -194,8 +194,6 @@ describe('HistoryComponent', () => {
       TestBed.configureTestingModule({
         declarations: [
           HistoryComponent,
-          MockComponent({ selector: 'app-custom-content-slot', inputs: ['slotId'] }),
-          MockPipe(DatePipe),
         ],
         providers: [
           {
@@ -204,7 +202,9 @@ describe('HistoryComponent', () => {
           },
         ],
         imports: [MaterialModule, ReactiveFormsModule, NgxPermissionsAllowStubDirective,
-          HasCustomContentMockDirective
+          HasCustomContentMockDirective,
+          MockComponent({ selector: 'app-custom-content-slot', inputs: ['slotId'] }),
+          MockPipe(DatePipe),
         ],
       }).compileComponents();
     });

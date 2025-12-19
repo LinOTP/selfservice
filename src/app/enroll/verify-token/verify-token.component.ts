@@ -8,9 +8,10 @@ import { SMSEnrolledToken } from "@app/enroll/enroll-sms-dialog/enroll-sms-dialo
 import { NotificationService } from "@common/notification.service";
 
 @Component({
-	selector: 'app-verify-token',
-	templateUrl: './verify-token.component.html',
-	styleUrls: ['./verify-token.component.scss']
+    selector: 'app-verify-token',
+    templateUrl: './verify-token.component.html',
+    styleUrls: ['./verify-token.component.scss'],
+    standalone: false
 })
 export class VerifyTokenComponent {
 	@Output() tokenVerified = new EventEmitter<boolean>();

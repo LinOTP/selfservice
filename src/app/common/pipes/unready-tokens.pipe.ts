@@ -3,8 +3,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { EnrollmentStatus, SelfserviceToken } from '@api/token';
 
 @Pipe({
-  name: 'unreadyTokens',
-  pure: true,
+    name: 'unreadyTokens',
+    pure: true,
+    standalone: false
 })
 export class UnreadyTokensPipe implements PipeTransform {
 

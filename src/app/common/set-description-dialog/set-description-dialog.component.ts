@@ -7,9 +7,10 @@ import { SelfserviceToken } from '@api/token';
 import { OperationsService } from '@api/operations.service';
 
 @Component({
-  selector: 'app-set-description-dialog',
-  templateUrl: './set-description-dialog.component.html',
-  styleUrls: ['./set-description-dialog.component.scss']
+    selector: 'app-set-description-dialog',
+    templateUrl: './set-description-dialog.component.html',
+    styleUrls: ['./set-description-dialog.component.scss'],
+    standalone: false
 })
 export class SetDescriptionDialogComponent {
 

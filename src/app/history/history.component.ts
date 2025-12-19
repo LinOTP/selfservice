@@ -13,9 +13,10 @@ const historyColumns = ['success', 'date', 'action', 'serial', 'tokentype', 'act
 type HistoryColumn = typeof historyColumns[number];
 
 @Component({
-  selector: 'app-history',
-  templateUrl: './history.component.html',
-  styleUrls: ['./history.component.scss'],
+    selector: 'app-history',
+    templateUrl: './history.component.html',
+    styleUrls: ['./history.component.scss'],
+    standalone: false
 })
 export class HistoryComponent implements OnInit, OnDestroy {
   loading = false;

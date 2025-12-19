@@ -1,5 +1,5 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpClient, HttpErrorResponse, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { Type } from '@angular/core';
 import { TestBed, fakeAsync, inject, tick } from '@angular/core/testing';
 import { Router } from '@angular/router';
@@ -26,33 +26,32 @@ describe('LoginService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        RouterTestingModule.withRoutes([
-          { path: 'login', component: {} as Type<any> },
+    imports: [RouterTestingModule.withRoutes([
+            { path: 'login', component: {} as Type<any> },
         ]),
-        MaterialModule,
-      ],
-      providers: [
+        MaterialModule],
+    providers: [
         LoginService,
         {
-          provide: SessionService,
-          useValue: spyOnClass(SessionService),
+            provide: SessionService,
+            useValue: spyOnClass(SessionService),
         },
         {
-          provide: TokenService,
-          useValue: spyOnClass(TokenService),
+            provide: TokenService,
+            useValue: spyOnClass(TokenService),
         },
         {
-          provide: SystemService,
-          useValue: spyOnClass(SystemService),
+            provide: SystemService,
+            useValue: spyOnClass(SystemService),
         },
         {
-          provide: NgxPermissionsService,
-          useValue: spyOnClass(NgxPermissionsService)
+            provide: NgxPermissionsService,
+            useValue: spyOnClass(NgxPermissionsService)
         },
-      ],
-    });
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+});
   });
 
   beforeEach(() => {

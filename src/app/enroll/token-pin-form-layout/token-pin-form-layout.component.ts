@@ -8,8 +8,8 @@ import { UserSystemInfo } from "@app/system.service";
 import { NgSelfServiceCommonModule } from "@common/common.module";
 
 @Component({
-	selector: 'app-token-pin-form-layout',
-	template: `
+    selector: 'app-token-pin-form-layout',
+    template: `
 	<div [formGroup]="form">
     <p i18n="@@oathStepperOtpPinInfo">The OTP PIN ensures that you can only use the token yourself. During the authentication process, you may need to enter this PIN together with an OTP of the token.</p>
     <app-set-pin-validator [form]="form" [pinControlName]="'pin'"></app-set-pin-validator>
@@ -35,7 +35,7 @@ import { NgSelfServiceCommonModule } from "@common/common.module";
 		</div>
 	</div>
     `,
-	styles: [`
+    styles: [`
 		mat-form-field {
 			width: 100%;
 		}
@@ -50,8 +50,7 @@ import { NgSelfServiceCommonModule } from "@common/common.module";
 		}
 }
 				`],
-	standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MaterialModule, NgSelfServiceCommonModule]
+    imports: [CommonModule, ReactiveFormsModule, MaterialModule, NgSelfServiceCommonModule]
 })
 export class TokenPinFormLayoutComponent {
 	@Input()

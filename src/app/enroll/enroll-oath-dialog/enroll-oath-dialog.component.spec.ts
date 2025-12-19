@@ -35,11 +35,6 @@ import { NgSelfServiceCommonModule } from "@common/common.module";
       TestBed.configureTestingModule({
         declarations: [
           EnrollOATHDialogComponent,
-          MockComponent({ selector: 'qrcode', inputs: ['qrdata', 'width', 'errorCorrectionLevel'] }),
-          MockComponent({ selector: 'app-authenticator-links', inputs: ['platform'] }),
-          MockComponent({ selector: 'app-import-token-step', inputs: ['enrolledToken', 'verifyFlowEnabled'] }),
-          MockComponent({ selector: 'app-create-token-step', inputs: ['form'] }),
-          MockComponent({ selector: 'app-done-step', inputs: ['token'] }),
         ],
         imports: [
           RouterTestingModule,
@@ -48,7 +43,12 @@ import { NgSelfServiceCommonModule } from "@common/common.module";
           MaterialModule,
           NoopAnimationsModule,
           NgxPermissionsAllowStubDirective,
-          NgSelfServiceCommonModule
+          NgSelfServiceCommonModule,
+          MockComponent({ selector: 'qrcode', inputs: ['qrdata', 'width', 'errorCorrectionLevel'] }),
+          MockComponent({ selector: 'app-authenticator-links', inputs: ['platform'] }),
+          MockComponent({ selector: 'app-import-token-step', inputs: ['enrolledToken', 'verifyFlowEnabled'] }),
+          MockComponent({ selector: 'app-create-token-step', inputs: ['form'] }),
+          MockComponent({ selector: 'app-done-step', inputs: ['token'] }),
         ],
         providers: [
           {

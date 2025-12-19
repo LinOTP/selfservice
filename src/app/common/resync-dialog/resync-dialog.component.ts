@@ -6,9 +6,10 @@ import { OperationsService } from '@api/operations.service';
 import { SelfserviceToken } from '@api/token';
 
 @Component({
-  selector: 'app-resync-dialog',
-  templateUrl: './resync-dialog.component.html',
-  styleUrls: ['./resync-dialog.component.scss']
+    selector: 'app-resync-dialog',
+    templateUrl: './resync-dialog.component.html',
+    styleUrls: ['./resync-dialog.component.scss'],
+    standalone: false
 })
 export class ResyncDialogComponent {
 

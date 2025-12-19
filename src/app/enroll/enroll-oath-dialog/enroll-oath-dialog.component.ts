@@ -14,10 +14,11 @@ export interface OATHEnrolledToken {
 }
 
 @Component({
-  selector: 'app-enroll-oath',
-  templateUrl: './enroll-oath-dialog.component.html',
-  styleUrls: ['./enroll-oath-dialog.component.scss'],
-  providers: [PlatformProviderService]
+    selector: 'app-enroll-oath',
+    templateUrl: './enroll-oath-dialog.component.html',
+    styleUrls: ['./enroll-oath-dialog.component.scss'],
+    providers: [PlatformProviderService],
+    standalone: false
 })
 export class EnrollOATHDialogComponent extends EnrollDialogBase implements OnInit {
 

@@ -39,7 +39,6 @@ describe('EnrollYubicoDialogComponent', () => {
         DoneStepComponent,
         TokenInfoComponent,
         StepActionsComponent,
-        MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] }),
       ],
       imports: [
         MaterialModule,
@@ -48,6 +47,7 @@ describe('EnrollYubicoDialogComponent', () => {
         NgxPermissionsAllowStubDirective,
         TokenPinFormLayoutComponent,
         NgSelfServiceCommonModule,
+        MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] }),
       ],
       providers: [
         {

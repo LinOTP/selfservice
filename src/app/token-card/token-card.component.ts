@@ -20,10 +20,11 @@ import { TokenVerifyCheckService } from '../token-list/token-verify-check.servic
 import { MatMenuItem } from "@angular/material/menu";
 
 @Component({
-  selector: 'app-token-card',
-  templateUrl: './token-card.component.html',
-  styleUrls: ['./token-card.component.scss'],
-  providers: [LockableTokenActionsService]
+    selector: 'app-token-card',
+    templateUrl: './token-card.component.html',
+    styleUrls: ['./token-card.component.scss'],
+    providers: [LockableTokenActionsService],
+    standalone: false
 })
 export class TokenCardComponent implements OnInit, OnDestroy {
 

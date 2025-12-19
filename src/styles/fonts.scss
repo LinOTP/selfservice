@@ -1,7 +1,7 @@
-@import '@fontsource/material-icons';
-@import '@fontsource/roboto/300.css';
-@import '@fontsource/roboto/400.css';
-@import '@fontsource/roboto/500.css';
+@use '@fontsource/material-icons';
+@use '@fontsource/roboto/300.css' as *;
+@use '@fontsource/roboto/400.css' as *;
+@use '@fontsource/roboto/500.css' as *;
 
 // https://developers.google.com/fonts/docs/material_icons#setup_method_2_self_hosting
 .material-icons {

@@ -58,10 +58,6 @@ describe("EnrollPushDialogComponent", () => {
         StepActionsComponent,
         ImportTokenStepComponent,
         CreateTokenStepComponent,
-        MockComponent({
-          selector: "app-button-wait-indicator",
-          inputs: ["show"],
-        }),
       ],
       imports: [
         AuthenticatorLinksComponent,
@@ -72,6 +68,10 @@ describe("EnrollPushDialogComponent", () => {
         MaterialModule,
         NgxPermissionsAllowStubDirective,
         NgSelfServiceCommonModule,
+        MockComponent({
+          selector: "app-button-wait-indicator",
+          inputs: ["show"],
+        }),
       ],
       providers: [
         {

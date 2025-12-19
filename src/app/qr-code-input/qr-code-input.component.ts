@@ -2,9 +2,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ReplyMode, TransactionDetail } from "@api/test.service";
 
 @Component({
-  selector: 'app-qr-code-input',
-  templateUrl: './qr-code-input.component.html',
-  styleUrls: ['./qr-code-input.component.scss']
+    selector: 'app-qr-code-input',
+    templateUrl: './qr-code-input.component.html',
+    styleUrls: ['./qr-code-input.component.scss'],
+    standalone: false
 })
 export class QrCodeInputComponent {
   @Input({ required: true }) transactionDetail: TransactionDetail;

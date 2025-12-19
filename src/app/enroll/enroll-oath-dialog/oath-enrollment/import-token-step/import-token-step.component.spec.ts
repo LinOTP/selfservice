@@ -12,11 +12,12 @@ describe("ImportTokenStepComponent", () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [CommonModule, MaterialModule],
-      declarations: [
-        ImportTokenStepComponent,
+      imports: [CommonModule, MaterialModule,
         MockComponent({ selector: 'qrcode', inputs: ['qrdata', 'width', 'errorCorrectionLevel', 'margin'] }),
         MockComponent({ selector: 'app-verify-token', inputs: ['token', 'form'], outputs: ['tokenVerified'] }),
+      ],
+      declarations: [
+        ImportTokenStepComponent,
       ],
       providers: [
         {

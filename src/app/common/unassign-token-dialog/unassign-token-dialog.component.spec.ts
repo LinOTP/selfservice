@@ -16,12 +16,13 @@ describe('UnassignDialogComponent', () => {
 
 		beforeEach(async () => {
 			TestBed.configureTestingModule({
-				imports: [CommonModule, MaterialModule, ReactiveFormsModule],
+				imports: [CommonModule, MaterialModule, ReactiveFormsModule,
+					MockComponent({ selector: 'app-token-dialog-header', inputs: ['token'] }),
+					MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] })
+				],
 				declarations: [
 					UnassignTokenDialogComponent,
 					LockableActionDialogContentComponent,
-					MockComponent({ selector: 'app-token-dialog-header', inputs: ['token'] }),
-					MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] })
 				],
 				providers: [
 					{

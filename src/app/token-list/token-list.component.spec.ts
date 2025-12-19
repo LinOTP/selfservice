@@ -75,10 +75,6 @@ describe('TokenListComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         TokenListComponent,
-        MockPipe({ 'name': 'sortTokensByState' }),
-        MockComponent({ 'selector': 'app-token-card', inputs: ['token'], outputs: ['tokenUpdate'] }),
-        MockComponent({ 'selector': 'app-enrollment-grid' }),
-        MockComponent({ selector: 'app-custom-content-slot', inputs: ['slotId'] }),
         ArrayNotEmptyPipe,
         ActiveTokensPipe,
         InactiveTokensPipe,
@@ -108,7 +104,11 @@ describe('TokenListComponent', () => {
         MaterialModule,
         RouterTestingModule.withRoutes([]),
         NgxPermissionsAllowStubDirective,
-        HasCustomContentMockDirective
+        HasCustomContentMockDirective,
+        MockComponent({ 'selector': 'app-token-card', inputs: ['token'], outputs: ['tokenUpdate'] }),
+        MockComponent({ 'selector': 'app-enrollment-grid' }),
+        MockComponent({ selector: 'app-custom-content-slot', inputs: ['slotId'] }),
+        MockPipe({ 'name': 'sortTokensByState' }),
       ]
     }).overrideComponent(TokenListComponent, {
       set: {
