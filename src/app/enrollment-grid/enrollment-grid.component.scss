@@ -9,6 +9,10 @@ mat-card {
   flex-direction: column;
   margin: .5em .5em;
 
+  mat-card-subtitle {
+    opacity: 0.75;
+  }
+
   .icon {
     display: flex;
     justify-content: center;
