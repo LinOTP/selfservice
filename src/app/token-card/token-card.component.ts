@@ -32,6 +32,7 @@ export class TokenCardComponent implements OnInit, OnDestroy {
   @Output() public tokenUpdate: Subject<void> = new Subject();
 
   public EnrollmentStatus = EnrollmentStatus;
+  public menuLabel: string = $localize`Open token menu`;
   public TokenType = TokenType;
   public Permission = Permission;
   public ModifyTokenPermissions = ModifyTokenPermissions;

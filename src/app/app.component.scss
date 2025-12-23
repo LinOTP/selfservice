@@ -5,6 +5,7 @@
   flex-direction: column;
   align-items: center;
   min-height: 100%;
+  @include mat.toolbar-overrides((container-background-color:var(--mat-sys-primary-container)));
 
   &>:not(mat-toolbar) {
     width: 100%;
@@ -70,7 +71,7 @@ mat-toolbar {
 
     .realm {
       font-size: 14px;
-      opacity: .667;
+      opacity: 0.9;
     }
   }
 }

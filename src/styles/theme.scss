@@ -11,49 +11,33 @@
 @include mat.elevation-classes();
 @include mat.app-background();
 
-// custom components theming that should be applied to all themes
-@mixin component-styles($theme) {
-  @include global-styles.theme($theme);
-  @include login.theme($theme);
-  @include app-root.theme($theme);
-  @include history.theme($theme);
-  @include token-list.theme($theme);
+html {
+  color-scheme: light dark;
+  @include mat.theme((
+    color: mat.$orange-palette,
+            typography: 'Roboto',
+            density: 0
+          ));
+  @include mat.strong-focus-indicators((border-color: var(--mat-sys-primary),
+      border-width: 4px,
+      border-radius: 2px,
+    ));
 }
 
-// custom components theming that should be applied to all light themes
-@mixin component-styles-light($theme) {
-  @include global-styles.light-theme($theme);
-  @include history.light-theme($theme);
-  @include login.light-theme($theme);
-  @include keyboard-key.light-theme($theme);
-}
-
-@mixin component-styles-dark($theme) {
-  @include global-styles.dark-theme($theme);
-  @include history.dark-theme($theme);
-  @include login.dark-theme($theme);
-  @include keyboard-key.dark-theme($theme);
+body {
+  font-family: 'Roboto';
+  background: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+  border-color: var(--mat-sys-outline);
 }
 
 // themes setup
-@include mat.all-component-typographies(light-theme.$theme);
-@include mat.all-component-densities(light-theme.$theme);
 
 .theme-light {
-  --default-text-color: rgb(0, 0, 0);
-  @include mat.all-component-bases(light-theme.$theme);
-  @include mat.all-component-colors(light-theme.$theme);
-  @include component-styles(light-theme.$theme);
-  @include component-styles-light(light-theme.$theme);
+  color-scheme: light;
 }
 
 .theme-dark {
-  --default-text-color: #fff;
-  color: var(--default-text-color);
-  background: #303030;
-  @include mat.all-component-bases(light-theme.$theme);
-  @include mat.all-component-colors(dark-theme.$theme);
-  @include component-styles(dark-theme.$theme);
-  @include component-styles-dark(dark-theme.$theme);
+  color-scheme: dark;
   @include dark-theme.global-styles();
 }

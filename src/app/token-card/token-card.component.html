@@ -11,6 +11,7 @@
     <div class="spacer"></div>
     <ng-container *ngIf="menuHasItems | async">
       <button mat-icon-button
+              attr.aria-label="{{menuLabel}}"
               [matMenuTriggerFor]="menu"
               *ngxPermissionsOnly="token.enrollmentStatus === EnrollmentStatus.COMPLETED ? ModifyTokenPermissions : ModifyUnreadyTokenPermissions">
         <mat-icon>more_vert</mat-icon>
