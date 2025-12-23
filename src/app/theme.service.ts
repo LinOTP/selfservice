@@ -88,7 +88,7 @@ const lightTheme: ThemeDefinition<'light'> = {
   prettyName: $localize`Light Theme`,
   prettyNameShort: $localize`Light`,
   icon: "light_mode",
-  linotpLogo: "assets/logo.png",
+  linotpLogo: "assets/logo-dark.png",
 }
 
 const darkTheme: ThemeDefinition<'dark'> = {
@@ -96,7 +96,7 @@ const darkTheme: ThemeDefinition<'dark'> = {
   prettyName: $localize`Dark Theme`,
   prettyNameShort: $localize`Dark`,
   icon: "dark_mode",
-  linotpLogo: "assets/logo-dark.png",
+  linotpLogo: "assets/logo.png",
 }
 
 // first theme from the list is the default theme
