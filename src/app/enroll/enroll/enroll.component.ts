@@ -67,6 +67,7 @@ export class EnrollComponent implements OnInit {
   openDialog() {
     const enrollmentConfig: MatDialogConfig = {
       width: '850px',
+      minWidth: '850px',
       autoFocus: false,
       disableClose: true,
       data: { tokenType: this.displayData.type },
