@@ -1,8 +1,11 @@
-<h2 mat-dialog-title i18n>Add {{ this.tokenDisplayData.name }}</h2>
+<h2 mat-dialog-title
+    i18n>Add {{ this.tokenDisplayData.name }}</h2>
 <mat-horizontal-stepper [linear]="true">
-  <mat-step [completed]="true" [editable]="false">
+  <mat-step [completed]="true"
+            [editable]="false">
     <mat-dialog-content>
-      <ng-template matStepLabel i18n>Install app</ng-template>
+      <ng-template matStepLabel
+                   i18n>Install app</ng-template>
       <div i18n="@@pushQRStepperIntroduction">
         <p>
           This step-by-step guide will help you to create a new token and import
@@ -20,21 +23,23 @@
     </mat-dialog-content>
   </mat-step>
 
-  <mat-step [completed]="false" [editable]="false">
-    <ng-template matStepLabel i18n>Create token</ng-template>
+  <mat-step [completed]="false"
+            [editable]="false">
+    <ng-template matStepLabel
+                 i18n>Create token</ng-template>
     <ng-template matStepContent>
       <mat-dialog-content>
-        <app-create-token-step
-          [form]="createTokenForm"
-          (keydown.enter)="enrollPushQRToken()"
-          setAutoFokus="true"
-        ></app-create-token-step>
+        <app-create-token-step [form]="createTokenForm"
+                               (keydown.enter)="enrollPushQRToken()"
+                               setAutoFokus="true"></app-create-token-step>
       </mat-dialog-content>
     </ng-template>
   </mat-step>
 
-  <mat-step [completed]="false" [editable]="false">
-    <ng-template matStepLabel i18n="@@QRStepTitle">Scan QR Code</ng-template>
+  <mat-step [completed]="false"
+            [editable]="false">
+    <ng-template matStepLabel
+                 i18n="@@QRStepTitle">Scan QR Code</ng-template>
     <mat-dialog-content>
       <div *ngIf="enrolledToken">
         <p i18n>
@@ -51,12 +56,11 @@
   </mat-step>
 
   <!-- Activation challenge step - only shown if user has activation permission -->
-  <mat-step
-    *ngIf="shouldShowActivationStep"
-    [completed]="false"
-    [editable]="false"
-  >
-    <ng-template matStepLabel i18n>Activation</ng-template>
+  <mat-step *ngIf="shouldShowActivationStep"
+            [completed]="false"
+            [editable]="false">
+    <ng-template matStepLabel
+                 i18n>Activation</ng-template>
     <mat-dialog-content>
       <div *ngIf="enrolledToken">
         <p i18n>
@@ -77,18 +81,19 @@
               <b>LinOTP Authenticator</b> app that matches the serial number
               above.
               <span *ngIf="isPush()">Tap it to confirm the activation.</span>
-              <span *ngIf="isQR()"
-                >Tap it to scan the QR code and complete the activation.</span
-              >
+              <span *ngIf="isQR()">Tap it to scan the QR code and complete the activation.</span>
             </p>
-            <div class="response" *ngIf="isPush()">
+            <div class="response"
+                 *ngIf="isPush()">
               <mat-spinner></mat-spinner>
             </div>
-            <app-qr-code *ngIf="isQR()" [qrUrl]="tokenQRUrl"></app-qr-code>
+            <app-qr-code *ngIf="isQR()"
+                         [qrUrl]="tokenQRUrl"></app-qr-code>
           </div>
 
           <div *ngSwitchCase="ActivationFlowState.FAILED">
-            <p class="activation-failed-text" i18n>
+            <p class="activation-failed-text"
+               i18n>
               Activation failed. Please try again, or contact an administrator.
             </p>
           </div>
@@ -98,12 +103,11 @@
   </mat-step>
 
   <mat-step>
-    <ng-template matStepLabel i18n>Done</ng-template>
+    <ng-template matStepLabel
+                 i18n>Done</ng-template>
     <ng-template matStepContent>
-      <app-done-step
-        [token]="enrolledToken"
-        [isQRPushActivationProcess]="hasActivationPermission"
-      ></app-done-step>
+      <app-done-step [token]="enrolledToken"
+                     [isQRPushActivationProcess]="hasActivationPermission"></app-done-step>
     </ng-template>
   </mat-step>
 </mat-horizontal-stepper>
@@ -111,67 +115,59 @@
 <mat-dialog-actions align="end">
   <ng-container [ngSwitch]="currentStepType">
     <!-- Install app step actions -->
-    <app-step-actions
-      *ngSwitchCase="'install'"
-      [disableSubmit]="false"
-      (cancelled)="close()"
-      (submitted)="stepper.next()"
-    >
+    <app-step-actions *ngSwitchCase="'install'"
+                      [disableSubmit]="false"
+                      (cancelled)="close()"
+                      (submitted)="stepper.next()">
     </app-step-actions>
 
     <!-- Create token step actions -->
-    <app-step-actions
-      *ngSwitchCase="'create'"
-      [awaitingResponse]="awaitingResponse"
-      [disableSubmit]="createTokenForm.invalid || awaitingResponse"
-      (cancelled)="close()"
-      (submitted)="enrollPushQRToken()"
-    >
+    <app-step-actions *ngSwitchCase="'create'"
+                      [awaitingResponse]="awaitingResponse"
+                      [disableSubmit]="createTokenForm.invalid || awaitingResponse"
+                      (cancelled)="close()"
+                      (submitted)="enrollPushQRToken()">
     </app-step-actions>
 
     <!-- Scan QR code step actions -->
-    <app-step-actions
-      *ngSwitchCase="'scan'"
-      [disableSubmit]="true"
-      (cancelled)="cancel()"
-    >
+    <app-step-actions *ngSwitchCase="'scan'"
+                      [disableSubmit]="true"
+                      (cancelled)="cancel()">
     </app-step-actions>
 
     <!-- Activation step actions -->
     <ng-container *ngSwitchCase="'activate'">
       <!-- Show retry button when activation failed -->
-      <ng-container
-        *ngIf="
+      <ng-container *ngIf="
           activationState === ActivationFlowState.FAILED;
           else normalActions
-        "
-      >
-        <button mat-button type="button" (click)="cancel()" i18n>Cancel</button>
-        <button
-          mat-raised-button
-          color="primary"
-          type="button"
-          (click)="retryActivation()"
-          appFocusOnInit
-          i18n
-        >
+        ">
+        <button mat-button
+                type="button"
+                (click)="cancel()"
+                i18n>Cancel</button>
+        <button mat-flat-button
+                color="primary"
+                type="button"
+                (click)="retryActivation()"
+                appFocusOnInit
+                i18n>
           Retry
         </button>
       </ng-container>
 
       <!-- Normal actions when activation is in progress -->
       <ng-template #normalActions>
-        <app-step-actions [disableSubmit]="true" (cancelled)="cancel()">
+        <app-step-actions [disableSubmit]="true"
+                          (cancelled)="cancel()">
         </app-step-actions>
       </ng-template>
     </ng-container>
 
     <!-- Done step actions -->
-    <app-step-actions
-      *ngSwitchCase="'done'"
-      [isDoneStep]="true"
-      (submitted)="close()"
-    >
+    <app-step-actions *ngSwitchCase="'done'"
+                      [isDoneStep]="true"
+                      (submitted)="close()">
     </app-step-actions>
   </ng-container>
 </mat-dialog-actions>

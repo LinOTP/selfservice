@@ -19,14 +19,14 @@
     <button mat-button
             mat-dialog-close
             i18n>Cancel</button>
-    <button mat-raised-button
+    <button mat-flat-button
             color="primary"
             type="submit"
             [disabled]="preventSubmit()">
-            <div class="button-content">
-              <app-button-wait-indicator [show]="awaitingResponse"></app-button-wait-indicator>
-              <span i18n>Submit</span>
-            </div>
+      <div class="button-content">
+        <app-button-wait-indicator [show]="awaitingResponse"></app-button-wait-indicator>
+        <span i18n>Submit</span>
+      </div>
     </button>
   </mat-dialog-actions>
 </form>

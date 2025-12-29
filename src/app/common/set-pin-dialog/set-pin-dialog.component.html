@@ -7,7 +7,8 @@
   <mat-dialog-content>
     <p i18n="@@oathStepperOtpPinInfo">The PIN ensures that you can only use the token yourself. During the
       authentication process, you may need to enter this PIN together with an OTP of the token.</p>
-    <app-set-pin-validator [form]="form" [pinControlName]="'newPin'"></app-set-pin-validator>
+    <app-set-pin-validator [form]="form"
+                           [pinControlName]="'newPin'"></app-set-pin-validator>
     <mat-form-field>
       <mat-label>{{ newPinPlaceholder }}</mat-label>
       <input matInput
@@ -30,7 +31,7 @@
     <button mat-button
             mat-dialog-close
             i18n>Cancel</button>
-    <button mat-raised-button
+    <button mat-flat-button
             color="primary"
             type="submit"
             [disabled]="preventSubmit()">
