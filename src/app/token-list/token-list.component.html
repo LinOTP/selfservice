@@ -5,89 +5,102 @@
     </div>
     <p i18n>An Error has occurred while loading the page, please contact the administrator.</p>
   </div>
-  <div style="margin-top: 3em;"> 
+  <div style="margin-top: 3em;">
     <h2 i18n>Services Unavailable</h2>
-      <p i18n>
-        We could not check your permissions due to an error in permission management, most likely due to a faulty policy. <br>
-        Please contact your administrator.
-      </p>
+    <p i18n>
+      We could not check your permissions due to an error in permission management, most likely due to a faulty policy.
+      <br>
+      Please contact your administrator.
+    </p>
   </div>
 </ng-container>
 
 <ng-template #tokenListStdTmp>
-<section *ngIf="!loaded; else content"
-         class="loading"
-         id="loadingTokensSection">
-  <mat-spinner></mat-spinner>
-  <p i18n>Loading tokens…</p>
-</section>
+  <section *ngIf="!loaded; else content"
+           class="loading"
+           id="loadingTokensSection">
+    <mat-spinner></mat-spinner>
+    <p i18n>Loading tokens…</p>
+  </section>
 </ng-template>
 
-<ng-template #content> 
-    <ng-container *ngIf="isUserLocked">
-      <div class="warning-info">
-        <div>
-          <mat-icon>error</mat-icon>
-        </div>
-        <p i18n>You don't have any active tokens at this point and MFA is enabled for Selfservice. If you logout now, you won't be able to login anymore.</p>
-     </div>
-   </ng-container>
-    <ng-container *ngIf="warnTokensNotVerified && !isUserLocked ">
-     <div class="warning-info">
-       <div>
-          <mat-icon>error</mat-icon>
-        </div>
-       <p i18n="@@unverifiedTokensWarning">None of your active tokens have been verified. Before logging out, please verify at least one token to ensure it is working properly.</p>
+<ng-template #content>
+  <ng-container *ngIf="isUserLocked">
+    <div class="warning-info">
+      <div>
+        <mat-icon>error</mat-icon>
+      </div>
+      <p i18n>You don't have any active tokens at this point and MFA is enabled for Selfservice. If you logout now, you
+        won't be able to login anymore.</p>
     </div>
-   </ng-container>
+  </ng-container>
+  <ng-container *ngIf="warnTokensNotVerified && !isUserLocked ">
+    <div class="warning-info">
+      <div>
+        <mat-icon>error</mat-icon>
+      </div>
+      <p i18n="@@unverifiedTokensWarning">None of your active tokens have been verified. Before logging out, please
+        verify at least one token to ensure it is working properly.</p>
+    </div>
+  </ng-container>
 
-  <div class="custom-content-slot custom-content-slot-tokenlist-top" *appHasCustomContent="'tokenlist-top'">
+  <div class="custom-content-slot custom-content-slot-tokenlist-top"
+       *appHasCustomContent="'tokenlist-top'">
     <app-custom-content-slot slotId="tokenlist-top"></app-custom-content-slot>
   </div>
 
-   <section id="pendingSection"
-            *ngIf="tokens && tokens | unreadyTokens | arrayNotEmpty">
+  <section id="pendingSection"
+           *ngIf="tokens && tokens | unreadyTokens | arrayNotEmpty">
     <h2 i18n>Pending actions</h2>
     <p i18n>The following tokens are not active and require further action:</p>
-    <app-token-card *ngFor="let token of tokens | unreadyTokens"
-                    [token]="token"
-                    (tokenUpdate)="loadTokens()"></app-token-card>
+    <ul>
+      <li *ngFor="let token of tokens | unreadyTokens">
+        <app-token-card [token]="token"
+                        (tokenUpdate)="loadTokens()"></app-token-card>
+      </li>
+    </ul>
   </section>
 
   <section id="activeAuthSection"
            *ngIf="tokens | activeTokens | arrayNotEmpty">
     <h2 i18n>Active authentication methods</h2>
     <p i18n>The following tokens are available for use:</p>
-    <app-token-card *ngFor="let token of tokens | activeTokens"
-                    [token]="token"
-                    (tokenUpdate)="loadTokens()"></app-token-card>
+    <ul>
+      <li *ngFor="let token of tokens | activeTokens">
+        <app-token-card [token]="token"
+                        (tokenUpdate)="loadTokens()"></app-token-card>
+      </li>
+    </ul>
   </section>
 
   <section *ngIf="tokens | inactiveTokens | arrayNotEmpty">
     <h2 i18n>Disabled authentication methods</h2>
     <p i18n>The following tokens have been disabled and cannot be used:</p>
-    <app-token-card *ngFor="let token of tokens | inactiveTokens"
-                    [token]="token"
-                    (tokenUpdate)="loadTokens()"></app-token-card>
+    <ul>
+      <li *ngFor="let token of tokens | inactiveTokens">
+        <app-token-card [token]="token"
+                        (tokenUpdate)="loadTokens()"></app-token-card>
+      </li>
+    </ul>
   </section>
 
-   
-    <ng-container *ngIf="tokens | arrayNotEmpty; then enrollAlternative; else enrollFirst">
-   </ng-container>  
+
+  <ng-container *ngIf="tokens | arrayNotEmpty; then enrollAlternative; else enrollFirst">
+  </ng-container>
 </ng-template>
 
 <ng-template #enrollAlternative>
   <section id="enrollAlternativeTokenSection"
            *ngxPermissionsOnly="enrollmentPermissions">
-      <h2 i18n>Set up a new authentication method</h2>
-      <ng-container *ngIf="!tokenLimitsService.maxTokenLimitReached;else tokenLimitReachedTmp">
-        <p i18n>The following authentication methods are available:</p>
-        <p class="total-tokens-info"
-           *ngIf="tokenLimitsService.isMaxTokenLimitSet"
-           i18n>{{tokenLimitsService.allTokensLimit?.count}} of {{tokenLimitsService.allTokensLimit?.maxTokens}} allowed
-          tokens enrolled</p>
-        <app-enrollment-grid></app-enrollment-grid>
-      </ng-container>
+    <h2 i18n>Set up a new authentication method</h2>
+    <ng-container *ngIf="!tokenLimitsService.maxTokenLimitReached;else tokenLimitReachedTmp">
+      <p i18n>The following authentication methods are available:</p>
+      <p class="total-tokens-info"
+         *ngIf="tokenLimitsService.isMaxTokenLimitSet"
+         i18n>{{tokenLimitsService.allTokensLimit?.count}} of {{tokenLimitsService.allTokensLimit?.maxTokens}} allowed
+        tokens enrolled</p>
+      <app-enrollment-grid></app-enrollment-grid>
+    </ng-container>
   </section>
 </ng-template>
 
@@ -95,13 +108,13 @@
   <section id="enrollFirstTokenSection"
            *ngxPermissionsOnly="enrollmentPermissions; else emptyState">
     <h2 i18n>Set up your first authentication method</h2>
-      <ng-container *ngIf="!tokenLimitsService.maxTokenLimitReached;else tokenLimitReachedTmp">
-        <p i18n>
-          You currently do not have any authentication method set up.
-          Start by selecting your preferred type:
-        </p>
-        <app-enrollment-grid> </app-enrollment-grid>
-      </ng-container>
+    <ng-container *ngIf="!tokenLimitsService.maxTokenLimitReached;else tokenLimitReachedTmp">
+      <p i18n>
+        You currently do not have any authentication method set up.
+        Start by selecting your preferred type:
+      </p>
+      <app-enrollment-grid> </app-enrollment-grid>
+    </ng-container>
   </section>
   <ng-template #emptyState>
     <section id="emptyStateSection">

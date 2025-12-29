@@ -1,36 +1,41 @@
-<ng-container *ngFor="let type of tokenTypes">
-  <mat-card appearance="outlined"
-            [class.disabled]="!tokenLimitsService.canEnrollToken(type.type)"
-            *ngxPermissionsOnly="type.enrollmentPermission">
-    <mat-card-header>
-      <mat-icon mat-card-avatar
-                class="icon">{{type.icon}}</mat-icon>
-      <mat-card-title>{{type.name | capitalize }}</mat-card-title>
-      <mat-card-subtitle class="description">
-        <ng-container *ngIf="tokenLimitsService.canEnrollToken(type.type);else tokenTypeLimitTmp">
-          {{type.description}}
-        </ng-container>
-        <ng-template #tokenTypeLimitTmp>
-        <div class="limit-info-container" *ngIf="tokenLimitsService.getLimitsForTokenType(type.type) as limitsInfo"
-        id="maxTokenLimitReached">
-          <div matTooltip="You have reached maximum limit for this token type. {{limitsInfo.count}} of {{limitsInfo.maxTokens}} allowed tokens enrolled.
-          To register a new authentication method of this type, please delete some of the existing tokens
-          or contact your administrator."  i18n-matTooltip>
-            <p i18n class="limit-info-title"><mat-icon>error</mat-icon> Token type limit</p>
-          </div>
-        <p i18n>You have reached maximum limit for this token type.</p>
-      </div>
-        </ng-template>
-      </mat-card-subtitle>
-    </mat-card-header>
-    <div class="spacer"></div>
+<ul>
+  <li *ngFor="let type of tokenTypes">
+    <mat-card appearance="outlined"
+              [class.disabled]="!tokenLimitsService.canEnrollToken(type.type)"
+              *ngxPermissionsOnly="type.enrollmentPermission">
+      <mat-card-header>
+        <mat-icon mat-card-avatar
+                  class="icon">{{type.icon}}</mat-icon>
+        <mat-card-title>{{type.name | capitalize }}</mat-card-title>
+        <mat-card-subtitle class="description">
+          <ng-container *ngIf="tokenLimitsService.canEnrollToken(type.type);else tokenTypeLimitTmp">
+            {{type.description}}
+          </ng-container>
+          <ng-template #tokenTypeLimitTmp>
+            <div class="limit-info-container"
+                 *ngIf="tokenLimitsService.getLimitsForTokenType(type.type) as limitsInfo"
+                 id="maxTokenLimitReached">
+              <div matTooltip="You have reached maximum limit for this token type. {{limitsInfo.count}} of {{limitsInfo.maxTokens}} allowed tokens enrolled.
+            To register a new authentication method of this type, please delete some of the existing tokens
+            or contact your administrator."
+                   i18n-matTooltip>
+                <p i18n
+                   class="limit-info-title"><mat-icon>error</mat-icon> Token type limit</p>
+              </div>
+              <p i18n>You have reached maximum limit for this token type.</p>
+            </div>
+          </ng-template>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <div class="spacer"></div>
 
-    <mat-card-actions *ngIf="tokenLimitsService.canEnrollToken(type.type)">
-      <a mat-button
-         color="primary"
-         routerLink="{{ 'enroll/' + type.type }}">
-        {{type.enrollmentActionLabel}}
-      </a>
-    </mat-card-actions>
-  </mat-card>
-</ng-container>
+      <mat-card-actions *ngIf="tokenLimitsService.canEnrollToken(type.type)">
+        <a mat-button
+           color="primary"
+           routerLink="{{ 'enroll/' + type.type }}">
+          {{type.enrollmentActionLabel}}
+        </a>
+      </mat-card-actions>
+    </mat-card>
+  </li>
+</ul>
