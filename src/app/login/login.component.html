@@ -24,7 +24,7 @@
                autocomplete="username"
                appFocusOnInit>
         <mat-error i18n
-                   *ngIf="loginFormGroup.get('username').hasError('required')">This field is required.</mat-error>
+                   *ngIf="loginFormGroup.get('username').hasError('required')">Username is required.</mat-error>
       </mat-form-field>
       <mat-form-field *ngIf="systemInfo?.settings.realm_box">
         <mat-label i18n>Realm</mat-label>
@@ -44,7 +44,7 @@
                name="password"
                autocomplete="current-password">
         <mat-error i18n
-                   *ngIf="loginFormGroup.get('password').hasError('required')">This field is required.</mat-error>
+                   *ngIf="loginFormGroup.get('password').hasError('required')">Password is required.</mat-error>
       </mat-form-field>
       <mat-form-field *ngIf="systemInfo?.settings.mfa_login && systemInfo?.settings.mfa_3_fields">
         <mat-label i18n>One-time password (OTP)</mat-label>
@@ -189,7 +189,7 @@
                  autocomplete="current-password"
                  appFocusOnInit>
           <mat-error i18n
-                     *ngIf="secondFactorFormGroup.get('otp').hasError('required')">This field is required.</mat-error>
+                     *ngIf="secondFactorFormGroup.get('otp').hasError('required')">Password is required.</mat-error>
         </mat-form-field>
         <ng-template #standardTokenTypeTmp>
           <mat-form-field>
@@ -201,7 +201,7 @@
                    autocomplete="one-time-code"
                    appFocusOnInit>
             <mat-error i18n
-                       *ngIf="secondFactorFormGroup.get('otp').hasError('required')">This field is required.</mat-error>
+                       *ngIf="secondFactorFormGroup.get('otp').hasError('required')">OTP is required.</mat-error>
           </mat-form-field>
         </ng-template>
       </ng-container>

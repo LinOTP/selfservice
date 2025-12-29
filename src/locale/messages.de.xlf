@@ -49,6 +49,10 @@
           <context context-type="sourcefile">src/app/app.component.ts</context>
           <context context-type="linenumber">18</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="186236568870281953" datatype="html">
         <source>History</source>
@@ -63,7 +67,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/history/history.component.html</context>
-          <context context-type="linenumber">5</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/history/history.component.html</context>
+          <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4618484352721043047" datatype="html">
@@ -100,6 +108,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
           <context context-type="linenumber">27</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/login.component.html</context>
+          <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3797778920049399855" datatype="html">
@@ -141,7 +153,7 @@
         won't be able to login anymore.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">33,35</context>
+          <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1939666874737357746" datatype="html">
@@ -182,7 +194,7 @@
         <target state="translated">Alle deine aktiven Tokens sind noch nicht verifiziert. Bevor du dich ausloggst, verifiziere bitte mindestens eines deiner Tokens, um sicherzustellen, dass es korrekt funktioniert.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8468364889555062049" datatype="html">
@@ -190,7 +202,7 @@
         <target state="translated">Ausstehende Aktionen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">54</context>
+          <context context-type="linenumber">56</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4946805480915739699" datatype="html">
@@ -199,7 +211,7 @@
           nicht aktiv:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">55</context>
+          <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3107803689151641000" datatype="html">
@@ -207,7 +219,7 @@
         <target state="translated">Aktive Authentisierungsmethoden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">66</context>
+          <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3411241422554668048" datatype="html">
@@ -215,7 +227,7 @@
         <target state="translated">Die folgenden Token stehen zur Authentifizierung bereit:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">67</context>
+          <context context-type="linenumber">69</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4260610291595924684" datatype="html">
@@ -223,7 +235,7 @@
         <target state="translated">Deaktivierte Authentisierungsmethoden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">77</context>
+          <context context-type="linenumber">79</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5295419025009706699" datatype="html">
@@ -232,7 +244,7 @@
           werden:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">78</context>
+          <context context-type="linenumber">80</context>
         </context-group>
       </trans-unit>
       <trans-unit id="860629738331841971" datatype="html">
@@ -240,7 +252,7 @@
         <target state="translated">Neue Authentisierungsmethode einrichten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">95</context>
+          <context context-type="linenumber">97</context>
         </context-group>
       </trans-unit>
       <trans-unit id="756843365210969611" datatype="html">
@@ -248,7 +260,7 @@
         <target state="translated">Folgende Authentisierungsmethoden sind verfügbar:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">97</context>
+          <context context-type="linenumber">99</context>
         </context-group>
       </trans-unit>
       <trans-unit id="130141158135320723" datatype="html">
@@ -258,7 +270,7 @@
         tokens enrolled</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">100,102</context>
+          <context context-type="linenumber">102</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6878496995398742279" datatype="html">
@@ -266,7 +278,7 @@
         <target state="translated">Richten Sie ihre erste Authentisierungsmethode ein</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">110</context>
+          <context context-type="linenumber">112</context>
         </context-group>
       </trans-unit>
       <trans-unit id="549851521364273203" datatype="html">
@@ -280,7 +292,7 @@
       </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">113,116</context>
+          <context context-type="linenumber">115</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6003663429247880609" datatype="html">
@@ -288,7 +300,7 @@
         <target state="translated">Keine Aktionen verfügbar</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">121</context>
+          <context context-type="linenumber">123</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2918437642000683021" datatype="html">
@@ -299,7 +311,7 @@
           Kontaktieren Sie bitte ihren Administrator.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">122</context>
+          <context context-type="linenumber">124</context>
         </context-group>
       </trans-unit>
       <trans-unit id="158435493271081311" datatype="html">
@@ -307,7 +319,7 @@
         <target state="translated">Maximale Token-Anzahl</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">133</context>
+          <context context-type="linenumber">135</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6629820311006518717" datatype="html">
@@ -325,7 +337,7 @@
           kontaktieren Sie Ihren Administrator.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">134</context>
+          <context context-type="linenumber">136</context>
         </context-group>
       </trans-unit>
       <trans-unit id="302027271687522215" datatype="html">
@@ -413,7 +425,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="pinLengthError" datatype="html">
-        <source>
+        <source> 
     between <x id="INTERPOLATION" equiv-text="{{ minLength }}"/> and <x id="INTERPOLATION_1" equiv-text="{{ maxLength }}"/> characters long
   </source>
         <target state="translated">
@@ -478,7 +490,7 @@
       <trans-unit id="2924314795002027569" datatype="html">
         <source>
         at least one special character
-
+        
         <x id="START_TAG_NG_CONTAINER" ctype="x-ng_container" equiv-text="&lt;ng-container *ngIf=&quot;!requiresSpecial()&quot;>"/>not in (<x id="INTERPOLATION" equiv-text="{{ SPECIAL_CHARACTERS }}"/>)<x id="CLOSE_TAG_NG_CONTAINER" ctype="x-ng_container" equiv-text="&lt;/ng-container>"/>
         e.g. <x id="INTERPOLATION_1" equiv-text="{{ &quot; Æäöüß&quot; }}"/>
       </source>
@@ -589,7 +601,7 @@
         <note priority="1" from="meaning">card header</note>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5248717555542428023" datatype="html">
@@ -597,7 +609,15 @@
         <target state="translated">Benutzername</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3868123820758341861" datatype="html">
+        <source>Username is required.</source>
+        <target state="translated">Benutzername ist erforderlich.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/login.component.html</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1431416938026210429" datatype="html">
@@ -609,11 +629,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">37</context>
+          <context context-type="linenumber">40</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">181</context>
+          <context context-type="linenumber">184</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
@@ -639,7 +659,7 @@
         <note priority="1" from="meaning">login action</note>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">60</context>
+          <context context-type="linenumber">63</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3840481991104643295" datatype="html">
@@ -647,7 +667,19 @@
         <target state="translated">Realm</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3577237269587081090" datatype="html">
+        <source>Password is required.</source>
+        <target state="translated">Passwort ist erforderlich.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/login.component.html</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/login.component.html</context>
+          <context context-type="linenumber">192</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3319059418881225105" datatype="html">
@@ -655,7 +687,7 @@
         <target state="translated">Einmal-Passwort (OTP)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7518795619202358578" datatype="html">
@@ -665,11 +697,11 @@
         <note priority="1" from="meaning">card header</note>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">70</context>
+          <context context-type="linenumber">73</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">133</context>
+          <context context-type="linenumber">136</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2876956681251125515" datatype="html">
@@ -677,7 +709,7 @@
         <target state="translated"><x id="START_BOLD_TEXT" equiv-text="&lt;b>"/>Mit diesem zusätzlichen Schritt bestätigen Sie Ihre Identität bei der Anmeldung:<x id="CLOSE_BOLD_TEXT" equiv-text="&lt;/b>"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">74</context>
+          <context context-type="linenumber">77</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9211665410945124545" datatype="html">
@@ -705,7 +737,7 @@
         <target state="translated">Tipp: Sie können zur Auswahl eines Tokens Ihre Tastatur verwenden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">106</context>
+          <context context-type="linenumber">109</context>
         </context-group>
       </trans-unit>
       <trans-unit id="381259115054568778" datatype="html">
@@ -726,7 +758,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">109</context>
+          <context context-type="linenumber">112</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6373389076357367988" datatype="html">
@@ -736,7 +768,7 @@
           aufgetreten. Kontaktieren Sie bitte einen Administrator.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">117</context>
+          <context context-type="linenumber">120</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6386462717867426221" datatype="html">
@@ -754,7 +786,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">136</context>
+          <context context-type="linenumber">139</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3868000447879071786" datatype="html">
@@ -764,7 +796,7 @@
         <note priority="1" from="meaning">2nd factor login action</note>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">213</context>
+          <context context-type="linenumber">216</context>
         </context-group>
       </trans-unit>
       <trans-unit id="234725495988365425" datatype="html">
@@ -772,7 +804,7 @@
         <target state="translated">Bitte geben Sie das Passwort des ausgewählten Token ein:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">145</context>
+          <context context-type="linenumber">148</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4656965482758163984" datatype="html">
@@ -780,7 +812,7 @@
         <target state="translated">Verbinden Sie Ihren Yubikey und drücken Sie den Knopf.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">147</context>
+          <context context-type="linenumber">150</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2867818116203626831" datatype="html">
@@ -788,7 +820,7 @@
         <target state="translated">Bitte geben Sie das aktuelle OTP für den ausgewählten Token ein:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">149</context>
+          <context context-type="linenumber">152</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2977612657174343243" datatype="html">
@@ -800,7 +832,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">156</context>
+          <context context-type="linenumber">159</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4593276974210440916" datatype="html">
@@ -814,7 +846,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">168</context>
+          <context context-type="linenumber">171</context>
         </context-group>
       </trans-unit>
       <trans-unit id="158182840842304476" datatype="html">
@@ -822,11 +854,19 @@
         <target state="translated">OTP manuell eingeben</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">177</context>
+          <context context-type="linenumber">180</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/qr-code-input/qr-code-input.component.html</context>
           <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7666474639471621263" datatype="html">
+        <source>OTP is required.</source>
+        <target state="translated">OTP ist erforderlich.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/login.component.html</context>
+          <context context-type="linenumber">204</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5009157571879213849" datatype="html">
@@ -838,7 +878,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">193</context>
+          <context context-type="linenumber">196</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/qr-code-input/qr-code-input.component.html</context>
@@ -889,7 +929,7 @@
         <note priority="1" from="meaning">2nd factor login action</note>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">220</context>
+          <context context-type="linenumber">223</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3973931101896534797" datatype="html">
@@ -953,8 +993,7 @@
         <target state="translated">Suchbegriff</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/history/history.component.html</context>
-          <context context-type="linenumber">22</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3643866539136239218" datatype="html">
@@ -962,8 +1001,7 @@
         <target state="translated">Suche zurücksetzen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/history/history.component.html</context>
-          <context context-type="linenumber">31</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8470311110519302542" datatype="html">
@@ -971,8 +1009,7 @@
         <target state="translated">Keine Daten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/history/history.component.html</context>
-          <context context-type="linenumber">62</context>
-          <context context-type="linenumber">62</context>
+          <context context-type="linenumber">65</context>
         </context-group>
       </trans-unit>
       <trans-unit id="activationSuccessMessage" datatype="html">
@@ -2844,22 +2881,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-yubico/enroll-yubico-dialog.component.html</context>
           <context context-type="linenumber">15</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">24</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">44</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">189</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">201</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9217368643400487466" datatype="html">
