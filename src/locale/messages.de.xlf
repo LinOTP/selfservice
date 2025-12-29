@@ -131,7 +131,17 @@
         <target state="translated">Lade Token…</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3495852808948769917" datatype="html">
+        <source>You don't have any active tokens at this point and MFA is enabled for Selfservice. If you logout now, you
+        won't be able to login anymore.</source>
+        <target state="new">You don't have any active tokens at this point and MFA is enabled for Selfservice. If you logout now, you
+        won't be able to login anymore.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
+          <context context-type="linenumber">33,35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1939666874737357746" datatype="html">
@@ -150,35 +160,29 @@
           <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="8927435537987347254" datatype="html">
+      <trans-unit id="1385382066916206481" datatype="html">
         <source>
-        We could not check your permissions due to an error in permission management, most likely due to a faulty policy. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br>"/>
-        Please contact your administrator.
-      </source>
-        <target state="translated"> Wir konnten nicht feststellen ob sie die Rechte haben diese
-          Seite zu verwenden, wahrscheinlich durch eine fehlerhafte Richtlinie
-          <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br>"/>
-          Bitte wenden sie sich an den Administrator.
-        </target>
+      We could not check your permissions due to an error in permission management, most likely due to a faulty policy.
+      <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br>"/>
+      Please contact your administrator.
+    </source>
+        <target state="new">
+      We could not check your permissions due to an error in permission management, most likely due to a faulty policy.
+      <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br>"/>
+      Please contact your administrator.
+    </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">11</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="6690607970102542115" datatype="html">
-        <source>You don't have any active tokens at this point and MFA is enabled for Selfservice. If you logout now, you won't be able to login anymore.</source>
-        <target state="translated">Sie haben derzeit keine aktiven Tokens und die  Zwei-Faktor-Authentifizierung (MFA) ist für den Selfservice aktiviert. Wenn Sie sich jetzt abmelden, können Sie sich nicht mehr anmelden.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">32</context>
+          <context context-type="linenumber">11,16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="unverifiedTokensWarning" datatype="html">
-        <source>None of your active tokens have been verified. Before logging out, please verify at least one token to ensure it is working properly.</source>
+        <source>None of your active tokens have been verified. Before logging out, please
+        verify at least one token to ensure it is working properly.</source>
         <target state="translated">Alle deine aktiven Tokens sind noch nicht verifiziert. Bevor du dich ausloggst, verifiziere bitte mindestens eines deiner Tokens, um sicherzustellen, dass es korrekt funktioniert.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">42</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8468364889555062049" datatype="html">
@@ -186,7 +190,7 @@
         <target state="translated">Ausstehende Aktionen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">50</context>
+          <context context-type="linenumber">54</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4946805480915739699" datatype="html">
@@ -195,7 +199,7 @@
           nicht aktiv:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">51</context>
+          <context context-type="linenumber">55</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3107803689151641000" datatype="html">
@@ -203,7 +207,7 @@
         <target state="translated">Aktive Authentisierungsmethoden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">59</context>
+          <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3411241422554668048" datatype="html">
@@ -211,7 +215,7 @@
         <target state="translated">Die folgenden Token stehen zur Authentifizierung bereit:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">60</context>
+          <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4260610291595924684" datatype="html">
@@ -219,7 +223,7 @@
         <target state="translated">Deaktivierte Authentisierungsmethoden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">67</context>
+          <context context-type="linenumber">77</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5295419025009706699" datatype="html">
@@ -228,7 +232,7 @@
           werden:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="linenumber">78</context>
         </context-group>
       </trans-unit>
       <trans-unit id="860629738331841971" datatype="html">
@@ -236,7 +240,7 @@
         <target state="translated">Neue Authentisierungsmethode einrichten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">82</context>
+          <context context-type="linenumber">95</context>
         </context-group>
       </trans-unit>
       <trans-unit id="756843365210969611" datatype="html">
@@ -244,17 +248,17 @@
         <target state="translated">Folgende Authentisierungsmethoden sind verfügbar:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">84</context>
+          <context context-type="linenumber">97</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="6658544261788045440" datatype="html">
+      <trans-unit id="130141158135320723" datatype="html">
         <source><x id="INTERPOLATION" equiv-text="{{tokenLimitsService.allTokensLimit?.count}}"/> of <x id="INTERPOLATION_1" equiv-text="{{tokenLimitsService.allTokensLimit?.maxTokens}}"/> allowed
-          tokens enrolled</source>
-        <target state="translated"><x id="INTERPOLATION" equiv-text="{{tokenLimitsService.allTokensLimit?.count}}"/> von <x id="INTERPOLATION_1" equiv-text="{{tokenLimitsService.allTokensLimit?.maxTokens}}"/> erlaubten Token
-          eingerichtet</target>
+        tokens enrolled</source>
+        <target state="new"><x id="INTERPOLATION" equiv-text="{{tokenLimitsService.allTokensLimit?.count}}"/> of <x id="INTERPOLATION_1" equiv-text="{{tokenLimitsService.allTokensLimit?.maxTokens}}"/> allowed
+        tokens enrolled</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">87</context>
+          <context context-type="linenumber">100,102</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6878496995398742279" datatype="html">
@@ -262,21 +266,21 @@
         <target state="translated">Richten Sie ihre erste Authentisierungsmethode ein</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">97</context>
+          <context context-type="linenumber">110</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="7322562688613305864" datatype="html">
+      <trans-unit id="549851521364273203" datatype="html">
         <source>
-          You currently do not have any authentication method set up.
-          Start by selecting your preferred type:
-        </source>
-        <target state="translated">
-          Sie haben aktuell keine eingerichtete Authentisierungsmethode.
-          Wählen Sie zum Start ihren bevorzugten Typ aus:
-        </target>
+        You currently do not have any authentication method set up.
+        Start by selecting your preferred type:
+      </source>
+        <target state="new">
+        You currently do not have any authentication method set up.
+        Start by selecting your preferred type:
+      </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">100</context>
+          <context context-type="linenumber">113,116</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6003663429247880609" datatype="html">
@@ -284,7 +288,7 @@
         <target state="translated">Keine Aktionen verfügbar</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">108</context>
+          <context context-type="linenumber">121</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2918437642000683021" datatype="html">
@@ -295,7 +299,7 @@
           Kontaktieren Sie bitte ihren Administrator.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">109</context>
+          <context context-type="linenumber">122</context>
         </context-group>
       </trans-unit>
       <trans-unit id="158435493271081311" datatype="html">
@@ -303,7 +307,7 @@
         <target state="translated">Maximale Token-Anzahl</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">120</context>
+          <context context-type="linenumber">133</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6629820311006518717" datatype="html">
@@ -321,7 +325,7 @@
           kontaktieren Sie Ihren Administrator.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">121</context>
+          <context context-type="linenumber">134</context>
         </context-group>
       </trans-unit>
       <trans-unit id="302027271687522215" datatype="html">
@@ -409,7 +413,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="pinLengthError" datatype="html">
-        <source> 
+        <source>
     between <x id="INTERPOLATION" equiv-text="{{ minLength }}"/> and <x id="INTERPOLATION_1" equiv-text="{{ maxLength }}"/> characters long
   </source>
         <target state="translated">
@@ -474,7 +478,7 @@
       <trans-unit id="2924314795002027569" datatype="html">
         <source>
         at least one special character
-        
+
         <x id="START_TAG_NG_CONTAINER" ctype="x-ng_container" equiv-text="&lt;ng-container *ngIf=&quot;!requiresSpecial()&quot;>"/>not in (<x id="INTERPOLATION" equiv-text="{{ SPECIAL_CHARACTERS }}"/>)<x id="CLOSE_TAG_NG_CONTAINER" ctype="x-ng_container" equiv-text="&lt;/ng-container>"/>
         e.g. <x id="INTERPOLATION_1" equiv-text="{{ &quot; Æäöüß&quot; }}"/>
       </source>
@@ -934,6 +938,14 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/history/history.component.ts</context>
           <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3229336573519607272" datatype="html">
+        <source>Change language. Current language: <x id="INTERPOLATION" equiv-text="{{selectedLocale?.name}}"/></source>
+        <target state="translated">Sprache ändern. Aktuelle Sprache: <x id="INTERPOLATION" equiv-text="{{selectedLocale?.name}}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/language-picker/language-picker.component.html</context>
+          <context context-type="linenumber">3,4</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2859654669971203505" datatype="html">
@@ -1793,6 +1805,18 @@
           <context context-type="linenumber">151</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="5350414774331831829" datatype="html">
+        <source>You have reached maximum limit for this token type. <x id="INTERPOLATION" equiv-text="{{limitsInfo.count}}"/> of <x id="INTERPOLATION_1" equiv-text="{{limitsInfo.maxTokens}}"/> allowed tokens enrolled.
+            To register a new authentication method of this type, please delete some of the existing tokens
+            or contact your administrator.</source>
+        <target state="new">You have reached maximum limit for this token type. <x id="INTERPOLATION" equiv-text="{{limitsInfo.count}}"/> of <x id="INTERPOLATION_1" equiv-text="{{limitsInfo.maxTokens}}"/> allowed tokens enrolled.
+            To register a new authentication method of this type, please delete some of the existing tokens
+            or contact your administrator.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enrollment-grid/enrollment-grid.component.html</context>
+          <context context-type="linenumber">18,21</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="5018516673567615179" datatype="html">
         <source>The token will use your user mobile number: <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/><x id="INTERPOLATION" equiv-text="{{ userPhone }}"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/></source>
         <target state="translated">Der Token wird ihre Nutzer Mobilnummer verwenden: <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/>{{userPhonel}}<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/></target>
@@ -2337,28 +2361,12 @@
           <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="1109306653820972432" datatype="html">
-        <source>You have reached maximum limit for this token type. <x id="INTERPOLATION" equiv-text="{{limitsInfo.count}}"/> of <x id="INTERPOLATION_1" equiv-text="{{limitsInfo.maxTokens}}"/> allowed tokens enrolled.
-          To register a new authentication method of this type, please delete some of the existing tokens
-          or contact your administrator.</source>
-        <target state="translated">Sie haben das Limit für diesen Tokentyp erreicht.
-          <x id="INTERPOLATION" equiv-text="{{limitsInfo.count }}"/>
-          von
-          <x id="INTERPOLATION_1" equiv-text="{{limitsInfo.maxTokens }}"/>
-          erlaubten Token sind eingerichtet. Um eine
-          neue Authentisierungsmethode dieses Typs zu registrieren, löschen Sie bitte einige der
-          vorhandenen Token oder kontaktieren Sie Ihren Administrator.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enrollment-grid/enrollment-grid.component.html</context>
-          <context context-type="linenumber">16,18</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="1791455849928207309" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon>"/>error<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon>"/> Token type limit</source>
         <target state="translated"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon>"/>error<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon>"/> Tokentyp-Limit</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enrollment-grid/enrollment-grid.component.html</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1592510496398380778" datatype="html">
@@ -2366,7 +2374,7 @@
         <target state="translated">Sie haben das Limit für diesen Tokentyp erreicht.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enrollment-grid/enrollment-grid.component.html</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5503416991977709264" datatype="html">
@@ -2457,6 +2465,14 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.ts</context>
           <context context-type="linenumber">162</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="21733913672668420" datatype="html">
+        <source>Change theme. Current theme: <x id="INTERPOLATION" equiv-text="{{selectedTheme.prettyName}}"/></source>
+        <target state="translated">Design ändern. Aktuelles Design: <x id="INTERPOLATION" equiv-text="{{selectedTheme.prettyName}}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/theme-picker/theme-picker.component.html</context>
+          <context context-type="linenumber">4,5</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1648472582356305138" datatype="html">

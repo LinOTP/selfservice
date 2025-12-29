@@ -1,6 +1,8 @@
 <ng-container *ngIf="selectedTheme$ | async as selectedTheme">
   <button mat-button
-          [matMenuTriggerFor]="themePicker">
+          [matMenuTriggerFor]="themePicker"
+          [attr.aria-label]="'Change theme. Current theme: ' + selectedTheme.prettyName"
+          i18n-aria-label>
     <mat-icon>{{selectedTheme.icon}}</mat-icon>
     <span class="icon-container">
       <span>{{selectedTheme.prettyNameShort}}</span>
