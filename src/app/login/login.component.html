@@ -3,6 +3,9 @@
   <app-custom-content-slot slotId="login-top"></app-custom-content-slot>
 </div>
 
+<h1 class="cdk-visually-hidden"
+    i18n>Login</h1>
+
 <form [formGroup]="loginFormGroup"
       (ngSubmit)="login()"
       id="loginFormStage1"

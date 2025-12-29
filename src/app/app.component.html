@@ -5,7 +5,7 @@
          [src]="themeService.theme.linotpLogo"
          alt="Company Logo"
          i18n-alt>
-    <h1 id="app-name">{{ title }}</h1>
+    <div id="app-name">{{ title }}</div>
   </div>
   <nav *ngIf="userData;else notLoggedNav">
     <ng-container *ngFor="let link of navLinks">
