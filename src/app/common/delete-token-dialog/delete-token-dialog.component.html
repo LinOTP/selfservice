@@ -29,7 +29,7 @@
 <mat-dialog-actions align="end">
   <button mat-button
           [mat-dialog-close]="false"
-          i18n>cancel</button>
+          i18n>Cancel</button>
   <button mat-flat-button
           class="submit-button"
           [disabled]="!confirmCtrl.valid || awaitingResponse"
@@ -37,7 +37,7 @@
           color="warn">
     <div class="button-content">
       <app-button-wait-indicator [show]="awaitingResponse"></app-button-wait-indicator>
-      <span i18n>delete</span>
+      <span i18n>Delete</span>
     </div>
   </button>
 </mat-dialog-actions>
