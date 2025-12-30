@@ -1,4 +1,5 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component, ElementRef, HostListener, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -71,6 +72,7 @@ export class LoginComponent implements OnInit {
     private formBuilder: UntypedFormBuilder,
     private breakpointObserver: BreakpointObserver,
     private dialog: MatDialog,
+    private liveAnnouncer: LiveAnnouncer,
   ) { }
 
   ngOnInit() {
@@ -141,6 +143,7 @@ export class LoginComponent implements OnInit {
   login() {
     if (!this.loginFormGroup.valid) {
       this.loginFormGroup.markAllAsTouched();
+      this.liveAnnouncer.announce($localize`Form has errors. Please correct the highlighted fields.`);
       return;
     }
 
@@ -237,6 +240,7 @@ export class LoginComponent implements OnInit {
   submitSecondFactor() {
     if (!this.secondFactorFormGroup.valid) {
       this.secondFactorFormGroup.markAllAsTouched();
+      this.liveAnnouncer.announce($localize`Form has errors. Please correct the highlighted fields.`);
       return;
     }
 

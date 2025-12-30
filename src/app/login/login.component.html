@@ -22,6 +22,7 @@
                formControlName="username"
                name="username"
                autocomplete="username"
+               [attr.aria-invalid]="loginFormGroup.get('username').invalid && loginFormGroup.get('username').touched"
                appFocusOnInit>
         <mat-error i18n
                    *ngIf="loginFormGroup.get('username').hasError('required')">Username is required.</mat-error>
@@ -42,7 +43,8 @@
                type="password"
                formControlName="password"
                name="password"
-               autocomplete="current-password">
+               autocomplete="current-password"
+               [attr.aria-invalid]="loginFormGroup.get('password').invalid && loginFormGroup.get('password').touched">
         <mat-error i18n
                    *ngIf="loginFormGroup.get('password').hasError('required')">Password is required.</mat-error>
       </mat-form-field>
@@ -51,7 +53,8 @@
         <input matInput
                formControlName="otp"
                name="otp"
-               autocomplete="one-time-code">
+               autocomplete="one-time-code"
+               [attr.aria-invalid]="loginFormGroup.get('otp')?.invalid && loginFormGroup.get('otp')?.touched">
       </mat-form-field>
     </mat-card-content>
     <mat-card-actions>
@@ -187,6 +190,7 @@
                  formControlName="otp"
                  name="otp"
                  autocomplete="current-password"
+                 [attr.aria-invalid]="secondFactorFormGroup.get('otp').invalid && secondFactorFormGroup.get('otp').touched"
                  appFocusOnInit>
           <mat-error i18n
                      *ngIf="secondFactorFormGroup.get('otp').hasError('required')">Password is required.</mat-error>
@@ -199,6 +203,7 @@
                    formControlName="otp"
                    name="otp"
                    autocomplete="one-time-code"
+                   [attr.aria-invalid]="secondFactorFormGroup.get('otp').invalid && secondFactorFormGroup.get('otp').touched"
                    appFocusOnInit>
             <mat-error i18n
                        *ngIf="secondFactorFormGroup.get('otp').hasError('required')">OTP is required.</mat-error>
