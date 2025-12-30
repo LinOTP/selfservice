@@ -12,6 +12,8 @@
       <a mat-button
          *ngxPermissionsOnly="link.permission"
          routerLinkActive="active-link"
+         #rla="routerLinkActive"
+         [attr.aria-current]="rla.isActive ? 'page' : null"
          [routerLink]="link.path">{{ link.label }}</a>
     </ng-container>
     <ng-container *appHasCustomContent="'custom-page'">
@@ -24,6 +26,8 @@
     <nav *appHasCustomContent="'custom-page'">
       <a mat-button
       routerLinkActive="active-link"
+      #rla="routerLinkActive"
+      [attr.aria-current]="rla.isActive ? 'page' : null"
       routerLink="/login" i18n>Login</a>
       <app-custom-page-link></app-custom-page-link>
     </nav>
