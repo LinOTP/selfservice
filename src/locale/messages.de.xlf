@@ -425,7 +425,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="pinLengthError" datatype="html">
-        <source> 
+        <source>
     between <x id="INTERPOLATION" equiv-text="{{ minLength }}"/> and <x id="INTERPOLATION_1" equiv-text="{{ maxLength }}"/> characters long
   </source>
         <target state="translated">
@@ -490,7 +490,7 @@
       <trans-unit id="2924314795002027569" datatype="html">
         <source>
         at least one special character
-        
+
         <x id="START_TAG_NG_CONTAINER" ctype="x-ng_container" equiv-text="&lt;ng-container *ngIf=&quot;!requiresSpecial()&quot;>"/>not in (<x id="INTERPOLATION" equiv-text="{{ SPECIAL_CHARACTERS }}"/>)<x id="CLOSE_TAG_NG_CONTAINER" ctype="x-ng_container" equiv-text="&lt;/ng-container>"/>
         e.g. <x id="INTERPOLATION_1" equiv-text="{{ &quot; Æäöüß&quot; }}"/>
       </source>
@@ -993,7 +993,7 @@
         <target state="translated">Suchbegriff</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/history/history.component.html</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3643866539136239218" datatype="html">
@@ -1001,7 +1001,27 @@
         <target state="translated">Suche zurücksetzen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/history/history.component.html</context>
-          <context context-type="linenumber">34</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/history/history.component.html</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2309890458671719225" datatype="html">
+        <source>Loading history</source>
+        <target state="translated">Verlauf wird geladen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/history/history.component.html</context>
+          <context context-type="linenumber">50,51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="801393497043605752" datatype="html">
+        <source>Authentication history table</source>
+        <target state="translated">Authentifizierungsverlauf-Tabelle</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/history/history.component.html</context>
+          <context context-type="linenumber">62,63</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8470311110519302542" datatype="html">
@@ -1009,7 +1029,15 @@
         <target state="translated">Keine Daten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/history/history.component.html</context>
-          <context context-type="linenumber">65</context>
+          <context context-type="linenumber">72</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7256395947475975935" datatype="html">
+        <source>Failed</source>
+        <target state="translated">Fehlgeschlagen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/history/history.component.html</context>
+          <context context-type="linenumber">101</context>
         </context-group>
       </trans-unit>
       <trans-unit id="activationSuccessMessage" datatype="html">
@@ -2412,6 +2440,14 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enrollment-grid/enrollment-grid.component.html</context>
           <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8575070835897793579" datatype="html">
+        <source>Search in</source>
+        <target state="translated">Suchen in</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/history/history.component.html</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5503416991977709264" datatype="html">
