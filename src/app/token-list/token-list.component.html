@@ -27,24 +27,28 @@
 <ng-template #content>
   <h1 class="cdk-visually-hidden"
       i18n>Your tokens</h1>
-  <ng-container *ngIf="isUserLocked">
-    <div class="warning-info">
+  <div aria-live="polite"
+       aria-atomic="true">
+    <div *ngIf="isUserLocked"
+         class="warning-info">
       <div>
         <mat-icon>error</mat-icon>
       </div>
       <p i18n>You don't have any active tokens at this point and MFA is enabled for Selfservice. If you logout now, you
         won't be able to login anymore.</p>
     </div>
-  </ng-container>
-  <ng-container *ngIf="warnTokensNotVerified && !isUserLocked ">
-    <div class="warning-info">
+  </div>
+  <div aria-live="polite"
+       aria-atomic="true">
+    <div *ngIf="warnTokensNotVerified && !isUserLocked "
+         class="warning-info">
       <div>
         <mat-icon>error</mat-icon>
       </div>
       <p i18n="@@unverifiedTokensWarning">None of your active tokens have been verified. Before logging out, please
         verify at least one token to ensure it is working properly.</p>
     </div>
-  </ng-container>
+  </div>
 
   <div class="custom-content-slot custom-content-slot-tokenlist-top"
        *appHasCustomContent="'tokenlist-top'">
@@ -95,14 +99,18 @@
   <section id="enrollAlternativeTokenSection"
            *ngxPermissionsOnly="enrollmentPermissions">
     <h2 i18n>Set up a new authentication method</h2>
-    <ng-container *ngIf="!tokenLimitsService.maxTokenLimitReached;else tokenLimitReachedTmp">
-      <p i18n>The following authentication methods are available:</p>
-      <p class="total-tokens-info"
-         *ngIf="tokenLimitsService.isMaxTokenLimitSet"
-         i18n>{{tokenLimitsService.allTokensLimit?.count}} of {{tokenLimitsService.allTokensLimit?.maxTokens}} allowed
-        tokens enrolled</p>
-      <app-enrollment-grid></app-enrollment-grid>
-    </ng-container>
+    <p i18n
+       *ngIf="!tokenLimitsService.maxTokenLimitReached">The following authentication methods are available:</p>
+    <div aria-live="polite"
+         aria-atomic="true">
+      <ng-container *ngIf="!tokenLimitsService.maxTokenLimitReached;else tokenLimitReachedTmp">
+        <p class="total-tokens-info"
+           *ngIf="tokenLimitsService.isMaxTokenLimitSet"
+           i18n>{{tokenLimitsService.allTokensLimit?.count}} of {{tokenLimitsService.allTokensLimit?.maxTokens}} allowed
+          tokens enrolled</p>
+      </ng-container>
+    </div>
+    <app-enrollment-grid *ngIf="!tokenLimitsService.maxTokenLimitReached" />
   </section>
 </ng-template>
 
@@ -129,7 +137,9 @@
 
 <ng-template #tokenLimitReachedTmp>
   <div class="token-limit-info-container"
-       id="maxTokenLimitReached">
+       id="maxTokenLimitReached"
+       aria-live="polite"
+       aria-atomic="true">
     <mat-icon>error</mat-icon>
     <p i18n
        class="token-limit-title">Maximum Token Limit</p>
