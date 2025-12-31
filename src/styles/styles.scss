@@ -81,6 +81,10 @@ mat-card.disabled {
   padding-top: 0;
 }
 
+.mat-vertical-stepper-content {
+  overflow: auto !important;
+}
+
 qrcode canvas {
   border-radius: 7px;
 }

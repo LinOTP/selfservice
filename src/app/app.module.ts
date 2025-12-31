@@ -41,6 +41,7 @@ import { AuthenticatorLinksComponent } from './common/authenticator-links/authen
 import { CustomContentModule } from './custom-content/custom-content.module';
 import { TokenPinFormLayoutComponent } from './enroll/token-pin-form-layout/token-pin-form-layout.component';
 import { FromBreakpointPipe } from './from-breakpoint.pipe';
+import { ResponsiveStepperDirective } from './responsive-stepper.directive';
 import { ThemePickerComponent } from './theme-picker/theme-picker.component';
 
 @NgModule({
@@ -85,6 +86,7 @@ import { ThemePickerComponent } from './theme-picker/theme-picker.component';
     AuthenticatorLinksComponent,
     MarkdownModule.forRoot(),
     FromBreakpointPipe,
+    ResponsiveStepperDirective,
     CustomContentModule], providers: [
       AppInitService,
       provideAppInitializer(() => {

@@ -13,43 +13,38 @@ import { take } from "rxjs/operators";
 	<div [formGroup]="form">
     <p i18n="@@oathStepperOtpPinInfo">The OTP PIN ensures that you can only use the token yourself. During the authentication process, you may need to enter this PIN together with an OTP of the token.</p>
     <app-set-pin-validator [form]="form" [pinControlName]="'pin'"></app-set-pin-validator>
-    <div class="single-row-form">
-			<mat-form-field>
-				<mat-label i18n>OTP PIN</mat-label>
-				<input matInput
-							type="password"
-							formControlName="pin">
-        <mat-hint *ngIf="!isPinRequired()" i18n="@@otpPinRecommendedInfo">Though not required, for security reasons
-					it is recommended to set a PIN for your token.</mat-hint>
-			</mat-form-field>
-			<mat-form-field>
-				<mat-label i18n>Confirm OTP PIN</mat-label>
-				<input matInput
-							type="password"
-							formControlName="confirmPin"
-							[errorStateMatcher]="matcher"
-							>
-				<mat-error *ngIf="form.hasError('pinsDoNotMatch')"
-									i18n="@@pinsDoNotMatchError">Entered PINs do not match</mat-error>
-			</mat-form-field>
-		</div>
+    <div class="row">
+      <div class="col-12 col-md-6 mb-sm-3 mb-md-0">
+        <mat-form-field subscriptSizing="dynamic">
+          <mat-label i18n>OTP PIN</mat-label>
+          <input matInput
+                type="password"
+                formControlName="pin">
+          <mat-hint *ngIf="!isPinRequired()" i18n="@@otpPinRecommendedInfo">Though not required, for security reasons
+            it is recommended to set a PIN for your token.</mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="col-12 col-md-6">
+        <mat-form-field>
+          <mat-label i18n>Confirm OTP PIN</mat-label>
+          <input matInput
+                type="password"
+                formControlName="confirmPin"
+                [errorStateMatcher]="matcher"
+                >
+          <mat-error *ngIf="form.hasError('pinsDoNotMatch')"
+                    i18n="@@pinsDoNotMatchError">Entered PINs do not match</mat-error>
+        </mat-form-field>
+		  </div>
 	</div>
     `,
   styles: [`
 		mat-form-field {
 			width: 100%;
 		}
-		.single-row-form {
-			display: flex;
-			justify-content: space-between;
-			mat-form-field:first-child {
-				margin-right: 15px;
-  		}
 		p {
 			margin-bottom:16px;
-		}
-}
-				`],
+		}`],
   imports: [CommonModule, ReactiveFormsModule, MaterialModule, NgSelfServiceCommonModule]
 })
 export class TokenPinFormLayoutComponent {

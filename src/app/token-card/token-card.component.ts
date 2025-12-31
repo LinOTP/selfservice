@@ -1,12 +1,14 @@
 import { Component, Input, OnDestroy, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 import { map, Observable, of, Subject, Subscription } from 'rxjs';
 import { filter, startWith } from 'rxjs/operators';
 
+import { MatMenuItem } from "@angular/material/menu";
 import { OperationsService } from '@api/operations.service';
 import { EnrollmentStatus, SelfserviceToken, TokenType } from '@api/token';
 import { ActivateDialogComponent } from '@app/activate/activate-dialog.component';
+import { BootstrapBreakpointService } from '@app/bootstrap-breakpoints.service';
 import { LockableTokenActionsService } from '@app/common/lockable-token-dialogs.service';
 import { LoginService } from '@app/login/login.service';
 import { TestDialogComponent } from '@app/test/test-dialog.component';
@@ -17,14 +19,13 @@ import { SetDescriptionDialogComponent } from '@common/set-description-dialog/se
 import { SetMOTPPinDialogComponent } from '@common/set-motp-pin-dialog/set-motp-pin-dialog.component';
 import { SetPinDialogComponent } from '@common/set-pin-dialog/set-pin-dialog.component';
 import { TokenVerifyCheckService } from '../token-list/token-verify-check.service';
-import { MatMenuItem } from "@angular/material/menu";
 
 @Component({
-    selector: 'app-token-card',
-    templateUrl: './token-card.component.html',
-    styleUrls: ['./token-card.component.scss'],
-    providers: [LockableTokenActionsService],
-    standalone: false
+  selector: 'app-token-card',
+  templateUrl: './token-card.component.html',
+  styleUrls: ['./token-card.component.scss'],
+  providers: [LockableTokenActionsService],
+  standalone: false
 })
 export class TokenCardComponent implements OnInit, OnDestroy {
 
@@ -48,8 +49,8 @@ export class TokenCardComponent implements OnInit, OnDestroy {
     if (!menuItems) return;
     setTimeout(() => {
       this.menuHasItems = menuItems.changes.pipe(
-          startWith(menuItems),
-          map((items: QueryList<MatMenuItem>) => items.length > 0)
+        startWith(menuItems),
+        map((items: QueryList<MatMenuItem>) => items.length > 0)
       )
     })
   }
@@ -61,7 +62,8 @@ export class TokenCardComponent implements OnInit, OnDestroy {
     private operationsService: OperationsService,
     private loginService: LoginService,
     private lockableTokenActionsService: LockableTokenActionsService,
-    private tokenVerifyCheck: TokenVerifyCheckService
+    private tokenVerifyCheck: TokenVerifyCheckService,
+    private breakpointService: BootstrapBreakpointService
   ) { }
 
   public ngOnInit() {
@@ -184,12 +186,23 @@ export class TokenCardComponent implements OnInit, OnDestroy {
   }
 
   public activate(): void {
-    const dialogConfig = {
+    let dialogConfig: MatDialogConfig = {
       width: '850px',
       autoFocus: false,
       disableClose: true,
       data: { serial: this.token.serial, type: this.token.typeDetails.type, token: this.token }
     };
+
+    const currentBreakpoint = this.breakpointService.currentBreakpoint;
+    if (currentBreakpoint < 2) {
+      dialogConfig.width = "100%";
+      dialogConfig.maxWidth = "100vh";
+      dialogConfig.height = "100%";
+      dialogConfig.maxHeight = "100vh";
+    } else {
+      dialogConfig.width = '850px';
+      dialogConfig.minWidth = '770px';
+    }
 
     this.dialog.open(ActivateDialogComponent, dialogConfig)
       .afterClosed()

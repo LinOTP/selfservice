@@ -1,18 +1,17 @@
 <div *ngIf="enrolledToken">
   <!-- Standard layout for enrollment with token verification -->
   <ng-container *ngIf="verifyFlowEnabled;else noVerifyTmp">
-    <div class="verify-container">
-      <div>
+    <div class="verify-container d-block d-md-flex">
+      <div class="text-center">
         <ng-container *ngTemplateOutlet="qrCodeTmp"></ng-container>
+        <ng-container *ngTemplateOutlet="detailButtonsTmp"></ng-container>
       </div>
-      <div class="separator"></div>
+      <div class="separator d-none d-md-block"></div>
       <div class="verify">
         <app-verify-token [token]="enrolledToken"
                           (tokenVerified)="verified = true"></app-verify-token>
       </div>
     </div>
-
-    <ng-container *ngTemplateOutlet="detailButtonsTmp"></ng-container>
   </ng-container>
 
   <!-- Layout when verify policy is not set -->

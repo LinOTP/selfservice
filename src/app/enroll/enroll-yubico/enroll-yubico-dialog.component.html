@@ -1,6 +1,8 @@
 <h2 mat-dialog-title
     i18n>Register YubiCloud token</h2>
-<mat-horizontal-stepper [linear]="true">
+<mat-horizontal-stepper [linear]="true"
+                        responsiveOrientation
+                        class="flex-grow-1">
   <mat-step [completed]="false"
             [editable]="false">
     <mat-dialog-content>
@@ -11,7 +13,7 @@
         Alternatively, you may enter the public ID manually:</p>
       <form [formGroup]="createTokenForm"
             (keydown.enter)="registerToken()">
-        <mat-form-field>
+        <mat-form-field subscriptSizing="dynamic">
           <mat-label i18n>OTP or public ID</mat-label>
           <input matInput
                  formControlName="publicId"

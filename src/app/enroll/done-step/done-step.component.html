@@ -9,18 +9,12 @@
       </ng-container>
 
       <ng-container *ngSwitchCase="CompletionState.ASSIGN_SUCCESS">
-        <span i18n="@@assignSuccessMessage"
-          >You have successfully assigned your token.</span
-        >
+        <span i18n="@@assignSuccessMessage">You have successfully assigned your token.</span>
       </ng-container>
 
-      <ng-container
-        *ngSwitchCase="CompletionState.PUSH_QR_NO_ACTIVATE_PERMISSION"
-      >
-        <span i18n="@@pushQRSuccessMessage"
-          >You have successfully enrolled and paired your token. In order to use
-          it, you must activate it first.</span
-        >
+      <ng-container *ngSwitchCase="CompletionState.PUSH_QR_NO_ACTIVATE_PERMISSION">
+        <span i18n="@@pushQRSuccessMessage">You have successfully enrolled and paired your token. In order to use
+          it, you must activate it first.</span>
       </ng-container>
 
       <ng-container *ngSwitchDefault>
@@ -32,13 +26,11 @@
       </ng-container>
     </ng-container>
 
-    <span
-      *ngIf="
+    <span *ngIf="
         completionState === CompletionState.ACTIVATION_SUCCESS ||
         completionState === CompletionState.ENROLLMENT_SUCCESS
       "
-      i18n="@@usableForAuth"
-    >
+          i18n="@@usableForAuth">
       It can now be used for authentication.
     </span>
   </div>
@@ -46,15 +38,14 @@
 
 <div class="token-wrapper">
   <app-token-info [token]="token"></app-token-info>
-  <app-warning
-    class="wrapper"
-    *ngIf="completionState === CompletionState.PUSH_QR_NO_ACTIVATE_PERMISSION"
-    [msgTmpl]="warningMsgTmpl"
-  >
+  <app-warning class="wrapper d-block mt-3"
+               *ngIf="completionState === CompletionState.PUSH_QR_NO_ACTIVATE_PERMISSION"
+               [msgTmpl]="warningMsgTmpl">
   </app-warning>
 </div>
 
-<ng-template #warningMsgTmpl i18n="@@noActivatePermWarning">
+<ng-template #warningMsgTmpl
+             i18n="@@noActivatePermWarning">
   You do not have the required permission to activate the token on your own.
   Contact your administrator to resolve this issue.
 </ng-template>
