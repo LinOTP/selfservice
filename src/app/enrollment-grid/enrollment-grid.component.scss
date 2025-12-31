@@ -1,24 +1,6 @@
-:host {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(33.33%, 1fr));
-  margin: -.5em -.5em;
-
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: contents;
-  }
-
-  li {
-    display: contents;
-  }
-}
-
 mat-card {
   display: flex;
   flex-direction: column;
-  margin: .5em .5em;
 
   mat-card-subtitle {
     opacity: 0.85;
