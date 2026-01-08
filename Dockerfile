@@ -47,7 +47,8 @@ RUN sed -i -e s,@URL_PATH@,${URL_PATH},g /etc/nginx/conf.d/default.template
 RUN rm -rf /usr/share/nginx/html/*
 
 ## Add build artifacts
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=builder /app/dist/en/browser /usr/share/nginx/html/en
+COPY --from=builder /app/dist/de/browser/de /usr/share/nginx/html/de
 
 ## Add convenience symlinks for customisation.
 ## (The /etc/linotp-selfservice link is for compatibility with older

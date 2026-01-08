@@ -80,7 +80,7 @@
             },
             "de": {
               "outputPath": {
-                "base": "dist"
+                "base": "dist/de"
               },
               "scripts": [
                 "src/unsupported-browser-de.js"
