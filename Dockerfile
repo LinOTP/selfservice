@@ -1,6 +1,6 @@
 ### STAGE 1: Build ###
 
-FROM node:18.19.1-alpine3.19 as builder
+FROM node:18.19.1-alpine3.19 AS builder
 
 ## We run the selfservice on `/selfservice` (rather than `/`)
 ## because that makes it easy to reverse-proxy selfservice requests
@@ -22,13 +22,13 @@ RUN yarn --no-progress --frozen-lockfile
 COPY . .
 
 ## Build the static artifacts
-ENV urlprefix $URL_PATH
+ENV urlprefix=$URL_PATH
 RUN yarn build-with-prefix
 
 
 ### STAGE 2: Setup ###
 
-FROM nginx:alpine as prod
+FROM nginx:alpine AS prod
 ENV URL_PATH=/selfservice
 ENV SERVER_PORT=8000
 
@@ -47,13 +47,16 @@ RUN sed -i -e s,@URL_PATH@,${URL_PATH},g /etc/nginx/conf.d/default.template
 RUN rm -rf /usr/share/nginx/html/*
 
 ## Add build artifacts
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=builder /app/dist/en/browser /usr/share/nginx/html/en
+COPY --from=builder /app/dist/de/browser/de /usr/share/nginx/html/de
 
 ## Add convenience symlinks for customisation.
 ## (The /etc/linotp-selfservice link is for compatibility with older
 ## non-container documentation.)
 RUN mkdir /usr/share/nginx/html/custom-assets && ln -s /usr/share/nginx/html/custom-assets /custom-assets
 RUN mkdir -p /etc/linotp-selfservice && ln -sf /usr/share/nginx/html/custom-assets /etc/linotp-selfservice/customization
+
+EXPOSE ${SERVER_PORT}
 
 ## Substitute the environment vars in the nginx config and start the server
 CMD ["sh",\
