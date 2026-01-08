@@ -1,6 +1,6 @@
 ### STAGE 1: Build ###
 
-FROM node:18.19.1-alpine3.19 as builder
+FROM node:18.19.1-alpine3.19 AS builder
 
 ## We run the selfservice on `/selfservice` (rather than `/`)
 ## because that makes it easy to reverse-proxy selfservice requests
@@ -22,13 +22,13 @@ RUN yarn --no-progress --frozen-lockfile
 COPY . .
 
 ## Build the static artifacts
-ENV urlprefix $URL_PATH
+ENV urlprefix=$URL_PATH
 RUN yarn build-with-prefix
 
 
 ### STAGE 2: Setup ###
 
-FROM nginx:alpine as prod
+FROM nginx:alpine AS prod
 ENV URL_PATH=/selfservice
 ENV SERVER_PORT=8000
 
