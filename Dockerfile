@@ -55,6 +55,8 @@ COPY --from=builder /app/dist /usr/share/nginx/html
 RUN mkdir /usr/share/nginx/html/custom-assets && ln -s /usr/share/nginx/html/custom-assets /custom-assets
 RUN mkdir -p /etc/linotp-selfservice && ln -sf /usr/share/nginx/html/custom-assets /etc/linotp-selfservice/customization
 
+EXPOSE ${SERVER_PORT}
+
 ## Substitute the environment vars in the nginx config and start the server
 CMD ["sh",\
   "-c",\

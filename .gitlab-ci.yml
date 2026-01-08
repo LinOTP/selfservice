@@ -15,6 +15,7 @@ cache:
 stages:
   - test
   - build
+  - test-docker
   - upload
 
 # Overwrite docker build job
@@ -32,3 +33,46 @@ build-image:
       --label de.linotp.version="$IMAGE_VERSION"
       -t "$BUILD_IMAGE_TAG"  .
     - docker push "$BUILD_IMAGE_TAG"
+
+# Test Docker container routes
+test-docker-routes:
+  stage: test-docker
+  image: alpine:latest
+  services:
+    - name: $BUILD_IMAGE_TAG
+      alias: selfservice
+  variables:
+    FF_NETWORK_PER_BUILD: "true"
+  before_script:
+    - apk add -q curl
+    - sleep 5
+  script:
+    - echo "Testing language redirects and content..."
+
+    # Test English redirect
+    - REDIRECT=$(curl -fsS -I -H "Accept-Language:en" http://selfservice:8000/selfservice/)
+    - echo "$REDIRECT" | grep -q "302"
+    - echo "$REDIRECT" | grep -q "/selfservice/en/"
+
+    # Test German redirect
+    - REDIRECT=$(curl -fsS -I -H "Accept-Language:de" http://selfservice:8000/selfservice/)
+    - echo "$REDIRECT" | grep -q "302"
+    - echo "$REDIRECT" | grep -q "/selfservice/de/"
+
+    # Test English page
+    - STATUS=$(curl -fsS -L -o /dev/null -w '%{http_code}' http://selfservice:8000/selfservice/en/)
+    - test "$STATUS" = "200"
+    - CONTENT=$(curl -fsS http://selfservice:8000/selfservice/en/)
+    - echo "$CONTENT" | grep -q '<html lang="en"'
+    - echo "$CONTENT" | grep -q '<base href="/selfservice/en/">'
+
+    # Test German page
+    - STATUS=$(curl -fsS -L -o /dev/null -w '%{http_code}' http://selfservice:8000/selfservice/de/)
+    - test "$STATUS" = "200"
+    - CONTENT=$(curl -fsS http://selfservice:8000/selfservice/de/)
+    - echo "$CONTENT" | grep -q '<html lang="de"'
+    - echo "$CONTENT" | grep -q '<base href="/selfservice/de/">'
+
+    - echo "✅ All route tests passed!"
+  needs:
+    - build-image
