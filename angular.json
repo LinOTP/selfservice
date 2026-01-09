@@ -34,20 +34,15 @@
             },
             "index": "src/index.html",
             "tsConfig": "src/tsconfig.app.json",
-            "polyfills": [
-              "src/polyfills.ts"
-            ],
-            "assets": [
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles/styles.scss"
-            ],
+            "polyfills": ["src/polyfills.ts"],
+            "assets": ["src/assets"],
+            "styles": ["src/styles/styles.scss"],
             "scripts": [],
             "extractLicenses": false,
             "sourceMap": true,
             "optimization": false,
             "namedChunks": true,
+            "i18nMissingTranslation": "error",
             "browser": "src/main.ts"
           },
           "configurations": {
@@ -74,20 +69,14 @@
               "outputPath": {
                 "base": "dist/en"
               },
-              "scripts": [
-                "src/unsupported-browser-en.js"
-              ]
+              "scripts": ["src/unsupported-browser-en.js"]
             },
             "de": {
               "outputPath": {
                 "base": "dist/de"
               },
-              "scripts": [
-                "src/unsupported-browser-de.js"
-              ],
-              "localize": [
-                "de"
-              ]
+              "scripts": ["src/unsupported-browser-de.js"],
+              "localize": ["de"]
             }
           },
           "defaultConfiguration": ""
@@ -122,25 +111,16 @@
             "karmaConfig": "./karma.conf.js",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
-            "codeCoverageExclude": [
-              "src/testing/**/*"
-            ],
+            "codeCoverageExclude": ["src/testing/**/*"],
             "scripts": [],
-            "styles": [
-              "src/styles/styles.scss"
-            ],
-            "assets": [
-              "src/assets"
-            ]
+            "styles": ["src/styles/styles.scss"],
+            "assets": ["src/assets"]
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "src/**/*.ts",
-              "src/**/*.html"
-            ]
+            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
           }
         }
       }
@@ -160,10 +140,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "e2e/**/*.ts",
-              "e2e/**/*.html"
-            ]
+            "lintFilePatterns": ["e2e/**/*.ts", "e2e/**/*.html"]
           }
         }
       }
@@ -179,9 +156,7 @@
     }
   },
   "cli": {
-    "schematicCollections": [
-      "@angular-eslint/schematics"
-    ],
+    "schematicCollections": ["@angular-eslint/schematics"],
     "analytics": false
   }
 }
