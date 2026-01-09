@@ -1,6 +1,10 @@
+@use "@angular/material" as mat;
+
 section {
   margin: 2em 0;
-
+  @include mat.icon-overrides((
+    color: var(--mat-sys-primary),
+  ));
   ul {
     list-style: none;
     padding: 0;

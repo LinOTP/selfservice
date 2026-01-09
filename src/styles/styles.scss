@@ -44,6 +44,9 @@ body {
 mat-card.disabled {
   // token card styling (disabled)
   opacity: 0.65;
+  mat-icon {
+    color: unset
+  }
   mat-card-subtitle {
     opacity: 1;
   }
