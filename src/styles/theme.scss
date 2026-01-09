@@ -1,5 +1,4 @@
 @use '@angular/material' as mat;
-@use './styles.theme.scss' as global-styles;
 @use '../app/login/login.component.theme.scss' as login;
 @use '../app/app.component.theme.scss' as app-root;
 @use '../app/history/history.component.theme.scss' as history;
@@ -31,10 +30,9 @@ body {
   border-color: var(--mat-sys-outline);
 }
 
-// themes setup
-
 .theme-light {
   color-scheme: light;
+  @include light-theme.global-styles();
 }
 
 .theme-dark {

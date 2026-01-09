@@ -1,20 +1,21 @@
 @use '@angular/material' as mat;
 
-.mat-mdc-raised-button.mat-primary .mat-mdc-progress-spinner {
-  --mdc-circular-progress-active-indicator-color: white;
-}
 
-.alert.warning {
-  color: #856404 !important;
-  // background: mat.m2-get-color-from-palette($theme-app-accent, 100);
-}
+@mixin global-styles() {
 
-.alert.error {
-  color: white;
-  // background: mat.m2-get-color-from-palette($theme-app-warn, 700);
+.alert {
+  border: 1px solid var(--mat-sys-outline-variant);
+  box-shadow: var(--mat-sys-level1);
+  &.info {
+    background-color: #e4f1fb;
+  }
+  &.warning {
+    color: #000;
+    background-color: #fce5bb;
+  }
+  &.error {
+    color: var(--mat-sys-on-error-container);
+    background-color: var(--mat-sys-error-container);
+  }
 }
-
-.alert.info {
-  color: white;
-  // background: mat.m2-get-color-from-palette($theme-app-primary, A100);
 }

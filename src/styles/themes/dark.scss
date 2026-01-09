@@ -1,28 +1,19 @@
 @use '@angular/material' as mat;
 
 @mixin global-styles() {
-  a:not(.mat-mdc-button-base, .mat-mdc-menu-item) {
-    color: #f48fb1;
-  }
-
-  .mat-mdc-raised-button.mat-primary .mat-mdc-progress-spinner {
-    --mdc-circular-progress-active-indicator-color: black;
-  }
-
-  .alert.warning {
-    color: #c1a658 !important;
-    background-color: #87854826;
-  }
-
-  .alert.info {
-    color: #2196f3;
-    background-color: #434957;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4 {
-    color: var(--mat-sys-on-surface);
+  .alert {
+    border: 1px solid var(--mat-sys-outline-variant);
+    box-shadow: var(--mat-sys-level1);
+    &.info {
+      background-color: #15334c;
+    }
+    &.warning {
+      color: #fff;
+      background-color: #94712d;
+    }
+    &.error {
+      color: var(--mat-sys-on-error-container);
+      background-color: var(--mat-sys-error-container);
+    }
   }
 }
