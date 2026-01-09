@@ -1,6 +1,11 @@
 @use '@angular/material' as mat;
 
 @mixin global-styles() {
+  .cdk-overlay-dark-backdrop {
+    //increase contrast to background when a dialog is opened
+    background: rgba(0, 0, 0, .65);
+  }
+
   .alert {
     border: 1px solid var(--mat-sys-outline-variant);
     box-shadow: var(--mat-sys-level1);
