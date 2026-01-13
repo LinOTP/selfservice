@@ -1,6 +1,6 @@
 <button mat-button
         [matMenuTriggerFor]="languageSelector"
-        [attr.aria-label]="'Change language. Current language: ' + selectedLocale?.name"
+        [attr.aria-label]="label + selectedLocale?.name"
         i18n-aria-label>
   <mat-icon class="language-icon">language</mat-icon>
   <span class="icon-container">

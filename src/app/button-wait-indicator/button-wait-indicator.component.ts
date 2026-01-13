@@ -7,7 +7,7 @@ import { Component, Input } from '@angular/core';
     standalone: false
 })
 export class ButtonWaitIndicatorComponent {
-
+  public label: string = $localize`:@@spinnerlabel:Loading`;
   @Input() public show = false;
 
   constructor() { }

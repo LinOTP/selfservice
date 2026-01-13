@@ -10,7 +10,7 @@ import { SystemService } from '@app/system.service';
     standalone: false
 })
 export class LanguagePickerComponent implements OnInit {
-
+  public label: string = $localize`:@@language-picker:Change language. Current language: `;
   public locales: { id: string, name: string, shortName: string }[];
 
   public get selectedLocale() {

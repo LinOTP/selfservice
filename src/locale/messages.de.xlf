@@ -327,7 +327,7 @@
         <target state="translated">Maximale Token-Anzahl</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">143</context>
+          <context context-type="linenumber">145</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6629820311006518717" datatype="html">
@@ -345,7 +345,7 @@
           kontaktieren Sie Ihren Administrator.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">144</context>
+          <context context-type="linenumber">146</context>
         </context-group>
       </trans-unit>
       <trans-unit id="302027271687522215" datatype="html">
@@ -445,7 +445,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="pinLengthError" datatype="html">
-        <source>
+        <source> 
     between <x id="INTERPOLATION" equiv-text="{{ minLength }}"/> and <x id="INTERPOLATION_1" equiv-text="{{ maxLength }}"/> characters long
   </source>
         <target state="translated">
@@ -510,7 +510,7 @@
       <trans-unit id="2924314795002027569" datatype="html">
         <source>
         at least one special character
-
+        
         <x id="START_TAG_NG_CONTAINER" ctype="x-ng_container" equiv-text="&lt;ng-container *ngIf=&quot;!requiresSpecial()&quot;>"/>not in (<x id="INTERPOLATION" equiv-text="{{ SPECIAL_CHARACTERS }}"/>)<x id="CLOSE_TAG_NG_CONTAINER" ctype="x-ng_container" equiv-text="&lt;/ng-container>"/>
         e.g. <x id="INTERPOLATION_1" equiv-text="{{ &quot; Æäöüß&quot; }}"/>
       </source>
@@ -567,8 +567,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="pinSpecial" datatype="html">
-        <source>a special character from (.:,;-_&lt;>+*!/()=?$§%&amp;#~^)</source>
-        <target state="translated">ein Sonderzeichen aus (.:,;-_&lt;>+*!/()=?$§%&amp;#~^)</target>
+        <source>a special character from (.:,;-_&lt;&gt;+*!/()=?$§%&amp;#~^)</source>
+        <target state="translated">ein Sonderzeichen aus (.:,;-_&lt;&gt;+*!/()=?$§%&amp;#~^)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/set-pin-validator/set-pin-validator.component.ts</context>
           <context context-type="linenumber">120</context>
@@ -914,7 +914,7 @@
         <target state="translated">Das OTP-Feld darf nicht leer sein</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/verify-token/verify-token.component.html</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">19</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/qr-code-input/qr-code-input.component.html</context>
@@ -930,7 +930,7 @@
         <target state="translated">Es sind nur Ziffern erlaubt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/verify-token/verify-token.component.html</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="oathStepperVerifyPinInfo" datatype="html">
@@ -939,7 +939,7 @@
         <target state="translated">Bitte geben Sie nur den OTP-Wert ein. Der OTP-PIN sollte nicht enthalten sein.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/verify-token/verify-token.component.html</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1420113530219253027" datatype="html">
@@ -998,6 +998,14 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/history/history.component.ts</context>
           <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="language-picker" datatype="html">
+        <source>Change language. Current language: </source>
+        <target state="translated">Ändere Sprache. Aktuelle Sprache: </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/language-picker/language-picker.component.ts</context>
+          <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2859654669971203505" datatype="html">
@@ -1714,9 +1722,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="oathStepperInstallTokenLink" datatype="html">
-        <source>If you use the Authenticator app on the same device you are seeing this, you may be able to follow <x id="START_LINK" ctype="x-a" equiv-text="&lt;a target=&quot;_blank&quot;
-				rel=&quot;noopener noreferrer&quot;
-				[href]=&quot;sanitizer.bypassSecurityTrustUrl(enrolledToken.url)&quot;>"/>this link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>
+        <source>If you use the Authenticator app on the same device you are seeing this, you may be able to follow <x id="START_LINK" ctype="x-a" equiv-text="&lt;a target=&quot;_blank&quot;     rel=&quot;noopener noreferrer&quot;     [href]=&quot;sanitizer.bypassSecurityTrustUrl(enrolledToken.url)&quot;>"/>this link<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>
 				to install the token.</source>
         <target state="translated">Wenn Sie die Authenticator-App auf demselben Gerät verwenden, auf dem
           Sie dies sehen, können Sie möglicherweise<x id="START_LINK" ctype="x-a" equiv-text="&lt;a target=&quot;_blank&quot;     rel=&quot;noopener noreferrer&quot;     [href]=&quot;sanitizer.bypassSecurityTrustUrl(enrolledToken.url)&quot;>"/>diesem
@@ -2132,8 +2138,7 @@
       <trans-unit id="6732786247788913751" datatype="html">
         <source>This is your last active token and MFA is enabled for Selfservice. If you unassign it without enrolling a
       new token or enabling a disabled token, you won't be able to login anymore.</source>
-        <target state="new">This is your last active token and MFA is enabled for Selfservice. If you unassign it without enrolling a
-      new token or enabling a disabled token, you won't be able to login anymore.</target>
+        <target state="translated">Dies ist Ihr letzter aktiver Token und MFA ist für den Selfservice aktiviert. Wenn Sie es löschen, ohne ein neues Token zu registrieren oder ein deaktiviertes Token zu aktivieren, können Sie sich nicht mehr anmelden.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/unassign-token-dialog/unassign-token-dialog.component.html</context>
           <context context-type="linenumber">12,14</context>
@@ -2369,7 +2374,7 @@
       </trans-unit>
       <trans-unit id="tokenCard.menuLabel" datatype="html">
         <source>Open token menu</source>
-        <target state="new">Open token menu</target>
+        <target state="translated">Öffne Token-Menü</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
           <context context-type="linenumber">35</context>
@@ -2552,6 +2557,14 @@
           <context context-type="linenumber">162</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="theme-picker" datatype="html">
+        <source>Change theme. Current theme: </source>
+        <target state="translated">Farbschema ändern. Aktuelles Farbschema: </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/theme-picker/theme-picker.component.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="1648472582356305138" datatype="html">
         <source>Light Theme</source>
         <target state="translated">Helles Design</target>
@@ -2590,7 +2603,7 @@
       </trans-unit>
       <trans-unit id="8976300473715680208" datatype="html">
         <source>Register YubiCloud Token</source>
-        <target state="new">Register YubiCloud Token</target>
+        <target state="translated">Registriere YubiCloud Token</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/title-resolvers.ts</context>
           <context context-type="linenumber">21</context>
@@ -2653,7 +2666,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/verify-token/verify-token.component.html</context>
-          <context context-type="linenumber">34</context>
+          <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="assignVerifyInstructionQRPush" datatype="html">
@@ -3545,6 +3558,14 @@
           <context context-type="linenumber">46</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="spinnerlabel" datatype="html">
+        <source>Loading</source>
+        <target state="translated">Laden</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/button-wait-indicator/button-wait-indicator.component.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="8722855815848907513" datatype="html">
         <source>Delete token?</source>
         <target state="translated">Token löschen?</target>
@@ -3566,8 +3587,7 @@
       <trans-unit id="6566574116609253941" datatype="html">
         <source>This is your last active token and MFA is enabled for Selfservice. If you delete it without enrolling a new
       token or enabling a disabled token, you won't be able to login anymore.</source>
-        <target state="new">This is your last active token and MFA is enabled for Selfservice. If you delete it without enrolling a new
-      token or enabling a disabled token, you won't be able to login anymore.</target>
+        <target state="translated">Dies ist Ihr letztes aktives Token und MFA ist für den Selfservice aktiviert. Wenn Sie es löschen, ohne ein neues Token zu registrieren oder ein deaktiviertes Token zu aktivieren, können Sie sich nicht mehr anmelden.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/delete-token-dialog/delete-token-dialog.component.html</context>
           <context context-type="linenumber">12,14</context>
