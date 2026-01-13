@@ -163,7 +163,7 @@ export abstract class EnrollDialogBase implements OnInit, OnDestroy {
       switchMap(() => {
         const dialogConfig = {
           width: '35em',
-          autoFocus: false,
+          autoFocus: true,
           disableClose: true,
           data: {
             title: $localize`Stop setting up your new token?`,
