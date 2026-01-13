@@ -31,6 +31,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
     serial: $localize`Serial`,
     tokentype: $localize`Token type`,
     action_detail: $localize`Details`,
+    info: 'Info'
   };
 
   public queryForm = new FormGroup({
