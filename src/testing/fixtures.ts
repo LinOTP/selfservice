@@ -375,7 +375,6 @@ export class Fixtures {
         }
       },
       permissions: this.permissionList,
-      imprint: '',
       user: {
         username: 'username',
         userid: 'userid',

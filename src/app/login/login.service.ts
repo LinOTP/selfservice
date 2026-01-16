@@ -214,7 +214,6 @@ export class LoginService {
         localStorage.setItem('permissions', JSON.stringify(userSystemInfo.permissions));
         localStorage.setItem('realm', JSON.stringify(userSystemInfo.user.realm));
         localStorage.setItem('user', JSON.stringify(userSystemInfo.user));
-        localStorage.setItem('imprint', JSON.stringify(userSystemInfo.imprint));
         localStorage.setItem('linotpVersion', JSON.stringify(userSystemInfo.version));
         localStorage.setItem('settings', JSON.stringify(userSystemInfo.settings));
         localStorage.setItem("tokenLimits", JSON.stringify(userSystemInfo.settings.token_limits));

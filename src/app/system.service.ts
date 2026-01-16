@@ -87,7 +87,6 @@ export type TokenLimitResponse = {
  */
 export interface UserSystemInfo extends SystemInfo {
   permissions: Permission[];
-  imprint: string;
   user: UserInfo;
   settings: SystemInfo['settings'] & {
     edit_sms?: number,
