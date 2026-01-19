@@ -914,7 +914,7 @@
         <target state="translated">Das OTP-Feld darf nicht leer sein</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/verify-token/verify-token.component.html</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">18</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/qr-code-input/qr-code-input.component.html</context>
@@ -930,7 +930,7 @@
         <target state="translated">Es sind nur Ziffern erlaubt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/verify-token/verify-token.component.html</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="oathStepperVerifyPinInfo" datatype="html">
@@ -939,7 +939,7 @@
         <target state="translated">Bitte geben Sie nur den OTP-Wert ein. Der OTP-PIN sollte nicht enthalten sein.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/verify-token/verify-token.component.html</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1420113530219253027" datatype="html">
@@ -1121,7 +1121,7 @@
         <target state="translated">PIN festgelegt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-dialog-base.directive.ts</context>
-          <context context-type="linenumber">207</context>
+          <context context-type="linenumber">212</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
@@ -1949,7 +1949,7 @@
         <target state="translated">Der noch nicht aktivierte Token wird gelöscht.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-dialog-base.directive.ts</context>
-          <context context-type="linenumber">155</context>
+          <context context-type="linenumber">160</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1552149428703580410" datatype="html">
@@ -1957,7 +1957,7 @@
         <target state="translated">Der unvollständig eingerichtete Token wird nicht benutzbar sein.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-dialog-base.directive.ts</context>
-          <context context-type="linenumber">156</context>
+          <context context-type="linenumber">161</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8866362071254927692" datatype="html">
@@ -1966,7 +1966,7 @@
           Token benutzen zu können.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-dialog-base.directive.ts</context>
-          <context context-type="linenumber">157</context>
+          <context context-type="linenumber">162</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1500753035555458197" datatype="html">
@@ -1974,7 +1974,7 @@
         <target state="translated">Tokeneinrichtung abbrechen?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-dialog-base.directive.ts</context>
-          <context context-type="linenumber">169</context>
+          <context context-type="linenumber">174</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9178182467454450952" datatype="html">
@@ -1982,7 +1982,7 @@
         <target state="translated">Bestätigen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-dialog-base.directive.ts</context>
-          <context context-type="linenumber">171</context>
+          <context context-type="linenumber">176</context>
         </context-group>
       </trans-unit>
       <trans-unit id="154514244524342578" datatype="html">
@@ -1990,7 +1990,7 @@
         <target state="translated">Der unvollständig eingerichtete Token wurde gelöscht</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-dialog-base.directive.ts</context>
-          <context context-type="linenumber">182</context>
+          <context context-type="linenumber">187</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7819314041543176992" datatype="html">
@@ -1998,7 +1998,7 @@
         <target state="translated">Schließen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-dialog-base.directive.ts</context>
-          <context context-type="linenumber">41</context>
+          <context context-type="linenumber">42</context>
         </context-group>
       </trans-unit>
       <trans-unit id="smsStepperCreateInstruction" datatype="html">
@@ -2409,7 +2409,15 @@
         <target state="translated">Testen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-dialog-base.directive.ts</context>
-          <context context-type="linenumber">71</context>
+          <context context-type="linenumber">73</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9075149440334867036" datatype="html">
+        <source>Added your newly created token to the token list.</source>
+        <target state="translated">Das neu erstellte Token wurde zur Tokenliste hinzugefügt.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/enroll-dialog-base.directive.ts</context>
+          <context context-type="linenumber">100</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3322230564700665416" datatype="html">
@@ -2666,7 +2674,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/verify-token/verify-token.component.html</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="assignVerifyInstructionQRPush" datatype="html">
@@ -3036,7 +3044,7 @@
         <target state="translated">Token erfolgreich registriert.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-dialog-base.directive.ts</context>
-          <context context-type="linenumber">116</context>
+          <context context-type="linenumber">121</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1330646976582013113" datatype="html">

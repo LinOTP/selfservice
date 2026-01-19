@@ -19,6 +19,7 @@ import { DialogComponent } from '@common/dialog/dialog.component';
 import { NotificationService } from '@common/notification.service';
 import { Permission } from '@common/permissions';
 import { SetPinDialogComponent } from '@common/set-pin-dialog/set-pin-dialog.component';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 
 
 export interface EnrolledToken {
@@ -57,6 +58,7 @@ export abstract class EnrollDialogBase implements OnInit, OnDestroy {
     protected operationsService: OperationsService,
     protected dialog: MatDialog,
     protected loginService: LoginService,
+    protected liveAnnouncer: LiveAnnouncer,
     @Inject(MAT_DIALOG_DATA) public data: { tokenType: TokenType; },
   ) {
     this.tokenDisplayData = tokenDisplayData.find(d => d.type === data.tokenType);
@@ -94,6 +96,9 @@ export abstract class EnrollDialogBase implements OnInit, OnDestroy {
   public close() {
     if (this.isTokenCreated()) {
       this.tokenService.updateTokenList();
+      this.dialogRef.close();
+      this.liveAnnouncer.announce($localize`Added your newly created token to the token list.`)
+      return;
     }
     this.dialogRef.close();
   }
