@@ -36,6 +36,11 @@ body {
   }
 }
 
+/* Recent Material updates brought a vertical scrollbar to our enrollment dialogues. */
+.mat-mdc-dialog-content {
+  overflow: unset !important;
+}
+
 .mat-mdc-card-outlined {
   // token card styling
   background-color: var(--mat-sys-surface-container-low) !important;
