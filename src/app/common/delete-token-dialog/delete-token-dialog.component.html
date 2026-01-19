@@ -1,42 +1,43 @@
 <app-token-dialog-header [token]="token">
-  <h3 mat-dialog-title i18n>Delete token?</h3>
+  <h3 mat-dialog-title
+      i18n>Delete token?</h3>
 </app-token-dialog-header>
 <mat-dialog-content>
-    <ng-template #lockedMessageTmp>
-      <p i18n>You don't have any active tokens and MFA is enabled for this service. Are you sure you want to delete it?</p>
-    </ng-template>
+  <ng-template #lockedMessageTmp>
+    <p i18n>You don't have any active tokens and MFA is enabled for this service. Are you sure you want to delete it?
+    </p>
+  </ng-template>
 
-    <ng-template #actionConfirmationTmp>
-      <p i18n>This is your last active token and MFA is enabled for Selfservice. If you delete it without enrolling a new token or enabling a disabled token, you won't be able to login anymore.</p>
-    </ng-template>
+  <ng-template #actionConfirmationTmp>
+    <p i18n>This is your last active token and MFA is enabled for Selfservice. If you delete it without enrolling a new
+      token or enabling a disabled token, you won't be able to login anymore.</p>
+  </ng-template>
 
-    <ng-template #standardTmp>
-      <p i18n>You won't be able to use it to authenticate yourself anymore.</p>
-    </ng-template>
+  <ng-template #standardTmp>
+    <p i18n>You won't be able to use it to authenticate yourself anymore.</p>
+  </ng-template>
 
-    <app-lockable-action-dialog-content [state]="{confirmationRequired, isLocked}"
-      [standardMessageTmp]="standardTmp"
-      [lockedMessageTmp]="lockedMessageTmp"
-      [actionConfirmationTmp]="actionConfirmationTmp">
-      <mat-checkbox [formControl]="confirmCtrl">
-        <span i18n>Yes, I am sure I want to delete this token!</span>
-      </mat-checkbox>
-    </app-lockable-action-dialog-content>
+  <app-lockable-action-dialog-content [state]="{confirmationRequired, isLocked}"
+                                      [standardMessageTmp]="standardTmp"
+                                      [lockedMessageTmp]="lockedMessageTmp"
+                                      [actionConfirmationTmp]="actionConfirmationTmp">
+    <mat-checkbox [formControl]="confirmCtrl">
+      <span i18n>Yes, I am sure I want to delete this token!</span>
+    </mat-checkbox>
+  </app-lockable-action-dialog-content>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button mat-button
-            [mat-dialog-close]="false"
-            i18n>cancel</button>
-    <button mat-raised-button
-            class="submit-button"
-            [disabled]="!confirmCtrl.valid || awaitingResponse"
-            (click)="deleteToken()"
-            color="warn">
-          <div class="button-content">
-            <app-button-wait-indicator [show]="awaitingResponse"></app-button-wait-indicator>
-            <span i18n>delete</span>
-          </div>
-    </button>
+  <button mat-button
+          [mat-dialog-close]="false"
+          i18n>Cancel</button>
+  <button mat-flat-button
+          class="submit-button"
+          [disabled]="!confirmCtrl.valid || awaitingResponse"
+          (click)="deleteToken()"
+          color="warn">
+    <div class="button-content">
+      <app-button-wait-indicator [show]="awaitingResponse"></app-button-wait-indicator>
+      <span i18n>Delete</span>
+    </div>
+  </button>
 </mat-dialog-actions>
-
-

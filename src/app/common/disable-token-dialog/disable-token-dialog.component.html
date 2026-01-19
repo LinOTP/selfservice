@@ -1,50 +1,52 @@
 <app-token-dialog-header [token]="data.token">
-  <h3 mat-dialog-title i18n>Disable token?</h3>
+  <h3 mat-dialog-title
+      i18n>Disable token?</h3>
 </app-token-dialog-header>
 <mat-dialog-content>
-    <app-lockable-action-dialog-content [state]="{
+  <app-lockable-action-dialog-content [state]="{
       confirmationRequired,
       isBlocked:false }"
-    [standardMessageTmp]="standardTmp"
-    [lockedMessageTmp]="null"
-    [actionConfirmationTmp]="actionConfirmationTmp">
-      <mat-checkbox [formControl]="confirmCtrl">
-        <span i18n>Yes, I am sure I want to disable this token!</span>
-      </mat-checkbox>
-    </app-lockable-action-dialog-content>
+                                      [standardMessageTmp]="standardTmp"
+                                      [lockedMessageTmp]="null"
+                                      [actionConfirmationTmp]="actionConfirmationTmp">
+    <mat-checkbox [formControl]="confirmCtrl">
+      <span i18n>Yes, I am sure I want to disable this token!</span>
+    </mat-checkbox>
+  </app-lockable-action-dialog-content>
 
-    <ng-template #actionConfirmationTmp>
-      <p *ngIf="canEnable; else nonEnableMsgTmp"
-      class="standard-confirmation-message"
-      i18n>This is your last active token and MFA is enabled for Selfservice.
-        If you disable it without enrolling a new token or enabling a disabled token, you won't be able to login anymore.
+  <ng-template #actionConfirmationTmp>
+    <p *ngIf="canEnable; else nonEnableMsgTmp"
+       class="standard-confirmation-message"
+       i18n>This is your last active token and MFA is enabled for Selfservice.
+      If you disable it without enrolling a new token or enabling a disabled token, you won't be able to login anymore.
+    </p>
+    <ng-template #nonEnableMsgTmp>
+      <p class="non-enable-confirmation-message"
+         i18n>You won't be able to enable this token it on your own. You won't have any active tokens and MFA is enabled
+        for this service.
+        Without enrolling a new token you won't be able to login anymore. Are you sure you want to disable it ?
       </p>
-      <ng-template #nonEnableMsgTmp>
-        <p class="non-enable-confirmation-message"
-        i18n>You won't be able to enable this token it on your own. You won't have any active tokens and MFA is enabled for this service.
-          Without enrolling a new token you won't be able to login anymore. Are you sure you want to disable it ?
-        </p>
-      </ng-template>
     </ng-template>
+  </ng-template>
 
-    <!-- No confirmation required but user has no enable rights -->
-    <ng-template #standardTmp>
-      <p i18n>You will not be able to use it to authenticate yourself anymore, as you cannot enable it on your own.</p>
-    </ng-template>
+  <!-- No confirmation required but user has no enable rights -->
+  <ng-template #standardTmp>
+    <p i18n>You will not be able to use it to authenticate yourself anymore, as you cannot enable it on your own.</p>
+  </ng-template>
 
-  </mat-dialog-content>
+</mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button mat-button
-            [mat-dialog-close]="false"
-            i18n>cancel</button>
-    <button mat-raised-button
-            class="submit-button"
-            [disabled]="!confirmCtrl.valid || awaitingResponse"
-            (click)="disableToken()"
-            color="warn">
-            <div class="button-content">
-              <app-button-wait-indicator [show]="awaitingResponse"></app-button-wait-indicator>
-              <span i18n>disable</span>
-            </div>
-    </button>
+  <button mat-button
+          [mat-dialog-close]="false"
+          i18n>cancel</button>
+  <button mat-flat-button
+          class="submit-button"
+          [disabled]="!confirmCtrl.valid || awaitingResponse"
+          (click)="disableToken()"
+          color="warn">
+    <div class="button-content">
+      <app-button-wait-indicator [show]="awaitingResponse"></app-button-wait-indicator>
+      <span i18n>disable</span>
+    </div>
+  </button>
 </mat-dialog-actions>

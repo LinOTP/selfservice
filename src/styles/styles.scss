@@ -1,9 +1,12 @@
 /* Global imports */
 @use '@angular/material' as mat;
+@use '@angular/cdk';
 @use 'themes/light' as light-theme;
 @use './fonts.scss'; // importing locally hosted fonts
 @use './theme.scss';
 /* end of global imports */
+
+@include cdk.a11y-visually-hidden();
 
 /* Global styles: */
 
@@ -33,6 +36,11 @@ body {
   }
 }
 
+/* Recent Material updates brought a vertical scrollbar to our enrollment dialogues. */
+.mat-mdc-dialog-content {
+  overflow: unset !important;
+}
+
 .mat-mdc-card-outlined {
   // token card styling
   background-color: var(--mat-sys-surface-container-low) !important;
@@ -41,6 +49,9 @@ body {
 mat-card.disabled {
   // token card styling (disabled)
   opacity: 0.65;
+  mat-icon {
+    color: unset
+  }
   mat-card-subtitle {
     opacity: 1;
   }

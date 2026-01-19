@@ -31,8 +31,7 @@
 
         <app-qr-code-input *ngIf="token?.tokenType === TokenType.QR || token?.tokenType === TokenType.PUSH"
                            [transactionDetail]="transactionDetail"
-                           (otpValueChanged)="offlineOtpValue = $event"
-        ></app-qr-code-input>
+                           (otpValueChanged)="offlineOtpValue = $event"></app-qr-code-input>
 
         <div [ngClass]="{'center-content': hasOnlineMode && hasOfflineMode}">
           <ng-container *ngIf="!hasOnlineMode || showInputField">
@@ -92,7 +91,7 @@
             mat-dialog-close
             *ngIf="state !== TestState.SUCCESS"
             i18n>cancel</button>
-    <button mat-raised-button
+    <button mat-flat-button
             type="button"
             color="primary"
             type="reset"
@@ -100,7 +99,7 @@
             *ngIf="state === TestState.FAILURE"
             appFocusOnInit
             i18n>restart test</button>
-    <button mat-raised-button
+    <button mat-flat-button
             color="primary"
             type="submit"
             [disabled]="preventSubmit()"
@@ -110,7 +109,7 @@
         <span i18n>submit</span>
       </div>
     </button>
-    <button mat-raised-button
+    <button mat-flat-button
             type="button"
             color="primary"
             mat-dialog-close

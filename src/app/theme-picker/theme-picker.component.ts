@@ -8,6 +8,8 @@ import { ThemeService, getThemes } from "@app/theme.service";
     standalone: false
 })
 export class ThemePickerComponent {
+  public label: string = $localize`:@@theme-picker:Change theme. Current theme: `;
+
   themes = getThemes();
   selectedTheme$ = this.themeService.theme$;
 

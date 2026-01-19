@@ -3,6 +3,9 @@
   <app-custom-content-slot slotId="login-top"></app-custom-content-slot>
 </div>
 
+<h1 class="cdk-visually-hidden"
+    i18n>Login</h1>
+
 <form [formGroup]="loginFormGroup"
       (ngSubmit)="login()"
       id="loginFormStage1"
@@ -19,9 +22,10 @@
                formControlName="username"
                name="username"
                autocomplete="username"
+               [attr.aria-invalid]="loginFormGroup.get('username').invalid && loginFormGroup.get('username').touched"
                appFocusOnInit>
         <mat-error i18n
-                   *ngIf="loginFormGroup.get('username').hasError('required')">This field is required.</mat-error>
+                   *ngIf="loginFormGroup.get('username').hasError('required')">Username is required.</mat-error>
       </mat-form-field>
       <mat-form-field *ngIf="systemInfo?.settings.realm_box">
         <mat-label i18n>Realm</mat-label>
@@ -39,20 +43,22 @@
                type="password"
                formControlName="password"
                name="password"
-               autocomplete="current-password">
+               autocomplete="current-password"
+               [attr.aria-invalid]="loginFormGroup.get('password').invalid && loginFormGroup.get('password').touched">
         <mat-error i18n
-                   *ngIf="loginFormGroup.get('password').hasError('required')">This field is required.</mat-error>
+                   *ngIf="loginFormGroup.get('password').hasError('required')">Password is required.</mat-error>
       </mat-form-field>
       <mat-form-field *ngIf="systemInfo?.settings.mfa_login && systemInfo?.settings.mfa_3_fields">
         <mat-label i18n>One-time password (OTP)</mat-label>
         <input matInput
                formControlName="otp"
                name="otp"
-               autocomplete="one-time-code">
+               autocomplete="one-time-code"
+               [attr.aria-invalid]="loginFormGroup.get('otp')?.invalid && loginFormGroup.get('otp')?.touched">
       </mat-form-field>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button
+      <button mat-flat-button
               type="submit"
               color="primary"
               [disabled]="awaitingResponse">
@@ -184,9 +190,10 @@
                  formControlName="otp"
                  name="otp"
                  autocomplete="current-password"
+                 [attr.aria-invalid]="secondFactorFormGroup.get('otp').invalid && secondFactorFormGroup.get('otp').touched"
                  appFocusOnInit>
           <mat-error i18n
-                     *ngIf="secondFactorFormGroup.get('otp').hasError('required')">This field is required.</mat-error>
+                     *ngIf="secondFactorFormGroup.get('otp').hasError('required')">Password is required.</mat-error>
         </mat-form-field>
         <ng-template #standardTokenTypeTmp>
           <mat-form-field>
@@ -196,9 +203,10 @@
                    formControlName="otp"
                    name="otp"
                    autocomplete="one-time-code"
+                   [attr.aria-invalid]="secondFactorFormGroup.get('otp').invalid && secondFactorFormGroup.get('otp').touched"
                    appFocusOnInit>
             <mat-error i18n
-                       *ngIf="secondFactorFormGroup.get('otp').hasError('required')">This field is required.</mat-error>
+                       *ngIf="secondFactorFormGroup.get('otp').hasError('required')">OTP is required.</mat-error>
           </mat-form-field>
         </ng-template>
       </ng-container>
@@ -211,7 +219,7 @@
               color="primary"
               (click)="resetAuthForm()"
               i18n="2nd factor login action|login page second factor cancel button">Cancel</button>
-      <button mat-raised-button
+      <button mat-flat-button
               type="submit"
               color="primary"
               [disabled]="awaitingResponse"

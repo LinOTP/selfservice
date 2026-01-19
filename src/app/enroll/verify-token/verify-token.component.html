@@ -1,28 +1,38 @@
-<form [formGroup]="form" *ngIf="form && token">
+<form [formGroup]="form"
+      *ngIf="form && token">
   <p>{{ verificationMessage }}</p>
-  <p i18n="@@oathStepperVerifyInstruction">Enter your first OTP (one-time password) to verify the correct installation:</p>
+  <p i18n="@@oathStepperVerifyInstruction">Enter your first OTP (one-time password) to verify the correct installation:
+  </p>
 
-    <div class="input-container">
-      <mat-form-field>
-        <mat-label i18n>OTP value</mat-label>
-        <input appFocusOnInit focusDelay="500" matInput
-          [type]="token.type === TokenType.PASSWORD ? 'password' : 'text'"
-          formControlName="otp"
-          name="otp"
-          autocomplete="one-time-code">
-        <mat-error i18n="@@otpRequiredInfo" *ngIf="form.get('otp').hasError('required')">The OTP field cannot be empty</mat-error>
-        <mat-error i18n="@@onlyNumericValuesControlError" *ngIf="form.get('otp').hasError('pattern')">Only numeric values are allowed</mat-error>
+  <div class="input-container">
+    <mat-form-field>
+      <mat-label i18n>OTP value</mat-label>
+      <input appFocusOnInit
+             focusDelay="500"
+             matInput
+             [type]="token.type === TokenType.PASSWORD ? 'password' : 'text'"
+             formControlName="otp"
+             name="otp"
+             autocomplete="one-time-code">
+      <mat-error i18n="@@otpRequiredInfo"
+                 *ngIf="form.get('otp').hasError('required')">The OTP field cannot be empty</mat-error>
+      <mat-error i18n="@@onlyNumericValuesControlError"
+                 *ngIf="form.get('otp').hasError('pattern')">Only numeric values are allowed</mat-error>
 
-        <mat-hint *ngIf="verifyResult !== 'SUCCESS'" i18n="@@oathStepperVerifyPinInfo">Please enter the OTP value only. Do not include the OTP Pin.</mat-hint>
-      </mat-form-field>
+      <mat-hint *ngIf="verifyResult !== 'SUCCESS'"
+                i18n="@@oathStepperVerifyPinInfo">Please enter the OTP value only. Do not include the OTP
+        Pin.</mat-hint>
+    </mat-form-field>
 
-      <button mat-raised-button color="primary" (click)="verifyToken()"
-              [disabled]="form.invalid || awaitingResponse || verifyResult === 'SUCCESS' || !verifyStarted">
-        <div class="button-content">
-          <app-button-wait-indicator [show]="awaitingResponse"></app-button-wait-indicator>
-          <mat-icon *ngIf="!awaitingResponse">check</mat-icon>
-          <span i18n>Verify</span>
-        </div>
-      </button>
-    </div>
+    <button mat-flat-button
+            color="primary"
+            (click)="verifyToken()"
+            [disabled]="form.invalid || awaitingResponse || verifyResult === 'SUCCESS' || !verifyStarted">
+      <div class="button-content">
+        <app-button-wait-indicator [show]="awaitingResponse"></app-button-wait-indicator>
+        <mat-icon *ngIf="!awaitingResponse">check</mat-icon>
+        <span i18n>Verify</span>
+      </div>
+    </button>
+  </div>
 </form>

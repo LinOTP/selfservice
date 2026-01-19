@@ -11,6 +11,7 @@ import { LoginComponent } from '@app/login/login.component';
 import { TokenListComponent } from '@app/token-list/token-list.component';
 import { Permission } from '@common/permissions';
 import { UnauthenticatedGuard } from './auth/unauthenticated-guard.service';
+import { enrollTokenTitleResolver, getStandardTitleResolver } from './title-resolvers';
 
 
 const routes: Routes = [
@@ -21,18 +22,21 @@ const routes: Routes = [
   },
   {
     path: 'tokens',
+    title: getStandardTitleResolver($localize`Your tokens`),
     component: TokenListComponent,
     runGuardsAndResolvers: 'always',
     canActivate: mapToCanActivate([AuthGuard]),
     children: [
       {
         path: `enroll/:type`,
+        title: enrollTokenTitleResolver,
         component: EnrollComponent,
       }
     ]
   },
   {
     path: 'history',
+    title: getStandardTitleResolver($localize`History`),
     component: HistoryComponent,
     runGuardsAndResolvers: 'always',
     canActivate: [runGuardsSerially([...mapToCanActivate([AuthGuard]), ngxPermissionsGuard as CanActivateFn])],
@@ -45,6 +49,7 @@ const routes: Routes = [
   },
   {
     path: 'login',
+    title: getStandardTitleResolver($localize`Login`),
     component: LoginComponent,
     runGuardsAndResolvers: 'always',
     canActivate: [UnauthenticatedGuard],
