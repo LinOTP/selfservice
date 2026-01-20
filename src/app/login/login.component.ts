@@ -288,10 +288,7 @@ export class LoginComponent implements OnInit {
       this.redirect();
     } else {
       this.notificationService.errorMessage($localize`Login failed`);
-      this.loginStage = LoginStage.USER_PW_INPUT;
-      this.factors = [];
-      this.secondFactorFormGroup.reset();
-      this.selectedToken = null;
+      this.resetAuthForm()
     }
   }
 
@@ -301,7 +298,9 @@ export class LoginComponent implements OnInit {
   }
 
   resetAuthForm() {
-    this.loginFormGroup.reset();
+    const prefilledUsername: string | undefined = this.loginFormGroup.get("username")?.value;
+    const prefilledRealm: string | undefined = this.loginFormGroup.get("realm")?.value;
+    this.loginFormGroup.reset({ username: prefilledUsername, realm: prefilledRealm });
     this.secondFactorFormGroup.reset();
     this.loginStage = LoginStage.USER_PW_INPUT;
     this.factors = [];

@@ -604,10 +604,22 @@ describe('LoginComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should empty both forms and return to the first step form', () => {
+    it('should empty password field and return to the first step form', () => {
+      fixture = TestBed.createComponent(LoginComponent);
+      component = fixture.componentInstance;
       spyOn(component, 'stopSubscription');
+      page = new Page(fixture);
+
+      const sysInfo = Fixtures.systemInfo;
+      sysInfo.settings.realm_box = true;
+      systemService.getSystemInfo$.and.returnValue(of(sysInfo));
+
+      fixture.detectChanges();
+
+      expect(page.getLoginForm().querySelector('mat-select[name="realm"]')).toBeTruthy();
       component.selectedToken = Fixtures.activeHotpToken;
-      component.loginFormGroup.value.username = 'user';
+      component.loginFormGroup.get("username").setValue('user');
+      component.loginFormGroup.get("realm").setValue('realm');
       component.loginFormGroup.value.password = 'pass';
       component.secondFactorFormGroup.value.otp = 'otp';
       component.loginStage = LoginStage.OTP_INPUT;
@@ -620,7 +632,8 @@ describe('LoginComponent', () => {
       component.resetAuthForm();
       fixture.detectChanges();
 
-      expect(component.loginFormGroup.value.username).toBeNull();
+      expect(component.loginFormGroup.value.username).toBe("user");
+      expect(component.loginFormGroup.value.realm).toBe("realm");
       expect(component.loginFormGroup.value.password).toBeNull();
       expect(component.secondFactorFormGroup.value.otp).toBeNull();
       expect(component.transactionDetail).toBeNull();
