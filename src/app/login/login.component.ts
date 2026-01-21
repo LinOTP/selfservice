@@ -315,4 +315,8 @@ export class LoginComponent implements OnInit {
       this.pollingSubscription.unsubscribe();
     }
   }
+
+  isUsernameFilled(){
+    return this.loginFormGroup.get("username").value?.length > 0
+  }
 }
