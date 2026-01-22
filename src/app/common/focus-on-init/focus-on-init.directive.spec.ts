@@ -8,16 +8,16 @@ describe('FocusOnInitDirective', () => {
 
   it('should error out if directive host has no focus method', () => {
     let directive = new FocusOnInitDirective({ nativeElement: {} });
-    expect(() => directive.ngOnInit()).toThrow();
+    expect(() => directive.ngAfterViewInit()).toThrow();
 
     directive = new FocusOnInitDirective({ nativeElement: { focus: () => { } } });
-    expect(() => directive.ngOnInit()).not.toThrow();
+    expect(() => directive.ngAfterViewInit()).not.toThrow();
   });
 
   it('should call focus on the host element on init', () => {
     jasmine.clock().install();
     const directive = new FocusOnInitDirective({ nativeElement: { focus: jasmine.createSpy('focus') } });
-    directive.ngOnInit();
+    directive.ngAfterViewInit();
     jasmine.clock().tick(0);
     expect((directive as any).el.nativeElement.focus).toHaveBeenCalled();
     jasmine.clock().uninstall();

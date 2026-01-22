@@ -44,7 +44,9 @@
                formControlName="password"
                name="password"
                autocomplete="current-password"
-               [attr.aria-invalid]="loginFormGroup.get('password').invalid && loginFormGroup.get('password').touched">
+               [attr.aria-invalid]="loginFormGroup.get('password').invalid && loginFormGroup.get('password').touched"
+               [appFocusOnInit]="isUsernameFilled()"
+               >
         <mat-error i18n
                    *ngIf="loginFormGroup.get('password').hasError('required')">Password is required.</mat-error>
       </mat-form-field>
