@@ -1,4 +1,6 @@
 # This file allows to add custom content in form of markdown to certain parts of the application.
+
+# Custom content in Markdown format.
 slots:
   # Content will be displayed at the top of the login page.
   - slotId: "login-top"
@@ -12,35 +14,20 @@ slots:
   - slotId: "history-top"
     content:
 
+# Define additional authenticator apps to recommend for individual token types
+linotp_authenticator: &linotp_authenticator
+  android:
+    name: LinOTP Authenticator
+    url: https://play.google.com/store/apps/details?id=de.linotp.authenticator
+  ios:
+    name: LinOTP Authenticator
+    url: https://apps.apple.com/de/app/linotp-authenticator/id6450118468
 enrollment_app_recommendations:
-  - type: totp
-    android:
-      name: LinOTP Authenticator
-      url: https://play.google.com/store/apps/details?id=de.linotp.authenticator
-    ios:
-      name: LinOTP Authenticator
-      url: https://apps.apple.com/de/app/linotp-authenticator/id6450118468
-
-  - type: hmac
-    android:
-      name: LinOTP Authenticator
-      url: https://play.google.com/store/apps/details?id=de.linotp.authenticator
-    ios:
-      name: LinOTP Authenticator
-      url: https://apps.apple.com/de/app/linotp-authenticator/id6450118468
-
-  - type: qr
-    android:
-      name: LinOTP Authenticator
-      url: https://play.google.com/store/apps/details?id=de.linotp.authenticator
-    ios:
-      name: LinOTP Authenticator
-      url: https://apps.apple.com/de/app/linotp-authenticator/id6450118468
-
   - type: push
-    android:
-      name: LinOTP Authenticator
-      url: https://play.google.com/store/apps/details?id=de.linotp.authenticator
-    ios:
-      name: LinOTP Authenticator
-      url: https://apps.apple.com/de/app/linotp-authenticator/id6450118468
+    <<: *linotp_authenticator
+  - type: qr
+    <<: *linotp_authenticator
+  - type: hotp
+    <<: *linotp_authenticator
+  - type: totp
+    <<: *linotp_authenticator
