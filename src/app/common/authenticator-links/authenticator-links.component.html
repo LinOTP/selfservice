@@ -1,58 +1,82 @@
 <!-- {{platform}} -->
 <ng-container *ngIf="platform === 'other';else mobileTmp">
-    <ng-container *ngTemplateOutlet="detailsTmp"></ng-container>
+  <ng-container *ngTemplateOutlet="detailsTmp"></ng-container>
 </ng-container>
 
 <ng-template #mobileTmp>
-    <div class="mobile-container">
-        <div>
-            <a [href]="platformUrl" target="_blank" rel="noopener noreferrer">
-                <img src="assets/app-store.svg" alt="AppStore" class="app-store-badge" *ngIf="platform === 'ios'">
-                <img src="assets/google-play.png" alt="Google Play" class="google-play-badge" *ngIf="platform === 'android'">
-            </a>
-        </div>
-        <button  mat-stroked-button
-        *ngIf="!showDetails"
-        color="primary" type="button" mat-button (click)="showDetails = !showDetails"><mat-icon>visibility</mat-icon><span i18n>Show links for all platforms</span></button>
-        <button  mat-stroked-button
-        *ngIf="showDetails"
-        color="primary" type="button" mat-button (click)="showDetails = !showDetails"><mat-icon>visibility_off</mat-icon><span i18n>Hide links for all platforms</span></button>
+  <div class="mobile-container">
+    <div>
+      <a [href]="platformUrl"
+         target="_blank"
+         rel="noopener noreferrer">
+        <img src="assets/app-store.svg"
+             alt="AppStore"
+             class="app-store-badge"
+             *ngIf="platform === 'ios'">
+        <img src="assets/google-play.png"
+             alt="Google Play"
+             class="google-play-badge"
+             *ngIf="platform === 'android'">
+      </a>
     </div>
-    <div *ngIf="showDetails">
-        <ng-container *ngTemplateOutlet="detailsTmp"></ng-container>
-    </div>
+    <button mat-stroked-button
+            *ngIf="!showDetails"
+            color="primary"
+            type="button"
+            mat-button
+            (click)="showDetails = !showDetails"><mat-icon>visibility</mat-icon><span i18n>Show links for all
+        platforms</span></button>
+    <button mat-stroked-button
+            *ngIf="showDetails"
+            color="primary"
+            type="button"
+            mat-button
+            (click)="showDetails = !showDetails"><mat-icon>visibility_off</mat-icon><span i18n>Hide links for all
+        platforms</span></button>
+  </div>
+  <div *ngIf="showDetails">
+    <ng-container *ngTemplateOutlet="detailsTmp"></ng-container>
+  </div>
 </ng-template>
 
 <ng-template #detailsTmp>
   <div class="all-platforms-container">
     <div *ngIf="appRec?.ios">
       <span class="store-name">iOS</span>
-        <mat-card appearance="outlined">
-          <mat-card-content>
-            <span class="store-name">{{appRec.ios?.name}}</span>
-            <ng-container *ngIf="appRec.ios?.url">
-              <a [href]="appRec.ios.url" target="_blank" rel="noopener noreferrer"><img src="assets/app-store.svg" alt="FreeOTP" class="app-store-badge"></a>
-              <qrcode [qrdata]="appRec.ios.url"
-              [width]="180"
-              [margin]="2"
-              [errorCorrectionLevel]="'L'"></qrcode>
-            </ng-container>
-          </mat-card-content>
-        </mat-card>
-      </div>
+      <mat-card appearance="outlined">
+        <mat-card-content>
+          <span class="store-name">{{appRec.ios?.name}}</span>
+          <ng-container *ngIf="appRec.ios?.url">
+            <a [href]="appRec.ios.url"
+               target="_blank"
+               rel="noopener noreferrer"><img src="assets/app-store.svg"
+                   alt="FreeOTP"
+                   class="app-store-badge"></a>
+            <qrcode [qrdata]="appRec.ios.url"
+                    [width]="180"
+                    [margin]="2"
+                    [errorCorrectionLevel]="'L'"></qrcode>
+          </ng-container>
+        </mat-card-content>
+      </mat-card>
+    </div>
     <div *ngIf="appRec?.android">
       <span class="store-name">Android</span>
       <mat-card appearance="outlined">
         <mat-card-content>
-            <span class="store-name">{{appRec.android?.name}}</span>
-            <ng-container *ngIf="appRec.android?.url">
-              <a [href]="appRec.android.url" target="_blank" rel="noopener noreferrer"><img src="assets/google-play.png" alt="Google Authenticator" class="google-play-badge"></a>
-              <qrcode [qrdata]="appRec.android.url"
-              [width]="180"
-              [margin]="2"
-              [errorCorrectionLevel]="'L'"></qrcode>
-            </ng-container>
-          </mat-card-content>
+          <span class="store-name">{{appRec.android?.name}}</span>
+          <ng-container *ngIf="appRec.android?.url">
+            <a [href]="appRec.android.url"
+               target="_blank"
+               rel="noopener noreferrer"><img src="assets/google-play.png"
+                   alt="Google Authenticator"
+                   class="google-play-badge"></a>
+            <qrcode [qrdata]="appRec.android.url"
+                    [width]="180"
+                    [margin]="2"
+                    [errorCorrectionLevel]="'L'"></qrcode>
+          </ng-container>
+        </mat-card-content>
       </mat-card>
     </div>
   </div>

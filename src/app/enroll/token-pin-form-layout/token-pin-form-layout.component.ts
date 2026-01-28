@@ -3,13 +3,13 @@ import { Component, Input } from "@angular/core";
 import { FormControl, FormGroup, ReactiveFormsModule, UntypedFormGroup, ValidationErrors } from "@angular/forms";
 import { ErrorStateRootMatcher } from "@app/common/form-helpers/error-state-root-matcher";
 import { MaterialModule } from "@app/material.module";
-import { take } from "rxjs/operators";
 import { UserSystemInfo } from "@app/system.service";
 import { NgSelfServiceCommonModule } from "@common/common.module";
+import { take } from "rxjs/operators";
 
 @Component({
-    selector: 'app-token-pin-form-layout',
-    template: `
+  selector: 'app-token-pin-form-layout',
+  template: `
 	<div [formGroup]="form">
     <p i18n="@@oathStepperOtpPinInfo">The OTP PIN ensures that you can only use the token yourself. During the authentication process, you may need to enter this PIN together with an OTP of the token.</p>
     <app-set-pin-validator [form]="form" [pinControlName]="'pin'"></app-set-pin-validator>
@@ -35,7 +35,7 @@ import { NgSelfServiceCommonModule } from "@common/common.module";
 		</div>
 	</div>
     `,
-    styles: [`
+  styles: [`
 		mat-form-field {
 			width: 100%;
 		}
@@ -50,13 +50,13 @@ import { NgSelfServiceCommonModule } from "@common/common.module";
 		}
 }
 				`],
-    imports: [CommonModule, ReactiveFormsModule, MaterialModule, NgSelfServiceCommonModule]
+  imports: [CommonModule, ReactiveFormsModule, MaterialModule, NgSelfServiceCommonModule]
 })
 export class TokenPinFormLayoutComponent {
-	@Input()
-	public get form(): FormGroup {
-		return this._form;
-	}
+  @Input()
+  public get form(): FormGroup {
+    return this._form;
+  }
 
   public set form(value: FormGroup) {
     this._form = value;

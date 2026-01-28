@@ -1,20 +1,32 @@
-<h2 mat-dialog-title i18n>Add {{ this.tokenDisplayData.name }}</h2>
+<h2 mat-dialog-title
+    i18n>Add {{ this.tokenDisplayData.name }}</h2>
 <mat-horizontal-stepper [linear]="true">
-  <mat-step [completed]="false" [editable]="false">
-    <ng-template matStepLabel i18n>Create token</ng-template>
+  <mat-step [completed]="false"
+            [editable]="false">
+    <ng-template matStepLabel
+                 i18n>Create token</ng-template>
     <mat-dialog-content>
-      <p i18n="@@smsStepperCreateInstruction">Pair a new token with your mobile phone number to receive OTPs for authentication.</p>
-      <p *ngIf="!canEditPhone && userPhone" i18n>The token will use your user mobile number: <b>{{ userPhone }}</b></p>
-      <p *ngIf="!canEditPhone && !userPhone" class="warning" i18n>
-          You have no mobile number assigned to your user account and the token will therefore not work after creation.
+      <p i18n="@@smsStepperCreateInstruction">Pair a new token with your mobile phone number to receive OTPs for
+        authentication.</p>
+      <p *ngIf="!canEditPhone && userPhone"
+         i18n>The token will use your user mobile number: <b>{{ userPhone }}</b></p>
+      <p *ngIf="!canEditPhone && !userPhone"
+         class="warning"
+         i18n>
+        You have no mobile number assigned to your user account and the token will therefore not work after creation.
         You may need to contact your administrator for help.
-        </p>
-      <form [formGroup]="createTokenForm" (keydown.enter)="enrollSMSToken()">
+      </p>
+      <form [formGroup]="createTokenForm"
+            (keydown.enter)="enrollSMSToken()">
         <mat-form-field *ngIf="canEditPhone">
           <mat-label i18n>Mobile phone number</mat-label>
-          <input matInput formControlName="phoneNumber" appFocusOnInit>
-          <mat-hint *ngIf="canEditPhone" i18n>Set the mobile phone number to use for your token</mat-hint>
-          <mat-error i18n *ngIf="createTokenForm.get('phoneNumber').hasError('required')">
+          <input matInput
+                 formControlName="phoneNumber"
+                 appFocusOnInit>
+          <mat-hint *ngIf="canEditPhone"
+                    i18n>Set the mobile phone number to use for your token</mat-hint>
+          <mat-error i18n
+                     *ngIf="createTokenForm.get('phoneNumber').hasError('required')">
             This field is required.
           </mat-error>
         </mat-form-field>
@@ -23,34 +35,33 @@
     </mat-dialog-content>
   </mat-step>
   <ng-template #createTokenStepActions>
-    <app-step-actions
-      [awaitingResponse]="awaitingResponse"
-      [disableSubmit]="createTokenForm.invalid || awaitingResponse"
-      (cancelled)="close()"
-      (submitted)="enrollSMSToken()"
-    >
+    <app-step-actions [awaitingResponse]="awaitingResponse"
+                      [disableSubmit]="createTokenForm.invalid || awaitingResponse"
+                      (cancelled)="close()"
+                      (submitted)="enrollSMSToken()">
     </app-step-actions>
   </ng-template>
 
 
   <mat-step *ngIf="verifyPolicyEnabled">
-    <ng-template matStepLabel i18n>Verify</ng-template>
+    <ng-template matStepLabel
+                 i18n>Verify</ng-template>
     <mat-dialog-content>
-      <app-verify-token [token]="enrolledToken" (tokenVerified)="isTokenVerified = true; stepper.next()"></app-verify-token>
+      <app-verify-token [token]="enrolledToken"
+                        (tokenVerified)="isTokenVerified = true; stepper.next()"></app-verify-token>
     </mat-dialog-content>
   </mat-step>
   <ng-template #verifyTokenStepActions>
-    <app-step-actions
-      [awaitingResponse]="undefined"
-      [disableSubmit]="!isTokenVerified"
-      (cancelled)="cancel()"
-      (submitted)="stepper.next()"
-    >
+    <app-step-actions [awaitingResponse]="undefined"
+                      [disableSubmit]="!isTokenVerified"
+                      (cancelled)="cancel()"
+                      (submitted)="stepper.next()">
     </app-step-actions>
   </ng-template>
 
   <mat-step>
-    <ng-template matStepLabel i18n>Done</ng-template>
+    <ng-template matStepLabel
+                 i18n>Done</ng-template>
     <ng-template matStepContent>
       <mat-dialog-content>
         <app-done-step [token]="enrolledToken"></app-done-step>
@@ -59,7 +70,9 @@
   </mat-step>
 
   <ng-template #doneStepActions>
-    <app-step-actions [disableSubmit]="false" [isDoneStep]="true" (submitted)="close()"></app-step-actions>
+    <app-step-actions [disableSubmit]="false"
+                      [isDoneStep]="true"
+                      (submitted)="close()"></app-step-actions>
   </ng-template>
 </mat-horizontal-stepper>
 
@@ -68,7 +81,5 @@
         (verifyPolicyEnabled ?
         [createTokenStepActions, verifyTokenStepActions, doneStepActions] :
         [createTokenStepActions, doneStepActions])
-        [stepper.selectedIndex]"
-  ></ng-container>
+        [stepper.selectedIndex]"></ng-container>
 </mat-dialog-actions>
-

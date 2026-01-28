@@ -1,69 +1,75 @@
-<h2 mat-dialog-title i18n>Add {{ this.tokenDisplayData.name }}</h2>
+<h2 mat-dialog-title
+    i18n>Add {{ this.tokenDisplayData.name }}</h2>
 <mat-horizontal-stepper [linear]="true">
-  <mat-step [completed]=false [editable]="false">
-    <ng-template matStepLabel i18n>Create token</ng-template>
+  <mat-step [completed]=false
+            [editable]="false">
+    <ng-template matStepLabel
+                 i18n>Create token</ng-template>
     <ng-template matStepContent>
       <mat-dialog-content>
         <p i18n="@@motpStepperCreateInstruction">
           Pair a new token with your mobile device which generates OTP values
           based on a secret password and a custom pin.
         </p>
-        <form [formGroup]="createTokenForm" (keydown.enter)="enrollMOTPToken()">
-        <mat-form-field>
-          <mat-label i18n>mOTP password</mat-label>
-          <input matInput
-                 formControlName="password"
-                 type="password"
-                 appFocusOnInit>
-          <mat-hint i18n>Enter your token's secret</mat-hint>
-          <mat-error *ngIf="createTokenForm.get('password').hasError('required')"
-                     i18n>The field cannot be empty.
-          </mat-error>
-          <mat-error *ngIf="createTokenForm.get('password').hasError('pattern')"
-                     i18n>Please enter exactly 16 characters. Allowed are digits (0-9) and the letters A to F (lowercase
-            or uppercase).
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label i18n>mOTP PIN</mat-label>
-          <input matInput
-                 type="password"
-                 formControlName="mOTPPin">
-          <mat-hint i18n>Enter your token's mOTP pin</mat-hint>
-          <mat-error i18n>The field cannot be empty.</mat-error>
-        </mat-form-field>
+        <form [formGroup]="createTokenForm"
+              (keydown.enter)="enrollMOTPToken()">
+          <mat-form-field>
+            <mat-label i18n>mOTP password</mat-label>
+            <input matInput
+                   formControlName="password"
+                   type="password"
+                   appFocusOnInit>
+            <mat-hint i18n>Enter your token's secret</mat-hint>
+            <mat-error *ngIf="createTokenForm.get('password').hasError('required')"
+                       i18n>The field cannot be empty.
+            </mat-error>
+            <mat-error *ngIf="createTokenForm.get('password').hasError('pattern')"
+                       i18n>Please enter exactly 16 characters. Allowed are digits (0-9) and the letters A to F
+              (lowercase
+              or uppercase).
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label i18n>mOTP PIN</mat-label>
+            <input matInput
+                   type="password"
+                   formControlName="mOTPPin">
+            <mat-hint i18n>Enter your token's mOTP pin</mat-hint>
+            <mat-error i18n>The field cannot be empty.</mat-error>
+          </mat-form-field>
           <app-create-token-step [form]="createTokenForm"></app-create-token-step>
         </form>
       </mat-dialog-content>
     </ng-template>
     <ng-template #createTokenStepActions>
-      <app-step-actions
-        [awaitingResponse]="awaitingResponse"
-        [disableSubmit]="createTokenForm.invalid || awaitingResponse"
-        (cancelled)="close()"
-        (submitted)="enrollMOTPToken()">
+      <app-step-actions [awaitingResponse]="awaitingResponse"
+                        [disableSubmit]="createTokenForm.invalid || awaitingResponse"
+                        (cancelled)="close()"
+                        (submitted)="enrollMOTPToken()">
       </app-step-actions>
     </ng-template>
   </mat-step>
 
   <mat-step *ngIf="verifyPolicyEnabled">
-    <ng-template matStepLabel i18n>Verify</ng-template>
+    <ng-template matStepLabel
+                 i18n>Verify</ng-template>
     <mat-dialog-content>
-      <app-verify-token [token]="enrolledToken" [mustContainDigitsOnly]="false" (tokenVerified)="isTokenVerified = true; stepper.next()"></app-verify-token>
+      <app-verify-token [token]="enrolledToken"
+                        [mustContainDigitsOnly]="false"
+                        (tokenVerified)="isTokenVerified = true; stepper.next()"></app-verify-token>
     </mat-dialog-content>
   </mat-step>
   <ng-template #verifyTokenStepActions>
-    <app-step-actions
-      [awaitingResponse]="undefined"
-      [disableSubmit]="!isTokenVerified"
-      (cancelled)="cancel()"
-      (submitted)="stepper.next()"
-    >
+    <app-step-actions [awaitingResponse]="undefined"
+                      [disableSubmit]="!isTokenVerified"
+                      (cancelled)="cancel()"
+                      (submitted)="stepper.next()">
     </app-step-actions>
   </ng-template>
 
   <mat-step>
-    <ng-template matStepLabel i18n>Done</ng-template>
+    <ng-template matStepLabel
+                 i18n>Done</ng-template>
     <ng-template matStepContent>
       <mat-dialog-content>
         <app-done-step [token]="enrolledToken"></app-done-step>
@@ -71,7 +77,9 @@
     </ng-template>
 
     <ng-template #doneStepActions>
-      <app-step-actions [disableSubmit]="false" [isDoneStep]="true" (submitted)="close()"></app-step-actions>
+      <app-step-actions [disableSubmit]="false"
+                        [isDoneStep]="true"
+                        (submitted)="close()"></app-step-actions>
     </ng-template>
   </mat-step>
 </mat-horizontal-stepper>
@@ -81,8 +89,7 @@
         (verifyPolicyEnabled ?
         [createTokenStepActions, verifyTokenStepActions, doneStepActions] :
         [createTokenStepActions, doneStepActions])
-        [stepper.selectedIndex]"
-  ></ng-container>
+        [stepper.selectedIndex]"></ng-container>
 </mat-dialog-actions>
 
 <!-- TODO Implement this step as soon as the LinOTP Authenticator is capable of generating the QR Code and LINSELF-90 was implemented
