@@ -9,38 +9,43 @@
   <mat-card class="search-card"
             appearance="outlined">
     <mat-card-content>
-      <form class="filter">
-        <mat-form-field class="query-column">
-          <mat-label i18n>Search in</mat-label>
-          <mat-icon matPrefix>filter_alt</mat-icon>
-          <mat-select [formControl]="queryForm.get('column')"
-                      name="queryType">
-            <mat-option *ngFor="let column of searchColumns"
-                        [value]="column">
-              {{columnNameMapping[column]}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <mat-form-field class="search-term">
-          <mat-label i18n>Search term</mat-label>
-          <mat-icon matPrefix>search</mat-icon>
-          <input matInput
-                 [formControl]="queryForm.get('searchTerm')"
-                 name="query"
-                 appFocusOnInit>
-          <button mat-icon-button
-                  matSuffix
-                  type="button"
-                  aria-label="Clear search"
-                  i18n-aria-label
-                  matTooltip="Clear search"
-                  i18n-matTooltip
-                  (click)="queryForm.get('searchTerm').setValue('')"
-                  *ngIf="searchIsDirty && queryForm.value.searchTerm">
-            <mat-icon>cancel</mat-icon>
-          </button>
-        </mat-form-field>
+      <form class="pt-2">
+        <div class="row">
+          <div class="col-12 col-md-4">
+            <mat-form-field class="w-100">
+              <mat-label i18n>Search in</mat-label>
+              <mat-icon matPrefix>filter_alt</mat-icon>
+              <mat-select [formControl]="queryForm.get('column')"
+                          name="queryType">
+                <mat-option *ngFor="let column of searchColumns"
+                            [value]="column">
+                  {{columnNameMapping[column]}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-12 col-md-8">
+            <mat-form-field class="w-100">
+              <mat-label i18n>Search term</mat-label>
+              <mat-icon matPrefix>search</mat-icon>
+              <input matInput
+                     [formControl]="queryForm.get('searchTerm')"
+                     name="query"
+                     appFocusOnInit>
+              <button mat-icon-button
+                      matSuffix
+                      type="button"
+                      aria-label="Clear search"
+                      i18n-aria-label
+                      matTooltip="Clear search"
+                      i18n-matTooltip
+                      (click)="queryForm.get('searchTerm').setValue('')"
+                      *ngIf="searchIsDirty && queryForm.value.searchTerm">
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+        </div>
       </form>
     </mat-card-content>
   </mat-card>
