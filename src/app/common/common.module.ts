@@ -46,7 +46,8 @@ import { UnassignTokenDialogComponent } from './unassign-token-dialog/unassign-t
     ReactiveFormsModule,
     QRCodeComponent,
     A11yModule,
-    NgxPermissionsModule.forChild()
+    NgxPermissionsModule.forChild(),
+    FocusOnInitDirective,
   ],
   declarations: [
     CustomQRCodeComponent,
@@ -62,7 +63,6 @@ import { UnassignTokenDialogComponent } from './unassign-token-dialog/unassign-t
     ArrayNotEmptyPipe,
     SortTokensByStatePipe,
     CapitalizePipe,
-    FocusOnInitDirective,
     ButtonWaitIndicatorComponent,
     DeleteTokenDialogComponent,
     UnassignTokenDialogComponent,

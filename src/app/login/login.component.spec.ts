@@ -18,6 +18,7 @@ import { SystemService } from '@app/system.service';
 import { DialogComponent } from '@common/dialog/dialog.component';
 import { Duration, NotificationService } from '@common/notification.service';
 
+import { FocusOnInitDirective } from '@app/common/focus-on-init/focus-on-init.directive';
 import { HasCustomContentMockDirective } from '@app/custom-content/has-custom-content.directive.mock';
 import { LoginComponent, LoginStage } from './login.component';
 import { LoginService } from './login.service';
@@ -81,6 +82,7 @@ describe('LoginComponent', () => {
         MockComponent({ selector: 'app-button-wait-indicator', inputs: ['show'] }),
         MockComponent({ selector: 'app-custom-content-slot', inputs: ['slotId'] }),
         MockPipe({ 'name': 'capitalize' }),
+        FocusOnInitDirective
       ],
       declarations: [
         LoginComponent,

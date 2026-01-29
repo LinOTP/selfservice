@@ -2,8 +2,8 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { AfterViewInit, Directive, ElementRef, Input } from '@angular/core';
 
 @Directive({
-    selector: '[appFocusOnInit]',
-    standalone: false
+  selector: '[appFocusOnInit]',
+  standalone: true
 })
 export class FocusOnInitDirective implements AfterViewInit {
   @Input() focusDelay: number = 0;

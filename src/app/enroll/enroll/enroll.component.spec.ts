@@ -22,6 +22,7 @@ import { EnrollYubicoDialogComponent } from '@app/enroll/enroll-yubico/enroll-yu
 import { TokenListComponent } from '@app/token-list/token-list.component';
 
 import { TokenType } from '@app/api/token';
+import { BootstrapBreakpointService } from '@app/bootstrap-breakpoints.service';
 import { EnrollComponent } from './enroll.component';
 
 [
@@ -103,6 +104,13 @@ import { EnrollComponent } from './enroll.component';
             provide: ActivatedRoute,
             useValue: { params: of({ type: tokenUnderTest.type }) }
           },
+          {
+            provide: BootstrapBreakpointService,
+            useValue: {
+              breakpoint$: of(5),
+              currentBreakpoint: 5
+            }
+          }
         ]
       })
         .compileComponents();
@@ -128,7 +136,7 @@ import { EnrollComponent } from './enroll.component';
 
       const expectedEnrollDialogConfig = {
         width: '850px',
-        minWidth: '850px',
+        minWidth: '770px',
         autoFocus: false,
         disableClose: true,
         data: {
@@ -181,6 +189,13 @@ describe(`EnrollComponent on navigate to /tokens/enroll/someUnknownType`, () => 
           provide: ActivatedRoute,
           useValue: { params: of({ type: 'someUnknownType' }) }
         },
+        {
+          provide: BootstrapBreakpointService,
+          useValue: {
+            breakpoint$: of(5),
+            currentBreakpoint: 5
+          }
+        }
       ]
     })
       .compileComponents();
@@ -246,6 +261,13 @@ describe(`EnrollComponent on navigate to /tokens/enroll/yubikey`, () => {
           provide: ActivatedRoute,
           useValue: { params: of({ type: TokenType.YUBIKEY }) }
         },
+        {
+          provide: BootstrapBreakpointService,
+          useValue: {
+            breakpoint$: of(5),
+            currentBreakpoint: 5
+          }
+        }
       ]
     })
       .compileComponents();
@@ -356,6 +378,13 @@ describe(`EnrollComponent on navigate to /tokens/enroll/yubikey`, () => {
             provide: ActivatedRoute,
             useValue: { params: of({ type: tokenUnderTest.type }) }
           },
+          {
+            provide: BootstrapBreakpointService,
+            useValue: {
+              breakpoint$: of(5),
+              currentBreakpoint: 5
+            }
+          }
         ]
       })
         .compileComponents();
