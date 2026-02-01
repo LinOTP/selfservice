@@ -137,25 +137,28 @@
 
 <mat-divider></mat-divider>
 
-<footer>
-  <span class="footerText">{{footerText || copyright}}</span>
-  <ng-container *ngIf="imprintUrl">
-    ·
-    <a [href]="imprintUrl"
-       target="_blank"
-       rel="noopener noreferrer"
-       mat-button
-       i18n>Site notice</a>
-  </ng-container>
-  <ng-container *ngIf="privacyNoticeUrl">
-    ·
-    <a [href]="privacyNoticeUrl"
-       target="_blank"
-       rel="noopener noreferrer"
-       mat-button
-       i18n>Privacy policy</a>
-  </ng-container>
-  <span class="spacer"></span>
-  <app-theme-picker></app-theme-picker>
-  <app-language-picker></app-language-picker>
+<footer class="justify-content-between flex-wrap">
+  <div>
+    <span class="footerText">{{footerText || copyright}}</span>
+    <ng-container *ngIf="imprintUrl">
+      ·
+      <a [href]="imprintUrl"
+         target="_blank"
+         rel="noopener noreferrer"
+         mat-button
+         i18n>Site notice</a>
+    </ng-container>
+    <ng-container *ngIf="privacyNoticeUrl">
+      ·
+      <a [href]="privacyNoticeUrl"
+         target="_blank"
+         rel="noopener noreferrer"
+         mat-button
+         i18n>Privacy policy</a>
+    </ng-container>
+  </div>
+  <div>
+    <app-theme-picker></app-theme-picker>
+    <app-language-picker></app-language-picker>
+  </div>
 </footer>
