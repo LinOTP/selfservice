@@ -202,6 +202,7 @@ export class TokenCardComponent implements OnInit, OnDestroy {
     } else {
       dialogConfig.width = '850px';
       dialogConfig.minWidth = '770px';
+      dialogConfig.maxHeight = "100vh";
     }
 
     this.dialog.open(ActivateDialogComponent, dialogConfig)

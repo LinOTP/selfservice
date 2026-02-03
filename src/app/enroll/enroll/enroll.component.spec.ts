@@ -137,6 +137,7 @@ import { EnrollComponent } from './enroll.component';
       const expectedEnrollDialogConfig = {
         width: '850px',
         minWidth: '770px',
+        maxHeight: "100vh",
         autoFocus: false,
         disableClose: true,
         data: {

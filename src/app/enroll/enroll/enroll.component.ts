@@ -82,6 +82,7 @@ export class EnrollComponent implements OnInit {
     } else {
       enrollmentConfig.width = '850px';
       enrollmentConfig.minWidth = '770px';
+      enrollmentConfig.maxHeight = "100vh";
     }
 
     let enrollmentDialog;
