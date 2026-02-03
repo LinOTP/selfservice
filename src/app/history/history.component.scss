@@ -8,27 +8,6 @@
   }
 }
 
-.filter {
-  display: flex;
-  padding-top: 5px;
-
-  &>* {
-    margin: 5px;
-  }
-
-  .mat-mdc-form-field.search-term {
-    flex: 1;
-  }
-
-  mat-icon {
-    align-self: center;
-  }
-
-  button {
-    align-self: baseline;
-  }
-}
-
 .mat-mdc-cell:not(:last-of-type),
 mat-header-cell:not(:last-of-type) {
   padding-right: 8px !important;

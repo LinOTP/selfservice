@@ -1,5 +1,4 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<mat-toolbar class="mat-primary toolbar">
+<ng-template #headerTitle>
   <div id="title">
     <img id="logo"
          [src]="themeService.theme.linotpLogo"
@@ -7,80 +6,159 @@
          i18n-alt>
     <div id="app-name">{{ title }}</div>
   </div>
-  <nav *ngIf="userData;else notLoggedNav">
-    <ng-container *ngFor="let link of navLinks">
-      <a mat-button
-         *ngxPermissionsOnly="link.permission"
-         routerLinkActive="active-link"
-         #rla="routerLinkActive"
-         [attr.aria-current]="rla.isActive ? 'page' : null"
-         [routerLink]="link.path">{{ link.label }}</a>
-    </ng-container>
-    <ng-container *appHasCustomContent="'custom-page'">
-      <app-custom-page-link></app-custom-page-link>
-    </ng-container>
-  </nav>
+</ng-template>
 
-  <ng-template #notLoggedNav>
+<ng-template #notLoggedHeader>
+  <mat-toolbar class="mat-primary">
+    <ng-container *ngTemplateOutlet="headerTitle"></ng-container>
+    <ng-container *ngIf="(3 | fromBreakpoint | async)">
+      <nav *appHasCustomContent="'custom-page'"
+           class="ms-4">
+        <a mat-button
+           routerLinkActive="active-link"
+           #rla="routerLinkActive"
+           [attr.aria-current]="rla.isActive ? 'page' : null"
+           routerLink="/login"
+           i18n>Login</a>
+        <app-custom-page-link></app-custom-page-link>
+      </nav>
+    </ng-container>
+  </mat-toolbar>
 
-    <nav *appHasCustomContent="'custom-page'">
-      <a mat-button
-         routerLinkActive="active-link"
-         #rla="routerLinkActive"
-         [attr.aria-current]="rla.isActive ? 'page' : null"
-         routerLink="/login"
-         i18n>Login</a>
-      <app-custom-page-link></app-custom-page-link>
+  <ng-container *ngIf="(3 | fromBreakpoint | async) === false">
+    <mat-toolbar color="primary"
+                 class="mb-0"
+                 *appHasCustomContent="'custom-page'">
+      <nav class="ms-0 p-0">
+        <a mat-button
+           routerLinkActive="active-link"
+           #rla="routerLinkActive"
+           [attr.aria-current]="rla.isActive ? 'page' : null"
+           routerLink="/login"
+           i18n>Login</a>
+        <app-custom-page-link></app-custom-page-link>
+      </nav>
+    </mat-toolbar>
+  </ng-container>
+</ng-template>
+
+<ng-container *ngIf="userData;else notLoggedHeader">
+  <ng-template #navLinksTmp>
+    <nav>
+      <ng-container *ngFor="let link of navLinks">
+        <a mat-button
+           *ngxPermissionsOnly="link.permission"
+           routerLinkActive="active-link"
+           #rla="routerLinkActive"
+           [attr.aria-current]="rla.isActive ? 'page' : null"
+           [routerLink]="link.path">{{ link.label }}</a>
+      </ng-container>
+      <ng-container *appHasCustomContent="'custom-page'">
+        <app-custom-page-link></app-custom-page-link>
+      </ng-container>
     </nav>
-
   </ng-template>
 
-  <div class="user-info"
-       *ngIf="userData">
-    <span class="cdk-visually-hidden"
-          i18n>Currently logged in user:</span>
-    <mat-icon [matTooltip]="userData.username">person</mat-icon>
-    <div>
-      <div class="name">
-        {{ userData.givenname || userData.surname
-        ? ((userData.givenname || '') + ' ' + (userData.surname || ''))
-        : userData.username
-        }}
+  <mat-toolbar class="mat-primary d-flex justify-content-between align-items-center">
+    <div class="h-100 d-flex align-items-center">
+      <ng-container *ngTemplateOutlet="headerTitle"></ng-container>
+      <div *ngIf="(3 | fromBreakpoint | async)"
+           class="ms-4">
+        <ng-container *ngTemplateOutlet="navLinksTmp"></ng-container>
       </div>
-      <div class="realm">{{userData.realm}}</div>
     </div>
-    <button mat-button
-            (click)="logout()"
-            i18n
-            class="logout">Logout</button>
-  </div>
-</mat-toolbar>
 
-<main>
+
+    <div class="user-info"
+         *ngIf="(3 | fromBreakpoint | async); else moibleUserInfo">
+      <span class="cdk-visually-hidden"
+            i18n>Currently logged in user:</span>
+      <mat-icon [matTooltip]="userData.username">person</mat-icon>
+      <div>
+        <div class="name">
+          {{ userData.givenname || userData.surname
+          ? ((userData.givenname || '') + ' ' + (userData.surname || ''))
+          : userData.username
+          }}
+        </div>
+        <div class="realm">{{userData.realm}}</div>
+      </div>
+      <button mat-button
+              (click)="logout()"
+              i18n
+              class="logout">Logout</button>
+    </div>
+  </mat-toolbar>
+
+  <mat-toolbar color="primary"
+               *ngIf="(3 | fromBreakpoint | async) === false">
+    <div class="ms-0 p-0">
+      <ng-container *ngTemplateOutlet="navLinksTmp"></ng-container>
+    </div>
+  </mat-toolbar>
+
+  <ng-template #moibleUserInfo>
+    <div class="user-info">
+      <button mat-icon-button
+              [matMenuTriggerFor]="userMenuMobile"
+              class="m-0 p-0"
+              i18n-aria-label
+              aria-label="Currently logged in user menu">
+        <mat-icon>person</mat-icon>
+      </button>
+      <mat-menu #userMenuMobile="matMenu">
+        <div class="user-menu-header"
+             mat-menu-item
+             disabled>
+          <div class="name">
+            {{ userData.givenname || userData.surname
+            ? ((userData.givenname || '') + ' ' + (userData.surname || ''))
+            : userData.username
+            }}
+          </div>
+          <div class="realm">{{userData.realm}}</div>
+        </div>
+        <mat-divider></mat-divider>
+        <button mat-menu-item
+                (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          <span i18n>Logout</span>
+        </button>
+      </mat-menu>
+    </div>
+  </ng-template>
+
+
+</ng-container>
+
+<main class="mt-3">
   <router-outlet></router-outlet>
 </main>
 
 <mat-divider></mat-divider>
 
-<footer>
-  <span class="footerText">{{footerText || copyright}}</span>
-  <ng-container *ngIf="imprintUrl">
-    ·
-    <a [href]="imprintUrl"
-       target="_blank"
-       rel="noopener noreferrer"
-       mat-button
-       i18n>Site notice</a>
-  </ng-container>
-  <ng-container *ngIf="privacyNoticeUrl">
-    ·
-    <a [href]="privacyNoticeUrl"
-       target="_blank"
-       rel="noopener noreferrer"
-       mat-button
-       i18n>Privacy policy</a>
-  </ng-container>
-  <span class="spacer"></span>
-  <app-theme-picker></app-theme-picker>
-  <app-language-picker></app-language-picker>
+<footer class="justify-content-between flex-wrap">
+  <div>
+    <span class="footerText">{{footerText || copyright}}</span>
+    <ng-container *ngIf="imprintUrl">
+      ·
+      <a [href]="imprintUrl"
+         target="_blank"
+         rel="noopener noreferrer"
+         mat-button
+         i18n>Site notice</a>
+    </ng-container>
+    <ng-container *ngIf="privacyNoticeUrl">
+      ·
+      <a [href]="privacyNoticeUrl"
+         target="_blank"
+         rel="noopener noreferrer"
+         mat-button
+         i18n>Privacy policy</a>
+    </ng-container>
+  </div>
+  <div>
+    <app-theme-picker></app-theme-picker>
+    <app-language-picker></app-language-picker>
+  </div>
 </footer>

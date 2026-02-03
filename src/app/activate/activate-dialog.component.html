@@ -1,6 +1,8 @@
 <h2 mat-dialog-title
     i18n>Activate {{ data.token.typeDetails.name }}</h2>
 <mat-horizontal-stepper [linear]="true"
+                        responsiveOrientation
+                        class="flex-grow-1"
                         (selectionChange)="stepperChanged = true">
   <mat-step [completed]="true">
     <ng-template matStepLabel

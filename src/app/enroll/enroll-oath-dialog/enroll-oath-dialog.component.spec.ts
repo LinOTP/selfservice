@@ -20,8 +20,8 @@ import { MaterialModule } from '@app/material.module';
 import { NotificationService } from '@common/notification.service';
 
 import { TokenType } from '@app/api/token';
-import { EnrollOATHDialogComponent } from './enroll-oath-dialog.component';
 import { NgSelfServiceCommonModule } from "@common/common.module";
+import { EnrollOATHDialogComponent } from './enroll-oath-dialog.component';
 
 
 [TokenType.HOTP, TokenType.TOTP].forEach(inputType =>
@@ -45,7 +45,7 @@ import { NgSelfServiceCommonModule } from "@common/common.module";
           NgxPermissionsAllowStubDirective,
           NgSelfServiceCommonModule,
           MockComponent({ selector: 'qrcode', inputs: ['qrdata', 'width', 'errorCorrectionLevel'] }),
-          MockComponent({ selector: 'app-authenticator-links', inputs: ['platform'] }),
+          MockComponent({ selector: 'app-authenticator-links', inputs: ['platform', 'tokenType'] }),
           MockComponent({ selector: 'app-import-token-step', inputs: ['enrolledToken', 'verifyFlowEnabled'] }),
           MockComponent({ selector: 'app-create-token-step', inputs: ['form'] }),
           MockComponent({ selector: 'app-done-step', inputs: ['token'] }),

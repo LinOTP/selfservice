@@ -4,8 +4,8 @@ import { EnrolledToken } from "@app/enroll/enroll-dialog-base.directive";
 
 
 @Component({
-    selector: 'app-token-info',
-    template: `
+  selector: 'app-token-info',
+  template: `
     <mat-card  appearance="outlined" *ngIf="token">
 			<mat-card-content>
 				<div class="top-row">
@@ -23,7 +23,7 @@ import { EnrolledToken } from "@app/enroll/enroll-dialog-base.directive";
 			</mat-card-content>
   	</mat-card>
     `,
-    styles: [`
+  styles: [`
     mat-card {
 			font-size:14px;
 			letter-spacing: 0.25px;
@@ -36,7 +36,6 @@ import { EnrolledToken } from "@app/enroll/enroll-dialog-base.directive";
 		}
 		.top-row {
 			display: flex;
-			align-items: center;
 		}
 
 		.token-icon {
@@ -51,21 +50,21 @@ import { EnrolledToken } from "@app/enroll/enroll-dialog-base.directive";
 			margin-top: 5px;
 		}
   `],
-    standalone: false
+  standalone: false
 })
 export class TokenInfoComponent {
-	tokenDisplayData: TokenDisplayData;
+  tokenDisplayData: TokenDisplayData;
 
-	@Input()
-	public get token(): EnrolledToken {
-		return this._token;
-	}
-	public set token(value: EnrolledToken) {
-		this._token = value;
-		if (value) {
-			this.tokenDisplayData = getTokenDisplayData(value.type as TokenType);
-		}
-	}
-	private _token: EnrolledToken;
+  @Input()
+  public get token(): EnrolledToken {
+    return this._token;
+  }
+  public set token(value: EnrolledToken) {
+    this._token = value;
+    if (value) {
+      this.tokenDisplayData = getTokenDisplayData(value.type as TokenType);
+    }
+  }
+  private _token: EnrolledToken;
 }
 

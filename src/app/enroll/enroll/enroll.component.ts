@@ -10,6 +10,7 @@ import { TokenDisplayData, TokenType, tokenDisplayData } from '@api/token';
 import { LoginService } from '@app/login/login.service';
 import { NotificationService } from '@common/notification.service';
 
+import { BootstrapBreakpointService } from '@app/bootstrap-breakpoints.service';
 import { AssignTokenDialogComponent } from '@app/enroll/assign-token-dialog/assign-token-dialog.component';
 import { EnrollEmailDialogComponent } from '@app/enroll/enroll-email-dialog/enroll-email-dialog.component';
 import { EnrollMOTPDialogComponent } from '@app/enroll/enroll-motp-dialog/enroll-motp-dialog.component';
@@ -20,9 +21,9 @@ import { EnrollSMSDialogComponent } from '@app/enroll/enroll-sms-dialog/enroll-s
 import { EnrollYubicoDialogComponent } from '@app/enroll/enroll-yubico/enroll-yubico-dialog.component';
 
 @Component({
-    selector: 'app-enroll',
-    template: '',
-    standalone: false
+  selector: 'app-enroll',
+  template: '',
+  standalone: false
 })
 export class EnrollComponent implements OnInit {
 
@@ -34,6 +35,7 @@ export class EnrollComponent implements OnInit {
     private dialog: MatDialog,
     private notificationService: NotificationService,
     private loginService: LoginService,
+    private breakpointService: BootstrapBreakpointService,
   ) { }
 
   ngOnInit() {
@@ -65,13 +67,22 @@ export class EnrollComponent implements OnInit {
   }
 
   openDialog() {
-    const enrollmentConfig: MatDialogConfig = {
-      width: '850px',
-      minWidth: '850px',
+    let enrollmentConfig: MatDialogConfig = {
       autoFocus: false,
       disableClose: true,
       data: { tokenType: this.displayData.type },
     };
+
+    const currentBreakpoint = this.breakpointService.currentBreakpoint;
+    if (currentBreakpoint < 2) {
+      enrollmentConfig.width = "100%";
+      enrollmentConfig.maxWidth = "100vh";
+      enrollmentConfig.height = "100%";
+      enrollmentConfig.maxHeight = "100vh";
+    } else {
+      enrollmentConfig.width = '850px';
+      enrollmentConfig.minWidth = '770px';
+    }
 
     let enrollmentDialog;
 

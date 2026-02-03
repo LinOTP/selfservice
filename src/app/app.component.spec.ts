@@ -15,7 +15,9 @@ import { NotificationService } from '@common/notification.service';
 import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
 
 import { AppComponent } from './app.component';
+import { BootstrapBreakpointService } from './bootstrap-breakpoints.service';
 import { HasCustomContentMockDirective } from './custom-content/has-custom-content.directive.mock';
+import { FromBreakpointPipe } from './from-breakpoint.pipe';
 
 class Page extends TestingPage<AppComponent> {
   public getToolbar() {
@@ -54,6 +56,7 @@ describe('AppComponent', () => {
         HasCustomContentMockDirective,
         MockComponent({ selector: 'app-language-picker' }),
         MockComponent({ selector: 'app-theme-picker' }),
+        FromBreakpointPipe
       ],
       declarations: [
         AppComponent,
@@ -70,6 +73,13 @@ describe('AppComponent', () => {
         {
           provide: SystemService,
           useValue: spyOnClass(SystemService),
+        },
+        {
+          provide: BootstrapBreakpointService,
+          useValue: {
+            breakpoint$: of(5),
+            currentBreakpoint: 5
+          }
         }
       ]
     }).compileComponents();

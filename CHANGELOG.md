@@ -11,6 +11,7 @@
   * Default token description for assign and enroll.
   * Verify step of an assigned password token did not hide the password.
   * Login form now retains username and realm after MFA cancellation.
+  * UI responsiveness for small‑screen devices.
 
 <a name="1.4"></a>
 ## 1.4 (2025-06-16)

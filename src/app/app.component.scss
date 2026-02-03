@@ -16,10 +16,11 @@
   }
 }
 
+
+
 mat-toolbar {
   position: relative;
   padding: 8px 12px;
-  margin-bottom: 1em;
   min-width: 100%;
   width: initial;
   @include mat.elevation(1);
@@ -37,10 +38,6 @@ mat-toolbar {
     #app-name {
       margin-left: 16px;
     }
-  }
-
-  &>* {
-    margin: 0 12px;
   }
 
   nav {
@@ -74,6 +71,23 @@ mat-toolbar {
       opacity: 0.9;
     }
   }
+
+}
+
+.user-menu-header {
+  pointer-events: none;
+  opacity: 1 !important;
+
+  .name {
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  .realm {
+    font-size: 14px;
+    opacity: 0.85;
+    margin-top: 4px;
+  }
 }
 
 main {
@@ -105,5 +119,4 @@ app-theme-picker {
 
 nav {
   border-left: 2px var(--mat-toolbar-container-text-color) solid;
-  padding: 0 0 0 1em;
 }

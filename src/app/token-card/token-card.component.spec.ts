@@ -23,11 +23,12 @@ import { SetDescriptionDialogComponent } from '@common/set-description-dialog/se
 import { SetMOTPPinDialogComponent } from '@common/set-motp-pin-dialog/set-motp-pin-dialog.component';
 import { SetPinDialogComponent } from '@common/set-pin-dialog/set-pin-dialog.component';
 
+import { QueryList } from "@angular/core";
+import { MatMenuItem } from "@angular/material/menu";
+import { BootstrapBreakpointService } from '@app/bootstrap-breakpoints.service';
 import { LockableTokenActionsService } from '@app/common/lockable-token-dialogs.service';
 import { TokenVerifyCheckService } from '@app/token-list/token-verify-check.service';
 import { TokenCardComponent } from './token-card.component';
-import { QueryList } from "@angular/core";
-import { MatMenuItem } from "@angular/material/menu";
 
 class Page extends TestingPage<TokenCardComponent> {
 
@@ -86,6 +87,13 @@ describe('TokenCardComponent', () => {
             init: () => { },
             isVerificationRequiredForToken: () => false
           }
+        },
+        {
+          provide: BootstrapBreakpointService,
+          useValue: {
+            breakpoint$: of(5),
+            currentBreakpoint: 5
+          }
         }
 
       ]
@@ -119,6 +127,7 @@ describe('TokenCardComponent', () => {
     page = new Page(fixture);
     expectedDialogConfig = {
       width: '850px',
+      minWidth: '770px',
       autoFocus: false,
       disableClose: true,
       data: { serial: component.token.serial, type: component.token.typeDetails.type },

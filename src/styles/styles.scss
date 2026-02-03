@@ -4,6 +4,8 @@
 @use 'themes/light' as light-theme;
 @use './fonts.scss'; // importing locally hosted fonts
 @use './theme.scss';
+@use './bootstrap/bootstrap-grid.min.css';
+@use './bootstrap/bootstrap-utilities.min.css';
 /* end of global imports */
 
 @include cdk.a11y-visually-hidden();
@@ -49,9 +51,11 @@ body {
 mat-card.disabled {
   // token card styling (disabled)
   opacity: 0.65;
+
   mat-icon {
     color: unset
   }
+
   mat-card-subtitle {
     opacity: 1;
   }
@@ -75,6 +79,10 @@ mat-card.disabled {
 
 .mat-mdc-dialog-container mat-horizontal-stepper .mat-mdc-dialog-content {
   padding-top: 0;
+}
+
+.mat-vertical-stepper-content {
+  overflow: auto !important;
 }
 
 qrcode canvas {
