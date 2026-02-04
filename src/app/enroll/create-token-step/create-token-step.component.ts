@@ -18,7 +18,7 @@ import { ErrorStateRootMatcher } from "@common/form-helpers/error-state-root-mat
         <mat-hint i18n="@@oathStepperTokenDescriptionInfo">Set a customized description to easily differentiate
           between multiple tokens
         </mat-hint>
-        <mat-error i18n *ngIf="form.get('description').hasError('required')">This field is required.</mat-error>
+        <mat-error i18n *ngIf="form.get('description').hasError('required')">Description is required.</mat-error>
       </mat-form-field>
       <app-token-pin-form-layout class="token-pin-form-layout" *ngxPermissionsOnly="'SETPIN'" [form]="form.get('pinForm')"></app-token-pin-form-layout>
     </div>

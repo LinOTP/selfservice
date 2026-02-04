@@ -27,7 +27,7 @@
           <mat-hint i18n>Set the email address to use for your token</mat-hint>
           <mat-error i18n
                      *ngIf="createTokenForm.get('emailAddress').hasError('required')">
-            This field is required.
+            Email address is required.
           </mat-error>
         </mat-form-field>
         <app-create-token-step [form]="createTokenForm"></app-create-token-step>

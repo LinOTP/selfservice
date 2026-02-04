@@ -29,7 +29,7 @@
                     i18n>Set the mobile phone number to use for your token</mat-hint>
           <mat-error i18n
                      *ngIf="createTokenForm.get('phoneNumber').hasError('required')">
-            This field is required.
+            Mobile phone number is required.
           </mat-error>
         </mat-form-field>
         <app-create-token-step [form]="createTokenForm"></app-create-token-step>
