@@ -128,6 +128,7 @@ describe('TokenCardComponent', () => {
     expectedDialogConfig = {
       width: '850px',
       minWidth: '770px',
+      maxHeight: "100vh",
       autoFocus: false,
       disableClose: true,
       data: { serial: component.token.serial, type: component.token.typeDetails.type },
