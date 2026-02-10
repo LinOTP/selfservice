@@ -12,7 +12,8 @@
       <input matInput
              type="text"
              formControlName="otp1"
-             autofocus>
+             autofocus
+             [attr.aria-invalid]="form.get('otp1')?.invalid && form.get('otp1')?.touched">
       <mat-error i18n
                  *ngIf="form.get('otp1').hasError('required')">OTP 1 is required.</mat-error>
     </mat-form-field>
@@ -20,7 +21,8 @@
       <mat-label i18n>OTP 2</mat-label>
       <input matInput
              type="text"
-             formControlName="otp2">
+             formControlName="otp2"
+             [attr.aria-invalid]="form.get('otp2')?.invalid && form.get('otp2')?.touched">
       <mat-error i18n
                  *ngIf="form.get('otp2').hasError('required')">OTP 2 is required.</mat-error>
     </mat-form-field>

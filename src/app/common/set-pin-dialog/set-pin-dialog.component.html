@@ -14,14 +14,16 @@
       <input matInput
              type="password"
              formControlName="newPin"
-             autofocus>
+             autofocus
+             [attr.aria-invalid]="form.get('newPin')?.invalid && form.get('newPin')?.touched">
     </mat-form-field>
     <mat-form-field>
       <mat-label>{{ confirmPinPlaceholder }}</mat-label>
       <input matInput
              type="password"
              formControlName="confirmPin"
-             [errorStateMatcher]="matcher">
+             [errorStateMatcher]="matcher"
+             [attr.aria-invalid]="form.get('confirmPin')?.invalid && form.get('confirmPin')?.touched">
       <mat-error *ngIf="form.hasError('pinsDoNotMatch')"
                  i18n>Entered PINs do not match</mat-error>
     </mat-form-field>
