@@ -2,6 +2,7 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { NgxPermissionsAllowStubDirective, NgxPermissionsService } from 'ngx-permissions';
 import { of } from 'rxjs';
 
@@ -81,8 +82,7 @@ describe('EnrollYubicoDialogComponent', () => {
         {
           provide: MAT_DIALOG_DATA,
           useValue: { closeLabel: null },
-        },
-      ],
+        },        { provide: LiveAnnouncer, useValue: spyOnClass(LiveAnnouncer) },      ],
     })
       .compileComponents();
   });

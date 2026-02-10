@@ -2,6 +2,7 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { NgxPermissionsAllowStubDirective, NgxPermissionsService } from 'ngx-permissions';
 
 import { of } from 'rxjs';
@@ -17,14 +18,14 @@ import { MaterialModule } from '@app/material.module';
 import { GetSerialDialogComponent } from '@common/get-serial-dialog/get-serial-dialog.component';
 import { NotificationService } from '@common/notification.service';
 
-import { AssignTokenDialogComponent } from './assign-token-dialog.component';
 import { TestService } from "@api/test.service";
 import { SelfserviceToken, TokenType } from "@api/token";
 import { CreateTokenStepComponent } from "@app/enroll/create-token-step/create-token-step.component";
 import { DoneStepComponent } from "@app/enroll/done-step/done-step.component";
+import { TokenPinFormLayoutComponent } from "@app/enroll/token-pin-form-layout/token-pin-form-layout.component";
 import { VerifyTokenComponent } from "@app/enroll/verify-token/verify-token.component";
 import { NgSelfServiceCommonModule } from "@common/common.module";
-import { TokenPinFormLayoutComponent } from "@app/enroll/token-pin-form-layout/token-pin-form-layout.component";
+import { AssignTokenDialogComponent } from './assign-token-dialog.component';
 
 describe('AssignTokenDialogComponent', () => {
   let component: AssignTokenDialogComponent;
@@ -91,8 +92,7 @@ describe('AssignTokenDialogComponent', () => {
         {
           provide: MAT_DIALOG_DATA,
           useValue: { tokenType: 'assign' },
-        },
-      ],
+        }, { provide: LiveAnnouncer, useValue: spyOnClass(LiveAnnouncer) },],
     })
       .compileComponents();
   });

@@ -11,6 +11,7 @@ import { spyOnClass } from '@testing/spyOnClass';
 import { OperationsService } from '@api/operations.service';
 import { MaterialModule } from '@app/material.module';
 
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MockComponent } from '@testing/mock-component';
 import { ResyncDialogComponent } from './resync-dialog.component';
 
@@ -54,6 +55,7 @@ describe('ResyncDialogComponent', () => {
           provide: OperationsService,
           useValue: spyOnClass(OperationsService),
         },
+        { provide: LiveAnnouncer, useValue: spyOnClass(LiveAnnouncer) },
       ]
     }).compileComponents();
   });

@@ -1,24 +1,27 @@
+import { LiveAnnouncer } from "@angular/cdk/a11y";
 import { fakeAsync, tick } from "@angular/core/testing";
+import { FormBuilder } from "@angular/forms";
 import { delay, of } from "rxjs";
 import { VerifyTokenComponent } from "./verify-token.component";
-import { FormBuilder } from "@angular/forms";
 
 describe("VerifyTokenComponent", () => {
   let fb: FormBuilder;
   let testService: TestServiceMock;
   let notificationsService: NotificationServiceMock;
+  let liveAnnouncer: LiveAnnouncer
 
   beforeEach(() => {
     fb = new FormBuilder();
     testService = new TestServiceMock();
     notificationsService = new NotificationServiceMock();
+    liveAnnouncer = new LiveAnnouncerMock() as any;
   });
 
   describe("Component tests", () => {
     it("should start verify process", () => {
       testService.response = { transactionId: "test-transaction-id" };
 
-      const component = new VerifyTokenComponent(testService as any, notificationsService as any, fb);
+      const component = new VerifyTokenComponent(testService as any, notificationsService as any, fb, liveAnnouncer);
       expect(component.verifyStarted).toEqual(false);
 
       component.token = { serial: "test-serial" } as any;
@@ -28,7 +31,7 @@ describe("VerifyTokenComponent", () => {
 
     it("should show error message when start of 'token test' fails", () => {
       testService.response = null;
-      const component = new VerifyTokenComponent(testService as any, notificationsService as any, fb);
+      const component = new VerifyTokenComponent(testService as any, notificationsService as any, fb, liveAnnouncer);
       expect(component.verifyStarted).toEqual(false);
 
       component.token = { serial: "test-serial" } as any;
@@ -39,7 +42,7 @@ describe("VerifyTokenComponent", () => {
     it("should verify token if form valid", () => {
       testService.response = { transactionId: "test-transaction-id" };
 
-      const component = new VerifyTokenComponent(testService as any, notificationsService as any, fb);
+      const component = new VerifyTokenComponent(testService as any, notificationsService as any, fb, liveAnnouncer);
       component.token = { serial: "test-serial" } as any;
       testService.calledParams = null;
 
@@ -58,7 +61,7 @@ describe("VerifyTokenComponent", () => {
       const notificationsService = new NotificationServiceMock();
       testService.response = { transactionId: "test-transaction-id" };
 
-      const component = new VerifyTokenComponent(testService as any, notificationsService as any, fb);
+      const component = new VerifyTokenComponent(testService as any, notificationsService as any, fb, liveAnnouncer);
       component.token = { serial: "test-serial" } as any;
       testService.calledParams = null;
 
@@ -75,7 +78,7 @@ describe("VerifyTokenComponent", () => {
     it("should correctly handle successful token verification", fakeAsync(() => {
       testService.response = { transactionId: "test-transaction-id" };
 
-      const component = new VerifyTokenComponent(testService as any, notificationsService as any, fb);
+      const component = new VerifyTokenComponent(testService as any, notificationsService as any, fb, liveAnnouncer);
       component.token = { serial: "test-serial" } as any;
       component.form.get("otp").setValue("1234");
       testService.async = true;
@@ -102,7 +105,7 @@ describe("VerifyTokenComponent", () => {
       const notificationsService = new NotificationServiceMock();
       testService.response = { transactionId: "test-transaction-id" };
 
-      const component = new VerifyTokenComponent(testService as any, notificationsService as any, fb);
+      const component = new VerifyTokenComponent(testService as any, notificationsService as any, fb, liveAnnouncer);
       component.token = { serial: "test-serial" } as any;
       component.form.get("otp").setValue("1234");
       testService.async = true;
@@ -146,3 +149,8 @@ class TestServiceMock {
   }
 }
 
+class LiveAnnouncerMock {
+  announce(message: string, politeness?: "assertive" | "polite") {
+    // no-op
+  }
+}

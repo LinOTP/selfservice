@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { NgxPermissionsService } from 'ngx-permissions';
 import { of } from 'rxjs';
 
@@ -20,8 +21,8 @@ import { MaterialModule } from '@app/material.module';
 import { NotificationService } from '@common/notification.service';
 
 import { TokenType } from '@app/api/token';
-import { EnrollPasswordDialogComponent } from './enroll-password-dialog.component';
 import { AppModule } from "@app/app.module";
+import { EnrollPasswordDialogComponent } from './enroll-password-dialog.component';
 
 
 describe('The EnrollPasswordDialogComponent', () => {
@@ -84,8 +85,7 @@ describe('The EnrollPasswordDialogComponent', () => {
         {
           provide: MAT_DIALOG_DATA,
           useValue: { tokenType: TokenType.PASSWORD },
-        },
-      ],
+        }, { provide: LiveAnnouncer, useValue: spyOnClass(LiveAnnouncer) },],
     })
       .compileComponents();
   });
