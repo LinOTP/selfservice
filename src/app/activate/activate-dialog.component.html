@@ -62,6 +62,7 @@
 
     <ng-template #activateTokenStepActions>
       <app-step-actions [isDoneStep]="false"
+                        [focusCancelButton]="true"
                         (cancelled)="close()">
       </app-step-actions>
     </ng-template>
