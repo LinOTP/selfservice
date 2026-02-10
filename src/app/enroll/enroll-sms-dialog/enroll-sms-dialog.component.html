@@ -4,10 +4,14 @@
                         responsiveOrientation
                         class="flex-grow-1">
   <mat-step [completed]="false"
-            [editable]="false">
+            [editable]="false"
+            label="Create token"
+            i18n-label>
     <ng-template matStepLabel
                  i18n>Create token</ng-template>
     <mat-dialog-content>
+      <h3 class="cdk-visually-hidden"
+          i18n>Create token</h3>
       <p i18n="@@smsStepperCreateInstruction">Pair a new token with your mobile phone number to receive OTPs for
         authentication.</p>
       <p *ngIf="!canEditPhone && userPhone"
@@ -20,11 +24,13 @@
       </p>
       <form [formGroup]="createTokenForm"
             (keydown.enter)="enrollSMSToken()">
-        <mat-form-field *ngIf="canEditPhone">
+        <mat-form-field *ngIf="canEditPhone"
+                        appSubscriptAriaLive>
           <mat-label i18n>Mobile phone number</mat-label>
           <input matInput
                  formControlName="phoneNumber"
-                 appFocusOnInit>
+                 appFocusOnInit
+                 [attr.aria-invalid]="createTokenForm.get('phoneNumber')?.invalid && createTokenForm.get('phoneNumber')?.touched">
           <mat-hint *ngIf="canEditPhone"
                     i18n>Set the mobile phone number to use for your token</mat-hint>
           <mat-error i18n
@@ -45,27 +51,34 @@
   </ng-template>
 
 
-  <mat-step *ngIf="verifyPolicyEnabled">
+  <mat-step *ngIf="verifyPolicyEnabled"
+            label="Verify"
+            i18n-label>
     <ng-template matStepLabel
                  i18n>Verify</ng-template>
     <mat-dialog-content>
+      <h3 class="cdk-visually-hidden"
+          i18n>Verify</h3>
       <app-verify-token [token]="enrolledToken"
-                        (tokenVerified)="isTokenVerified = true; stepper.next()"></app-verify-token>
+                        (tokenVerified)="isTokenVerified = true; goToNextStep(stepper)"></app-verify-token>
     </mat-dialog-content>
   </mat-step>
   <ng-template #verifyTokenStepActions>
     <app-step-actions [awaitingResponse]="undefined"
                       [disableSubmit]="!isTokenVerified"
                       (cancelled)="cancel()"
-                      (submitted)="stepper.next()">
+                      (submitted)="goToNextStep(stepper)">
     </app-step-actions>
   </ng-template>
 
-  <mat-step>
+  <mat-step label="Done"
+            i18n-label>
     <ng-template matStepLabel
                  i18n>Done</ng-template>
     <ng-template matStepContent>
       <mat-dialog-content>
+        <h3 class="cdk-visually-hidden"
+            i18n>Done</h3>
         <app-done-step [token]="enrolledToken"></app-done-step>
       </mat-dialog-content>
     </ng-template>

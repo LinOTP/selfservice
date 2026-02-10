@@ -3,11 +3,13 @@
 <mat-horizontal-stepper [linear]="true"
                         responsiveOrientation
                         class="flex-grow-1"
-                        (selectionChange)="stepperChanged = true">
+                        (selectionChange)="onStepChange($event)">
   <mat-step [completed]="true">
     <ng-template matStepLabel
                  i18n>Start the activation</ng-template>
     <mat-dialog-content>
+      <h3 class="cdk-visually-hidden"
+          i18n>Start the activation</h3>
       <div i18n="@@activationStepperIntroduction">
         <p>
           To use your {{isPush ? 'Push' : 'QR'}} token, it must first be activated with the authenticator app
@@ -29,6 +31,8 @@
     <ng-template matStepLabel
                  i18n>Activation challenge</ng-template>
     <mat-dialog-content>
+      <h3 class="cdk-visually-hidden"
+          i18n>Activation challenge</h3>
       <app-token-dialog-header [token]="data.token"></app-token-dialog-header>
       <section class="response">
         <ng-container *ngIf="!restartDialog;">
@@ -68,6 +72,8 @@
                  i18n>Done</ng-template>
     <ng-template matStepContent>
       <mat-dialog-content>
+        <h3 class="cdk-visually-hidden"
+            i18n>Done</h3>
         <app-done-step [isQRPushActivationProcess]="true"
                        [token]="{serial: data.token.serial, description: data.token.description, type: data.token.tokenType}">
         </app-done-step>

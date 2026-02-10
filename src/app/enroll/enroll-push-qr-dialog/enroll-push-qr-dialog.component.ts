@@ -123,7 +123,7 @@ export class EnrollPushQRDialogComponent
     this.subscriptions.push(
       enrollment$.subscribe(() => {
         this.stepper.steps.get(this.stepper.selectedIndex).completed = true;
-        this.stepper.next();
+        this.goToNextStep(this.stepper, false);
 
         // If user has activation permission, move to activation step and start activation
         if (this.hasActivationPermission) {
@@ -179,13 +179,14 @@ export class EnrollPushQRDialogComponent
         if (success) {
           this.activationState = ActivationFlowState.COMPLETED;
           this.stepper.steps.get(this.stepper.selectedIndex).completed = true;
-          this.stepper.next();
+          this.goToNextStep(this.stepper, false);
           this.notificationService.message(
             $localize`Token activated successfully.`
           );
           this.tokenService.updateTokenList();
         } else {
           this.activationState = ActivationFlowState.FAILED;
+          this.liveAnnouncer.announce($localize`Activation failed. Please try again, or contact an administrator.`, 'assertive');
         }
       });
   }

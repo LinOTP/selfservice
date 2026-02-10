@@ -4,10 +4,14 @@
                         responsiveOrientation
                         class="flex-grow-1">
   <mat-step [completed]="true"
-            [editable]="false">
+            [editable]="false"
+            label="Install app"
+            i18n-label>
     <mat-dialog-content>
       <ng-template matStepLabel
                    i18n>Install app</ng-template>
+      <h3 class="cdk-visually-hidden"
+          i18n>Install app</h3>
       <div i18n="@@oathStepperIntroduction">
         <p>
           This step-by-step guide will help you to create a new token and import
@@ -29,17 +33,21 @@
       <app-step-actions [awaitingResponse]="awaitingResponse"
                         [disableSubmit]="createTokenForm.invalid"
                         (cancelled)="close()"
-                        (submitted)="stepper.next()">
+                        (submitted)="goToNextStep(stepper)">
       </app-step-actions>
     </ng-template>
   </mat-step>
 
   <mat-step [completed]="false"
-            [editable]="false">
+            [editable]="false"
+            label="Create token"
+            i18n-label>
     <ng-template matStepLabel
                  i18n>Create token</ng-template>
     <ng-template matStepContent>
       <mat-dialog-content>
+        <h3 class="cdk-visually-hidden"
+            i18n>Create token</h3>
         <app-create-token-step [form]="createTokenForm"
                                (keydown.enter)="enrollOATHToken()"
                                setAutoFokus="true"></app-create-token-step>
@@ -47,18 +55,22 @@
     </ng-template>
     <ng-template #createTokenStepActions>
       <app-step-actions [awaitingResponse]="awaitingResponse"
-                        [disableSubmit]="createTokenForm.invalid || awaitingResponse"
+                        [disableSubmit]="awaitingResponse"
                         (cancelled)="close()"
                         (submitted)="enrollOATHToken()">
       </app-step-actions>
     </ng-template>
   </mat-step>
 
-  <mat-step [completed]="tokenVerified || (enrolledToken && !verifyPolicyEnabled)">
+  <mat-step [completed]="tokenVerified || (enrolledToken && !verifyPolicyEnabled)"
+            label="Import token into app"
+            i18n-label>
     <ng-template matStepLabel
                  i18n>Import token into app</ng-template>
     <ng-template matStepContent>
       <mat-dialog-content>
+        <h3 class="cdk-visually-hidden"
+            i18n>Import token into app</h3>
         <app-import-token-step [verifyFlowEnabled]="verifyPolicyEnabled"
                                [enrolledToken]="enrolledToken"
                                #importTokenStep
@@ -70,7 +82,7 @@
       <app-step-actions [awaitingResponse]="undefined"
                         [disableSubmit]="!tokenVerified && verifyPolicyEnabled"
                         (cancelled)="cancel()"
-                        (submitted)="stepper.next()"></app-step-actions>
+                        (submitted)="goToNextStep(stepper)"></app-step-actions>
     </ng-template>
   </mat-step>
 
@@ -79,6 +91,8 @@
                  i18n>Done</ng-template>
     <ng-template matStepContent>
       <mat-dialog-content>
+        <h3 class="cdk-visually-hidden"
+            i18n>Done</h3>
         <app-done-step [token]="enrolledToken"></app-done-step>
       </mat-dialog-content>
     </ng-template>

@@ -4,11 +4,15 @@
                         responsiveOrientation
                         class="flex-grow-1">
   <mat-step [completed]="false"
-            [editable]="false">
+            [editable]="false"
+            label="Assign token"
+            i18n-label>
     <ng-template matStepLabel
                  i18n>Assign token</ng-template>
     <ng-template matStepContent>
       <mat-dialog-content>
+        <h3 class="cdk-visually-hidden"
+            i18n>Assign token</h3>
         <p>
           <ng-container i18n>Claim an existing token and link it to your user account.</ng-container>
           <ng-container *ngxPermissionsExcept="Permission.GETSERIAL"
@@ -30,12 +34,14 @@
         </div>
         <form [formGroup]="createTokenForm"
               (keydown.enter)="assignToken()">
-          <mat-form-field subscriptSizing="dynamic">
+          <mat-form-field subscriptSizing="dynamic"
+                          appSubscriptAriaLive>
             <mat-label i18n>Token serial</mat-label>
             <input matInput
                    formControlName="serial"
                    appFocusOnInit
-                   #serialInput>
+                   #serialInput
+                   [attr.aria-invalid]="createTokenForm.get('serial')?.invalid && createTokenForm.get('serial')?.touched">
             <mat-error i18n>The token serial is required.</mat-error>
             <mat-hint i18n>Enter the serial number of the token you want to link to your user account.</mat-hint>
           </mat-form-field>
@@ -46,18 +52,22 @@
 
     <ng-template #createTokenStepActions>
       <app-step-actions [awaitingResponse]="awaitingResponse"
-                        [disableSubmit]="createTokenForm.invalid || awaitingResponse"
+                        [disableSubmit]="awaitingResponse"
                         (cancelled)="close()"
                         (submitted)="assignToken()">
       </app-step-actions>
     </ng-template>
   </mat-step>
 
-  <mat-step *ngIf="verifyPolicyEnabled">
+  <mat-step *ngIf="verifyPolicyEnabled"
+            label="Verify"
+            i18n-label>
     <ng-template matStepLabel
                  i18n>Verify</ng-template>
     <ng-template matStepContent>
       <mat-dialog-content>
+        <h3 class="cdk-visually-hidden"
+            i18n>Verify</h3>
         <ng-container *ngIf="isTokenPushQR(); else def">
           <p class="verify"
              *ngIf="enrolledToken"
@@ -73,7 +83,7 @@
                                                   && enrolledToken.type.toLowerCase() !== TokenType.YUBICO
                                                   && enrolledToken.type.toLowerCase() !== TokenType.PASSWORD"
                             [isAssignProcess]="true"
-                            (tokenVerified)="isTokenVerified = true; stepper.next()"></app-verify-token>
+                            (tokenVerified)="isTokenVerified = true; goToNextStep(stepper)"></app-verify-token>
         </ng-template>
       </mat-dialog-content>
     </ng-template>
@@ -86,11 +96,14 @@
     </app-step-actions>
   </ng-template>
 
-  <mat-step>
+  <mat-step label="Done"
+            i18n-label>
     <ng-template matStepLabel
                  i18n>Done</ng-template>
     <ng-template matStepContent>
       <mat-dialog-content>
+        <h3 class="cdk-visually-hidden"
+            i18n>Done</h3>
         <app-done-step [token]="enrolledToken"
                        [isAssignProcess]="true"></app-done-step>
       </mat-dialog-content>

@@ -7,13 +7,13 @@ import { ErrorStateRootMatcher } from "@common/form-helpers/error-state-root-mat
   selector: 'app-create-token-step',
   template: `
     <div *ngIf="form" [formGroup]="form">
-      <mat-form-field subscriptSizing="dynamic">
+      <mat-form-field subscriptSizing="dynamic" appSubscriptAriaLive>
         <mat-label i18n>Token description</mat-label>
         <ng-container *ngIf="setAutoFokus; else regularInput">
-          <input appFocusOnInit focusDelay="500" matInput formControlName="description"/>
+          <input appFocusOnInit focusDelay="500" matInput formControlName="description" [attr.aria-invalid]="form.get('description')?.invalid && form.get('description')?.touched"/>
         </ng-container>
         <ng-template #regularInput>
-          <input matInput formControlName="description"/>
+          <input matInput formControlName="description" [attr.aria-invalid]="form.get('description')?.invalid && form.get('description')?.touched"/>
         </ng-template>
         <mat-hint i18n="@@oathStepperTokenDescriptionInfo">Set a customized description to easily differentiate
           between multiple tokens
