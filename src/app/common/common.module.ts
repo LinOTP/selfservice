@@ -32,6 +32,7 @@ import { NgxPermissionsModule } from "ngx-permissions";
 import { DeleteTokenDialogComponent } from './delete-token-dialog/delete-token-dialog.component';
 import { DisableTokenDialogComponent } from './disable-token-dialog/disable-token-dialog.component';
 import { FocusOnInitDirective } from './focus-on-init/focus-on-init.directive';
+import { SubscriptAriaLiveDirective } from './form-helpers/subscript-aria-live.directive';
 import { LockableActionDialogContentComponent } from './lockable-action-dialog-content/lockable-action-dialog.content.component';
 import { CustomQRCodeComponent } from './qr-code/qr-code.component';
 import { TokenDialogHeaderComponent } from './token-dialog-header/token-dialog-header.component';
@@ -73,7 +74,8 @@ import { UnassignTokenDialogComponent } from './unassign-token-dialog/unassign-t
     StepActionsComponent,
     FocusOnStepperChangeDirective,
     TokenInfoComponent,
-    AlertComponent
+    AlertComponent,
+    SubscriptAriaLiveDirective
   ],
   providers: [
     NotificationService,
@@ -94,7 +96,8 @@ import { UnassignTokenDialogComponent } from './unassign-token-dialog/unassign-t
     StepActionsComponent,
     FocusOnStepperChangeDirective,
     TokenInfoComponent,
-    AlertComponent
+    AlertComponent,
+    SubscriptAriaLiveDirective
   ]
 })
 export class NgSelfServiceCommonModule { }
