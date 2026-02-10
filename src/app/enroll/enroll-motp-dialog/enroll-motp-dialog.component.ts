@@ -6,10 +6,10 @@ import { EnrollmentOptions } from '@api/token';
 import { EnrollDialogBase, EnrolledToken } from '@app/enroll/enroll-dialog-base.directive';
 
 @Component({
-    selector: 'app-enroll-motp',
-    templateUrl: './enroll-motp-dialog.component.html',
-    styleUrls: ['./enroll-motp-dialog.component.scss'],
-    standalone: false
+  selector: 'app-enroll-motp',
+  templateUrl: './enroll-motp-dialog.component.html',
+  styleUrls: ['./enroll-motp-dialog.component.scss'],
+  standalone: false
 })
 export class EnrollMOTPDialogComponent extends EnrollDialogBase implements OnInit {
 
@@ -24,6 +24,10 @@ export class EnrollMOTPDialogComponent extends EnrollDialogBase implements OnIni
   }
 
   public enrollMOTPToken() {
+    if (this.createTokenForm.invalid) {
+      this.announceFormErrors();
+      return;
+    }
     const description = this.createTokenForm.get('description').value;
     const password = this.createTokenForm.get('password').value;
     const mOTPPin = this.createTokenForm.get('mOTPPin').value;

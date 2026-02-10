@@ -27,16 +27,15 @@ enum ActivationFlowState {
   FAILED = "FAILED",
 }
 @Component({
-    selector: "app-enroll-push",
-    templateUrl: "./enroll-push-qr-dialog.component.html",
-    styleUrls: ["./enroll-push-qr-dialog.component.scss"],
-    providers: [PlatformProviderService],
-    standalone: false
+  selector: "app-enroll-push",
+  templateUrl: "./enroll-push-qr-dialog.component.html",
+  styleUrls: ["./enroll-push-qr-dialog.component.scss"],
+  providers: [PlatformProviderService],
+  standalone: false
 })
 export class EnrollPushQRDialogComponent
   extends EnrollDialogBase
-  implements OnInit, OnDestroy
-{
+  implements OnInit, OnDestroy {
   public enrolledToken: PushQrEnrolledToken;
   @ViewChild(MatStepper, { static: true }) public stepper: MatStepper;
   protected platformProvider = inject(PlatformProviderService);
@@ -101,6 +100,10 @@ export class EnrollPushQRDialogComponent
    * Enroll the Push or QR token and proceed to the next step
    */
   enrollPushQRToken() {
+    if (this.createTokenForm.invalid) {
+      this.announceFormErrors();
+      return;
+    }
     const body: EnrollmentOptions = {
       type: this.tokenDisplayData.type,
       description: this.createTokenForm.get("description").value,
