@@ -23,7 +23,14 @@ export class TokenService {
     serialByOTP: 'getSerialByOtp',
   };
 
-  private emitTokenUpdateeSource = new Subject<void>();
+  /**
+   * Fires whenever the token changes resulting in a token list reload.
+   *
+   * Optionally emits the serial of the updated token.
+   * If a serial is provided, the consumer can use it to focus the
+   * corresponding element after the list has been refreshed.
+   */
+  private emitTokenUpdateeSource = new Subject<string | undefined>();
   tokenUpdateEmitted$ = this.emitTokenUpdateeSource.asObservable();
 
   constructor(
@@ -32,8 +39,8 @@ export class TokenService {
     private notificationService: NotificationService,
   ) { }
 
-  updateTokenList() {
-    this.emitTokenUpdateeSource.next();
+  updateTokenList(serial?: string) {
+    this.emitTokenUpdateeSource.next(serial);
   }
 
   getSelfserviceTokens(): Observable<SelfserviceToken[]> {

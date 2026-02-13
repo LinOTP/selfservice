@@ -61,8 +61,7 @@
     <p i18n>The following tokens are not active and require further action:</p>
     <ul>
       <li *ngFor="let token of tokens | unreadyTokens">
-        <app-token-card [token]="token"
-                        (tokenUpdate)="loadTokens()"></app-token-card>
+        <app-token-card [token]="token"></app-token-card>
       </li>
     </ul>
   </section>
@@ -73,8 +72,7 @@
     <p i18n>The following tokens are available for use:</p>
     <ul>
       <li *ngFor="let token of tokens | activeTokens">
-        <app-token-card [token]="token"
-                        (tokenUpdate)="loadTokens()"></app-token-card>
+        <app-token-card [token]="token"></app-token-card>
       </li>
     </ul>
   </section>
@@ -84,8 +82,7 @@
     <p i18n>The following tokens have been disabled and cannot be used:</p>
     <ul>
       <li *ngFor="let token of tokens | inactiveTokens">
-        <app-token-card [token]="token"
-                        (tokenUpdate)="loadTokens()"></app-token-card>
+        <app-token-card [token]="token"></app-token-card>
       </li>
     </ul>
   </section>

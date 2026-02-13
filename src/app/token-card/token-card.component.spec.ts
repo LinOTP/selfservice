@@ -29,6 +29,7 @@ import { BootstrapBreakpointService } from '@app/bootstrap-breakpoints.service';
 import { LockableTokenActionsService } from '@app/common/lockable-token-dialogs.service';
 import { TokenVerifyCheckService } from '@app/token-list/token-verify-check.service';
 import { TokenCardComponent } from './token-card.component';
+import { TokenService } from '@app/api/token.service';
 
 class Page extends TestingPage<TokenCardComponent> {
 
@@ -46,13 +47,14 @@ describe('TokenCardComponent', () => {
   let fixture: ComponentFixture<TokenCardComponent>;
 
   let notificationService: jasmine.SpyObj<NotificationService>;
+  let tokenService: jasmine.SpyObj<TokenService>;
   let matDialog: jasmine.SpyObj<MatDialog>;
   let operationsService: jasmine.SpyObj<OperationsService>;
   let loginService: jasmine.SpyObj<LoginService>;
   const hasPermissionSubject = new BehaviorSubject(true);
-  let tokenUpdateSpy: jasmine.Spy;
   let page: Page;
   let expectedDialogConfig;
+
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
@@ -82,6 +84,10 @@ describe('TokenCardComponent', () => {
           useValue: spyOnClass(LoginService),
         },
         {
+          provide: TokenService,
+          useValue: spyOnClass(TokenService)
+        },
+        {
           provide: TokenVerifyCheckService,
           useValue: {
             init: () => { },
@@ -94,8 +100,7 @@ describe('TokenCardComponent', () => {
             breakpoint$: of(5),
             currentBreakpoint: 5
           }
-        }
-
+        },
       ]
     }).overrideComponent(TokenCardComponent, {
       set: {
@@ -118,10 +123,9 @@ describe('TokenCardComponent', () => {
     operationsService = getInjectedStub(OperationsService);
     operationsService.deleteToken.and.returnValue(of(false));
     loginService = getInjectedStub(LoginService);
+    tokenService = getInjectedStub(TokenService);
     loginService.hasPermission$.and.returnValue(hasPermissionSubject.asObservable());
     matDialog = getInjectedStub(MatDialog);
-    tokenUpdateSpy = spyOn(component.tokenUpdate, 'next');
-
     fixture.detectChanges();
 
     page = new Page(fixture);
@@ -300,7 +304,7 @@ describe('TokenCardComponent', () => {
       component.delete();
       tick();
 
-      expect(tokenUpdateSpy).toHaveBeenCalledTimes(1);
+      expect(tokenService.updateTokenList).toHaveBeenCalledTimes(1);
     }));
   });
 
@@ -314,7 +318,7 @@ describe('TokenCardComponent', () => {
       tick();
 
       expect(notificationService.message).toHaveBeenCalledWith('Token enabled');
-      expect(tokenUpdateSpy).toHaveBeenCalledTimes(1);
+      expect(tokenService.updateTokenList).toHaveBeenCalledTimes(1);
     }));
 
     it('should not emit token list update after failure', fakeAsync(() => {
@@ -324,7 +328,7 @@ describe('TokenCardComponent', () => {
       component.enable();
       tick();
 
-      expect(tokenUpdateSpy).not.toHaveBeenCalled();
+      expect(tokenService.updateTokenList).not.toHaveBeenCalled();
     }));
   });
 
@@ -340,7 +344,7 @@ describe('TokenCardComponent', () => {
       tick();
 
       expect(notificationService.message).toHaveBeenCalledWith('Token disabled');
-      expect(tokenUpdateSpy).toHaveBeenCalledTimes(1);
+      expect(tokenService.updateTokenList).toHaveBeenCalledTimes(1);
     }));
 
     it('should not emit token list update after failure', fakeAsync(() => {
@@ -352,7 +356,7 @@ describe('TokenCardComponent', () => {
       component.disable();
       tick();
 
-      expect(tokenUpdateSpy).not.toHaveBeenCalled();
+      expect(tokenService.updateTokenList).not.toHaveBeenCalled();
     }));
 
     it('without enable permissions should disable if the user confirmed the action', fakeAsync(() => {
@@ -365,7 +369,7 @@ describe('TokenCardComponent', () => {
       tick();
 
       expect(notificationService.message).toHaveBeenCalledWith('Token disabled');
-      expect(tokenUpdateSpy).toHaveBeenCalledTimes(1);
+      expect(tokenService.updateTokenList).toHaveBeenCalledTimes(1);
     }));
 
     it('without enable permissions should not disable if the user did not confirmed the action', fakeAsync(() => {
@@ -378,7 +382,7 @@ describe('TokenCardComponent', () => {
       tick();
 
       expect(notificationService.message).not.toHaveBeenCalled();
-      expect(tokenUpdateSpy).not.toHaveBeenCalled();
+      expect(tokenService.updateTokenList).not.toHaveBeenCalled();
     }));
 
   });
@@ -393,7 +397,7 @@ describe('TokenCardComponent', () => {
 
       expect(notificationService.message).toHaveBeenCalledTimes(1);
       expect(notificationService.message).toHaveBeenCalledWith('Token unassigned');
-      expect(tokenUpdateSpy).toHaveBeenCalledTimes(1);
+      expect(tokenService.updateTokenList).toHaveBeenCalledTimes(1);
     }));
 
     it('should not update token list on failed unassignment', fakeAsync(() => {
@@ -403,7 +407,7 @@ describe('TokenCardComponent', () => {
       component.unassign();
       tick();
 
-      expect(tokenUpdateSpy).toHaveBeenCalledTimes(0);
+      expect(tokenService.updateTokenList).toHaveBeenCalledTimes(0);
     }));
 
     it('should not notify user if unassignment is cancelled', fakeAsync(() => {
@@ -414,7 +418,7 @@ describe('TokenCardComponent', () => {
       tick();
 
       expect(notificationService.message).not.toHaveBeenCalled();
-      expect(tokenUpdateSpy).not.toHaveBeenCalled();
+      expect(tokenService.updateTokenList).not.toHaveBeenCalled();
     }));
   });
 
@@ -565,7 +569,7 @@ describe('TokenCardComponent', () => {
         data: { serial: component.token.serial, type: component.token.typeDetails.type, token: component.token },
       };
 
-      component.testToken();
+      component.verifyToken();
 
       expect(matDialog.open).toHaveBeenCalledWith(TestDialogComponent, expectedConfig);
     }));
@@ -581,7 +585,7 @@ describe('TokenCardComponent', () => {
 
       expect(operationsService.resetFailcounter).toHaveBeenCalledWith(component.token.serial);
       expect(notificationService.message).toHaveBeenCalledWith(message);
-      expect(tokenUpdateSpy).not.toHaveBeenCalled();
+      expect(tokenService.updateTokenList).not.toHaveBeenCalled();
     });
 
     it('should not do anything if the failcounter could not be reset', () => {
@@ -589,7 +593,7 @@ describe('TokenCardComponent', () => {
       component.resetFailcounter();
 
       expect(operationsService.resetFailcounter).toHaveBeenCalledWith(component.token.serial);
-      expect(tokenUpdateSpy).not.toHaveBeenCalled();
+      expect(tokenService.updateTokenList).not.toHaveBeenCalled();
     });
   });
 
@@ -631,7 +635,6 @@ describe('TokenCardComponent', () => {
       expect(matDialog.open).toHaveBeenCalledTimes(1);
       expect(notificationService.message).toHaveBeenCalledTimes(1);
       expect(notificationService.message).toHaveBeenCalledWith('Description changed');
-      expect(component.tokenUpdate.next).toHaveBeenCalled();
     }));
 
     it('should not notify user if resync was cancelled', fakeAsync(() => {
