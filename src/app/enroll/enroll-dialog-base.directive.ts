@@ -95,7 +95,7 @@ export abstract class EnrollDialogBase implements OnInit, OnDestroy {
    */
   public close() {
     if (this.isTokenCreated()) {
-      this.tokenService.updateTokenList();
+      this.tokenService.updateTokenList(this.enrolledToken.serial);
       this.dialogRef.close();
       this.liveAnnouncer.announce($localize`Added your newly created token to the token list.`)
       return;

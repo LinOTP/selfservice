@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
 
 import { filter, tap } from 'rxjs/operators';
 
@@ -11,6 +11,7 @@ import { TokenLimitsService } from '@app/token-limits.service';
 import { Permission } from '@common/permissions';
 import { combineLatest, Subscription } from 'rxjs';
 import { TokenVerifyCheckService } from './token-verify-check.service';
+import { TokenCardComponent } from '@app/token-card/token-card.component';
 
 @Component({
     selector: 'app-token-list',
@@ -21,6 +22,7 @@ import { TokenVerifyCheckService } from './token-verify-check.service';
 })
 
 export class TokenListComponent implements OnInit, OnDestroy {
+  @ViewChildren(TokenCardComponent) tokenCards!: QueryList<TokenCardComponent>;
   public EnrollmentStatus = EnrollmentStatus;
   public enrollmentPermissions: Permission[] = tokenDisplayData.map(tt => tt.enrollmentPermission).filter(p => !!p);
 
@@ -28,7 +30,6 @@ export class TokenListComponent implements OnInit, OnDestroy {
   private subscription = new Subscription();
   loaded = false
   criticalError = false
-
   isUserLocked: boolean = false
   warnTokensNotVerified = false
 
@@ -38,6 +39,7 @@ export class TokenListComponent implements OnInit, OnDestroy {
     public tokenLimitsService: TokenLimitsService,
     private selfServiceContextService: SelfServiceContextService,
     private tokenVerifyCheck: TokenVerifyCheckService,
+    private cd: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -58,8 +60,8 @@ export class TokenListComponent implements OnInit, OnDestroy {
 
     this.subscription.add(loginSub);
 
-    const tokenUpdateSub = this.tokenService.tokenUpdateEmitted$.subscribe(() => {
-        this.loadTokens();
+    const tokenUpdateSub = this.tokenService.tokenUpdateEmitted$.subscribe((serial) => {
+        this.loadTokens(serial);
       });
     this.subscription.add(tokenUpdateSub);
   }
@@ -68,7 +70,7 @@ export class TokenListComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  loadTokens() {
+  loadTokens(serial?: string) {
     this.loaded = false;
     const tokens$ = this.tokenService.getSelfserviceTokens().pipe(tap(tokens => {
       this.tokens = tokens;
@@ -77,11 +79,15 @@ export class TokenListComponent implements OnInit, OnDestroy {
     this.subscription.add(tokenLimitsReady$.subscribe(([tokens, limits]) => {
       this.tokenLimitsService.setTokenLimits({ tokenLimits: limits, tokens });
       this.loaded = true
+      this.cd.detectChanges()
       const context = new AuthLockedEvaluatorContextInfo(this.selfServiceContextService.context)
       const rules = new AuthLockedStatusEvaluator(this.tokens, context)
       this.isUserLocked = rules.isUsersAuthLocked()
       this.warnTokensNotVerified = this.tokenVerifyCheck.shouldWarnAboutNotVerifiedTokens(this.tokens)
+      if(serial){
+        const tokenCard = this.tokenCards.find(tc => tc.token.serial === serial);
+        setTimeout(()=>tokenCard?.menuBtn?.nativeElement.focus());
+      };
     }))
-
   }
 }

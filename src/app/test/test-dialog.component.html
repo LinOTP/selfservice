@@ -112,7 +112,7 @@
     <button mat-flat-button
             type="button"
             color="primary"
-            mat-dialog-close
+            [mat-dialog-close]="true"
             *ngIf="state === TestState.SUCCESS"
             appFocusOnInit
             i18n>done</button>

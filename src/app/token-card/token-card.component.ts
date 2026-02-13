@@ -1,13 +1,14 @@
-import { Component, Input, OnDestroy, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
-import { map, Observable, of, Subject, Subscription } from 'rxjs';
-import { filter, startWith } from 'rxjs/operators';
+import { map, Observable, of, Subscription } from 'rxjs';
+import { startWith } from 'rxjs/operators';
 
 import { MatMenuItem } from "@angular/material/menu";
 import { OperationsService } from '@api/operations.service';
 import { EnrollmentStatus, SelfserviceToken, TokenType } from '@api/token';
 import { ActivateDialogComponent } from '@app/activate/activate-dialog.component';
+import { TokenService } from '@app/api/token.service';
 import { BootstrapBreakpointService } from '@app/bootstrap-breakpoints.service';
 import { LockableTokenActionsService } from '@app/common/lockable-token-dialogs.service';
 import { LoginService } from '@app/login/login.service';
@@ -28,10 +29,8 @@ import { TokenVerifyCheckService } from '../token-list/token-verify-check.servic
   standalone: false
 })
 export class TokenCardComponent implements OnInit, OnDestroy {
-
+ @ViewChild('menuBtn', { read: ElementRef }) menuBtn!: ElementRef<HTMLButtonElement>
   @Input() public token: SelfserviceToken;
-  @Output() public tokenUpdate: Subject<void> = new Subject();
-
   public EnrollmentStatus = EnrollmentStatus;
   public menuLabel: string = $localize`:@@tokenCard.menuLabel:Open token menu`;
   public TokenType = TokenType;
@@ -59,6 +58,7 @@ export class TokenCardComponent implements OnInit, OnDestroy {
   constructor(
     private dialog: MatDialog,
     private notificationService: NotificationService,
+    private tokenService: TokenService,
     private operationsService: OperationsService,
     private loginService: LoginService,
     private lockableTokenActionsService: LockableTokenActionsService,
@@ -105,11 +105,9 @@ export class TokenCardComponent implements OnInit, OnDestroy {
     this.dialog
       .open(SetPinDialogComponent, config)
       .afterClosed()
-      .pipe(
-        filter(result => !!result)
-      )
-      .subscribe(() => {
-        this.notificationService.message($localize`PIN set`);
+      .subscribe((res) => {
+        if(res) this.notificationService.message($localize`PIN set`);
+        this.menuBtn?.nativeElement.focus()
       });
   }
 
@@ -122,44 +120,44 @@ export class TokenCardComponent implements OnInit, OnDestroy {
     this.dialog
       .open(SetMOTPPinDialogComponent, config)
       .afterClosed()
-      .pipe(
-        filter(result => !!result)
-      )
-      .subscribe(() => {
-        this.notificationService.message($localize`mOTP PIN set`);
+      .subscribe((res) => {
+        if(res) this.notificationService.message($localize`mOTP PIN set`);
+        this.menuBtn?.nativeElement.focus()
       });
   }
 
   public delete(): void {
     const dialog$ = this.lockableTokenActionsService.getDeleteConfirmation(this.token);
 
-    dialog$.pipe(
-      filter(result => !!result),
-    ).subscribe(() => {
-      this.notificationService.message($localize`Token deleted`);
-      this.tokenUpdate.next();
+    dialog$.subscribe((res) => {
+      if(res){
+        this.notificationService.message($localize`Token deleted`);
+        this.tokenService.updateTokenList();
+      }
+        this.menuBtn?.nativeElement.focus()
     });
   }
 
   public enable(): void {
     this.operationsService.enable(this.token)
-      .pipe(
-        filter(result => !!result)
-      )
-      .subscribe(isSuccessful => {
-        this.notificationService.message($localize`Token enabled`);
-        this.tokenUpdate.next();
+      .subscribe(res => {
+        if(res) {
+          this.notificationService.message($localize`Token enabled`);
+          this.tokenService.updateTokenList(this.token.serial);
+        }
+        this.menuBtn?.nativeElement.focus()
       });
   }
 
   public disable(): void {
     const confirmationObservable = this.lockableTokenActionsService.getDisableConfirmation(this.token, this.canEnable);
 
-    confirmationObservable.pipe(
-      filter(success => !!success)
-    ).subscribe(() => {
-      this.notificationService.message($localize`Token disabled`);
-      this.tokenUpdate.next();
+    confirmationObservable.subscribe((res) => {
+      if(res){
+        this.notificationService.message($localize`Token disabled`);
+        this.tokenService.updateTokenList(this.token.serial);
+      }
+      this.menuBtn?.nativeElement.focus()
     });
   }
 
@@ -170,18 +168,14 @@ export class TokenCardComponent implements OnInit, OnDestroy {
       disableClose: true,
       data: { serial: this.token.serial, type: this.token.typeDetails.type, token: this.token }
     };
-
     return this.dialog.open(TestDialogComponent, dialogConfig)
   }
 
-  public testToken(): void {
-    this._openTestDialog();
-  }
-
-  public verifyToken(): void {
+  public verifyToken(triggerElement?: HTMLButtonElement): void {
     // we use test dialog for verification for now
-    this._openTestDialog().afterClosed().subscribe(() => {
-      this.tokenUpdate.next();
+    this._openTestDialog().afterClosed().subscribe((res) => {
+      if(res) this.tokenService.updateTokenList(this.token.serial);
+      triggerElement? triggerElement.focus() : this.menuBtn?.nativeElement.focus()
     });
   }
 
@@ -212,14 +206,13 @@ export class TokenCardComponent implements OnInit, OnDestroy {
 
   public unassign(): void {
     const dialog$ = this.lockableTokenActionsService.getUnassignConfirmation(this.token);
-
     dialog$
-      .pipe(
-        filter(result => !!result)
-      )
-      .subscribe(() => {
-        this.notificationService.message($localize`Token unassigned`);
-        this.tokenUpdate.next();
+      .subscribe((res) => {
+        if(res){
+          this.notificationService.message($localize`Token unassigned`);
+          this.tokenService.updateTokenList();
+        }
+        this.menuBtn?.nativeElement.focus()
       });
   }
 
@@ -241,11 +234,9 @@ export class TokenCardComponent implements OnInit, OnDestroy {
 
   public resetFailcounter() {
     this.operationsService.resetFailcounter(this.token.serial)
-      .pipe(
-        filter(result => !!result)
-      )
-      .subscribe(() => {
-        this.notificationService.message($localize`Failcounter reset`);
+      .subscribe((res) => {
+        if(res) this.notificationService.message($localize`Failcounter reset`);
+        this.menuBtn?.nativeElement.focus()
       });
   }
 
@@ -258,11 +249,9 @@ export class TokenCardComponent implements OnInit, OnDestroy {
     this.dialog
       .open(ResyncDialogComponent, config)
       .afterClosed()
-      .pipe(
-        filter(result => !!result)
-      )
-      .subscribe(() => {
-        this.notificationService.message($localize`Token synchronized`);
+      .subscribe((res) => {
+        if(res) this.notificationService.message($localize`Token synchronized`);
+        this.menuBtn?.nativeElement.focus()
       });
   }
 
@@ -275,14 +264,13 @@ export class TokenCardComponent implements OnInit, OnDestroy {
     this.dialog
       .open(SetDescriptionDialogComponent, config)
       .afterClosed()
-      .pipe(
-        filter(result => !!result)
-      )
-      .subscribe(() => {
-        this.notificationService.message($localize`Description changed`);
-        this.tokenUpdate.next();
+      .subscribe((res) => {
+        if(res){
+          this.notificationService.message($localize`Description changed`);
+          this.tokenService.updateTokenList(this.token.serial);
+        }
+        this.menuBtn?.nativeElement.focus()
       });
   }
-
 }
 
