@@ -14,11 +14,11 @@ export interface OATHEnrolledToken {
 }
 
 @Component({
-    selector: 'app-enroll-oath',
-    templateUrl: './enroll-oath-dialog.component.html',
-    styleUrls: ['./enroll-oath-dialog.component.scss'],
-    providers: [PlatformProviderService],
-    standalone: false
+  selector: 'app-enroll-oath',
+  templateUrl: './enroll-oath-dialog.component.html',
+  styleUrls: ['./enroll-oath-dialog.component.scss'],
+  providers: [PlatformProviderService],
+  standalone: false
 })
 export class EnrollOATHDialogComponent extends EnrollDialogBase implements OnInit {
 
@@ -41,6 +41,10 @@ export class EnrollOATHDialogComponent extends EnrollDialogBase implements OnIni
   protected platformProvider = inject(PlatformProviderService)
 
   public enrollOATHToken() {
+    if (this.createTokenForm.invalid) {
+      this.announceFormErrors();
+      return;
+    }
     const body: EnrollmentOptions = {
       type: this.tokenDisplayData.type,
       description: this.createTokenForm.get('description').value,
@@ -52,7 +56,7 @@ export class EnrollOATHDialogComponent extends EnrollDialogBase implements OnIni
         seed: token.otpkey.value,
         type: token.type,
         description: body.description,
-        };
+      };
     });
   }
 }

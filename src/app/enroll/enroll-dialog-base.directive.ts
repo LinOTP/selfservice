@@ -7,6 +7,7 @@ import { forkJoin, from, Observable, of, Subscription } from 'rxjs';
 import { filter, finalize, map, switchMap, tap } from 'rxjs/operators';
 
 
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatStepper } from "@angular/material/stepper";
 import { EnrollmentService } from '@api/enrollment.service';
 import { OperationsService } from '@api/operations.service';
@@ -19,7 +20,6 @@ import { DialogComponent } from '@common/dialog/dialog.component';
 import { NotificationService } from '@common/notification.service';
 import { Permission } from '@common/permissions';
 import { SetPinDialogComponent } from '@common/set-pin-dialog/set-pin-dialog.component';
-import { LiveAnnouncer } from '@angular/cdk/a11y';
 
 
 export interface EnrolledToken {
@@ -81,7 +81,7 @@ export abstract class EnrollDialogBase implements OnInit, OnDestroy {
         this._setOtpPinPolicyEnabled = hasPermissions.setPin;
       })
     )
-    }
+  }
 
   public ngOnDestroy() {
     while (this.subscriptions.length) {
@@ -122,6 +122,11 @@ export abstract class EnrollDialogBase implements OnInit, OnDestroy {
         setTimeout(() => {
           stepper.steps.get(stepper.selectedIndex).completed = true;
           stepper.next();
+          setTimeout(() => {
+            const currentStep = stepper.steps.get(stepper.selectedIndex);
+            const stepLabel = currentStep?.label || 'next step';
+            this.liveAnnouncer.announce($localize`Moved to step: ${stepLabel}`, 'polite');
+          }, 500);
         }, 100);
       }),
       finalize(() => this.awaitingResponse = false)
@@ -241,6 +246,27 @@ export abstract class EnrollDialogBase implements OnInit, OnDestroy {
 
   private isTokenCreated(): boolean {
     return this.enrolledToken?.serial?.length > 0;
+  }
+
+  /**
+   * Announces form errors to screen readers and marks all fields as touched
+   */
+  protected announceFormErrors(): void {
+    this.liveAnnouncer.announce($localize`Form contains errors. Please check all required fields.`);
+    // hack to force screen readers to re-announce the error state after button click
+    setTimeout(() => {
+      this.liveAnnouncer.announce('\u200B');
+    }, 300);
+    this.createTokenForm.markAllAsTouched();
+  }
+
+  protected goToNextStep(stepper: MatStepper, markCompleted = true): void {
+    stepper.next();
+    setTimeout(() => {
+      const currentStep = stepper.steps.get(stepper.selectedIndex);
+      const stepLabel = currentStep?.label || 'next step';
+      this.liveAnnouncer.announce($localize`Moved to step: ${stepLabel}`, 'polite');
+    }, 500);
   }
 
 }

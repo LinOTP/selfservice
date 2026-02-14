@@ -2,21 +2,21 @@ import { ChangeDetectorRef, Component, ElementRef, inject, OnInit, ViewChild } f
 import { Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 
-import { EnrollDialogBase, EnrolledToken } from '@app/enroll/enroll-dialog-base.directive';
-import { GetSerialDialogComponent } from '@common/get-serial-dialog/get-serial-dialog.component';
-import { SelfserviceToken, TokenType } from "@api/token";
-import { concatMap, EMPTY, of } from "rxjs";
 import { TestOptions, TestService, TransactionDetail } from "@api/test.service";
-import { finalize, map } from "rxjs/operators";
-import { SMSEnrolledToken } from "@app/enroll/enroll-sms-dialog/enroll-sms-dialog.component";
+import { SelfserviceToken, TokenType } from "@api/token";
+import { EnrollDialogBase, EnrolledToken } from '@app/enroll/enroll-dialog-base.directive';
 import { EmailEnrolledToken } from "@app/enroll/enroll-email-dialog/enroll-email-dialog.component";
+import { SMSEnrolledToken } from "@app/enroll/enroll-sms-dialog/enroll-sms-dialog.component";
+import { GetSerialDialogComponent } from '@common/get-serial-dialog/get-serial-dialog.component';
+import { concatMap, EMPTY, of } from "rxjs";
+import { finalize, map } from "rxjs/operators";
 
 
 @Component({
-    selector: 'app-assign-token-dialog',
-    templateUrl: './assign-token-dialog.component.html',
-    styleUrls: ['./assign-token-dialog.component.scss'],
-    standalone: false
+  selector: 'app-assign-token-dialog',
+  templateUrl: './assign-token-dialog.component.html',
+  styleUrls: ['./assign-token-dialog.component.scss'],
+  standalone: false
 })
 export class AssignTokenDialogComponent extends EnrollDialogBase implements OnInit {
 
@@ -45,6 +45,10 @@ export class AssignTokenDialogComponent extends EnrollDialogBase implements OnIn
    * to retry the assignment process without leaving the dialog.
    */
   public assignToken() {
+    if (this.createTokenForm.invalid) {
+      this.announceFormErrors();
+      return;
+    }
     const serial = this.createTokenForm.get('serial').value;
     const description = this.createTokenForm.get('description').value;
     let pin = '';
@@ -98,9 +102,9 @@ export class AssignTokenDialogComponent extends EnrollDialogBase implements OnIn
       let body: TestOptions = { serial: this.enrolledToken.serial, otp: this.offlineOtpValue, transactionid: this.transactionDetail.transactionId };
       this.subscriptions.push(
         this.testService.testToken(body)
-        .subscribe(result => {
-          result === true ? this.stepper.next() : this.showError();
-        })
+          .subscribe(result => {
+            result === true ? this.stepper.next() : this.showError();
+          })
       )
     } else {
       this.stepper.next();
@@ -150,7 +154,7 @@ export class AssignTokenDialogComponent extends EnrollDialogBase implements OnIn
         return <SMSEnrolledToken>{ ...res, phone: token.phone }
       case TokenType.EMAIL:
         return <EmailEnrolledToken>{ ...res, email: token.email }
-      default :
+      default:
         return res
     }
   }

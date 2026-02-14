@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { NgxPermissionsAllowStubDirective, NgxPermissionsService } from 'ngx-permissions';
 import { of } from 'rxjs';
 
@@ -86,8 +87,7 @@ import { EnrollOATHDialogComponent } from './enroll-oath-dialog.component';
           {
             provide: MAT_DIALOG_DATA,
             useValue: { tokenType: inputType },
-          },
-        ],
+          }, { provide: LiveAnnouncer, useValue: spyOnClass(LiveAnnouncer) },],
       })
         .compileComponents();
     });

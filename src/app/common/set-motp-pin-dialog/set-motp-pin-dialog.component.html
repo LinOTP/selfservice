@@ -13,18 +13,20 @@
       <input matInput
              type="password"
              formControlName="newPin"
-             autofocus>
+             autofocus
+             [attr.aria-invalid]="form.get('newPin')?.invalid && form.get('newPin')?.touched">
       <mat-error i18n
-                 *ngIf="form.get('newPin').hasError('required')">This field is required.</mat-error>
+                 *ngIf="form.get('newPin').hasError('required')">New PIN is required.</mat-error>
     </mat-form-field>
     <mat-form-field>
       <mat-label>{{ confirmPinPlaceholder }}</mat-label>
       <input matInput
              type="password"
              formControlName="confirmPin"
-             [errorStateMatcher]="matcher">
+             [errorStateMatcher]="matcher"
+             [attr.aria-invalid]="form.get('confirmPin')?.invalid && form.get('confirmPin')?.touched">
       <mat-error i18n
-                 *ngIf="form.get('confirmPin').hasError('required')">This field is required.</mat-error>
+                 *ngIf="form.get('confirmPin').hasError('required')">PIN confirmation is required.</mat-error>
       <mat-error *ngIf="form.hasError('pinsDoNotMatch') && !form.get('confirmPin').hasError('required')"
                  i18n>Entered PINs do not match</mat-error>
     </mat-form-field>

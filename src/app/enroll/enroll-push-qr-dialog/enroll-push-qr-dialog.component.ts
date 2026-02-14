@@ -27,16 +27,15 @@ enum ActivationFlowState {
   FAILED = "FAILED",
 }
 @Component({
-    selector: "app-enroll-push",
-    templateUrl: "./enroll-push-qr-dialog.component.html",
-    styleUrls: ["./enroll-push-qr-dialog.component.scss"],
-    providers: [PlatformProviderService],
-    standalone: false
+  selector: "app-enroll-push",
+  templateUrl: "./enroll-push-qr-dialog.component.html",
+  styleUrls: ["./enroll-push-qr-dialog.component.scss"],
+  providers: [PlatformProviderService],
+  standalone: false
 })
 export class EnrollPushQRDialogComponent
   extends EnrollDialogBase
-  implements OnInit, OnDestroy
-{
+  implements OnInit, OnDestroy {
   public enrolledToken: PushQrEnrolledToken;
   @ViewChild(MatStepper, { static: true }) public stepper: MatStepper;
   protected platformProvider = inject(PlatformProviderService);
@@ -101,6 +100,10 @@ export class EnrollPushQRDialogComponent
    * Enroll the Push or QR token and proceed to the next step
    */
   enrollPushQRToken() {
+    if (this.createTokenForm.invalid) {
+      this.announceFormErrors();
+      return;
+    }
     const body: EnrollmentOptions = {
       type: this.tokenDisplayData.type,
       description: this.createTokenForm.get("description").value,
@@ -120,7 +123,7 @@ export class EnrollPushQRDialogComponent
     this.subscriptions.push(
       enrollment$.subscribe(() => {
         this.stepper.steps.get(this.stepper.selectedIndex).completed = true;
-        this.stepper.next();
+        this.goToNextStep(this.stepper, false);
 
         // If user has activation permission, move to activation step and start activation
         if (this.hasActivationPermission) {
@@ -176,13 +179,14 @@ export class EnrollPushQRDialogComponent
         if (success) {
           this.activationState = ActivationFlowState.COMPLETED;
           this.stepper.steps.get(this.stepper.selectedIndex).completed = true;
-          this.stepper.next();
+          this.goToNextStep(this.stepper, false);
           this.notificationService.message(
             $localize`Token activated successfully.`
           );
           this.tokenService.updateTokenList();
         } else {
           this.activationState = ActivationFlowState.FAILED;
+          this.liveAnnouncer.announce($localize`Activation failed. Please try again, or contact an administrator.`, 'assertive');
         }
       });
   }

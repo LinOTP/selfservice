@@ -11,9 +11,10 @@
       <input matInput
              type="text"
              formControlName="description"
-             autofocus>
+             autofocus
+             [attr.aria-invalid]="form.get('description')?.invalid && form.get('description')?.touched">
       <mat-error i18n
-                 *ngIf="form.get('description').hasError('required')">This field is required.</mat-error>
+                 *ngIf="form.get('description').hasError('required')">Description is required.</mat-error>
     </mat-form-field>
   </mat-dialog-content>
   <mat-dialog-actions align="end">

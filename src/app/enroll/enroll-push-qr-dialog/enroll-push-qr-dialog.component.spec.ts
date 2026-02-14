@@ -31,6 +31,7 @@ import { LoginService } from "@app/login/login.service";
 import { MaterialModule } from "@app/material.module";
 import { NotificationService } from "@common/notification.service";
 
+import { LiveAnnouncer } from "@angular/cdk/a11y";
 import { TokenType } from "@app/api/token";
 import { CreateTokenStepComponent } from "@app/enroll/create-token-step/create-token-step.component";
 import { ImportTokenStepComponent } from "@app/enroll/enroll-oath-dialog/oath-enrollment/import-token-step/import-token-step.component";
@@ -110,6 +111,7 @@ describe("EnrollPushDialogComponent", () => {
           provide: MAT_DIALOG_DATA,
           useValue: { tokenType: TokenType.PUSH },
         },
+        { provide: LiveAnnouncer, useValue: spyOnClass(LiveAnnouncer) },
       ],
     }).compileComponents();
   });

@@ -12,6 +12,7 @@
   * Verify step of an assigned password token did not hide the password.
   * Login form now retains username and realm after MFA cancellation.
   * UI responsiveness for small‑screen devices.
+  * Various a11y improvements across the app
 
 <a name="1.4"></a>
 ## 1.4 (2025-06-16)

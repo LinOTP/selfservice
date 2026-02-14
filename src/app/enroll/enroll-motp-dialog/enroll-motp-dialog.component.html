@@ -4,23 +4,28 @@
                         responsiveOrientation
                         class="flex-grow-1">
   <mat-step [completed]=false
-            [editable]="false">
+            [editable]="false"
+            label="Create token"
+            i18n-label>
     <ng-template matStepLabel
                  i18n>Create token</ng-template>
     <ng-template matStepContent>
       <mat-dialog-content>
+        <h3 class="cdk-visually-hidden"
+            i18n>Create token</h3>
         <p i18n="@@motpStepperCreateInstruction">
           Pair a new token with your mobile device which generates OTP values
           based on a secret password and a custom pin.
         </p>
         <form [formGroup]="createTokenForm"
               (keydown.enter)="enrollMOTPToken()">
-          <mat-form-field>
+          <mat-form-field appSubscriptAriaLive>
             <mat-label i18n>mOTP password</mat-label>
             <input matInput
                    formControlName="password"
                    type="password"
-                   appFocusOnInit>
+                   appFocusOnInit
+                   [attr.aria-invalid]="createTokenForm.get('password')?.invalid && createTokenForm.get('password')?.touched">
             <mat-hint i18n>Enter your token's secret</mat-hint>
             <mat-error *ngIf="createTokenForm.get('password').hasError('required')"
                        i18n>The field cannot be empty.
@@ -31,11 +36,12 @@
               or uppercase).
             </mat-error>
           </mat-form-field>
-          <mat-form-field>
+          <mat-form-field appSubscriptAriaLive>
             <mat-label i18n>mOTP PIN</mat-label>
             <input matInput
                    type="password"
-                   formControlName="mOTPPin">
+                   formControlName="mOTPPin"
+                   [attr.aria-invalid]="createTokenForm.get('mOTPPin')?.invalid && createTokenForm.get('mOTPPin')?.touched">
             <mat-hint i18n>Enter your token's mOTP pin</mat-hint>
             <mat-error i18n>The field cannot be empty.</mat-error>
           </mat-form-field>
@@ -45,35 +51,42 @@
     </ng-template>
     <ng-template #createTokenStepActions>
       <app-step-actions [awaitingResponse]="awaitingResponse"
-                        [disableSubmit]="createTokenForm.invalid || awaitingResponse"
+                        [disableSubmit]="awaitingResponse"
                         (cancelled)="close()"
                         (submitted)="enrollMOTPToken()">
       </app-step-actions>
     </ng-template>
   </mat-step>
 
-  <mat-step *ngIf="verifyPolicyEnabled">
+  <mat-step *ngIf="verifyPolicyEnabled"
+            label="Verify"
+            i18n-label>
     <ng-template matStepLabel
                  i18n>Verify</ng-template>
     <mat-dialog-content>
+      <h3 class="cdk-visually-hidden"
+          i18n>Verify</h3>
       <app-verify-token [token]="enrolledToken"
                         [mustContainDigitsOnly]="false"
-                        (tokenVerified)="isTokenVerified = true; stepper.next()"></app-verify-token>
+                        (tokenVerified)="isTokenVerified = true; goToNextStep(stepper)"></app-verify-token>
     </mat-dialog-content>
   </mat-step>
   <ng-template #verifyTokenStepActions>
     <app-step-actions [awaitingResponse]="undefined"
                       [disableSubmit]="!isTokenVerified"
                       (cancelled)="cancel()"
-                      (submitted)="stepper.next()">
+                      (submitted)="goToNextStep(stepper)">
     </app-step-actions>
   </ng-template>
 
-  <mat-step>
+  <mat-step label="Done"
+            i18n-label>
     <ng-template matStepLabel
                  i18n>Done</ng-template>
     <ng-template matStepContent>
       <mat-dialog-content>
+        <h3 class="cdk-visually-hidden"
+            i18n>Done</h3>
         <app-done-step [token]="enrolledToken"></app-done-step>
       </mat-dialog-content>
     </ng-template>

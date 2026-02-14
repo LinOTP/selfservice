@@ -44,6 +44,7 @@
                        formControlName="otp"
                        name="otp"
                        autocomplete="current-password"
+                       [attr.aria-invalid]="formGroup.get('otp')?.invalid && formGroup.get('otp')?.touched"
                        appFocusOnInit>
                 <mat-error i18n>The password field cannot be empty</mat-error>
               </mat-form-field>
@@ -57,6 +58,7 @@
                        formControlName="otp"
                        name="otp"
                        autocomplete="one-time-code"
+                       [attr.aria-invalid]="formGroup.get('otp')?.invalid && formGroup.get('otp')?.touched"
                        appFocusOnInit>
                 <mat-error i18n="@@otpRequiredInfo">The OTP field cannot be empty</mat-error>
               </mat-form-field>

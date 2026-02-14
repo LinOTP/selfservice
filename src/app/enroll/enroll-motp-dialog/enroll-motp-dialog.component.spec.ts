@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { NgxPermissionsAllowStubDirective, NgxPermissionsService } from 'ngx-permissions';
 import { of } from 'rxjs';
 
@@ -19,12 +20,12 @@ import { MaterialModule } from '@app/material.module';
 import { NotificationService } from '@common/notification.service';
 
 import { TokenType } from '@app/api/token';
-import { EnrollMOTPDialogComponent } from './enroll-motp-dialog.component';
 import { CreateTokenStepComponent } from "@app/enroll/create-token-step/create-token-step.component";
 import { DoneStepComponent } from "@app/enroll/done-step/done-step.component";
-import { VerifyTokenComponent } from "@app/enroll/verify-token/verify-token.component";
 import { TokenPinFormLayoutComponent } from "@app/enroll/token-pin-form-layout/token-pin-form-layout.component";
+import { VerifyTokenComponent } from "@app/enroll/verify-token/verify-token.component";
 import { NgSelfServiceCommonModule } from "@common/common.module";
+import { EnrollMOTPDialogComponent } from './enroll-motp-dialog.component';
 
 const enrolledToken = {
   serial: Fixtures.mOTPEnrollmentResponse.serial,
@@ -93,8 +94,7 @@ describe('EnrollMOTPDialogComponent', () => {
         {
           provide: MAT_DIALOG_DATA,
           useValue: { tokenType: TokenType.MOTP },
-        },
-      ],
+        }, { provide: LiveAnnouncer, useValue: spyOnClass(LiveAnnouncer) },],
     })
       .compileComponents();
   });

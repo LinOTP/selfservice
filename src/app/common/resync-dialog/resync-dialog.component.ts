@@ -1,3 +1,4 @@
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component, Inject } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -6,10 +7,10 @@ import { OperationsService } from '@api/operations.service';
 import { SelfserviceToken } from '@api/token';
 
 @Component({
-    selector: 'app-resync-dialog',
-    templateUrl: './resync-dialog.component.html',
-    styleUrls: ['./resync-dialog.component.scss'],
-    standalone: false
+  selector: 'app-resync-dialog',
+  templateUrl: './resync-dialog.component.html',
+  styleUrls: ['./resync-dialog.component.scss'],
+  standalone: false
 })
 export class ResyncDialogComponent {
 
@@ -21,6 +22,7 @@ export class ResyncDialogComponent {
     @Inject(MAT_DIALOG_DATA) public token: SelfserviceToken,
     private operationsService: OperationsService,
     private formBuilder: UntypedFormBuilder,
+    private liveAnnouncer: LiveAnnouncer,
   ) {
     this.form = this.formBuilder.group(
       {
@@ -37,6 +39,15 @@ export class ResyncDialogComponent {
    * Otherwise, the user receives a notification and the dialog stays open.
    */
   public submit() {
+    if (this.form.invalid) {
+      this.liveAnnouncer.announce($localize`Form contains errors. Please check all required fields.`);
+      // hack to force screen readers to re-announce the error state after button click
+      setTimeout(() => {
+        this.liveAnnouncer.announce('\u200B');
+      }, 300);
+      this.form.markAllAsTouched();
+      return;
+    }
     if (!this.awaitingResponse && this.form.valid) {
       this.awaitingResponse = true;
       this.operationsService.resync(this.token.serial, this.form.controls.otp1.value, this.form.controls.otp2.value).subscribe((result) => {
@@ -53,6 +64,6 @@ export class ResyncDialogComponent {
    * Helper function used to disable the submit button.
    */
   public preventSubmit() {
-    return this.form.invalid || this.awaitingResponse;
+    return this.awaitingResponse;
   }
 }

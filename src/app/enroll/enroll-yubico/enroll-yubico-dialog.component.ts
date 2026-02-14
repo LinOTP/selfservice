@@ -5,17 +5,17 @@ import { TokenType } from '@app/api/token';
 import { EnrollDialogBase } from '@app/enroll/enroll-dialog-base.directive';
 
 @Component({
-    selector: 'app-enroll-yubico',
-    templateUrl: './enroll-yubico-dialog.component.html',
-    styleUrls: ['./enroll-yubico-dialog.component.scss'],
-    standalone: false
+  selector: 'app-enroll-yubico',
+  templateUrl: './enroll-yubico-dialog.component.html',
+  styleUrls: ['./enroll-yubico-dialog.component.scss'],
+  standalone: false
 })
 export class EnrollYubicoDialogComponent extends EnrollDialogBase implements OnInit {
   @ViewChild(MatStepper, { static: true }) public stepper: MatStepper;
 
   ngOnInit() {
     this.createTokenForm.addControl('publicId',
-        this.formBuilder.control('', [Validators.required/*, Validators.minLength(12), Validators.maxLength(12)*/])
+      this.formBuilder.control('', [Validators.required/*, Validators.minLength(12), Validators.maxLength(12)*/])
     );
     super.ngOnInit();
   }
@@ -26,6 +26,10 @@ export class EnrollYubicoDialogComponent extends EnrollDialogBase implements OnI
    * on the same step.
    */
   public registerToken() {
+    if (this.createTokenForm.invalid) {
+      this.announceFormErrors();
+      return;
+    }
     const body = {
       type: TokenType.YUBICO,
       'yubico.tokenid': this.createTokenForm.get('publicId').value,
@@ -33,9 +37,9 @@ export class EnrollYubicoDialogComponent extends EnrollDialogBase implements OnI
       otplen: 44,
     };
     this.subscriptions.push(
-        this.enrollToken(body, this.stepper).subscribe(token => {
-          this.enrolledToken = { serial: token.serial, type: TokenType.YUBICO, description: token.description };
-        })
+      this.enrollToken(body, this.stepper).subscribe(token => {
+        this.enrolledToken = { serial: token.serial, type: TokenType.YUBICO, description: token.description };
+      })
     )
   }
 }

@@ -1,3 +1,5 @@
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { StepperSelectionEvent } from '@angular/cdk/stepper';
 import { Component, Inject, OnDestroy, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
@@ -12,10 +14,10 @@ import { TokenService } from '@app/api/token.service';
 
 
 @Component({
-    selector: 'app-activate-dialog',
-    templateUrl: './activate-dialog.component.html',
-    styleUrls: ['./activate-dialog.component.scss'],
-    standalone: false
+  selector: 'app-activate-dialog',
+  templateUrl: './activate-dialog.component.html',
+  styleUrls: ['./activate-dialog.component.scss'],
+  standalone: false
 })
 export class ActivateDialogComponent implements OnDestroy {
   @ViewChild(MatStepper, { static: true }) public stepper: MatStepper;
@@ -37,10 +39,19 @@ export class ActivateDialogComponent implements OnDestroy {
     private tokenService: TokenService,
     private enrollmentService: EnrollmentService,
     private dialogRef: MatDialogRef<ActivateDialogComponent>,
+    private liveAnnouncer: LiveAnnouncer,
     @Inject(MAT_DIALOG_DATA) public data: { token: SelfserviceToken },
   ) {
     this.isPush = data.token.tokenType === TokenType.PUSH;
     this.isQR = data.token.tokenType === TokenType.QR;
+  }
+
+  public onStepChange(event: StepperSelectionEvent): void {
+    this.stepperChanged = true;
+    setTimeout(() => {
+      const stepLabel = event.selectedStep?.label || 'next step';
+      this.liveAnnouncer.announce($localize`Moved to step: ${stepLabel}`, 'polite');
+    }, 500);
   }
 
   public activateToken(): void {
@@ -60,20 +71,24 @@ export class ActivateDialogComponent implements OnDestroy {
       }),
       catchError(() => {
         this.awaitingActivationInitResp = false;
-        return of(false)}
+        return of(false)
+      }
       ),
     ).subscribe(success => {
-      if(success) this.stepper.next()
+      if (success) this.stepper.next()
       this.restartDialog = !success;
+      if (!success) {
+        this.liveAnnouncer.announce($localize`Activation failed. Please try again, or contact an administrator.`, 'assertive');
+      }
     });
   }
 
   public close() {
-    if(this.stepperChanged) this.tokenService.updateTokenList();
+    if (this.stepperChanged) this.tokenService.updateTokenList();
     this.dialogRef.close();
   }
 
-  public goPrevious(){
+  public goPrevious() {
     this.stepper.steps.get(this.stepper.selectedIndex).completed = false
     this.stepper.previous()
   }

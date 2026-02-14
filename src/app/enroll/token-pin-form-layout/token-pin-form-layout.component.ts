@@ -15,7 +15,7 @@ import { take } from "rxjs/operators";
     <app-set-pin-validator [form]="form" [pinControlName]="'pin'"></app-set-pin-validator>
     <div class="row">
       <div class="col-12 col-md-6 mb-sm-3 mb-md-0">
-        <mat-form-field subscriptSizing="dynamic">
+        <mat-form-field subscriptSizing="dynamic" appSubscriptAriaLive>
           <mat-label i18n>OTP PIN</mat-label>
           <input matInput
                 type="password"

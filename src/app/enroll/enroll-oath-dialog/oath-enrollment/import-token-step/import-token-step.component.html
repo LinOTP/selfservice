@@ -17,6 +17,9 @@
   <!-- Layout when verify policy is not set -->
   <ng-template #noVerifyTmp>
     <div class="no-verify-container">
+      <p i18n="@@oathNoVerifyInstruction"
+         class="text-start">A token with the serial number {{ enrolledToken.serial }} has been created.
+        Please add the token by scanning the QR code in the Authenticator app.</p>
       <ng-container *ngTemplateOutlet="qrCodeTmp"></ng-container>
       <ng-container *ngTemplateOutlet="detailButtonsTmp"></ng-container>
     </div>

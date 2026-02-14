@@ -4,21 +4,27 @@
                         responsiveOrientation
                         class="flex-grow-1">
   <mat-step [completed]="false"
-            [editable]="false">
+            [editable]="false"
+            label="Register YubiCloud token"
+            i18n-label>
     <mat-dialog-content>
       <ng-template matStepLabel
                    i18n>Register token</ng-template>
+      <h3 class="cdk-visually-hidden"
+          i18n>Register token</h3>
       <p i18n>Register your Yubikey to authenticate against the YubiCloud.</p>
       <p i18n>To link your token, enter a generated OTP by connecting your YubiKey and pressing the button.
         Alternatively, you may enter the public ID manually:</p>
       <form [formGroup]="createTokenForm"
             (keydown.enter)="registerToken()">
-        <mat-form-field subscriptSizing="dynamic">
+        <mat-form-field subscriptSizing="dynamic"
+                        appSubscriptAriaLive>
           <mat-label i18n>OTP or public ID</mat-label>
           <input matInput
                  formControlName="publicId"
-                 appFocusOnInit>
-          <mat-error i18n>This field is required.</mat-error>
+                 appFocusOnInit
+                 [attr.aria-invalid]="createTokenForm.get('publicId')?.invalid && createTokenForm.get('publicId')?.touched">
+          <mat-error i18n>OTP or public ID is required.</mat-error>
           <mat-hint i18n>Generate an OTP with your Yubikey.</mat-hint>
         </mat-form-field>
         <app-create-token-step [form]="createTokenForm"></app-create-token-step>
@@ -28,19 +34,23 @@
 
   <ng-template #registerTokenStepActions>
     <app-step-actions [awaitingResponse]="awaitingResponse"
-                      [disableSubmit]="createTokenForm.invalid || awaitingResponse"
+                      [disableSubmit]="awaitingResponse"
                       (cancelled)="close()"
                       (submitted)="registerToken()">
     </app-step-actions>
   </ng-template>
 
-  <mat-step *ngIf="verifyPolicyEnabled">
+  <mat-step *ngIf="verifyPolicyEnabled"
+            label="Verify"
+            i18n-label>
     <ng-template matStepLabel
                  i18n>Verify</ng-template>
     <mat-dialog-content>
+      <h3 class="cdk-visually-hidden"
+          i18n>Verify</h3>
       <app-verify-token [token]="enrolledToken"
                         [mustContainDigitsOnly]="false"
-                        (tokenVerified)="isTokenVerified = true; stepper.next()"></app-verify-token>
+                        (tokenVerified)="isTokenVerified = true; goToNextStep(stepper)"></app-verify-token>
     </mat-dialog-content>
   </mat-step>
 
@@ -48,14 +58,17 @@
     <app-step-actions [awaitingResponse]="undefined"
                       [disableSubmit]="!isTokenVerified"
                       (cancelled)="cancel()"
-                      (submitted)="stepper.next()">
+                      (submitted)="goToNextStep(stepper)">
     </app-step-actions>
   </ng-template>
 
-  <mat-step>
+  <mat-step label="Done"
+            i18n-label>
     <ng-template matStepLabel
                  i18n>Done</ng-template>
     <mat-dialog-content>
+      <h3 class="cdk-visually-hidden"
+          i18n>Done</h3>
       <app-done-step [token]="enrolledToken"></app-done-step>
     </mat-dialog-content>
     <ng-template #doneStepActions>

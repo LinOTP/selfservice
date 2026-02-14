@@ -1,3 +1,4 @@
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -54,6 +55,10 @@ describe('TestDialogComponent', () => {
         {
           provide: TestService,
           useValue: spyOnClass(TestService),
+        },
+        {
+          provide: LiveAnnouncer,
+          useValue: spyOnClass(LiveAnnouncer),
         },
       ]
     }).compileComponents();

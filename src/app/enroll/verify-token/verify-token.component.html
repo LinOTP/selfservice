@@ -5,7 +5,7 @@
   </p>
 
   <div class="input-container">
-    <mat-form-field>
+    <mat-form-field appSubscriptAriaLive>
       <mat-label i18n>OTP value</mat-label>
       <input appFocusOnInit
              focusDelay="500"
@@ -13,7 +13,8 @@
              [type]="token.type === TokenType.PASSWORD ? 'password' : 'text'"
              formControlName="otp"
              name="otp"
-             autocomplete="one-time-code">
+             autocomplete="one-time-code"
+             [attr.aria-invalid]="form.get('otp')?.invalid && form.get('otp')?.touched">
       <mat-error i18n="@@otpRequiredInfo"
                  *ngIf="form.get('otp').hasError('required')">The OTP field cannot be empty</mat-error>
       <mat-error i18n="@@onlyNumericValuesControlError"
@@ -27,7 +28,7 @@
     <button mat-flat-button
             color="primary"
             (click)="verifyToken()"
-            [disabled]="form.invalid || awaitingResponse || verifyResult === 'SUCCESS' || !verifyStarted">
+            [disabled]="awaitingResponse || verifyResult === 'SUCCESS' || !verifyStarted">
       <div class="button-content">
         <app-button-wait-indicator [show]="awaitingResponse"></app-button-wait-indicator>
         <mat-icon *ngIf="!awaitingResponse">check</mat-icon>

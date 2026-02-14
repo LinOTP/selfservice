@@ -9,9 +9,10 @@
       <input matInput
              type="text"
              formControlName="otp"
-             appFocusOnInit>
+             appFocusOnInit
+             [attr.aria-invalid]="form.get('otp')?.invalid && form.get('otp')?.touched">
       <mat-error i18n
-                 *ngIf="form.get('otp').hasError('required')">This field is required.</mat-error>
+                 *ngIf="form.get('otp').hasError('required')">OTP is required.</mat-error>
     </mat-form-field>
   </mat-dialog-content>
 

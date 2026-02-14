@@ -4,10 +4,14 @@
                         responsiveOrientation
                         class="flex-grow-1">
   <mat-step [completed]="false"
-            [editable]="false">
+            [editable]="false"
+            label="Create token"
+            i18n-label>
     <mat-dialog-content>
       <ng-template matStepLabel
                    i18n>Create token</ng-template>
+      <h3 class="cdk-visually-hidden"
+          i18n>Create token</h3>
       <p i18n>Pair a new token with your email address to receive OTP values for authentication.</p>
       <p *ngIf="!canEditEmail && userEmail"
          i18n>The token will use your user email address: <b>{{ userEmail }}</b></p>
@@ -19,15 +23,17 @@
       </p>
       <form [formGroup]="createTokenForm"
             (keydown.enter)="enrollEmailToken()">
-        <mat-form-field *ngIf="canEditEmail">
+        <mat-form-field *ngIf="canEditEmail"
+                        appSubscriptAriaLive>
           <mat-label i18n>Email address</mat-label>
           <input matInput
                  formControlName="emailAddress"
-                 appFocusOnInit>
+                 appFocusOnInit
+                 [attr.aria-invalid]="createTokenForm.get('emailAddress')?.invalid && createTokenForm.get('emailAddress')?.touched">
           <mat-hint i18n>Set the email address to use for your token</mat-hint>
           <mat-error i18n
                      *ngIf="createTokenForm.get('emailAddress').hasError('required')">
-            This field is required.
+            Email address is required.
           </mat-error>
         </mat-form-field>
         <app-create-token-step [form]="createTokenForm"></app-create-token-step>
@@ -37,18 +43,22 @@
 
   <ng-template #createTokenStepActions>
     <app-step-actions [awaitingResponse]="awaitingResponse"
-                      [disableSubmit]="createTokenForm.invalid || awaitingResponse"
+                      [disableSubmit]="awaitingResponse"
                       (cancelled)="close()"
                       (submitted)="enrollEmailToken()">
     </app-step-actions>
   </ng-template>
 
-  <mat-step *ngIf="verifyPolicyEnabled">
+  <mat-step *ngIf="verifyPolicyEnabled"
+            label="Verify"
+            i18n-label>
     <ng-template matStepLabel
                  i18n>Verify</ng-template>
     <mat-dialog-content>
+      <h3 class="cdk-visually-hidden"
+          i18n>Verify</h3>
       <app-verify-token [token]="enrolledToken"
-                        (tokenVerified)="isTokenVerified = true; stepper.next()"></app-verify-token>
+                        (tokenVerified)="isTokenVerified = true; goToNextStep(stepper)"></app-verify-token>
     </mat-dialog-content>
   </mat-step>
 
@@ -56,13 +66,16 @@
     <app-step-actions [awaitingResponse]="undefined"
                       [disableSubmit]="!isTokenVerified"
                       (cancelled)="cancel()"
-                      (submitted)="stepper.next()">
+                      (submitted)="goToNextStep(stepper)">
     </app-step-actions>
   </ng-template>
-  <mat-step>
+  <mat-step label="Done"
+            i18n-label>
     <ng-template matStepLabel
                  i18n>Done</ng-template>
     <mat-dialog-content>
+      <h3 class="cdk-visually-hidden"
+          i18n>Done</h3>
       <app-done-step [token]="enrolledToken"></app-done-step>
     </mat-dialog-content>
     <ng-template #doneStepActions>

@@ -1,3 +1,4 @@
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgForm, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -16,10 +17,10 @@ enum TestState {
 }
 
 @Component({
-    selector: 'app-test-dialog',
-    templateUrl: './test-dialog.component.html',
-    styleUrls: ['./test-dialog.component.scss'],
-    standalone: false
+  selector: 'app-test-dialog',
+  templateUrl: './test-dialog.component.html',
+  styleUrls: ['./test-dialog.component.scss'],
+  standalone: false
 })
 export class TestDialogComponent implements OnInit, OnDestroy {
 
@@ -61,6 +62,7 @@ export class TestDialogComponent implements OnInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) public data: { serial: string, type: TokenType, token: SelfserviceToken | undefined; },
     private testService: TestService,
     private formBuilder: UntypedFormBuilder,
+    private liveAnnouncer: LiveAnnouncer,
   ) {
     this.formGroup = this.formBuilder.group({
       otp: ['', Validators.required],
@@ -123,10 +125,20 @@ export class TestDialogComponent implements OnInit, OnDestroy {
     });
   }
 
+  private announceFormErrors(): void {
+    this.liveAnnouncer.announce($localize`Form contains errors. Please check all required fields.`);
+    setTimeout(() => this.liveAnnouncer.announce('\u200B'), 300);
+    this.formGroup.markAllAsTouched();
+  }
+
   /**
    * Submit the OTP and set the component state to success or failure depending on the response.
    */
   public submit() {
+    if (this.formGroup.invalid) {
+      this.announceFormErrors();
+      return;
+    }
     if (!this.preventSubmit()) {
       if (this.pollingSubscription) {
         this.pollingSubscription.unsubscribe();
@@ -181,6 +193,6 @@ export class TestDialogComponent implements OnInit, OnDestroy {
   }
 
   public preventSubmit() {
-    return (this.formGroup.invalid || this.awaitingResponse) && this.offlineOtpValue.length === 0;
+    return this.awaitingResponse && this.offlineOtpValue.length === 0;
   }
 }
