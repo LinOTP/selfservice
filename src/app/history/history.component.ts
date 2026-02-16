@@ -8,6 +8,7 @@ import { debounceTime, delay, distinctUntilChanged, filter, finalize, switchMap,
 import { FormControl, FormGroup } from '@angular/forms';
 import { HistoryField, HistoryPage, HistoryRecord, HistoryRequestOptions, SortOrder } from '@api/history';
 import { HistoryService } from '@api/history.service';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 
 const historyColumns = ['success', 'date', 'action', 'serial', 'tokentype', 'action_detail', 'info'] as const;
 type HistoryColumn = typeof historyColumns[number];
@@ -66,7 +67,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
 
   constructor(
-    private historyService: HistoryService,
+    private historyService: HistoryService, private liveAnnouncer: LiveAnnouncer
   ) { }
 
   ngOnInit(): void {
@@ -113,8 +114,10 @@ export class HistoryComponent implements OnInit, OnDestroy {
 
     this.loading = true;
     return this.historyService.getHistory(options).pipe(
-      filter(history => !!history),
-      tap(history => {
+      filter((history) => !!history),
+      tap((history) => {
+        setTimeout(()=>this.liveAnnouncer.announce(
+          $localize`:@@history-update-msg:Table updated with "${history.totalRecords}" matching results.`, "assertive"), 300)
         this._history = history;
         this._loadedPage = history.page;
       }),
@@ -126,7 +129,9 @@ export class HistoryComponent implements OnInit, OnDestroy {
   }
 
   loadHistory() {
-    this.getHistory().subscribe()
+    this.subscription.add(
+      this.getHistory().subscribe()
+    )
   }
 
 }
