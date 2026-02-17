@@ -1,43 +1,47 @@
-import { DatePipe } from '@angular/common';
+import { DatePipe } from "@angular/common";
 import {
   ComponentFixture,
   fakeAsync,
   TestBed,
   tick,
-} from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
+} from "@angular/core/testing";
+import { ReactiveFormsModule } from "@angular/forms";
 
-import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
-import { of } from 'rxjs';
+import { NgxPermissionsAllowStubDirective } from "ngx-permissions";
+import { of } from "rxjs";
 
-import { HistoryFixtures } from '@testing/fixtures';
-import { MockPipe } from '@testing/mock-pipe';
-import { getInjectedStub, spyOnClass } from '@testing/spyOnClass';
+import { HistoryFixtures } from "@testing/fixtures";
+import { MockPipe } from "@testing/mock-pipe";
+import { getInjectedStub, spyOnClass } from "@testing/spyOnClass";
 
-import { HistoryField, HistoryRequestOptions, SortOrder } from '@api/history';
-import { HistoryService } from '@api/history.service';
-import { MaterialModule } from '@app/material.module';
+import { HistoryField, HistoryRequestOptions, SortOrder } from "@api/history";
+import { HistoryService } from "@api/history.service";
+import { MaterialModule } from "@app/material.module";
 
-import { HasCustomContentMockDirective } from '@app/custom-content/has-custom-content.directive.mock';
-import { MockComponent } from '@testing/mock-component';
-import { delay } from 'rxjs/operators';
-import { HistoryComponent } from './history.component';
+import { HasCustomContentMockDirective } from "@app/custom-content/has-custom-content.directive.mock";
+import { MockComponent } from "@testing/mock-component";
+import { delay } from "rxjs/operators";
+import { HistoryComponent } from "./history.component";
+import { LiveAnnouncer } from "@angular/cdk/a11y";
 
-describe('HistoryComponent', () => {
+describe("HistoryComponent", () => {
   let component: HistoryComponent;
   let fixture: ComponentFixture<HistoryComponent>;
   let historyService: jasmine.SpyObj<HistoryService>;
+  let liveAnnouncer: jasmine.SpyObj<LiveAnnouncer>;
 
-  describe('loadHistory', () => {
+  describe("loadHistory", () => {
     beforeEach(async () => {
       TestBed.configureTestingModule({
-        declarations: [
-          HistoryComponent,
-        ],
+        declarations: [HistoryComponent],
         providers: [
           {
             provide: HistoryService,
             useValue: spyOnClass(HistoryService),
+          },
+          {
+            provide: LiveAnnouncer,
+            useValue: spyOnClass(LiveAnnouncer),
           },
         ],
         imports: [
@@ -45,11 +49,15 @@ describe('HistoryComponent', () => {
           ReactiveFormsModule,
           NgxPermissionsAllowStubDirective,
           HasCustomContentMockDirective,
-          MockComponent({ selector: 'app-custom-content-slot', inputs: ['slotId'] }),
+          MockComponent({
+            selector: "app-custom-content-slot",
+            inputs: ["slotId"],
+          }),
           MockPipe(DatePipe),
         ],
       }).compileComponents();
       historyService = getInjectedStub(HistoryService);
+      liveAnnouncer = getInjectedStub(LiveAnnouncer);
     });
 
     beforeEach(() => {
@@ -59,11 +67,11 @@ describe('HistoryComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should create', () => {
+    it("should create", () => {
       expect(component).toBeTruthy();
     });
 
-    it('should call the history service to load the history', fakeAsync(() => {
+    it("should call the history service to load the history", fakeAsync(() => {
       component.loadHistory();
       tick();
 
@@ -77,18 +85,18 @@ describe('HistoryComponent', () => {
       };
       expect(historyService.getHistory).toHaveBeenCalledWith(options);
 
-      expect(component.page).toEqual(
-        HistoryFixtures.mockPage.page,
-      );
+      expect(component.page).toEqual(HistoryFixtures.mockPage.page);
       expect(component.pageSize).toEqual(
         HistoryFixtures.mockPage.pageRecords.length,
       );
+      tick(1500);
+      expect(liveAnnouncer.announce).toHaveBeenCalled();
     }));
 
-    it('submitSearch should set the page index to 0 and reload history', fakeAsync(() => {
+    it("submitSearch should set the page index to 0 and reload history", fakeAsync(() => {
       component.changePage({ pageIndex: 3, pageSize: component.pageSize });
       fixture.detectChanges();
-      component.queryForm.get('column').patchValue('serial');
+      component.queryForm.get("column").patchValue("serial");
       tick(0);
       expect(component.page).toEqual(0);
       expect(historyService.getHistory).toHaveBeenCalled();
@@ -101,7 +109,7 @@ describe('HistoryComponent', () => {
 
     beforeEach(() => {
       historyProvider = new HistoryProviderMock();
-      cut = new HistoryComponent(historyProvider as any);
+      cut = new HistoryComponent(historyProvider as any, liveAnnouncer as any);
     });
 
     it("should correctly set loading and loaded states", fakeAsync(() => {
@@ -189,21 +197,24 @@ describe('HistoryComponent', () => {
   });
 
   describe("Template tests", () => {
-
     beforeEach(async () => {
       TestBed.configureTestingModule({
-        declarations: [
-          HistoryComponent,
-        ],
+        declarations: [HistoryComponent],
         providers: [
           {
             provide: HistoryService,
-            useClass: HistoryProviderMock
+            useClass: HistoryProviderMock,
           },
         ],
-        imports: [MaterialModule, ReactiveFormsModule, NgxPermissionsAllowStubDirective,
+        imports: [
+          MaterialModule,
+          ReactiveFormsModule,
+          NgxPermissionsAllowStubDirective,
           HasCustomContentMockDirective,
-          MockComponent({ selector: 'app-custom-content-slot', inputs: ['slotId'] }),
+          MockComponent({
+            selector: "app-custom-content-slot",
+            inputs: ["slotId"],
+          }),
           MockPipe(DatePipe),
         ],
       }).compileComponents();
@@ -244,15 +255,15 @@ describe('HistoryComponent', () => {
       progressBar = fixture.nativeElement.querySelector("mat-progress-bar");
       expect(progressBar.style.visibility).toBe("visible");
     }));
-
   });
-
 });
 
 class HistoryProviderMock {
   options: HistoryRequestOptions | undefined;
   getHistory(options: HistoryRequestOptions) {
     this.options = options;
-    return of({ ...HistoryFixtures.mockPage, page: options.page }).pipe(delay(5));
+    return of({ ...HistoryFixtures.mockPage, page: options.page }).pipe(
+      delay(5),
+    );
   }
 }

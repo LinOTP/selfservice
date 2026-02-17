@@ -14,6 +14,10 @@
     padding-right: 1em;
     box-sizing: border-box;
   }
+
+  main:has(app-history){
+    max-width: 1250px;
+  }
 }
 
 
