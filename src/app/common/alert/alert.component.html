@@ -6,5 +6,10 @@
       <mat-icon *ngSwitchDefault>warning</mat-icon>
     </ng-container>
   </div>
-  <ng-container *ngTemplateOutlet="msgTmpl"></ng-container>
+
+  <ng-container *ngIf="template; else stringTpl"
+                [ngTemplateOutlet]="template">
+  </ng-container>
+
+  <ng-template #stringTpl>{{ text }}</ng-template>
 </div>
