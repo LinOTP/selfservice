@@ -12,6 +12,7 @@ export enum TokenType {
   YUBICO = "yubico",
   YUBIKEY = "yubikey",
   FORWARD = "forward",
+  FIDO2 = "fido2",
   UNKNOWN = "unknown"
 }
 
@@ -201,6 +202,15 @@ export const tokenDisplayData: TokenDisplayData[] = [
     description: $localize`Authenticate with a Yubikey hardware token.`,
     icon: 'vpn_key', // TODO: we might want to use an official logo here
     authenticationPrompt: $localize`Authenticate using your Yubikey token`,
+  },
+  {
+    type: TokenType.FIDO2,
+    name: $localize`FIDO2 token`,
+    description: $localize`Authenticate with a hardware token that is compatible with the fido2 protocol.`,
+    icon: 'vpn_key',
+    authenticationPrompt: $localize`Authenticate using your FIDO2 token`,
+    enrollmentPermission: Permission.ENROLLFIDO2,
+    enrollmentActionLabel: $localize`Create`,
   },
   {
     type: TokenType.FORWARD,
