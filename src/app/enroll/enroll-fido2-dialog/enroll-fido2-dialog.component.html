@@ -1,0 +1,89 @@
+<h2 mat-dialog-title
+    i18n>Add FIDO2 token</h2>
+<mat-horizontal-stepper [linear]="true"
+                        responsiveOrientation
+                        class="flex-grow-1">
+  <mat-step [completed]="false"
+            [editable]="false"
+            label="Create FIDO2 token"
+            i18n-label>
+    <mat-dialog-content>
+      <ng-template matStepLabel
+                   i18n>Create token</ng-template>
+      <h3 class="cdk-visually-hidden"
+          i18n>Create token</h3>
+      <p i18n>Create your FIDO2 token by using a passkey on your device or by inserting a supported hardware security key (e.g. YubiKey5, Nitrokey).</p>
+      <app-warning class="m-1" *ngIf="!isSupported()" msgTmpl="Your browser does not support FIDO2 enrollment." type="error"></app-warning>
+      <form [formGroup]="createTokenForm"
+            (keydown.enter)="createToken()">
+        <app-create-token-step [form]="createTokenForm"></app-create-token-step>
+      </form>
+    </mat-dialog-content>
+  </mat-step>
+
+  <ng-template #registerTokenStepActions>
+    <app-step-actions [awaitingResponse]="awaitingResponse"
+                      [disableSubmit]="awaitingResponse || !isSupported()"
+                      (cancelled)="close()"
+                      (submitted)="createToken()">
+    </app-step-actions>
+  </ng-template>
+
+  <mat-step
+            label="Activate"
+            i18n-label>
+    <ng-template matStepLabel
+                 i18n>Activate</ng-template>
+    <mat-dialog-content>
+      <h3 class="cdk-visually-hidden"
+          i18n>Activate</h3>
+    <div class="acitvation-step">
+      <p class="mt-0">Please follow the browser instructions to activate your FIDO2 token.</p>
+      <mat-spinner *ngIf="!activationFailed" class="m-auto"></mat-spinner>
+      @if (activationFailed) {
+        <app-warning class="d-block m-auto" msgTmpl="The operation either timed out or was not allowed." type="error"></app-warning>
+        <button mat-flat-button
+          color="primary"
+          type="button"
+          (click)="subscriptions.push(activate().subscribe())"
+          appFocusOnInit
+          i18n>
+          Retry
+        </button>
+      }
+      </div>
+    </mat-dialog-content>
+  </mat-step>
+
+  <ng-template #activateTokenStepActions>
+    <app-step-actions [awaitingResponse]="undefined"
+                      [disableSubmit]="!isTokenVerified"
+                      (cancelled)="cancel()"
+                      (submitted)="goToNextStep(stepper)">
+    </app-step-actions>
+  </ng-template>
+
+  <mat-step label="Done"
+            i18n-label>
+    <ng-template matStepLabel
+                 i18n>Done</ng-template>
+        <ng-template matStepContent>
+      <h3 class="cdk-visually-hidden"
+          i18n>Done</h3>
+      <app-done-step [token]="enrolledToken"
+                     [isActivationProcess]="true"></app-done-step>
+    </ng-template>
+    <ng-template #doneStepActions>
+      <app-step-actions [disableSubmit]="false"
+                        [isDoneStep]="true"
+                        (submitted)="close()"></app-step-actions>
+    </ng-template>
+  </mat-step>
+</mat-horizontal-stepper>
+
+
+<mat-dialog-actions align="end">
+  <ng-container *ngTemplateOutlet="
+        [registerTokenStepActions, activateTokenStepActions, doneStepActions]
+        [stepper.selectedIndex]"></ng-container>
+</mat-dialog-actions>

@@ -43,6 +43,7 @@ import { TokenPinFormLayoutComponent } from './enroll/token-pin-form-layout/toke
 import { FromBreakpointPipe } from './from-breakpoint.pipe';
 import { ResponsiveStepperDirective } from './responsive-stepper.directive';
 import { ThemePickerComponent } from './theme-picker/theme-picker.component';
+import { EnrollFIDO2DialogComponent } from './enroll/enroll-fido2-dialog/enroll-fido2-dialog.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { ThemePickerComponent } from './theme-picker/theme-picker.component';
     DoneStepComponent,
     ImportTokenStepComponent,
     QrCodeInputComponent,
+    EnrollFIDO2DialogComponent
   ],
   bootstrap: [AppComponent], imports: [BrowserModule,
     FormsModule,

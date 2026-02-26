@@ -21,7 +21,7 @@ enum CompletionState {
 export class DoneStepComponent implements OnInit {
   @Input({ required: true }) token: EnrolledToken;
   @Input() isAssignProcess: boolean = false;
-  @Input() isQRPushActivationProcess: boolean = false;
+  @Input() isActivationProcess: boolean = false;
 
   completionState: CompletionState;
 
@@ -45,7 +45,7 @@ export class DoneStepComponent implements OnInit {
       case this.isAssignProcess:
         return CompletionState.ASSIGN_SUCCESS;
 
-      case this.isQRPushActivationProcess:
+      case this.isActivationProcess:
         return CompletionState.ACTIVATION_SUCCESS;
 
       case (isQR && !hasActivateQRPerm) || (isPush && !hasActivatePushPerm):
