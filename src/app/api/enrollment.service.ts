@@ -11,8 +11,9 @@ import { NotificationService } from '@common/notification.service';
 import { Permission } from "@common/permissions";
 import { NgxPermissionsService } from "ngx-permissions";
 import { APIError, LinOTPResponse } from './api';
-import { EnrollmentOptions, EnrollmentStatus } from './token';
+import { EnrollmentOptions, EnrollmentStatus, TokenType } from './token';
 import { TokenService } from './token.service';
+import { AttestationResponse, Fido2RegisterRequest } from '@app/enroll/enroll-fido2-dialog/enroll-fido2-dialog.component';
 
 export interface EnrollmentDetail {
   serial: string;
@@ -21,11 +22,13 @@ export interface EnrollmentDetail {
   };
   otpkey?: { value: string };
   googleurl?: { value: string };
+  registerrequest?: Fido2RegisterRequest
 }
 
 export interface ActivationDetail {
   transactionid: string;
   message?: string;
+  registerrequest?: Fido2RegisterRequest
 }
 
 interface ChallengeStatusDetail {
@@ -112,6 +115,29 @@ export class EnrollmentService {
           }
         }),
         map(response => response?.detail),
+        catchError(this.handleError($localize`Token activation`, null))
+      );
+  }
+
+  fido2_activate_begin(serial: string, type: TokenType): Observable<Fido2RegisterRequest> {
+    return this.http
+      .post<LinOTPResponse<boolean, ActivationDetail>>(
+        "/userservice/fido2_activate_begin",
+        { serial: serial, type: type, session: this.sessionService.getSession() }
+      )
+      .pipe(
+        map(response => response?.detail.registerrequest),
+        catchError(this.handleError($localize`Token activation`, null))
+      );
+  }
+
+  fido2_activate_finish(serial: string, attestation: AttestationResponse): Observable<ActivationDetail> {
+    return this.http
+      .post<LinOTPResponse<boolean, ActivationDetail>>(
+        "/userservice/fido2_activate_finish",
+        { serial: serial, session: this.sessionService.getSession(), attestationResponse: attestation }
+      )
+      .pipe(
         catchError(this.handleError($localize`Token activation`, null))
       );
   }

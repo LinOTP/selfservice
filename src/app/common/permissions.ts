@@ -1,6 +1,7 @@
 export enum Permission {
     ENROLLPUSH = 'PUSH.ENROLL',
     ACTIVATEPUSH = 'PUSH.ACTIVATE',
+    ENROLLFIDO2 = 'FIDO2.ENROLL',
     ENROLLQR = 'QR.ENROLL',
     ACTIVATEQR = 'QR.ACTIVATE',
     ENROLLHOTP = 'HOTP.ENROLL',
@@ -30,6 +31,7 @@ export const PoliciesToPermissionsMapping: { [policy: string]: Permission } = {
     'activate_PushToken': Permission.ACTIVATEPUSH,
     'enrollQR': Permission.ENROLLQR,
     'activate_QRToken': Permission.ACTIVATEQR,
+    'enrollFIDO2': Permission.ENROLLFIDO2,
     'webprovisionGOOGLE': Permission.ENROLLHOTP,
     'webprovisionGOOGLEtime': Permission.ENROLLTOTP,
     'enrollHMAC': Permission.ENROLLHOTP,

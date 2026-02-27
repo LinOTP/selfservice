@@ -12,6 +12,7 @@ export enum TokenType {
   YUBICO = "yubico",
   YUBIKEY = "yubikey",
   FORWARD = "forward",
+  FIDO2 = "fido2",
   UNKNOWN = "unknown"
 }
 
@@ -203,6 +204,15 @@ export const tokenDisplayData: TokenDisplayData[] = [
     authenticationPrompt: $localize`Authenticate using your Yubikey token`,
   },
   {
+    type: TokenType.FIDO2,
+    name: $localize`FIDO2 token`,
+    description: $localize`Authenticate with a FIDO2 token.`,
+    icon: 'vpn_key',
+    authenticationPrompt: $localize`Authenticate using your FIDO2 token`,
+    enrollmentPermission: Permission.ENROLLFIDO2,
+    enrollmentActionLabel: $localize`Create`,
+  },
+  {
     type: TokenType.FORWARD,
     name: $localize`forwarding token`,
     description: $localize`Forward the authentication request to another token.`,
@@ -257,4 +267,4 @@ export type LinOtpToken = {
 }
 
 export type LinOtpTokenEnrollmentStatus = 'completed' | 'unpaired' | 'pairing_url_sent' | 'pairing_response_received' | 'pairing_challenge_sent';
-export type LinOtpTokenType = 'pw' | 'forward' | 'hmac' | 'totp' | 'push' | 'qr' | 'motp' | 'sms' | 'email' | 'yubico' | 'yubikey' | 'unknown';
+export type LinOtpTokenType = 'pw' | 'forward' | 'hmac' | 'totp' | 'push' | 'qr' | 'motp' | 'sms' | 'email' | 'yubico' | 'yubikey' | 'fido2' | 'unknown';

@@ -222,6 +222,7 @@ describe('TokenListComponent', () => {
       Permission.ENROLLSMS,
       Permission.ENROLLEMAIL,
       Permission.ENROLLYUBICO,
+      Permission.ENROLLFIDO2,
       Permission.ASSIGN,
     ]);
   });

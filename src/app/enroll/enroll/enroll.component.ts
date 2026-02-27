@@ -19,6 +19,7 @@ import { EnrollPasswordDialogComponent } from '@app/enroll/enroll-password-dialo
 import { EnrollPushQRDialogComponent } from '@app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component';
 import { EnrollSMSDialogComponent } from '@app/enroll/enroll-sms-dialog/enroll-sms-dialog.component';
 import { EnrollYubicoDialogComponent } from '@app/enroll/enroll-yubico/enroll-yubico-dialog.component';
+import { EnrollFIDO2DialogComponent } from '@app/enroll/enroll-fido2-dialog/enroll-fido2-dialog.component';
 
 @Component({
   selector: 'app-enroll',
@@ -110,6 +111,9 @@ export class EnrollComponent implements OnInit {
         break;
       case TokenType.YUBICO:
         enrollmentDialog = EnrollYubicoDialogComponent;
+        break;
+      case TokenType.FIDO2:
+        enrollmentDialog = EnrollFIDO2DialogComponent;
         break;
       case 'assign':
         enrollmentDialog = AssignTokenDialogComponent;
