@@ -13,7 +13,7 @@
       <h3 class="cdk-visually-hidden"
           i18n>Create token</h3>
       <p i18n>Create your FIDO2 token by using a passkey on your device or by inserting a supported hardware security key (e.g. YubiKey5, Nitrokey).</p>
-      <app-warning class="m-1" *ngIf="!isSupported()" msgTmpl="Your browser does not support FIDO2 enrollment." type="error"></app-warning>
+      <app-warning class="m-1" *ngIf="!isSupported()" [msgTmpl]="errMsg" type="error"></app-warning>
       <form [formGroup]="createTokenForm"
             (keydown.enter)="createToken()">
         <app-create-token-step [form]="createTokenForm"></app-create-token-step>
@@ -38,10 +38,10 @@
       <h3 class="cdk-visually-hidden"
           i18n>Activate</h3>
     <div class="acitvation-step">
-      <p class="mt-0">Please follow the browser instructions to activate your FIDO2 token.</p>
+      <p class="mt-0" i18n>Please follow the browser instructions to activate your FIDO2 token.</p>
       <mat-spinner *ngIf="!activationFailed" class="m-auto"></mat-spinner>
       @if (activationFailed) {
-        <app-warning class="d-block m-auto" msgTmpl="The operation either timed out or was not allowed." type="error"></app-warning>
+        <app-warning class="d-block m-auto" [msgTmpl]="errMsg" type="error"></app-warning>
         <button mat-flat-button
           color="primary"
           type="button"

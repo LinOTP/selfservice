@@ -63,6 +63,7 @@ export class EnrollFIDO2DialogComponent
 {
   @ViewChild(MatStepper, { static: true }) public stepper: MatStepper;
   activationFailed = false;
+  errMsg: string | undefined
 
   public createToken(): void {
     if (this.createTokenForm.invalid) {
@@ -141,6 +142,9 @@ export class EnrollFIDO2DialogComponent
   }
 
   handleError() {
+    const notSupportedErr = $localize`Your browser does not support FIDO2 enrollment.`
+    const other = $localize`The operation either timed out or was not allowed.`
+    this.errMsg = this.isSupported() ? other : notSupportedErr
     this.activationFailed = true;
     return EMPTY;
   }
