@@ -267,4 +267,4 @@ export type LinOtpToken = {
 }
 
 export type LinOtpTokenEnrollmentStatus = 'completed' | 'unpaired' | 'pairing_url_sent' | 'pairing_response_received' | 'pairing_challenge_sent';
-export type LinOtpTokenType = 'pw' | 'forward' | 'hmac' | 'totp' | 'push' | 'qr' | 'motp' | 'sms' | 'email' | 'yubico' | 'yubikey' | 'unknown';
+export type LinOtpTokenType = 'pw' | 'forward' | 'hmac' | 'totp' | 'push' | 'qr' | 'motp' | 'sms' | 'email' | 'yubico' | 'yubikey' | 'fido2' | 'unknown';

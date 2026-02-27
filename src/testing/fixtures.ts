@@ -59,6 +59,13 @@ export class Fixtures {
         icon: 'vpn_key', // TODO: we might want to use an official logo here
         authenticationPrompt: `Authenticate using your Yubikey token`,
       },
+      fido2: {
+        type: TokenType.FIDO2,
+        name: `FIDO2 token`,
+        description: `Authenticate with a FIDO2 token.`,
+        icon: 'vpn_key',
+        authenticationPrompt: `Authenticate using your FIDO2 token`,
+      },
       qr: {
         type: TokenType.QR,
         name: 'QR-Token',

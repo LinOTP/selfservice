@@ -108,7 +108,9 @@ describe("HistoryComponent", () => {
     let cut: HistoryComponent;
 
     beforeEach(() => {
+      spyOnClass(LiveAnnouncer);
       historyProvider = new HistoryProviderMock();
+      liveAnnouncer = getInjectedStub(LiveAnnouncer);
       cut = new HistoryComponent(historyProvider as any, liveAnnouncer as any);
     });
 
