@@ -36,3 +36,12 @@ export function bufferToBase64url(buffer: ArrayBuffer): string {
     .replace(/=/g, "");
   return base64urlString;
 }
+
+export function isFido2Supported(): boolean {
+    return !!(
+      navigator.credentials &&
+      navigator.credentials.get &&
+      navigator.credentials.create &&
+      window.PublicKeyCredential
+    );
+  }
