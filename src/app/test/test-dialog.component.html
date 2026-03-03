@@ -18,7 +18,13 @@
       <ng-container *ngSwitchCase="TestState.UNTESTED">
 
         <div class="instruction"
-             *ngIf="!hasOnlineMode">
+             *ngIf="isFido2">
+          <p i18n>To test your FIDO2 token, please click the button below. Your browser will prompt you to
+            authenticate with your security key or passkey.</p>
+        </div>
+
+        <div class="instruction"
+             *ngIf="!isFido2 && !hasOnlineMode">
           <ng-container *ngIf="typeDetails.type === TokenType.PASSWORD || TargetToken?.type === TokenType.PASSWORD ; else otpInputMessage"
                         i18n>
             Please enter the password of the selected token:
@@ -33,7 +39,8 @@
                            [transactionDetail]="transactionDetail"
                            (otpValueChanged)="offlineOtpValue = $event"></app-qr-code-input>
 
-        <div [ngClass]="{'center-content': hasOnlineMode && hasOfflineMode}">
+        <div [ngClass]="{'center-content': hasOnlineMode && hasOfflineMode}"
+             *ngIf="!isFido2">
           <ng-container *ngIf="!hasOnlineMode || showInputField">
             <ng-container
                           *ngIf="typeDetails.type === TokenType.PASSWORD || TargetToken?.type === TokenType.PASSWORD ; else otpInputField">
@@ -92,7 +99,7 @@
             type="button"
             mat-dialog-close
             *ngIf="state !== TestState.SUCCESS"
-            i18n>cancel</button>
+            i18n>Cancel</button>
     <button mat-flat-button
             type="button"
             color="primary"
@@ -100,15 +107,15 @@
             (click)="reset()"
             *ngIf="state === TestState.FAILURE"
             appFocusOnInit
-            i18n>restart test</button>
+            i18n>Restart test</button>
     <button mat-flat-button
             color="primary"
             type="submit"
             [disabled]="preventSubmit()"
-            *ngIf="state === TestState.UNTESTED && hasOfflineMode">
+            *ngIf="state === TestState.UNTESTED && (hasOfflineMode || isFido2)">
       <div class="button-content">
         <app-button-wait-indicator [show]="awaitingResponse"></app-button-wait-indicator>
-        <span i18n>submit</span>
+        <span i18n>Test</span>
       </div>
     </button>
     <button mat-flat-button
@@ -117,7 +124,7 @@
             [mat-dialog-close]="true"
             *ngIf="state === TestState.SUCCESS"
             appFocusOnInit
-            i18n>done</button>
+            i18n>Done</button>
   </mat-dialog-actions>
 
 </form>

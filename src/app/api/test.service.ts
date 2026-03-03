@@ -7,6 +7,7 @@ import { catchError, filter, map, mergeMap, take } from 'rxjs/operators';
 import { SessionService } from '@app/auth/session.service';
 import { exponentialBackoffInterval } from '@common/exponential-backoff-interval/exponential-backoff-interval';
 
+import { SignRequest } from '@app/login/login.service';
 import { LinOTPResponse } from './api';
 
 export enum ReplyMode {
@@ -22,6 +23,7 @@ export interface TransactionDetail {
   linotp_forward_tokenserial?: string;
   linotp_forward_tokendescription?: string;
   linotp_forward_tokentype?: string;
+  signrequest?: SignRequest; // only for FIDO2 tokens
 }
 
 export interface StatusDetail {
