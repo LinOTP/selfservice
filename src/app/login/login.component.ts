@@ -1,12 +1,12 @@
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, ElementRef, HostListener, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { EMPTY, from, Subscription } from 'rxjs';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
 
 import { ReplyMode, StatusDetail, TransactionDetail } from '@api/test.service';
@@ -15,7 +15,8 @@ import { SystemInfo, SystemService } from '@app/system.service';
 import { DialogComponent } from '@common/dialog/dialog.component';
 import { Duration, NotificationService } from '@common/notification.service';
 
-import { LoginOptions, LoginService } from './login.service';
+import { isFido2Supported, mapAssertionResponseToJson, mapSignRequestToPublicKeyOptions } from '@app/enroll/enroll-fido2-dialog/fido2-utils';
+import { LoginOptions, LoginService, SignRequest } from './login.service';
 
 export enum LoginStage {
   USER_PW_INPUT = 1,
@@ -26,10 +27,10 @@ export enum LoginStage {
 const MIN_BACKEND_MAJOR_VERSION = 3;
 
 @Component({
-    selector: 'app-login',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss'],
-    standalone: false
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
+  standalone: false
 })
 export class LoginComponent implements OnInit {
 
@@ -220,8 +221,17 @@ export class LoginComponent implements OnInit {
     }
     this.awaitingResponse = true;
     this.selectedToken = token;
-    this.loginService.login({ serial: token.serial })
-      .subscribe(result => {
+
+    //If selected token is FIDO2, check if browser supports it before proceeding
+    if (token.tokenType === TokenType.FIDO2 && !isFido2Supported()) {
+      this.notificationService.errorMessage($localize`Your browser does not support FIDO2 authentication.`);
+      this.awaitingResponse = false;
+      return;
+    }
+
+    this.loginService.login({ serial: token.serial }).pipe(
+    ).subscribe({
+      next: result => {
         this.awaitingResponse = false;
 
         this.handledTokenType = this.selectedToken.typeDetails.type;
@@ -229,12 +239,25 @@ export class LoginComponent implements OnInit {
           this.handledTokenType = <TokenType>result.targetToken.type;
         }
 
+        // FIDO2 handling: don't move to step 3, trigger WebAuthn authentication instead
+        if (this.handledTokenType === TokenType.FIDO2 && result.signrequest) {
+          this.handleFido2Authentication(result.signrequest);
+          return;
+        }
+
         if (result.challengedata) {
           this.transactionDetail = result.challengedata;
           this.checkTransactionState();
         }
+
+
         this.loginStage = LoginStage.OTP_INPUT;
-      });
+      },
+      error: err => {
+        this.awaitingResponse = false;
+        this.notificationService.errorMessage($localize`Error: ${err.message}`);
+      }
+    });
   }
 
   submitSecondFactor() {
@@ -249,10 +272,43 @@ export class LoginComponent implements OnInit {
     }
     this.awaitingResponse = true;
     this.loginService.login({ otp: this.secondFactorFormGroup.value.otp })
-      .subscribe(result => {
+    .subscribe({
+      next: result => {
         this.awaitingResponse = false;
         this.finalAuthenticationHandling(result.success);
-      });
+      },
+      error: () => {
+        this.awaitingResponse = false;
+        this.notificationService.errorMessage($localize`Login failed`);
+        this.resetAuthForm();
+      }
+    });
+  }
+
+  private handleFido2Authentication(signrequest: SignRequest) {
+    const publicKeyOptions = mapSignRequestToPublicKeyOptions(signrequest);
+
+    this.awaitingResponse = true;
+    from(navigator.credentials.get({ publicKey: publicKeyOptions }))
+      .pipe(
+        catchError(err => {
+          // Error handling when something goes wrong during the WebAuthn process (e.g. user cancels, timeout, etc.)
+          this.notificationService.errorMessage($localize`FIDO2 authentication failed: ${err.message}`);
+          this.awaitingResponse = false;
+          this.resetAuthForm();
+          return EMPTY;
+        }),
+        switchMap((assertion: PublicKeyCredential) => {
+          const assertionJSON = mapAssertionResponseToJson(assertion);
+          return this.loginService.login({
+            otp: assertionJSON,
+          });
+        }),
+        tap(result => {
+          this.awaitingResponse = false;
+          this.finalAuthenticationHandling(result.success);
+        })
+      ).subscribe();
   }
 
   public checkTransactionState() {
@@ -316,7 +372,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  isUsernameFilled(){
+  isUsernameFilled() {
     return this.loginFormGroup.get("username").value?.length > 0
   }
 }

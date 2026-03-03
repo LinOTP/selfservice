@@ -1,3 +1,5 @@
+import { SignRequest } from "@app/login/login.service";
+
 //https://github.com/github/webauthn-json/blob/main/src/webauthn-json/base64url.ts
 export function base64urlToBuffer(baseurl64String: string): ArrayBuffer {
   // Base64url to Base64
@@ -38,10 +40,37 @@ export function bufferToBase64url(buffer: ArrayBuffer): string {
 }
 
 export function isFido2Supported(): boolean {
-    return !!(
-      navigator.credentials &&
-      navigator.credentials.get &&
-      navigator.credentials.create &&
-      window.PublicKeyCredential
-    );
-  }
+  return !!(
+    navigator.credentials &&
+    navigator.credentials.get &&
+    navigator.credentials.create &&
+    window.PublicKeyCredential
+  );
+}
+
+export function mapAssertionResponseToJson(assertion: PublicKeyCredential): string {
+  const assertionResponse = assertion.response as AuthenticatorAssertionResponse;
+  const assertionJSON = JSON.stringify({
+    id: assertion.id,
+    rawId: bufferToBase64url(assertion.rawId),
+    response: {
+      authenticatorData: bufferToBase64url(assertionResponse.authenticatorData),
+      clientDataJSON: bufferToBase64url(assertionResponse.clientDataJSON),
+      signature: bufferToBase64url(assertionResponse.signature),
+    },
+    type: assertion.type,
+  });
+  return assertionJSON;
+}
+
+export function mapSignRequestToPublicKeyOptions(signrequest: SignRequest): PublicKeyCredentialRequestOptions {
+  const publicKeyOptions: PublicKeyCredentialRequestOptions = {
+    challenge: base64urlToBuffer(signrequest.challenge),
+    rpId: signrequest.rpId,
+    allowCredentials: signrequest.allowCredentials.map((cred) => ({
+      type: cred.type,
+      id: base64urlToBuffer(cred.id),
+    }))
+  };
+  return publicKeyOptions;
+}
