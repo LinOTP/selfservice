@@ -6,7 +6,7 @@ import {
   EnrolledToken,
 } from "@app/enroll/enroll-dialog-base.directive";
 import { catchError, delay, EMPTY, from, map, Observable, switchMap, tap } from "rxjs";
-import { base64urlToBuffer, bufferToBase64url } from "./fido2-utils";
+import { base64urlToBuffer, bufferToBase64url, isFido2Supported } from "./fido2-utils";
 
 interface RpEntity {
   id: string;
@@ -133,18 +133,13 @@ export class EnrollFIDO2DialogComponent
   }
 
   isSupported() {
-    return !!(
-      navigator.credentials &&
-      navigator.credentials.get &&
-      navigator.credentials.create &&
-      window.PublicKeyCredential
-    );
+    return isFido2Supported();
   }
 
   handleError() {
     const notSupportedErr = $localize`Your browser does not support FIDO2 enrollment.`
     const other = $localize`The operation either timed out or was not allowed.`
-    this.errMsg = this.isSupported() ? other : notSupportedErr
+    this.errMsg = isFido2Supported() ? other : notSupportedErr
     this.activationFailed = true;
     return EMPTY;
   }

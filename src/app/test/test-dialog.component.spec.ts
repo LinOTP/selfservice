@@ -15,6 +15,7 @@ import { EnrolledToken } from '@app/enroll/enroll-dialog-base.directive';
 import { MaterialModule } from '@app/material.module';
 
 import { TokenType } from '@app/api/token';
+import { NotificationService } from '@app/common/notification.service';
 import { TestDialogComponent } from './test-dialog.component';
 
 const challengeOnlyDetail: TransactionDetail = { replyMode: [ReplyMode.OFFLINE] };
@@ -59,6 +60,10 @@ describe('TestDialogComponent', () => {
         {
           provide: LiveAnnouncer,
           useValue: spyOnClass(LiveAnnouncer),
+        },
+        {
+          provide: NotificationService,
+          useValue: spyOnClass(NotificationService),
         },
       ]
     }).compileComponents();

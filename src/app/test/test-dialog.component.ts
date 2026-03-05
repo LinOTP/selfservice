@@ -3,11 +3,14 @@ import { Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgForm, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { Subscription } from 'rxjs';
+import { EMPTY, from, Subscription } from 'rxjs';
+import { catchError, switchMap } from 'rxjs/operators';
 
 
 import { ReplyMode, StatusDetail, TestOptions, TestService, TransactionDetail } from '@api/test.service';
 import { SelfserviceToken, TokenDisplayData, tokenDisplayData, TokenType } from '@api/token';
+import { isFido2Supported, mapAssertionResponseToJson, mapSignRequestToPublicKeyOptions } from '@app/enroll/enroll-fido2-dialog/fido2-utils';
+import { NotificationService } from '@common/notification.service';
 
 enum TestState {
   UNTESTED = 'untested',
@@ -58,11 +61,16 @@ export class TestDialogComponent implements OnInit, OnDestroy {
     return this.data.token || null;
   }
 
+  get isFido2(): boolean {
+    return this.typeDetails?.type === TokenType.FIDO2 || (this.transactionDetail?.linotp_forward_tokentype === TokenType.FIDO2);
+  }
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { serial: string, type: TokenType, token: SelfserviceToken | undefined; },
     private testService: TestService,
     private formBuilder: UntypedFormBuilder,
     private liveAnnouncer: LiveAnnouncer,
+    private notificationService: NotificationService,
   ) {
     this.formGroup = this.formBuilder.group({
       otp: ['', Validators.required],
@@ -82,33 +90,52 @@ export class TestDialogComponent implements OnInit, OnDestroy {
   }
 
   private triggerTest() {
-    this.state = TestState.LOADING;
+    const message1 = $localize`There was a problem starting your token test.`;
+    const message2 = $localize`Please wait some time and try again later, or contact an administrator.`;
 
-    this.testService.testToken({ serial: this.serial }).subscribe(response => {
-      if (response === null || typeof response !== 'object') {
-        const message1 = $localize`There was a problem starting your token test.`;
-        const message2 = $localize`Please wait some time and try again later, or contact an administrator.`;
+    if (this.isFido2 && !isFido2Supported()) {
+      this.errorMessage = $localize`Your browser does not support FIDO2 authentication.`;
+      this.state = TestState.FAILURE;
+      return;
+    }
+
+    this.state = TestState.LOADING;
+    this.testService.testToken({ serial: this.serial }).subscribe({
+      next: response => {
+        if (response === null || typeof response !== 'object') {
+          this.errorMessage = message1 + ' ' + message2;
+          this.state = TestState.FAILURE;
+        } else {
+          this.transactionDetail = response;
+
+          if (response.transactionId) {
+            this.shortTransactionId = response.transactionId.toString().slice(0, 6);
+          }
+
+          if (response.linotp_forward_tokentype) {
+            this.TargetToken = {
+              type: <TokenType>response.linotp_forward_tokentype,
+              serial: response.linotp_forward_tokenserial,
+              description: response.linotp_forward_tokendescription,
+            };
+          };
+
+          // Detect FIDO2 token
+          if (this.data.type === TokenType.FIDO2 && response.signrequest) {
+            // Remove required validator from OTP field since FIDO2 doesn't use manual OTP input
+            this.formGroup.controls.otp.clearValidators();
+            this.formGroup.controls.otp.updateValueAndValidity();
+          }
+
+          this.state = TestState.UNTESTED;
+          if (!this.isFido2 && this.hasOnlineMode) {
+            this.checkTransactionState();
+          }
+        }
+      },
+      error: () => {
         this.errorMessage = message1 + ' ' + message2;
         this.state = TestState.FAILURE;
-      } else {
-        this.transactionDetail = response;
-
-        if (response.transactionId) {
-          this.shortTransactionId = response.transactionId.toString().slice(0, 6);
-        }
-
-        if (response.linotp_forward_tokentype) {
-          this.TargetToken = {
-            type: <TokenType>response.linotp_forward_tokentype,
-            serial: response.linotp_forward_tokenserial,
-            description: response.linotp_forward_tokendescription,
-          };
-        };
-
-        this.state = TestState.UNTESTED;
-        if (this.hasOnlineMode) {
-          this.checkTransactionState();
-        }
       }
     });
   }
@@ -133,8 +160,14 @@ export class TestDialogComponent implements OnInit, OnDestroy {
 
   /**
    * Submit the OTP and set the component state to success or failure depending on the response.
+   * For FIDO2 tokens, triggers navigator.credentials.get and builds OTP as pin + assertionJSON.
    */
   public submit() {
+    if (this.isFido2) {
+      this.submitFido2();
+      return;
+    }
+
     if (this.formGroup.invalid) {
       this.announceFormErrors();
       return;
@@ -157,6 +190,44 @@ export class TestDialogComponent implements OnInit, OnDestroy {
           this.awaitingResponse = false;
         });
     }
+  }
+
+  private submitFido2() {
+    const publicKeyOptions = mapSignRequestToPublicKeyOptions(this.transactionDetail.signrequest!);
+
+    this.awaitingResponse = true;
+    from(navigator.credentials.get({ publicKey: publicKeyOptions }))
+      .pipe(
+        catchError(err => {
+          this.awaitingResponse = false;
+          this.notificationService.errorMessage($localize`FIDO2 authentication failed: ${err.message}`);
+          this.goToFailure();
+          return EMPTY;
+        }),
+        switchMap((assertion: PublicKeyCredential) => {
+          const assertionJSON = mapAssertionResponseToJson(assertion);
+
+          const pin = this.formGroup.controls.otp.value || '';
+          const options: TestOptions = {
+            serial: this.data.serial,
+            otp: pin + assertionJSON,
+            transactionid: this.transactionDetail.transactionId,
+          };
+
+          return this.testService.testToken(options);
+        }),
+      ).subscribe({
+        next: result => {
+          this.awaitingResponse = false;
+          this.testResult = result === true;
+          this.testResult ? this.goToSuccess() : this.goToFailure();
+        },
+        error: () => {
+          this.awaitingResponse = false;
+          this.notificationService.errorMessage($localize`FIDO2 authentication failed`);
+          this.goToFailure();
+        }
+      });
   }
 
   /**

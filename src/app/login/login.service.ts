@@ -25,6 +25,15 @@ export interface LoginOptions {
   transactionId?: string;
 }
 
+export type SignRequest = {
+  challenge: string;
+  rpId: string;
+  userVerification: 'required' | 'preferred'
+  allowCredentials: {
+    id: string;
+    type: 'public-key';
+  }[];
+}
 interface LoginResponse {
   tokenList?: LinOtpToken[];
   transactionId?: string;
@@ -34,6 +43,7 @@ interface LoginResponse {
   linotp_forward_tokenserial?: string;
   linotp_forward_tokendescription?: string;
   linotp_forward_tokentype?: string;
+  signrequest?: SignRequest;
 }
 
 interface LoginResult {
@@ -45,6 +55,7 @@ interface LoginResult {
     type: TokenType;
     description: string;
   };
+  signrequest?: SignRequest;
 }
 
 @Injectable({
@@ -148,6 +159,10 @@ export class LoginService {
               serial: details.linotp_forward_tokenserial,
               description: details.linotp_forward_tokendescription,
             };
+          }
+
+          if (details.signrequest) {
+            result.signrequest = details.signrequest;
           }
 
           return result;
