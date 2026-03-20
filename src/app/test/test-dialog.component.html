@@ -19,8 +19,18 @@
 
         <div class="instruction"
              *ngIf="isFido2">
-          <p i18n>To test your FIDO2 token, please click the button below. Your browser will prompt you to
+          <p i18n
+             *ngIf="!fido2OriginMismatch; else originMismatchTmp">To test your FIDO2 token, please click the button
+            below. Your browser will prompt you to
             authenticate with your security key or passkey.</p>
+
+          <ng-template #originMismatchTmp>
+            <div class="d-flex align-items-start fido2-origin-mismatch">
+              <mat-icon class="pe-3">error</mat-icon>
+              <span i18n>Relying party mismatch. This FIDO2 token is registered for
+                {{ token.rpId }} and cannot be used from {{ origin }}.</span>
+              </div>
+          </ng-template>
         </div>
 
         <div class="instruction"
@@ -112,7 +122,7 @@
             color="primary"
             type="submit"
             [disabled]="preventSubmit()"
-            *ngIf="state === TestState.UNTESTED && (hasOfflineMode || isFido2)">
+            *ngIf="state === TestState.UNTESTED && (hasOfflineMode || isFido2) && !fido2OriginMismatch">
       <div class="button-content">
         <app-button-wait-indicator [show]="awaitingResponse"></app-button-wait-indicator>
         <span i18n>Test</span>

@@ -16,7 +16,9 @@ import { SetPinDialogComponent } from './set-pin-dialog/set-pin-dialog.component
 import { ActiveTokensPipe } from './pipes/active-tokens.pipe';
 import { ArrayNotEmptyPipe } from './pipes/array-not-empty.pipe';
 import { CapitalizePipe } from './pipes/capitalize.pipe';
+import { EnrolledTokenToTokenInfoPipe } from './pipes/enrolled-token-to-token-info.pipe';
 import { InactiveTokensPipe } from './pipes/inactive-tokens.pipe';
+import { RpTooltipPipe } from './pipes/rp-tooltip.pipe';
 import { SortTokensByStatePipe } from './pipes/sort-tokens-by-state.pipe';
 import { UnreadyTokensPipe } from './pipes/unready-tokens.pipe';
 
@@ -49,6 +51,8 @@ import { UnassignTokenDialogComponent } from './unassign-token-dialog/unassign-t
     A11yModule,
     NgxPermissionsModule.forChild(),
     FocusOnInitDirective,
+    EnrolledTokenToTokenInfoPipe,
+    RpTooltipPipe
   ],
   declarations: [
     CustomQRCodeComponent,
@@ -75,7 +79,7 @@ import { UnassignTokenDialogComponent } from './unassign-token-dialog/unassign-t
     FocusOnStepperChangeDirective,
     TokenInfoComponent,
     AlertComponent,
-    SubscriptAriaLiveDirective
+    SubscriptAriaLiveDirective,
   ],
   providers: [
     NotificationService,
@@ -97,7 +101,9 @@ import { UnassignTokenDialogComponent } from './unassign-token-dialog/unassign-t
     FocusOnStepperChangeDirective,
     TokenInfoComponent,
     AlertComponent,
-    SubscriptAriaLiveDirective
+    SubscriptAriaLiveDirective,
+    EnrolledTokenToTokenInfoPipe,
+    RpTooltipPipe
   ]
 })
 export class NgSelfServiceCommonModule { }
