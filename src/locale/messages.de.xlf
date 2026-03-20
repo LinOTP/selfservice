@@ -423,7 +423,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.ts</context>
-          <context context-type="linenumber">97</context>
+          <context context-type="linenumber">102</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8830532201705056775" datatype="html">
@@ -455,7 +455,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.ts</context>
-          <context context-type="linenumber">203</context>
+          <context context-type="linenumber">213</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7036463644647951064" datatype="html">
@@ -662,14 +662,26 @@
           <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="270151545322221199" datatype="html">
-        <source>To test your FIDO2 token, please click the button below. Your browser will prompt you to
+      <trans-unit id="346434203231339457" datatype="html">
+        <source>To test your FIDO2 token, please click the button
+            below. Your browser will prompt you to
             authenticate with your security key or passkey.</source>
-        <target state="translated">Um Ihren FIDO2-Token zu testen, klicken Sie bitte auf die Schaltfläche unten. Ihr Browser wird Sie auffordern,
-            sich mit Ihrem Sicherheitsschlüssel oder Passkey zu authentifizieren.</target>
+        <target state="translated">Um Ihren FIDO2-Token zu testen, klicken Sie bitte auf die Schaltfläche
+            unten. Ihr Browser wird Sie auffordern, sich mit Ihrem
+            Sicherheitsschlüssel oder Passkey zu authentifizieren.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">22,24</context>
+          <context context-type="linenumber">23,27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3506476010724663961" datatype="html">
+        <source>Relying party mismatch. This FIDO2 token is registered for
+                <x id="INTERPOLATION" equiv-text="{{ token.rpId }}"/> and cannot be used from <x id="INTERPOLATION_1" equiv-text="{{ origin }}"/>.</source>
+        <target state="translated">Abweichung der vertrauenden Partei. Dieser FIDO2-Token ist für
+                <x id="INTERPOLATION" equiv-text="{{ token.rpId }}"/> registriert und kann nicht von <x id="INTERPOLATION_1" equiv-text="{{ origin }}"/> verwendet werden.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
+          <context context-type="linenumber">30,32</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3283587029472521478" datatype="html">
@@ -711,11 +723,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">189</context>
+          <context context-type="linenumber">196</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">48</context>
+          <context context-type="linenumber">58</context>
         </context-group>
       </trans-unit>
       <trans-unit id="866133433784686526" datatype="html">
@@ -755,7 +767,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">198</context>
+          <context context-type="linenumber">205</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3319059418881225105" datatype="html">
@@ -777,7 +789,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">141</context>
+          <context context-type="linenumber">148</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2876956681251125515" datatype="html">
@@ -786,6 +798,22 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
           <context context-type="linenumber">82</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="loginRelyingPartyAriaLabel" datatype="html">
+        <source>Relying party</source>
+        <target state="translated">Vertrauende Partei</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/login.component.html</context>
+          <context context-type="linenumber">96,97</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="loginRelyingParty" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ token.rpName || token.rpId }}"/></source>
+        <target state="translated"><x id="INTERPOLATION" equiv-text="{{ token.rpName || token.rpId }}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/login.component.html</context>
+          <context context-type="linenumber">99,100</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9211665410945124545" datatype="html">
@@ -813,7 +841,7 @@
         <target state="translated">Tipp: Sie können zur Auswahl eines Tokens Ihre Tastatur verwenden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">114</context>
+          <context context-type="linenumber">121</context>
         </context-group>
       </trans-unit>
       <trans-unit id="381259115054568778" datatype="html">
@@ -834,7 +862,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">117</context>
+          <context context-type="linenumber">124</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6373389076357367988" datatype="html">
@@ -844,7 +872,7 @@
           aufgetreten. Kontaktieren Sie bitte einen Administrator.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">125</context>
+          <context context-type="linenumber">132</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6386462717867426221" datatype="html">
@@ -862,7 +890,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">144</context>
+          <context context-type="linenumber">151</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3868000447879071786" datatype="html">
@@ -872,7 +900,7 @@
         <note priority="1" from="meaning">2nd factor login action</note>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">223</context>
+          <context context-type="linenumber">230</context>
         </context-group>
       </trans-unit>
       <trans-unit id="234725495988365425" datatype="html">
@@ -880,7 +908,7 @@
         <target state="translated">Bitte geben Sie das Passwort des ausgewählten Token ein:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">153</context>
+          <context context-type="linenumber">160</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4656965482758163984" datatype="html">
@@ -888,7 +916,7 @@
         <target state="translated">Verbinden Sie Ihren Yubikey und drücken Sie den Knopf.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">155</context>
+          <context context-type="linenumber">162</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2867818116203626831" datatype="html">
@@ -896,7 +924,7 @@
         <target state="translated">Bitte geben Sie das aktuelle OTP für den ausgewählten Token ein:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">157</context>
+          <context context-type="linenumber">164</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2977612657174343243" datatype="html">
@@ -908,7 +936,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">164</context>
+          <context context-type="linenumber">171</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4593276974210440916" datatype="html">
@@ -922,7 +950,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">176</context>
+          <context context-type="linenumber">183</context>
         </context-group>
       </trans-unit>
       <trans-unit id="158182840842304476" datatype="html">
@@ -930,7 +958,7 @@
         <target state="translated">OTP manuell eingeben</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">185</context>
+          <context context-type="linenumber">192</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/qr-code-input/qr-code-input.component.html</context>
@@ -946,7 +974,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">211</context>
+          <context context-type="linenumber">218</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5009157571879213849" datatype="html">
@@ -958,7 +986,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">202</context>
+          <context context-type="linenumber">209</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/qr-code-input/qr-code-input.component.html</context>
@@ -966,7 +994,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">62</context>
+          <context context-type="linenumber">72</context>
         </context-group>
       </trans-unit>
       <trans-unit id="otpRequiredInfo" datatype="html">
@@ -982,7 +1010,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">70</context>
+          <context context-type="linenumber">80</context>
         </context-group>
       </trans-unit>
       <trans-unit id="onlyNumericValuesControlError" datatype="html">
@@ -1009,7 +1037,7 @@
         <note priority="1" from="meaning">2nd factor login action</note>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">230</context>
+          <context context-type="linenumber">237</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3973931101896534797" datatype="html">
@@ -1201,7 +1229,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">109</context>
+          <context context-type="linenumber">110</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2115592966120408375" datatype="html">
@@ -1210,6 +1238,22 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/oath-enrollment/import-token-step/import-token-step.component.ts</context>
           <context context-type="linenumber">52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dialogHeaderRelyingPartyAriaLabel" datatype="html">
+        <source>Relying party</source>
+        <target state="translated">Vertrauende Partei</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/oath-enrollment/token-info.component.ts</context>
+          <context context-type="linenumber">19,20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dialogHeaderRelyingParty" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ token.rpName || token.rpId }}"/></source>
+        <target state="translated"><x id="INTERPOLATION" equiv-text="{{ token.rpName || token.rpId }}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/oath-enrollment/token-info.component.ts</context>
+          <context context-type="linenumber">22,23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1260099573097287890" datatype="html">
@@ -1305,7 +1349,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">102</context>
+          <context context-type="linenumber">112</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3885497195825665706" datatype="html">
@@ -1665,7 +1709,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">127</context>
+          <context context-type="linenumber">137</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8670178980823910890" datatype="html">
@@ -1982,7 +2026,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">57</context>
+          <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3694047789818869519" datatype="html">
@@ -2385,7 +2429,7 @@
         <target state="translated">mOTP-PIN festgeleft</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">124</context>
+          <context context-type="linenumber">125</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4708953392121513581" datatype="html">
@@ -2409,7 +2453,7 @@
         <target state="translated">Token gelöscht</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">134</context>
+          <context context-type="linenumber">135</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4008739768562434154" datatype="html">
@@ -2417,7 +2461,7 @@
         <target state="translated">Token aktiviert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">145</context>
+          <context context-type="linenumber">146</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6308551073215344882" datatype="html">
@@ -2484,7 +2528,7 @@
         <target state="translated">Token deaktiviert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">157</context>
+          <context context-type="linenumber">158</context>
         </context-group>
       </trans-unit>
       <trans-unit id="446006585605027355" datatype="html">
@@ -2545,7 +2589,7 @@
         <target state="translated">Tokenzuweisung aufgehoben</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">212</context>
+          <context context-type="linenumber">213</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4946413545988796244" datatype="html">
@@ -2553,7 +2597,7 @@
         <target state="translated">Fehlerzähler zurückgesetz</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">238</context>
+          <context context-type="linenumber">239</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8590151770059972300" datatype="html">
@@ -2561,7 +2605,7 @@
         <target state="translated">Token wurde synchronisiert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">253</context>
+          <context context-type="linenumber">254</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3303402949376740921" datatype="html">
@@ -2569,23 +2613,19 @@
         <target state="translated">Beschreibung wurde geändert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">269</context>
+          <context context-type="linenumber">270</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3024891378452195539" datatype="html">
-        <source>Serial: <x id="INTERPOLATION" equiv-text="{{ token.serial }}"/></source>
+        <source>Serial: <x id="INTERPOLATION" equiv-text="{{token.serial}}"/></source>
         <target state="translated">Seriennummer: <x id="INTERPOLATION" equiv-text="{{ token.serial }}"/></target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/common/token-dialog-header/token-dialog-header.component.html</context>
-          <context context-type="linenumber">16</context>
-        </context-group>
-        <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-oath-dialog/oath-enrollment/token-info.component.ts</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">28</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6740117255402996998" datatype="html">
@@ -2598,7 +2638,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="763977026717018754" datatype="html">
@@ -2612,7 +2652,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7324405693112109164" datatype="html">
@@ -2626,7 +2666,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="linenumber">45</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4312393457478390073" datatype="html">
@@ -2641,7 +2681,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">41</context>
+          <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4196987526031682259" datatype="html">
@@ -2650,7 +2690,7 @@
           aktiviert werden um die Einrichtung abzuschließen. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">55</context>
+          <context context-type="linenumber">64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3809552006381484114" datatype="html">
@@ -2660,7 +2700,7 @@
           kurzen Zeitraum gültig. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">60</context>
+          <context context-type="linenumber">71</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7402159845702792179" datatype="html">
@@ -2668,7 +2708,7 @@
         <target state="translated"> Aktivieren </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">70</context>
+          <context context-type="linenumber">81</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1812429098722823159" datatype="html">
@@ -2676,7 +2716,7 @@
         <target state="translated"> Verifizieren </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">76</context>
+          <context context-type="linenumber">88</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2810791743204319094" datatype="html">
@@ -2684,7 +2724,7 @@
         <target state="translated">PIN ändern</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">86</context>
+          <context context-type="linenumber">98</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6193917997400489563" datatype="html">
@@ -2692,7 +2732,7 @@
         <target state="translated">mOTP-PIN ändern</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">93</context>
+          <context context-type="linenumber">105</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1274929572031633202" datatype="html">
@@ -2700,7 +2740,7 @@
         <target state="translated">Beschreibung ändern</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">108</context>
+          <context context-type="linenumber">120</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2686891354952112963" datatype="html">
@@ -2708,7 +2748,7 @@
         <target state="translated">Fehlerzähler zurücksetzen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">114</context>
+          <context context-type="linenumber">126</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4962487420974535794" datatype="html">
@@ -2720,7 +2760,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">121</context>
+          <context context-type="linenumber">133</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4587963555950621823" datatype="html">
@@ -2740,7 +2780,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.ts</context>
-          <context context-type="linenumber">156</context>
+          <context context-type="linenumber">166</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3290193501558345471" datatype="html">
@@ -2748,7 +2788,7 @@
         <target state="translated">Tokenzuweisung aufheben</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">152</context>
+          <context context-type="linenumber">164</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7022070615528435141" datatype="html">
@@ -2760,7 +2800,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">159</context>
+          <context context-type="linenumber">171</context>
         </context-group>
       </trans-unit>
       <trans-unit id="tokenCard.menuLabel" datatype="html">
@@ -2776,7 +2816,7 @@
         <target state="translated">Aktivieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">134</context>
+          <context context-type="linenumber">146</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7336808597667221641" datatype="html">
@@ -2784,7 +2824,7 @@
         <target state="translated">Sie sind nicht berechtigt, den Token zu aktivieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">127</context>
+          <context context-type="linenumber">139</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9187855490716817910" datatype="html">
@@ -2792,7 +2832,7 @@
         <target state="translated">Deaktivieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.html</context>
-          <context context-type="linenumber">143</context>
+          <context context-type="linenumber">155</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6563391987554512024" datatype="html">
@@ -2804,7 +2844,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">118</context>
+          <context context-type="linenumber">128</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9075149440334867036" datatype="html">
@@ -2879,7 +2919,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.ts</context>
-          <context context-type="linenumber">93</context>
+          <context context-type="linenumber">98</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8056557436410153258" datatype="html">
@@ -2892,7 +2932,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.ts</context>
-          <context context-type="linenumber">94</context>
+          <context context-type="linenumber">99</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8186299010571829371" datatype="html">
@@ -2965,7 +3005,7 @@
           kontaktieren Sie einen Administrator.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.ts</context>
-          <context context-type="linenumber">245</context>
+          <context context-type="linenumber">255</context>
         </context-group>
       </trans-unit>
       <trans-unit id="theme-picker" datatype="html">
@@ -3020,6 +3060,22 @@
           <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="tokenCardRelyingPartyAriaLabel" datatype="html">
+        <source>Relying party</source>
+        <target state="translated">Vertrauende Partei</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/token-card/token-card.component.html</context>
+          <context context-type="linenumber">11,12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tokenCardRelyingParty" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ token.rpName || token.rpId }}"/></source>
+        <target state="translated"><x id="INTERPOLATION" equiv-text="{{ token.rpName || token.rpId }}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/token-card/token-card.component.html</context>
+          <context context-type="linenumber">14,15</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="7654549295112383915" datatype="html">
         <source>
             Please enter the password of the selected token:
@@ -3029,7 +3085,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">40</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2049084266554992934" datatype="html">
@@ -3041,7 +3097,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">34</context>
+          <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4401713843513862355" datatype="html">
@@ -3049,7 +3105,7 @@
         <target state="translated">Das Passwortfeld darf nicht leer sein</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">56</context>
+          <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8913794084097958305" datatype="html">
@@ -3146,7 +3202,7 @@
           authentifizieren.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">87</context>
+          <context context-type="linenumber">97</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1178905217897323737" datatype="html">
@@ -3154,7 +3210,7 @@
         <target state="translated">Test neu starten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">110,111</context>
+          <context context-type="linenumber">120</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8754606500130867186" datatype="html">
@@ -3162,7 +3218,7 @@
         <target state="translated">FIDO2-Authentifizierung fehlgeschlagen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.ts</context>
-          <context context-type="linenumber">227</context>
+          <context context-type="linenumber">237</context>
         </context-group>
       </trans-unit>
       <trans-unit id="518519257823560430" datatype="html">
@@ -3174,7 +3230,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">81</context>
+          <context context-type="linenumber">91</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3518350047321747341" datatype="html">
@@ -3186,7 +3242,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
-          <context context-type="linenumber">85</context>
+          <context context-type="linenumber">95</context>
         </context-group>
       </trans-unit>
       <trans-unit id="503445309622982213" datatype="html">
@@ -3267,7 +3323,7 @@
         <target state="translated">Token zuweisen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">224</context>
+          <context context-type="linenumber">232</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
@@ -3362,7 +3418,7 @@
           authentifizieren.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">193</context>
+          <context context-type="linenumber">201</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-yubico/enroll-yubico-dialog.component.html</context>
@@ -3492,6 +3548,22 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/notification.service.ts</context>
           <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="relyingPartyIdTooltip" datatype="html">
+        <source>Relying party ID: <x id="rpId" equiv-text="value.rpId"/></source>
+        <target state="translated">Vertrauende Partei ID: <x id="rpId" equiv-text="this.token.rpId"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/pipes/rp-tooltip.pipe.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="relyingPartyTooltip" datatype="html">
+        <source>Relying party ID</source>
+        <target state="translated">Vertrauende Partei ID</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/pipes/rp-tooltip.pipe.ts</context>
+          <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
       <trans-unit id="856582100125379791" datatype="html">
@@ -3666,7 +3738,7 @@
         <target state="translated">Passworttoken</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">116</context>
+          <context context-type="linenumber">124</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6868348878997238385" datatype="html">
@@ -3674,7 +3746,7 @@
         <target state="translated">Persönliches textbasiertes Geheimnis</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">117</context>
+          <context context-type="linenumber">125</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5674286808255988565" datatype="html">
@@ -3682,39 +3754,39 @@
         <target state="translated">Einrichten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">120</context>
+          <context context-type="linenumber">128</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">130</context>
+          <context context-type="linenumber">138</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">140</context>
+          <context context-type="linenumber">148</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">150</context>
+          <context context-type="linenumber">158</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">160</context>
+          <context context-type="linenumber">168</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">169</context>
+          <context context-type="linenumber">177</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">178</context>
+          <context context-type="linenumber">186</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">187</context>
+          <context context-type="linenumber">195</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">213</context>
+          <context context-type="linenumber">221</context>
         </context-group>
       </trans-unit>
       <trans-unit id="187520957524133433" datatype="html">
@@ -3722,7 +3794,7 @@
         <target state="translated">Tokenpasswort eingeben</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">121</context>
+          <context context-type="linenumber">129</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3770667125316848015" datatype="html">
@@ -3730,7 +3802,7 @@
         <target state="translated">Soft-Token (ereignisbasiert)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">125</context>
+          <context context-type="linenumber">133</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6612127950296778531" datatype="html">
@@ -3738,7 +3810,7 @@
         <target state="translated">Ereignisbasierter Software-Token (HOTP)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">126</context>
+          <context context-type="linenumber">134</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4614006888930017432" datatype="html">
@@ -3746,7 +3818,7 @@
         <target state="translated">OTP von einem ereignisbasierten Software-Token eingeben</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">131</context>
+          <context context-type="linenumber">139</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5718401288735531392" datatype="html">
@@ -3754,7 +3826,7 @@
         <target state="translated">Soft-Token (zeitbasiert)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">135</context>
+          <context context-type="linenumber">143</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5551212187133045385" datatype="html">
@@ -3762,7 +3834,7 @@
         <target state="translated">Zeitbasierter Software-Token (TOTP)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">136</context>
+          <context context-type="linenumber">144</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2722037049314401626" datatype="html">
@@ -3770,7 +3842,7 @@
         <target state="translated">OTP von einem zeitbasierten Software-Token eingeben</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">141</context>
+          <context context-type="linenumber">149</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5673889270689325716" datatype="html">
@@ -3778,7 +3850,7 @@
         <target state="translated">Push-Token</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">145</context>
+          <context context-type="linenumber">153</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1937048843276580757" datatype="html">
@@ -3787,7 +3859,7 @@
           mit der Authenticator App</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">146</context>
+          <context context-type="linenumber">154</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5132417702429568716" datatype="html">
@@ -3795,7 +3867,7 @@
         <target state="translated">Authentisierung mit dem Smartphone bestätigen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">151</context>
+          <context context-type="linenumber">159</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3696814862429030666" datatype="html">
@@ -3803,7 +3875,7 @@
         <target state="translated">QR-Token</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">155</context>
+          <context context-type="linenumber">163</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8794351235100597974" datatype="html">
@@ -3812,7 +3884,7 @@
           Authentifizierungsanfragen zu scannen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">156</context>
+          <context context-type="linenumber">164</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1377535238277753362" datatype="html">
@@ -3820,7 +3892,7 @@
         <target state="translated">Authentisierung durch Ab­scan­nen eines QR-Code bestätigen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">161</context>
+          <context context-type="linenumber">169</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5301634181956738987" datatype="html">
@@ -3828,7 +3900,7 @@
         <target state="translated">mOTP-Token</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">165</context>
+          <context context-type="linenumber">173</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3193991821076496668" datatype="html">
@@ -3837,7 +3909,7 @@
           und eines PINs</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">166</context>
+          <context context-type="linenumber">174</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3508592921221373152" datatype="html">
@@ -3845,7 +3917,7 @@
         <target state="translated">OTP von einem mOTP-Token eingeben</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">170</context>
+          <context context-type="linenumber">178</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7205164663077436442" datatype="html">
@@ -3853,7 +3925,7 @@
         <target state="translated">SMS-Token</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">174</context>
+          <context context-type="linenumber">182</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1360550760499940622" datatype="html">
@@ -3861,7 +3933,7 @@
         <target state="translated">OTP per SMS empfangen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">175</context>
+          <context context-type="linenumber">183</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5554998378536968777" datatype="html">
@@ -3869,7 +3941,7 @@
         <target state="translated">Per SMS zugestellten OTP eingeben</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">179</context>
+          <context context-type="linenumber">187</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9120647914878677656" datatype="html">
@@ -3877,7 +3949,7 @@
         <target state="translated">E-Mail-Token</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">183</context>
+          <context context-type="linenumber">191</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1619120513973036947" datatype="html">
@@ -3885,7 +3957,7 @@
         <target state="translated">OTP per E-Mail empfangen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">184</context>
+          <context context-type="linenumber">192</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2120699722333647297" datatype="html">
@@ -3893,7 +3965,7 @@
         <target state="translated">Per E-Mail zugestellten OTP eingeben</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">188</context>
+          <context context-type="linenumber">196</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5772850172027024872" datatype="html">
@@ -3901,7 +3973,7 @@
         <target state="translated">YubiCloud-Token</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">192</context>
+          <context context-type="linenumber">200</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3301086086650990787" datatype="html">
@@ -3909,7 +3981,7 @@
         <target state="translated">Registrieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">196</context>
+          <context context-type="linenumber">204</context>
         </context-group>
       </trans-unit>
       <trans-unit id="511576430981107553" datatype="html">
@@ -3917,7 +3989,7 @@
         <target state="translated">Authentisierung mit dem Yubikey-Token (YubiCloud) bestätigen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">197</context>
+          <context context-type="linenumber">205</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1000375591073738766" datatype="html">
@@ -3925,7 +3997,7 @@
         <target state="translated">Yubikey-Token</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">201</context>
+          <context context-type="linenumber">209</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2586013677560248582" datatype="html">
@@ -3933,7 +4005,7 @@
         <target state="translated">Authentizierung mit Ihrem Yubikey Hardware-Token bestätigen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">202</context>
+          <context context-type="linenumber">210</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9085479108122366173" datatype="html">
@@ -3941,7 +4013,7 @@
         <target state="translated">Authentisierung durch Ihren Yubikey-Token</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">204</context>
+          <context context-type="linenumber">212</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7281528933375375750" datatype="html">
@@ -3949,7 +4021,7 @@
         <target state="translated">FIDO2-Token</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">208</context>
+          <context context-type="linenumber">216</context>
         </context-group>
       </trans-unit>
       <trans-unit id="608997072570657379" datatype="html">
@@ -3957,7 +4029,7 @@
         <target state="translated">Authentizierung mit Ihrem FIDO2-Token bestätigen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">209</context>
+          <context context-type="linenumber">217</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5013035228175079556" datatype="html">
@@ -3965,7 +4037,7 @@
         <target state="translated">Authentisierung durch Ihren FIDO2-Token</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">211</context>
+          <context context-type="linenumber">219</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3883203131075010071" datatype="html">
@@ -3973,7 +4045,7 @@
         <target state="translated">Forwarding-Token</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">217</context>
+          <context context-type="linenumber">225</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7313228702491309120" datatype="html">
@@ -3981,7 +4053,7 @@
         <target state="translated">Leitet die Authentisierung auf einen gewählten Token weiter.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">218</context>
+          <context context-type="linenumber">226</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7992478731529553859" datatype="html">
@@ -3989,7 +4061,7 @@
         <target state="translated">Authentisierung durch Ihren Forwarding-Token</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">220</context>
+          <context context-type="linenumber">228</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3883219131132893834" datatype="html">
@@ -3997,7 +4069,7 @@
         <target state="translated">Verknüpfen Sie einen existierenden Token mit Ihrem Benutzerkonto</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">225</context>
+          <context context-type="linenumber">233</context>
         </context-group>
       </trans-unit>
       <trans-unit id="584754872792429089" datatype="html">
@@ -4005,7 +4077,7 @@
         <target state="translated">Zuweisen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">228</context>
+          <context context-type="linenumber">236</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9105518985862571303" datatype="html">
@@ -4013,7 +4085,7 @@
         <target state="translated">Unbekannter Token</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">234</context>
+          <context context-type="linenumber">242</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7817886603841108919" datatype="html">
@@ -4021,7 +4093,7 @@
         <target state="translated">Nicht-unterstützter Tokentyp</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">235</context>
+          <context context-type="linenumber">243</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1871596733160586812" datatype="html">
