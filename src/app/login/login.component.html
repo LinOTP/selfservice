@@ -90,6 +90,13 @@
               class="token-list-item-heading">
             <mat-icon>{{token.typeDetails.icon}}</mat-icon>
             {{token.typeDetails.name}}
+            <mat-chip *ngIf="token.tokenType === 'fido2' && (token.rpName || token.rpId)"
+                      class="rp-chip ms-1"
+                      role="text"
+                      aria-label="Relying party"
+                      i18n-aria-label="@@loginRelyingPartyAriaLabel"
+                      [matTooltip]="token | rpTooltip"
+                      i18n="@@loginRelyingParty">{{ token.rpName || token.rpId }}</mat-chip>
           </h3>
           <p matLine
              class="token-list-item-description">
