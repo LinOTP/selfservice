@@ -4,13 +4,22 @@
   <mat-card-header>
     <mat-icon mat-card-avatar
               class="icon">{{token.typeDetails.icon}}</mat-icon>
-    <mat-card-title>{{token.typeDetails.name | capitalize}}</mat-card-title>
+    <mat-card-title class="d-flex align-items-center"><span class="me-2">{{token.typeDetails.name | capitalize}}</span>
+      <mat-chip *ngIf="token.tokenType === 'fido2' && (token.rpName || token.rpId)"
+                class="rp-chip"
+                role="text"
+                aria-label="Relying party"
+                i18n-aria-label="@@tokenCardRelyingPartyAriaLabel"
+                [matTooltip]="token | rpTooltip"
+                i18n="@@tokenCardRelyingParty">{{ token.rpName || token.rpId }}</mat-chip>
+    </mat-card-title>
     <mat-card-subtitle class="description">
       {{token.description}}
     </mat-card-subtitle>
     <div class="spacer"></div>
     <ng-container *ngIf="menuHasItems | async">
-      <button #menuBtn mat-icon-button
+      <button #menuBtn
+              mat-icon-button
               attr.aria-label="{{menuLabel}}"
               [matMenuTriggerFor]="menu"
               *ngxPermissionsOnly="token.enrollmentStatus === EnrollmentStatus.COMPLETED ? ModifyTokenPermissions : ModifyUnreadyTokenPermissions">
@@ -53,8 +62,10 @@
       </ng-container>
       <ng-container *ngSwitchCase="EnrollmentStatus.PAIRING_RESPONSE_RECEIVED">
         <p i18n> This token is paired with your mobile. It needs to be activated now to finish the setup. </p>
-        <p *ngIf="!canActivate" i18n="@@noActivatePermWarning"
-           class="warning"> You do not have the required permission to activate the token on your own. Contact your administrator to resolve this issue. </p>
+        <p *ngIf="!canActivate"
+           i18n="@@noActivatePermWarning"
+           class="warning"> You do not have the required permission to activate the token on your own. Contact your
+          administrator to resolve this issue. </p>
       </ng-container>
       <p *ngSwitchCase="EnrollmentStatus.PAIRING_CHALLENGE_SENT"
          i18n> An activation challenge has been generated.
@@ -69,7 +80,8 @@
               *ngIf="pendingActivate()"
               i18n> Activate </button>
       <!-- Not relevant for qr/push tokens -->
-      <button mat-button #verifyBtn
+      <button mat-button
+              #verifyBtn
               color="primary"
               (click)="verifyToken(verifyBtn)"
               *ngIf="verifyRequired()"
