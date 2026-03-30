@@ -1,5 +1,37 @@
 import { SignRequest } from "@app/login/login.service";
 
+export function getOrigin(): string {
+  return window.location.origin;
+}
+
+export function isOriginValidForRpId(origin: string, rpId: string): boolean {
+  if (!origin || !rpId) {
+    return false;
+  }
+
+  let hostname: string;
+  try {
+    hostname = new URL(origin).hostname;
+  } catch {
+    return false;
+  }
+
+  const normalizedHostname = hostname.toLowerCase();
+  const normalizedRpId = rpId.toLowerCase();
+
+  if (normalizedHostname === normalizedRpId) {
+    return true;
+  }
+
+  // rpId must be a suffix of the hostname separated by a dot,
+  // and must contain at least one dot itself (not a bare TLD like "com")
+  if (!normalizedRpId.includes('.')) {
+    return false;
+  }
+
+  return normalizedHostname.endsWith('.' + normalizedRpId);
+}
+
 //https://github.com/github/webauthn-json/blob/main/src/webauthn-json/base64url.ts
 export function base64urlToBuffer(baseurl64String: string): ArrayBuffer {
   // Base64url to Base64

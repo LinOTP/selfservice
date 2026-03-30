@@ -105,3 +105,10 @@ nav .active-link {
   margin-bottom: 20px;
   pointer-events: none;
 }
+
+mat-chip.rp-chip {
+  .mat-mdc-chip-action {
+    padding: 0 8px;
+  }
+  --mdc-chip-container-height: 20px;
+}

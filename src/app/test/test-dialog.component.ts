@@ -9,7 +9,7 @@ import { catchError, switchMap } from 'rxjs/operators';
 
 import { ReplyMode, StatusDetail, TestOptions, TestService, TransactionDetail } from '@api/test.service';
 import { SelfserviceToken, TokenDisplayData, tokenDisplayData, TokenType } from '@api/token';
-import { isFido2Supported, mapAssertionResponseToJson, mapSignRequestToPublicKeyOptions } from '@app/enroll/enroll-fido2-dialog/fido2-utils';
+import { getOrigin, isFido2Supported, isOriginValidForRpId, mapAssertionResponseToJson, mapSignRequestToPublicKeyOptions } from '@app/enroll/enroll-fido2-dialog/fido2-utils';
 import { NotificationService } from '@common/notification.service';
 
 enum TestState {
@@ -52,10 +52,15 @@ export class TestDialogComponent implements OnInit, OnDestroy {
 
   public showInputField = false;
   public offlineOtpValue: string = "";
+  public fido2OriginMismatch = false;
   private pollingSubscription: Subscription;
 
   @ViewChild('formDirective', { static: true })
   public formDirective: NgForm;
+
+  get origin(): string {
+    return getOrigin();
+  }
 
   get token(): SelfserviceToken {
     return this.data.token || null;
@@ -125,6 +130,11 @@ export class TestDialogComponent implements OnInit, OnDestroy {
             // Remove required validator from OTP field since FIDO2 doesn't use manual OTP input
             this.formGroup.controls.otp.clearValidators();
             this.formGroup.controls.otp.updateValueAndValidity();
+          }
+
+          // Verify RP ID matches the current origin
+          if (this.isFido2 && this.token?.rpId) {
+            this.fido2OriginMismatch = !isOriginValidForRpId(getOrigin(), this.token.rpId);
           }
 
           this.state = TestState.UNTESTED;

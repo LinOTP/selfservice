@@ -23,7 +23,7 @@ import { DoneStepComponent } from '@app/enroll/done-step/done-step.component';
 import { ActivateDialogComponent } from './activate-dialog.component';
 
 const data = {
-  token: {serial: 'serialpush', tokenType: TokenType.PUSH, typeDetails: {name: "Push-Token"}}
+  token: {serial: 'serialpush', tokenType: TokenType.PUSH, typeDetails: {name: "Push-Token", type: TokenType.PUSH}} as SelfserviceToken
 };
 
 describe('ActivateDialogComponent', () => {
@@ -129,7 +129,7 @@ describe('ActivateDialogComponent', () => {
       enrollmentService.challengePoll.and.returnValue(of(null));
 
       fixture.detectChanges();
-      component.data = { token: { serial: "123" } as SelfserviceToken }
+      component.data = { token: { serial: "123", typeDetails: {type: TokenType.QR}  } as SelfserviceToken }
 
       component.activateToken();
       component.stepper.next()

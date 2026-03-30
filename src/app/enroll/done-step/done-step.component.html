@@ -37,7 +37,7 @@
 </div>
 
 <div class="token-wrapper">
-  <app-token-info [token]="token"></app-token-info>
+  <app-token-info [token]="token | enrolledTokenToTokenInfo"></app-token-info>
   <app-warning class="wrapper d-block mt-3"
                *ngIf="completionState === CompletionState.PUSH_QR_NO_ACTIVATE_PERMISSION"
                [msgTmpl]="warningMsgTmpl">
