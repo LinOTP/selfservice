@@ -1,7 +1,8 @@
 <a name="1.4.1-0dev"></a>
 ## 1.4.1-0dev (unreleased)
 
-  * DUMMY CHANGELOG ENTRY
+  ### Features:
+  * Container images now run with unprivileged (non-root) user `nginx` by default.
 
 
 <a name="1.4"></a>
