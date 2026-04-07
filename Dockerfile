@@ -28,36 +28,31 @@ RUN yarn build-with-prefix
 
 ### STAGE 2: Setup ###
 
-FROM nginx:alpine as prod
+FROM nginxinc/nginx-unprivileged:alpine AS prod
 ENV URL_PATH=/selfservice
 ENV SERVER_PORT=8000
 
 HEALTHCHECK --interval=10s --timeout=5s --retries=3 --start-period=30s \
   CMD curl -sfL http://localhost:${SERVER_PORT}${URL_PATH}/  || exit 1
 
-## Copy our default nginx config
-COPY nginx/default.template /etc/nginx/conf.d/
-
-## Fix the URL path in the nginx configuration. We do this here because
-## by the time the container actually runs, we no longer have access
-## to the value of URL_PATH.
-RUN sed -i -e s,@URL_PATH@,${URL_PATH},g /etc/nginx/conf.d/default.template
-
+## Copy our nginx template for nginx's built-in envsubst startup hook.
+## The official nginx entrypoint will render:
+## /etc/nginx/templates/default.conf.template -> /etc/nginx/conf.d/default.conf
+COPY --chown=nginx:nginx nginx/default.conf.template /etc/nginx/templates/default.conf.template
 ## Remove default nginx website
+USER root
 RUN rm -rf /usr/share/nginx/html/*
 
 ## Add build artifacts
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=builder --chown=nginx:nginx /app/dist /usr/share/nginx/html
 
 ## Add convenience symlinks for customisation.
 ## (The /etc/linotp-selfservice link is for compatibility with older
 ## non-container documentation.)
-RUN mkdir /usr/share/nginx/html/custom-assets && ln -s /usr/share/nginx/html/custom-assets /custom-assets
-RUN mkdir -p /etc/linotp-selfservice && ln -sf /usr/share/nginx/html/custom-assets /etc/linotp-selfservice/customization
+RUN mkdir -p /usr/share/nginx/html/custom-assets && ln -sfn /usr/share/nginx/html/custom-assets /custom-assets \
+  && mkdir -p /etc/linotp-selfservice && ln -sfn /usr/share/nginx/html/custom-assets /etc/linotp-selfservice/customization \
+  && chown -R nginx:nginx /usr/share/nginx/html
 
-## Substitute the environment vars in the nginx config and start the server
-CMD ["sh",\
-  "-c",\
-  "envsubst '${SERVER_PORT}' \
-  < /etc/nginx/conf.d/default.template > /etc/nginx/conf.d/default.conf\
-  && nginx -g 'daemon off;'"]
+USER nginx
+
+EXPOSE ${SERVER_PORT}
