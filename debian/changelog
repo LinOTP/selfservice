@@ -1,3 +1,10 @@
+linotp-selfservice (1.4.1~rc0-1) UNRELEASED; urgency=low
+
+  Fixes:
+  * Container images now run with unprivileged (non-root) user `nginx` by default.
+
+ -- LinOTP Packaging <packaging@linotp.de>  Tue, 07 Apr 2026 12:00:00 +0200
+
 linotp-selfservice (1.4.0-1) buster; urgency=low
 
   Features:
