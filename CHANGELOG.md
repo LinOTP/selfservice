@@ -1,5 +1,5 @@
-<a name="1.4.1-0dev"></a>
-## 1.4.1-0dev (unreleased)
+<a name="1.4.1rc0"></a>
+## 1.4.1rc0 (unreleased)
 
   ### Features:
   * Container images now run with unprivileged (non-root) user `nginx` by default.

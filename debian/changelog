@@ -1,4 +1,4 @@
-linotp-selfservice (1.4.1~0dev-1) UNRELEASED; urgency=low
+linotp-selfservice (1.4.1~rc0-1) UNRELEASED; urgency=low
 
   Fixes:
   * Container images now run with unprivileged (non-root) user `nginx` by default.
