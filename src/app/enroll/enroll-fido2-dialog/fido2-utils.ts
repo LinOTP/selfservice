@@ -1,4 +1,5 @@
 import { SignRequest } from "@app/login/login.service";
+import { Fido2RegisterRequest } from "./enroll-fido2-dialog.component";
 
 export function getOrigin(): string {
   return window.location.origin;
@@ -106,3 +107,27 @@ export function mapSignRequestToPublicKeyOptions(signrequest: SignRequest): Publ
   };
   return publicKeyOptions;
 }
+
+
+export function convertToWebAuthnOptions(
+    req: Fido2RegisterRequest,
+  ): PublicKeyCredentialCreationOptions {
+    return {
+      rp: {
+        id: req.rp.id,
+        name: req.rp.name,
+      },
+      user: {
+        id: base64urlToBuffer(req.user.id),
+        name: req.user.name,
+        displayName: req.user.displayName,
+      },
+      challenge: base64urlToBuffer(req.challenge),
+      pubKeyCredParams: req.pubKeyCredParams,
+      timeout: req.timeout,
+      authenticatorSelection: {
+        ...req.authenticatorSelection,
+      },
+      attestation: req.attestation ?? "none",
+    };
+  }

@@ -11,10 +11,17 @@
       <h3 class="cdk-visually-hidden"
           i18n>Start the activation</h3>
       <div i18n="@@activationStepperIntroduction">
+        @if (isFIDO2) {
+        <p>
+          To use your FIDO2 token, it must first be activated by using a passkey on your device
+          or by inserting a supported hardware security key (e.g. YubiKey5, Nitrokey).
+        </p>
+        } @else {
         <p>
           To use your {{isPush ? 'Push' : 'QR'}} token, it must first be activated with the authenticator app
-          app you used during enrollment. Please open the app and proceed to the next step to begin the activation.
+          you used during enrollment. Please open the app and proceed to the next step to begin the activation.
         </p>
+        }
       </div>
     </mat-dialog-content>
 
@@ -35,6 +42,10 @@
           i18n>Activation challenge</h3>
       <app-token-dialog-header [token]="data.token"></app-token-dialog-header>
       <section class="response">
+        @if (isFIDO2 && !restartDialog) {
+          <p class="mt-0" i18n>Please follow the browser instructions to activate your FIDO2 token.</p>
+          <mat-spinner *ngIf="!awaitingActivationInitResp" class="m-auto"></mat-spinner>
+        } @else {
         <ng-container *ngIf="!restartDialog;">
           <p i18n>
             The activation has started. Find the token in the <b>LinOTP Authenticator</b> app that matches the serial
@@ -52,11 +63,12 @@
                   mat-flat-button
                   color="primary"
                   type="button"
-                  (click)="goPrevious()"
+                  (click)="restart()"
                   i18n>
             Retry
           </button>
         </ng-container>
+        }
       </section>
     </mat-dialog-content>
 

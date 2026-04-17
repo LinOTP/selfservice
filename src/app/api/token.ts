@@ -90,7 +90,7 @@ export class SelfserviceToken {
     private token: LinOtpToken
   ) {
     this._typeDetails = getTokenDisplayData(token['LinOtp.TokenType'].toLowerCase() as TokenType);
-    this._enrollmentStatus = token['Enrollment']['status'] === 'completed' ? 'completed' : token['Enrollment']['detail'];
+    this._enrollmentStatus = token['Enrollment']['status'] === 'completed' ? 'completed' : (token['Enrollment']['detail'] ?? token['Enrollment']['status']);
   }
 }
 
