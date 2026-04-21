@@ -41,6 +41,7 @@ export class TokenCardComponent implements OnInit, OnDestroy {
   public isMOTP: boolean;
   public canEnable: boolean;
   public canActivate: boolean;
+  public canActivateFido: boolean;
   public menuHasItems: Observable<boolean> = of(false);
   private subscriptions: Subscription[] = [];
 
@@ -79,6 +80,12 @@ export class TokenCardComponent implements OnInit, OnDestroy {
       this.loginService
         .hasPermission$(Permission.ENABLE)
         .subscribe(canEnable => this.canEnable = canEnable)
+    );
+
+    this.subscriptions.push(
+      this.loginService
+        .hasPermission$(Permission.ENROLLFIDO2)
+        .subscribe(canActivateFido => this.canActivateFido = canActivateFido)
     );
 
     if (this.token.typeDetails.activationPermission) {
@@ -221,7 +228,10 @@ export class TokenCardComponent implements OnInit, OnDestroy {
   }
 
   public pendingActivate(): boolean {
-    return this.canActivate && this.token.enrollmentStatus === EnrollmentStatus.PAIRING_RESPONSE_RECEIVED;
+    //fido2
+    if(this.token.tokenType === TokenType.FIDO2) return this.canActivateFido && this.token.enrollmentStatus === EnrollmentStatus.UNPAIRED
+    //qr/push
+    return this.canActivate && this.token.enrollmentStatus === EnrollmentStatus.PAIRING_RESPONSE_RECEIVED
   }
 
   public verifyRequired(): boolean {

@@ -6,7 +6,7 @@ import {
   EnrolledToken,
 } from "@app/enroll/enroll-dialog-base.directive";
 import { catchError, delay, EMPTY, from, map, Observable, switchMap, tap } from "rxjs";
-import { base64urlToBuffer, bufferToBase64url, isFido2Supported } from "./fido2-utils";
+import { bufferToBase64url, convertToWebAuthnOptions, isFido2Supported } from "./fido2-utils";
 
 interface RpEntity {
   id: string;
@@ -51,6 +51,11 @@ export interface Fido2EnrolledToken extends EnrolledToken {
   registerrequest: Fido2RegisterRequest;
 }
 
+
+export type Fido2RegistrationCredential = PublicKeyCredential & {
+  response: AuthenticatorAttestationResponse;
+}
+
 @Component({
   selector: "app-enroll-fido2-dialog",
   templateUrl: "./enroll-fido2-dialog.component.html",
@@ -91,8 +96,8 @@ export class EnrollFIDO2DialogComponent
     this.activationFailed = false
     return this.enrollmentService.fido2_activate_begin(this.enrolledToken!.serial, this.enrolledToken!.type).pipe(delay(1000))
       .pipe(
-        switchMap((res) => from(navigator.credentials.create({publicKey: this.convertToWebAuthnOptions(res)}))),
-        map((creds: any) => {
+        switchMap((res) => from(navigator.credentials.create({publicKey: convertToWebAuthnOptions(res)}))),
+        map((creds: Fido2RegistrationCredential) => {
           return {
             id: creds.id,
             rawId: bufferToBase64url(creds.rawId),
@@ -107,29 +112,6 @@ export class EnrollFIDO2DialogComponent
         tap((res) => res ? this.goToNextStep(this.stepper) : this.handleError() ),
         catchError(() => this.handleError()),
       )
-  }
-
-  convertToWebAuthnOptions(
-    req: Fido2RegisterRequest,
-  ): PublicKeyCredentialCreationOptions {
-    return {
-      rp: {
-        id: req.rp.id,
-        name: req.rp.name,
-      },
-      user: {
-        id: base64urlToBuffer(req.user.id),
-        name: req.user.name,
-        displayName: req.user.displayName,
-      },
-      challenge: base64urlToBuffer(req.challenge),
-      pubKeyCredParams: req.pubKeyCredParams,
-      timeout: req.timeout,
-      authenticatorSelection: {
-        ...req.authenticatorSelection,
-      },
-      attestation: req.attestation ?? "none",
-    };
   }
 
   isSupported() {

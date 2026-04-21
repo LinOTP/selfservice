@@ -30,6 +30,15 @@
   <mat-card-content>
     <p i18n>Serial: {{ token.serial }}</p>
     <ng-template #unpairedTokenMessage>
+      @if(token.tokenType === TokenType.FIDO2){
+        <p i18n>
+          Activate this FIDO2 token using a compatible device, such as a security key or your device’s built‑in authenticator (e.g., Windows Hello, Touch ID, Face ID).
+        </p>
+        <p *ngIf="!canActivateFido"
+           i18n="@@noActivatePermWarning"
+           class="warning"> You do not have the required permission to activate the token on your own. Contact your
+          administrator to resolve this issue. </p>
+      } @else {
       <p i18n>
         You need a QR code to proceed with the token activation in the LinOTP Authenticator app.
       </p>
@@ -52,6 +61,7 @@
           </ng-container>
         </ng-container>
       </p>
+      }
     </ng-template>
     <ng-container [ngSwitch]="token.enrollmentStatus">
       <ng-container *ngSwitchCase="EnrollmentStatus.UNPAIRED">

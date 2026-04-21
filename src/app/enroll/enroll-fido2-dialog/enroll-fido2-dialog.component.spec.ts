@@ -24,6 +24,7 @@ import { TokenService } from "@app/api/token.service";
 import { NotificationService } from "@app/common/notification.service";
 import { OperationsService } from "@app/api/operations.service";
 import { TokenType } from "@app/api/token";
+import { convertToWebAuthnOptions } from "./fido2-utils";
 
 describe("EnrollFIDO2DialogComponent", () => {
   let component: EnrollFIDO2DialogComponent;
@@ -219,7 +220,7 @@ describe("EnrollFIDO2DialogComponent", () => {
       authenticatorSelection: {},
     };
 
-    const result = component.convertToWebAuthnOptions(req);
+    const result = convertToWebAuthnOptions(req);
     expect(result.user.id instanceof ArrayBuffer).toBeTrue();
     expect(result.challenge instanceof ArrayBuffer).toBeTrue();
   });

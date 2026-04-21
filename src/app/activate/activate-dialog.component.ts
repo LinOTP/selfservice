@@ -4,13 +4,15 @@ import { Component, Inject, OnDestroy, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 
-import { of, Subscription } from 'rxjs';
+import { EMPTY, from, Observable, of, Subscription } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
 
 import { ActivationDetail, EnrollmentService } from '@api/enrollment.service';
 import { SelfserviceToken, TokenType } from '@api/token';
 import { TokenService } from '@app/api/token.service';
+import { bufferToBase64url, convertToWebAuthnOptions } from '@app/enroll/enroll-fido2-dialog/fido2-utils';
+import { Fido2RegistrationCredential } from '@app/enroll/enroll-fido2-dialog/enroll-fido2-dialog.component';
 
 
 @Component({
@@ -28,12 +30,13 @@ export class ActivateDialogComponent implements OnDestroy {
 
   public isQR = false;
   public isPush = false;
+  public isFIDO2 = false;
 
   public transactionId: string = null;
   public tokenQRUrl: string = null;
   public pin = '';
 
-  private pairingSubscription: Subscription;
+  private pairingSubscription: Subscription = new Subscription();
 
   constructor(
     private tokenService: TokenService,
@@ -44,6 +47,7 @@ export class ActivateDialogComponent implements OnDestroy {
   ) {
     this.isPush = data.token.tokenType === TokenType.PUSH;
     this.isQR = data.token.tokenType === TokenType.QR;
+    this.isFIDO2 = data.token.tokenType === TokenType.FIDO2;
   }
 
   public onStepChange(event: StepperSelectionEvent): void {
@@ -56,7 +60,12 @@ export class ActivateDialogComponent implements OnDestroy {
 
   public activateToken(): void {
     this.awaitingActivationInitResp = true;
-    this.pairingSubscription = this.enrollmentService.activate(this.data.token.serial).pipe(
+    if(this.isFIDO2){
+      this.stepper.next()
+      this.pairingSubscription.add(this.activateFIDO2().subscribe())
+      return
+    }
+    this.pairingSubscription.add(this.enrollmentService.activate(this.data.token.serial).pipe(
       tap((details: ActivationDetail) => {
         this.transactionId = details.transactionid.toString().slice(0, 6);
         if (this.isQR) this.tokenQRUrl = details.message;
@@ -80,17 +89,47 @@ export class ActivateDialogComponent implements OnDestroy {
       if (!success) {
         this.liveAnnouncer.announce($localize`Activation failed. Please try again, or contact an administrator.`, 'assertive');
       }
-    });
+    }));
   }
+
+    activateFIDO2(): Observable<ActivationDetail> {
+      this.restartDialog = false
+      this.awaitingActivationInitResp = false;
+      return this.enrollmentService.fido2_activate_begin(this.data.token.serial, TokenType.FIDO2)
+        .pipe(
+          switchMap((res) => from(navigator.credentials.create({publicKey: convertToWebAuthnOptions(res)}))),
+          map((creds: Fido2RegistrationCredential) => {
+            return {
+              id: creds.id,
+              rawId: bufferToBase64url(creds.rawId),
+              response: {
+                clientDataJSON: bufferToBase64url(creds.response.clientDataJSON),
+                attestationObject: bufferToBase64url(creds.response.attestationObject),
+              },
+              type: creds.type
+            };
+          }),
+          switchMap((attestationResponse) => this.enrollmentService.fido2_activate_finish( this.data.token.serial, attestationResponse)),
+          tap((res) => res ? this.stepper.next() : this.restartDialog = true),
+          catchError(() => {
+            this.restartDialog = true;
+            return EMPTY
+          }),
+        )
+    }
 
   public close() {
     if (this.stepperChanged) this.tokenService.updateTokenList();
     this.dialogRef.close();
   }
 
-  public goPrevious() {
-    this.stepper.steps.get(this.stepper.selectedIndex).completed = false
-    this.stepper.previous()
+  public restart() {
+    if(this.isFIDO2){
+        this.pairingSubscription.add(this.activateFIDO2().subscribe())
+    } else {
+      this.stepper.steps.get(this.stepper.selectedIndex).completed = false
+      this.stepper.previous()
+    }
   }
 
   public ngOnDestroy() {

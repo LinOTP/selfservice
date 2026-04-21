@@ -144,7 +144,7 @@ describe('TokenCardComponent', () => {
   });
 
   it('should unsubscribe from permission subscriptions on component destroy', () => {
-    expect((component as any).subscriptions.length).toEqual(2);
+    expect((component as any).subscriptions.length).toEqual(3);
     const activeSubscriptions: Subscription[] = [...(component as any).subscriptions];
     expect(activeSubscriptions[0].closed).toEqual(false);
     expect(activeSubscriptions[1].closed).toEqual(false);
