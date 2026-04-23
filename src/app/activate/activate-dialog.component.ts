@@ -135,10 +135,10 @@ export class ActivateDialogComponent implements OnDestroy {
   }
 
   public restart() {
+    this.restartDialog = false
     if(this.isFIDO2){
         this.pairingSubscription.add(this.activateFIDO2().subscribe())
     } else {
-      this.restartDialog = false
       this.stepper.steps.get(this.stepper.selectedIndex).completed = false
       this.stepper.previous()
     }
