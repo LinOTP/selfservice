@@ -9,7 +9,7 @@ import { catchError, switchMap } from 'rxjs/operators';
 
 import { ReplyMode, StatusDetail, TestOptions, TestService, TransactionDetail } from '@api/test.service';
 import { SelfserviceToken, TokenDisplayData, tokenDisplayData, TokenType } from '@api/token';
-import { getOrigin, isFido2Supported, isOriginValidForRpId, mapAssertionResponseToJson, mapSignRequestToPublicKeyOptions } from '@app/enroll/enroll-fido2-dialog/fido2-utils';
+import { getOrigin, isFido2Supported, isOriginValidForRpId, mapAssertionResponseToJson, mapSignRequestToPublicKeyOptions, invalidOriginForRpIdErrMsg} from '@app/enroll/enroll-fido2-dialog/fido2-utils';
 import { NotificationService } from '@common/notification.service';
 
 enum TestState {
@@ -135,6 +135,9 @@ export class TestDialogComponent implements OnInit, OnDestroy {
           // Verify RP ID matches the current origin
           if (this.isFido2 && this.token?.rpId) {
             this.fido2OriginMismatch = !isOriginValidForRpId(getOrigin(), this.token.rpId);
+            if(this.fido2OriginMismatch){
+              this.errorMessage = invalidOriginForRpIdErrMsg(this.token.rpId)
+            }
           }
 
           this.state = TestState.UNTESTED;

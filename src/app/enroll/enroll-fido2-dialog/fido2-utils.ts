@@ -5,7 +5,11 @@ export function getOrigin(): string {
   return window.location.origin;
 }
 
-export function isOriginValidForRpId(origin: string, rpId: string): boolean {
+export const invalidOriginForRpIdErrMsg = (rpId: string) => {
+  return $localize `Relying party mismatch. This FIDO2 token is registered for "${rpId}" and cannot be used from "${window.location.hostname}".`
+}
+
+export function isOriginValidForRpId(origin: string, rpId: string): boolean{
   if (!origin || !rpId) {
     return false;
   }

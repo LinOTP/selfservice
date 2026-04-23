@@ -25,11 +25,7 @@
             authenticate with your security key or passkey.</p>
 
           <ng-template #originMismatchTmp>
-            <div class="d-flex align-items-start fido2-origin-mismatch">
-              <mat-icon class="pe-3">error</mat-icon>
-              <span i18n>Relying party mismatch. This FIDO2 token is registered for
-                {{ token.rpId }} and cannot be used from {{ origin }}.</span>
-              </div>
+            <app-warning [msgTmpl]="errorMessage" type="error"></app-warning>
           </ng-template>
         </div>
 
