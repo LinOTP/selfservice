@@ -6,7 +6,7 @@ import {
   EnrolledToken,
 } from "@app/enroll/enroll-dialog-base.directive";
 import { catchError, delay, EMPTY, from, map, Observable, switchMap, tap } from "rxjs";
-import { bufferToBase64url, convertToWebAuthnOptions, isFido2Supported } from "./fido2-utils";
+import { bufferToBase64url, convertToWebAuthnOptions, getOrigin, invalidOriginForRpIdErrMsg, isFido2Supported, isOriginValidForRpId } from "./fido2-utils";
 
 interface RpEntity {
   id: string;
@@ -69,6 +69,7 @@ export class EnrollFIDO2DialogComponent
   @ViewChild(MatStepper, { static: true }) public stepper: MatStepper;
   activationFailed = false;
   errMsg: string | undefined
+  allowActivationRetry = true
 
   public createToken(): void {
     if (this.createTokenForm.invalid) {
@@ -84,11 +85,14 @@ export class EnrollFIDO2DialogComponent
         .pipe(
           switchMap((token: Fido2EnrolledToken) => {
             this.enrolledToken = token;
-            return this.activate()
+            if (!isOriginValidForRpId(getOrigin(), token.registerrequest.rp.id)) {
+                this.allowActivationRetry = false
+              return this.handleError(invalidOriginForRpIdErrMsg(token.registerrequest.rp.id));
+            }
+            return this.activate();
           }),
-          catchError(() => this.handleError()),
-        )
-        .subscribe()
+          catchError((err) => this.handleError(err)),
+        ).subscribe()
       );
   }
 
@@ -109,8 +113,8 @@ export class EnrollFIDO2DialogComponent
           };
         }),
         switchMap((attestationResponse) => this.enrollmentService.fido2_activate_finish( this.enrolledToken!.serial, attestationResponse)),
-        tap((res) => res ? this.goToNextStep(this.stepper) : this.handleError() ),
-        catchError(() => this.handleError()),
+        tap((res) => res ? this.goToNextStep(this.stepper) : this.handleError()),
+        catchError((err) => this.handleError(err)),
       )
   }
 
@@ -118,10 +122,11 @@ export class EnrollFIDO2DialogComponent
     return isFido2Supported();
   }
 
-  handleError() {
+  handleError(errMsg?: string) {
+    const genericError = $localize`Token activation failed: Please try again.`
     const notSupportedErr = $localize`Your browser does not support FIDO2 enrollment.`
-    const other = $localize`The operation either timed out or was not allowed.`
-    this.errMsg = isFido2Supported() ? other : notSupportedErr
+    this.errMsg = !isFido2Supported() ? notSupportedErr : errMsg ?? genericError
+    console.error(`${this.enrolledToken.serial}: ${this.errMsg}`)
     this.activationFailed = true;
     return EMPTY;
   }

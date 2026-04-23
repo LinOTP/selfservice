@@ -16,6 +16,7 @@
           To use your FIDO2 token, it must first be activated by using a passkey on your device
           or by inserting a supported hardware security key (e.g. YubiKey5, Nitrokey).
         </p>
+        <app-warning class="m-1" *ngIf="errMsg" [msgTmpl]="errMsg" type="error"></app-warning>
         } @else {
         <p>
           To use your {{isPush ? 'Push' : 'QR'}} token, it must first be activated with the authenticator app
@@ -26,7 +27,7 @@
     </mat-dialog-content>
 
     <ng-template #installAppStepActions>
-      <app-step-actions [disableSubmit]="false"
+      <app-step-actions [disableSubmit]="restartDialog"
                         (cancelled)="close()"
                         (submitted)="activateToken();"
                         [awaitingResponse]="awaitingActivationInitResp">
@@ -42,9 +43,20 @@
           i18n>Activation challenge</h3>
       <app-token-dialog-header [token]="data.token"></app-token-dialog-header>
       <section class="response">
-        @if (isFIDO2 && !restartDialog) {
+        @if (isFIDO2) {
           <p class="mt-0" i18n>Please follow the browser instructions to activate your FIDO2 token.</p>
-          <mat-spinner *ngIf="!awaitingActivationInitResp" class="m-auto"></mat-spinner>
+          <mat-spinner *ngIf="awaitingActivationInitResp" class="m-auto"></mat-spinner>
+          @if (errMsg) {
+            <app-warning class="mb-4" *ngIf="errMsg" [msgTmpl]="errMsg + ''" type="error"></app-warning>
+            <button appFocusOnInit
+                    mat-flat-button
+                    color="primary"
+                    type="button"
+                    (click)="pairingSubscription.add(activateFIDO2().subscribe())"
+                    i18n>
+              Retry
+            </button>
+          }
         } @else {
         <ng-container *ngIf="!restartDialog;">
           <p i18n>

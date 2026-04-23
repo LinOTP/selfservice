@@ -224,7 +224,12 @@ export class EnrollmentService {
         413: $localize`${operation} failed: You can not register a new token because your realm has reached the maximum token capacity.`,
       };
 
-      this.notificationService.errorMessage(errorMessages[error?.response?.result?.error?.code] || defaultMessage);
+      const errMsg = errorMessages[error?.response?.result?.error?.code] || defaultMessage
+      this.notificationService.errorMessage(errMsg);
+      console.error(errMsg)
+      if(error.message){
+        console.error(error.message)
+      }
 
       return of(result as T);
     };

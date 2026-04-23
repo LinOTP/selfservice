@@ -41,15 +41,17 @@
       <p class="mt-0" i18n>Please follow the browser instructions to activate your FIDO2 token.</p>
       <mat-spinner *ngIf="!activationFailed" class="m-auto"></mat-spinner>
       @if (activationFailed) {
-        <app-warning class="d-block m-auto" [msgTmpl]="errMsg" type="error"></app-warning>
-        <button mat-flat-button
-          color="primary"
-          type="button"
-          (click)="subscriptions.push(activate().subscribe())"
-          appFocusOnInit
-          i18n>
-          Retry
-        </button>
+        <app-warning class="d-block m-auto" [msgTmpl]="errMsg + ''" type="error"></app-warning>
+        @if (allowActivationRetry) {
+          <button mat-flat-button
+            color="primary"
+            type="button"
+            (click)="subscriptions.push(activate().subscribe())"
+            appFocusOnInit
+            i18n>
+            Retry
+          </button>
+        }
       }
       </div>
     </mat-dialog-content>
