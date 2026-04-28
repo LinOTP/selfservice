@@ -10,20 +10,18 @@
     <mat-dialog-content>
       <h3 class="cdk-visually-hidden"
           i18n>Start the activation</h3>
-      <div i18n="@@activationStepperIntroduction">
         @if (isFIDO2) {
-        <p>
-          To use your FIDO2 token, it must first be activated by using a passkey on your device
-          or by inserting a supported hardware security key (e.g. YubiKey5, Nitrokey).
-        </p>
-        <app-warning class="m-1" *ngIf="errMsg" [msgTmpl]="errMsg" type="error"></app-warning>
+          <p i18n="@@fido2ActivationStepperIntroduction">
+            To use your FIDO2 token, it must first be activated by using a passkey on your device
+            or by inserting a supported hardware security key (e.g. YubiKey5, Nitrokey).
+          </p>
+          <app-warning class="m-1" *ngIf="errMsg" [msgTmpl]="errMsg" type="error"></app-warning>
         } @else {
-        <p>
-          To use your {{isPush ? 'Push' : 'QR'}} token, it must first be activated with the authenticator app
-          you used during enrollment. Please open the app and proceed to the next step to begin the activation.
-        </p>
+          <p i18n="@@activationStepperIntroduction">
+            To use your {{isPush ? 'Push' : 'QR'}} token, it must first be activated with the authenticator app
+            you used during enrollment. Please open the app and proceed to the next step to begin the activation.
+          </p>
         }
-      </div>
     </mat-dialog-content>
 
     <ng-template #installAppStepActions>

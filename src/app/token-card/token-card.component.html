@@ -34,10 +34,7 @@
         <p i18n>
           Activate this FIDO2 token using a compatible device, such as a security key or your device’s built‑in authenticator (e.g., Windows Hello, Touch ID, Face ID).
         </p>
-        <p *ngIf="!canActivateFido"
-           i18n="@@noActivatePermWarning"
-           class="warning"> You do not have the required permission to activate the token on your own. Contact your
-          administrator to resolve this issue. </p>
+        <ng-container [ngTemplateOutlet]="noActivatePermissionWarning" *ngIf="!canActivateFido"></ng-container>
       } @else {
       <p i18n>
         You need a QR code to proceed with the token activation in the LinOTP Authenticator app.
@@ -72,10 +69,7 @@
       </ng-container>
       <ng-container *ngSwitchCase="EnrollmentStatus.PAIRING_RESPONSE_RECEIVED">
         <p i18n> This token is paired with your mobile. It needs to be activated now to finish the setup. </p>
-        <p *ngIf="!canActivate"
-           i18n="@@noActivatePermWarning"
-           class="warning"> You do not have the required permission to activate the token on your own. Contact your
-          administrator to resolve this issue. </p>
+        <ng-container [ngTemplateOutlet]="noActivatePermissionWarning" *ngIf="!canActivate"></ng-container>
       </ng-container>
       <p *ngSwitchCase="EnrollmentStatus.PAIRING_CHALLENGE_SENT"
          i18n> An activation challenge has been generated.
@@ -181,3 +175,12 @@
     <span i18n>Delete</span>
   </button>
 </mat-menu>
+
+<ng-template #noActivatePermissionWarning>
+  <p
+    i18n="@@noActivatePermWarning"
+    class="warning">
+    You do not have the required permission to activate the token on your own.
+    Contact your administrator to resolve this issue.
+  </p>
+</ng-template>
