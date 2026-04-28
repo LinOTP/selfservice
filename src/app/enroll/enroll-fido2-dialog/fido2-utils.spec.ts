@@ -1,4 +1,4 @@
-import { isOriginValidForRpId } from './fido2-utils';
+import { isOriginValidForRpId, mapSignRequestToPublicKeyOptions } from './fido2-utils';
 
 describe('fido2-utils', () => {
 
@@ -85,5 +85,40 @@ describe('fido2-utils', () => {
         expect(isOriginValidForRpId('https://localhost:4200', 'localhost')).toBe(true);
       });
     });
+  });
+
+  describe('mapSignRequestToPublicKeyOptions', () => {
+    it('should decode binary fields and preserve credential transports', () => {
+      const result = mapSignRequestToPublicKeyOptions({
+        challenge: 'BAUG',
+        rpId: 'example.com',
+        timeout: 30000,
+        userVerification: 'discouraged',
+        allowCredentials: [{
+          id: 'AQID',
+          type: 'public-key',
+          transports: ['usb', 'nfc'],
+        }],
+      } as any);
+
+      expect(Array.from(new Uint8Array(result.challenge as ArrayBuffer))).toEqual([4, 5, 6]);
+      expect(result.rpId).toBe('example.com');
+      expect(result.timeout).toBe(30000);
+      expect(result.userVerification).toBe('discouraged');
+      expect(result.allowCredentials![0].type).toBe('public-key');
+      expect(result.allowCredentials![0].transports).toEqual(['usb', 'nfc']);
+    });
+
+    it('should allow sign requests without allowCredentials', () => {
+      const result = mapSignRequestToPublicKeyOptions({
+        challenge: 'BAUG',
+        rpId: 'example.com',
+        userVerification: 'preferred',
+      } as any);
+
+      expect(Array.from(new Uint8Array(result.challenge as ArrayBuffer))).toEqual([4, 5, 6]);
+      expect(result.allowCredentials).toBeUndefined();
+    });
+
   });
 });

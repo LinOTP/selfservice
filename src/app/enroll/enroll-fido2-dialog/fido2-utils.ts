@@ -102,10 +102,10 @@ export function mapAssertionResponseToJson(assertion: PublicKeyCredential): stri
 
 export function mapSignRequestToPublicKeyOptions(signrequest: SignRequest): PublicKeyCredentialRequestOptions {
   const publicKeyOptions: PublicKeyCredentialRequestOptions = {
+    ...signrequest,
     challenge: base64urlToBuffer(signrequest.challenge),
-    rpId: signrequest.rpId,
-    allowCredentials: signrequest.allowCredentials.map((cred) => ({
-      type: cred.type,
+    allowCredentials: signrequest.allowCredentials?.map((cred) => ({
+      ...cred,
       id: base64urlToBuffer(cred.id),
     }))
   };
@@ -117,21 +117,16 @@ export function convertToWebAuthnOptions(
     req: Fido2RegisterRequest,
   ): PublicKeyCredentialCreationOptions {
     return {
-      rp: {
-        id: req.rp.id,
-        name: req.rp.name,
-      },
+      ...req,
       user: {
+        ...req.user,
         id: base64urlToBuffer(req.user.id),
-        name: req.user.name,
-        displayName: req.user.displayName,
       },
+      excludeCredentials: req.excludeCredentials?.map((cred) => ({
+        ...cred,
+        id: base64urlToBuffer(cred.id),
+      })),
       challenge: base64urlToBuffer(req.challenge),
-      pubKeyCredParams: req.pubKeyCredParams,
-      timeout: req.timeout,
-      authenticatorSelection: {
-        ...req.authenticatorSelection,
-      },
       attestation: req.attestation ?? "none",
     };
   }

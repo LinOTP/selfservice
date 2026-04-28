@@ -28,11 +28,18 @@ interface AuthenticatorSelection {
   userVerification?: "required" | "preferred" | "discouraged";
 }
 
+interface CredentialDescriptor {
+  id: string;
+  type: "public-key";
+  transports?: AuthenticatorTransport[];
+}
+
 export interface Fido2RegisterRequest {
   rp: RpEntity;
   user: UserEntity;
   challenge: string;
   pubKeyCredParams: PubKeyCredParam[];
+  excludeCredentials?: CredentialDescriptor[];
   timeout?: number;
   authenticatorSelection?: AuthenticatorSelection;
   attestation?: "none" | "indirect" | "direct";
