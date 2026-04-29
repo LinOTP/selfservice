@@ -110,6 +110,7 @@ export class ActivateDialogComponent implements OnDestroy {
             return {
               id: creds.id,
               rawId: bufferToBase64url(creds.rawId),
+              authenticatorAttachment: creds.authenticatorAttachment,
               response: {
                 clientDataJSON: bufferToBase64url(creds.response.clientDataJSON),
                 attestationObject: bufferToBase64url(creds.response.attestationObject),

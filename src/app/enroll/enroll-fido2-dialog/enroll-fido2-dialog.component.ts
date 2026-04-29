@@ -49,6 +49,7 @@ export interface AttestationResponse {
   id: string;
   rawId: string;
   type: string;
+  authenticatorAttachment: string,
   response: {
     clientDataJSON: string;
     attestationObject: string;
@@ -112,6 +113,7 @@ export class EnrollFIDO2DialogComponent
           return {
             id: creds.id,
             rawId: bufferToBase64url(creds.rawId),
+            authenticatorAttachment: creds.authenticatorAttachment,
             response: {
               clientDataJSON: bufferToBase64url(creds.response.clientDataJSON),
               attestationObject: bufferToBase64url(creds.response.attestationObject),
