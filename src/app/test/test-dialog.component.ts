@@ -9,7 +9,7 @@ import { catchError, switchMap } from 'rxjs/operators';
 
 import { ReplyMode, StatusDetail, TestOptions, TestService, TransactionDetail } from '@api/test.service';
 import { SelfserviceToken, TokenDisplayData, tokenDisplayData, TokenType } from '@api/token';
-import { getOrigin, isFido2Supported, isOriginValidForRpId, mapAssertionResponseToJson, mapSignRequestToPublicKeyOptions } from '@app/enroll/enroll-fido2-dialog/fido2-utils';
+import { getOrigin, invalidOriginForRpIdErrMsg, isFido2Supported, isOriginValidForRpId, mapAssertionResponseToJson, mapSignRequestToPublicKeyOptions } from '@app/enroll/enroll-fido2-dialog/fido2-utils';
 import { NotificationService } from '@common/notification.service';
 
 enum TestState {
@@ -131,12 +131,14 @@ export class TestDialogComponent implements OnInit, OnDestroy {
             this.formGroup.controls.otp.clearValidators();
             this.formGroup.controls.otp.updateValueAndValidity();
           }
-
           // Verify RP ID matches the current origin
           if (this.isFido2 && this.token?.rpId) {
             this.fido2OriginMismatch = !isOriginValidForRpId(getOrigin(), this.token.rpId);
+            if(this.fido2OriginMismatch){
+              this.goToFailure(invalidOriginForRpIdErrMsg(this.token.rpId))
+              return
+            }
           }
-
           this.state = TestState.UNTESTED;
           if (!this.isFido2 && this.hasOnlineMode) {
             this.checkTransactionState();
@@ -210,8 +212,7 @@ export class TestDialogComponent implements OnInit, OnDestroy {
       .pipe(
         catchError(err => {
           this.awaitingResponse = false;
-          this.notificationService.errorMessage($localize`FIDO2 authentication failed: ${err.message}`);
-          this.goToFailure();
+          this.goToFailure(err);
           return EMPTY;
         }),
         switchMap((assertion: PublicKeyCredential) => {
@@ -246,13 +247,15 @@ export class TestDialogComponent implements OnInit, OnDestroy {
    * @memberof TestDialogComponent
    */
   public reset() {
+    this.errorMessage = ""
     this.showInputField = false;
     this.formDirective.resetForm({ otp: '', pin: '' });
     this.triggerTest();
   }
 
-  public goToFailure() {
-    this.errorMessage = $localize`The test failed. Please try again or contact an administrator.`;
+  public goToFailure(errMsg?: string) {
+    this.errorMessage = errMsg ?? $localize`The test failed. Please try again or contact an administrator.`;
+    console.error(`${this.token?.serial}: ${this.errorMessage}`)
     this.state = TestState.FAILURE;
   }
 

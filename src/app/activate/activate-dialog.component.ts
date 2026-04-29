@@ -5,13 +5,13 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 
 import { EMPTY, from, Observable, of, Subscription } from 'rxjs';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { catchError, finalize, map, switchMap, tap } from 'rxjs/operators';
 
 
 import { ActivationDetail, EnrollmentService } from '@api/enrollment.service';
 import { SelfserviceToken, TokenType } from '@api/token';
 import { TokenService } from '@app/api/token.service';
-import { bufferToBase64url, convertToWebAuthnOptions } from '@app/enroll/enroll-fido2-dialog/fido2-utils';
+import { bufferToBase64url, convertToWebAuthnOptions, getOrigin, invalidOriginForRpIdErrMsg, isOriginValidForRpId } from '@app/enroll/enroll-fido2-dialog/fido2-utils';
 import { Fido2RegistrationCredential } from '@app/enroll/enroll-fido2-dialog/enroll-fido2-dialog.component';
 
 
@@ -27,6 +27,7 @@ export class ActivateDialogComponent implements OnDestroy {
 
   public awaitingActivationInitResp = false;
   public restartDialog = false;
+  public errMsg: string;
 
   public isQR = false;
   public isPush = false;
@@ -48,6 +49,12 @@ export class ActivateDialogComponent implements OnDestroy {
     this.isPush = data.token.tokenType === TokenType.PUSH;
     this.isQR = data.token.tokenType === TokenType.QR;
     this.isFIDO2 = data.token.tokenType === TokenType.FIDO2;
+
+    if (this.isFIDO2 && !isOriginValidForRpId(getOrigin(), this.data.token.rpId)) {
+      this.errMsg = invalidOriginForRpIdErrMsg(this.data.token.rpId)
+      console.error(`${this.data.token.serial}: ${this.errMsg}`)
+      this.restartDialog = true
+    }
   }
 
   public onStepChange(event: StepperSelectionEvent): void {
@@ -94,7 +101,8 @@ export class ActivateDialogComponent implements OnDestroy {
 
     activateFIDO2(): Observable<ActivationDetail> {
       this.restartDialog = false
-      this.awaitingActivationInitResp = false;
+      this.awaitingActivationInitResp = true;
+      this.errMsg = ""
       return this.enrollmentService.fido2_activate_begin(this.data.token.serial, TokenType.FIDO2)
         .pipe(
           switchMap((res) => from(navigator.credentials.create({publicKey: convertToWebAuthnOptions(res)}))),
@@ -111,10 +119,13 @@ export class ActivateDialogComponent implements OnDestroy {
           }),
           switchMap((attestationResponse) => this.enrollmentService.fido2_activate_finish( this.data.token.serial, attestationResponse)),
           tap((res) => res ? this.stepper.next() : this.restartDialog = true),
-          catchError(() => {
+          catchError((err) => {
+            this.errMsg = err;
+            console.error(`${this.data.token.serial}: ${this.errMsg}`)
             this.restartDialog = true;
             return EMPTY
           }),
+          finalize(()=> this.awaitingActivationInitResp = false)
         )
     }
 
@@ -124,6 +135,7 @@ export class ActivateDialogComponent implements OnDestroy {
   }
 
   public restart() {
+    this.restartDialog = false
     if(this.isFIDO2){
         this.pairingSubscription.add(this.activateFIDO2().subscribe())
     } else {

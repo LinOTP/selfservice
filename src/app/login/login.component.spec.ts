@@ -268,7 +268,7 @@ describe('LoginComponent', () => {
       component.login();
 
       expect(loginService.login).toHaveBeenCalledWith({ username: 'user', password: 'pass' });
-      expect(notificationService.errorMessage).toHaveBeenCalledWith('Login failed');
+      expect(notificationService.errorMessage).toHaveBeenCalledWith('Login failed', Duration.LONG);
       expect(component.redirect).not.toHaveBeenCalled();
     });
 

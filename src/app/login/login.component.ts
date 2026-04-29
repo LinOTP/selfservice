@@ -173,10 +173,7 @@ export class LoginComponent implements OnInit {
       if (!result.tokens) {
         this.finalAuthenticationHandling(result.success);
       } else if (result.tokens.length === 0) {
-        this.notificationService.errorMessage(
-          $localize`Login failed: you do not have a second factor set up. Please contact an admin.`,
-          Duration.LONG
-        );
+        this.showError($localize`Login failed: you do not have a second factor set up. Please contact an admin.`)
       } else if (result.tokens.length === 1) {
         this.chooseSecondFactor(result.tokens[0]);
       } else {
@@ -224,7 +221,7 @@ export class LoginComponent implements OnInit {
 
     //If selected token is FIDO2, check if browser supports it before proceeding
     if (token.tokenType === TokenType.FIDO2 && !isFido2Supported()) {
-      this.notificationService.errorMessage($localize`Your browser does not support FIDO2 authentication.`);
+      this.showError($localize`Your browser does not support FIDO2 authentication.`);
       this.awaitingResponse = false;
       return;
     }
@@ -255,7 +252,7 @@ export class LoginComponent implements OnInit {
       },
       error: err => {
         this.awaitingResponse = false;
-        this.notificationService.errorMessage($localize`Error: ${err.message}`);
+        this.showError($localize`Error: ${err.message}`);
       }
     });
   }
@@ -279,7 +276,7 @@ export class LoginComponent implements OnInit {
       },
       error: () => {
         this.awaitingResponse = false;
-        this.notificationService.errorMessage($localize`Login failed`);
+        this.showError();
         this.resetAuthForm();
       }
     });
@@ -293,7 +290,7 @@ export class LoginComponent implements OnInit {
       .pipe(
         catchError(err => {
           // Error handling when something goes wrong during the WebAuthn process (e.g. user cancels, timeout, etc.)
-          this.notificationService.errorMessage($localize`FIDO2 authentication failed: ${err.message}`);
+          this.showError($localize`FIDO2 authentication failed: ${err.message}`);
           this.awaitingResponse = false;
           this.resetAuthForm();
           return EMPTY;
@@ -343,7 +340,7 @@ export class LoginComponent implements OnInit {
       this.notificationService.message($localize`Login successful`);
       this.redirect();
     } else {
-      this.notificationService.errorMessage($localize`Login failed`);
+      this.showError();
       this.resetAuthForm()
     }
   }
@@ -374,5 +371,10 @@ export class LoginComponent implements OnInit {
 
   isUsernameFilled() {
     return this.loginFormGroup.get("username").value?.length > 0
+  }
+
+  showError(errMsg = $localize`Login failed`){
+    console.error(`${this.selectedToken?.serial}: ${errMsg}`)
+    this.notificationService.errorMessage(errMsg, Duration.LONG);
   }
 }
