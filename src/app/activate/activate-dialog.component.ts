@@ -11,7 +11,7 @@ import { catchError, finalize, map, switchMap, tap } from 'rxjs/operators';
 import { ActivationDetail, EnrollmentService } from '@api/enrollment.service';
 import { SelfserviceToken, TokenType } from '@api/token';
 import { TokenService } from '@app/api/token.service';
-import { bufferToBase64url, convertToWebAuthnOptions, getOrigin, invalidOriginForRpIdErrMsg, isOriginValidForRpId } from '@app/enroll/enroll-fido2-dialog/fido2-utils';
+import { convertToWebAuthnOptions, getOrigin, invalidOriginForRpIdErrMsg, isOriginValidForRpId, mapCredentialToAttestationResponse } from '@app/enroll/enroll-fido2-dialog/fido2-utils';
 import { Fido2RegistrationCredential } from '@app/enroll/enroll-fido2-dialog/enroll-fido2-dialog.component';
 
 
@@ -106,18 +106,7 @@ export class ActivateDialogComponent implements OnDestroy {
       return this.enrollmentService.fido2_activate_begin(this.data.token.serial, TokenType.FIDO2)
         .pipe(
           switchMap((res) => from(navigator.credentials.create({publicKey: convertToWebAuthnOptions(res)}))),
-          map((creds: Fido2RegistrationCredential) => {
-            return {
-              id: creds.id,
-              rawId: bufferToBase64url(creds.rawId),
-              authenticatorAttachment: creds.authenticatorAttachment,
-              response: {
-                clientDataJSON: bufferToBase64url(creds.response.clientDataJSON),
-                attestationObject: bufferToBase64url(creds.response.attestationObject),
-              },
-              type: creds.type
-            };
-          }),
+          map((creds: Fido2RegistrationCredential) => mapCredentialToAttestationResponse(creds)),
           switchMap((attestationResponse) => this.enrollmentService.fido2_activate_finish( this.data.token.serial, attestationResponse)),
           tap((res) => res ? this.stepper.next() : this.restartDialog = true),
           catchError((err) => {

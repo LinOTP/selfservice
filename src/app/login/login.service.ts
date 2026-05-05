@@ -32,6 +32,7 @@ export type SignRequest = {
   allowCredentials: {
     id: string;
     type: 'public-key';
+    transports: AuthenticatorTransport[];
   }[];
 }
 interface LoginResponse {
