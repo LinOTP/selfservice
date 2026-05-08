@@ -15,6 +15,13 @@
   * UI responsiveness for small‑screen devices.
   * Various a11y improvements across the app
 
+<a name="1.4.1"></a>
+## 1.4.1 (2026-04-08)
+
+  ### Features:
+  * Container images now run with unprivileged (non-root) user `nginx` by default.
+
+
 <a name="1.4"></a>
 ## 1.4 (2025-06-16)
 
