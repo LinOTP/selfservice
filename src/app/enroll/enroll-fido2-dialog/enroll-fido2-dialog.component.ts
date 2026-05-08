@@ -6,7 +6,7 @@ import {
   EnrolledToken,
 } from "@app/enroll/enroll-dialog-base.directive";
 import { catchError, delay, EMPTY, from, map, Observable, switchMap, tap } from "rxjs";
-import { bufferToBase64url, convertToWebAuthnOptions, getOrigin, invalidOriginForRpIdErrMsg, isFido2Supported, isOriginValidForRpId } from "./fido2-utils";
+import { convertToWebAuthnOptions, getOrigin, invalidOriginForRpIdErrMsg, isFido2Supported, isOriginValidForRpId, mapCredentialToAttestationResponse } from "./fido2-utils";
 
 interface RpEntity {
   id: string;
@@ -49,10 +49,13 @@ export interface AttestationResponse {
   id: string;
   rawId: string;
   type: string;
+  authenticatorAttachment: string,
   response: {
     clientDataJSON: string;
     attestationObject: string;
   };
+  transports: AuthenticatorTransport[];
+  clientExtensionResults: AuthenticationExtensionsClientOutputs
 }
 export interface Fido2EnrolledToken extends EnrolledToken {
   registerrequest: Fido2RegisterRequest;
@@ -108,17 +111,7 @@ export class EnrollFIDO2DialogComponent
     return this.enrollmentService.fido2_activate_begin(this.enrolledToken!.serial, this.enrolledToken!.type).pipe(delay(1000))
       .pipe(
         switchMap((res) => from(navigator.credentials.create({publicKey: convertToWebAuthnOptions(res)}))),
-        map((creds: Fido2RegistrationCredential) => {
-          return {
-            id: creds.id,
-            rawId: bufferToBase64url(creds.rawId),
-            response: {
-              clientDataJSON: bufferToBase64url(creds.response.clientDataJSON),
-              attestationObject: bufferToBase64url(creds.response.attestationObject),
-            },
-            type: creds.type
-          };
-        }),
+        map((creds: Fido2RegistrationCredential) => mapCredentialToAttestationResponse(creds)),
         switchMap((attestationResponse) => this.enrollmentService.fido2_activate_finish( this.enrolledToken!.serial, attestationResponse)),
         tap((res) => res ? this.goToNextStep(this.stepper) : this.handleError()),
         catchError((err) => this.handleError(err)),

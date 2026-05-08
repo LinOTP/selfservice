@@ -1,5 +1,5 @@
 import { SignRequest } from "@app/login/login.service";
-import { Fido2RegisterRequest } from "./enroll-fido2-dialog.component";
+import { AttestationResponse, Fido2RegisterRequest, Fido2RegistrationCredential } from "./enroll-fido2-dialog.component";
 
 export function getOrigin(): string {
   return window.location.origin;
@@ -111,6 +111,28 @@ export function mapSignRequestToPublicKeyOptions(signrequest: SignRequest): Publ
   };
   return publicKeyOptions;
 }
+
+export function mapCredentialToAttestationResponse(
+  creds: Fido2RegistrationCredential
+): AttestationResponse {
+  return {
+    id: creds.id,
+    rawId: bufferToBase64url(creds.rawId),
+    authenticatorAttachment: creds.authenticatorAttachment ?? null,
+    type: creds.type,
+    response: {
+      clientDataJSON: bufferToBase64url(
+        creds.response.clientDataJSON
+      ),
+      attestationObject: bufferToBase64url(
+        creds.response.attestationObject
+      ),
+    },
+    transports: creds.response.getTransports ? creds.response.getTransports() as AuthenticatorTransport[] : null,
+    clientExtensionResults: creds.getClientExtensionResults ? creds.getClientExtensionResults() : null,
+  };
+}
+
 
 
 export function convertToWebAuthnOptions(
