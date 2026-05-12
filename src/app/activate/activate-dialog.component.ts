@@ -11,7 +11,7 @@ import { catchError, finalize, map, switchMap, tap } from 'rxjs/operators';
 import { ActivationDetail, EnrollmentService } from '@api/enrollment.service';
 import { SelfserviceToken, TokenType } from '@api/token';
 import { TokenService } from '@app/api/token.service';
-import { convertToWebAuthnOptions, getOrigin, invalidOriginForRpIdErrMsg, isOriginValidForRpId, mapCredentialToAttestationResponse } from '@app/enroll/enroll-fido2-dialog/fido2-utils';
+import { convertToWebAuthnOptions, getOrigin, invalidOriginForRpIdErrMsg, isFido2Supported, isOriginValidForRpId, mapCredentialToAttestationResponse } from '@app/enroll/enroll-fido2-dialog/fido2-utils';
 import { Fido2RegistrationCredential } from '@app/enroll/enroll-fido2-dialog/enroll-fido2-dialog.component';
 
 
@@ -108,15 +108,19 @@ export class ActivateDialogComponent implements OnDestroy {
           switchMap((res) => from(navigator.credentials.create({publicKey: convertToWebAuthnOptions(res)}))),
           map((creds: Fido2RegistrationCredential) => mapCredentialToAttestationResponse(creds)),
           switchMap((attestationResponse) => this.enrollmentService.fido2_activate_finish( this.data.token.serial, attestationResponse)),
-          tap((res) => res ? this.stepper.next() : this.restartDialog = true),
-          catchError((err) => {
-            this.errMsg = err;
-            console.error(`${this.data.token.serial}: ${this.errMsg}`)
-            this.restartDialog = true;
-            return EMPTY
-          }),
+          tap((res) => res ? this.stepper.next() : this.handleError()),
+          catchError((err) => this.handleError(err)),
           finalize(()=> this.awaitingActivationInitResp = false)
         )
+    }
+
+    handleError(errMsg?: string) {
+      const genericError = $localize`Token activation failed: Please try again.`
+      const notSupportedErr = $localize`Your browser does not support FIDO2 enrollment.`
+      this.errMsg = !isFido2Supported() ? notSupportedErr : errMsg ?? genericError
+      console.error(`${this.data.token.serial}: ${this.errMsg}`)
+      this.restartDialog = true;
+      return EMPTY;
     }
 
   public close() {
