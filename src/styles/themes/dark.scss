@@ -1,9 +1,10 @@
 @use '@angular/material' as mat;
 
 @mixin global-styles() {
+  --mdc-outlined-card-container-color: var(--mat-sys-surface-container-highest);
   .cdk-overlay-dark-backdrop {
     //increase contrast to background when a dialog is opened
-    background: rgba(0, 0, 0, .65);
+    background: rgba(0, 0, 0, .45);
   }
 
   .alert {

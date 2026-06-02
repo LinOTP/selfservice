@@ -13,19 +13,63 @@
 html {
   color-scheme: light dark;
   @include mat.theme((
-    color: mat.$orange-palette,
-            typography: 'Roboto',
-            density: 0
-          ));
-  @include mat.strong-focus-indicators((border-color: var(--mat-sys-primary),
-      border-width: 4px,
-      border-radius: 2px,
-    ));
+    color: mat.$blue-palette,
+    typography: (
+      plain-family: 'Roboto',
+      brand-family: 'Roboto'
+    ),
+    density: -1
+  ));
+  @include mat.theme-overrides(
+    (
+      'primary': light-dark(#565e7f, #c8d0f7),
+      'on-primary': light-dark(#faf8ff, #3e4666),
+      'primary-container': light-dark(#c8d0f7, #979fc3),
+      'on-primary-container': light-dark(#3e4666, #19213f),
+      'secondary': light-dark(#5c5e6d, #c4c5d6),
+      'on-secondary': light-dark(#faf8ff, #3d404d),
+      'secondary-container': light-dark(#e0e1f3, #383b48),
+      'on-secondary-container': light-dark(#4e515f, #bdbecf),
+      'tertiary': light-dark(#77546e, #ffe3f4),
+      'on-tertiary': light-dark(#fff7f9, #6e4c66),
+      'tertiary-container': light-dark(#fdd0ef, #fdd0ef),
+      'on-tertiary-container': light-dark(#65445d, #65445d),
+      'error': light-dark(#bb1b1b, #ff7164),
+      'on-error': light-dark(#fff7f6, #4a0002),
+      'error-container': light-dark(#fe4e44, #ac0c12),
+      'on-error-container': light-dark(#570003, #ffb8b0),
+      'surface': light-dark(#fbf8fb, #0e0e10),
+      'on-surface': light-dark(#323235, #e7e4e8),
+      'on-surface-variant': light-dark(#5f5f61, #acaaad),
+      'surface-container': light-dark(#f0edf0, #19191c),
+      'surface-container-high': light-dark(#eae7ea, #1f1f22),
+      'surface-container-highest': light-dark(#e4e2e5, #262528),
+      'surface-container-low': light-dark(#f6f3f6, #131315),
+      'surface-container-lowest': light-dark(#ffffff, #000000),
+      'surface-bright': light-dark(#fbf8fb, #2c2c2e),
+      'surface-dim': light-dark(#dcd9dc, #0e0e10),
+      'surface-variant': light-dark(#e4e2e5, #262528),
+      'surface-tint': light-dark(#565e7f, #c8d0f7),
+      'inverse-surface': light-dark(#0e0e10, #fbf8fb),
+      'inverse-on-surface': light-dark(#9e9c9f, #555557),
+      'inverse-primary': light-dark(#c8d0f7, #565e7f),
+      'outline': light-dark(#7b7a7d, #767578),
+      'outline-variant': light-dark(#b3b1b4, #48474a),
+      'background': light-dark(#fbf8fb, #0e0e10),
+      'on-background': light-dark(#323235, #e7e4e8),
+      'scrim': light-dark(#000000, #000000),
+      'shadow': light-dark(#000000, #000000),
+    )
+  );
 }
-
 body {
+  @include mat.strong-focus-indicators((
+    border-color: var(--mat-sys-primary),
+    border-width: 4px,
+    border-radius: 2px,
+  ));
   font-family: 'Roboto';
-  background: var(--mat-sys-surface);
+  background: light-dark(var(--mat-sys-surface-container-high), var(--mat-sys-surface));
   color: var(--mat-sys-on-surface);
   border-color: var(--mat-sys-outline);
 }
