@@ -5,7 +5,6 @@
   flex-direction: column;
   align-items: center;
   min-height: 100%;
-  @include mat.toolbar-overrides((container-background-color:var(--mat-sys-primary-container)));
 
   &>:not(mat-toolbar) {
     width: 100%;
@@ -27,8 +26,32 @@ mat-toolbar {
   padding: 8px 12px;
   min-width: 100%;
   width: initial;
-  @include mat.elevation(1);
 
+  // transparent header
+  @include mat.toolbar-overrides((container-background-color: light-dark(var(--mat-sys-surface-container-high), var(--mat-sys-surface))));
+  // normal header
+  // color: light-dark(var(--mat-sys-on-primary), var(--mat-sys-on-primary-container));
+  // @include mat.toolbar-overrides((container-background-color: light-dark(var(--mat-sys-primary), var(--mat-sys-primary-container))));
+
+  a {
+    letter-spacing: 1px;
+    border-radius: 0;
+    transition: background 0.2s ease, color 0.2s ease, border-radius 0.25s ease;
+    vertical-align: unset;
+    background: none;
+
+    // transparent header
+    color: var(--mat-sys-primary);
+    // normal header
+    // color: light-dark(var(--mat-sys-on-primary), var(--mat-sys-on-primary-container));
+
+      &.active-link {
+        // transparent header
+        border-bottom: 2px solid var(--mat-sys-primary);
+        // normal header
+        // border-bottom: 2px solid var(--mat-sys-on-primary);
+      }
+    }
   #title {
     display: flex;
     flex-direction: row;
@@ -115,6 +138,8 @@ footer {
 
 .logout {
   text-transform: none;
+  // normal header
+  // color: light-dark(var(--mat-sys-on-primary), var(--mat-sys-on-primary-container)) !important;
 }
 
 app-theme-picker {
