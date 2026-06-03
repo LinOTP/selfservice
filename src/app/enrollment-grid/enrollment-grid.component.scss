@@ -1,7 +1,7 @@
 mat-card {
   display: flex;
   flex-direction: column;
-
+  border-width: 0 !important;
   mat-card-subtitle {
     opacity: 0.85;
   }
@@ -10,6 +10,8 @@ mat-card {
     display: flex;
     justify-content: center;
     align-items: center;
+    background: var(--mat-sys-primary-container);
+    color: var(--mat-sys-on-primary-container);
   }
 
   mat-card-actions {

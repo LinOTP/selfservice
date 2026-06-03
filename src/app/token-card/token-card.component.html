@@ -3,7 +3,7 @@
           [ngClass]="{disabled: !token.enabled && token.enrollmentStatus === EnrollmentStatus.COMPLETED }">
   <mat-card-header>
     <mat-icon mat-card-avatar
-              class="icon">{{token.typeDetails.icon}}</mat-icon>
+              class="icon" [ngClass]="statusClass">{{token.typeDetails.icon}}</mat-icon>
     <mat-card-title class="d-flex align-items-center"><span class="me-2">{{token.typeDetails.name | capitalize}}</span>
       <mat-chip *ngIf="token.tokenType === 'fido2' && (token.rpName || token.rpId)"
                 class="rp-chip"

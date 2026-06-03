@@ -12,6 +12,22 @@ section {
   }
 }
 
+#activeAuthSection {
+  mat-icon{
+    color: var(--mat-sys-primary);
+  }
+}
+#pendingSection {
+  mat-icon{
+    color: #dda600;
+  }
+}
+#disabledAuthSection {
+  mat-icon{
+    color: gray;
+  }
+}
+
 app-token-card {
   margin: 1em 0;
 }

@@ -16,6 +16,7 @@ html,
 body {
   margin: 0;
   height: 100%;
+  --mdc-outlined-card-outline-width: 0
 }
 
 mat-card.disabled {
@@ -86,4 +87,21 @@ mat-chip.rp-chip {
     padding: 0 8px;
   }
   --mdc-chip-container-height: 20px;
+}
+
+mat-icon{
+  &.unready {
+    background: #ffc107 !important;
+    color: black !important;
+  }
+
+  &.active {
+    background: var(--mat-sys-primary-container);
+    color: var(--mat-sys-on-primary-container);
+  }
+
+  &.inactive {
+    background: gray !important;
+    color: black !important;
+  }
 }

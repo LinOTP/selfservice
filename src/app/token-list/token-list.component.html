@@ -57,7 +57,10 @@
 
   <section id="pendingSection"
            *ngIf="tokens && tokens | unreadyTokens | arrayNotEmpty">
-    <h2 i18n>Pending actions</h2>
+    <h2 class="d-flex align-items-center gap-2">
+      <mat-icon aria-hidden="true">privacy_tip</mat-icon>
+      <span i18n>Pending Actions</span>
+    </h2>
     <p i18n>The following tokens are not active and require further action:</p>
     <ul>
       <li *ngFor="let token of tokens | unreadyTokens">
@@ -68,7 +71,10 @@
 
   <section id="activeAuthSection"
            *ngIf="tokens | activeTokens | arrayNotEmpty">
-    <h2 i18n>Active authentication methods</h2>
+    <h2 class="d-flex align-items-center gap-2">
+      <mat-icon aria-hidden="true">verified_user</mat-icon>
+      <span i18n>Active authentication methods</span>
+    </h2>
     <p i18n>The following tokens are available for use:</p>
     <ul>
       <li *ngFor="let token of tokens | activeTokens">
@@ -77,8 +83,11 @@
     </ul>
   </section>
 
-  <section *ngIf="tokens | inactiveTokens | arrayNotEmpty">
-    <h2 i18n>Disabled authentication methods</h2>
+  <section id="disabledAuthSection" *ngIf="tokens | inactiveTokens | arrayNotEmpty">
+    <h2 class="d-flex align-items-center gap-2">
+      <mat-icon aria-hidden="true">remove_moderator</mat-icon>
+      <span i18n>Disabled authentication methods</span>
+    </h2>
     <p i18n>The following tokens have been disabled and cannot be used:</p>
     <ul>
       <li *ngFor="let token of tokens | inactiveTokens">

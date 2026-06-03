@@ -1,5 +1,5 @@
 import { Component, Input } from "@angular/core";
-import { getTokenDisplayData, TokenDisplayData, TokenType } from "@app/api/token";
+import { EnrollmentStatus, getTokenDisplayData, SelfserviceToken, TokenDisplayData, TokenType } from "@app/api/token";
 
 
 @Component({
@@ -9,7 +9,7 @@ import { getTokenDisplayData, TokenDisplayData, TokenType } from "@app/api/token
       <mat-card-content>
         <div class="top-row">
           <div class="token-icon">
-            <mat-icon>{{tokenDisplayData.icon}}</mat-icon>
+            <mat-icon [ngClass]="statusClass">{{tokenDisplayData.icon}}</mat-icon>
           </div>
           <div>
             <span class="token-title">{{tokenDisplayData.name | capitalize}}</span>
@@ -36,6 +36,14 @@ import { getTokenDisplayData, TokenDisplayData, TokenType } from "@app/api/token
       line-height: 20px;
       color:var(--default-text-color);
     }
+    mat-icon {
+      height: 37px;
+      width: 40px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
     .token-title {
       font-weight: 500;
       font-size: 16px;
@@ -61,6 +69,7 @@ import { getTokenDisplayData, TokenDisplayData, TokenType } from "@app/api/token
 })
 export class TokenInfoComponent {
   tokenDisplayData: TokenDisplayData;
+  @Input() selfServiceToken: SelfserviceToken | null= null
 
   @Input()
   public get token(): TokenInfo {
@@ -73,6 +82,12 @@ export class TokenInfoComponent {
     }
   }
   private _token: TokenInfo;
+
+  public get statusClass(): 'unready' | 'active' | 'inactive' | '' {
+    if(!this.selfServiceToken) return '';
+    if (this.selfServiceToken.enrollmentStatus !== EnrollmentStatus.COMPLETED) return 'unready';
+    return this.selfServiceToken.enabled ? 'active' : 'inactive';
+  }
 }
 
 export type TokenInfo = {
