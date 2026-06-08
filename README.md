@@ -71,7 +71,7 @@ The option `--module <name>` may be needed to specify the module that should pro
 
 ## Build
 
-The project is set up to compile the web distribution files with yarn and package those files automatically inside of a docker image or a Debian package.
+The project is set up to compile the web distribution files with yarn and package those files automatically inside of a docker image.
 
 ### Sources
 
@@ -108,12 +108,6 @@ You can also use the `--port` option of `docker run` to remap any port (within r
 on the outside to port 8000 inside the container.
 You can also change it when building the image by passing, e.g.,
 `--build-arg SERVER_PORT=1234` (to use TCP port 1234).
-
-### Debian
-
-Debian packaging is included in this repository. See [debian/control](debian/control) for package details and [debian/rules](debian/rules) for how the npm packages are fetched during package build.
-
-The package is only built in CI/CD. The pipeline job 'build:buster' is included from our ci-includes repo. Please use a pipeline job artefact if you want to test a debian package.
 
 ## Customization
 
