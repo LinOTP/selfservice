@@ -1,7 +1,0 @@
-*.debhelper
-debhelper-build-stamp
-
-files
-linotp-selfservice.debhelper.log
-linotp-selfservice.substvars
-linotp-selfservice/

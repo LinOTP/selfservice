@@ -48,10 +48,7 @@ COPY --from=builder --chown=nginx:nginx /app/dist/en/browser /usr/share/nginx/ht
 COPY --from=builder --chown=nginx:nginx /app/dist/de/browser/de /usr/share/nginx/html/de
 
 ## Add convenience symlinks for customisation.
-## (The /etc/linotp-selfservice link is for compatibility with older
-## non-container documentation.)
 RUN mkdir -p /usr/share/nginx/html/custom-assets && ln -sfn /usr/share/nginx/html/custom-assets /custom-assets \
-  && mkdir -p /etc/linotp-selfservice && ln -sfn /usr/share/nginx/html/custom-assets /etc/linotp-selfservice/customization \
   && chown -R nginx:nginx /usr/share/nginx/html
 
 USER nginx

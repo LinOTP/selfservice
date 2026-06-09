@@ -1,8 +1,0 @@
-Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: linotp-selfservice
-Source: <https://linotp.org>
-
-Files: *
-Copyright: Copyright (C) netgo software GmbH
-
-License: Proprietary
