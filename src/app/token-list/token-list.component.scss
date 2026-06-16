@@ -1,7 +1,8 @@
 @use "@angular/material" as mat;
 
 section {
-  margin: 2em 0;
+  margin: 3em 0;
+
   @include mat.icon-overrides((
     color: var(--mat-sys-primary),
   ));
@@ -11,7 +12,9 @@ section {
     margin: 0;
   }
 }
-
+section:first-of-type {
+  margin: 2em 0;
+}
 #activeAuthSection {
   mat-icon{
     color: var(--mat-sys-primary);
