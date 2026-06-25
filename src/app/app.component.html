@@ -104,10 +104,10 @@
     <div class="user-info">
       <button mat-icon-button
               [matMenuTriggerFor]="userMenuMobile"
-              class="m-0 p-0"
+              class="m-0 p-0 d-flex justify-content-between align-items-center"
               i18n-aria-label
               aria-label="Currently logged in user menu">
-        <mat-icon>person</mat-icon>
+        <mat-icon class="p-0 m-auto">person</mat-icon>
       </button>
       <mat-menu #userMenuMobile="matMenu">
         <div class="user-menu-header"
