@@ -1,3 +1,14 @@
+li {
+  width: 100%;
+}
+a {
+  margin-left: auto;
+  margin-top: 3px;
+}
+mat-card-title,
+mat-card-subtitle {
+  transform: translateY(-3px);
+}
 mat-card {
   display: flex;
   flex-direction: column;

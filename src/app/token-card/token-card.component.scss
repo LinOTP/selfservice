@@ -1,7 +1,10 @@
 :host {
   display: block;
 }
-
+mat-card-title,
+mat-card-subtitle {
+  transform: translateY(-3px);
+}
 .icon {
   display: flex;
   justify-content: center;
