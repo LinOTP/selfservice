@@ -22,10 +22,7 @@
 
 
 mat-toolbar {
-  position: relative;
   padding: 8px 12px;
-  min-width: 100%;
-  width: initial;
 
   // transparent header
   @include mat.toolbar-overrides((container-background-color: light-dark(var(--mat-sys-surface-container-high), var(--mat-sys-surface))));
