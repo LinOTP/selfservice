@@ -5,6 +5,9 @@ import { SystemService, UserSystemInfo } from '@app/system.service';
 import { NotificationService } from '@common/notification.service';
 import { Permission } from '@common/permissions';
 import { ThemeService } from './theme.service';
+import { NgxPermissionsService } from 'ngx-permissions';
+import { CustomContentService } from './custom-content/custom-content.service';
+import { take } from 'rxjs';
 
 @Component({
     selector: 'app-root',
@@ -16,7 +19,6 @@ export class AppComponent implements OnInit {
   public title = 'Self Service';
   public navLinks = [
     { 'label': $localize`Your tokens`, 'path': 'tokens/' },
-    { 'label': $localize`History`, 'path': 'history/', permission: Permission.HISTORY }
   ];
 
   public userData: UserSystemInfo['user'];
@@ -25,13 +27,16 @@ export class AppComponent implements OnInit {
   public footerText: string;
   public imprintUrl: string;
   public privacyNoticeUrl: string;
+  public totalNavItems = 1
 
 
   constructor(
+    private permissionService: NgxPermissionsService,
     private loginService: LoginService,
     private notificationService: NotificationService,
     private systemService: SystemService,
     public themeService: ThemeService,
+    private customizationService: CustomContentService
   ) { }
 
   ngOnInit() {
@@ -44,6 +49,15 @@ export class AppComponent implements OnInit {
       this.imprintUrl = systemInfo.settings.imprint_url;
       this.privacyNoticeUrl = systemInfo.settings.privacy_notice_url;
     });
+
+    if(this.permissionService.getPermission(Permission.HISTORY)){
+      this.navLinks.push({'label': $localize`History`, 'path': 'history/'})
+      this.totalNavItems = this.navLinks.length
+    }
+    this.customizationService.page$.pipe(take(1)).subscribe(page => {
+      this.totalNavItems += page?.content ? 1 : 0
+    })
+
   }
 
   logout() {

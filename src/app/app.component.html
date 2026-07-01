@@ -44,7 +44,7 @@
 
 <ng-container *ngIf="userData;else notLoggedHeader">
   <ng-template #navLinksTmp>
-    <nav>
+    <nav *ngIf="totalNavItems > 1">
       <ng-container *ngFor="let link of navLinks">
         <a mat-button
            *ngxPermissionsOnly="link.permission"
