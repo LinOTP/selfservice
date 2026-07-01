@@ -57,7 +57,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.ts</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">19</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
@@ -73,7 +73,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.ts</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">20</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/history/history.component.html</context>
@@ -89,7 +89,7 @@
         <target state="translated">Abmeldung erfolgreich</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.ts</context>
-          <context context-type="linenumber">51</context>
+          <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7617829407416097696" datatype="html">
@@ -97,7 +97,7 @@
         <target state="translated">Abmeldung fehlgeschlagen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.ts</context>
-          <context context-type="linenumber">51</context>
+          <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
       <trans-unit id="189395343509305217" datatype="html">
@@ -113,7 +113,21 @@
         <target state="translated">Aktuell angemeldeter Benutzer:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">75</context>
+          <context context-type="linenumber">76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6904603661820084118" datatype="html">
+        <source>
+        <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon aria-hidden=&quot;true&quot;>"/>logout<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon>"/>
+        Logout
+      </source>
+        <target state="new">
+        <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon aria-hidden=&quot;true&quot;>"/>logout<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon>"/>
+        Logout
+      </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">91,95</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2454050363478003966" datatype="html">
@@ -141,11 +155,7 @@
         <target state="translated">Abmelden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">89</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">125</context>
+          <context context-type="linenumber">129</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5874003357883313305" datatype="html">
@@ -153,7 +163,7 @@
         <target state="translated">Benutzermenü (angemeldet)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">106,107</context>
+          <context context-type="linenumber">110</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5565349424328430599" datatype="html">
@@ -161,7 +171,7 @@
         <target state="translated">Impressum</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">149</context>
+          <context context-type="linenumber">153</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6090931838305354672" datatype="html">
@@ -169,7 +179,7 @@
         <target state="translated">Datenschutz</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">157</context>
+          <context context-type="linenumber">161</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3964929371931064813" datatype="html">
@@ -231,12 +241,12 @@
           <context context-type="linenumber">48</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="8468364889555062049" datatype="html">
-        <source>Pending actions</source>
+      <trans-unit id="1195723227044920849" datatype="html">
+        <source>Pending Actions</source>
         <target state="translated">Ausstehende Aktionen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">60</context>
+          <context context-type="linenumber">62,63</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4946805480915739699" datatype="html">
@@ -245,7 +255,7 @@
           nicht aktiv:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">61</context>
+          <context context-type="linenumber">64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3107803689151641000" datatype="html">
@@ -253,7 +263,7 @@
         <target state="translated">Aktive Authentisierungsmethoden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">71</context>
+          <context context-type="linenumber">76</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3411241422554668048" datatype="html">
@@ -261,7 +271,7 @@
         <target state="translated">Die folgenden Token stehen zur Authentifizierung bereit:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">72</context>
+          <context context-type="linenumber">78</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4260610291595924684" datatype="html">
@@ -269,7 +279,7 @@
         <target state="translated">Deaktivierte Authentisierungsmethoden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">81</context>
+          <context context-type="linenumber">89</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5295419025009706699" datatype="html">
@@ -278,7 +288,7 @@
           werden:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">82</context>
+          <context context-type="linenumber">91</context>
         </context-group>
       </trans-unit>
       <trans-unit id="860629738331841971" datatype="html">
@@ -286,7 +296,7 @@
         <target state="translated">Neue Authentisierungsmethode einrichten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">98</context>
+          <context context-type="linenumber">107</context>
         </context-group>
       </trans-unit>
       <trans-unit id="756843365210969611" datatype="html">
@@ -294,7 +304,7 @@
         <target state="translated">Folgende Authentisierungsmethoden sind verfügbar:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">100</context>
+          <context context-type="linenumber">109</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6658544261788045440" datatype="html">
@@ -304,7 +314,7 @@
           Token registriert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">106</context>
+          <context context-type="linenumber">115</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6878496995398742279" datatype="html">
@@ -312,7 +322,7 @@
         <target state="translated">Richten Sie ihre erste Authentisierungsmethode ein</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">117</context>
+          <context context-type="linenumber">126</context>
         </context-group>
       </trans-unit>
       <trans-unit id="549851521364273203" datatype="html">
@@ -326,7 +336,7 @@
       </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">120</context>
+          <context context-type="linenumber">129</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6003663429247880609" datatype="html">
@@ -334,7 +344,7 @@
         <target state="translated">Keine Aktionen verfügbar</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">128</context>
+          <context context-type="linenumber">137</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2918437642000683021" datatype="html">
@@ -345,7 +355,7 @@
           Kontaktieren Sie bitte ihren Administrator.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">129</context>
+          <context context-type="linenumber">138</context>
         </context-group>
       </trans-unit>
       <trans-unit id="158435493271081311" datatype="html">
@@ -353,7 +363,7 @@
         <target state="translated">Maximale Token-Anzahl</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">142</context>
+          <context context-type="linenumber">151</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6629820311006518717" datatype="html">
@@ -371,7 +381,7 @@
           kontaktieren Sie Ihren Administrator.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
-          <context context-type="linenumber">143</context>
+          <context context-type="linenumber">152</context>
         </context-group>
       </trans-unit>
       <trans-unit id="302027271687522215" datatype="html">
@@ -1913,6 +1923,10 @@
         <source>Your browser does not support FIDO2 enrollment.</source>
         <target state="translated">Dein Browser unterstützt kein FIDO2-Token.</target>
         <context-group purpose="location">
+          <context context-type="sourcefile">src/app/activate/activate-dialog.component.ts</context>
+          <context context-type="linenumber">119</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-fido2-dialog/enroll-fido2-dialog.component.ts</context>
           <context context-type="linenumber">127</context>
         </context-group>
@@ -2205,6 +2219,10 @@
       <trans-unit id="2021438115127976616" datatype="html">
         <source>Token activation failed: Please try again.</source>
         <target state="translated">Tokenaktivierung fehlgeschlagen. Bitte versuchen Sie es erneut.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/activate/activate-dialog.component.ts</context>
+          <context context-type="linenumber">118</context>
+        </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-fido2-dialog/enroll-fido2-dialog.component.ts</context>
           <context context-type="linenumber">126</context>
@@ -3039,8 +3057,7 @@
         <target state="translated">Helles Design</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/theme.service.ts</context>
-          <context context-type="linenumber">88</context>
-          <context context-type="linenumber">88</context>
+          <context context-type="linenumber">143</context>
         </context-group>
       </trans-unit>
       <trans-unit id="413116577994876478" datatype="html">
@@ -3048,8 +3065,7 @@
         <target state="translated">Hell</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/theme.service.ts</context>
-          <context context-type="linenumber">89</context>
-          <context context-type="linenumber">89</context>
+          <context context-type="linenumber">144</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5824507108095419704" datatype="html">
@@ -3057,8 +3073,7 @@
         <target state="translated">Dunkles Design</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/theme.service.ts</context>
-          <context context-type="linenumber">96</context>
-          <context context-type="linenumber">96</context>
+          <context context-type="linenumber">151</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3892161059518616136" datatype="html">
@@ -3066,8 +3081,7 @@
         <target state="translated">Dunkel</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/theme.service.ts</context>
-          <context context-type="linenumber">97</context>
-          <context context-type="linenumber">97</context>
+          <context context-type="linenumber">152</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8976300473715680208" datatype="html">
