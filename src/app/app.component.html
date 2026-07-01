@@ -62,7 +62,7 @@
   <mat-toolbar class="mat-primary d-flex justify-content-between align-items-center">
     <div class="h-100 d-flex align-items-center">
       <ng-container *ngTemplateOutlet="headerTitle"></ng-container>
-      <div *ngIf="(3 | fromBreakpoint | async)"
+      <div *ngIf="(1 | fromBreakpoint | async)"
            class="ms-4">
         <ng-container *ngTemplateOutlet="navLinksTmp"></ng-container>
       </div>
@@ -94,7 +94,7 @@
   </mat-toolbar>
 
   <mat-toolbar color="primary"
-               *ngIf="(3 | fromBreakpoint | async) === false">
+               *ngIf="(1 | fromBreakpoint | async) === false">
     <div class="ms-0 p-0">
       <ng-container *ngTemplateOutlet="navLinksTmp"></ng-container>
     </div>
