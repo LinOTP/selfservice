@@ -170,8 +170,8 @@ describe('TokenListComponent', () => {
 
     tokenService.getSelfserviceTokens.and.returnValue(of([hotpToken]));
     fixture.detectChanges();
-
-    expect(page.getActiveAuthSectionElement('h2').textContent).toEqual('Active authentication methods');
+    // verified_user is the mat-icon before the actual heading
+    expect(page.getActiveAuthSectionElement('h2').textContent).toEqual('verified_userActive authentication methods');
     expect(page.getActiveAuthSectionElement('p').textContent).toEqual('The following tokens are available for use:');
 
     expect(page.getEnrollAlternativeTokenSectionElement('h2').textContent).toEqual('Set up a new authentication method');
@@ -190,8 +190,8 @@ describe('TokenListComponent', () => {
 
     tokenService.getSelfserviceTokens.and.returnValue(of([hotpToken]));
     fixture.detectChanges();
-
-    expect(page.getPendingSectionElement('h2').textContent).toEqual('Pending actions');
+    // privacy_tip is the mat-icon before the actual heading
+    expect(page.getPendingSectionElement('h2').textContent).toEqual('privacy_tipPending Actions');
     expect(page.getPendingSectionElement('p').textContent).toEqual('The following tokens are not active' +
       ' and require further action:');
 

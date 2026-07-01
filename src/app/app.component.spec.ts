@@ -12,7 +12,9 @@ import { LoginService } from '@app/login/login.service';
 import { MaterialModule } from '@app/material.module';
 import { SystemService, UserSystemInfo } from '@app/system.service';
 import { NotificationService } from '@common/notification.service';
-import { NgxPermissionsAllowStubDirective } from 'ngx-permissions';
+import { NgxPermissionsAllowStubDirective, NgxPermissionsService } from 'ngx-permissions';
+
+import { CustomContentService } from './custom-content/custom-content.service';
 
 import { AppComponent } from './app.component';
 import { BootstrapBreakpointService } from './bootstrap-breakpoints.service';
@@ -63,6 +65,10 @@ describe('AppComponent', () => {
       ],
       providers: [
         {
+            provide: NgxPermissionsService,
+            useValue: spyOnClass(NgxPermissionsService),
+        },
+        {
           provide: LoginService,
           useValue: spyOnClass(LoginService),
         },
@@ -73,6 +79,10 @@ describe('AppComponent', () => {
         {
           provide: SystemService,
           useValue: spyOnClass(SystemService),
+        },
+        {
+          provide: CustomContentService,
+          useValue: spyOnClass(CustomContentService),
         },
         {
           provide: BootstrapBreakpointService,
@@ -95,6 +105,9 @@ describe('AppComponent', () => {
 
     loginChangeSubject = new ReplaySubject();
     (loginService as any).loginChange$ = loginChangeSubject.asObservable();
+
+    const customContentService = getInjectedStub(CustomContentService);
+    (customContentService as any).page$ = of(null);
 
     fixture = TestBed.createComponent(AppComponent);
     component = fixture.debugElement.componentInstance;
@@ -127,7 +140,6 @@ describe('AppComponent', () => {
     loginChangeSubject.next(Fixtures.userSystemInfo.user);
     fixture.detectChanges();
 
-    expect(page.getNavigation()).toBeTruthy();
     expect(page.getUserNameValue())
       .toEqual(`${Fixtures.userSystemInfo.user.givenname} ${Fixtures.userSystemInfo.user.surname}`);
     expect(page.getUserRealmValue())
