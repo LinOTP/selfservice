@@ -78,13 +78,13 @@
   </mat-card-content>
   <mat-card-footer *ngIf="pendingActions()">
     <mat-card-actions>
-      <button mat-button
+      <button mat-flat-button
               color="primary"
               (click)="activate()"
               *ngIf="pendingActivate()"
               i18n> Activate </button>
       <!-- Not relevant for qr/push tokens -->
-      <button mat-button
+      <button mat-flat-button
               #verifyBtn
               color="primary"
               (click)="verifyToken(verifyBtn)"
