@@ -72,6 +72,8 @@ import { EnrollmentStatus, getTokenDisplayData, SelfserviceToken, TokenDisplayDa
       display: flex;
       justify-content: center;
       align-items: center;
+      color: var(--mat-sys-on-primary-container);
+      background: var(--mat-sys-primary-container);
     }
     .token-title {
       font-weight: 500;
