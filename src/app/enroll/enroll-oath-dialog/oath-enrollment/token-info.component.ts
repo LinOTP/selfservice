@@ -35,6 +35,7 @@ import { EnrollmentStatus, getTokenDisplayData, SelfserviceToken, TokenDisplayDa
       letter-spacing: 0.25px;
       line-height: 20px;
       color:var(--default-text-color);
+      background: var(--mat-sys-surface-container-highest);
     }
     mat-icon {
       height: 37px;
