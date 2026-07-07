@@ -1,10 +1,5 @@
 <ng-container *ngIf="criticalError;else tokenListStdTmp">
-  <div class="warning-info">
-    <div>
-      <mat-icon>error</mat-icon>
-    </div>
-    <p i18n>An Error has occurred while loading the page, please contact the administrator.</p>
-  </div>
+  <app-warning type="error" [msgTmpl]="servicesUnavailableTmpl"></app-warning>
   <div style="margin-top: 3em;">
     <h2 i18n>Services Unavailable</h2>
     <p i18n>
@@ -27,27 +22,15 @@
 <ng-template #content>
   <h1 class="cdk-visually-hidden"
       i18n>Your tokens</h1>
-  <div aria-live="polite"
-       aria-atomic="true">
-    <div *ngIf="isUserLocked"
-         class="warning-info">
-      <div>
-        <mat-icon>error</mat-icon>
-      </div>
-      <p i18n>You don't have any active tokens at this point and MFA is enabled for Selfservice. If you logout now, you
-        won't be able to login anymore.</p>
-    </div>
+  <div aria-live="polite" aria-atomic="true">
+    <app-warning *ngIf="isUserLocked" type="error"
+      [msgTmpl]="noActiveTokensLockedWarningTmpl">
+    </app-warning>
   </div>
-  <div aria-live="polite"
-       aria-atomic="true">
-    <div *ngIf="warnTokensNotVerified && !isUserLocked "
-         class="warning-info">
-      <div>
-        <mat-icon>error</mat-icon>
-      </div>
-      <p i18n="@@unverifiedTokensWarning">None of your active tokens have been verified. Before logging out, please
-        verify at least one token to ensure it is working properly.</p>
-    </div>
+  <div aria-live="polite" aria-atomic="true">
+    <app-warning *ngIf="warnTokensNotVerified && !isUserLocked " type="error"
+      [msgTmpl]="unverifiedTokensWarningTmpl">
+    </app-warning>
   </div>
 
   <div class="custom-content-slot custom-content-slot-tokenlist-top"
@@ -158,3 +141,16 @@
 </ng-template>
 
 <router-outlet></router-outlet>
+
+
+<ng-template #servicesUnavailableTmpl i18n="@@servicesUnavailableTmpl">
+  An Error has occurred while loading the page, please contact the administrator.
+</ng-template>
+
+<ng-template #noActiveTokensLockedWarningTmpl i18n="@@noActiveTokensLockedWarning">
+  You do not have any active tokens at this point and MFA is enabled for Selfservice. If you logout now, you will not be able to login anymore.
+</ng-template>
+
+<ng-template #unverifiedTokensWarningTmpl i18n="@@unverifiedTokensWarning">
+  None of your active tokens have been verified. Before logging out, please verify at least one token to ensure it is working properly.
+</ng-template>
