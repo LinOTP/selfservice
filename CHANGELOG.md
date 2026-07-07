@@ -7,6 +7,7 @@
   * Push and QR Token enrollment will have an extra activation step
     if the user has the permission `activate_PushToken` or `activate_QRToken`.
   * Add support for FIDO2 token
+  * Theme revamp and various UI improvements
 
   ### Fixes:
   * Default token description for assign and enroll.

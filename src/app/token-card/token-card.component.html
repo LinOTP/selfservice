@@ -3,7 +3,7 @@
           [ngClass]="{disabled: !token.enabled && token.enrollmentStatus === EnrollmentStatus.COMPLETED }">
   <mat-card-header>
     <mat-icon mat-card-avatar
-              class="icon">{{token.typeDetails.icon}}</mat-icon>
+              class="icon" [ngClass]="statusClass">{{token.typeDetails.icon}}</mat-icon>
     <mat-card-title class="d-flex align-items-center"><span class="me-2">{{token.typeDetails.name | capitalize}}</span>
       <mat-chip *ngIf="token.tokenType === 'fido2' && (token.rpName || token.rpId)"
                 class="rp-chip"
@@ -78,13 +78,13 @@
   </mat-card-content>
   <mat-card-footer *ngIf="pendingActions()">
     <mat-card-actions>
-      <button mat-button
+      <button mat-flat-button
               color="primary"
               (click)="activate()"
               *ngIf="pendingActivate()"
               i18n> Activate </button>
       <!-- Not relevant for qr/push tokens -->
-      <button mat-button
+      <button mat-flat-button
               #verifyBtn
               color="primary"
               (click)="verifyToken(verifyBtn)"

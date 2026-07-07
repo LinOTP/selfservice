@@ -1,7 +1,7 @@
 <ul class="row p-0">
   <ng-container *ngFor="let type of tokenTypes">
     <li *ngxPermissionsOnly="type.enrollmentPermission"
-        class="col-12 col-md-6 col-lg-4 d-flex gx-3">
+        class="col-12 col-md-6 col-lg-4 d-flex">
       <mat-card appearance="outlined"
                 class="flex-grow-1 mb-3"
                 [class.disabled]="
@@ -29,16 +29,13 @@
               </div>
             </ng-template>
           </mat-card-subtitle>
-        </mat-card-header>
-        <div class="spacer"></div>
-
-        <mat-card-actions *ngIf="tokenLimitsService.canEnrollToken(type.type)">
-          <a mat-button
+            <a *ngIf="tokenLimitsService.canEnrollToken(type.type)"
+              mat-flat-button
              color="primary"
              routerLink="{{ 'enroll/' + type.type }}">
             {{type.enrollmentActionLabel}}
           </a>
-        </mat-card-actions>
+        </mat-card-header>
       </mat-card>
     </li>
   </ng-container>

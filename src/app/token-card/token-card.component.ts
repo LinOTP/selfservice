@@ -242,6 +242,11 @@ export class TokenCardComponent implements OnInit, OnDestroy {
     return this.token.typeDetails.type === TokenType.PUSH;
   }
 
+  public get statusClass(): 'unready' | 'active' | 'inactive' {
+    if (this.token.enrollmentStatus !== EnrollmentStatus.COMPLETED) return 'unready';
+    return this.token.enabled ? 'active' : 'inactive';
+  }
+
   public resetFailcounter() {
     this.operationsService.resetFailcounter(this.token.serial)
       .subscribe((res) => {
