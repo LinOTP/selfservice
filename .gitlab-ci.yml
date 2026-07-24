@@ -18,22 +18,15 @@ stages:
   - test-docker
   - upload
 
-# Overwrite docker build job
+# Overwrite docker build job: we only need to compute IMAGE_VERSION and
+# pass the npm token; the buildx invocation (and the media-types
+# HEALTHCHECK fix) lives once in ci-includes as .build-image-buildx.
 build-image:
   script:
     - apk add jq
     - IMAGE_VERSION=$(jq --raw-output '."version"' <package.json | tr -d A-Za-z | tr -- -_ .)
-    - DATE=$(date +"%Y%m%d")
-    - docker buildx build
-      --provenance false
-      --sbom false
-      --build-arg=NPM_CI_TOKEN=$NPM_CI_TOKEN
-      --label de.linotp.commit-ref="$CI_COMMIT_REF_NAME"
-      --label de.linotp.commit-hash="$CI_COMMIT_SHORT_SHA"
-      --label de.linotp.image-tag="$IMAGE_VERSION-$DATE"
-      --label de.linotp.version="$IMAGE_VERSION"
-      --output type=image,name="$BUILD_IMAGE_TAG",push=true,oci-mediatypes=false
-      .
+    - export DOCKER_EXTRA_BUILD_ARGS="--build-arg NPM_CI_TOKEN=$NPM_CI_TOKEN"
+    - !reference [.build-image-buildx, script]
 
 # Test Docker container routes
 test-docker-routes:
