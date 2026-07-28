@@ -318,15 +318,15 @@ export class LoginComponent implements OnInit {
   }
 
   public get hasOnlineMode(): boolean {
-    return this.transactionDetail.replyMode.includes(ReplyMode.ONLINE);
+    return this.transactionDetail?.replyMode.includes(ReplyMode.ONLINE);
   }
 
   public get hasOfflineMode(): boolean {
-    return this.transactionDetail.replyMode.includes(ReplyMode.OFFLINE);
+    return this.transactionDetail?.replyMode.includes(ReplyMode.OFFLINE);
   }
 
   public get qrCodeData(): string {
-    return this.transactionDetail.transactionData;
+    return this.transactionDetail?.transactionData;
   }
 
   public showInput() {

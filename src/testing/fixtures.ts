@@ -455,12 +455,9 @@ export class ExampleAPIResponses {
           }
         },
         settings: {
-          autoassign: false,
           default_realm: '',
-          mfa_login: false,
           realm_box: false,
           mfa_3_fields: false,
-          autoenroll: false,
         },
       }
     };
