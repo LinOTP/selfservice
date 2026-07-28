@@ -50,10 +50,13 @@ export class AppComponent implements OnInit {
       this.privacyNoticeUrl = systemInfo.settings.privacy_notice_url;
     });
 
-    if(this.permissionService.getPermission(Permission.HISTORY)){
-      this.navLinks.push({'label': $localize`History`, 'path': 'history/'})
-      this.totalNavItems = this.navLinks.length
-    }
+    this.loginService.permissionLoad$.subscribe(()=> {
+      if(this.permissionService.getPermission(Permission.HISTORY) && !this.navLinks.some(link => link.path === 'history/')){
+        this.navLinks.push({'label': $localize`History`, 'path': 'history/'})
+        this.totalNavItems = this.navLinks.length
+      }
+    })
+
     this.customizationService.page$.pipe(take(1)).subscribe(page => {
       this.totalNavItems += page?.content ? 1 : 0
     })
