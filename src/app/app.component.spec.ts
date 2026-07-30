@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { of, ReplaySubject, Subject } from 'rxjs';
+import { BehaviorSubject, of, ReplaySubject, Subject } from 'rxjs';
 
 import { Fixtures } from '@testing/fixtures';
 import { MockComponent } from '@testing/mock-component';
@@ -46,6 +46,7 @@ describe('AppComponent', () => {
 
   let loginService: jasmine.SpyObj<LoginService>;
   let loginChangeSubject: Subject<UserSystemInfo['user']>;
+  let permissionLoadSubject: Subject<boolean>;
   let systemService: jasmine.SpyObj<SystemService>;
   let notificationService: jasmine.SpyObj<NotificationService>;
 
@@ -105,6 +106,9 @@ describe('AppComponent', () => {
 
     loginChangeSubject = new ReplaySubject();
     (loginService as any).loginChange$ = loginChangeSubject.asObservable();
+
+    permissionLoadSubject = new BehaviorSubject(false);
+    (loginService as any).permissionLoad$ = permissionLoadSubject.asObservable();
 
     const customContentService = getInjectedStub(CustomContentService);
     (customContentService as any).page$ = of(null);

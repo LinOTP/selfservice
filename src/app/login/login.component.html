@@ -50,7 +50,7 @@
         <mat-error i18n
                    *ngIf="loginFormGroup.get('password').hasError('required')">Password is required.</mat-error>
       </mat-form-field>
-      <mat-form-field *ngIf="systemInfo?.settings.mfa_login && systemInfo?.settings.mfa_3_fields">
+      <mat-form-field *ngIf="systemInfo?.settings.mfa_3_fields">
         <mat-label i18n>One-time password (OTP)</mat-label>
         <input matInput
                formControlName="otp"

@@ -51,7 +51,7 @@ export class AuthLockedEvaluatorContextInfo {
   constructor(private context: UserSystemInfo) { }
 
   get mfaEnabled() {
-    return this.context.settings.mfa_login
+    return this.context.actions.includes('mfa_login')
   }
 
   get passOnNoToken() {
