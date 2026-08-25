@@ -23,32 +23,11 @@
 
 mat-toolbar {
   padding: 8px 12px;
-
-  // transparent header
-  @include mat.toolbar-overrides((container-background-color: light-dark(var(--mat-sys-surface-container-high), var(--mat-sys-surface))));
-  // normal header
-  // color: light-dark(var(--mat-sys-on-primary), var(--mat-sys-on-primary-container));
-  // @include mat.toolbar-overrides((container-background-color: light-dark(var(--mat-sys-primary), var(--mat-sys-primary-container))));
-
-  a {
-    letter-spacing: 1px;
-    border-radius: 0;
-    transition: background 0.2s ease, color 0.2s ease, border-radius 0.25s ease;
-    vertical-align: unset;
-    background: none;
-
-    // transparent header
-    color: var(--mat-sys-primary);
-    // normal header
-    // color: light-dark(var(--mat-sys-on-primary), var(--mat-sys-on-primary-container));
-
-      &.active-link {
-        // transparent header
-        border-bottom: 2px solid var(--mat-sys-primary);
-        // normal header
-        // border-bottom: 2px solid var(--mat-sys-on-primary);
-      }
-    }
+  box-shadow: none;
+  --mat-toolbar-standard-height: 56px;
+  @include mat.toolbar-overrides((
+    container-background-color: transparent,
+  ));
   #title {
     display: flex;
     flex-direction: row;
@@ -56,7 +35,7 @@ mat-toolbar {
     height: 100%;
 
     #logo {
-      height: 100%;
+      height: 36px;
     }
 
     #app-name {
@@ -64,21 +43,17 @@ mat-toolbar {
     }
   }
 
-  nav {
-    flex: 1;
-    align-content: flex-start;
-  }
-
   .user-info {
-    line-height: 1.4;
+    line-height: 1.3;
     display: flex;
 
     &>* {
-      margin: 5px 16px;
+      margin: 2px 16px;
     }
 
     &>*:not(:last-child) {
-      margin-right: 0;
+      margin: auto;
+      margin-left: 7px;
     }
 
     mat-icon {
@@ -133,16 +108,6 @@ footer {
   }
 }
 
-.logout {
-  text-transform: none;
-  // normal header
-  // color: light-dark(var(--mat-sys-on-primary), var(--mat-sys-on-primary-container)) !important;
-}
-
 app-theme-picker {
   margin-right: 12px;
-}
-
-nav {
-  border-left: 2px var(--mat-toolbar-container-text-color) solid;
 }

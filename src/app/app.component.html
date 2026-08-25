@@ -9,7 +9,7 @@
 </ng-template>
 
 <ng-template #notLoggedHeader>
-  <mat-toolbar class="mat-primary">
+  <mat-toolbar>
     <ng-container *ngTemplateOutlet="headerTitle"></ng-container>
     <ng-container *ngIf="(3 | fromBreakpoint | async)">
       <nav *appHasCustomContent="'custom-page'"
@@ -26,8 +26,7 @@
   </mat-toolbar>
 
   <ng-container *ngIf="(3 | fromBreakpoint | async) === false">
-    <mat-toolbar color="primary"
-                 class="mb-0"
+    <mat-toolbar class="mb-0"
                  *appHasCustomContent="'custom-page'">
       <nav class="ms-0 p-0">
         <a mat-button
@@ -59,7 +58,7 @@
     </nav>
   </ng-template>
 
-  <mat-toolbar class="mat-primary d-flex justify-content-between align-items-center">
+  <mat-toolbar class="d-flex justify-content-between align-items-center">
     <div class="h-100 d-flex align-items-center">
       <ng-container *ngTemplateOutlet="headerTitle"></ng-container>
       <div *ngIf="(1 | fromBreakpoint | async)"
@@ -93,8 +92,7 @@
     </div>
   </mat-toolbar>
 
-  <mat-toolbar color="primary"
-               *ngIf="(1 | fromBreakpoint | async) === false">
+  <mat-toolbar *ngIf="(1 | fromBreakpoint | async) === false">
     <div class="ms-0 p-0">
       <ng-container *ngTemplateOutlet="navLinksTmp"></ng-container>
     </div>

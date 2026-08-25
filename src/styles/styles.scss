@@ -61,7 +61,6 @@ qrcode canvas {
 }
 
 nav .active-link {
-  font-weight: bold;
   background: #f5f5f521;
 }
 
@@ -83,6 +82,18 @@ mat-chip.rp-chip {
     padding: 0 8px;
   }
   --mdc-chip-container-height: 20px;
+}
+
+mat-toolbar {
+  a{
+    vertical-align: unset !important;
+    background: none !important;
+  }
+
+  a.active-link {
+    // subtle theme-aware tint, similar to the state layer Material's own nav uses
+    background: color-mix(in srgb, var(--mat-sys-primary) 20%, transparent) !important;
+  }
 }
 
 mat-icon{
