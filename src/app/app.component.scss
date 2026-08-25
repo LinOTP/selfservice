@@ -70,7 +70,21 @@ mat-toolbar {
       opacity: 0.92;
     }
   }
+  app-custom-page-link {
+    display: inline-block;
+  }
 
+}
+
+// This targets the mobile navbar addition
+.nav-toolbar nav {
+  display: flex;
+  gap: 8px;
+  justify-content: space-around;
+
+  a,app-custom-page-link{
+    width: 100%;
+  }
 }
 
 .user-menu-header {

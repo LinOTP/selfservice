@@ -92,11 +92,13 @@
     </div>
   </mat-toolbar>
 
-  <mat-toolbar *ngIf="(1 | fromBreakpoint | async) === false">
-    <div class="ms-0 p-0">
-      <ng-container *ngTemplateOutlet="navLinksTmp"></ng-container>
-    </div>
-  </mat-toolbar>
+  @if (totalNavItems > 1) {
+    <mat-toolbar class="nav-toolbar" *ngIf="(1 | fromBreakpoint | async) === false">
+      <div class="ms-0 p-0 w-100">
+        <ng-container *ngTemplateOutlet="navLinksTmp"></ng-container>
+      </div>
+    </mat-toolbar>
+  }
 
   <ng-template #moibleUserInfo>
     <div class="user-info">
