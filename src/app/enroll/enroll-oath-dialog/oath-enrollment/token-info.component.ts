@@ -26,6 +26,26 @@ import { EnrollmentStatus, getTokenDisplayData, SelfserviceToken, TokenDisplayDa
           </div>
         </div>
         <div class="serial-desc" i18n>Serial: {{token.serial}}</div>
+
+        @if (token.type === TokenType.FORWARD && selfServiceToken?.targetTokenInfo; as targetTokenInfo) {
+          <p class="forward-label" i18n>Forwarding authentication to:</p>
+          <mat-card appearance="outlined" class="forward-target-card">
+            <mat-card-content>
+              <div class="top-row">
+                <div class="token-icon">
+                  <mat-icon [ngClass]="statusClass">{{(selfServiceToken | targetTokenDisplayData).icon}}</mat-icon>
+                </div>
+                <div>
+                  <span class="token-title">{{(selfServiceToken | targetTokenDisplayData).name}}</span>
+                  <div class="desc">
+                    <span>{{targetTokenInfo.description}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="serial-desc" i18n>Serial: {{targetTokenInfo.serial}}</div>
+            </mat-card-content>
+          </mat-card>
+        }
       </mat-card-content>
     </mat-card>
     `,
@@ -65,10 +85,22 @@ import { EnrollmentStatus, getTokenDisplayData, SelfserviceToken, TokenDisplayDa
     .serial-desc {
       margin-top: 5px;
     }
+
+    .forward-label {
+      margin-top: 10px;
+      margin-bottom: 5px;
+    }
+
+    .forward-target-card {
+      background: var(--mat-sys-surface);
+      --mdc-outlined-card-outline-width: 1px;
+      --mdc-outlined-card-outline-color: var(--mat-sys-outline-variant);
+    }
   `],
   standalone: false
 })
 export class TokenInfoComponent {
+  protected readonly TokenType = TokenType;
   tokenDisplayData: TokenDisplayData;
   @Input() selfServiceToken: SelfserviceToken | null= null
 

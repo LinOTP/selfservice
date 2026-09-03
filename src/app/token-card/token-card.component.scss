@@ -15,6 +15,11 @@ mat-card-actions {
   justify-content: end;
 }
 
+.forward-target-card {
+  --mdc-outlined-card-outline-width: 1px;
+  --mdc-outlined-card-outline-color: var(--mat-sys-outline-variant);
+}
+
 mat-card-subtitle {
   opacity: 0.76;
 }
