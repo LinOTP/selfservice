@@ -57,7 +57,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.ts</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">21</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-list/token-list.component.html</context>
@@ -73,7 +73,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.ts</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">55</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/history/history.component.html</context>
@@ -89,7 +89,7 @@
         <target state="translated">Abmeldung erfolgreich</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.ts</context>
-          <context context-type="linenumber">67</context>
+          <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7617829407416097696" datatype="html">
@@ -97,7 +97,7 @@
         <target state="translated">Abmeldung fehlgeschlagen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.ts</context>
-          <context context-type="linenumber">67</context>
+          <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
       <trans-unit id="189395343509305217" datatype="html">
@@ -113,7 +113,7 @@
         <target state="translated">Aktuell angemeldeter Benutzer:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">76</context>
+          <context context-type="linenumber">75</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6904603661820084118" datatype="html">
@@ -127,7 +127,7 @@
       </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">91,95</context>
+          <context context-type="linenumber">90</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2454050363478003966" datatype="html">
@@ -155,7 +155,7 @@
         <target state="translated">Abmelden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">129</context>
+          <context context-type="linenumber">128</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5874003357883313305" datatype="html">
@@ -163,7 +163,7 @@
         <target state="translated">Benutzermenü (angemeldet)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">110</context>
+          <context context-type="linenumber">109</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5565349424328430599" datatype="html">
@@ -171,7 +171,7 @@
         <target state="translated">Impressum</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">153</context>
+          <context context-type="linenumber">152</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6090931838305354672" datatype="html">
@@ -179,7 +179,7 @@
         <target state="translated">Datenschutz</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">161</context>
+          <context context-type="linenumber">160</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3964929371931064813" datatype="html">
@@ -501,7 +501,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="pinLengthError" datatype="html">
-        <source>
+        <source> 
     between <x id="INTERPOLATION" equiv-text="{{ minLength }}"/> and <x id="INTERPOLATION_1" equiv-text="{{ maxLength }}"/> characters long
   </source>
         <target state="translated">
@@ -566,7 +566,7 @@
       <trans-unit id="2924314795002027569" datatype="html">
         <source>
         at least one special character
-
+        
         <x id="START_TAG_NG_CONTAINER" ctype="x-ng_container" equiv-text="&lt;ng-container *ngIf=&quot;!requiresSpecial()&quot;>"/>not in (<x id="INTERPOLATION" equiv-text="{{ SPECIAL_CHARACTERS }}"/>)<x id="CLOSE_TAG_NG_CONTAINER" ctype="x-ng_container" equiv-text="&lt;/ng-container>"/>
         e.g. <x id="INTERPOLATION_1" equiv-text="{{ &quot; Æäöüß&quot; }}"/>
       </source>
@@ -1358,7 +1358,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
-          <context context-type="linenumber">170</context>
+          <context context-type="linenumber">175</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.html</context>
@@ -1454,7 +1454,7 @@
           </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/activate/activate-dialog.component.html</context>
-          <context context-type="linenumber">61</context>
+          <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2140015051252263463" datatype="html">
@@ -1466,7 +1466,7 @@
           </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/activate/activate-dialog.component.html</context>
-          <context context-type="linenumber">78</context>
+          <context context-type="linenumber">83</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-fido2-dialog/enroll-fido2-dialog.component.html</context>
@@ -1614,11 +1614,11 @@
         <target state="translated">Erledigt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/activate/activate-dialog.component.html</context>
-          <context context-type="linenumber">95</context>
+          <context context-type="linenumber">100</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/activate/activate-dialog.component.html</context>
-          <context context-type="linenumber">99</context>
+          <context context-type="linenumber">104</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/assign-token-dialog/assign-token-dialog.component.html</context>
@@ -1690,15 +1690,15 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
-          <context context-type="linenumber">124</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
-          <context context-type="linenumber">126</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
           <context context-type="linenumber">129</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
+          <context context-type="linenumber">131</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
+          <context context-type="linenumber">134</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-sms-dialog/enroll-sms-dialog.component.html</context>
@@ -1876,6 +1876,22 @@
           <context context-type="linenumber">90</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="3468504793669138694" datatype="html">
+        <source>
+               Waiting for confirmation of transaction
+              <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/><x id="START_TAG_CODE" ctype="x-code" equiv-text="&lt;code>"/><x id="INTERPOLATION" equiv-text="{{ transactionId }}"/><x id="CLOSE_TAG_CODE" ctype="x-code" equiv-text="&lt;/code>"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/>
+              via your LinOTP Authenticator app.
+            </source>
+        <target state="translated">
+               Warten auf Bestätigung der Transaktion
+              <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/><x id="START_TAG_CODE" ctype="x-code" equiv-text="&lt;code>"/><x id="INTERPOLATION" equiv-text="{{ transactionId }}"/><x id="CLOSE_TAG_CODE" ctype="x-code" equiv-text="&lt;/code>"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/>
+              mithilfe ihrer LinOTP Authenticator App.
+            </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
+          <context context-type="linenumber">98,102</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="8400331022307819522" datatype="html">
         <source>
               The activation has started. Find the token in the
@@ -1892,7 +1908,7 @@
             </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
-          <context context-type="linenumber">98</context>
+          <context context-type="linenumber">103</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1415078377008916495" datatype="html">
@@ -1904,7 +1920,7 @@
             </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
-          <context context-type="linenumber">115</context>
+          <context context-type="linenumber">120</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4053451334444184493" datatype="html">
@@ -1916,7 +1932,7 @@
           </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.html</context>
-          <context context-type="linenumber">177</context>
+          <context context-type="linenumber">182</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2932666934331699472" datatype="html">
@@ -2250,6 +2266,22 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/activate/activate-dialog.component.html</context>
           <context context-type="linenumber">55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8039099451141326857" datatype="html">
+        <source>
+            Waiting for confirmation of transaction
+            <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/><x id="START_TAG_CODE" ctype="x-code" equiv-text="&lt;code>"/><x id="INTERPOLATION" equiv-text="{{ transactionId }}"/><x id="CLOSE_TAG_CODE" ctype="x-code" equiv-text="&lt;/code>"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/>
+            via your LinOTP Authenticator app.
+          </source>
+        <target state="translated">
+            Warten auf Bestätigung der Transaktion
+            <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/><x id="START_TAG_CODE" ctype="x-code" equiv-text="&lt;code>"/><x id="INTERPOLATION" equiv-text="{{ transactionId }}"/><x id="CLOSE_TAG_CODE" ctype="x-code" equiv-text="&lt;/code>"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/>
+            mithilfe ihrer LinOTP Authenticator App.
+          </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/activate/activate-dialog.component.html</context>
+          <context context-type="linenumber">61,65</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6018603129977323304" datatype="html">
@@ -2633,7 +2665,7 @@
         <target state="translated">Fehlerzähler zurückgesetz</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">248</context>
+          <context context-type="linenumber">253</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8590151770059972300" datatype="html">
@@ -2641,7 +2673,7 @@
         <target state="translated">Token wurde synchronisiert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">263</context>
+          <context context-type="linenumber">268</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3303402949376740921" datatype="html">
@@ -2649,7 +2681,7 @@
         <target state="translated">Beschreibung wurde geändert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/token-card/token-card.component.ts</context>
-          <context context-type="linenumber">279</context>
+          <context context-type="linenumber">284</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3024891378452195539" datatype="html">
@@ -3057,7 +3089,7 @@
         <target state="translated">Helles Design</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/theme.service.ts</context>
-          <context context-type="linenumber">143</context>
+          <context context-type="linenumber">88</context>
         </context-group>
       </trans-unit>
       <trans-unit id="413116577994876478" datatype="html">
@@ -3065,7 +3097,7 @@
         <target state="translated">Hell</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/theme.service.ts</context>
-          <context context-type="linenumber">144</context>
+          <context context-type="linenumber">89</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5824507108095419704" datatype="html">
@@ -3073,7 +3105,7 @@
         <target state="translated">Dunkles Design</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/theme.service.ts</context>
-          <context context-type="linenumber">151</context>
+          <context context-type="linenumber">96</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3892161059518616136" datatype="html">
@@ -3081,7 +3113,7 @@
         <target state="translated">Dunkel</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/theme.service.ts</context>
-          <context context-type="linenumber">152</context>
+          <context context-type="linenumber">97</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8976300473715680208" datatype="html">

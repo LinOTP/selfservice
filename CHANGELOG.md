@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Push and QR Token enrollment will have an extra activation step
   if the user has the permission `activate_PushToken` or `activate_QRToken`.
 - Theme revamp and various UI improvements.
+- Push token activation now shows the same "waiting for confirmation" prompt used for real authentication challenges, instead of instructing the user to tap the token in the app.
 
 ### Removed
 
