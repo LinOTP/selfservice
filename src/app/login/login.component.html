@@ -86,26 +86,42 @@
                 class="token token-list-item"
                 #tokenListItem
                 (click)="chooseSecondFactor(token)">
-          <h3 matLine
-              class="token-list-item-heading">
-            <mat-icon>{{token.typeDetails.icon}}</mat-icon>
-            {{token.typeDetails.name}}
-            <mat-chip *ngIf="token.tokenType === 'fido2' && (token.rpName || token.rpId)"
-                      class="rp-chip ms-1"
-                      role="text"
-                      aria-label="Relying party"
-                      i18n-aria-label="@@loginRelyingPartyAriaLabel"
-                      [matTooltip]="token | rpTooltip"
-                      i18n="@@loginRelyingParty">{{ token.rpName || token.rpId }}</mat-chip>
-          </h3>
-          <p matLine
-             class="token-list-item-description">
-            {{token.description}} ({{token.serial}})
-          </p>
-          <p matLine
-             class="token-list-item-prompt">
-            {{token.typeDetails.authenticationPrompt}}
-          </p>
+                @if (token.tokenType !== TokenType.FORWARD) {
+                  <h3 matLine
+                      class="token-list-item-heading">
+                    <mat-icon>{{token.typeDetails.icon}}</mat-icon>
+                    {{token.typeDetails.name}}
+                    <mat-chip *ngIf="token.tokenType === 'fido2' && (token.rpName || token.rpId)"
+                              class="rp-chip ms-1"
+                              role="text"
+                              aria-label="Relying party"
+                              i18n-aria-label="@@loginRelyingPartyAriaLabel"
+                              [matTooltip]="token | rpTooltip"
+                              i18n="@@loginRelyingParty">{{ token.rpName || token.rpId }}</mat-chip>
+                  </h3>
+                  <p matLine
+                    class="token-list-item-description">
+                    {{token.description}} ({{token.serial}})
+                  </p>
+                  <p matLine
+                    class="token-list-item-prompt">
+                    {{token.typeDetails.authenticationPrompt}}
+                  </p>
+                } @else {
+                  <h3 matLine
+                      class="token-list-item-heading">
+                    <mat-icon>{{(token | targetTokenDisplayData).icon}}</mat-icon>
+                    {{(token | targetTokenDisplayData).name}} (Forwarded)
+                  </h3>
+                  <p matLine
+                    class="token-list-item-description">
+                    {{token.description}} ({{token.serial}} -> {{token.targetTokenInfo.serial}})
+                  </p>
+                  <p matLine
+                    class="token-list-item-prompt">
+                    {{(token | targetTokenDisplayData).authenticationPrompt}}
+                  </p>
+                }
         </button>
         <button mat-list-item
                 class="cancel token-list-item"
