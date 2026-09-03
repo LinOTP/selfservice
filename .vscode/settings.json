@@ -10,5 +10,6 @@
   "scss.lint.important": "warning",
   "scss.lint.float": "warning",
   "files.trimTrailingWhitespace": true,
-  "html.format.wrapAttributes": "force-aligned"
+  "html.format.wrapAttributes": "force-aligned",
+  "js/ts.tsdk.path": "node_modules/typescript/lib"
 }
