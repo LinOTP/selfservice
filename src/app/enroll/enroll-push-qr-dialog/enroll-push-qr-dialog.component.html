@@ -94,7 +94,12 @@
           </div>
 
           <div *ngSwitchCase="ActivationFlowState.WAITING_FOR_USER">
-            <p i18n>
+            <p *ngIf="isPush()" i18n>
+               Waiting for confirmation of transaction
+              <b><code>{{ transactionId }}</code></b>
+              via your LinOTP Authenticator app.
+            </p>
+            <p *ngIf="isQR()" i18n>
               The activation has started. Find the token in the
               <b>LinOTP Authenticator</b> app that matches the serial number
               above.
