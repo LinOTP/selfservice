@@ -31,6 +31,7 @@ export interface EnrolledToken {
   googleurl?: { value: string };
   type: TokenType;
   description?: string;
+  targetTokenInfo?: {serial: string, type: string, description: string} //forward
 }
 
 @Directive()

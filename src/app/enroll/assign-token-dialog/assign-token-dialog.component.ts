@@ -148,7 +148,7 @@ export class AssignTokenDialogComponent extends EnrollDialogBase implements OnIn
 
 
   private getTokenData(token: SelfserviceToken): EnrolledToken {
-    let res = { serial: token.serial, description: token.description, type: token.tokenType as TokenType };
+    let res = { serial: token.serial, description: token.description, type: token.tokenType as TokenType, targetTokenInfo: token.targetTokenInfo };
     switch (token.tokenType) {
       case TokenType.SMS:
         return <SMSEnrolledToken>{ ...res, phone: token.phone }

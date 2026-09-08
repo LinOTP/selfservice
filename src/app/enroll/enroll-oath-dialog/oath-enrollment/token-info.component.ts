@@ -27,16 +27,16 @@ import { EnrollmentStatus, getTokenDisplayData, SelfserviceToken, TokenDisplayDa
         </div>
         <div class="serial-desc" i18n>Serial: {{token.serial}}</div>
 
-        @if (token.type === TokenType.FORWARD && selfServiceToken?.targetTokenInfo; as targetTokenInfo) {
+        @if (token.type === TokenType.FORWARD && (selfServiceToken || token)?.targetTokenInfo; as targetTokenInfo) {
           <p class="forward-label" i18n>Forwarding authentication to:</p>
           <mat-card appearance="outlined" class="forward-target-card">
             <mat-card-content>
               <div class="top-row">
                 <div class="token-icon">
-                  <mat-icon [ngClass]="statusClass">{{(selfServiceToken | targetTokenDisplayData).icon}}</mat-icon>
+                  <mat-icon [ngClass]="statusClass">{{(selfServiceToken || token | targetTokenDisplayData).icon}}</mat-icon>
                 </div>
                 <div>
-                  <span class="token-title">{{(selfServiceToken | targetTokenDisplayData).name}}</span>
+                  <span class="token-title">{{(selfServiceToken || token | targetTokenDisplayData).name}}</span>
                   <div class="desc">
                     <span>{{targetTokenInfo.description}}</span>
                   </div>
@@ -129,4 +129,5 @@ export type TokenInfo = {
   description: string;
   rpName?: string;
   rpId?: string;
+  targetTokenInfo?: {serial: string, type: string, description: string} | null
 }
