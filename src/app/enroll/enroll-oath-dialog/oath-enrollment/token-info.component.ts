@@ -37,7 +37,7 @@ import { EnrollmentStatus, getTokenDisplayData, SelfserviceToken, TokenDisplayDa
                     <mat-icon [ngClass]="statusClass">{{(selfServiceToken || token | targetTokenDisplayData).icon}}</mat-icon>
                   </div>
                   <div>
-                    <span class="token-title">{{(selfServiceToken || token | targetTokenDisplayData).name}}</span>
+                    <span class="token-title">{{(selfServiceToken || token | targetTokenDisplayData).name | capitalize}}</span>
                     <div class="desc">
                       <span>{{targetTokenInfo.description}}</span>
                     </div>
