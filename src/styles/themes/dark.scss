@@ -11,8 +11,6 @@
   }
 
   .alert {
-    border: 1px solid var(--mat-sys-outline-variant);
-    box-shadow: var(--mat-sys-level1);
     &.info {
       background-color: #15334c;
     }
