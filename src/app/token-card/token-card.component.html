@@ -78,17 +78,25 @@
 
     @if (token.tokenType === TokenType.FORWARD && token.targetTokenInfo; as targetTokenInfo) {
       <p i18n>Forwarding authentication to:</p>
-      <mat-card appearance="outlined" class="forward-target-card">
-        <mat-card-header>
-          <mat-icon mat-card-avatar
-                    class="icon" [ngClass]="statusClass">{{(token | targetTokenDisplayData).icon}}</mat-icon>
-          <mat-card-title>{{(token | targetTokenDisplayData).name | capitalize}}</mat-card-title>
-          <mat-card-subtitle>{{targetTokenInfo.description}}</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-          <p i18n>Serial: {{ targetTokenInfo.serial }}</p>
-        </mat-card-content>
-      </mat-card>
+      @if (targetTokenInfo.type) {
+        <mat-card appearance="outlined" class="forward-target-card">
+          <mat-card-header>
+            <mat-icon mat-card-avatar
+                      class="icon" [ngClass]="statusClass">{{(token | targetTokenDisplayData).icon}}</mat-icon>
+            <mat-card-title>{{(token | targetTokenDisplayData).name | capitalize}}</mat-card-title>
+            <mat-card-subtitle>{{targetTokenInfo.description}}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <p i18n>Serial: {{ targetTokenInfo.serial }}</p>
+          </mat-card-content>
+        </mat-card>
+      } @else {
+        <app-warning [msgTmpl]="unknownTargetTokenTypeWarning"></app-warning>
+        <ng-template #unknownTargetTokenTypeWarning
+                     i18n>
+          Unable to determine the type of the forwarding target token (serial: {{ targetTokenInfo.serial }}). Contact your administrator to resolve this issue.
+        </ng-template>
+      }
     }
   </mat-card-content>
   <mat-card-footer *ngIf="pendingActions()">
