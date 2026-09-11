@@ -20,6 +20,7 @@ import { EnrolledTokenToTokenInfoPipe } from './pipes/enrolled-token-to-token-in
 import { InactiveTokensPipe } from './pipes/inactive-tokens.pipe';
 import { RpTooltipPipe } from './pipes/rp-tooltip.pipe';
 import { SortTokensByStatePipe } from './pipes/sort-tokens-by-state.pipe';
+import { TargetTokenDisplayDataPipe } from './pipes/target-token-display-data.pipe';
 import { UnreadyTokensPipe } from './pipes/unready-tokens.pipe';
 
 import { A11yModule } from "@angular/cdk/a11y";
@@ -52,7 +53,8 @@ import { UnassignTokenDialogComponent } from './unassign-token-dialog/unassign-t
     NgxPermissionsModule.forChild(),
     FocusOnInitDirective,
     EnrolledTokenToTokenInfoPipe,
-    RpTooltipPipe
+    RpTooltipPipe,
+    TargetTokenDisplayDataPipe
   ],
   declarations: [
     CustomQRCodeComponent,
@@ -103,7 +105,8 @@ import { UnassignTokenDialogComponent } from './unassign-token-dialog/unassign-t
     AlertComponent,
     SubscriptAriaLiveDirective,
     EnrolledTokenToTokenInfoPipe,
-    RpTooltipPipe
+    RpTooltipPipe,
+    TargetTokenDisplayDataPipe
   ]
 })
 export class NgSelfServiceCommonModule { }

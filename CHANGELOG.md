@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Custom app recommendations for hmac, totp, push and qr token.
 - Add support for FIDO2 token.
+- Display the target token a forwarding token authenticates through, in the token overview, token details, and MFA login selection.
 
 ### Changed
 

@@ -86,6 +86,18 @@ export class SelfserviceToken {
     return this.token['LinOtp.TokenInfo'].rp_id;
   }
 
+  get targetTokenInfo(): {serial: string, type: string, description: string} | null {
+    if(this.tokenType !== TokenType.FORWARD) return null;
+    const tokenInfo = this.token['LinOtp.TokenInfo']
+    const targetDetails = {
+      serial: tokenInfo["forward.serial"] || tokenInfo["linotp_forward_tokenserial"],
+      type: tokenInfo["forward.type"] || tokenInfo["linotp_forward_tokentype"],
+      description: tokenInfo["forward.description"] || tokenInfo["linotp_forward_description"]
+    }
+    const hasValues = Object.values(targetDetails).some(value => !!value);
+    return hasValues ? targetDetails : null;
+  }
+
   constructor(
     private token: LinOtpToken
   ) {

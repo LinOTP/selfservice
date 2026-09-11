@@ -26,6 +26,34 @@ import { EnrollmentStatus, getTokenDisplayData, SelfserviceToken, TokenDisplayDa
           </div>
         </div>
         <div class="serial-desc" i18n>Serial: {{token.serial}}</div>
+
+        @if (token.type === TokenType.FORWARD && (selfServiceToken || token)?.targetTokenInfo; as targetTokenInfo) {
+          <p class="forward-label" i18n>Forwarding authentication to:</p>
+          @if (targetTokenInfo.type) {
+            <mat-card appearance="outlined" class="forward-target-card">
+              <mat-card-content>
+                <div class="top-row">
+                  <div class="token-icon">
+                    <mat-icon [ngClass]="statusClass">{{(selfServiceToken || token | targetTokenDisplayData).icon}}</mat-icon>
+                  </div>
+                  <div>
+                    <span class="token-title">{{(selfServiceToken || token | targetTokenDisplayData).name | capitalize}}</span>
+                    <div class="desc">
+                      <span>{{targetTokenInfo.description}}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="serial-desc" i18n>Serial: {{targetTokenInfo.serial}}</div>
+              </mat-card-content>
+            </mat-card>
+          } @else {
+            <app-warning [msgTmpl]="unknownTargetTokenTypeWarning"></app-warning>
+            <ng-template #unknownTargetTokenTypeWarning
+                         i18n>
+              Unable to determine the type of the forwarding target token (serial: {{targetTokenInfo.serial}}). Contact your administrator to resolve this issue.
+            </ng-template>
+          }
+        }
       </mat-card-content>
     </mat-card>
     `,
@@ -65,10 +93,22 @@ import { EnrollmentStatus, getTokenDisplayData, SelfserviceToken, TokenDisplayDa
     .serial-desc {
       margin-top: 5px;
     }
+
+    .forward-label {
+      margin-top: 10px;
+      margin-bottom: 5px;
+    }
+
+    .forward-target-card {
+      background: var(--mat-sys-surface);
+      --mdc-outlined-card-outline-width: 1px;
+      --mdc-outlined-card-outline-color: var(--mat-sys-outline-variant);
+    }
   `],
   standalone: false
 })
 export class TokenInfoComponent {
+  protected readonly TokenType = TokenType;
   tokenDisplayData: TokenDisplayData;
   @Input() selfServiceToken: SelfserviceToken | null= null
 
@@ -97,4 +137,5 @@ export type TokenInfo = {
   description: string;
   rpName?: string;
   rpId?: string;
+  targetTokenInfo?: {serial: string, type: string, description: string} | null
 }
