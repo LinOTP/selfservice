@@ -67,7 +67,11 @@ export class TestDialogComponent implements OnInit, OnDestroy {
   }
 
   get isFido2(): boolean {
-    return this.typeDetails?.type === TokenType.FIDO2 || (this.transactionDetail?.linotp_forward_tokentype === TokenType.FIDO2);
+    return this.effectiveTokenType === TokenType.FIDO2;
+  }
+
+  get effectiveTokenType(): TokenType {
+    return this.TargetToken?.type ?? this.typeDetails?.type as TokenType;
   }
 
   constructor(
