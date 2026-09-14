@@ -1,7 +1,7 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
 import { Component, Inject, OnDestroy, ViewChild } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 
 import { EMPTY, from, Observable, of, Subscription } from 'rxjs';
@@ -13,6 +13,7 @@ import { SelfserviceToken, TokenType } from '@api/token';
 import { TokenService } from '@app/api/token.service';
 import { convertToWebAuthnOptions, getOrigin, invalidOriginForRpIdErrMsg, isFido2Supported, isOriginValidForRpId, mapCredentialToAttestationResponse } from '@app/enroll/enroll-fido2-dialog/fido2-utils';
 import { Fido2RegistrationCredential } from '@app/enroll/enroll-fido2-dialog/enroll-fido2-dialog.component';
+import { confirmCancelActivation } from '@common/confirm-dialog';
 
 
 @Component({
@@ -44,6 +45,7 @@ export class ActivateDialogComponent implements OnDestroy {
     private enrollmentService: EnrollmentService,
     private dialogRef: MatDialogRef<ActivateDialogComponent>,
     private liveAnnouncer: LiveAnnouncer,
+    private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: { token: SelfserviceToken },
   ) {
     this.isPush = data.token.tokenType === TokenType.PUSH;
@@ -126,6 +128,15 @@ export class ActivateDialogComponent implements OnDestroy {
   public close() {
     if (this.stepperChanged) this.tokenService.updateTokenList();
     this.dialogRef.close();
+  }
+
+  /**
+   * Ask for confirmation before cancelling an activation.
+   */
+  public cancelActivation(): void {
+    confirmCancelActivation(this.dialog).subscribe((confirmed) => {
+      if (confirmed) this.close();
+    });
   }
 
   public restart() {

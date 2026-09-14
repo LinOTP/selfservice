@@ -439,7 +439,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.ts</context>
-          <context context-type="linenumber">102</context>
+          <context context-type="linenumber">106</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8830532201705056775" datatype="html">
@@ -501,7 +501,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="pinLengthError" datatype="html">
-        <source>
+        <source> 
     between <x id="INTERPOLATION" equiv-text="{{ minLength }}"/> and <x id="INTERPOLATION_1" equiv-text="{{ maxLength }}"/> characters long
   </source>
         <target state="translated">
@@ -566,7 +566,7 @@
       <trans-unit id="2924314795002027569" datatype="html">
         <source>
         at least one special character
-
+        
         <x id="START_TAG_NG_CONTAINER" ctype="x-ng_container" equiv-text="&lt;ng-container *ngIf=&quot;!requiresSpecial()&quot;>"/>not in (<x id="INTERPOLATION" equiv-text="{{ SPECIAL_CHARACTERS }}"/>)<x id="CLOSE_TAG_NG_CONTAINER" ctype="x-ng_container" equiv-text="&lt;/ng-container>"/>
         e.g. <x id="INTERPOLATION_1" equiv-text="{{ &quot; Æäöüß&quot; }}"/>
       </source>
@@ -1750,11 +1750,11 @@
             </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/activate/activate-dialog.component.ts</context>
-          <context context-type="linenumber">97</context>
+          <context context-type="linenumber">99</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.ts</context>
-          <context context-type="linenumber">189</context>
+          <context context-type="linenumber">190</context>
         </context-group>
       </trans-unit>
       <trans-unit id="motpStepperCreateInstruction" datatype="html">
@@ -1954,7 +1954,7 @@
         <target state="translated">Dein Browser unterstützt kein FIDO2-Token.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/activate/activate-dialog.component.ts</context>
-          <context context-type="linenumber">119</context>
+          <context context-type="linenumber">121</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-fido2-dialog/enroll-fido2-dialog.component.ts</context>
@@ -1974,7 +1974,7 @@
         <target state="translated">Token erfolgreich aktiviert.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-push-qr-dialog/enroll-push-qr-dialog.component.ts</context>
-          <context context-type="linenumber">184</context>
+          <context context-type="linenumber">185</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5156859204496679050" datatype="html">
@@ -2251,7 +2251,7 @@
         <target state="translated">Tokenaktivierung fehlgeschlagen. Bitte versuchen Sie es erneut.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/activate/activate-dialog.component.ts</context>
-          <context context-type="linenumber">118</context>
+          <context context-type="linenumber">120</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-fido2-dialog/enroll-fido2-dialog.component.ts</context>
@@ -2476,6 +2476,10 @@
       <trans-unit id="9178182467454450952" datatype="html">
         <source>Confirm</source>
         <target state="translated">Bestätigen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/confirm-dialog.ts</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-dialog-base.directive.ts</context>
           <context context-type="linenumber">182</context>
@@ -2906,7 +2910,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.ts</context>
-          <context context-type="linenumber">168</context>
+          <context context-type="linenumber">173</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3290193501558345471" datatype="html">
@@ -3045,7 +3049,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.ts</context>
-          <context context-type="linenumber">98</context>
+          <context context-type="linenumber">102</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8056557436410153258" datatype="html">
@@ -3058,7 +3062,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.ts</context>
-          <context context-type="linenumber">99</context>
+          <context context-type="linenumber">103</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8186299010571829371" datatype="html">
@@ -3131,7 +3135,7 @@
           kontaktieren Sie einen Administrator.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.ts</context>
-          <context context-type="linenumber">257</context>
+          <context context-type="linenumber">262</context>
         </context-group>
       </trans-unit>
       <trans-unit id="theme-picker" datatype="html">
@@ -3351,7 +3355,7 @@
         <target state="translated">FIDO2-Authentifizierung fehlgeschlagen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.ts</context>
-          <context context-type="linenumber">238</context>
+          <context context-type="linenumber">243</context>
         </context-group>
       </trans-unit>
       <trans-unit id="518519257823560430" datatype="html">
@@ -3660,7 +3664,7 @@
         <target state="translated">Zu Schritt gewechselt: <x id="PH" equiv-text="stepLabel"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/activate/activate-dialog.component.ts</context>
-          <context context-type="linenumber">64</context>
+          <context context-type="linenumber">66</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/enroll/enroll-dialog-base.directive.ts</context>
@@ -4303,6 +4307,22 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/authenticator-links/authenticator-links.component.html</context>
           <context context-type="linenumber">35,36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2319434784554838440" datatype="html">
+        <source>Cancel activation?</source>
+        <target state="translated">Aktivierung abbrechen?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/confirm-dialog.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="682514141535173293" datatype="html">
+        <source>Do you really want to cancel the activation? You can resume it later from the token list.</source>
+        <target state="translated">Möchten Sie die Aktivierung wirklich abbrechen? Sie können sie später über die Tokenliste fortsetzen.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/confirm-dialog.ts</context>
+          <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8722855815848907513" datatype="html">
