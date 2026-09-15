@@ -90,7 +90,7 @@
                   <h3 matLine
                       class="token-list-item-heading">
                     <mat-icon>{{token.typeDetails.icon}}</mat-icon>
-                    {{token.typeDetails.name}}
+                    {{token.typeDetails.name | capitalize}}
                     <mat-chip *ngIf="token.tokenType === 'fido2' && (token.rpName || token.rpId)"
                               class="rp-chip ms-1"
                               role="text"
@@ -111,7 +111,7 @@
                   <h3 matLine
                       class="token-list-item-heading" i18n>
                     <mat-icon>{{(token | targetTokenDisplayData).icon}}</mat-icon>
-                    {{(token | targetTokenDisplayData).name}} (forwarded)
+                    {{(token | targetTokenDisplayData).name | capitalize}} (forwarded)
                   </h3>
                   <p matLine
                     class="token-list-item-description">
