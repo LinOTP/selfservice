@@ -231,7 +231,7 @@ export class TokenCardComponent implements OnInit, OnDestroy {
     //fido2
     if(this.token.tokenType === TokenType.FIDO2) return this.canActivateFido && this.token.enrollmentStatus === EnrollmentStatus.UNPAIRED
     //qr/push
-    return this.canActivate && this.token.enrollmentStatus === EnrollmentStatus.PAIRING_RESPONSE_RECEIVED
+    return this.canActivate && [EnrollmentStatus.PAIRING_RESPONSE_RECEIVED, EnrollmentStatus.PAIRING_CHALLENGE_SENT].includes(this.token.enrollmentStatus)
   }
 
   public verifyRequired(): boolean {

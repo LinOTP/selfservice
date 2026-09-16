@@ -9,6 +9,7 @@ import { ActivationDetail } from "@api/enrollment.service";
 import { EnrollmentOptions, SelfserviceToken, TokenType } from "@api/token";
 import { ActivateDialogComponent } from "@app/activate/activate-dialog.component";
 import { EnrollDialogBase } from "@app/enroll/enroll-dialog-base.directive";
+import { confirmCancelActivation } from "@common/confirm-dialog";
 import { Permission } from "@common/permissions";
 import { PlatformProviderService } from "@common/platform-provider.service";
 
@@ -197,6 +198,21 @@ export class EnrollPushQRDialogComponent
   public retryActivation(): void {
     this.activationState = ActivationFlowState.NOT_STARTED;
     this.activateToken();
+  }
+
+  /**
+   * Ask for confirmation before cancelling an activation.
+   */
+  public cancelActivation(): void {
+    confirmCancelActivation(this.dialog).subscribe((confirmed) => {
+      if (confirmed) {
+        if (this.activationSubscription) {
+          this.activationSubscription.unsubscribe();
+          this.activationSubscription = null;
+        }
+        this.close();
+      }
+    });
   }
 
   /**

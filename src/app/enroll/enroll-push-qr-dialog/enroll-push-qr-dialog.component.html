@@ -171,7 +171,7 @@
         ">
         <button mat-button
                 type="button"
-                (click)="cancel()"
+                (click)="cancelActivation()"
                 i18n>Cancel</button>
         <button mat-flat-button
                 color="primary"
@@ -187,7 +187,7 @@
       <ng-template #normalActions>
         <app-step-actions [disableSubmit]="true"
                           [focusCancelButton]="true"
-                          (cancelled)="cancel()">
+                          (cancelled)="cancelActivation()">
         </app-step-actions>
       </ng-template>
     </ng-container>

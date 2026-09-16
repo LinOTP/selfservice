@@ -27,7 +27,7 @@
 
         <div class="instruction"
              *ngIf="!isFido2 && !hasOnlineMode">
-          <ng-container *ngIf="typeDetails.type === TokenType.PASSWORD || TargetToken?.type === TokenType.PASSWORD ; else otpInputMessage"
+          <ng-container *ngIf="effectiveTokenType === TokenType.PASSWORD ; else otpInputMessage"
                         i18n>
             Please enter the password of the selected token:
           </ng-container>
@@ -37,7 +37,7 @@
           </ng-template>
         </div>
 
-        <app-qr-code-input *ngIf="token?.tokenType === TokenType.QR || token?.tokenType === TokenType.PUSH"
+        <app-qr-code-input *ngIf="effectiveTokenType === TokenType.QR || effectiveTokenType === TokenType.PUSH"
                            [transactionDetail]="transactionDetail"
                            (otpValueChanged)="offlineOtpValue = $event"></app-qr-code-input>
 
@@ -45,7 +45,7 @@
              *ngIf="!isFido2">
           <ng-container *ngIf="!hasOnlineMode || showInputField">
             <ng-container
-                          *ngIf="typeDetails.type === TokenType.PASSWORD || TargetToken?.type === TokenType.PASSWORD ; else otpInputField">
+                          *ngIf="effectiveTokenType === TokenType.PASSWORD ; else otpInputField">
               <mat-form-field>
                 <mat-label i18n>Password</mat-label>
                 <input matInput
