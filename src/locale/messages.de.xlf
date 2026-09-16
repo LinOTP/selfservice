@@ -818,7 +818,7 @@
       <trans-unit id="2147214935993494743" datatype="html">
         <source>
                     <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon>"/><x id="INTERPOLATION" equiv-text="{{(token | targetTokenDisplayData).icon}}"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon>"/>
-                    <x id="INTERPOLATION_1" equiv-text="{{(token | targetTokenDisplayData).name}}"/> (forwarded)
+                    <x id="INTERPOLATION_1" equiv-text="{{(token | targetTokenDisplayData).name | capitalize}}"/> (forwarded)
                   </source>
         <target state="translated">
                     <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon>"/><x id="INTERPOLATION" equiv-text="{{(token | targetTokenDisplayData).icon}}"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon>"/>
@@ -2910,7 +2910,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.ts</context>
-          <context context-type="linenumber">173</context>
+          <context context-type="linenumber">172</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3290193501558345471" datatype="html">
@@ -3135,7 +3135,7 @@
           kontaktieren Sie einen Administrator.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.ts</context>
-          <context context-type="linenumber">262</context>
+          <context context-type="linenumber">261</context>
         </context-group>
       </trans-unit>
       <trans-unit id="theme-picker" datatype="html">
@@ -3355,7 +3355,7 @@
         <target state="translated">FIDO2-Authentifizierung fehlgeschlagen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/test/test-dialog.component.ts</context>
-          <context context-type="linenumber">243</context>
+          <context context-type="linenumber">242</context>
         </context-group>
       </trans-unit>
       <trans-unit id="518519257823560430" datatype="html">
@@ -3945,52 +3945,48 @@
           <context context-type="linenumber">141</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="3770667125316848015" datatype="html">
-        <source>soft token (event)</source>
-        <target state="translated">Soft-Token (ereignisbasiert)</target>
+      <trans-unit id="3842286249491036464" datatype="html">
+        <source>HOTP token</source>
+        <target state="translated">HOTP-Token</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
           <context context-type="linenumber">145</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="6612127950296778531" datatype="html">
-        <source>Event-based soft token (HOTP)</source>
-        <target state="translated">Ereignisbasierter Software-Token (HOTP)</target>
+      <trans-unit id="4605923890433984340" datatype="html">
+        <source>Generate OTPs in your Authenticator app, they change at the press of a button</source>
+        <target state="translated">Erzeugen Sie OTPs in Ihrer Authenticator-App, die sich auf Knopfdruck ändern</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
           <context context-type="linenumber">146</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="4614006888930017432" datatype="html">
-        <source>Enter OTP from event-based soft token</source>
-        <target state="translated">OTP von einem ereignisbasierten Software-Token eingeben</target>
+      <trans-unit id="3301402552184950769" datatype="html">
+        <source>Enter an OTP from your Authenticator app or hardware token</source>
+        <target state="translated">OTP aus Ihrer Authenticator-App oder Ihrem Hardware-Token eingeben</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
           <context context-type="linenumber">151</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/token.ts</context>
+          <context context-type="linenumber">161</context>
+        </context-group>
       </trans-unit>
-      <trans-unit id="5718401288735531392" datatype="html">
-        <source>soft token (time)</source>
-        <target state="translated">Soft-Token (zeitbasiert)</target>
+      <trans-unit id="7181419146398110557" datatype="html">
+        <source>TOTP token</source>
+        <target state="translated">TOTP-Token</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
           <context context-type="linenumber">155</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="5551212187133045385" datatype="html">
-        <source>Time-based soft token (TOTP)</source>
-        <target state="translated">Zeitbasierter Software-Token (TOTP)</target>
+      <trans-unit id="744398776894111384" datatype="html">
+        <source>Generate OTPs in your Authenticator app, they change at regular intervals</source>
+        <target state="translated">Erzeugen Sie OTPs in Ihrer Authenticator-App, die sich automatisch ändern</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>
           <context context-type="linenumber">156</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="2722037049314401626" datatype="html">
-        <source>Enter OTP from time-based soft token</source>
-        <target state="translated">OTP von einem zeitbasierten Software-Token eingeben</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/api/token.ts</context>
-          <context context-type="linenumber">161</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5673889270689325716" datatype="html">
@@ -4228,8 +4224,8 @@
           <context context-type="linenumber">248</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="9105518985862571303" datatype="html">
-        <source>Unknown Token</source>
+      <trans-unit id="7351929360195302630" datatype="html">
+        <source>Unknown token</source>
         <target state="translated">Unbekannter Token</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/api/token.ts</context>

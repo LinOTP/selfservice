@@ -142,23 +142,23 @@ export const tokenDisplayData: TokenDisplayData[] = [
   },
   {
     type: TokenType.HOTP,
-    name: $localize`soft token (event)`,
-    description: $localize`Event-based soft token (HOTP)`,
+    name: $localize`HOTP token`,
+    description: $localize`Generate OTPs in your Authenticator app, they change at the press of a button`,
     icon: 'cached',
     enrollmentPermission: Permission.ENROLLHOTP,
     enrollmentType: 'hmac',
     enrollmentActionLabel: $localize`Create`,
-    authenticationPrompt: $localize`Enter OTP from event-based soft token`,
+    authenticationPrompt: $localize`Enter an OTP from your Authenticator app or hardware token`,
   },
   {
     type: TokenType.TOTP,
-    name: $localize`soft token (time)`,
-    description: $localize`Time-based soft token (TOTP)`,
+    name: $localize`TOTP token`,
+    description: $localize`Generate OTPs in your Authenticator app, they change at regular intervals`,
     icon: 'timelapse',
     enrollmentPermission: Permission.ENROLLTOTP,
     enrollmentType: 'totp',
     enrollmentActionLabel: $localize`Create`,
-    authenticationPrompt: $localize`Enter OTP from time-based soft token`,
+    authenticationPrompt: $localize`Enter an OTP from your Authenticator app or hardware token`,
   },
   {
     type: TokenType.PUSH,
@@ -251,7 +251,7 @@ export const tokenDisplayData: TokenDisplayData[] = [
 
 export const unknownTokenTypeDetail: TokenDisplayData = {
   type: TokenType.UNKNOWN,
-  name: $localize`Unknown Token`,
+  name: $localize`Unknown token`,
   description: $localize`Unsupported token type`,
   icon: 'apps',
 };

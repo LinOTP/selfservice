@@ -19,8 +19,8 @@ export class Fixtures {
       },
       hmac: {
         type: TokenType.HOTP,
-        name: 'soft token (event)',
-        description: 'Event-based soft token (HOTP)',
+        name: 'HOTP token',
+        description: 'Generate OTPs in your Authenticator app, they change at the press of a button',
         icon: 'cached',
         enrollmentPermission: Permission.ENROLLHOTP,
         enrollmentType: 'googleauthenticator',
@@ -28,8 +28,8 @@ export class Fixtures {
       },
       totp: {
         type: TokenType.TOTP,
-        name: 'soft token (time)',
-        description: 'Time-based soft token (TOTP)',
+        name: 'TOTP token',
+        description: 'Generate OTPs in your Authenticator app, they change at regular intervals',
         icon: 'timelapse',
         enrollmentPermission: Permission.ENROLLTOTP,
         enrollmentType: 'googleauthenticator_time',
@@ -95,7 +95,7 @@ export class Fixtures {
       },
       assign: {
         type: 'assign',
-        name: 'Assign Token',
+        name: 'Assign token',
         description: 'Claim an existing token and link it to your user account',
         icon: 'link',
         enrollmentPermission: Permission.ASSIGN,
@@ -109,7 +109,7 @@ export class Fixtures {
       },
       unknown: {
         type: TokenType.UNKNOWN,
-        name: 'Unknown Token',
+        name: 'Unknown token',
         description: 'Unsupported token type',
         icon: 'apps',
       }
