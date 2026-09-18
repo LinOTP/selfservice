@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Theme revamp and various UI improvements.
 - Push token activation now shows the same "waiting for confirmation" prompt used for real authentication challenges, instead of instructing the user to tap the token in the app.
 - Users can restart QR/Push token activation from the token card after an activation challenge has already been sent.
+- Renamed the soft token type names: "soft token (event)" is now "HOTP token" and "soft token (time)" is now "TOTP token".
 
 ### Removed
 
