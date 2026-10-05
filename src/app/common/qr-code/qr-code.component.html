@@ -1,6 +1,9 @@
 <section *ngIf="qrUrl"
          class="qr-section">
-  <qrcode [qrdata]="qrUrl"
+  <qrcode role="img"
+          aria-label="QR code to scan with your authenticator app"
+          i18n-aria-label="@@qrCodeAriaLabel"
+          [qrdata]="qrUrl"
           [width]="256"
           [errorCorrectionLevel]="'L'"></qrcode>
 </section>

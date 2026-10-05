@@ -11,29 +11,31 @@
          target="_blank"
          rel="noopener noreferrer">
         <img src="assets/app-store.svg"
-             alt="AppStore"
+             alt="Download on the App Store"
+             i18n-alt="@@appStoreBadgeAlt"
              class="app-store-badge"
              *ngIf="platform === 'ios'">
         <img src="assets/google-play.png"
-             alt="Google Play"
+             alt="Download on Google Play"
+             i18n-alt="@@googlePlayBadgeAlt"
              class="google-play-badge"
              *ngIf="platform === 'android'">
       </a>
     </div>
     <button mat-stroked-button
-            *ngIf="!showDetails"
             color="primary"
             type="button"
             mat-button
-            (click)="showDetails = !showDetails"><mat-icon>visibility</mat-icon><span i18n>Show links for all
-        platforms</span></button>
-    <button mat-stroked-button
-            *ngIf="showDetails"
-            color="primary"
-            type="button"
-            mat-button
-            (click)="showDetails = !showDetails"><mat-icon>visibility_off</mat-icon><span i18n>Hide links for all
-        platforms</span></button>
+            [attr.aria-expanded]="showDetails"
+            (click)="showDetails = !showDetails">
+      <mat-icon>{{ showDetails ? 'visibility_off' : 'visibility' }}</mat-icon>
+      <span *ngIf="!showDetails"
+            i18n>Show links for all
+        platforms</span>
+      <span *ngIf="showDetails"
+            i18n>Hide links for all
+        platforms</span>
+    </button>
   </div>
   <div *ngIf="showDetails">
     <ng-container *ngTemplateOutlet="detailsTmp"></ng-container>
@@ -52,9 +54,13 @@
             <a [href]="appRec.ios.url"
                target="_blank"
                rel="noopener noreferrer"><img src="assets/app-store.svg"
-                   alt="FreeOTP"
+                   alt="Download on the App Store"
+                   i18n-alt="@@appStoreBadgeAlt"
                    class="app-store-badge"></a>
-            <qrcode [qrdata]="appRec.ios.url"
+            <qrcode role="img"
+                    aria-label="QR code for the App Store download link"
+                    i18n-aria-label
+                    [qrdata]="appRec.ios.url"
                     [width]="180"
                     [margin]="2"
                     [errorCorrectionLevel]="'L'"></qrcode>
@@ -72,9 +78,13 @@
             <a [href]="appRec.android.url"
                target="_blank"
                rel="noopener noreferrer"><img src="assets/google-play.png"
-                   alt="Google Authenticator"
+                   alt="Download on Google Play"
+                   i18n-alt="@@googlePlayBadgeAlt"
                    class="google-play-badge"></a>
-            <qrcode [qrdata]="appRec.android.url"
+            <qrcode role="img"
+                    aria-label="QR code for the Google Play download link"
+                    i18n-aria-label
+                    [qrdata]="appRec.android.url"
                     [width]="180"
                     [margin]="2"
                     [errorCorrectionLevel]="'L'"></qrcode>
