@@ -43,7 +43,7 @@
       <section class="response">
         @if (isFIDO2) {
           <p class="mt-0" i18n>Please follow the browser instructions to activate your FIDO2 token.</p>
-          <mat-spinner *ngIf="awaitingActivationInitResp" class="m-auto"></mat-spinner>
+          <mat-spinner *ngIf="awaitingActivationInitResp" class="m-auto" aria-label="Waiting for confirmation" i18n-aria-label="@@waitingForConfirmationSpinnerLabel"></mat-spinner>
           @if (errMsg) {
             <app-warning class="mb-4" *ngIf="errMsg" [msgTmpl]="errMsg + ''" type="error"></app-warning>
             <button appFocusOnInit
@@ -68,7 +68,8 @@
             <span *ngIf="isPush">Tap it to confirm the activation.</span>
             <span *ngIf="isQR">Tap it to scan the QR code and complete the activation.</span>
           </p>
-          <mat-spinner *ngIf="isPush"></mat-spinner>
+          <mat-spinner *ngIf="isPush"
+                       aria-label="Waiting for confirmation" i18n-aria-label="@@waitingForConfirmationSpinnerLabel"></mat-spinner>
           <app-qr-code *ngIf="isQR"
                        [qrUrl]="tokenQRUrl"></app-qr-code>
         </ng-container>

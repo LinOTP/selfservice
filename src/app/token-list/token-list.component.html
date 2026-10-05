@@ -14,7 +14,7 @@
   <section *ngIf="!loaded; else content"
            class="loading"
            id="loadingTokensSection">
-    <mat-spinner></mat-spinner>
+    <mat-spinner aria-label="Loading" i18n-aria-label="@@loadingSpinnerLabel"></mat-spinner>
     <p i18n>Loading tokens…</p>
   </section>
 </ng-template>

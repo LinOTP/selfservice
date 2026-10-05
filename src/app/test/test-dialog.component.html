@@ -12,7 +12,7 @@
     <ng-container [ngSwitch]="state">
 
       <ng-container *ngSwitchCase="TestState.LOADING">
-        <mat-spinner></mat-spinner>
+        <mat-spinner aria-label="Loading" i18n-aria-label="@@loadingSpinnerLabel"></mat-spinner>
       </ng-container>
 
       <ng-container *ngSwitchCase="TestState.UNTESTED">
