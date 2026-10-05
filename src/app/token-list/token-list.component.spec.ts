@@ -273,7 +273,7 @@ describe('TokenListComponent', () => {
     tokenService.getSelfserviceTokens.and.returnValue(of(getTokenLimitReachedMock()));
     component.isUserLocked = true;
     fixture.detectChanges();
-    const message = fixture.nativeElement.querySelector('.warning-info');
+    const message = fixture.nativeElement.querySelector('app-warning');
     expect(message).toBeTruthy();
   })
 
@@ -281,7 +281,7 @@ describe('TokenListComponent', () => {
     tokenService.getSelfserviceTokens.and.returnValue(of(getTokenLimitReachedMock()));
     component.isUserLocked = false;
     fixture.detectChanges();
-    const message = fixture.nativeElement.querySelector('.warning-info');
+    const message = fixture.nativeElement.querySelector('app-warning');
     expect(message).toBeFalsy();
   })
 });

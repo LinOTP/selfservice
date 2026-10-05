@@ -7,7 +7,7 @@ import { CustomContentService, CustomPage } from "./custom-content.service";
 
 @Component({
     selector: 'app-custom-page-link',
-    template: `<a mat-button
+    template: `<a mat-button class="w-100"
   routerLinkActive="active-link"
   [routerLink]="'/'+ page.route" *ngIf="page">{{page.title}}</a>`,
     imports: [
