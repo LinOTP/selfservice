@@ -89,7 +89,7 @@
           <div *ngSwitchCase="ActivationFlowState.PREPARING">
             <p i18n>Preparing activation...</p>
             <div class="response">
-              <mat-spinner></mat-spinner>
+              <mat-spinner aria-label="Loading" i18n-aria-label="@@loadingSpinnerLabel"></mat-spinner>
             </div>
           </div>
 
@@ -108,7 +108,7 @@
             </p>
             <div class="response"
                  *ngIf="isPush()">
-              <mat-spinner></mat-spinner>
+              <mat-spinner aria-label="Waiting for confirmation" i18n-aria-label="@@waitingForConfirmationSpinnerLabel"></mat-spinner>
             </div>
             <app-qr-code *ngIf="isQR()"
                          [qrUrl]="tokenQRUrl"></app-qr-code>

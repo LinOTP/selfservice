@@ -7,7 +7,8 @@
 </ng-container>
 
 <ng-container *ngIf="!hasOfflineMode">
-  <mat-spinner class="polling"></mat-spinner>
+  <mat-spinner class="polling"
+               aria-label="Waiting for confirmation" i18n-aria-label="@@waitingForConfirmationSpinnerLabel"></mat-spinner>
   <div class="instruction"
        i18n>
     Waiting for confirmation of transaction

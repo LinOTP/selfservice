@@ -25,7 +25,7 @@ qrcode {
 }
 
 .activation-failed-text {
-  color: #f44336;
+  color: var(--mat-sys-error);
   font-weight: 500;
   margin-bottom: 1em;
 }

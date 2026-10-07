@@ -193,7 +193,8 @@
       </ng-container>
 
       <ng-container *ngIf="transactionDetail && !hasOfflineMode && hasOnlineMode">
-        <mat-spinner class="polling"></mat-spinner>
+        <mat-spinner class="polling"
+                     aria-label="Waiting for confirmation" i18n-aria-label="@@waitingForConfirmationSpinnerLabel"></mat-spinner>
         <div class="instruction center-text"
              i18n>
           Waiting for confirmation of transaction

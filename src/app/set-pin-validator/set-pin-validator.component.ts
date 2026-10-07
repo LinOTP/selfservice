@@ -199,7 +199,7 @@ export class SetPinValidatorComponent implements OnInit {
 
   getColor(errorCondition: boolean, successCondition: boolean): string {
     if (!this.pinControl || (this.pinControl.pristine && this.pinControl.untouched)) return 'inherit'
-    return errorCondition ? '#f44336' /*red*/ : successCondition ? '#0ba10b' /*green*/ : 'inherit';
+    return errorCondition ? 'var(--mat-sys-error)' : successCondition ? 'var(--app-pin-validator-success)' : 'inherit';
   }
 
 

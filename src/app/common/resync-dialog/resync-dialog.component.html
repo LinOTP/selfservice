@@ -12,7 +12,6 @@
       <input matInput
              type="text"
              formControlName="otp1"
-             autofocus
              [attr.aria-invalid]="form.get('otp1')?.invalid && form.get('otp1')?.touched">
       <mat-error i18n
                  *ngIf="form.get('otp1').hasError('required')">OTP 1 is required.</mat-error>

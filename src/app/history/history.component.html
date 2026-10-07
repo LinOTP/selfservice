@@ -98,11 +98,14 @@
           </ng-container>
           <ng-container matColumnDef="success">
             <th mat-header-cell
-                *matHeaderCellDef
-                mt-sort-heaader></th>
+                *matHeaderCellDef>
+              <span class="cdk-visually-hidden"
+                    i18n>Status</span>
+            </th>
             <td mat-cell
                 *matCellDef="let record">
               <mat-icon *ngIf="!record.success"
+                        aria-hidden="false"
                         aria-label="Failed"
                         i18n-aria-label>clear</mat-icon>
             </td>
@@ -152,6 +155,6 @@
 
 <ng-template #spinnerTmp>
   <div class="spinner-wrapper">
-    <mat-spinner></mat-spinner>
+    <mat-spinner aria-label="Loading" i18n-aria-label="@@loadingSpinnerLabel"></mat-spinner>
   </div>
 </ng-template>
