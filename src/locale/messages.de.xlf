@@ -39,7 +39,7 @@
             To use your <x id="INTERPOLATION" equiv-text="{{isPush ? 'Push' : 'QR'}}"/> token, it must first be activated with the authenticator app
             you used during enrollment. Please open the app and proceed to the next step to begin the activation.
           </source>
-        <target state="new">
+        <target state="translated">
             Um Ihr <x id="INTERPOLATION" equiv-text="{{isPush ? 'Push' : 'QR'}}"/>-Token zu verwenden, muss es zunächst mit der Authenticator-App aktiviert werden,
             die Sie während der Registrierung verwendet haben. Bitte öffnen Sie die App und fahren Sie mit dem nächsten Schritt fort, um die Aktivierung zu starten.
           </target>
@@ -121,9 +121,9 @@
         <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon aria-hidden=&quot;true&quot;>"/>logout<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon>"/>
         Logout
       </source>
-        <target state="new">
+        <target state="translated">
         <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon aria-hidden=&quot;true&quot;>"/>logout<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon>"/>
-        Logout
+        Abmelden
       </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
@@ -506,7 +506,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="pinLengthError" datatype="html">
-        <source> 
+        <source>
     between <x id="INTERPOLATION" equiv-text="{{ minLength }}"/> and <x id="INTERPOLATION_1" equiv-text="{{ maxLength }}"/> characters long
   </source>
         <target state="translated">
@@ -571,7 +571,7 @@
       <trans-unit id="2924314795002027569" datatype="html">
         <source>
         at least one special character
-        
+
         <x id="START_TAG_NG_CONTAINER" ctype="x-ng_container" equiv-text="&lt;ng-container *ngIf=&quot;!requiresSpecial()&quot;>"/>not in (<x id="INTERPOLATION" equiv-text="{{ SPECIAL_CHARACTERS }}"/>)<x id="CLOSE_TAG_NG_CONTAINER" ctype="x-ng_container" equiv-text="&lt;/ng-container>"/>
         e.g. <x id="INTERPOLATION_1" equiv-text="{{ &quot; Æäöüß&quot; }}"/>
       </source>

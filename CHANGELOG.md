@@ -5,23 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.0.0] - UNRELEASED
+## [2.0.0-rc0] - UNRELEASED
 
 ### Added
 
-- Custom app recommendations for hmac, totp, push and qr token.
-- Add support for FIDO2 token.
+- Support for FIDO2 tokens.
+- Custom app recommendations for HOTP, TOTP, Push and QR tokens.
 - Display the target token a forwarding token authenticates through, in the token overview, token details, and MFA login selection.
 
 ### Changed
 
 - Revamped QR / Push activation.
-- Push and QR Token enrollment will have an extra activation step
+- Push and QR token enrollment includes an extra activation step
   if the user has the permission `activate_PushToken` or `activate_QRToken`.
 - Theme revamp and various UI improvements.
 - Push token activation now shows the same "waiting for confirmation" prompt used for real authentication challenges, instead of instructing the user to tap the token in the app.
 - Users can restart QR/Push token activation from the token card after an activation challenge has already been sent.
 - Renamed the soft token type names: "soft token (event)" is now "HOTP token" and "soft token (time)" is now "TOTP token".
+- Upgraded to Angular 19 and Angular Material 19.
 
 ### Removed
 
