@@ -17,6 +17,7 @@ import { MaterialModule } from '@app/material.module';
 import { SystemService } from '@app/system.service';
 import { Permission } from '@common/permissions';
 
+import { SelfServiceContextService } from '../selfservice-context.service';
 import { LoginService } from './login.service';
 
 describe('LoginService', () => {
@@ -348,6 +349,16 @@ describe('LoginService', () => {
 
       expect((loginService as any).clearLocalStorage).toHaveBeenCalled();
       expect(loginService.clearPermissions).toHaveBeenCalled();
+    });
+
+    it('should clear the user context so the footer falls back to pre_context', () => {
+      const contextService = TestBed.inject(SelfServiceContextService);
+      contextService.setContext(Fixtures.userSystemInfo);
+      expect(contextService.context).toBeTruthy();
+
+      loginService.handleLogout(false);
+
+      expect(contextService.context).toBeNull();
     });
 
     it('should emit a loginChange event', () => {

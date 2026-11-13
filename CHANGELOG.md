@@ -5,7 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.0.0-rc1] - UNRELEASED
+## [2.0.0-rc2] - UNRELEASED
+
+### Fixed
+
+- The footer now shows the site notice, privacy policy and footer text of the user's realm after login. A realm specific `imprint_url`, `privacy_notice_url` or `footer_text` policy previously had no effect, because the footer only used the system info available before login, which cannot resolve realm specific policies.
+
+## [2.0.0-rc1] - 2026-11-12
 
 ### Changed
 

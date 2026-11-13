@@ -7,7 +7,8 @@ import { Permission } from '@common/permissions';
 import { ThemeService } from './theme.service';
 import { NgxPermissionsService } from 'ngx-permissions';
 import { CustomContentService } from './custom-content/custom-content.service';
-import { take } from 'rxjs';
+import { combineLatest, map, take } from 'rxjs';
+import { SelfServiceContextService } from './selfservice-context.service';
 
 @Component({
     selector: 'app-root',
@@ -36,18 +37,27 @@ export class AppComponent implements OnInit {
     private notificationService: NotificationService,
     private systemService: SystemService,
     public themeService: ThemeService,
-    private customizationService: CustomContentService
+    private customizationService: CustomContentService,
+    private selfServiceContextService: SelfServiceContextService
   ) { }
 
   ngOnInit() {
     this.loginService.loginChange$
       .subscribe(userData => this.userData = userData);
 
-    this.systemService.getSystemInfo$().subscribe(systemInfo => {
+    // Before login only /userservice/pre_context is available, which cannot
+    // resolve realm specific policies. While a user is logged in, the settings
+    // of /userservice/context are authoritative for the user's realm, so the
+    // two sources are kept apart and the active one is selected per emission.
+    combineLatest([
+      this.systemService.getSystemInfo$(),
+      this.selfServiceContextService.state$.pipe(map(state => state.context)),
+    ]).subscribe(([systemInfo, userContext]) => {
+      const settings = userContext ? userContext.settings : systemInfo.settings;
       this.copyright = systemInfo.copyright;
-      this.footerText = systemInfo.settings.footer_text;
-      this.imprintUrl = systemInfo.settings.imprint_url;
-      this.privacyNoticeUrl = systemInfo.settings.privacy_notice_url;
+      this.footerText = settings.footer_text;
+      this.imprintUrl = settings.imprint_url;
+      this.privacyNoticeUrl = settings.privacy_notice_url;
     });
 
     this.loginService.permissionLoad$.subscribe(()=> {
