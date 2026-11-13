@@ -15,6 +15,7 @@ import { NotificationService } from '@common/notification.service';
 import { NgxPermissionsAllowStubDirective, NgxPermissionsService } from 'ngx-permissions';
 
 import { CustomContentService } from './custom-content/custom-content.service';
+import { SelfServiceContextService } from './selfservice-context.service';
 
 import { AppComponent } from './app.component';
 import { BootstrapBreakpointService } from './bootstrap-breakpoints.service';
@@ -49,6 +50,7 @@ describe('AppComponent', () => {
   let permissionLoadSubject: Subject<boolean>;
   let systemService: jasmine.SpyObj<SystemService>;
   let notificationService: jasmine.SpyObj<NotificationService>;
+  let selfServiceContextService: SelfServiceContextService;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
@@ -100,6 +102,7 @@ describe('AppComponent', () => {
     loginService = getInjectedStub(LoginService);
     systemService = getInjectedStub(SystemService);
     notificationService = getInjectedStub(NotificationService);
+    selfServiceContextService = TestBed.inject(SelfServiceContextService);
 
     loginService.logout.and.returnValue(of(null));
     systemService.getSystemInfo$.and.returnValue(of(Fixtures.systemInfo));
@@ -176,6 +179,42 @@ describe('AppComponent', () => {
     fixture.detectChanges();
 
     expect(page.getUserNameValue()).toEqual(user.username);
+  });
+
+  describe('imprint link (LINSELF-280)', () => {
+    function getImprintLink(): HTMLAnchorElement {
+      return fixture.debugElement.nativeElement
+        .querySelector('footer a[href="http://realm-imprint"]');
+    }
+
+    it('should show the imprint from pre_context (global policy), even before login', () => {
+      const preContext = Fixtures.systemInfo;
+      preContext.settings.imprint_url = 'http://realm-imprint';
+      systemService.getSystemInfo$.and.returnValue(of(preContext));
+
+      fixture.detectChanges();
+
+      expect(getImprintLink()).toBeTruthy();
+    });
+
+    it('should show the imprint of the user realm when only the user context provides it', () => {
+      // pre_context has no imprint_url, because the policy is realm specific
+      const preContext = Fixtures.systemInfo;
+      delete preContext.settings.imprint_url;
+      systemService.getSystemInfo$.and.returnValue(of(preContext));
+
+      fixture.detectChanges();
+      expect(getImprintLink()).toBeFalsy();
+
+      // the user logs in, /userservice/context carries the realm imprint
+      const userSystemInfo = Fixtures.userSystemInfo;
+      userSystemInfo.settings.imprint_url = 'http://realm-imprint';
+      selfServiceContextService.setContext(userSystemInfo);
+      loginChangeSubject.next(userSystemInfo.user);
+      fixture.detectChanges();
+
+      expect(getImprintLink()).toBeTruthy();
+    });
   });
 
   describe('logout', () => {
