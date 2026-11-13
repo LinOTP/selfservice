@@ -352,6 +352,7 @@ export class LoginService {
   public handleLogout(storeRoute: boolean) {
     this.clearLocalStorage();
     this.clearPermissions();
+    this.selfServiceContextService.setContext(null);
 
     this.dialogRef.closeAll();
 

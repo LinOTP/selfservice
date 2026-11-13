@@ -25,7 +25,7 @@ export class SelfServiceContextService {
     return this.context?.settings.last_access || false;
   }
 
-  setContext(data: UserSystemInfo) {
+  setContext(data: UserSystemInfo | null) {
     this.store.next({
       ...this.store.value,
       context: data,
