@@ -215,6 +215,28 @@ describe('AppComponent', () => {
 
       expect(getImprintLink()).toBeTruthy();
     });
+
+    it('should fall back to the pre_context imprint after logout', () => {
+      // global policy, so pre_context carries an imprint of its own
+      const preContext = Fixtures.systemInfo;
+      preContext.settings.imprint_url = 'http://global-imprint';
+      systemService.getSystemInfo$.and.returnValue(of(preContext));
+
+      const userSystemInfo = Fixtures.userSystemInfo;
+      userSystemInfo.settings.imprint_url = 'http://realm-imprint';
+      selfServiceContextService.setContext(userSystemInfo);
+      loginChangeSubject.next(userSystemInfo.user);
+      fixture.detectChanges();
+
+      expect(getImprintLink()).toBeTruthy();
+
+      // on logout the LoginService clears the user context, see its own spec
+      selfServiceContextService.setContext(null);
+      loginChangeSubject.next(undefined);
+      fixture.detectChanges();
+
+      expect(component.imprintUrl).toEqual('http://global-imprint');
+    });
   });
 
   describe('logout', () => {
